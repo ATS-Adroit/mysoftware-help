@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Alarming Agents|Alarm Routes" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Alrm.doc" /><title>Global Incident Destinations</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2312"></a>Global Incident Destinations</h1>
+        <p>The <b><a name="kanchor2313"></a>Eventlog route (global) destinations</b> 
+ () section in the <b>Routes</b> tab of the <b>Edit Alarm Agent</b> dialog 
+ specify possible destinations for active incidents that apply to ALL Alarm 
+ agents. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click here for more details:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">in other words, route 2 of the defaultAlarmAgent routes incidents to 
+ the same Output(s) and EventLog(s) destinations as will route 2 of myAlarmAgent 
+ etc.
+
+</span></span></p>
+        <p>This section consists of the following categories:</p>
+        <p><b><a name="kanchor2314"></a>Outputs</b>, 
+ which allows you to report active incidents using <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t14"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following 
+ destinations:</a></p>
+        <div MadCap:targetName="t14" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">The AlarmManagement agent, 
+ which can collect and if necessary, configure incidents from one or more 
+ alarm agents and send them to an OLE DB compatible database, so they can 
+ be analysed to improve your alarm configuration.</li>
+                <li class="Bullets" value="2">The EventOutput agent, 
+ which can print incidents locally or remotely; save them to a .CSV file 
+ and if necessary, log them to an OLE DB compatible database for reporting 
+ and/or analysis purposes.</li>
+            </ul>
+            <p class="ListNotice"><b>Tip:</b> 
+ The EventLogging agent accessed from the <b><a name="kanchor2315"></a>Event Logs</b> list provides 
+ the simpler method for logging incidents to an OLE DB compatible database.   </p>
+            <ul>
+                <li class="Bullets" value="1">The 
+ Notify agent, which can transmit incidents via <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SMS<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">Short Message Service is a service (protocol) for sending short text messages to and from mobile phones.</span></span> 
+ or a paging service direct to a designated person. This can inform off 
+ site personal of unacknowledged alarms and if necessary of process values 
+ and operator messages.</li>
+            </ul>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t13"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add an Outputs destination:</a>
+        </p>
+        <div MadCap:targetName="t13" style="display: none;">
+            <ol start="1">
+                <li class="Numbers" value="1">If necessary, edit the 
+ required Alarm agent,<a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t12"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> as follows:</a><div MadCap:targetName="t12" style="display: none;"><ol><li class="NumbersSubLetters" value="1">If necessary, add an <b>Alarm</b> agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/To_Add_a_New_Agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Add a New Agent</a></span>.</li><li class="NumbersSubLetters" value="2">Select the name of this 
+ agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_known_agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Select an Agent</a></span>.</li><li class="NumbersSubLetters" value="3">Right click and select 
+ the <b>Edit...</b> menu item to display 
+ the <b>Edit Alarm Agent</b> dialog.</li></ol></div></li>
+                <li class="Numbers" value="2">If necessary, select the 
+ required route number.</li>
+                <li class="Numbers" value="3">Select the <b>Add</b> <img src="../COMMON/AddButton.jpg" style="height: 16px;width: 16px;" width="16" height="16" border="0" /> button above the <b>Outputs</b> list in the <b>Edit Alarm 
+ Agent</b> dialog box.</li>
+                <li class="Numbers" value="4">Browse for the required 
+ agent in its respective folder in the left pane of the dialog. For more 
+ details, see .</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> 
+ If necessary, you can create a new agent by clicking the <b>Add…</b> button.</p>
+            <ol start="5">
+                <li class="Numbers" value="5">Click on the <b>OK</b> 
+ button.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t11"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To edit an Outputs destination:</a>
+        </p>
+        <div MadCap:targetName="t11" style="display: none;">
+            <ol start="1">
+                <li class="Numbers" value="1">If necessary, edit the 
+ required Alarm agent, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t10"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t10" style="display: none;"><ol><li class="Numbers" value="1">Select the name of this 
+ Alarm agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_known_agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Select an Agent</a></span>.</li><li class="Numbers" value="2">Right click and select 
+ the <b>Edit...</b> menu item to display 
+ the <b>Edit Alarm Agent</b> dialog.</li></ol></div></li>
+                <li class="Numbers" value="2">If necessary, select the 
+ required route number.</li>
+                <li class="Numbers" value="3">Select the required agent 
+ in the <b>Outputs</b> list in the <b>Edit Alarm Agent</b> dialog box.</li>
+                <li class="Numbers" value="4">Click the <b>Edit</b> <img src="../COMMON/EditButton.jpg" style="height: 16px;width: 16px;" width="16" height="16" border="0" /> button above this <b>Outputs</b> list to display the edit 
+ dialog of the selected agent.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t9"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove an Outputs destination:</a>
+        </p>
+        <div MadCap:targetName="t9" style="display: none;">
+            <ol start="1">
+                <li class="Numbers" value="1">If necessary, edit the 
+ required Alarm agent, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t8" style="display: none;"><ol><li class="Numbers" value="1">Select the name of this 
+ Alarm agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_known_agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Select an Agent</a></span>.</li><li class="Numbers" value="2">Right click and select 
+ the <b>Edit...</b> menu item to display 
+ the <b>Edit Alarm Agent</b> dialog.</li></ol></div></li>
+                <li class="Numbers" value="2">If necessary, select the 
+ required route number.</li>
+                <li class="Numbers" value="3">Select the required agent 
+ in the <b>Outputs</b> list in the <b>Edit Alarm Agent</b> dialog box.</li>
+                <li class="Numbers" value="4">Click the <b>Delete</b><img src="../COMMON/DeleteButton.jpg" style="height: 16px;width: 16px;" width="16" height="16" border="0" /> button above this <b>Outputs</b> list to remove this 
+ entry from this list.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> 
+ This only removes the selected agent from the list and does NOT DELETE 
+ the agent from the <span class="AdroitAppName">Adroit</span> agent database.</p>
+        </div>
+        <p>&#160;</p>
+        <p><b>Event 
+ Logs</b>, which allows you to report active incidents using <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following destination:</a></p>
+        <div MadCap:targetName="t7" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">The EventLogging agent, 
+ which can log incidents to the Windows Application event log on a specific 
+ computer and/or to an OLE DB database for reporting and/or analysis purposes.</li>
+            </ul>
+        </div>
+        <p class="Notices"><b>Note:</b> By configuring the EventLogging agent you 
+ can disable event logging from some or ALL alarm routes and can discard 
+ events based on the Alarm priority of the agent or incident. </p>
+        <p class="Notices"><b>Tip</b>: This provides the simpler method for 
+ logging incidents to an OLE DB compatible database, than that provided 
+ by the EventOutput agent.   </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To log incidents to Windows event log 
+ on the Agent Server computer:</a>
+        </p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <ol start="1">
+                <li class="Numbers" value="1">If necessary, edit the 
+ required Alarm agent,<a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> as follows:</a><div MadCap:targetName="t5" style="display: none;"><ol><li class="Numbers" value="1">If necessary, add an <b>Alarm</b> agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/To_Add_a_New_Agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Add a New Agent</a></span>.</li><li class="Numbers" value="2">Select the name of this 
+ agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_known_agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Select an Agent</a></span>.</li><li class="Numbers" value="3">Right click and select 
+ the <b>Edit...</b> menu item to display 
+ the <b>Edit Alarm Agent</b> dialog.</li></ol></div></li>
+                <li class="Numbers" value="2">If necessary, select the 
+ required route number.</li>
+            </ol>
+            <p class="ListDesc">Ensure that the <b>Event Logs</b> list does not already 
+ contain an event log called “LOCAL”.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Select the <b>Add</b> <img src="../COMMON/AddButton.jpg" style="height: 16px;width: 16px;" width="16" height="16" border="0" /> button above the <b>Event Logs</b> list in the <b>Edit Alarm 
+ Agent</b> dialog box.</li>
+                <li class="Numbers" value="4">Check the <b>Local computer</b> checkbox in the<b>Select Computer</b> dialog to use 
+ the event log on the Agent Server computer.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> 
+ ONLY select the <b>My Computer</b> item 
+ if the current computer IS the Agent Server computer.</p>
+            <ol start="5">
+                <li class="Numbers" value="5">Click the <b>Connect to</b> 
+ button to log events to the Windows Application event log on the local 
+ computer.</li>
+            </ol>
+            <p class="ListDesc">This adds an event log called LOCAL to the <b>Event Logs</b> 
+ list of the selected route.</p>
+            <p class="ListNotice"><b>Note:</b> 
+ If an event log called LOCAL already existed there will now be TWO such 
+ event logs in the list, in this case delete the second instance.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To log incidents to Windows event log 
+ on another computer on the network:</a> 
+ this computer must be accessible by the Agent Server computer by using 
+ normal Windows security.</p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ol start="1">
+                <li class="Numbers" value="1">If necessary, edit the 
+ required Alarm agent,<a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> as follows:</a><div MadCap:targetName="t3" style="display: none;"><ol><li class="Numbers" value="1">If necessary, add an <b>Alarm</b> agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/To_Add_a_New_Agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Add a New Agent</a></span>.</li><li class="Numbers" value="2">Select the name of this 
+ agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_known_agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Select an Agent</a></span>.</li><li class="Numbers" value="3">Right click and select 
+ the <b>Edit...</b> menu item to display 
+ the <b>Edit Alarm Agent</b> dialog.</li></ol></div></li>
+                <li class="Numbers" value="2">If necessary, select the 
+ required route number.</li>
+                <li class="Numbers" value="3">Select the <b>Add</b> <img src="../COMMON/AddButton.jpg" style="height: 16px;width: 16px;" width="16" height="16" border="0" /> button above the <b>Event Logs</b> list in the <b>Edit Alarm 
+ Agent</b> dialog box.</li>
+                <li class="Numbers" value="4">Expand the <b>Entire Network</b> 
+ branch until you locate the required computer in the <b>Select Computer</b> 
+ dialog.</li>
+                <li class="Numbers" value="5">Click on the required computer.</li>
+                <li class="Numbers" value="6">Click the <b>Connect to</b> 
+ button to log events to the Windows Application event log on the selected 
+ computer.</li>
+            </ol>
+            <p class="ListDesc">This adds an event log with the name of the selected 
+ computer to the <b>Event Logs</b> list of the selected route.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove an Event Logs destination:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol start="1">
+                <li class="Numbers" value="1">If necessary, edit the 
+ required Alarm agent, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t1" style="display: none;"><ol><li class="Numbers" value="1">Select the name of this 
+ Alarm agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_known_agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Select an Agent</a></span>.</li><li class="Numbers" value="2">Right click and select 
+ the <b>Edit...</b> menu item to display 
+ the <b>Edit Alarm Agent</b> dialog.</li></ol></div></li>
+                <li class="Numbers" value="2">If necessary, select the 
+ required route number.</li>
+                <li class="Numbers" value="3">Select the name of the 
+ event log that you no longer require in the <b>Event Logs</b> list in 
+ the <b>Edit Alarm Agent</b> dialog box.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> 
+ These event logs typically have the same name as the computer they connect 
+ to.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">Click the <b>Delete</b><img src="../COMMON/DeleteButton.jpg" style="height: 16px;width: 16px;" width="16" height="16" border="0" /> button above this <b>Event Logs</b> list to remove this 
+ entry from this list.</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

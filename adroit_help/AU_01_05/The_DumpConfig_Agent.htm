@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Ver9" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>The DumpConfig Agent</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/Adroit10Single-Note.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/Adroit10SingleCell-Important.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/Adroit10BasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>The <a name="kanchor1347"></a>DumpConfig agent</h1>
+        <p>The DumpConfig agent is used for reporting purposes only and is a special report that exists in the Adroit Pack of our Adroit Report Suite. </p>
+        <ul>
+            <li value="1"> The sole function of this agent is to periodically record a snapshot <i>(or a dump, or a record)</i> of the current configuration of certain agent types. </li>
+            <li value="2">The snapshot record is saved to specific tables in an OLE&#160;DB database that will allow reports to be generated.</li>
+            <li value="3">An example of its use is to report on agents in the context of their configuration at the time of the report, or it may be used to audit changes made to specific agents.</li>
+        </ul>
+        <p class="A4-Note-SimpleWarningPinkBack" MadCap:autonum="&lt;span style=&quot;color: #6b0000;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Warning: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #6b0000;" class="mcFormatColor"><b>Warning: &#160;</b></span></span></span>You can only add ONE DumpConfig agent.</p>
+        <p>This agent is located in the following file: T_DUMPCONFIG.DLL</p>
+        <h2>How it works</h2>
+        <p>When the agent is enabled, the agent will wait for one of three events to happen before performing a snapshot:</p>
+        <ol>
+            <li value="1">The occurrence of the next hourly period.  <ul><li value="1">The very first period is synchronised to midnight, meaning that if you specify an hourly interval of 8, the first snapshot will occur at 08h00 or 16hoo or at 00h00, whichever occurs first. </li><li value="2"> After that, the snapshot will occur every subsequent 8 hours.</li></ul></li>
+        </ol>
+        <ol MadCap:continue="true">
+            <li value="2">A &#160;manual snapshot can be requested via the <i>dumpNow</i> slot</li>
+            <li value="3">A non-zero value trigger event of a selected trigger tag, when one is specified.</li>
+        </ol>
+        <h2>Configuration</h2>
+        <p>Configuring this agent provides  the following options:</p>
+        <ol>
+            <li value="1">Select the agent types to be recorded.  <ul><li value="1">For each agent, you can specify CSV strings of specific  and also which instances are to be recorded.  </li><li value="2">By default, these entries are specified as [*] to indicate all slots and all instances are selected.  </li><li value="3">Should you want to select only A1 and A2 agent instances, for example, then the entry would read A1, A2</li></ul></li>
+            <li value="2">Optionally enable snapshots for the alarming and scanning configurations.</li>
+            <li value="3">Set the hourly interval at which these snapshots should be recorded.</li>
+            <li value="4"> Specify a trigger tag for snapshot recording.</li>
+            <li value="5">Enter the database connection string where these snapshot tables are to be created.</li>
+        </ol>
+        <p>Click on the options below to read more detailed information.</p>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2618045410_0" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Configuring the DumpConfig agent</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2618045410_0" style="display: none;">
+                <p>You can set up the DumpConfig agent to specify the configuration of specific agents that you want to save to the OLE&#160;DB database, including the interval and triggers.</p>
+                <ol>
+                    <li value="1">To create a new agent or find an existing agent:<ul><li value="1">To add a new <b>DumpConfig</b> agent, see 
+ <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/To_Add_a_New_Agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Add a New Agent</a></span>.</li><li value="2">To open an existing 
+ agent, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_known_agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Select an Agent</a></span>.<br /><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-DumpConfig-Agent-Config.png" MadCap:popupWidth="473" MadCap:popupHeight="538" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-DumpConfig-Agent-Config_thumb_0_150.png" style="width: 132px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a></li></ul></li>
+                    <li value="2">To begin, open the <b>Edit <b>DumpConfig</b> Agent</b> dialog.</li>
+                </ol>
+                <ol MadCap:continue="true">
+                    <li value="3">Select 
+ the <b>Edit</b> menu item to display 
+ the <b>Edit <b>DumpConfig</b> Agent</b> dialog.<br /><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-DumpConfig-Agent-Dialog.png" MadCap:popupWidth="798" MadCap:popupHeight="666" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-DumpConfig-Agent-Dialog_thumb_0_150.png" style="width: 180px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                    <li value="4">Select the <b>Enable</b> option to activate the agent.</li>
+                    <li value="5">Add the Agent configurations you want to save to the OLE&#160;DB database:<ul MadCap:continue="true"><li value="1">Click the <b>+</b> button to add a row to the <b>Agent type configuration</b> table.</li><li value="2">Type in the name of the required <b>Agent Type</b>, ensuring that you spell this name correctly.</li><li value="3">By default, all the <b>Agent slots</b> of the specified agent type, indicated by an [<b>*</b>], are included in each configuration, and all are saved to the database. <br /><ul><li value="1">However, you can enter a comma-delimited list of slots to explicitly include the slots that you want to be saved. <br /></li><li value="2">This will reduce the size of each configuration and the processing time taken to log this data.</li></ul></li></ul><ul MadCap:continue="true"><li value="4">If you do want to use a comma-delimited list of the header slots that you want to save, enter the list in the following format: <ul><li value="1"><i>agentName.headerSlot1, agentName.headerSlot2, agentName.headerSlot3</i>, and so on.         </li></ul></li></ul></li>
+                </ol>
+                <p class="A4-Note-SimpleImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>The optional comma-delimited list of <b>Agent slots</b> or <b>Agent instances</b> for the specified Agent type cannot exceed 79 characters!</p>
+                <ol MadCap:continue="true">
+                    <li value="6">You may optionally enable recording of the alarming or scanning configuration.<ul MadCap:continue="true"><li value="1">Select the <b style="font-style: italic;">Dump full Alarming configuration</b> option.</li><li value="2">Select the <b style="font-style: italic;">Dump full Scanning configuration</b> option.</li></ul></li>
+                    <li value="7">Specify the time interval or event that will save the specified agent configurations to the database.<ul><li value="1">If required, enter the required <b>Dump interval (in hours, 0 to disable)</b>. </li><li value="2">If set to a number greater than 0, then this number indicates an hourly interval used to trigger this agent.</li><li value="3">If set to 0, this will disable this method of triggering this agent.</li></ul></li>
+                    <li value="8">If required, enter the required <b>Dump trigger tag</b>.<ul MadCap:continue="true"><li value="1">Type in the required tag <i>(agent.slot)</i> or select the ... button to browse for the required tag containing a Boolean, integer or real value.</li><li value="2"> Whenever the value of this slot changes to a non-zero value, the specified agent configurations are saved to the database.</li></ul></li>
+                    <li value="9">Alternatively, you can manually save the specified configurations to the database by clicking the <b>Dump now</b> button.</li>
+                    <li value="10">Specify the target  OLE&#160;DB database to save the agent configurations.<ul><li value="1">In the <b>Connection string</b> box, type or select the ... button to browse for the connection details of the required OLE DB database.</li><li value="2">You may also use an existing <i>(or create)</i> a SQL Server database to save your agent configurations.</li></ul><table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../Resources/TableStyles/Adroit10Single-Note.css');" class="TableStyle-Adroit10Single-Note" cellspacing="0"><col class="TableStyle-Adroit10Single-Note-Column-Column1" /><tbody><tr class="TableStyle-Adroit10Single-Note-Body-Body1"><td class="TableStyle-Adroit10Single-Note-BodyA-Column1-Body1"><p><b>Note:</b></p><ul><li value="1"><span>If you configure this DumpConfig  agent from remote computers, it is safer to use SQL Server authentication <i>(Use a specific user name and password)</i> when creating this connection.</span></li></ul><ul><li value="1">Avoid using Windows authentication (<b>Use Windows NT Integrated Security</b>) unless you are certain that the logged on users at the remote computers have the necessary access rights to this SQL Server database.</li><li value="2">If the SQL Server connection string in the <i>DumpConfig  agent</i> has been configured using Windows authentication, it will more than likely not work, and agent configurations will not be saved</li><li value="3">Occurs if  the Windows User on this remote computer has not been given access rights to the SQL Server database.</li></ul></td></tr></tbody></table></li>
+                </ol>
+                <h2>Data Link Properties</h2>
+                <p>Click the <b>...</b> browse button to 
+ the right of this field and use the <b>Data Link Properties</b> dialog 
+ to create the required connection string to your SQL Server database.</p>
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-Data-Link-Properties-OLE.png" MadCap:popupWidth="478" MadCap:popupHeight="569" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-Data-Link-Properties-OLE_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <div class="MCDropDown">
+                    <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2618045410_1" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Provider TAB</a>
+                    </div>
+                    <div class="MCDropDownBody_0" id="MCDropDownBody_2618045410_1" style="display: none;">
+                        <p>The <b>Data Link Properties</b> dialog specifies the location and the 
+ security credentials required to connect to this database.</p>
+                        <p><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-Data-Link-Properties-OLE.png" MadCap:popupWidth="478" MadCap:popupHeight="569" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-Data-Link-Properties-OLE_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                        </p>
+                        <p>Double-click the <b>Microsoft 
+ OLE DB Provider for SQL Server</b> item in the <b>Provider</b> tab of 
+ the <b>Data Link Properties</b> dialog.</p>
+                        <p class="A4-Note-SimpleImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>If the computer, on which SQL Server was installed, was renamed, then SQL Server may need to be re-installed.</p>
+                        <p>If the computer was renamed <i style="text-decoration: underline;">after</i> installing SQL Server, then SQL Server must be re-installed, to function correctly.</p>
+                        <p>Run the following check:</p>
+                        <ul>
+                            <li value="1">Execute the following T-SQL (Transact-SQL) script in SQL Server Management Studio: SELECT @@SERVERNAME</li>
+                            <li value="2">If the resulting server name is different to the actual name of the computer, then the name of the computer has been changed <i style="text-decoration: underline;">after</i> SQL Server was installed, so you need to reinstall SQL Server.</li>
+                        </ul>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>If you need to configure or view this database and its data from remote 
+ computers, then you should use a&#160;<span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">UNC<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Universal Naming Convention (UNC) is used to specify the location of servers, printers, files and other shared resources on a local area network (LAN). UNC  names begin with \\ (two backslashes) and take the form: \\Computer_name\Share_name</span></span>&#160;path
+ and not a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">local file path<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">this path, as opposed to a UNC path, can ONLY be accessed from the computer that it refers to, this path adopts the following general format: &lt;driveletter&gt;:\directories\filename.</span></span> to specify the location of this database.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown">
+                    <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2618045410_2" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Connection Tab</a>
+                    </div>
+                    <div class="MCDropDownBody_0" id="MCDropDownBody_2618045410_2" style="display: none;">
+                        <ol>
+                            <li value="1">Type in the 
+ computer name of the SQL Server that you want to connect to, in the <b>Select 
+ or enter a server name</b> field.<br /><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-Data-Link-Properties-ConnStr.png" MadCap:popupWidth="478" MadCap:popupHeight="569" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-Data-Link-Properties-ConnStr_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a><b><br /></b></li>
+                            <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span><span style="color: #000000;">This is the fastest method if you know 
+ the name of the SQL Server.</span>
+                            </li>
+                        </ol>
+                        <ul>
+                            <li class="ListBullets" value="1">Alternatively, click the drop-arrow button to 
+ the right of the <b>Select or enter a server name</b> box and select 
+ the name of the required SQL Server from the list.</li>
+                        </ul>
+                        <ol MadCap:continue="true">
+                            <li value="2">Specify the required security 
+ credentials to connect to the selected SQL Server:<table style="width: 95%;padding-right: 100px;margin-left: 0;margin-right: auto;mc-table-style: url('../Resources/TableStyles/Adroit10SingleCell-Important.css');" class="TableStyle-Adroit10SingleCell-Important" cellspacing="0"><col class="TableStyle-Adroit10SingleCell-Important-Column-Column1" /><tbody><tr class="TableStyle-Adroit10SingleCell-Important-Body-Body1"><td class="TableStyle-Adroit10SingleCell-Important-BodyA-Column1-Body1"><p style="font-weight: bold;color: #800080;">Important:</p><ul><li style="color: #000000;margin-right: 50px;" value="1">If you need to connect to 
+ a remote SQL Server database and want to run the Agent Server service using the 
+ <span>Local System account</span>, then use 
+ <span>SQL Server Authentication</span>.</li><li style="color: #000000;margin-right: 50px;" value="2"><span>If you need to connect to a remote SQL Server database and want to Use 
+ Windows NT Integrated security, then ensure that the user profile 
+ that the Agent Server service uses to log onto the computer has the necessary 
+ rights to browse the network and connect to the remote database. This 
+ should NOT be the default Local System account.</span></li></ul></td></tr></tbody></table><ul><li value="1"><b>Use Windows NT Integrated security:</b> this 
+ option uses the username and password of the currently signed in Windows 
+ user.</li><li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>We recommend 
+ that you configure your SQL Servers to use this option to avoid requiring 
+ additional database security.</li><li value="3"><b>SQL Server Authentication:</b> this option 
+ uses the <b>User name</b> and <b>Password</b> configured within the SQL 
+ Server you are attempting to connect to.</li><li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>In this case, it is recommended to select 
+ the <b>Allow saving password</b> checkbox.</li></ul></li>
+                        </ol>
+                        <ol MadCap:continue="true">
+                            <li value="3">Select the name of the 
+ required database from the <b>Select the database on the server</b> list 
+ box.</li>
+                            <li value="4">Click the <b>Test Connection</b> 
+ button to ensure that you are able to connect to this database using these 
+ details. Only proceed once 'Test connection succeeded' is displayed.</li>
+                            <li value="5">Click the <b>OK</b> button.</li>
+                        </ol>
+                        <ul>
+                            <li class="ListBullets" value="1">Your connection string will be created.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="MCDropDown">
+                    <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2618045410_3" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Advanced Tab</a>
+                    </div>
+                    <div class="MCDropDownBody_0" id="MCDropDownBody_2618045410_3" style="display: none;">
+                        <p>The <b>Advanced</b> tab of this dialog 
+ allows you to specify access permissions for this connection string. </p>
+                        <p><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-Data-Link-Properties-Adv.png" MadCap:popupWidth="478" MadCap:popupHeight="568" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-Data-Link-Properties-Adv_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                        </p>
+                        <ul>
+                            <li value="1">If 
+ you are unsure about these settings, then <i>never</i> set these permissions to <b>Read</b>, 
+ otherwise this connection string will fail.</li>
+                            <li value="2">These security credentials are database 
+ specific and should not be confused with application security.</li>
+                            <li value="3">if necessary, you can edit this string directly, once it has been created.</li>
+                        </ul>
+                    </div>
+                </div>
+                <h2>Dump Output </h2>
+                <p>Configurations will be saved to tables named <b style="font-style: italic;">Adr_Dump_AgentTypeName</b><i> </i>&#160;in the specified database, for example: <b style="font-style: italic;">Adr_Dump_Analog</b>. </p>
+                <ul>
+                    <li value="1">The available agent slots that are saved to these tables depend upon whether the table exists or not in the specified database.</li>
+                    <li value="2">If the Adr_Dump_xxxxx table does not exist it will be created with the specified <b>Agent slots</b> in the <b>Agent type configuration</b> table for this <b>Agent type</b>.</li>
+                    <li value="3">If the Adr_Dump_xxxxx table already exists then the configurations will be saved using the existing slots specified by this table, to allow users to manually remove columns of unwanted data from this table.</li>
+                </ul>&#160;<p>The status bits of this agent can be 
+ used for diagnosing the status of its connection to the database and/or the process of saving agent configurations to this database. </p><ul><li value="1">For details, see <a href="Specific_Status_Bits_of_the_DumpConfig_Agent.htm">Specific Status Bits of the DumpConfig Agent</a>.</li></ul></div>
+        </div>
+        <h2>Agent Slots</h2>
+        <p>The DumpConfig agent contains various slot categories. Click on the options below to view more information on each category.</p>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2618045410_4" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />DumpConfig Agent Configuration slots</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2618045410_4" style="display: none;">
+                <p>The following slots are used for configuration and are saved to the .WGP file:</p>
+                <table style="width: 95%;caption-side: top;mc-table-style: url('../Resources/TableStyles/Adroit10BasicTableStyle.css');margin-left: 0;margin-right: auto;" class="TableStyle-Adroit10BasicTableStyle" cellspacing="2">
+                    <col class="TableStyle-Adroit10BasicTableStyle-Column-Column1" style="width: 150px;" />
+                    <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" style="width: 130px;" />
+                    <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" />
+                    <thead>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Head-Header1">
+                            <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column1-Header1">Slot name</th>
+                            <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column2-Header1">Slot type</th>
+                            <th class="TableStyle-Adroit10BasicTableStyle-HeadD-Column2-Header1">Slot description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">addType</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">VARSTRING</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">Add agent type to list.</td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">connection</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">VARSTRING</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">Define the connection string to the database.</td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">dumpAlarm</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">BOOLEAN</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">Set to [1] to dump alarm configuration on each snapshot.</td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">dumpNow</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">BOOLEAN</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                                <p>Set to [1] to create immediate snapshot. </p>
+                                <ul>
+                                    <li value="1"> Agent will reset this value to [0] after every snapshot.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">dumpScan</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">BOOLEAN</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">Set to [1] to dump scanning configuration on each snapshot. </td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">enable</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">BOOLEAN</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">Enables the agent to create snapshots.</td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">Interval</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">INTEGER</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                                <p>Set the number of hours to define the intervals for creating snapshots. </p>
+                                <ul>
+                                    <li value="1"> Set to [0] to disable interval snapshots.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">trigger</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">TAGNAME</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">Optional boolean, integer or real  trigger tag that will create a snapshot, if the value changes to any non-zero value.</td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column1-Body1">list</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column2-Body1">LIST</td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyA-Column2-Body1">List of agent types to snapshot.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2618045410_5" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />DumpConfig Agent Status slots</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2618045410_5" style="display: none;">
+                <p>The following status bits of this agent can be 
+ used for diagnosing the status of its connection to the database and/or the process of dumping agent configurations to this database.</p>
+                <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>These slots are 
+ of type BOOLEAN only.</p>
+                <table style="mc-table-style: url('../Resources/TableStyles/Adroit10BasicTableStyle.css');margin-left: 0;margin-right: auto;width: 95%;" class="TableStyle-Adroit10BasicTableStyle" cellspacing="2">
+                    <col style="width: 150px;" class="TableStyle-Adroit10BasicTableStyle-Column-Column1" />
+                    <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" style="width: 180px;" />
+                    <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" />
+                    <thead>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Head-Header1">
+                            <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column1-Header1">Bit Number</th>
+                            <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column2-Header1">Name</th>
+                            <th class="TableStyle-Adroit10BasicTableStyle-HeadD-Column2-Header1">Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                                <p>status bit 16</p>
+                            </td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">
+                                <p>ConnectionError</p>
+                            </td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                                <p>Set to [1] when the 
+ connection with OLE DB source cannot be established. Used for troubleshooting.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                                <p>status bit 17</p>
+                            </td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">
+                                <p>TransactionError</p>
+                            </td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                                <p>Set to [1] when any transaction error with SQL occurs. Used for troubleshooting.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column1-Body1">
+                                <p>status bit 18</p>
+                            </td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column2-Body1">
+                                <p>DumpBusy</p>
+                            </td>
+                            <td class="TableStyle-Adroit10BasicTableStyle-BodyA-Column2-Body1">
+                                <p>Set to [1] when a snapshot begins and set to FALSE when snapshot is complete. Used for monitoring.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2>Methods of creation:</h2>
+        <p>Manual</p>
+        <h2>Agents created by default: </h2>
+        <p>None</p>
+        <h2>Further Information</h2>
+        <ul>
+            <li value="1">For details on how  to specify which agents' configurations you want to save to the OLE&#160;DB database and at what time or events their configurations should be saved, see <a href="Configuring_DumpConfig_Agents.htm">Configuring DumpConfig Agents</a>.</li>
+            <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>If you are 
+ running a clustered Agent Server, this agent supports real-time catch-up, even should the master Agent Server fail, the standby will seamlessly 
+ continue with saving the specified agent configurations.</li>
+            <li value="3">For details of the specific status bits of this agent can be 
+ used for diagnosing the status of its connection to the database and/or monitoring the process of saving agent configurations to this database,&#160;see <a href="Specific_Status_Bits_of_the_DumpConfig_Agent.htm">Specific Status Bits of the DumpConfig Agent</a>.</li>
+            <li value="4">For a description of all the slots
+ (values) contained in this agent, see <a href="../AU_05/DumpConfig_Agent_Slot_Details.htm">DumpConfig Agent - Slot Details</a>.</li>
+            <li value="5">For a description of how this agent is saved in the 
+ <span class="AdroitAppName">Adroit</span> database (.WGP) file, see <a href="../AU_05/DumpConfig_Agent_Database_File_Format.htm">DumpConfig Agent - Database File Format</a>.</li>
+        </ul>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

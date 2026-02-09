@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Logging Tags (Recording Values)" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Logging Values</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor968"></a>Logging Values</h1>
+        <p style="font-size: 10pt;"><a href="How_to_effectively_log_your_data.htm" class="MCXref_0">"How to effectively log your data" on page&#160;1</a> : guides you to use the fairly complex logging sub-system effectively.</p>
+        <p>&#160;</p>
+        <p><a href="How_to_Log_a_Tag.htm">How to Log a Tag 
+ (agent.slot)</a>: describes the procedure for logging process values 
+ in <span class="AdroitAppName">Adroit</span>.</p>
+        <p>The Datalog agent should ONLY be used for proprietary logging and the datalog period (<b>Length...</b>) should not exceed what is required for operational trending purposes.  In other words, should an operator only need to see 24 hours of trend data to properly monitor and control his plant then the datalog period should only be set for 1 day.  Historical data (i.e. data outside of the datalog period), if requested, will be retrieved from the backup files, if required.</p>
+        <p>Therefore the logging to ADO (SQL) databases by the Datalog agent is disabled by default (the SQL... button of the <b>Datasource</b> field is hidden in the Edit Datalog agent dialog).  This is to force users to use the DBLog agent instead, which logs data to SQL more efficiently. </p>
+        <p class="ListNotice"><b>Note:</b> The DBLog agent is a bulk OLE&#160;DB&#160;logging agent for typically logging Analog and/or Digital values  to a specific table in a database for later retrieval that supercedes SQL logging via the Datalog agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="The_DBLog_Agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">The DBLog Agent</a></span>.</p>
+        <p>Although if the Agent Server loads a legacy WGP file that ALREADY contains an ADO datalogging configuration, then the SQL... button of the <b>Datasource</b> field will be visible in the Edit Datalog agent dialog.</p>
+        <p class="Notices"><b>Note:</b> Multiple log sets are no longer required as <span class="AdroitAppName">Adroit</span> provides the <a href="The_DBLog_Agent.htm">DBLog agent</a> that should make SQL logging via the Datalog agent redundant. Also you no longer need multiple proprietary sets with increasing periods and larger time deadbands, since <span class="AdroitAppName">Adroit</span> provides a <a href="Datalog_backup_and_retrieval.htm">new datalog backup</a> feature with full trend-retrieval support.</p>
+        <p><a name="kanchor969"></a><a name="kanchor970"></a>When recording or logging the values contained in agents in the Agent 
+ Server, first decide on the logging method that best suits your logging 
+ requirements. <span class="AdroitAppName">Adroit</span> provides the following methods of storing data:</p>
+        <p class="Notices"><b>Note:</b> The <b>Disable logging on standby</b> setting is 
+ now configured PER datalog SET. So you can disable an OLE DB logging set 
+ WITHOUT disabling any proprietary logging sets, which typically do not 
+ require this setting as each Agent Server logs to their own datalog files.</p>
+        <p class="Numbers"><b>Proprietary 
+ <span class="AdroitAppName">Adroit</span> log files:</b> This logging method has been specifically designed 
+ for the needs of the SCADA industry to provide improved logging performance, 
+ typically achieving sub-second logging rates.</p>
+        <p class="ListDesc">Previously, when logging to the <span class="AdroitAppName">Adroit</span> proprietary datalog (.LGD) files, the <span class="AdroitAppName">Adroit</span> datalogging system only provided the historical logged data existing in the .LGD file and was unable to provide historical data from the SystemDatalog-created .CSV datalog backup files. Now each Datalog agent can create their own backup (.LGB) files to automatically retrieve this data, if required by  trends (charts) or other requests for historical data. For details, see <a href="Datalog_backup_and_retrieval.htm">Datalog backup and retrieval</a>.</p>
+        <p class="ListDesc">This method stores original <span class="AdroitAppName">Adroit</span> timestamps (a Windows 
+ FILETIME structure which represents the number of 100 nanosecond intervals 
+ since Jan 1 1601), which provide millisecond resolution for each recorded 
+ value.</p>
+        <p class="ListNotice"><b>Note:</b> When 
+ accessing these timestamps by using the OLE automation interface, this 
+ millisecond resolution is lost because the data type used to store this 
+ value is unable to store milliseconds.</p>
+        <p class="ListDesc">Each log file has a maximum of 53 million records, which can provide at least 30 days of logging at a log rate of 50 milliseconds!  This rate is determined by configuring the required 
+ Time and/or Value Deadbands.</p>
+        <p class="ListNotice"><b>Note:</b> If the 
+ logging period is increased ensure that <a href="../AU_01_04/Saving_Agents.htm">this 
+ change is saved</a> and the Agent Server is restarted, at least once, 
+ to allow the necessary LGD file compressions to occur. For details, see 
+ <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Increasing_Logging_Periods.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Increasing Logging Periods</a></span>.</p>
+        <p class="Notices"><b>Note:</b> If you export and  delete  Datalog agents that use <span class="AdroitAppName">Adroit</span>'s proprietary log files, ensure that you restart the  Agent Server before re-importing - so that they can remove the areas that they currently use in the LGD files. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ExportDatalgAddInfo"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details: </a></p>
+        <div MadCap:targetName="ExportDatalgAddInfo" style="display: none;">
+            <p class="Notices">Multiple Datalog agents can potentially use a single LGD file, so when you delete a Datalog agent using proprietary logging all that happens is the area of the file that was used by the deleted Datalog agent is marked as unused and will be compacted at the next Agent Server startup. </p>
+            <p class="Notices">Therefore if you re-create the Datalog agent in the same Agent Server session, the LGD resource simply adds the space required for the newly added Datalog to the end of the LGD file i.e. it does not re-use the old area that has been marked as unused. </p>
+            <p class="Notices">This can cause the LGD file to become too big, resulting in errors such as an error message asking you to check your Datalog agent configuration (in Agent Server window you may also get a Datalog agent dll exception) and your Datalog agents may not start.</p>
+            <p class="Notices">When you restart the Agent Server , the old areas of the LGD file are compacted and room is left to re-create the datalogs.</p>
+        </div>
+        <p class="ListDesc">This logged data can be retrieved <a href="To_View_Logging_Data.htm">for 
+ viewing</a>, used in trends, or <a href="Historical_Data_Management.htm">exported 
+ as comma separated variable (CSV) files</a>.</p>
+        <p class="ListDesc"><span class="AdroitAppName">Adroit</span> supports the <a href="Historical_Data_Management.htm">merging 
+ of external data into existing log files</a>, and logged data is accessible 
+ via OLE.</p>
+        <p>In <span class="AdroitAppName">Adroit</span> terminology, a value is referred to as a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> , 
+ therefore ‘to log a value’ is the same as saying ‘to log a tag’. For a 
+ brief introduction to <span class="AdroitAppName">Adroit</span> terminology, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_01/Agents_Slots_Tags_and_their_relation_to_Values.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot" name="kanchor971">Agents, Slots, 
+ Tags and their relation to Values</a></span>.</p>
+        <p class="Notices"><b>Note:</b> For further 
+ details concerning the agents responsible for managing this logging of 
+ data and links to these storage facilities and for other logging functionality, 
+ see <a href="Logging_Agents.htm">Logging Agents</a>.</p>
+        <p class="Notices"><b>Note:</b> It is also 
+ possible to log multiple tags simultaneously i.e. to log multiple agents 
+ of the same type, using the most recently specified logging configuration. 
+ For details, see <a href="Bulk_Logging_Tags_Using_the_Same_Configuration.htm">Bulk 
+ Logging Tags Using the Same Configuration</a>.</p>
+        <p><a href="Advanced_Datalog_Configuration_global_settings.htm">Advanced 
+ Datalog Configuration</a> : <a name="kanchor977"></a>global 
+ settings that affect the operation of the data logging sub system.</p>
+        <p><a href="Enhanced_Data_Logging.htm">To enhance and extend the 
+ logging of data</a>.</p>
+        <p><a href="To_Minimise_the_Risk_of_Datalog_Corruption_from_a_Power_Failure.htm">To 
+ Minimise the Risk of Datalog Corruption from a Power Failure</a>.</p>
+        <p class="Notices"><b>Note:</b> Data from 
+ telemetry drivers supporting time stamped protocols will be stored in 
+ the log files in the correct time sequence.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

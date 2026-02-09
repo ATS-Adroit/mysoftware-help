@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Common.Ver9" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="adrcusdes.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" type="text/css" MadCap:generated="True" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" type="text/css" MadCap:generated="True" /><title>Exporting the OID List</title>
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="SNMPManagerAgent.doc" />
+        <link href="../Resources/Stylesheets/AdTech.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../SkinSupport/jquery.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapBody.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapHighlighter.js">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <h1><a name="kanchor36"></a>Exporting the OID List</h1>
+        <p>The OID list contains all the OIDs for the managed device, whose values 
+ you select to monitor and/or control.</p>
+        <p>If necessary, you can export this list of OIDs to a .CSV file, for one 
+ of the following reasons:</p>
+        <ul>
+            <li class="Bullets" value="1">To bulk add 
+ and/or configure OIDs (in this case modify this file 
+ in a .CSV file editor and then import it into the SNMPMgr agent).</li>
+            <li class="Bullets" value="2">To save your existing OID 
+ configuration, so that this can be imported into another SNMPMgr 
+ agent (in this case save this .CSV file to the name of the required agent 
+ first before importing it).</li>
+        </ul>
+        <h2>To bulk configure the OID list:</h2>
+        <p class="Notices"><b>Note:</b> You need 
+ to <b>Disable polling</b> before you 
+ can export the OID list.</p>
+        <ol>
+            <li class="Numbers" value="1">Click the <b>Export</b> 
+ button in the SNMPMgr agent edit dialog.</li>
+        </ol>
+        <p class="ListDesc">This exports the current list of OIDs to <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following .CSV file:</a></p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1">The file is placed 
+ in the <b>Work</b> subfolder of your designated project folder, which 
+ is typically <span class="AdroitAdrPrjFolder">C:\ProgramData\Adroit Technologies\Adroit\Configurations\Default</span>\Work.</li>
+                <li class="ListBullets" value="2">The file uses the 
+ following naming convention: <br></br>	SNMP_ SNMPMgrAgentName_OIDlist.csv, where SNMPMgrAgentName 
+ is the name of your SNMPMgr agent e.g. SNMP_SNMP001_OIDList.csv.</li>
+            </ul>
+        </div>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p class="ListDesc">The following is an example of an exported list of OIDs:</p>
+            <p class="ListDesc">
+            </p>
+        </div>
+        <ol start="2">
+            <li class="Numbers" value="2">Open this file in a .CSV 
+ file editor, such as MS Excel.</li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The exported file contains the following columns:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="NumbersSubLetters" value="1"><b>Enabled:</b> A Boolean value that specifies 
+ whether this OID (value) is polled (returned) from the device.</li>
+                <li class="NumbersSubLetters" value="2"><b>Writeable:</b> A Boolean value that specifies 
+ whether this OID is written to the device.</li>
+                <li class="NumbersSubLetters" value="3"><b>OID:</b> This is either the numeric format 
+ of the OID of the device or ‘General Object’ if this refers to a general 
+ or calculated statistic common to all devices.</li>
+                <li class="NumbersSubLetters" value="4"><b>Name (optional):</b> A textual description 
+ of the OID, used only for display purposes.</li>
+                <li class="NumbersSubLetters" value="5"><b>Type (optional):</b> The data type that is 
+ returned by this OID, used only for display purposes.</li>
+                <li class="NumbersSubLetters" value="6"><b>Tag:</b> The  tag that either contains 
+ the OID if it is <b>Enabled</b> to be polled or that sets this OID if 
+ it is enabled to be <b>Writable</b>.</li>
+                <li class="NumbersSubLetters" value="7"><b>Rate:</b> The rate, in milliseconds, at which 
+ this OID is fetched from the device, if it is <b>Enabled</b> to be polled. 
+ If this is 0 then the global poll rate for this agent is used instead.</li>
+            </ol>
+        </div>
+        <ol start="3">
+            <li class="Numbers" value="3">Save this file, once you 
+ have performed the necessary changes to it and closed your .CSV editor.</li>
+            <li class="Numbers" value="4">Click the <b>Import</b> 
+ button in the SNMPMgr agent edit dialog.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> You are UNABLE 
+ to undo this importing operation, so ensure that the CSV file is correct 
+ before you click the <b>Import</b> button.</p>
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

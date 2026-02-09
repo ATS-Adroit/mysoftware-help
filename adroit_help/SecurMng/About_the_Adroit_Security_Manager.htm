@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Utilities|Adroit Security Manager" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_SecurityMngr" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>About the Adroit Security Manager</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1999"></a><a name="kanchor2000"></a><a name="kanchor2001"></a> About the <span class="AdroitAppName">Adroit</span> Security Manager
+        </h1>
+        <p>The <span class="AdroitAppName">Adroit</span> Security 
+ Manager<a name="kanchor2002"></a> provides a single utility that contains all the Windows 
+ and <span class="AdroitAppName">Adroit</span> security settings you require to fully secure your <span class="AdroitAppName">Adroit</span> installation. 
+ This utility also allows you to save the security settings that you configure, 
+ so that these can be applied to other <span class="AdroitAppName">Adroit</span> computers, as needed.</p>
+        <p class="Notices"><b>Note</b>: Only users that 
+ are members of the Administrator user group of their computer and/or the 
+ network domain can use this application to configure these security settings.         </p>
+        <p>Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Security Manager</b>  and select it from the list. <![CDATA[  ]]></p>
+        <p>The left hand pane of this utility provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following three expandable/collapsible branches:</a></p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p class="Notices"><b>Note</b>: 
+ These branches are displayed in the order in which you will typically 
+ configure these security settings.</p>
+            <ul>
+                <li class="Bullets" value="1">The<b>Workgroup/Domain</b> 
+ branch: specify the required Windows user groups and/or users for your <span class="AdroitAppName">Adroit</span> installation. 
+ If necessary, the typical (default) <span class="AdroitAppName">Adroit</span> groups and user can be created 
+ for you.</li>
+                <li class="Bullets" value="2">The<b><a name="kanchor2003"></a>Windows Security 
+ Options</b> branch: these settings apply to the Windows operating system.</li>
+                <li class="Bullets" value="3">The 
+ <b>Adroit Security Options</b> branch: these settings specifically apply 
+ to the Classic UI application.</li>
+            </ul>
+        </div>
+        <p>Once you select 
+ an option from one of these branches, it can be configured in the right 
+ hand pane.</p>
+        <p class="Notices"><b>Tip:</b> 
+ Each option provides a brief description of what you can configure by 
+ using the selected option, which is displayed in bold blue text at the 
+ top of the right hand pane.</p>
+        <p><a href="Configuring_Groups_and_Users.htm">Configuring 
+ Groups and Users</a>: how to use the <span class="AdroitAppName">Adroit</span> Security 
+ Manager to configure the necessary groups and their users.</p>
+        <p><a href="Exporting_and_Importing_Groups_and_Users.htm">Exporting 
+ and Importing Groups and Users</a>: how to use the <span class="AdroitAppName">Adroit</span> 
+ Security Manager to export and import configured users and groups.</p>
+        <p>&#160;</p>
+        <p><a href="Configuring_Windows_Security_Policies.htm">Configuring 
+ Windows Security Policies</a>: the policies provided by the <span class="AdroitAppName">Adroit</span> 
+ Security Manager to secure the Windows operating system of a computer.</p>
+        <p class="Notices"><b>IMPORTANT:</b> Simply enabling a policy (option) does 
+ NOT change this policy on this computer; you need to APPLY the policy 
+ to a specific computer in order to change the security settings of this 
+ computer.         </p>
+        <p><a href="Applying_Security_Policies.htm">Applying 
+ Security Policies</a>: how to use the <span class="AdroitAppName">Adroit</span> Security 
+ Manager to save and/or apply the specified security settings.&#160;</p>
+        <p>&#160;</p>
+        <p>For more details about 
+ using Windows security to secure <span class="AdroitAppName">Adroit</span>, see Windows 
+ Security for <span class="AdroitAppName">Adroit</span>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Installing and Setting Up [%=Adroit.AppName%]|[%=Adroit.AppName%] Configuration Setup (PSEXE)|Agent Server Configuration" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer,VIP.AdroitConfig" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Agent Server Connection Methods</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1731"></a><a name="kanchor1732"></a><a name="kanchor1733"></a><a name="kanchor1734"></a>Agent Server Connection Methods<a name="kanchor1735"></a></h1>
+        <p><span class="AdroitAppName">Adroit</span> provides three methods for allowing multiple distributed Agent 
+ Servers to seamlessly share their agents and the data that they contain. 
+ In other words, the ability to refer to agents within another Agent Server.<a name="kanchor1736"></a></p>
+        <p class="Notices"><b>Note:</b> Proxy agents 
+ are automatically created when an Agent Server accesses an agent that 
+ exists in a remote Agent Server.</p>
+        <p><b>Using the Project Name:</b> This 
+ is the default method for connecting distributed Agent Servers, in which 
+ case you specify the SAME project name for ALL the Agent Servers that 
+ need to connect to each other, which adds them to this project. Network 
+ broadcasts are then made between ALL these Agent Servers to provide each 
+ other with two-way access to their agents. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click here for the 
+ limitations of this method and/or how to configure this method:</a></p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <p><b>Disadvantages:</b>
+            </p>
+            <ul>
+                <li class="Bullets" value="1">In practice each Agent 
+ Server within a project typically only connects to agents in SOME of the 
+ other specified Agent Servers, which results in unnecessary network traffic 
+ between the Agent Servers that are not actually communicating with one 
+ another.</li>
+                <li class="Bullets" value="2">This connection mechanism 
+ uses Agent Server broadcasts, which do not work across domains or routers/switches 
+ (a WAN). You need to use the explicit connection mechanism to connect 
+ Agent Servers that are in DIFFERENT domains or on OPPOSITE sides of a 
+ router or switch or any other network component that blocks network broadcasts.</li>
+            </ul>
+            <p><b>Configuration:</b>
+            </p>
+            <p MadCap:conditions="Adroit.PSEXE">Using the <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><b> 
+ Configuration Setup</b>:</p>
+            <p MadCap:conditions="Adroit.PSEXE">Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Classic Setup</b>  and select it from the list.</p>
+            <p MadCap:conditions="Adroit.PSEXE">Click the <b>Agent 
+ Server</b> tab.</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Using the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>:</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> in the right hand pane.</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> again in the right hand pane.</p>
+            <ol>
+                <li class="Numbers" value="1">Specify the SAME <b>Project Name</b>. </li>
+            </ol>
+            <p class="ListNotice"><b>Note1:</b> Project names <b>must 
+ not</b> contain any embedded 
+ spaces.</p>
+            <p class="ListNotice"><b>Note2:</b> When 
+ more than one project name is being used on the same network, ensure that 
+ the <b>first 3 characters</b> of each 
+ <b>Project Name</b> are UNIQUE.</p>
+            <p class="ListNotice"><b>Note3:</b> When 
+ more than one Agent Server is being used within a project, ensure that 
+ the <b>first 7 characters</b> of each 
+ <b>Agent Server Name</b> are UNIQUE.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">If necessary, ensure that 
+ the remote Agent Server broadcasts are enabled, by clicking the <b>Options…</b> button to the right of the 
+ <b>Project Name</b> field and ensuring 
+ that the <b>Enable remote servers to automatically 
+ detect this server</b> checkbox is checked in the <b>Project 
+ Options</b> dialog (this is the default setting).</li>
+            </ol>
+        </div>
+        <p><b>Creating Explicit Agent Server Connections:</b> 
+ This is the ONLY way to connect Agent Servers that are in DIFFERENT domains 
+ or on OPPOSITE sides of a router or switch or any other network component 
+ that blocks network broadcasts.</p>
+        <p>In this case you specify exactly which Agent Servers you want your Agent 
+ Server to connect, however, these connections are not two-way. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click here for further details of this method, its limitations 
+ and/or how to configure this method:</a></p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p>In other words if Agent Server 1 has an explicit connection to Agent 
+ Server 2 then Agent Server 1 will be able to see data on Agent Server 
+ 2. If Agent Server 2 needs to see data on Agent Server 1 then an explicit 
+ connection to Agent Server 1 must be configured on Agent Server 2.</p>
+            <p><b>Disadvantages:</b>
+            </p>
+            <ul>
+                <li class="Bullets" value="1">This method requires more 
+ administration overhead, in that you need to manually configure ALL the 
+ connections you require and if two-way connections are required, then 
+ you need to configure these explicit connections on BOTH computers.</li>
+                <li class="Bullets" value="2">The explicit connection 
+ mechanism can create unnecessary network traffic as it requires each Agent 
+ Server to continuously poll its explicit partners even if they are not 
+ up and running.&#160;</li>
+            </ul>
+            <p><b>Configuration:</b>
+            </p>
+            <p MadCap:conditions="Adroit.PSEXE">Using the <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><b> 
+ Configuration Setup</b>:</p>
+            <p MadCap:conditions="Adroit.PSEXE">Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Classic Setup</b>  and select it from the list.</p>
+            <p MadCap:conditions="Adroit.PSEXE">Click the <b>Agent 
+ Server</b> tab.</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Using the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>:</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> in the right hand pane.</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> again in the right hand pane.</p>
+            <ol>
+                <li class="Numbers" value="1">Ensure that an appropriate 
+ <b>Project Name</b> and <b>Agent 
+ Server Name</b> have been specified for BOTH of the computers that 
+ you want to connect.</li>
+                <li class="Numbers" value="2">Click the <b>Options</b> 
+ button to the right of the <b>Project Name</b> 
+ field to display the project-specific settings.</li>
+                <li class="Numbers" value="3">Check the <b>Explicit 
+ connections</b> checkbox. This is unchecked by default.</li>
+                <li class="Numbers" value="4">Click the add button to add an entry to the end of the <b>Agent 
+ Servers</b> list, for which you need to provide the following details:</li>
+                <li class="ListBullets" value="5">The <b>Machine 
+ Name</b> that is used to identify this remote Agent Server computer 
+ on the network. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click for more details:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">this can be found by extracting all the words up to the first ‘.’ from 
+ in the <b>Full computer name</b> field 
+ of the <b>Computer Name</b> tab of the 
+ <b>System</b> applet in the <b>Control 
+ Panel</b>. For example if the <b>Full 
+ computer name</b> field is ‘bob.domain’, then simply specify 
+ ‘bob’.
+
+</span></span></li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> You can 
+ either specify the textual computer name or the IP name of this computer 
+ e.g. 10.10.10.96</p>
+            <ul>
+                <li class="ListBullets" value="1">The <b>Agent 
+ Server Name</b>, which is the name of the remote Agent Server running 
+ on this computer, such as AS1.</li>
+            </ul>
+            <ol start="7">
+                <li class="Numbers" value="7">If necessary, specify the 
+ required <b>Servers timeout (seconds)</b>, 
+ which specifies how often ALL the explicit connections are tested. If 
+ there is no response from the specified Agent Server, then it is assumed 
+ to be off-line until the next poll.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> To remove 
+ an Agent Server from the list, select a cell of the required Agent Server 
+ and click the delete button.</p>
+            <p class="ListNotice"><b>Tip:</b> You should 
+ ONLY clear the <b>Enable remote servers 
+ to automatically detect this server</b> checkbox if you ONLY use this 
+ method of explicit connections to connect this Agent Server to other remote 
+ Agent Servers.</p>
+        </div>
+        <p class="Notices"><b>Note:</b> If your 
+ computer network does not have a method of resolving computer names (such 
+ as <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">WINS<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">stands for Windows Internet Name Service, which predates DNS as the method used to resolve (translate) computer names and their IP addresses in a network. Unlike DNS which uses a hierarchical namespace, WINS uses a flat namespace.</span></span> 
+ or <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">DNS<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">stands for Domain Name System and is one of the industry-standard suite of protocols that comprise TCP/IP, which is used to translates domain (computer) names to and from their IP addresses.</span></span>), 
+ then you can use IP addresses in place of the PC name in explicit connections 
+ to connect to other Agent Servers.</p>
+        <p><b>Using the Projects / Servers list:</b> 
+ In this case you can specify exactly which Agent Servers and/or projects 
+ an Agent Server can connect to. Since this connection mechanism works 
+ in tandem with the <b>Using the Project 
+ Name</b> method above, these connections are made IN ADDITION TO the 
+ Agent Server/s that are in the SAME project as this Agent Server.<a name="kanchor1737"></a> <![CDATA[   ]]></p>
+        <p class="Notices"><b>IMPORTANT:</b> In 
+ order for this connection mechanism to work, each Agent Server that is 
+ either uniquely specified or within a specified project of the <b>Projects 
+ / Servers</b> list of an Agent Server MUST enable this connection mechanism 
+ EVEN when their own <b>Projects / Servers</b> 
+ list is EMPTY. <b>The safest rule to use 
+ is that if this mechanism is enabled on any one Agent Server, enable it 
+ on all your Agent Servers</b>.</p>
+        <p>These specific connections also rely on Agent Server broadcasts but 
+ are NOT two-way in nature. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click here for further details of 
+ this method, its limitations and/or how to configure this method:</a></p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>In other words Agent Server A’s <b>Projects 
+ / Servers</b> list allows it to access agents from any Agent Server 
+ or project configured in this list.&#160;If 
+ you require two-way access to these agents then Agent Server A’s project 
+ or server name must to be added to each remote Agent Server’s <b>Projects 
+ / Servers</b> list.</p>
+            <p><b>Disadvantages:</b>
+            </p>
+            <ul>
+                <li class="Bullets" value="1">This connection mechanism 
+ requires more administration overhead than when using project names, in 
+ that you need to ensure that the <b>Additional 
+ connections</b> checkbox is enabled in the <b>Project 
+ Options...</b> dialogs of the <b><span class="AdroitAppName">Adroit</span> 
+ Configuration Setup</b> utilities that are associated with all the 
+ referenced Agent Servers.</li>
+                <li class="Bullets" value="2">To configure two-way connections, 
+ you need to configure this connection mechanism on BOTH Agent Servers.</li>
+                <li class="Bullets" value="3">This connection mechanism 
+ uses Agent Server broadcasts, which do not work across domains or routers/switches 
+ (a WAN). You need to use the explicit connection mechanism to connect 
+ Agent Servers that are in DIFFERENT domains or on OPPOSITE sides of a 
+ router or switch or any other network component that blocks network broadcasts.</li>
+            </ul>
+            <p><b>Configuration:</b>
+            </p>
+            <p MadCap:conditions="Adroit.PSEXE">Using the <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><b> 
+ Configuration Setup</b>:</p>
+            <p MadCap:conditions="Adroit.PSEXE">Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Classic Setup</b>  and select it from the list.</p>
+            <p MadCap:conditions="Adroit.PSEXE">Click the <b>Agent 
+ Server</b> tab.</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Using the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>:</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> in the right hand pane.</p>
+            <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> again in the right hand pane.</p>
+            <ol>
+                <li class="Numbers" value="1">Ensure that an appropriate 
+ <b>Project Name</b> and <b>Agent 
+ Server Name</b> have been specified for BOTH of the computers that 
+ you want to connect.</li>
+                <li class="Numbers" value="2">Click the <b>Options</b> 
+ button to the right of the <b>Project Name</b> 
+ field to display to display the project-specific settings.</li>
+                <li class="Numbers" value="3">Check the<b> 
+ Additional connections</b> checkbox. This is unchecked by default.</li>
+                <li class="Numbers" value="4">Click the add button to add an entry to the end of the <b>Projects 
+ / Servers</b> list, for which you need to provide the following details:</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> You ONLY 
+ need to specify those Agent Server/s and/or projects that this Agent Server 
+ needs access to IN ADDITION TO the Agent Server/s that are within its 
+ project.</p>
+            <ul>
+                <li class="ListBullets" value="1">The required project 
+ name, as specified by the <b>Project Name</b> 
+ field of the <b><span class="AdroitAppName">Adroit</span> Configuration Setup</b> 
+ utility for the associated Agent Server/s.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Tip:</b> The advantage 
+ of specifying a project name is that in ONE entry you immediately allow 
+ this Agent Server to access agents on all the Agent Servers within this 
+ project; otherwise you need to add individual entries for each of the 
+ Agent Servers within this project.</p>
+            <ul>
+                <li class="ListBullets" value="1">The required Agent 
+ Server name, as specified by the <b>Agent 
+ Server Name</b> field of the <b><span class="AdroitAppName">Adroit</span> 
+ Configuration Setup</b> utility for the associated Agent Server. In 
+ other words, do NOT also provide the computer name. For instance, specify 
+ AS1 and not BATCHPC.AS1.&#160;</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> Any 
+ entries that contain invalid characters (\ / . or space characters) will 
+ simply be ignored.</p>
+            <p class="ListNotice"><b>IMPORTANT:</b> 
+ Please ensure that ALL the remote Agent Servers specified by this <b>Projects / Servers</b> list ALSO has their 
+ <b>Additional connections</b> checkbox 
+ checked in the <b>Project Options</b> 
+ dialog of their <b><span class="AdroitAppName">Adroit</span> Configuration 
+ Setup</b> utility – EVEN WHEN their own Projects / Servers list is 
+ EMPTY.</p>
+            <p class="ListNotice"><b>Note:</b> To remove 
+ an entry from the list, select a cell of the required entry and click 
+ the delete button.</p>
+            <ol start="7">
+                <li class="Numbers" value="7">Ensure that the <b>Enable 
+ remote servers to automatically detect this server</b> checkbox is 
+ checked.</li>
+            </ol>
+        </div>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

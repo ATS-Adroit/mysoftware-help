@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adroit Installation Read Me</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: #f7f7f7; border: 1px solid #ddd; padding: 12px; }
+  .nav { position:fixed; top:10px; right:10px; z-index:9999;
+         background:#f7f7f7; border:1px solid #ccc; padding:6px 10px; font-size:13px; }
+  .nav a { text-decoration:none; }
+  .nav span { color:#999; margin:0 6px; }
+</style>
+</head>
+<body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+
+
+<div class="nav">
+  <a href="index.html">Help Index</a><span>|</span>
+  <a href="drivers.html">Drivers</a><span>|</span>
+  <a href="Adroit_Installation_Read_Me.html">Installation Read Me</a>
+</div>
+
+<h1 style="margin-top:42px;">Adroit Installation Read Me</h1>
+<pre>Adroit 10 - Installation Assistance
+=======================
+This is best viewed with Word Wrap enabled, using Tahoma or Verdana fonts.
+
+IMPORTANT: Existing Adroit users require NEW licenses for Adroit 10, since the entire licensing mechanism has changed! Although BOTH the Adroit 10 license and former Adroit 8 license can exist side by side on the SAME HASP - so that it is easy to roll back to Adroit 8 if needed. See section &quot;11.) Licensing Adroit&quot; below for the detailed instructions on how to obtain a new license.
+
+CONTENTS
+1.) Backward Compatibility of Adroit 10
+2.) New and improved features in Adroit 10
+3.) Hardware Requirements
+4.) Software Requirements
+5.) HMI Mode 
+6.) Scan Point Licensing  
+7.) Adroit Compatibility with Anti-virus Software
+8.) Upgrading from an older version of Adroit
+9.) Installing Adroit 10
+10.) Installing Adroit over the Network
+11.) Licensing Adroit
+12.) Typical Usage Procedure for Performance Anywhere
+13.) Smart UI Web Service Configuration
+14.) Launching the Click Once Smart UI Operator 
+15.) Modifying an Existing Adroit 10 Installation
+16.) Known Issues
+17.) Contact details 
+
+PLEASE NOTE: If you try to use your EXISTING Adroit 8, 7, 6, 5, 4x driver in Adroit 10, THEY WILL NOT WORK!!!. 
+
+1.) Backward Compatibility of Adroit 10
+-----------------------------------------------
+Note: Adroit 10 is backwardly compatible with the previous versions of Adroit i.e. projects created in previous versions can be run using Adroit 10.
+You can also refer to the &#x27;Upgrading from an older version of Adroit&#x27; section.
+
+Users of existing Adroit installations, need to be aware of the following:
+1. All previous versions of Adroit must first be uninstalled before installing Adroit 10.
+    Note: Ensure the Adroit system folder does not contain any DLL files (especially protocol driver files) after uninstalling the older version of Adroit.
+2. Any project (.WGP) files modified with Adroit 10 will render them incompatible with previous version of Adroit. This is because the status slots used to affect how a slot (value) was scanned are now being stored in the Agent Database (.wgp) file along with the other scanning related settings, such as the scan address, scan rate etc, as an IO flags setting.
+When loading a Agent Database (.wgp) file from a previous version of Adroit, Adroit 10 uses the saved status bit information to configure the IO flags setting of all the Device agents and when the Agent Database (.wgp) file is saved then these status bits are switched OFF in the Agent Database (.wgp) file. 
+
+IMPORTANT: When starting the Adroit 10 Agent Server for the first time and loading a Agent Database (.wgp) file from a previous version, devices will most likely NEVER show healthy once all the devices are started. You need to save the Agent Database (.wgp) file FIRST and then restart the Agent Server and then you should see all the devices going healthy.
+
+3. While we do not expect you to experience any problems, it is recommended to completely back up all the existing Adroit projects, before installing Adroit 10 to ensure that all the Adroit data, system, registry and event files are backed up.
+4. If the existing Adroit installation is being used in a distributed environment, it is essential that EVERY Adroit Agent Server and Classic user interface be upgraded to Adroit 10. 
+5. Existing Adroit users will also require a HASP upgrade before installing Adroit 10. 
+
+IMPORTANT: Adroit 10 HASPs are NOT backwardly compatible with previous versions of Adroit due to a change in the internal licensing structure of the HASPs from Adroit 10 onwards. Although BOTH the Adroit 10 license and former Adroit 8 license can exist side by side on the SAME HASP - so that it is easy to roll back to Adroit 8 if needed.
+
+6. In Adroit 10, the default project path is located within the ProgramData folder (typically: C:\ProgramData\Adroit Technologies\Adroit\Configurations\Default).
+7. When installing the Adroit 10 SmartUI, use the SmartUI Config Editor to configure the Agent Server and its protocol drivers.
+8. In Adroit 10, the logging to ADO (SQL) databases by the Datalog agent is disabled by default (the SQL... button of the Datasource field is hidden in the Edit Datalog agent dialog).  This is to force users to use the DBLog agent instead, which logs data to SQL more efficiently. Although if the Agent Server loads a legacy WGP file that ALREADY contains an ADO datalogging configuration, then the SQL... button of the Datasource field will be visible in the Edit Datalog agent dialog.  
+Hence the Datalog agent should only be used for proprietary logging and the datalog period (Length...) should not exceed what is required for operational trending purposes.  In other words, should an operator only need to see 24 hours of trend data to properly monitor and control his plant then the datalog period should only be set for 24 hours.  Historical data (i.e. data outside of the datalog period), if requested, will be retrieved from the backup files, if required.
+
+PLEASE NOTE: Protocol Drivers from ALL previous Adroit versions are INCOMPATIBLE with the Adroit 10 protocol drivers! Furthermore only a subset of the Adroit protocol drivers are provided, if you are using a driver that is not currently supported in Adroit 10 then contact support so that this driver can be added to Adroit 10.
+
+Therefore, when doing an uninstall/reinstall from Adroit 8 a check is now done for both the Supported and Unsupported Legacy Drivers (EXCL the drivers that are automatically installed):
+  o   If Unsupported Legacy Drivers are found then the user will see a confirmation dialog that defaults to NO - where he is told these are NOT supported, contact support to add them. Do you want to continue? If No it EXITS; if Yes then the drivers are moved to the .\LegacyDrivers\UNSUPPORTED folder (off the current installation folder)
+  o   If Supported Legacy Drivers are found (EXCL the drivers that are automatically installed) then the user will see a confirmation dialog that defaults to NO - where he is told since they cannot be used as-is and need to be reinstalled, these drivers have been moved into the .\LegacyDrivers folder (off the current installation folder), to allow you to decide which of these drivers you need to install BEFORE you can run your project. 
+
+9. The following legacy Adroit drivers are NOT currently supported by Adroit 10:
+DLL name	Driver Description
+ABBP214	Asea Brown Boveri Procontrol 214 Driver
+ABXKF2B	Allen Bradley (DH+) KF2 Driver
+ADVNTECH Advntech PCL818 Series Driver
+BECKER Becker M500 Relay Serial Driver*
+BLNDTECH Blendtech Series 20 Additive Controller Driver
+CEFP2000 Centralised Electronics Fire Panel 2000 Driver
+CONET Conet Card Exception-based Driver
+CYPHER Cypher Base Station Driver
+DIAMONSP DiaMon Serial Driver
+DIGIBUS DIGIbus DPM Driver
+DT95SEAL DT95SEAL Exception-based Driver
+DTAKER Datataker Telemetry Driver
+EAGLE Eagle PC Card Driver
+EAGLEE Eagle EDR-Enhanced (EDRE) PCI Card Driver
+ELEOLV24 Electromatic Optolink V24 Dupline 128 Driver
+GEM80 General Electric ESP (GEM 80) Driver
+GSTPROFI GST Profibus Exception-based Driver
+GSTPROFS GST Profi SoftFEP Exception-based Driver
+HITACHIH Hitachi H Series Driver
+ISOIL ISOIL Email Client Driver
+JOYSCC JOY SCC Exception-based Driver
+KMSUCOMA Klockner Moeller SUCOM-A Driver
+LECOMAB	 Lenze LECOM A or B Serial Driver
+LG_GLOFA LG Glofa GM Series Driver
+LONWORKS LonWorks Driver
+MITAJC24 Mitsubishi A-Series C24 Driver
+MITAJE71 Mitsubishi AJ71E71 TCP (not UDP) Driver 
+MODBUSR Modbus Radio Driver
+MOOICI32 Moore Local Instrument Link via ICI 320 Driver
+MYCITY MyCity Email Driver
+NHPMICRO NHP MicroLink (MLC14) Driver
+OPTO22 Opto 22 (OPTOMUX) Driver
+PAGER Pager Exception-based Driver
+POLYCOMP PolyComp Sign (GTX) Driver
+RDC8102 RDC8102 Exception-based Driver
+REMOTRON Remotronics GAR System 300 Exception-based Driver
+RKC_CBXX RKC CB100 - 900 Serial Driver
+RODAM RODAM Driver
+SAMSUNG Samsung N70 or 700+ Driver
+SASCOM SASCOM (RTU and ASCII) Driver
+SCH3964R Schiele SYSTRON S 800 3964 and 3964R Driver
+SCHCUST1 Schiele Custom Protocol #1 Driver
+SCS_SGC	SCS_SGC Alarm Station Driver
+SHIMSR SHIMDEN SR50 Series Driver
+SIE3964R Siemens S5 3964 and 3964R Driver
+SIEL1 Siemens Sinec L1 Bus Exception-based Driver
+SPABUS SpaBus Driver
+SPESCADA Spectrum SCADA-MUX Driver
+SQDSYMAX SQUARE D SyMax Serial Driver
+STKEMAXP Strike Enermax Plus Ethernet Driver
+TDC0550 TDC I 0550 Serial Driver
+TI500 Texas Instruments 500 or 505 Series Driver
+TITCPIP Texas Instuments TCPIP Ethernet Driver
+TOSHBIN Toshiba (Binary) Driver
+UHT4 UHT4 - Engine hot-test bay (Motorola) Driver
+VAALCOR Vaalcor Exception-based Driver
+VANT_PRO Vantage Pro Serial Driver
+YOKOGAWA Yokogawa uXL DCS Driver
+
+10) IMPORTANT: Scheduled Backups will no lomger function as the backup configuration has been redesigned and is thus incompatible. 
+Please remove the existing schedule, select the applicable backup settings and re-apply the schedule
+
+2.) New and improved features in Adroit 10
+----------------------------------------------------
+A detailed description of the new features in Adroit 10 can be found in the PDF document called &quot;What is new for Adroit 10 Release.pdf&quot; found in the .\01-Adroit_SCADA folder on the Adroit 10 installation media and installed into the \Documentation sub-folder of the Adroit installation directory and the Adroit 10 Start programs menu. 
+The Adroit help file also includes a help topic called &#x27;New Features&#x27; which describes the new and improved features of Adroit 10. 
+
+
+3.) Hardware Requirements
+---------------------------------
+The MINIMUM hardware requirements for your computer to run Adroit successfully are:
+1. Processor: i5 1.70 GHz.
+  Tip: The CPU usage should also not exceed 40% on average when all processes are running (see CPU Usage in the Performance sheet of the Task Manager).  
+2. Memory (RAM): 4 Gb. 
+3. Hard disk space: 6 GB for the Adroit installation and 1 TB on the datalog disk.
+  Note: These memory and disk requirements may increase depending on the number of agents configured and the size of the project of the Agent Server. The datalog disk size requirements will also depend on the amount of datalogging configuration.
+  Tip: The file system should be NTFS instead of FAT, to avoid datalog file corruption if loss of power should occur.
+4. Display: 65536 colors SVGA (1024x768 resolution)  
+5. Network: 100 MB/s.  
+6. HASP software protection key: Attached to a parallel port or USB port of each Agent Server, programmed in accordance with your specific license agreement. Supplied with the Adroit package. 
+
+IMPORTANT: Adroit 10 HASPs are NOT backwardly compatible with previous versions of Adroit due to a change in the internal licensing structure of the HASPs from Adroit 10 onwards. Although BOTH the Adroit 10 license and former Adroit 8 license can exist side by side on the SAME HASP - so that it is easy to roll back to Adroit 8 if needed.
+
+
+4.) Software Requirements
+--------------------------------
+IMPORTANT: Existing Adroit users require NEW licenses for Adroit 10, since the entire licensing mechanism has changed! Although BOTH the Adroit 10 license and former Adroit 8 license can exist side by side on the SAME HASP - so that it is easy to roll back to Adroit 8 if needed.
+
+1. At the time of release Adroit 10 has been tested on and supports the Pro and Enterprise editions of the following client versions of Windows: Windows 8.1 and Windows 10 and all the editions of the following server versions: Windows Server 2012 R2, Windows Server 2016, Windows Server 2019.
+  Note1: Adroit 10 does not support other versions of Windows operating systems predating those mentioned above.
+  Note2: Adroit 10 cannot be installed on a Home edition of Windows, due to its limited user security model.
+
+2. Ensure that the Windows operating system on which you intend to install Adroit has been and remains legally licensed and ACTIVATED, since Adroit is not supported when it is run on an unlicensed Windows operating system.
+  
+3. When installing and running Adroit on an operating system that provides User Account Control (UAC), such as Windows 7 or Windows Server 2008, please ensure that UAC is always ENABLED, since Adroit is not supported when it is run with UAC disabled.
+
+4. Please be aware of the following limitations of total number of allowed connections imposed by Microsoft Workstation operating systems (such as Windows 7, Windows 8, Windows 8.1 or Windows 10):
+ o  the total number of external connections is set to 10: this means that ANY connection to a workstation’s resources, whether via shares, printers, UI client etc. takes up one of these client connections. 
+ o  the total number of simultaneous IIS connections is set to 5: this means that ONLY a maximum of 5 SUI Clients can connection to the SUI Server, over the Internet regardless of the number of concurrent Client connections specified by the license.
+So if you need more connections then you need to install a Server operating system (such as Windows Server 2008 R2, Windows Server 2012 and Windows Server 2012 R2)
+ 
+IMPORTANT: ALSO ensure that you are not using the built-in Administrator account to run Adroit, since UAC is automatically disabled whenever this built-in Administrator account is used.
+If the built-in Administrator account is accidentally enabled on your computer, disable it as follows:
+
+   Log on to Windows with either the built-in Administrator account that is accidentally enabled, or with any other account that has administrative privileges.
+   Right click the Start button and select  Computer Management.
+   On the opened Computer Management snap-in, from the left pane, expand the Local Users and Groups tree.
+   Click to select Users.
+   From the right pane, right-click the Administrator account.
+   From the context menu, click Properties.
+   Select the General tab of the Administrator Properties dialog.
+   Check the Account is disabled checkbox.
+   Click OK to disable the built-in Administrator account.
+   In some cases, you might also want to restart the computer in order to allow the changes to take effect.
+
+5. The Smart UI components that can also be installed as part of Adroit 10 requires the Microsoft .NET Framework 4.5.2. If this is not installed then the installation uses an offline installation that it provides to install this for you (so no further downloading is required).
+
+6. When you install this 32 bit Adroit installed on a 64 bit operating system (OS), 64 bit versions of MS Excel and other 64 bit host applications cannot attach to the 32 bit versions of Adroit’s MIS Server or AS_API.DLL and other 32 bit components. 
+Therefore you need to install and use 32 bit Excel programs and other 32 bit host applications; run script files that connect to Adroit’s MIS Server OLE Automation object from a 32 bit environment; 32 bit CMD command prompt windows (c:\windows\syswow64\cmd.exe) must be used; 32 bit CSCRIPT.EXE and WSCRIPT.EXE (as found in the c:\windows\syswow64 folder) must be used. IMPORTANT: By default, Start/Run/cmd on a 64 bit OS will run 64 bit versions of these programs so you must manually execute the 32 bit versions of these programs from the c:\windows\syswow64 folder
+
+7. The Smart UI Performance Anywhere component, which allows your users to use Performance Anywhere dashboards (WebPortal clients) to create numerous pages in which you can place and configure widgets (controls) to  display and in some cases configure your data, also requires a computer that has MS Internet Information Services installed, but for this component the default installation of IIS will suffice. 
+
+This component also requires that the Smart UI Web Service component is also installed, typically on the same computer on which you install Performance Anywhere.
+
+You can use a single instance (ONE Performance Anywhere client) free of charge without any changes to your product license. 
+If you require more than 1 concurrent Performance Anywhere client then you need to add the necessary number of Web Clients to your product license.
+If you have exceeded the number of available Web client (Performance Anywhere) licenses, then you will see the following error when you try to login: Error fetching XXX dashboard! Error! Number of connections licensed exceeded (where XXX is the specified username).
+
+Performance Anywhere Client (Dashboard) Internet Browser Requirements: 
+
+   On Windows 10: Microsoft Edge by default is unable to connect to computer names in their URLs, also it is not easy to determine when MS Edge is the default Internet browser so we enforce the use of Internet Explorer to launch the Performance Anywhere shortcut on Windows 10, since Internet Explorer is not hamstrung by these issues.
+   In other words when you use Microsoft Edge to open the URL to Performance Anywhere it may not open, but you can use any other Internet browser, which is able to open this URL.
+
+   When using Internet Explorer, please ensure that you use Internet Explorer 11 or later.
+
+   IMPORTANT: Windows 7 does not come shipped with Internet Explorer 11, so you can either download the latest Google Chrome or download the Internet Explorer 11 update for Windows 7 via either Microsoft website or via Windows Update.
+	
+   On Windows Server 2012 or higher, to open Performance Anywhere in Internet Explorer, you typically need to add the Performance Anywhere URL to the list of Local Intranet sites in Internet Explorer: Internet Options -&gt; Security tab -&gt; select &quot;Local Intranet&quot; from the zone list -&gt; click the Sites button -&gt; Paste the Performance Anywhere URL into the &quot;Add this website to the zone&quot; edit field and click the Add button and then click Close.
+   If this still does not work then download and use the latest Google Chrome instead.
+
+8. The Smart UI Web Service component can ONLY be installed via the CUSTOM installation screen and is used to provide Internet connectivity to the Smart UI clients (Designer and Operator). 
+  This component can ONLY be installed on a computer that has IIS (Internet Information Services) installed, which ALSO requires the ASP.NET sub-component of Internet Information Services (IIS), which is NOT installed by default, when adding the IIS feature to Windows, please ensure that this component is installed, as follows:
+
+   If you have Windows 7 / Windows Server 2008 R2 installed, then do the following:
+   Launch Control Panel -&gt; All Control Panel Items -&gt; Programs and Features -&gt; click the &quot;Turn Windows features on or off&quot; link on the left hand side:
+   In the displayed &quot;Windows Features&quot; dialog, scroll down to:
+   Internet Information Services -&gt; World Wide Web Services -&gt; Application Development Features -&gt; ASP.NET (ensure that this check box is checked)
+   Click the OK button.
+
+   If you have Windows 8/8.1 / Windows Server 2012/R2 installed, then do the following:
+   Launch Control Panel -&gt; All Control Panel Items -&gt; Programs and Features -&gt; click the &quot;Turn Windows features on or off&quot; link on the left hand side:
+   In the displayed  &quot;Windows Features&quot; dialog, scroll down to:
+   Internet Information Services -&gt; World Wide Web Services -&gt; Application Development Features -&gt; ASP.NET 4.5 (ensure that this check box is checked)
+   Click the OK button. 
+
+   If you have Windows 10 installed, then do the following:
+   Launch Control Panel -&gt; All Control Panel Items -&gt; Programs and Features -&gt; click the &quot;Turn Windows features on or off&quot; link on the left hand side:
+   In the displayed  &quot;Windows Features&quot; dialog, scroll down to:
+   Internet Information Services -&gt; World Wide Web Services -&gt; Application Development Features -&gt; ASP.NET 4.6 (ensure that this check box is checked)
+   Click the OK button. 
+ 
+9. The Smart UI Click Once component, which allows your users can launch the Smart UI Operator from a web page within Internet Explorer, also requires a computer that has MS Internet Information Services installed, but for this component the default installation of IIS will suffice. 
+
+10.  MS SQL is required if you intend using alarm management, because you CANNOT use an MS ACCESS database for your AlarmManagement database, due to known performance issues and at least SQL 2008 R2 with advanced services is required if you intend using the report packs.
+So you can run the applicable standard SQL Express 2014 (with advanced services) install (either x86 or x64 depending on your operating system) which you can find in the  .\06-SQL_Express\ folder of the installation media and install it manually by using the provided Installation Guide, which allows you to choose which SQL installation options and configuration are applicable for your specific operational environment.
+
+
+5.) HMI Mode 
+----------------
+HMI mode is a lower cost, simpler version of Adroit, which is a stand-alone solution that supports the addition of up to 2  clients. This cannot be incorporated into a larger distributed project and does not support redundancy.
+
+In HMI mode, the Adroit Agent Server has the following restrictions:
+•  ONLY loads the following agent types:
+   o   Primitive agents:  Boolean, Integer, Real  
+
+       The following primitive agent types have also been added to HMI mode: Real and Integer, however these agents (including Boolean) should ONLY be used where efficient use of memory is required.
+       PLEASE NOTE: These legacy primitive agents do not support Alarming and other SCADA functionality, use Analog/Digital agents instead!
+
+   o   Basic agents: Analog, Counter, Date, Digital, Expression, Marshal, String, StringList and Timer
+
+       IMPORTANT: Each Marshal agent used, consumes 16 scan license points.
+
+   o   Advanced agents: AgentGroup, Alarm, AlarmList (only Default), AlarmManagement, Command, DBAccess, DBLog, EventLogging, EventOutput, Multimedia, Notify, Script, Shift and Statistical
+		
+   o   IT agents: Perfmon
+	
+   o   System agents: Alias, Beeper, DataLog, Device, Hasp, Proxy, Scan and SystemInformation
+
+•   prevents the use of the following agent types: Accumulator, AREC, Audit, Custom, DumpConfig, Frame, ICMP, MaxDemand, Multistate, OEE, PID, Recipe, Scheduler, SNMPMgr, SystemDatalog and Text
+    IMPORTANT: Due to this change, standard Agent Servers and their projects will be INCOMPATIBLE with HMI licensed Agent Servers and their projects, when they use any of these HMI-unsupported agent types. 
+
+•   the Agent Server can only be run in stand-alone mode and not cluster or cluster-aware mode.
+     Note: In HMI mode, when the Agent Server is run, it is forced to run in stand-alone mode, regardless of its current setting. 
+		
+When installing Adroit for the first time, you can choose whether you want your default configuration to be in HMI mode or not.
+When using multiple configurations (when engineering multiple projects) in the Configuration dialog of the Adroit Config utility, you can specify which configurations runs in full or HMI mode, when creating them, depending upon your project&#x27;s requirements.
+
+Note: If you have only installed the Agent Server and not the Smart UI Server, then you can manually put the Agent Server in and out of HMI mode by configuring the HMIMode registry value (this requires restarting the Agent Server). See the help file for more details.
+
+•  if the Agent Server is licensed for HMI and Adroit has not been configured for HMI mode the Agent Server will display a message box that it cannot continue and it will terminate. The user must either enable the HMI configuration or change the HASP.
+
+•  if Adroit has been configured for HMI mode and the Agent Server is not licensed for HMI, then the Agent Server will continue in HMI mode.
+
+
+6.) Scan Point Licensing 
+----------------------------
+Normally a scan point license is consumed whenever a tag is scanned to a front-end device. 
+However, there are a number of other areas that consume scan point licenses as follows:
+Note: This is in accordance with the generally adopted Adroit policy, where information is provided freely, but where you are obliged to pay for the service of manipulating information.
+1. Each DbAccess and Script agent consumes a single scan point license to run. This license is checked before doing a DbAccess transaction for the first time (on a per agent basis) or running the Script for the first time (on a per agent basis) and is only returned when the agent is deleted.  
+2. Any derived Custom agent, containing a Script engine, will consume a scan point license.
+3. Any pokes performed (i.e. an operation that changes the value of an agent.slot), using either the Adroit OLE Automation Interface (MISSRVR) or the Adroit ActiveX component (AdroitX.OCX) will consume a scan point license for each unique tag (agent.slot) that is &quot;poked&quot;. Also, as the AlarmTag, LogTag and ScanTag functions all use pokes internally, calls to these functions will also consume scan point licenses. Also the FetchChanges &amp; FetchValues functions of the Adroit ActiveX component also consume scan point licenses for the same reason.
+4. Any tag (agent.slot) writes from the Adroit OPC Server will consume one scan point license per unique tag. 
+5. Once a Command agent has been allowed to perform commands, scan point licenses are consumed by every unique phone number specified by this agent and / or used to send SMS messages to it. 
+6. The SNMPManager agent consumes a scan point for each unique value of an SNMP object that is polled (monitored), written (controlled) or trapped (received as an SNMP event). 
+7. Any agent created for a UDT agent type created by the UDT Agent Type Designer consumes (number of slots-1) scan points. The other scan point will be consumed if and when its rawValue slot is scanned.
+
+ONLY in HMI Mode:
+Each Marshal agent used, consumes 16 scan license points.
+
+
+7.) Adroit Compatibility with Anti-virus Software
+---------------------------------------------------------
+Your IT department usually determines which Anti-virus software you will use. Adroit is compatible with all antivirus software, as long as it is configured not to interfere with the network settings nor should it block any of the Adroit executables from communicating on the network. 
+
+Please ensure that you define your policy and procedure for updating this Anti-virus software clearly. For instance, if there is no internet connection then the updates will need to be loaded manually. In this case, perhaps schedule these manual updates by means of your maintenance planning system at a frequency determined by your IT department.
+
+
+8.) Upgrading from an older version of Adroit
+------------------------------------------------------
+
+IMPORTANT: Existing Adroit users require NEW licenses for Adroit 10, since the entire licensing mechanism has changed! Although BOTH the Adroit 10 license and former Adroit 8 license can exist side by side on the SAME HASP - so that it is easy to roll back to Adroit 8 if needed.
+
+Note: Read the section: Backward Compatibility of Adroit 10, above.
+
+When upgrading, it is recommended that no other applications are running. Since the upgrading of an Adroit installation will fail if any of the existing Adroit components are in use.  For instance, the Performance Monitor, Event Viewer and MISSRVR (OLE) client applications all make use of Adroit components.
+
+If you have one or more Custom agents and you update your Adroit version or upgrade to a newer version, you may need to republish these Custom agents, especially if the Custom agent has been updated, subsequent to when you originally published these agents.  In this case:
+1. Launch your Adroit Custom Agent Designer (for instance on Windows 10: Click the Start Menu, All apps, Adroit 10 and select the Custom Agent Designer).  
+You will be prompted if a newer version of the custom agent (t_custom.dll) is in the CustomAgents folder of the Adroit projects folder, which is typically C:\AdroitProject\CustomAgents. 
+2. Stop the Agent Server, Adroit UI and any other Adroit components. 
+3. Select each custom agent and click the Publish button. 
+4. This will copy the necessary custom agent files (.CSV, .DLL and .VBS if you are using scripting) into the Adroit installation folder on this computer, typically C;\Adroit. 
+5. Restart your Agent Server, Adroit UI and any other Adroit components. 
+   Note: If there are any remote Adroit installations that connect to this Agent Server, these derived custom agent files must also be MANUALLY copied to their Adroit system directories as well. This will ALSO require you to stop the Adroit components (such as the Adroit UI) running on these computers first. 
+
+PLEASE NOTE: Protocol Drivers from ALL previous Adroit versions are INCOMPATIBLE with the Adroit 10 protocol drivers! Furthermore only a subset of the Adroit protocol drivers are provided, if you are using a driver that is not currently supported in Adroit 10 then contact support so that this driver can be added to Adroit 10.
+
+Therefore, when doing an uninstall/reinstall from Adroit 8 a check is now done for both the Supported and Unsupported Legacy Drivers (EXCL the drivers that are automatically installed):
+  o   If Unsupported Legacy Drivers are found then the user will see a confirmation dialog that defaults to NO - where he is told these are NOT supported, contact support to add them. Do you want to continue? If No it EXITS; if Yes then the drivers are moved to the .\LegacyDrivers\UNSUPPORTED folder (off the current installation folder)
+  o   If Supported Legacy Drivers are found (EXCL the drivers that are automatically installed) then the user will see a confirmation dialog that defaults to NO - where he is told since they cannot be used as-is and need to be reinstalled, these drivers have been moved into the .\LegacyDrivers folder (off the current installation folder), to allow you to decide which of these drivers you need to install BEFORE you can run your project. 
+
+The following legacy Adroit drivers are NOT currently supported by Adroit 10:
+DLL name	Driver Description
+ABBP214	Asea Brown Boveri Procontrol 214 Driver
+ABXKF2B	Allen Bradley (DH+) KF2 Driver
+ADVNTECH Advntech PCL818 Series Driver
+BECKER Becker M500 Relay Serial Driver*
+BLNDTECH Blendtech Series 20 Additive Controller Driver
+CEFP2000 Centralised Electronics Fire Panel 2000 Driver
+CONET Conet Card Exception-based Driver
+CYPHER Cypher Base Station Driver
+DIAMONSP DiaMon Serial Driver
+DIGIBUS DIGIbus DPM Driver
+DT95SEAL DT95SEAL Exception-based Driver
+DTAKER Datataker Telemetry Driver
+EAGLE Eagle PC Card Driver
+EAGLEE Eagle EDR-Enhanced (EDRE) PCI Card Driver
+ELEOLV24 Electromatic Optolink V24 Dupline 128 Driver
+GEM80 General Electric ESP (GEM 80) Driver
+GSTPROFI GST Profibus Exception-based Driver
+GSTPROFS GST Profi SoftFEP Exception-based Driver
+HITACHIH Hitachi H Series Driver
+ISOIL ISOIL Email Client Driver
+JOYSCC JOY SCC Exception-based Driver
+KMSUCOMA Klockner Moeller SUCOM-A Driver
+LECOMAB	 Lenze LECOM A or B Serial Driver
+LG_GLOFA LG Glofa GM Series Driver
+LONWORKS LonWorks Driver
+MITAJC24 Mitsubishi A-Series C24 Driver
+MITAJE71 Mitsubishi AJ71E71 TCP (not UDP) Driver 
+MODBUSR Modbus Radio Driver
+MOOICI32 Moore Local Instrument Link via ICI 320 Driver
+MYCITY MyCity Email Driver
+NHPMICRO NHP MicroLink (MLC14) Driver
+OPTO22 Opto 22 (OPTOMUX) Driver
+PAGER Pager Exception-based Driver
+POLYCOMP PolyComp Sign (GTX) Driver
+RDC8102 RDC8102 Exception-based Driver
+REMOTRON Remotronics GAR System 300 Exception-based Driver
+RKC_CBXX RKC CB100 - 900 Serial Driver
+RODAM RODAM Driver
+SAMSUNG Samsung N70 or 700+ Driver
+SASCOM SASCOM (RTU and ASCII) Driver
+SCH3964R Schiele SYSTRON S 800 3964 and 3964R Driver
+SCHCUST1 Schiele Custom Protocol #1 Driver
+SCS_SGC	SCS_SGC Alarm Station Driver
+SHIMSR SHIMDEN SR50 Series Driver
+SIE3964R Siemens S5 3964 and 3964R Driver
+SIEL1 Siemens Sinec L1 Bus Exception-based Driver
+SPABUS SpaBus Driver
+SPESCADA Spectrum SCADA-MUX Driver
+SQDSYMAX SQUARE D SyMax Serial Driver
+STKEMAXP Strike Enermax Plus Ethernet Driver
+TDC0550 TDC I 0550 Serial Driver
+TI500 Texas Instruments 500 or 505 Series Driver
+TITCPIP Texas Instuments TCPIP Ethernet Driver
+TOSHBIN Toshiba (Binary) Driver
+UHT4 UHT4 - Engine hot-test bay (Motorola) Driver
+VAALCOR Vaalcor Exception-based Driver
+VANT_PRO Vantage Pro Serial Driver
+YOKOGAWA Yokogawa uXL DCS Driver
+   
+
+9.) Installing Adroit 10
+------------------------------
+PLEASE NOTE: Adroit 10 can only be installed and run on NT-based operating systems from Windows 7 onwards.
+
+Note1: Before upgrading an older version of Adroit to Adroit 10, read the section: Backward Compatibility of Adroit 10 above.
+
+Note2: Ensure that the computer complies with the Hardware and Software requirements, read these sections above. In particular, ensure that you ENABLE UAC if this is provided by your operating system (Windows 7 or later) AND are NOT using the built-in Administrator account BEFORE you install and run Adroit. 
+
+Note3: When installing Adroit to another hard drive partition, other than C:, it is still necessary to have about 300 MB of free space on the C: drive, because the installation requires a temporary file of this size to be copied to this drive before the Adroit files are installed to the specified location. 
+
+1. Insert the Adroit 10 installation media. 
+   Note: When installing Adroit it is best to have no other applications running and ensure that the logged on user has Administrator privileges.
+2. If the autorun feature, is enabled for this drive, the Adroit installation menu will automatically be displayed, if not, run Adroit10_Install_Menu.exe in the root folder on the Adroit 10 installation media. 
+    IMPORTANT: The installation menu is NOT designed to work off network shares. For further details and a workaround see the &quot;10.) Installing Adroit over the Network&quot; section below.
+   Note: If you intend using alarm management and/or the other report packs then you need to install at least SQL Server 2008 R2 or its Express version; however the .\Utilities\SQL_EXPRESS\ folder on the Adroit 10.0 installation media contains the SQL Express 2014 (with advanced services) install (either x86 or x64 depending on your operating system) and the Installation Guide, which allows you to choose which SQL installation options and configuration are applicable for your specific operational environment.
+3. Click the &quot;SCADA Install&quot; menu option from the installation menu and then click its &quot;Install Adroit 10 SCADA&quot; option to begin the installation of Adroit. 
+    Note: There may be a delay before the installation dialog is displayed. 
+4. Follow the instructions displayed on the screen. Advance through the installation by pressing the Next &gt; button and, if necessary, review the previous screens by pressing the &lt; Back button, where available. The installation procedure can be aborted at any time by pressing Cancel. 
+   Note: It is necessary to accept the terms of the Adroit license agreement in order to continue with the installation.
+5. The following Setup options are displayed for Adroit 10.0:
+   a. Typical–The typical Adroit installation, which installs the Agent Server along with the Smart UI clients (Designer and Operator) and Smart UI Server component). Recommended for most users (NO web components).
+   b. Performance Anywhere Server–Enables the use of Performance Anywhere clients (dashboards). Requires IIS (Microsoft Internet Information Services) to be installed and also installs the Web Service. 
+   c. Custom–This setup option is recommended for advanced users only, as it permits the selection of Adroit and Smart UI components, in addition to selecting their components. 
+      Note: The Custom installation option is ALSO the ONLY way in which to install the Smart UI Operator component on its own, which is the default selection.
+     The following options can be installed:
+     i. Adroit Agent Server (incl. its API interfaces and the Classic User Interface) ONLY.
+    ii. Smart UI Server (incl. the Designer and Operator) ONLY.
+   iii. Smart UI Operator (incl. the Agent Server API interfaces), for remote operators.
+   iv. Click Once Smart UI Operator (needs IIS): installs the files and creates the required virtual directory on your web server, so that your users can launch the Smart UI Operator from a web page within Internet Explorer, which then runs NORMALLY as a separate application.
+      Typically the URL of this web page is: http://WebSiteAddress/SUIClickOnce/publish.htm - where WebSiteAddress is the IP address or the domain name of your web site, such as www.msn.com.
+   v. Smart UI Web Service: installs this web service that allows Smart UI clients (Designer and Operator) to connect over the Internet and is required for Performance Anywhere.
+      Note: This can ONLY be installed on a web server (a computer that has MS Internet Information Services installed that ALSO requires the ASP.NET sub-component, see section 5 above for more information). 
+   vi. Smart UI Performance Anywhere (needs IIS and installs the Web Service), this allows your users to use Performance Anywhere dashboards (WebPortal clients).
+ vii. Smart UI Designer (incl. Operator): ONLY installs both the Smart UI clients.
+viii. Agent Server API Interfaces (aka MIS Server): ONLY installs the OLE Server files and other API interfaces to the Agent Server.
+  ix. Adroit Classic User Interface (incl. the Agent Server API interfaces) : ONLY installs the legacy Adroit Client (UI).
+
+6. The Component Configuration Settings may display some of the following options, depending upon the components that have been selected to be installed:
+Choose whether you want your Default Configuration to use the FULL or HMI operating mode.
+Note: A project created in HMI mode CANNOT be used in FULL mode, you can also create additional configurations using either the FULL or HMI operating mode in the Config Editor. 
+
+Choose whether you want to install the Agent Server as a service and to configure the startup of this (and the Smart UI Server) service. 
+ONLY if you enable (check) the &quot;Configure services&quot; option, which is checked by default then: 
+   You need to specify a user that has the rights / permissions to access the network resources (printers, SQL Express, network shares) that the Agent Server requires access to.
+   Use the following syntax when specifying the user name: 
+   For users on the local computer: UserName
+   For users on a domain: domainName\UserName.
+   IMPORTANT: Ensure that the specified password does not expire, otherwise you will need to manually reconfigure this yourself each time the password changes.
+   Note: The username and password of the specified user account are verified and the username cannot be &quot;Adminstrator&quot; (because this COULD be the built-in Windows Administrator account).
+If you uncheck the the &quot;Configure services&quot; option, this will NOT install the Agent Server service NOR configure the startup of this (and the Smart UI Server) service. However, the Smart UI Server service will be installed and the Service Manager will also be displayed as a notification icon but ONLY the Smart UI Server service will be displayed. If necessary you can install the Agent Server service later in the &quot;Agent Server Configuration&quot; page of the Adroit Config Editor.
+	
+7. When installing the Smart UI Operator, Designer or Server for the first time (in other words this is not displayed when any of these components are installed subsequently), the install allows you to select which Theme you want to use when displaying these applications. The following themes are available:
+Light: This is a modern white-based theme like that adopted by many of the Microsoft products
+Dark: This darker theme may be easier on the eyes depending on your preference.
+Note: This setting is a configurable via the &quot;Theme&quot; list box at the bottom of the Adroit Config Editor. 
+  
+   Note: A restart of the computer is ONLY required if BOTH the Adroit Agent Server and the Smart UI Server is installed by the selected installation option OR if a system file required by the Adroit install could not be installed as it was in use at the time.
+
+The Agent Server starts the Smart UI Server, as follows: 
+Note: This functionality requires the currently logged on user to either be an Administrator or a Power User.
+
+If the Agent Server is started as a service then:
+a. Adroit will attempt to start the Smart UI Service.
+b. If the Smart UI Service fails to start, Adroit will attempt to start the Smart UI Server.
+
+The Adroit Technologies Service Manager manages (starts and/or stops) the services of all the Adroit Technologies products installed on the computer, which in the case of Adroit 8 is the Agent Server service and/or the Smart UI Server service.
+
+If the Agent Server is started as an application then:
+a. Adroit will attempt to start the Smart UI Server only.
+b. If the Smart UI Server fails to start, nothing happens.
+
+If after upgrading to Adroit 10, some of the old product icons are still being displayed, then you need to reset the icon cache that Windows uses so that it can be automatically re-created.
+NOTE: This process requires shutting down your Windows Explorer, since this application uses this icon cache.
+Furthermore, the way in which you need to reset your icon cache depends upon the version of Windows that you have installed:
+So create a .CMD file, for instance called rebuild-icon-cache.cmd, which contains the following Windows specific commands:
+Tip: Copy and paste the specified commands into a text document and ensure that when you rename it that it has the .CMD file extension.
+
+Windows 7:
+
+@echo off
+taskkill /IM explorer.exe /F
+cd /d %userprofile%\AppData\Local
+del IconCache.db /a
+start explorer.exe
+
+Windows 8 and 10:
+
+@echo off
+taskkill /IM explorer.exe /F
+cd /d %userprofile%\AppData\Local\Microsoft\Windows\Explorer
+del iconcache* /a
+start explorer.exe
+
+Then run this CMD file as an Administrator to force Windows to rebuild its icon cache, which will sort out your mismatched icon problems.
+
+
+10.) Installing Adroit over the Network
+----------------------------------------------
+This may be required, if Adroit 10 is required on a networked computer.
+
+IMPORTANT: The installation menu is NOT designed to work off network shares.
+
+So if you copy the contents of the installation media to a shared folder on a PC on the network and try to launch the installation menu from this network location you will receive a Microsoft .NET Framework unhandled exception, something like: 
+Value of &#x27;\\networkShare\Path\Adroit 10\Launcher\images\Adroit.ico&#x27; is not valid for &#x27;filePath&#x27;.
+To workaround this, create a drive mapping for the \\networkShare\Path up to the name of the folder containing the installation media and then run it from there, for instance if you create a drive mapping called P:\ for the \\networkShare\Path in the above example (which you can do via the Command Prompt using the following command: subst p: &quot;\\networkShare\Path&quot;), so that the path to the installation media, using the mapped path, in this example, would be P:\Adroit 10 (as it would be if this were being run from a DVD or flash drive). Then have your users run the installation menu from this path. 
+
+
+11.) Licensing Adroit
+-------------------------
+
+IMPORTANT: Existing Adroit users require NEW licenses for Adroit 10, since the entire licensing mechanism has changed! Although BOTH the Adroit 10 license and former Adroit 8 license can exist side by side on the SAME HASP - so that it is easy to roll back to Adroit 8 if needed.
+Note: Only the Adroit Agent Server, requires a licence - all the other applications, such as the Designer or Operator etc. do not. 
+
+Use the new Adtech Licensing Utility to get, view and/or update your Adroit 10 product license.
+You can typically launch the Adtech Licensing Utility via the Adroit Utilities on the Desktop and then select this utility from this menu.
+
+IMPORTANT: The former Remote Nodes licenses that applied to all types of clients have been DISCONTINUED. These have now been replaced by the following client specific node licenses, each of which have different costs:
+ o  Clients: typically Operators and/or Designers and 
+ o  Web Clients: typically Performance Anywhere clients.
+
+ The OEM (separately-licensed) components are no longer specified by their associated OEM codes but now included as separate textual entries in the product license, so that users can easily see exactly which components they are currently licensed for. Since only the OEM components that you are licensed for will appear.
+
+Your product license can either be a HASP and a soft license, each of which have the following important differences:
+o   A HASP license is bound to a USB HASP, which has a specific serial number - this is therefore portable and not restricted to a specific computer, but has associated security risks and needs to be insured at your own risk. 
+o   A Soft license is bound to a specific computer and therefore cannot be transferred to another computer. Therefore if the computer fails then the soft license will no longer work. 
+
+IMPORTANT: In order to get or update a product license you need to be able to send and receive files via email, either directly or remotely via another device. 
+
+How to get a new HASP license or update an existing one:
+1. Launch the Adtech Licensing Utility, typically via the Adroit Utilities on the Desktop and then select this utility from this menu.
+2. Ensure that your HASP is inserted into the computer. If necessary, click the Rescan HASPs button in the lower right corner.
+The Request HASP Update button should now be enabled.
+3. If the Request HASP Update button is disabled then there is a problem reading your HASP, in which case do the following:
+    Click the Status tab and right click this page and click the Select all menu item. 
+    Then right click this page and click the Copy menu item. 
+    Email the contents of this tab to your sales representative for further assistance. 
+4. Click the Request HASP Update button. 
+This will temporarily disable the Refresh Current License and the Apply License (V2C) buttons, indicating that this request is being processed.
+5. Once the .c2v (Customer to vendor) file has been created for this HASP license:
+Windows Explorer is opened, displaying the folder in which this .c2v file has been copied, which adheres to the following syntax: it begins with HL- followed by the unique serial number of your HASP.c2v
+The Main tab of the Adtech Licensing Utility also displays the location of this .c2v file and the email address to which this file should be sent.
+6a. If you have an email client on your local computer, then do the following: 
+    Click this email address link, which opens your default email client and creates the License Request email message for you that is addressed to the required email address. 
+    In this case simply attach the .c2v file and send it off. 
+6b. If you cannot email from the local computer, then do the following: 
+    Make a note of the required email address 
+    Copy the resultant .c2v file to a device that is able to email 
+    Create an email that is addressed to the specified email address that is entitled &quot;License Request : &quot; and then copy the entire name of your .c2v file 
+    Attach this .c2v file and send it off. 
+7. Once the .v2c (Vendor to Customer) file is emailed back to you, copy this file to a folder on the computer on which you have installed Adroit 10 Agent Server. 
+8. Click the Apply License (V2C) button. 
+9. In the Open Vendor to Customer (.v2c) Filedialog, browse to the folder in which you copied the . v2c file and select this .v2c file and click the Open button.
+Your license is updated and your license details are displayed in the License tab.
+
+
+How to get a new soft license or update an existing one:
+1. Launch the Adtech Licensing Utility, typically via the Adroit Utilities on the Desktop and then select this utility from this menu.
+2. Click the Request Soft-License Update button. 
+This will temporarily disable the Refresh Current License and the Apply License (V2C) buttons, indicating that this request is being processed.
+3. Once the .c2v (Customer to vendor) file has been created for this HASP license:
+Windows Explorer is opened, displaying the folder in which this .c2v file has been copied, which adheres to the following syntax: it begins with New-SL- followed by the computer name.c2v
+The Main tab of the Adtech Licensing Utility also displays the location of this .c2v file and the email address to which this file should be sent.
+4a. If you have an email client on your local computer, then do the following: 
+    Click this email address link, which opens your default email client and creates the License Request email message for you that is addressed to the required email address. 
+    In this case simply attach the .c2v file and send it off. 
+4b. If you cannot email from the local computer, then do the following: 
+    Make a note of the required email address 
+    Copy the resultant .c2v file to a device that is able to email 
+    Create an email that is addressed to the specified email address that is entitled &quot;License Request : &quot; and then copy the entire name of your .c2v file 
+    Attach this .c2v file and send it off. 
+5. Once the .v2c (Vendor to Customer) file is emailed back to you, copy this file to a folder on the computer on which you have installed Adroit 10 Agent Server. 
+6. Click the Apply License (V2C) button. 
+7. In the Open Vendor to Customer (.v2c) File dialog, browse to the folder in which you copied the . v2c file and select this .v2c file and click the Open button.
+Your license is updated and your license details are displayed in the License tab.
+
+How to view your current product license:
+1. Launch the Adtech Licensing Utility, typically via the Adroit Utilities on the Desktop and then select this utility from this menu.
+2. If necessary, click the Refresh Current License button, especially if you have just updated your license.
+3. Open the License tab to display the details of your current license, which describes which components you are currently licensed to use.
+
+You can also view your current license details from the Adroit Smart UI Server or Service Manager, as follows: 
+o   If you are running the Server as a service (the default method), use the &#x27;Licensing Information&#x27; option of the Service Manager. 
+o   If you are running the Server as an application, use the &#x27;Display License Information&#x27; option of the Server window&#x27;s Tasks menu. 
+
+PLEASE NOTE: If the Smart UI Server is using Adroit based licensing, the required Agent Server MUST be running (in READY state) before this server component can be launched.  If the Smart UI Server is launched before the licensing Agent Server is running (in READY state) then a warning will be displayed indicating that this Agent Server could not be found.  
+
+For trial purposes, one Performance Anywhere user license is provided when using the demo license.
+For actual use, you need add the exact number of PerformanceAnywhere clients that you need to your product license.
+If you have exceeded the number of available Performance Anywhere client licenses, then you will see the following error when you try to login: Error fetching XXX dashboard! Error! Number of connections licensed exceeded (where XXX is the specified username).
+
+
+12.) Typical Usage Procedure for Performance Anywhere
+--------------------------------------------------------------------
+After installing, a Performance Anywhere shortcut is placed on the Desktop, which provides the URL for launching the Performance Anywhere dashboard in an Internet browser, which you can distribute to your users as needed, as this also contains the virtual directory name of the Web Service to prevent login issues.
+
+1. Typically using the provided Performance Anywhere shortcut URL, launch the Performance Anywhere dashboard in an Internet browser.
+
+Note: When using Microsoft Edge you may not be able to open the Performance Anywhere dashboard by using this URL for instance if the computer is not on the domain and therefore unable to resolve the IP Address from the specified computer name. Only the Microsoft Edge browser seems to suffer from this problem Internet Explorer does not.
+
+2. Log in using the provided dialog.
+3. Configure the required settings via the toolbar.
+4. Create one or more pages via the toolbar.
+5. Add widgets to these pages from the menu (displayed by clicking the (hamburger menu icon) in the top left corner and configure them as needed.
+
+Note: Simply click the required widget to add it to the currently selected page and to open its Configuration dialog or click Cancel to remove it.
+Tip: For assistance click the ? in the top right corner of these configuration dialogs.
+
+6. Change the viewing mode into Run via the menu to ensure that your data is being correctly displayed using the provided widgets.
+7. If necessary, save these pages and/or download your configuration to a .JSON file via the toolbar, so that this configuration can be uploaded to another Performance Anywhere.
+
+Note: For a new Smart UI installation, before you can save the dashboard configuration to a user’s profile in Performance Anywhere you need to have logged into your Smart UI Server via the Smart UI Designer at least once.
+Tip: We recommend that you limit the number of values (tags) referenced by all the widgets on a page to 25 to ensure consistent performance.
+
+
+13.) Smart UI Web Service Configuration
+-------------------------------------------------
+If the Smart UI Web Service is installed, it is necessary to: 
+
+  Ensure that the ASP.NET sub-component of Internet Information Services (IIS) is installed, since this is is NOT installed by default when adding the IIS feature to Windows:
+
+   If you have Windows 7 / Windows Server 2008 R2 installed, then do the following:
+   Launch Control Panel -&gt; All Control Panel Items -&gt; Programs and Features -&gt; click the &quot;Turn Windows features on or off&quot; link on the left hand side:
+   In the displayed &quot;Windows Features&quot; dialog, scroll down to:
+   Internet Information Services -&gt; World Wide Web Services -&gt; Application Development Features -&gt; ASP.NET (ensure that this check box is checked)
+   Click the OK button.
+
+   If you have Windows 8/8.1 / Windows Server 2012/R2 installed, then do the following:
+   Launch Control Panel -&gt; All Control Panel Items -&gt; Programs and Features -&gt; click the &quot;Turn Windows features on or off&quot; link on the left hand side:
+   In the displayed  &quot;Windows Features&quot; dialog, scroll down to:
+   Internet Information Services -&gt; World Wide Web Services -&gt; Application Development Features -&gt; ASP.NET 4.5 (ensure that this check box is checked)
+   Click the OK button. 
+		
+   If you have Windows 10 installed, then do the following:
+   Launch Control Panel -&gt; All Control Panel Items -&gt; Programs and Features -&gt; click the &quot;Turn Windows features on or off&quot; link on the left hand side:
+   In the displayed  &quot;Windows Features&quot; dialog, scroll down to:
+   Internet Information Services -&gt; World Wide Web Services -&gt; Application Development Features -&gt; ASP.NET 4.6 (ensure that this check box is checked)
+   Click the OK button.  
+
+1. Specify the name of the virtual directory that must be created for this web service in the Name edit box. By default the virtual directory is called VIP. 
+2. If necessary, specify the website in which this virtual directory must be created, by selecting it from the Site list box. By default, the Default Web Site is selected.
+
+NOTE: The Smart UI Web Service does not work on a 32 bit Windows 10 (possibly Windows 8 as well). The symptom is that clients (Operators or Performance Anywhere clients) cannot login via the web connection even though everything seems to be installed correctly and running. TO FIX THIS: open IIS (typical by right clicking the Windows menu and selecting Computer Management and then under Services and and Applications, select Internet Information Services), then select the topmost Application Pools item (immediately under the selected computer name) and select the relevant Application Pool under which the web service is running, typically SUIAppPool and right click it and select Advanced Settings..., in this dialog in the &quot;Process Model&quot; section locate the Identity field and click the browse button to the right of this field and in the &quot;Application Pool Identity&quot; dialog, select the Custom account option and click the Set.. button and specify the credentials of the required user account that has administrative privileges, and then OK all the open dialogs. Then right click this Application Pool (SUIAppPool) again and select its Recycle... option to restart it and effect this change in Identity. 
+
+3. The Web Service Config file contains a number of settings that pertain to the operation of the Web Service.
+
+Typically the default values of these settings should be adequate for Performance Anywhere, although you may need to adjust the following settings by editing this file yourself to resolve the following Performance Anywhere connection and performance issues:
+
+Note: Be VERY careful when editing this file; since if you corrupt the file structure nothing will work. Please ask support for help if you need it and BACKUP the existing file before you start editing it.
+
+File location: This file is called Web.config and is located in the root folder of the Web Service component, which is typically: C:\Program Files\Adroit Technologies\Adroit\SmartUI\Webservice
+
+IMPORTANT: After editing the Web.config file, you need to restart IIS, which you can do by opening the Command Prompt (Admin) and entering the following command: iisreset
+
+•If the Smart UI Server is on another computer than the Smart UI Web Service. 
+
+Then edit the &lt;add key=&quot;server&quot; value=&quot;localhost&quot;/&gt; to specify the computer name or IP address of the Smart UI Server computer. 
+
+•If the Smart UI Server is running on a port other than 9010. 
+
+Then uncomment the &lt;add key=&quot;serverPort&quot; value=&quot;9500&quot;/&gt; and change the port value to the port value that the Smart UI Server is running on.
+
+•If the Performance Anywhere clients are experiencing problems where the Charting widgets are taking too long update or do not have any data; or images take too long to load or the Data Element Browser either does not display any tags or takes to long to load etc. 
+
+Then edit the &lt;add key=&quot;ServiceRequestTimeout&quot; value=&quot;60&quot;/&gt; and increase this timeout which specifies the timeout in seconds for any requests made by the Web Service or Performance Anywhere to the Smart UI Server. 
+
+IMPORTANT: When using large Agent databases, even changing this setting may not fix the issue where the Data Element Browser either does not display any tags. 
+
+In this case you can open the Smart UI Designer and browse to the required slot in the Enterprise Manager window and select the Copy path menu item and then paste this full path directly into the Data Element Browser of Performance Anywhere, which adheres to the following naming syntax: {Adroit Datasource Name}.{Agent Name}.{Slot Name}
+   
+   
+14.) Running the Click Once Smart UI Operator
+--------------------------------------------------------
+Ensure that the Click Once Operator is installed on the appropriate Web server. 
+This installs the files and creates the required virtual directory. 
+
+Then for all users who need to use the Operator via the Web:
+
+IMPORTANT: Ensure that Microsoft .NET Framework version 4.5.2 and Internet Explorer is installed on the user&#x27;s computer.
+
+1. Navigate to the click once URL and click the Run button to run the Operator. 
+   This URL is typically http://WebSiteAddress/SUIClickOnce/publish.htm - where WebSiteAddress is the IP address or the domain name of your web site, such as www.msn.com)
+   IMPORTANT: If you do NOT specify the publish.htm portion of this address, then you will get the following error (web page): Server Error 403 - Forbidden: Access is denied.
+   Note: You typically need to receive this Click Once URL from your administrator or whoever manages this web server.
+
+2. If the Application Run – Security Warning dialog is displayed, then click its Run button. 
+   The Smart UI Operator files are now downloaded from your web server. 
+
+3. When this process is complete, if the Windows Security Alert dialog appears, click the Allow Access button. 
+   The Smart UI Operator application is launched as a SEPARATE application and not as a Web Page within the Internet Explorer browser.
+   Note: If the Smart UI Operator application EITHER does not appear OR displays an error (Operator.exe has stopped working), then close Internet Explorer and run it again as an Administrator (right click the shortcut and select Run as Administrator) and repeat these steps again.
+4. Login into and use this Smart UI Operator as per normal.
+
+IMPORTANT: If you close this Smart UI Operator application then you need to click the Run button from the Operator installation web page, which will typically NOT download any additional files, but will simply launch the Operator application again.
+
+
+15.) Modifying an Existing Adroit 10 Installation 
+---------------------------------------------------------
+
+When the installed version is same as the version of the install, a message box is displayed to allow users to select whether they want to reinstall the existing components or they can opt to install additional components that have not been installed yet or exit the install (the default option).
+
+Note1: Before an Adroit installation is modified all the Adroit processes (its applications, services and / or utilities) that are currently running are FORCED to SHUT DOWN.  However, to prevent the possible loss of configuration, it is RECOMMENDED that you CLOSE ALL Adroit applications and utilities yourself BEFORE modifying an Adroit installation.
+
+Note2: In order to remove an installed component, it is necessary to uninstall the existing Adroit installation and reinstall, only selecting the required installation and / or features.
+
+You can only add sub-components, if they exist, for the currently installed Adroit 10 components OR you can reinstall the existing components, which reinstalls all the files required by these components.
+   Note1: You can ONLY add components when the SAME version of Adroit is currently installed.
+   Note2: When re-installing Adroit it is best to have no other applications running and ensure that the logged on user has Administrator privileges.
+   a. Insert the Adroit 10.0 installation media. 
+   b. If the autorun feature, is enabled for this drive, the Adroit installation menu will automatically be displayed, if not, run Adroit10_Install_Menu.exe in the root folder on the Adroit 10.0 installation media. 
+   c. From the Adroit Installation menu, click the &quot;SCADA Install&quot; menu option from the installation menu and then click its &quot;Install Adroit 10 SCADA&quot; option. 
+   d. Since the installed version is same as the version of the install, select whether you want to reinstall the existing components or to install additional components that have not been installed yet, by clicking the applicable option from the displayed message box or exit the install (the default option).
+   e. Follow the instructions displayed on the screen. Advance through the installation by pressing the Next &gt; button and review the previous screens by pressing the &lt; Back button, where available. The installation procedure can be aborted at any time by pressing Cancel. 
+If you choose to add components:
+  a. the Select Components dialog is displayed, revealing the available Adroit components that can still be installed, as displayed when selecting the Custom installation option.   
+  Note: All the components that have currently been installed will be ticked and every component that is either installed or contained within an installed component will be disabled, so that ONLY the checkboxes of the available Adroit components will be enabled.
+  b. Tick one or more of the available checkboxes, if any, to select the required additional components and then click the Next button.
+   WARNING! Both the additional components that have been selected, if any, and the EXISTING Adroit components will be REINSTALLED and therefore OVERWRITE the existing files and their program shortcuts in the Start menu and on the Desktop.
+   Note: Smart UI components are NOT REINSTALLED.
+ c. Click the Install button, to install all of the selected components, which may provide additional installation options.
+If you choose to reinstall the existing components, then this install is treated like an update and the list of changes are displayed before you can reinstall the existing components.
+
+
+
+16.) Known Issues
+----------------------
+
+At the time of release the following known issues concerning the operation of Adroit 10 was noted:
+1. Object Model: 
+   a. Currently the Object Model only supports the following agent types: alarm, alarmmanagement, alarmlist, analog, beeper, counter, dblog, digital, eventoutput, expression, icmp, integer, marshal, maxdemand, oee, pid, real, shift, snmpmgr, statistical, string, stringlist, text and timer.
+   b. Currently the Object Model directly supports the following commonly-used drivers (devices): Modbus Ethernet, Mitsubishi Q, QnA, L, R and iQF Series Ethernet (3E Frames), Mitsubishi MX Components, OPC Client and Siemens Ethernet.
+          If you need to use other drivers then you simply need to create the necessary devices yourself before deploying an instance of this object model template.
+ IMPORTANT: When the global destinations (the Output / Event Logs categories) of the specified alarm routes contain agents that do NOT exist in the Agent Server where this object is being deployed then these agents will NOT be created as these agents could cause potential issues.
+   c. Templates do not currently support setting the description of any agents created. Right now the description remains the same as the source agents created in the original model, thus it is suggested that these descriptions be made as generic as possible. In the future agent descriptions will be made editable as part of the instance creation process.
+   d. Updating associated wizards on a template will not update the associated wizards of any existing instances. To update this the instance needs to be re-created.
+   e. If a specific agent is referenced by multiple Object Model instances (for example if the same Digital running signal used in the expressions of all the instances of a particular Object Model Template) and the user deletes one of these instances, then this common agent is also be deleted. To workaround this, after deleting the instance the user can simply re-deploy one of the remaining object instances, which re-creates the missing agent but leaves any existing agents as is.
+   f. When deleting an object model instance that scans values using the Mitsubishi Q,QnA,L,R and iQF Series Ethernet(3E Frames) driver, then manually stop the applicable Mitsubishi Q device first. However, if you do NOT stop this Mitsubishi Q device first then even though the removal process of this object model instance will timeout (with an error stating that the object instance has been re-added, so as to prevent orphaned agents), you simply need to repeat this removal process to entirely remove this object model instance.
+   g. The Agent Server needs to be in &quot;Stand-alone / Distributed Server&quot; mode before you can deploy instances of Object Model templates.
+2. Project Datasource – locked Graphic Forms show as unlocked after a refresh of the tree, even though the Lock functionality is applied.
+3. When designing Graphic Forms the Undo functionality does not work after using the Optimise Graphic Form Size option, so to undo this operation simply close the graphic form without saving it and then re-open it.
+4. Currently it is possible to configure a behaviour etc. to read the value of the agentDeconfigure header slot of an agent. This slot should not be used by users and will cause unstable results. In future, this slot will not be visible to users.
+5. The License information in the Server Window does not update to reflect a loss of the HASP if it is unplugged. 
+6. SmartUI Operator Cluster server names cannot be deleted from the Config Editor cluster settings wizard. Instead this setting can be modified directly through the Advanced configuration options, if necessary. 
+7. A driver Device can be removed through the Config Editor regardless of whether or not it is currently being used in the Agent Server.
+8. If a driver .DLL file is manually deleted from the Adroit installation directory, the Config Editor will not warn the user of this if there are devices configured for this, now absent, driver .DLL file.
+9. Subscriptions to Device.Healthy slot do not update correctly when manually stopping the Device. However, normal runtime status updates due to connectivity issues etc. do update normally.
+10. Demand scanning:
+   a. This is only supported by drivers that are specifically written to support it. All other drivers should have the global “Demand scanning enabled” checkbox disabled in the Advanced Driver Options view of the Driver Configuration page of the Config Editor.
+   b. Demand scanning can ONLY be used for READ-ONLY tags that are ONLY displayed on a graphic form and are NOT being alarmed and/or logged and/or used-by any other agent.
+   c. Demand scanning will NOT work when the scanned tag is output enabled. So if a demand scanned item is output enabled, it will NOT be demand scanned until the Output enabled scanning setting is turned off! 
+   d. We do NOT recommend the use of demand scanning for a clustered Agent Server that uses shadow scanning and a proxy server to handle requests for its tags from remote clients. In this case we recommend the use of parallel scanning instead.
+11. Always alarm agents from route 2 onwards NEVER use routes 0 and 1, which are used internally for reporting system alarms and events.
+12. Acknowledging alarms through the SmartUI when the Adroit datasource is connected to a proxy Agent Server will not propagate the acknowledgement of these alarms to the originating Agent Server if the Alarm agent exists on the proxy Agent Server. For example the defaultAlarmAgent. This can be solved by using user defined Alarm agents that only exist on the originating Agent Server.
+13. The Alarm Management agent may not create the relevant tables if switched from one database to another in an Agent Server session. Simply restart the Agent Server to solve this problem.
+14. Unlike in previous versions the logging to databases by the Datalog agent is disabled by default in to force users to use the DBLog agent, which has been specifically designed to efficiently log data to databases and also provides housekeeping functionality to ensure that only the most current data is stored.
+15. When the allocated size of the datalog (.LGD) file is filled, it wraps (starts again at the beginning) at which time one or more datalog  backup (.LGB) files are automatically created to store this older (historical) data. So the legacy method of backing up datalogs via the SystemDatalog agent is no longer used
+16. The primitive agent types, which are Boolean, Real and Integer, should ONLY be used where efficient use of memory is required because they do not support Alarming and other SCADA functionality, if this functionality is required then use Analog/Digital agents instead.
+17. Legacy Adroit Classic Setup (PSEXE) – There appears to be a problem setting paths when using the legacy setup on a German operating system. The newer Config Editor works correctly and is the preferred method of changing settings.
+18. When starting the Adroit 10.0 Agent Server for the first time and loading a Agent Database (.wgp) file from a previous version, devices will most likely NEVER show healthy once all the devices are started. You need to save the Agent Database (.wgp) file FIRST and then restart the Agent Server and then you should see all the devices going healthy. 
+REASON: When loading a Agent Database (.wgp) file from a previous version of Adroit, Adroit 10 uses the saved status bit information to configure the IO flags setting of all the Device agents and when the Agent Database (.wgp) file is saved then these status bits are switched OFF in the Agent Database (.wgp) file. 
+19. The Smart UI Web Service does not work on a 32 bit Windows 10 (possibly Windows 8 as well). The symptom is that clients (Operators or Performance Anywhere clients) cannot login via the web connection even though everything seems to be installed correctly and running. TO FIX THIS: open IIS (typical by right clicking the Windows menu and selecting Computer Management and then under Services and Applications, select Internet Information Services), then select the topmost Application Pools item (immediately under the selected computer name) and select the relevant Application Pool under which the web service is running, typically SUIAppPool and right click it and select Advanced Settings..., in this dialog in the &quot;Process Model&quot; section locate the Identity field and click the browse button to the right of this field and in the &quot;Application Pool Identity&quot; dialog, select the Custom account option and click the Set.. button and specify the credentials of the required user account that has administrative privileges, and then OK all the open dialogs. Then right click this Application Pool (SUIAppPool) again and select its Recycle... option to restart it and effect this change in Identity. 
+20. When updating installs or reinstalling existing components any saved login profiles will be lost in the process of updating the installed .CONFIG files.
+21. If the OPCUA Client driver is unable to enumerate endpoints on a local OPC UA server (that is on the same computer as the Agent Server). This is caused by a bug in the Softing library that is being used, where they cannot resolve local endpoints when using IP6 addressing which all machines do by default. By default both the install and the .bat file used to create the OPCUA certificates run the following two commands to force the system to favour IP4 over IP6 when resolving its addresses: netsh interface ipv6 set prefix ::/96 60 3   AND   netsh interface ipv6 set prefix ::ffff:0:0/96 55 4
+If after running these commands manually via an elevated command prompt you are STILL unable to enumerate endpoints on a local OPC UA server, which may occur when your computer has multiple network cards, then phone support to resolve this issue. 
+22. If you uncheck the the &quot;Configure services&quot; option during the installation then this will NOT install the Agent Server service NOR configure the startup of this (and the Smart UI Server) service. However, the Smart UI Server service will be installed and the Service Manager will also be displayed as a notification icon but ONLY the Smart UI Server service will be displayed. If necessary you can install the Agent Server service later in the &quot;Agent Server Configuration&quot; page of the Adroit Config Editor.
+PLEASE NOTE: Refer to the &#x27;changelog.txt&#x27; file that is installed in the Adroit installation folder, which contains a complete history of the specific file changes made to this release after its initial release date.
+
+
+17.) Contact details
+------------------------
+Visit our website at www.adroit.co.za.
+Or e-mail Product Support at support@adroit.co.za 
+</pre>
+
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+</body>
+</html>

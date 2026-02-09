@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Scanning Tags (Communicating Values)" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>OPC Historical Data Access</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor245"></a>OPC Historical Data Access</h1>
+        <p><a name="kanchor246"></a>If you use the <span class="AdroitAppName">Adroit</span> OPC client driver to connect to an OPC Historical 
+ Data Access (HDA) server, then you can retrieve historical information 
+ from this server. Typically this can be used to retrieve missing data, 
+ when you have lost connection to a remote OPC HDA server.</p>
+        <h2><a name="kanchor247"></a><a name="kanchor248"></a>How to perform an HDA operation to recover missing data:</h2>
+        <ul>
+            <li class="Bullets" value="1">You 
+ need to have scanned at least one  <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> to an OPC server that supports 
+ Historical Data Access (HDA).</li>
+            <li class="Bullets" value="2">You 
+ need to know the extent of the missing data. In other words, the <span class="AdroitAppName">Adroit</span> 
+ tags, scanned to this OPC HDA server, that are missing data and the start 
+ and end dates and times of this data loss.</li>
+            <li class="Bullets" value="3">You 
+ need to add the following Execute Command Behaviour to a picture element 
+ on a mimic, so that you can launch the <b>OPC Historical Data Access</b> <b>(HDA)</b> dialog that is used to retrieve the missing data, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t5" style="display: none;"><ol start="1"><li class="NumbersSubLetters" value="1">Add/edit 
+ the required mimic and/or picture element.</li> <![CDATA[ ]]></ol><p class="ListNoteSub"><b>Tip:</b> Right click the picture element to display 
+ its <b>Associated Behaviours</b> dialog.</p><ol start="2"><li class="NumbersSubLetters" value="2">Double 
+ click the Execute Command Behaviour in the <b>Possible Behaviours</b> list.</li><li class="NumbersSubLetters" value="3">Select 
+ the <b>Execute DLL function</b> option from the <b>Commands</b> list.</li><li class="NumbersSubLetters" value="4">Type 
+ the following into the <b>File name</b> edit field: adrhdacl.dll,OpenHDA,0</li><li class="NumbersSubLetters" value="5">Click 
+ the <b>Finish</b> button to close the open dialogs.</li><li class="NumbersSubLetters" value="6">Click 
+ the <b>Toggle view</b> toolbar button to toggle this mimic into operating 
+ mode (and save the changes).</li></ol></div></li>
+        </ul>
+        <ol start="2">
+            <li class="Bullets" value="2">HDA 
+ operations can only be performed while the Agent Server is running.</li>
+        </ol>
+        <ol start="1">
+            <li class="Numbers" value="1">Click the picture element 
+ that has the assigned <b>Execute DLL function</b> to launch the <b>OPC 
+ Historical Data Access</b> <b>(HDA)</b> dialog.</li>
+            <li class="Numbers" value="2">Specify the extent that 
+ the missing data, by providing the requisite dates and times in the <b>From</b> 
+ and <b>To</b> edit fields.</li>
+            <li class="Numbers" value="3">Choose one of the following 
+ methods to retrieve the missing data for the affected <span class="AdroitAppName">Adroit</span> tags from 
+ the OPC HDA server, starting from the <b>From</b> date and time and ending 
+ at the <b>To</b> date and time:</li>
+            <li class="ListBullets" value="4"><b>Poll 
+ file:</b> This method retrieves the data values for all the  tags 
+ specified by a text file that you create, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t4" style="display: none;"><ol><li class="NumbersSubSubRomans" value="1">Create 
+ a text file that contains a list of the affected  tags, with each 
+ tag on its own line and use the following file extension, when saving 
+ this file: .hda.tags.txt – for instance myHDAtaglist.hda.tags.txt.</li> <li class="NumbersSubSubRomans" value="2">Click 
+ the <b>Poll file…</b> button to browse for and open this file.</li> <![CDATA[ ]]></ol><p class="ListNoteSub"><b>Tip:</b> Use the <b>Agent Browser</b> 
+ utility to paste the required  tags (agent.slot) names into this 
+ text file to ensure that there are no spelling errors when creating your 
+ list of tags.</p></div></li>
+        </ol>
+        <p class="ListDescSub">This method is recommended when the affected  
+ tags are spread across numerous OPC Client devices, making the other methods 
+ cumbersome to use.</p>
+        <ul>
+            <li class="ListBullets" value="1"><b>Poll 
+ device:</b> This method retrieves the data values for all the  tags 
+ within this OPC Client device, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t3" style="display: none;"><ol><li class="NumbersSubSubRomans" value="1">Select 
+ the name of the device, from the OPC Client <b>Devices</b> tree on the 
+ left hand side.</li> <li class="NumbersSubSubRomans" value="2">Click 
+ the <b>Poll device</b> button.</li></ol></div></li>
+        </ul>
+        <p class="ListDescSub">This method is recommended when the majority of the 
+ scanned  tags in this device are missing data and you want to fill 
+ in these data gaps for all the affected scanned tags.</p>
+        <ul>
+            <li class="ListBullets" value="1"><b>Poll 
+ group:</b> This method retrieves the data values for all the  tags 
+ within one or more Scan agents (scan jobs) of a specific OPC Client device, 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t2" style="display: none;"><ol><li class="NumbersSubSubRomans" value="1">Select 
+ the name of the device, from the OPC Client <b>Devices</b> tree on the 
+ left hand side.</li><li class="NumbersSubSubRomans" value="2">Select 
+ the required Scan agent, which contains some or all of the scanned OPC 
+ items that are missing their data.</li><li class="NumbersSubSubRomans" value="3">Click 
+ the <b>Poll group</b> button.</li></ol></div></li>
+        </ul>
+        <p class="ListDescSub">This method is recommended when you want to fill the 
+ data gaps for a subset of the scanned tags that are contained within specific 
+ Scan agents.</p>
+        <p class="ListNoteSub"><b>Tip:</b> Both the  
+ tags and the OPC items that they are scanned to are displayed in the right 
+ hand Items pane, when you click on a Scan agent (scan job) in the <b>Devices</b> 
+ tree, so that you can identify the affected  tags.</p>
+        <ul>
+            <li class="ListBullets" value="1"><b>Poll 
+ item:</b> This method retrieves the data values of one or more specific 
+  tags that are scanned within a Scan agents (scan job) of a specific 
+ OPC Client device, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t1" style="display: none;"><ol><li class="NumbersSubSubRomans" value="1">Select 
+ the name of the device, from the OPC Client <b>Devices</b> tree on the 
+ left hand side.</li><li class="NumbersSubSubRomans" value="2">Select 
+ the required Scan agent, from this tree, which contains scanned OPC items 
+ that are missing their data.</li></ol><p class="ListDescSubSub">The  tags (and the OPC items that 
+ they are scanned to) are displayed in the right hand <b>Items</b> pane.</p><ol start="3"><li class="NumbersSubSubRomans" value="3">Select 
+ all the  tags, whose data values are missing.</li></ol><p class="ListNotSubSub"><b>Tip:</b> Hold down the CTRL key and click 
+ on all the required rows to highlight them.</p><ol start="4"><li class="NumbersSubSubRomans" value="4">Click 
+ the <b>Poll item</b> button.</li></ol></div></li>
+        </ul>
+        <p class="ListDescSub">This method is recommended when want to fill the data 
+ gaps for particular scanned tags.</p>
+        <p class="ListDesc">The dialog can be closed, while the realtime catch-up 
+ of the specified  tags occurs in the background on the Agent Server 
+ computer.</p>
+        <p>This dialog does not display any visible activity while this realtime 
+ catch-up of data occurs. However, a text based log file called ‘opc_cl.hda.log.txt’ 
+ is created in the <span class="AdroitAppName">Adroit</span> installation folder of the Agent Server computer, 
+ which you can monitor for this HDA activity. The full path of this file 
+ is typically: <span class="AdroitInstallFolder">C:\Program Files\Adroit Technologies\Adroit</span>\opc_cl.hda.log.txt</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.VerMinorOne" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to create a graphic form navigational menu from a TGONavToolbar control</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1121"></a>How to create a graphic form navigational menu from a TGONavToolbar control</h1>
+        <p>This document describes how to use the TGONavToolbar control to create a menu of graphic forms, so that your end- users (operators) can easily move between these graphic forms, which you can arrange in a logical manner and which can reside in any of your configured projects. </p>
+        <h2>Prerequisites</h2>
+        <p class="Notices"><b>Note:</b> This document assumes that the reader has a basic working knowledge of creating and using projects and graphic forms.</p>
+        <ul>
+            <li value="1">You need to create all the projects and their graphic forms and that this menu should provide navigation for. </li>
+            <li value="2">You need to have added the required TGONavToolbar control. For details, see Adding TemplateGONavToolbar controls.</li>
+            <li value="3">This document ONLY&#160;describes how to create or design a menu of graphic forms displayed by the TGONavToolbar control. For details, on the other more advanced configuration options provided by this control, see TemplateGONavToolbar controls.</li>
+        </ul>
+        <p>Click the TGONavToolbar control glyph or Smart Tag () and then click the <b>Browse for Toolbar Graphic Forms…</b> task, which displays the <b>Graphic Form Toolbar Setup</b> menu designing workspace or grid.</p>
+        <p>&#160;</p>
+        <p><a name="Top"></a>This document demonstrates the following tasks that you may need to perform when creating your graphic form navigational menu structure:</p>
+        <p><a href="#Adding_a_menu_item_(Graphic_Form)_">Adding a menu item (Graphic Form)</a>
+        </p>
+        <p><a href="#Adding_a_sub_menu_">Adding a sub menu</a>
+        </p>
+        <p><a href="#Reordering_rows_in_the_grid_">Reordering rows in the grid</a> <![CDATA[ ]]></p>
+        <p><a href="#Adding_a_Project_to_create_GFs_(menu_items)_and_sub_menus">Adding a Project to create GFs (menu items) and sub menus</a>
+        </p>
+        <p><a href="#Using_multiple_selected_rows_to_configure_the_grid">Using multiple selected rows to configure the grid</a>
+        </p>
+        <p><a href="#Adding_portions_of_projects_to_the_navigational_structure">Adding portions of projects to the navigational structure</a>
+        </p>
+        <p><a href="#Testing_your_graphic_form_navigation">Testing your graphic form navigation</a>
+        </p>
+        <h2>Overview of the menu designing grid and its buttons and right click options</h2>
+        <p>The menu designing grid contains the following fields that can be configured as follows:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Graphic Form Name:</b> this is the full name of the graphic form that has been selected for a menu item, which adheres to this naming format: Project Name[.Folder/s Names].Graphic Form Name – so check that this is the required graphic form. If it is not then double click this cell to launch the Graphic Form Selection dialog to browse for the required one.</li>
+            <li class="Bullets" value="2"><b>Toolbar Item Text:</b> this is the label or name displayed by this sub-menu or menu item, in which case it defaults to the name of the graphic form – but you can change it or abbreviate it as needed, by double clicking this cell and editing the text. </li>
+            <li class="Bullets" value="3"><b>Toolbar Item Name:</b> this is the internal name of this sub menu or menu item for this control, which is provided for reference purposes, since you can use this name in any Behaviours or scripts or spiders that you create to refer to and interact with this specific menu item and its associated graphic form. </li>
+        </ul>
+        <p>This also provides the following row of buttons at the bottom, which you can use to define your required graphic form navigation:</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="GFToolbarSetupEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="GFToolbarSetupEx" style="display: none;" />
+        <p class="Notices"><b>Note:</b> All the Add functions always add items to the row below the currently selected row of the grid.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Add GF:</b> this adds a menu item that is linked to a specific graphic form, which is displayed when this menu item is clicked.</li>
+            <li class="Bullets" value="2"><b>Add Menu:</b> this adds a sub-menu that is not linked to a graphic form, but allows you to add structure to your navigation by containing and displaying sub-menu GF items. In this way, you can display the most important GFs and hide the less important ones within sub-menus.&#160; </li>
+        </ul>
+        <p class="BullNotice"><b>Note:</b> You do not need to add menus, since you can make GFs sub items of other GFs if necessary.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Add Project:</b> instead of adding GFs and menu items manually 1 by 1, you can create some or all of your graphic form navigation based on the structure of an entire or portion of a project. </li>
+        </ul>
+        <p class="ListDesc">In this case, any project folders are configured as menus and their graphic forms are configured as their menu items.</p>
+        <p class="Notices"><b>Tip:</b> You can also right click the menu grid and use the <b>Export to CSV</b> and <b>Import from CSV</b> options to bulk configure the menu in an external editor instead of using this grid.</p>
+        <p>You can also use the following buttons to adjust the navigational order of the added items:</p>
+        <p class="Notices"><b>Note:</b> If you select more than one row, then all the selected rows are configured by the button that is clicked.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Left:</b> Changes the displayed hierarchy of the selected row, by moving it up one level, if possible, so if the row was a sub-item of a menu then it is now displayed on the same level as the menu.</li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1"><b>Right:</b> Changes the displayed hierarchy of the selected row, by moving it down one level, if possible, so that this row is displayed as a sub-item of the row immediately above it, whether this is a GF or sub menu.</li>
+            <li class="Bullets" value="2"><b>Move up:</b> Moves the selected row up in the grid.</li>
+            <li class="Bullets" value="3"><b>Move down:</b> Moves the selected row down in the grid.</li>
+        </ul>
+        <p class="Notices"><b>Tip:</b> If necessary, you can delete any unwanted sub menus or menu items from the grid by selecting them and then clicking the <b>Remove</b> button or pressing the DELETE&#160;key.</p>
+        <p>&#160;</p>
+        <p><a href="#Top">Back to top</a><a name="Adding_a_menu_item_(Graphic_Form)_"></a>
+        </p>
+        <h2>Adding a menu item (Graphic Form) </h2>
+        <p>Click the <b>Add GF</b> button to select the GF from the required Project that is displayed in this control when this menu item is clicked.</p>
+        <p>This opens the <b>Graphic Form Selection</b> dialog, which lists all the Projects and their graphic forms that have been created on this Server, so browse to the required graphic form and click on it (the name of the currently selected graphic form is displayed in bold at the bottom of this dialog) and then click the <b>Finish</b> button.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="GFSelnEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="GFSelnEx" style="display: none;" />
+        <p>This adds a row to the grid, which contains the following fields:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Graphic Form Name:</b> this is the full name of the graphic form that has been selected, which adheres to this naming format: Project Name[.Folder/s Names].Graphic Form Name – so check that this is the required graphic form. If it is not then double click this cell to launch the <b>Graphic Form Selection</b> dialog and browse for the required one.</li>
+            <li class="Bullets" value="2"><b>Toolbar Item Text:</b> this is the label or name displayed by this menu item – this defaults to the name of the graphic form – but you can change it or abbreviate it as needed, by double clicking this cell and editing the text. </li>
+            <li class="Bullets" value="3"><b>Toolbar Item Name:</b> this is the internal name of this menu item for this control, which is provided for reference purposes, since you can use this name in any Behaviours or scripts or spiders that you create to refer to and interact with this specific menu item and its associated graphic form. </li>
+        </ul>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddedGFEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="AddedGFEx" style="display: none;" />
+        <p>Now let us test this first menu item, by clicking the <b>Finish</b> button and then clicking the <b>Run</b> graphic form toolbar button, which displays the graphic form how your operators will see and interact with it, which is useful to quickly test if your design has the desired effect. </p>
+        <p>In this case this control is blank, since we have not configured the Browse for a default GF to load task and a single menu item is displayed on the menu bar at the top of this control.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OpGFEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="OpGFEx" style="display: none;" />
+        <p>By clicking this menu item, the associated graphic form should be displayed by this control.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OpenedGFEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="OpenedGFEx" style="display: none;" />
+        <p class="Notices"><b>Note:</b> This control will only display the entire graphic form if it has been manually resized to the same or a larger size. However, if you set the <b>Autosize</b> property of this TGONavToolbar control, then this control will automatically resize itself to display the entire graphic form.</p>
+        <p>Now let us continue designing our graphic from navigation, so click the <b>Design</b> graphic form toolbar button, since you cannot design your graphic form while it is in <b>Run</b> mode – you can only do this in Design mode. </p>
+        <p>Click the TGONavToolbar control glyph or Smart Tag () and then click the <b>Browse for Toolbar Graphic Forms…</b> task to open the menu designing workspace.</p>
+        <p><a name="Adding_a_sub_menu_"></a>
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2>Adding a sub menu </h2>
+        <p class="Notices"><b>Note:</b> If you have not selected a row in the grid then any GF or sub menu is added to the top (first row) of the grid, by default.</p>
+        <p>For the purposes of this example, select the row containing the graphic form we have added first – to add a sub menu below this row.</p>
+        <p>Click the <b>Add Menu</b> button, which opens a dialog to specify the required name of this sub menu – type in the required name, in this case “System” and click <b>OK</b>. </p>
+        <p>This adds another row to the grid, which only provides two fields:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Toolbar Item Text:</b> this is the label or name displayed by this sub menu, which you can change by double clicking this cell and editing the text. </li>
+            <li class="Bullets" value="2"><b>Toolbar Item Name:</b> this is the internal name of this sub menu for this control, which is provided for reference purposes, since you can use this name in any Behaviours or scripts or spiders that you create to refer to and interact with this specific sub menu. </li>
+        </ul>
+        <p class="Notices"><b>Note:</b> The <b>Graphic Form Name</b> field is empty since a sub menu does not have an associated GF.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddedMenuEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="AddedMenuEx" style="display: none;" />
+        <p>If you were to test this control, you will see that it provides a menu with both of these items.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OpMenuEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="OpMenuEx" style="display: none;" />
+        <p>In this case, because we have added the sub menu after the menu item, this control displays two buttons, namely the empty sub menu and the menu item we created previously.</p>
+        <p><a name="Reordering_rows_in_the_grid_"></a>
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2>Reordering rows in the grid </h2>
+        <p>If necessary, select a cell in the row of the System sub menu and click the <b>Move Up</b> button to place this sub menu above the GF.</p>
+        <p>Select a cell in the GF row and click the <b>Right</b> button, to add the GF to the System menu, so that it becomes an item of this sub menu.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ReorderGFEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="ReorderGFEx" style="display: none;" />
+        <p>If you were to test this control, you will see that this provides a sub menu with a single item, namely the System sub menu, which when clicked or hovered over by the mouse pointer, displays the added GF as a menu item.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OpReorderedGFEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="OpReorderedGFEx" style="display: none;" />
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="Adding_a_Project_to_create_GFs_(menu_items)_and_sub_menus"></a>Adding a Project to create GFs (menu items) and sub menus</h2>
+        <p>In this case, we will be adding additional graphic form navigation based on the structure of an existing project, instead of adding its GFs and sub menus manually 1 by 1. In this case, any folders in the project are configured as sub menus and their graphic forms are configured as their menu items.</p>
+        <p>If necessary, open the <b>Graphic Form Toolbar Setup</b> dialog.</p>
+        <p>Click the <b>Add Project</b> button, which displays the <b>Project Selection</b> dialog with a drop down list box containing all the projects configured on this Server. </p>
+        <p>Select the required project, in the case <i>MA Process Suite</i>, and click <b>OK</b>. </p>
+        <p>This displays the <b>Project Item Selection</b> dialog, which displays a tree view showing the layout (hierarchy) of the selected project, which each folder and graphic form is represented by a checkbox.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ProjItemSelnEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="ProjItemSelnEx" style="display: none;" />
+        <p>Only select those folders (which will become menu items) and graphic forms that you want to add to your graphic form navigation, which adheres to the hierarchy of the project. By default all items will be selected and so by clicking <b>OK</b> the entire project is added, as in this case.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddedEntireProjEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="AddedEntireProjEx" style="display: none;" />
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="Using_multiple_selected_rows_to_configure_the_grid"></a>Using multiple selected rows to configure the grid</h2>
+        <p>Select multiple rows either by clicking cells in the required rows while holding down the SHIFT or CTRL keys.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="MultItemSelectionEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="MultItemSelectionEx" style="display: none;" />
+        <p>To remove multiple rows: after selecting the required rows, click the <b>Remove</b> button or press the DELETE keyboard key. </p>
+        <p class="Notices"><b>Tip1:</b> You can also adjust the displayed hierarchy of multiple items, by selecting the required rows and then clicking the <b>Left</b> or <b>Right</b> buttons, as required.</p>
+        <p class="Notices"><b>Tip2:</b> You can also right click the menu grid and use the <b>Export to CSV</b> and <b>Import from CSV</b> options to bulk configure the menu in an external editor instead of using this grid.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="Adding_portions_of_projects_to_the_navigational_structure"></a>Adding portions of projects to the navigational structure</h2>
+        <p>In this case, having removed the AI_A_v1_0 section from the navigation structure we decide that we actually need to re-add it.</p>
+        <p>Select the row where you want to ADD the AI_A_v1_0 section in on the grid. </p>
+        <p class="Notices"><b>Note:</b> All the Add functions add items to the row below the currently selected row of the grid. In this case select the third row, containing the “Templates” menu item, since we want to add the AI_A_v1_0 section before the AI_A_v2_0 menu item.</p>
+        <p>Click the <b>Add Project</b> button and select the <i>MA Process Suite</i> project again from the <b>Project Selection</b> dialog. </p>
+        <p>In the <b>Project Item Selection</b> dialog, uncheck the topmost project checkbox, which is the name of the selected project, in this case "MA Process Suite" - this unchecks everything below it, and then just check the AI_A_v1_0 checkbox, which also checks all the other items below this section.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="PartialProjSelnEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="PartialProjSelnEx" style="display: none;" />
+        <p>Click <b>OK</b>.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="Testing_your_graphic_form_navigation"></a>Testing your graphic form navigation</h2>
+        <p>The navigation layout is now complete and we are ready to view the FINAL result. </p>
+        <p>Click the <b>Finish</b> button and then click the <b>Run</b> graphic form toolbar button, which displays the graphic form how your operators will see and interact with it, which is useful to quickly test if your design has the desired effect. </p>
+        <p>Ensure that you are happy with how your navigation structure works.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

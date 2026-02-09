@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Installing and Setting Up [%=Adroit.AppName%]" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Adr_MH" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Recommended System and/or Adroit Configuration Guide</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1054"></a><a name="kanchor1055"></a><a name="kanchor1056"></a><a name="kanchor1057"></a><a name="kanchor1058"></a><a name="kanchor1059"></a><a name="kanchor1060"></a><a name="kanchor1061"></a>Recommended System and/or <span class="AdroitAppName">Adroit</span> Configuration Guide </h1>
+        <p>The following is the recommended order in which to set up the system.</p>
+        <p class="Notices"><b>Note:</b> When asked 
+ to reboot after installing anything or changing a setting, do so by selecting 
+ the "Reboot later" option, and then shutdown-&amp;-restart the 
+ system manually.</p>
+        <ol>
+            <li class="Numbers" value="1">Install your Operating 
+ System, which should be NT-based from Windows XP onwards, verify that 
+ it has been installed correctly. Contact your network administrator if 
+ this is not the case.</li>
+            <li class="Numbers" value="2"><a href="Network_and_Sharing_Settings.htm">Install 
+ the network</a> card and the required network protocol and verify that 
+ the computer is connected to the network. Contact your network administrator 
+ if this is not the case.</li>
+            <li class="Numbers" value="3">Install all hardware drivers, 
+ including the required <a href="Printers.htm">printer drivers</a> 
+ and verify that the hardware devices are working and that it is possible 
+ to print to all the required printers (both those that are physically 
+ connected to the computer and those that are available over the network). 
+ Contact your network administrator if this is not the case.</li>
+            <li class="Numbers" value="4">Configure the <a href="Personalization_and_Display_Settings.htm">graphics 
+ card</a> with at least a resolution of 800 x 600 with 65535 colors.</li>
+            <li class="Numbers" value="5">Open the System applet 
+ in the Control Panel, optimise performance for background applications 
+ for the Agent Server computer and configure the virtual 
+ memory paging file, keep the Initial and the maximum size the same 
+ to avoid page file fragmentation. Recommended size is 300 MB or at least 
+ twice the physical RAM. Also set system recovery options to reboot automatically 
+ on a fault.</li>
+            <li class="Numbers" value="6">Re-start the operating 
+ system at least once before installing <span class="AdroitAppName">Adroit</span>.</li>
+            <li class="Numbers" value="7">Ensure that the computer 
+ complies with the specified <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Hardware_Requirements.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">hardware</a></span> 
+ and software 
+ requirements, before installing <span class="AdroitAppName">Adroit</span>.</li>
+        </ol>
+        <p><a href="Best_Practices.htm">Best Practices</a>.</p>
+        <h2>Post-<span class="AdroitAppName">Adroit</span> Installation Configuration</h2>
+        <ol start="1">
+            <li class="Numbers" value="1">Verify that the <span class="AdroitAppName">Adroit</span> 
+ installation directory has been added to the path, by typing ‘path’ in 
+ the CMD window.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If the 
+ installation is to form part of a distributed <span class="AdroitAppName">Adroit</span> system with the ability 
+ to share data across the network <b>within 
+ one project</b> (i.e. it is not a simple standalone system) then it 
+ is essential that a number of additional requirements are met. For details, 
+ see <a href="Requirements_for_Distributed_Systems.htm">Requirements for Distributed Systems</a>.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Run the <a href="Adroit_Configuration_Setup.htm"><span class="AdroitAppName">Adroit</span> 
+ setup (psexe.exe)</a>, make the necessary Agent Server and project  
+ settings and add the necessary drivers and their devices.</li>
+            <li class="Numbers" value="3">Install the other required 
+ programs–if Microsoft Office is installed then disable the office FindFast 
+ re-indexing service as this tends to adversely affect the computer’s responsiveness.</li>
+            <li class="Numbers" value="4">Reboot before re/installing 
+ your <b>service pack</b> now, for Windows 
+ 2000 this is SP2. The SP is always the last software to be installed.</li>
+            <li class="Numbers" value="5">Configure security in <span class="AdroitAppName">Adroit</span>, 
+ which makes use of Windows security and presupposes a group-based security 
+ model. For details, see <span class="AdroitAppName">Adroit</span> 
+ Security Configuration.</li>
+            <li class="Numbers" value="6">Configure the Event 
+ viewer, and set the Application event log to wrap, set the size for 
+ 1024k or more.</li>
+            <li class="Numbers" value="7">Now run an <b>empty</b> <![CDATA[ 
+ ]]><span class="AdroitAppName">Adroit</span> Agent Server from the icon, verify that the HASP is present by 
+ opening the Agent Server Agent Server window and looking for the line 
+ that begins with "HASP SN:…". To further determine that status 
+ of the HASP, open a UI window and then edit the LICENSE Hasp agent in 
+ the Configurator, if the HASP is correctly configured then the I/O Status 
+ should be: "Read memo OK".</li>
+            <li class="Numbers" value="8"><span class="AdroitAppName">Adroit</span> provides the facility 
+ to allow operators to specify numerical and textual (alpha-numeric) values 
+ by means of the <span class="AdroitAppName">Adroit</span> virtual keyboard. This is typically required when 
+ you are using touch screen user interfaces that do not provide keyboards. 
+ See <span class="AdroitAppName">Adroit</span> Virtual Keyboard.</li>
+            <li class="Numbers" value="9">If this computer is a cluster 
+ or a backup, copy all the datalog files across and any other duplicated 
+ files, such as mimics and scripts, before you start up to speed up things. 
+ Run the intended <span class="AdroitAppName">Adroit</span> database normally.</li>
+            <li class="Numbers" value="10">Verify that the front-end 
+ devices (PLCs) communications are established and that all the tags on 
+ the mimics are visible (that none of the tags are greyed out) and that 
+ the mimics work correctly and can be navigated between correctly. Ensure 
+ that the datalogs and hence the trends are working correctly.</li>
+            <li class="Numbers" value="11">Set up the Agent 
+ Server service if required, once you have verified that the project 
+ and the Agent Sever are working as required.</li>
+            <li class="Numbers" value="12">Ensure that the Data Execution 
+ Prevention (DEP) is correctly configured, since this can cause the Agent 
+ Server to be unable to read the HASP, at start up causing the Agent Server 
+ to hang or fail and/or to display HASP exceptions in the Agent Server 
+ window. For further details, see <a href="Data_Execution_Prevention_DEP_Configuration.htm">Data 
+ Execution Prevention (DEP) Configuration</a>.</li>
+            <li class="Numbers" value="13">Do a full Re-boot to test 
+ the system.</li>
+            <li class="Numbers" value="14">If your current Agent Server 
+ process is approaching the 1.6GB virtual memory limit, as measured by 
+ Performance Monitor (NOT Task Manager!), then increase the amount of virtual 
+ memory available to this process. For further details, see <a href="../AU_01_04/Increasing_the_virtual_memory_available_to_the_Agent_Server.htm">Increasing 
+ the virtual memory available to the Agent Server</a>.</li>
+        </ol>
+        <p><a href="Issues_related_to_using_Remote_Desktop_to_Run_Adroit.htm">Issues related 
+ to using Remote Desktop to Run <span class="AdroitAppName">Adroit</span></a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

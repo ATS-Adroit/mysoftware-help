@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents|The Script Agent|Configuring the Script Agent" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>To Edit or Configure the Script Agent</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor68"></a><a name="kanchor69"></a>To Edit or Configure the Script Agent</h1>
+        <p><a href="The_Script_Agent.htm">The Script agent</a>.</p>
+        <p><b>NB Read through the </b><a href="Usage_Guidelines_for_Script_Agents.htm"><b>usage guidelines</b></a><b> 
+ of this agent first.</b>
+        </p>
+        <p>See Also: <a href="Interacting_with_the_Agent_Server_via_the_Script_Agent.htm">List of Script 
+ Functions (with usage examples)</a>.</p>
+        <ol>
+            <li class="Numbers" value="1"><a href="../AU_01_04/Editing_an_agent.htm">Edit</a> 
+ an agent of type: <b>Script</b>.</li>
+        </ol>
+        <p class="ListDesc">The <b><a name="kanchor70"></a>Edit Script Agent</b> 
+ dialog box is displayed.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Use the <b>Select 
+ Language</b>, list box, to choose the programming language, in which 
+ the script is written in. The two options are:</li>
+            <li class="ListBullets" value="3">VBScript: refers 
+ to the Microsoft Visual Basic scripting language, the default selection.</li>
+            <li class="ListBullets" value="4">JScript: refers 
+ to the Microsoft Java scripting language</li>
+        </ol>
+        <ol start="3">
+            <li class="Numbers" value="3">Leave <b>Disable 
+ scripting</b>. in its default unchecked state. If checked, then the script will 
+ not run when the Script agent is triggered.</li>
+            <li class="Numbers" value="4">Check <b>Eventlog 
+ errors</b>, to enable the event logging of any script errors. Any compilation 
+ and run time errors will appear in the <span class="AdroitAppName">Adroit</span> eventlog.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> An event 
+ is logged if a script is executed that contains compilation errors, preventing 
+ it from being run. However, this event could result in the event log from 
+ being flooded, therefore ensure that the event log is closely monitored 
+ and that any buggy scripts are either fixed or disabled ASAP!</p>
+        <ol start="5">
+            <li class="Numbers" value="5">Use <a href="Script_Module_Selection.htm">Modules</a> 
+ to add, delete or edit the list of modules that constitute the script. 
+ Each module may contain variable declarations, subroutines and functions. 
+ <br />	If you use the <span class="AdroitAppName">Adroit</span> search path you need only specify the module 
+ name.</li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> When 
+ using a remote User Interface, modules can only be edited and their sub-routines 
+ selected, if the script files have been browsed in using the <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">UNC<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Universal Naming Convention (UNC) is used to specify the location of servers, printers, files and other shared resources on a local area network (LAN). UNC  names begin with \\ (two backslashes) and take the form: \\Computer_name\Share_name</span></span> file notation i.e. \\ComputerName\ShareName\scriptPath&amp;FileName, 
+ otherwise it will use the path on the respective local drive of the remote 
+ computer, to locate the file.</p>
+        <p class="ListNotice"><b>Note2:</b> If you 
+ are using scripts to obtain datetime tags such as systeminfo.currenttime 
+ – the time is now returned as a local time, therefore NO time CONVERSIONS 
+ are REQUIRED.</p>
+        <ol start="6">
+            <li class="Numbers" value="6">Under <b>Main 
+ subroutine:</b> browse the name of the subroutine that will be executed 
+ (when the script is run), from the list of all the subroutines contained 
+ within the specified module files. Only input parameters (ByVal) may be 
+ passed to this subroutine. click <img src="09_320_21x21.gif" NOalt="Images\ebx_-1133937028.gif" style="width: 21;height: 21;" border="0" /> in order to run the main subroutine immediately.</li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> Input 
+ parameters must be comma delimited, text input parameters must be enclosed 
+ in double quotes e.g. "TextParameter" and tags may not 
+ be used as input parameters.</p>
+        <p class="ListNotice"><b>Note2:</b> The 
+ name of this main subroutine CANNOT be the name of the Script agent.</p>
+        <ol start="7">
+            <li class="Numbers" value="7">Specify how this "main" 
+ subroutine is to executed. For details, see <a href="Running_the_Main_Subroutine.htm">Running 
+ the Main Subroutine</a>.</li>
+            <li class="Numbers" value="8">Click the <b>Advanced…</b> button, to display the <a href="Advanced_Script_Agent_Properties.htm">Advanced 
+ Script Agent Properties</a> dialog box, to specify a script initialization 
+ and /or cleanup subroutine.</li>
+            <li class="Numbers" value="9">Click the <b>Update</b><a name="kanchor71"></a>button, which updates the agent with the configuration changes. 
+ Usually this is done before clicking the <b>Details…</b> 
+ button.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If script 
+ modules are unchanged and unedited they will NOT be recompiled UNLESS 
+ you click the <b>Update</b> button.</p>
+        <ol start="10">
+            <li class="Numbers" value="10">The <b>Details…</b> 
+ button, displays the <a href="Script_Agent_Details.htm">Details</a> dialog 
+ box, which gives the status of the main subroutine, by showing any compilation 
+ or run time errors that occur.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

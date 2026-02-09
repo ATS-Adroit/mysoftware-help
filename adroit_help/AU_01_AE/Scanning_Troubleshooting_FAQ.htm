@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Scanning Troubleshooting FAQ</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor967"></a>Scanning Troubleshooting FAQ</h1>
+        <p>This topics provides answers to commonly experienced problems/issues associated with scanning:</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;When the 
+ Agent Server is started, 3 beeps are heard and the Agent Server disappears. 
+ Why does this happen?</p>
+        <p><b>A:</b>&#160;The 3 
+ beeps are produced when a driver is NOT loaded by the Agent Server, which can occur 
+ because of the following reasons:</p>
+        <ul>
+            <li class="Bullets" value="1">the 
+ driver has not been configured and therefore cannot load properly</li>
+            <li class="Bullets" value="2">the 
+ port is already in use or does not exist</li>
+            <li class="Bullets" value="3">some 
+ other resource has run out.</li>
+        </ul>
+        <p>Look for the devices in the <span class="AdroitAppName">Adroit</span> Setup drivers 
+ tab, and check the amount of free disk space. Make sure you do not have 
+ a folder in your installation directory with the same name as the device.</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;When writing 
+ to a register, the value does not change, why?</p>
+        <p><b>A:</b> This can be 
+ due to writing to an input; a driver automatically disallows writing values 
+ to inputs, since they are most likely not supported in that protocol. 
+ </p>
+        <p>In the Modbus driver, for instance you cannot write to digital input 1XXXXX 
+ registers, nor to the analog input 3XXXX registers. </p>
+        <p>A driver in most cases 
+ does not generate an error/alarm, but simply fails the transaction. This 
+ is noticeable by the tag greying out in the mimic, and then becoming healthy 
+ on the next scan.</p>
+        <p class="Notices"><b>Note:</b> Whenever you perform a write using any polled 
+ (not telemetry) driver, <span class="AdroitAppName">Adroit</span> automatically queues that item/task for 
+ reading afterwards</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;The driver software 
+ does not run, and I do not get any messages explaining what is wrong. 
+ Where do I look now?</p>
+        <p><b>A:</b> The first place 
+ to look in event of an error is the Windows event log. Look at the last 
+ few entries in the <b>Application</b> 
+ and <b>System</b> event logs for more 
+ details on a problem. Often a problem is the result of an error reported 
+ a little further back in the log.</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;An error 
+ message appears about a buffer overrun in the protocol driver monitor 
+ just before the comms dies. What does this mean?</p>
+        <p><b>A:</b>&#160;Buffer 
+ overruns and underruns are caused when the buffer on the serial card overflows. 
+ This is because character reception and transmission relies on the CPU 
+ emptying the buffer as the computer receives characters in the line. </p>
+        <p>If 
+ the computer is busy with some other task (which happens all the time 
+ in windows), the buffer is not serviced often enough. The solution is 
+ to use a card with a buffered UART (FIFO buffer). This provides a 16-byte 
+ buffer as opposed to the 1-byte buffer common in older cards.</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;I have 
+ a serial card with a Buffered UART of FIFO but I still get overruns, why?</p>
+        <p><b>A:</b>&#160;The serial 
+ card driver for Windows may not have detected the FIFO. Use the Ports 
+ applet in Control Panel to enable the use of the FIFO. </p>
+        <p>Delete the affected 
+ ports, and re-boot. The operating system will auto-detect the FIFO on 
+ the port and add it in. If it is not added in, you may edit the port settings 
+ and go to the advanced dialog which allows changing IRQ’s etc. Check the 
+ box at the bottom of the dialog, in order to enable the FIFO.</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;I get error 
+ messages such as parity error or framing error in the driver monitor window, 
+ followed by communications failure.</p>
+        <p><b>A:</b>&#160;In this 
+ case, characters on the line are being corrupted or badly sent. To correct 
+ the problem, lower the baud-rate on both devices.</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;The (any 
+ serial) driver is not running. When I run the Agent Server, the message 
+ "Error load completion agent [BOILER1]." appears. Although no 
+ driver or hardware configuration was changed, there is no longer any communication.</p>
+        <p><b>A:</b>&#160;Make sure 
+ the mouse is plugged into the correct port. If the mouse is on the port 
+ the driver would use, the mouse will work but the <span class="AdroitAppName">Adroit</span> driver will not. 
+ To correct this problem, either swap the mouse back and re-boot, or re-configure 
+ the driver to use the free port, and re-start <span class="AdroitAppName">Adroit</span>.</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;Why does scanning not work for certain Analog agents?</p>
+        <p><b>A:</b>&#160;Please ensure that you scan the raw value slot and NOT the Engineering value as this can cause scanning to fail because the scanned value is out of range.</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;When I access a device agent, all I 
+ receive are event log entries about the failed device and the need to 
+ restart the Agent Server.</p>
+        <p><b>A:</b>&#160;This indicates that 
+ a device has not been attached at startup and as a result, its scanning 
+ configuration is not loaded. This occurs for intermittent Windows/PC resource/device 
+ unavailability/conflict at the time of Agent Server startup. </p>
+        <p>The Agent Server needs to be 
+ restarted to gain access to these resources or to sort out a resource 
+ conflict; for example, your RAS connection (or other software) is still 
+ active which is using the same COM port as your device configuration.</p>
+        <p>&#160;</p>
+        <p><b>Q:</b>&#160;When I install a protocol driver, it 
+ is copied without errors but does not appear in the "Available protocol 
+ drivers" list.</p>
+        <p><b>A:</b>&#160;A number 
+ of our <span class="AdroitAppName">Adroit</span> drivers rely on 3rd party components being installed, if 
+ they are not, then you get the above symptoms. This is because the driver 
+ available list in setup uses the driver, which also uses the missing 3rd 
+ party component. </p>
+        <p>Examples are: Allen Bradley RSLINX, Eagle, Lonworks, 
+ Modbus plus (+), Siemens H1, Siemens L2 and Siemens S7 Functions among 
+ others. In such cases, the required hardware and accompanying software 
+ must be installed (preferably before the driver).</p>
+        <p class="Notices"><b>Note:</b> Many network (Ethernet, 
+ H1 and TCP/IP) drivers also require the installation of the Windows TCP/IP 
+ protocol. If in doubt, open the relevant driver documentation file found 
+ in your <span class="AdroitAppName">Adroit</span>system folder for more information.</p>
+        <p class="Notices">&#160;</p>
+        <p><b>Q:</b>&#160;Communication 
+ to the PLC is lost intermittently.</p>
+        <p><b>A:</b>&#160;This is 
+ a possible driver device failure. Reinstall or update with a new driver.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

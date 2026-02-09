@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>AcknowledgeAtStartup</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1391"></a>Active Link Monitoring</h1>
+        <p class="Notices"><b>WARNING:</b> Registry settings are recorded as ADVANCED 
+ information and should not be used unless you understand exactly how these 
+ will affect the operation of your <span class="AdroitAppName">Adroit</span>&#160; installation, IF YOU HAVE ANY 
+ DOUBTS, PLEASE CONTACT <span style="text-transform: uppercase;"><span class="AdroitAppName">Adroit</span></span> SUPPORT, BEFORE CHANGING THE REGISTRY.<br /><br /><b>PLEASE NOTE:</b> When working on a 64 bit operating system, remember to add  "\Wow6432Node" to the path of each registry setting after "\SOFTWARE", for instance: "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Adroit Technologies". 
+</p>
+        <p>The following Active Link Monitoring registry settings can remedy or troubleshoot slow (or unresponsive) Agent Servers and/or clients, which may occur when:</p>
+        <ul>
+            <li class="Bullets" value="1">there are a large number of clients connected to an Agent Server AND/OR</li>
+            <li class="Bullets" value="2">there is a misbehaving network and/or clients resulting in an inability to effectively send subscriptions to the Agent Server.</li>
+        </ul>
+        <p>These (REG_)DWORD registry settings need to be added to the HKEY_LOCAL_MACHINE\SOFTWARE\Adroit Technologies\Adroit\Workgroup\WG.INI registry key:</p>
+        <p><b>ActiveLinkMonitor</b>: when set to a value of 1, this enables an Agent Server’s link manager to actively monitor connections to remote Agent Servers instead of simply relying on broadcasts from the remote Agent Server to assume that the connection is healthy.</p>
+        <p>This setting works hand in hand with the <b>KillSlowClients</b> registry setting, for instance, if the remote Agent Server has <b>KillSlowClients</b> enabled, then the remote Agent Server will force a disconnection to the local (this) Agent Server should the remote Agent Server be unable to send subscriptions to the local (this) Agent Server.</p>
+        <p>The <b>ActiveLinkMonitor</b> setting allows the local Agent Server to recognise this closed channel within 5 seconds - instead of the legacy 30 to 45 seconds that potentially causes secondary issues with the local Agent Server and any clients connected to it. The default value is off (0).</p>
+        <p><b>KillSlowClients</b>: when set to a value of 1, this instructs the Agent Server to close the channel to the remote client if it is unable to send a subscription to the remote client. If this happens, an Agent Server side debug event message is generated.</p>
+        <p>This setting has the effect of disconnecting misbehaving clients and thereby keeping the local server free of delays and lockups that have the potential to cause failures in the local Agent Server. The default value is off (0).</p>
+        <p>This setting is typically used in conjunction with the <b>ActiveLinkMonitor</b> setting.</p>
+        <p>&#160;</p>
+        <p>The following registry settings can provide related informative/warning events:</p>
+        <p class="Notices"><b>Note:</b> These events are only displayed if you have checked the <b>Enable logging of agent server system events</b> checkbox in the Advanced Agent Server Configuration dialog of the Config Editor or PSEXE.</p>
+        <p><b>ShowSlowClientEvents</b>: when set to a value of 1, this will display Agent Server side system events when slow clients are detected, which simply means that the remote client is unable to deal with the speed of subscriptions being sent to it by the Agent Server.  The default value is off (0).</p>
+        <p><b>MonitorSubsChannelsize</b>: we suggest setting this to a decimal value of 100000, in this case an event is generated by an Agent Server client every time the number of bytes differs by 100,000 from the previously displayed event, whether the number of bytes is increasing or decreasing. These client side system events provides client side monitoring of the incoming subscription pipe showing how full this pipe is.</p>
+        <p class="Notices"><b>WARNING:</b> Improper use of this setting could overload the event system thereby further crippling the ability of the client to deal with subscriptions!</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

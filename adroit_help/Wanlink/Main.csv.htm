@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_Wanlink" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Main.csv</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2227"></a>Main.csv</h1>
+        <p>This file stores the specific configuration of all the servers within 
+ the WanClient. </p>
+        <p>
+            <img src="image/ebx_307265723.gif" NOalt="image\ebx_307265723.gif" style="width: 500px;height: 147px;border-style: none;" width="500" height="147" border="0" />
+        </p>
+        <p>The columns, in the order that they appear in the file:</p>
+        <ol>
+            <li class="Numbers" value="1"><b>ID 
+ Number:</b> This stores a unique number that identifies the server. 
+ </li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> This 
+ number must never be greater than the number in the first column of the 
+ System.CSV file. </p>
+        <ol start="2">
+            <li class="Numbers" value="2"><b>Server 
+ Enabled:</b> This stores the enabled status of the server, if the server 
+ is enabled this is 1, otherwise if the server is disabled this is 0.</li>
+            <li class="Numbers" value="3"><b>Server 
+ Deleted:</b> This stores the deleted status of the server, if the server 
+ is deleted this is 0, otherwise if the server is not deleted this is 1. 
+ </li>
+        </ol>
+        <p class="ListDesc">If the server is deleted then it will be added to the 
+ list of servers to be recovered, until the <b>Pack 
+ Database</b> file menu item is executed, after which it is permanently 
+ removed from this file.</p>
+        <ol start="4">
+            <li class="Numbers" value="4"><b>Server 
+ Title:</b> This stores the name that has been given to the server, 
+ which must not more than 90 characters in length.</li>
+            <li class="Numbers" value="5"><b>Server 
+ Database:</b> This stores the name of the CSV file, that is also stored 
+ in the <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Database_Folder.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">database folder</a></span>. 
+ </li>
+        </ol>
+        <p class="ListDesc">This file stores all the tag groups and tag links that 
+ belong to the server. </p>
+        <ol start="6">
+            <li class="Numbers" value="6"><b>IP 
+ Address:</b> This stores the IP address of the WanClient computer or 
+ its computer name (provided that the network has a LMHOSTS file or a WINS 
+ server to resolve IP addresses from computer names).</li>
+            <li class="Numbers" value="7"><b>Port:</b> 
+ This stores the IP port that is used by Wanlink for communications and 
+ this can only be set to 51114.</li>
+            <li class="Numbers" value="8"><b>Retries:</b> 
+ This stores the number of times that communications are to be reattempted 
+ when the communications to this WanServer fail.</li>
+            <li class="Numbers" value="9"><b>Ping 
+ Period:</b> This stores the period in seconds to wait after the communications 
+ to this WanServer fail before the WanClient will retry to establish communications.</li>
+            <li class="Numbers" value="10"><b>Connect 
+ Timeout:</b> This is not being used.</li>
+            <li class="Numbers" value="11"><b>Transaction 
+ Timeout:</b> This stores the time in seconds before a requested transaction 
+ made to the server fails. </li>
+        </ol>
+        <p class="ListDesc">The default value of 5 is required for fast networks 
+ and a value from 15 – 20 can be used for slower networks.</p>
+        <ol start="12">
+            <li class="Numbers" value="12"><b>Beep 
+ Enabled:</b> This stores the Beep status of the server, which is configured 
+ from the Enable Beep menu item from the Diagnostics menu.</li>
+        </ol>
+        <p class="ListDesc">If the server is beep enabled this is 1 and the server 
+ will beep every communication cycle, otherwise if the server is beep disabled 
+ this is 0, and the server will be silent.</p>
+        <ol start="13">
+            <li class="Numbers" value="13"><b>Disk 
+ Log Enabled:</b> This stores the Disk Log status of the server, which 
+ is either configured from the Enable Disk Log menu item from the Diagnostics 
+ menu or directly within the wanserver.ini file. </li>
+        </ol>
+        <p class="ListDesc">To enable debug disk logging set this to 1 and a file 
+ called "wanserverlog.txt", is generated in the <span class="AdroitAppName">Adroit</span> folder, 
+ that contains a shadowed list of the transactions that are recorded in 
+ the WanServer window, for troubleshooting purposes. </p>
+        <p class="ListDesc">Otherwise, set this to 0 to disable debug logging for 
+ this server.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

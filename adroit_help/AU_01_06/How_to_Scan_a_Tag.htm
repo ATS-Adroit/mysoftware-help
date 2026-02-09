@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Scanning Tags (Communicating Values)|Scanning Values" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to Scan a Tag</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1951"></a>How to Scan a Tag</h1>
+        <p><span class="AdroitAppName">Adroit</span> allows one or more <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> 
+ (values) to be communicated or scanned to a device, which is typically 
+ a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">FED<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">front-end device, which is a device that is accessed directly by the user, such as a PLC or RTU.</span></span>. </p>
+        <p class="Notices"><b>Note:</b> You need to create a device of the required protocol driver for each FED that uses this protocol driver. </p>
+        <p><a name="kanchor1952"></a>For an example of scanning tags, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Scanning_Example.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Scanning Example</a></span>.</p>
+        <p class="Notices"><b>Note:</b> If you are 
+ scanning this tag from a remote UI, the following ADDITIONAL REQUIREMENTS 
+ apply: <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Remote_Scanning_Configuration.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Remote Scanning Requirements</a></span>.</p>
+        <h2>To scan a process value:</h2>
+        <p>&#160;</p>
+        <p>Open the Agent Configuration dialog, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgentConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <p class="Notices"><b>Tip:</b> This also opens the <span class="AdroitAppName">Adroit</span> Classic UI in the <span class="VIPAppName">SmartUI</span> Designer, which provides agent-specific menu functions,  such as importing and exporting agents.</p>
+        <div MadCap:targetName="AgentConfigurator" style="display: none;">
+            <p>In the <span class="VIPAppName">SmartUI</span> Designer:</p>
+            <p>Click the <b>Open Configurator</b> tool in the <b>Agent Server</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+            <p class="Notices"><b>Note:</b> When there is more than one <span class="AdroitAppName">Adroit</span> datasource available, a list is provided to select which  Agent Server to configure. </p>
+            <p>The <b>Agent Configuration</b> 
+ dialog is displayed within the Classic UI.</p>
+        </div>
+        <p>Select the required agent in the Agent Configurator, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SlctAgtInConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="SlctAgtInConfigurator" style="display: none;">
+            <ol>
+                <li class="UpperLetters" MadCap:conditions="" value="1">Ensure that the <b>Basic</b>, 
+ <b>Advanced</b> and/or <b>System</b> 
+ checkbox is checked to display the required agent type in this list. These 
+ checkboxes use these default agent groups to help you select the required 
+ agent quickly.</li>
+            </ol>
+            <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> If no 
+ checkboxes are selected, then all the available agent types will be displayed 
+ in the <b>Type</b> list box. This is 
+ useful if the required agent type has not been categorised.</p>
+            <ol start="2">
+                <li class="UpperLetters" MadCap:conditions="" value="2">Click the down arrow in 
+ the <b>Type</b> drop down list</li>
+                <li class="UpperLetters" MadCap:conditions="" value="3">Locate the required agent 
+ type, using the scroll bar and click on it.</li>
+            </ol>
+            <ol start="4">
+                <li class="UpperLetters" MadCap:conditions="" value="4">In the <b>Agents</b> 
+ list, click on the name of the required agent (if necessary scroll down 
+ to locate this).</li>
+            </ol>
+            <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> Right-click 
+ to display a menu of commands to perform upon the selected agent(s).</p>
+        </div>
+        <ol>
+            <li class="Numbers" value="1">Click the <b>Scan…</b> 
+ button to display the <b><a name="kanchor1953"></a><a name="kanchor1954"></a>Tag scanning configuration</b> 
+ dialog.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> You can 
+ also right-click the agent and select the <b>Scan…</b> menu item.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Click on the <b>Device</b> 
+ list and select the name of the required device, from the list of devices 
+ configured in the <span class="AdroitAppName">Adroit</span> Setup utility. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click here for more details 
+ about Devices:</a><div MadCap:targetName="t6" style="display: none;"><p class="ListNotice"><b>PLEASE NOTE:</b> 
+ If a front-end device is off-line, un-available or disconnected, then 
+ its associated device should be stopped, since <span class="AdroitAppName">Adroit</span> will continue to 
+ attempt to resume communications and this will impede the adding and removing of 
+ <span class="AdroitAppName">Adroit</span> tags to or from its Device agent.</p><p class="ListNotice"><b>Note1:</b> If this 
+ selected device is used for the first time, then the "<b>Device 
+ Agent does not exist</b>" message box is displayed, click the 
+ <b>Yes</b> button.</p><p class="ListNotice"><b>Note2:</b> It is 
+ also possible to change the active device in this list by using the UP 
+ and DOWN arrow cursor keys.</p></div></li>
+        </ol>
+        <ol start="3">
+            <li class="Numbers" value="3">If you need to specify 
+ the required agent in the <b>Agent</b> 
+ field, then click the browse <img src="../COMMON/BrowseTag.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" /> button to use the <b>Agent 
+ and slot to scan</b> dialog to specify the required agent and its required 
+ slot too, if necessary. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Browsing for agents 
+ and their slots</a></span>. 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click here for more details about specifying Agents:</a><div MadCap:targetName="t5" style="display: none;"><p class="ListNotice"><b>Note1:</b> This 
+ field will automatically be specified by the name of the agent selected 
+ when you click the <b>Scan…</b> button.</p><p class="ListNotice"><b>Note2:</b> If the 
+ <b>Agent and slot to scan</b> dialog 
+ is used to browse for another type of agent, then the required slot MUST 
+ be selected using the <b>Slot</b> field 
+ instead.</p><p class="ListNotice"><b>WARNING:</b> The 
+ same tag CANNOT be scanned TWICE i.e. it cannot be added to this or any 
+ other Device agent again. If necessary, click the <b>Find</b> 
+ button to the right of this field to locate this agent in the list of 
+ scanned tags for this device, to determine if the required tag (agent.slot) 
+ has already been added to this Device agent.</p><p class="ListNotice"><b>Tip:</b> Before 
+ locating this tag, it is recommended to sort the list of scanned tags 
+ using the <b>Tag</b> column, by clicking 
+ on its column heading.</p></div></li>
+            <li class="Numbers" value="4">If necessary, click in 
+ the <b>Slot</b> field and select the 
+ required slot from the displayed list of available slots.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If the 
+ required slot is a header slot then check the <b>Header 
+ slots</b> checkbox to display all the header slots for this agent in 
+ this list. Normally this option should remain unchecked so that this <b>Slot</b> list is not overly cluttered.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">Specify the address (location) 
+ within the FED (<b>Device</b>) that the 
+ specified <b>Slot</b> should be communicated 
+ to/from in the <b>Address</b> field, 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t4" style="display: none;"><ul start="7"><li class="ListBullets" value="7">Typically, this 
+ will be an address in a front-end device, in which case click the <b>Details…</b> button for a list of valid 
+ address ranges. This is also described in documentation installed with 
+ its driver. For details, see <a href="../AU_01_02/Displaying_Protocol_Driver_Device_Documentation.htm">Displaying 
+ Driver Documentation</a>.</li><li class="ListBullets" value="8">If this is an OPC 
+ server, then click the browse button <img src="../COMMON/BrowseTag.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" /> to the right of this 
+ field and use the <b>OPC Item Browser for 
+ all OPC Servers</b> to locate and specify the address of the required 
+ OPC item. For details, see <a href="Browsing_for_OPC_Item_Addresses.htm">Browsing 
+ for OPC Item Addresses</a>.</li></ul><p class="ListNotice"><b>Note:</b> This 
+ field can also be used to specify the slot of another agent. For details, 
+ see <a href="Scanning_from_a_Slot_of_Another_Agent.htm">@scanning</a>.</p><p class="ListNotice"><b>WARNING:</b> The 
+ same address CANNOT be scanned to the same Device agent. If necessary, 
+ click the <b>Find</b> button to the right 
+ of this field to locate this address in the list of scanned tags for this 
+ device, to determine if this specified address has already been added 
+ to this Device agent.</p><p class="ListNotice"><b>Tip:</b> Before 
+ locating this address, it is recommended to sort the list of scanned tags 
+ using the <b>Address</b> column, by clicking 
+ on its column heading.</p></div></li>
+            <li class="Numbers" value="6">If necessary, specify the 
+ time, in milliseconds, which will elapse before this value is communicated 
+ to or from this device in the <b>Scan rate 
+ (ms)</b> field. The default is 4 seconds. For configuration details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Scanning_Interval_Configuration_Tips.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Scanning interval configuration tips</a></span>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> This 
+ field should <b>ONLY</b> be configured 
+ for <b>POLLED devices</b>, since event-based 
+ or telemetry devices do not use setting.</p>
+        <ol start="7">
+            <li class="Numbers" value="7">If necessary, specify the 
+ deadband limit for this slot (value) in the <b>Deadband</b> 
+ field. Any CHANGE in value LESS than this deadband limit will NOT be communicated. 
+ By default, no deadband limit is applied. For configuration details, see 
+ <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Scanning_Deadband_Configuration_Tips.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Scanning Deadband Configuration Tips</a></span>.</li>
+        </ol>
+        <p class="ListNotice"><b>WARNING:</b> Do 
+ not use a deadband when scanning tags that contain state information, 
+ as information will be lost when decoding to binary format.</p>
+        <ol start="8">
+            <li class="Numbers" value="8">
+                <p>If you do NOT want this 
+ value from being changed (updated) by the <b>Device</b> 
+ (FED), then check the <b>Input disabled</b> 
+ checkbox. By default this is OFF (cleared).</p>
+                <p class="Notices"><b>Note:</b> This 
+ setting does not prevent this value from changing the value in the FED.</p>
+            </li>
+            <li class="Numbers" value="9">
+                <p>If you want this value 
+ to be written to the <b>Device</b> to 
+ change the value in the FED, then check the <b>Output 
+ enabled</b> checkbox. By default this is OFF (cleared).</p>
+                <p class="Notices"><b>Note:</b> While this 
+ setting does not prevent this value from being updated by the FED it does prevent this value from being demand scanned. For more details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Demand_Scanning.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Demand Scanning</a></span>.</p>
+            </li>
+            <li class="Numbers" value="10">
+                <p>If you want an initial value to be written to the <b>Device</b> to 
+ change the value in the FED, at startup, or after any communications failure and subsequent recovery, then check the <b>Output 
+ initialise</b> checkbox. By default this is OFF (cleared).</p>
+                <p class="Notices"><b>Note:</b> Some <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">NASA<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">This stands for New Adroit Scanning Architecture and describes a sub-class of protocol drivers that are specifically written to take advantage of the scanning improvements and enhancements provided by NASA, such as demand scanning and highly optimised scan tasks.</span></span> devices, like OPCUA, do not support the output initializing of scanned values and so this checkbox will be disabled for these devices.</p>
+            </li>
+            <li class="Numbers" value="11">
+                <p>If you want a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">NASA<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">This stands for New Adroit Scanning Architecture and describes a sub-class of protocol drivers that are specifically written to take advantage of the scanning improvements and enhancements provided by NASA, such as demand scanning and highly optimised scan tasks.</span></span> device to only communicate to this tag while it is being used then check the <b>Demand scan </b> checkbox. By default this is OFF (cleared).</p>
+                <p class="Notices"><b>Note:</b> This checkbox is ONLY&#160;available for <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">NASA<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">This stands for New Adroit Scanning Architecture and describes a sub-class of protocol drivers that are specifically written to take advantage of the scanning improvements and enhancements provided by NASA, such as demand scanning and highly optimised scan tasks.</span></span> devices when global setting <b>Demand scanning enabled</b> checkbox is checked in the Driver Configuration page of the Config Editor. For more details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Demand_Scanning.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Demand Scanning</a></span>.</p>
+            </li>
+            <li class="Numbers" value="12">Click the <b>Scan</b> 
+ button, to add this configured scan point to the list for the selected 
+ <b>Device</b>.</li>
+            <li class="Numbers" value="13">Ensure that the <b>Started</b> 
+ option at the top of this dialog, is currently selected and if not, then 
+ select it to start this device.</li>
+        </ol>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click here for more details that describe how to work with 
+ the list of scanned items:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>The list contains the <b>IO flags</b> column which displays the configuration of the scanning-related checkboxes (Input disabled, Output 
+ enabled and Output 
+ initialise) as a bit mask. For more details, see <a href="IO_Flags.htm">IO Flags</a>.</p>
+            <p class="Notices"><b>Note1:</b> Each of 
+ these columns of the list of scanned items can be used to sort this list 
+ alphanumerically, by clicking on the respective column heading to either 
+ display the sort ascending <img src="06_007_sort_ascending.gif" NOalt="Images\ebx_-1754336040.gif" style="height: 12px;width: 12px;" width="12" height="12" border="0" /> or sort descending <img src="06_007_sort_descending.gif" NOalt="Images\ebx_-195425356.gif" style="height: 12px;width: 12px;" width="12" height="12" border="0" /> icon to the right of this column heading (these icons ONLY appear when you click the column heading).</p>
+            <p class="Notices"><b>Note2:</b> Remove 
+ scanned values from this list by selecting the unwanted tag(s) in the 
+ list and clicking the <b>Unscan</b> button. 
+ For details, see <a href="Unscanning_Tags.htm">Unscanning 
+ Tags</a>.</p>
+            <p class="Notices"><b>Tip1:</b> By selecting 
+ a scanned tag from the list you can change the scanning-related checkboxes "live" 
+ for the currently selected item in the <b>Currently 
+ scanned tags</b> list i.e. there is no need to unscan the item, change 
+ these settings and then rescan it. Although the device needs to be stopped 
+ and restarted, for these changes to take effect.</p>
+            <p class="Notices"><b>Tip2:</b> Although 
+ the increased size of this dialog allows more scanned tags to be displayed 
+ in the list, this dialog can also be manually resized to display even 
+ more tags, if required.</p>
+            <p class="Notices"><b>Tip3:</b> Double clicking 
+ a scanned tag in the list opens the configuration dialog of this agent.</p>
+        </div>
+        <p class="Notices">&#160;</p>
+        <p>For more information on scanning values, the various methods and destinations 
+ and optimization tips, see <a href="Scanning_Values.htm">Scanning 
+ Tags</a>.</p>
+        <p>For further details regarding the communication process, such as the 
+ need for or function of Devices, see the <a href="Scanning_Overview.htm">Scanning 
+ Overview</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

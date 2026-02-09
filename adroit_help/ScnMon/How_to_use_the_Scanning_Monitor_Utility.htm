@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_ScanMon" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to use the Scanning Monitor Utility</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor708"></a><a name="kanchor709"></a><a name="kanchor710"></a>How to Use the Scanning Monitor Utility</h1>
+        <p>The <b>Scanning Monitor</b> utility 
+ is particularly useful in tuning polled driver's polling intervals. However, 
+ OPC Server devices not in "sync-poll mode", <b>and 
+ telemetry applications will find this utility less useful.</b> For 
+ details of the user interface of this utility, see <a href="Monitoring_Scanning_in_Adroit.htm">Scanning 
+ Monitor Utility</a>.</p>
+        <p class="Notices"><b>Tip:</b> The <b>Scanning Monitor</b> utility can generate a report of your current scanning configuration of an Agent Server to indicate how well it has been configured. For details, see <a href="Creating_and_using_the_Scan_Configuration_Report.htm">Creating and using the Scan Configuration Report</a>.<br /></p>
+        <p>After understanding the user interface of the program and selecting 
+ the required device from the <a href="Devices_within_Selected_Agent_Server_Database.htm">Device 
+ List</a>, one really needs to only look at 2 things, the "effective" 
+ scan rate (rate at which the driver actually returns data), and the polling 
+ rate you intended it to use, these 2 values are in column 5 and 6 of the 
+ <a href="Scan_Jobs_within_Selected_Devices.htm">Scan Job List</a>.</p>
+        <p>If the effective rate is consistently greater than the intended rate, 
+ you have a scanning backlog.</p>
+        <p>Find the scan jobs with the shortest scan-times, as you select each 
+ one, check how many tags (scan points) are scanned in that task in the 
+ <a href="Tags_within_Selected_Scan_Jobs.htm">Tag List</a>, which 
+ is immediately below the scan job list.</p>
+        <p>Consider the communications bandwidth cost of having a task with only 
+ one I/O point; at this point one can make the scan-interval of an expensive 
+ point longer to remedy this.</p>
+        <p>If all tasks are responding slower than their intended intervals, then 
+ a re-evaluation of all the scan-times is needed. For further details concerning 
+ the scanning optimization benefit of grouping scanned data, see <a href="../AU_01_06/Scanning_Optimization.htm">Scanning 
+ Optimization Tips</a>.</p>
+        <p>Since the right-click commands within the 
+ <a href="Scan_Jobs_within_Selected_Devices.htm">Scan Job List</a> 
+ that change scan rates are not permanent (in other words saving the <span class="AdroitAppName">Adroit</span> agent  database will not save these online changes), it is necessary to perform 
+ the following procedure to make any changes permanent:</p>
+        <h2>To make permanent scan rate changes:</h2>
+        <ol>
+            <li class="Numbers" value="1">Backup your <span class="AdroitAppName">Adroit</span> agent database 
+ file (.WGP). For details, see <a href="../AU_01_02/Backing_Up_Adroit_Database_.WGP_Files.htm">Backing 
+ Up Agent Database Files</a>.</li>
+            <li class="Numbers" value="2"><a href="../AU_01_06/Starting_or_Stopping_Devices.htm">Stop 
+ the required device agent</a>, and wait a few seconds for any backlogged 
+ polling to cease.</li>
+            <li class="Numbers" value="3"><a href="../AU_01_04/To_Export_an_Agent_Type.htm">Export 
+ the <b>Device</b> agent type</a>, i.e. 
+ click the <b>No</b> button for all the 
+ other preceding agent type message boxes.</li>
+            <li class="Numbers" value="4">In the <b>Choose 
+ file to contain conversion</b> dialog, select the location to save 
+ the Device agent files, it is recommended to leave this as the default 
+ location of the <span class="AdroitAppName">Adroit</span> system folder, typically <span class="AdroitInstallFolder">C:\Program Files\Adroit Technologies\Adroit</span> and save the ‘Device.CSV’ file, then save the scan 
+ files for each of the device agents, of the name format DeviceName-SCAN.CSV, 
+ where DeviceName is the name of the Device agent.</li>
+            <li class="Numbers" value="5">When the next agent type 
+ message box is displayed, click <b>Cancel</b>, 
+ to stop the exporting process.</li>
+            <li class="Numbers" value="6">In either a CSV or text 
+ editor, open the DeviceName-SCAN.CSV, where DeviceName is the name of 
+ the Device agent that the tags have been scanned to. This file will contain 
+ four columns or comma-separated values, from left to right as follows: 
+ Address, agent.slot, Scanning Interval (period), Deadband</li>
+            <li class="Numbers" value="7">Increase the scan-times 
+ on all I/O points, particularly those that are not fast moving within 
+ your process. You will want to increase all of your tags poll rates up 
+ until the average "effscanrate" value, or increase most of them 
+ to double that value and leave just a few scanning quickly.</li>
+            <li class="Numbers" value="8">Save and close this CSV 
+ file.</li>
+            <li class="Numbers" value="9">In the User Interface, 
+ <a href="../AU_01_04/Editing_an_agent.htm">edit the required 
+ <b>Device</b> agent</a>.</li>
+            <li class="Numbers" value="10"><a href="../AU_01_06/Unscanning_Tags.htm">Remove 
+ all the scan points</a> from this device (unscan them).</li>
+            <li class="Numbers" value="11">Click <b>Import…</b> 
+ button and browse in the edited Devicename-SCAN.CSV file, where DeviceName 
+ is the name of the selected Device agent from step 4.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If messages 
+ are displayed during the importing of this scanning configuration, see 
+ <a href="../AU_01_06/Common_Reasons_for_Scanning_Import_Failure.htm">Common 
+ Reasons for Scanning Import Failure</a> for the possible reasons.</p>
+        <ol start="12">
+            <li class="Numbers" value="12"><a href="../AU_01_06/Starting_or_Stopping_Devices.htm">Start 
+ this device agent</a>.</li>
+            <li class="Numbers" value="13">Verify that the communications 
+ are still fine and all I/O tags work as expected.</li>
+            <li class="Numbers" value="14">Save your <span class="AdroitAppName">Adroit</span> agent database 
+ file (.WGP) again and finally perform a full test by restarting the Agent 
+ Server to verify proper loading etc.</li>
+        </ol>
+        <p>If going through all of the above does not 
+ help, you may have a stuck continuous output. For details on using the 
+ Scanning Monitor to locate this, see <a href="Troubleshooting_Continuous_Writing.htm">Troubleshooting 
+ Continuous Writing</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

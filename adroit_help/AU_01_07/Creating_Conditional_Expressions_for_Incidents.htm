@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Alarming Agents|Additional Alarming Configuration" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Creating Conditional Expressions for Incidents</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor182"></a><a name="kanchor183"></a><a name="kanchor184"></a><a name="kanchor185"></a><a name="kanchor186"></a>Creating Conditional Expressions for Incidents</h1>
+        <p>Often <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">incidents<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">signified by AgentName.AlarmType, which indicate that this agent has gone into the condition or state specified by this alarm type. Each incident can either be an alarm (requiring action) or an event (not requiring action).</span></span><a name="kanchor187"></a><a name="kanchor188"></a> 
+ are set off in a chain reaction that distracts your operators as they 
+ only highlight a problem that has already been identified. First-out or SOE&#160;(Sequence Of Events) alarming strives to ensure that each incident is unique and is NOT caused by a 
+ condition that your operators have already been alerted to.</p>
+        <p>You can implement first-out alarming by creating conditional expressions 
+ for your related incidents, so that if an incident becomes <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">active<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">the monitored condition of this incident (alarm/event) is still in effect and has not yet returned to its normal operating state.</span></span>, 
+ it ONLY enters your alarming system WHEN its conditional expression is 
+ SUCCESSFUL. In this way you can disregard the incidents that echo existing 
+ problems, so that your operators can focus on the real issues at hand.</p>
+        <p class="Notices"><b>Note1:</b> If the 
+ RESULT of the conditional expression for an incident is a NULL or zero 
+ value then the incident NEVER enters your alarming system, so your operators 
+ will NOT know about it.</p>
+        <p class="Notices"><b>Note2:</b> If BOTH 
+ a delay and a conditional expression is specified for an incident, then 
+ the conditional expression is evaluated BEFORE and AFTER the specified 
+ delay expires.</p>
+        <h2>To configure a <a name="kanchor189"></a>conditional expression for an 
+ incident:</h2>
+        <ol>
+            <li class="Numbers" value="1">Select the required agent, 
+ in other words the agent containing the required alarmed alarm type/s. 
+ For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_known_agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Locating an agent</a></span>.</li>
+            <li class="Numbers" value="2">Right click this agent 
+ and select the <b>Alarm…</b> menu item.</li>
+            <li class="Numbers" value="3">Click on the required alarm 
+ type in the <b>Current</b> list of the <b>Alarming</b> dialog.</li>
+            <li class="Numbers" value="4">Specify the required expression 
+ for this alarm type in the <b>Conditional 
+ expression</b> field at the bottom of this dialog.</li>
+        </ol>
+        <p class="ListDesc">Typically you will create a logical expression, whereby 
+ the required tag is followed by a value condition, such as:</p>
+        <table style="margin-left: auto;margin-right: auto;caption-side: top;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 35.433%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 332px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Logical expression</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Condition for success</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p class="Code">Tag(TANKLEVEL.value) = 80</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>SUCCESSFUL if the tag is equal to the value</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p class="Code">Tag(TANKLEVEL.value) &lt;&gt; 80</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>SUCCESSFUL if the tag is not equal to the value</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p class="Code">Tag(TANKLEVEL.value) &gt; 80</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>SUCCESSFUL if the tag is greater than the value</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p class="Code">Tag(TANKLEVEL.value) &gt;= 80</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>SUCCESSFUL if the tag is greater than or equal to the value</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p class="Code">Tag(TANKLEVEL.value) &lt; 80</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>SUCCESSFUL if the tag is less than the value</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p class="Code">Tag(TANKLEVEL.value) &lt;= 80</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>SUCCESSFUL if the tag is less than or equal to the value</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="ListNotice"><b>Note:</b> You need 
+ to enclose each <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> 
+ within the Tag() specifier e.g. Tag(systeminfo.second)</p>
+        <p class="ListNotice"><b>IMPORTANT:</b> 
+ If a tag is NOT enclosed within a Tag() specifier then this incident will 
+ NEVER become active.</p>
+        <p class="ListNotice"><b>Tip:</b> When adding 
+ a tag to the expression, click the browse <img src="../COMMON/BrowseTag_14x14.bmp" style="width: 14;height: 14;" border="0" /> button and use 
+ the <b><span class="AdroitAppName">Adroit</span> Agent Browser</b> to locate 
+ and copy the required tag for you (then use the CTRL+V shortcut to paste 
+ it into the expression). This saves you from having to type in the tag 
+ yourself and ensure that there are NO spelling errors.</p>
+        <p class="ListDesc">Your expressions can make use of one or more of the following 
+ elements:</p>
+        <p class="ListNotice"><b>Note1:</b> Multiple 
+ items are separated by commas ','.</p>
+        <p class="ListNotice"><b>Note2:</b> Where 
+ necessary the description of an operator is displayed in brackets () after 
+ the operator.</p>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Element Type</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Operators / Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Other logical operators</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>! (not), &amp; (and), | (or)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Arithmetic operators</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>+, -, *, /, % (modulus),^ (power)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Parentheses</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>(), {}, []</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Scientific notation</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>3E+10</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Constants</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;2, 3, 
+ 50</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>Functions</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>MIN(4,5), SQR(34)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="ListDesc">&#160;</p>
+        <p class="ListDesc">By making use of these elements, you can create expressions 
+ that contain more than one tag, such as:</p>
+        <p class="CodeSub">(Tag(TANKLEVEL.value) &lt; 20) | (Tag(TANKLEVEL.value) 
+ &gt; 80)</p>
+        <p class="ListDescSub">This will be SUCCESSFUL if the tag (Tanklevel.value) 
+ is less than 20 or greater than 80.</p>
+        <p class="ListDesc">&#160;</p>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click here for a list of Functions that you can 
+ use in your expressions:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p class="ListNotice"><b>Note1:</b> These 
+ functions can take either constants or tags as their parameters.</p>
+            <p class="ListNotice"><b>Note2:</b> For 
+ simplicity sake, the tag specifiers have been omitted so Tag1 = Tag(agent1.slot1)</p>
+            <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                <col style="width: 63.098%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                <col style="width: 36.902%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <thead>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Function</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>MIN : returns the minimum value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>MIN(2, 3, 4, 5) is 2.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>MAX : returns the maximum value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>MAX(2, 3, 1, 0) is 3.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>IF(condition, valueIfTrue, valueIfFalse)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>IF(1, 2, 3) is 2</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>SUM : adds the values together</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>SUM(1, 2, 3, 4) is 10</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>AVG :averages the values</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>AVG(1, 2, 3, 4, 5) is 3</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>SQR: returns the square of the value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>SQR(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>SQRT: returns the square root of the value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>SQRT(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>EXP : Returns E raised to the power of the value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>EXP(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>INTPOW(Base, power): raises the Base to an integral power.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>INTPOW(2, 3) = 8</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>POW(Base, power): raises the Base to any power.</p>
+                            <p class="Notices"><b>Note:</b> For fractional 
+ exponents or exponents greater than MaxInt, the Base must be greater than 
+ 0.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>POW(2,3) = 8</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>LN: returns the natural logarithm of the value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>LN(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>LOG: returns the base-10 logarithm of the value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>LOG(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>LOGN(Base, value): returns the log Base of the value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>LOGN(10, 100) = 2</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ABS: returns the absolute value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>ABS(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>SIGN: returns the sign of the value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>SIGN(Tag1) returns -1 if Tag1&lt;0; +1 if Tag1&gt;0, 0 if Tag1=0</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>TRUNC: discards the fractional part of the value</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>TRUNC(-3.2) is -3, TRUNC(3.2) is 3</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>CEIL: returns the value rounded up, away from zero</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>CEIL(-3.2) = -3, CEIL(3.2) = 4</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>FLOOR: returns the value rounded down, toward zero</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>FLOOR(-3.2) = -4, FLOOR(3.2) = 3</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>SIN: returns the sine of the value (an angle in radians).</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>SIN(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>COS: returns the cosine the value (an angle in radians).&#160;</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>COS(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>TAN: returns the tangent of the value (an angle in radians).</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>TAN(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ATAN: returns arctangent, or inverse tangent, of the value. The returned 
+ angle is specified in radians.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>ATAN(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>SINH: returns the hyperbolic sine of the value.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>SINH(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>COSH: returns the hyperbolic cosine of the value.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>COSH(Tag1)</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                            <p>COTAN: returns the cotangent of the value.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                            <p>COTAN(Tag1)</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="ListDesc">&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

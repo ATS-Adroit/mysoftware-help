@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Common.Ver9" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="adrcusdes.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" type="text/css" MadCap:generated="True" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" type="text/css" MadCap:generated="True" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>SNMPMgr Agent - Slot Details</title>
+        <link href="../Resources/Stylesheets/AdTech.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../SkinSupport/jquery.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapBody.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapHighlighter.js">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <h1><a name="kanchor111"></a>SNMPMgr Agent - Slot Details</h1>
+        <p><a href="../AU_01_05/The_SNMPMgr_Agent.htm">The SNMPMgr 
+ Agent</a> can both monitor and manage devices on a network, by using <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">Simple Network Management Protocol (SNMP) is used to monitor and manage a diverse range of devices on a computer network.</span></span>.</p>
+        <p>Each SNMPMgr agent is able to retrieve and/or 
+ write to any number of <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP managed objects<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">management data exposed by SNMP managed devices that might be hardware, configuration parameters, performance statistics, and any other data that directly relates to the operation of this device.</span></span>&#160;from a 
+ single device. This is also able to receive <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP traps<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">unsolicited SNMP messages sent by a device to notify an SNMP manager of significant events.</span></span> 
+ from this device.</p>
+        <p>This OID list is saved to WGP file. </p>
+        <p>This agent is located in the following file: T_SNMPMgr.DLL</p>
+        <h2>Slots:</h2>
+        <table style="margin-left: auto;margin-right: auto;caption-side: top;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col class="Column-Column1" style="width: 152px;" />
+            <col class="Column-Column2" style="width: 92px;" />
+            <col class="Column-Column2" style="width: 345px;" />
+            <thead>
+                <tr class="Head-Header1">
+                    <th class="HeadE-Column1-Header1">Slot Name
+                    </th>
+                    <th class="HeadE-Column2-Header1">Type
+                    </th>
+                    <th class="HeadD-Column2-Header1">Function
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>authPassword</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p><b>SNMP&#160;version 3 ONLY:</b> the required password for authentication on this device.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>catchupData</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>RAWBYTES</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Internal use only (used with datalog catchup).</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>datascope</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Launches the <b><span class="AdroitAppName">Adroit</span> Protocol Driver 
+ Monitor</b> application so that you can open the <b>Datascope</b> 
+ window to view the activity of this agent - like clicking the <b>Datascope</b> 
+ button in the edit agent dialog.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>encrPassword</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p><b>SNMP&#160;version 3 ONLY:</b> the required encryption password for this device.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>errorMsg</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>This slot displays the reason why the <b>Error</b> 
+ status bit of this agent is currently set. For details, see the description 
+ for status bit 21 of this agent below.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>filename</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The name of the global SNMP configuration file, which is called 'snmp.wgx' 
+ by default.</p>
+                        <p>This file contains the common OID configuration of all your SNMPMgr agents 
+ and allows them to store an unlimited number of OIDs. Ensure that this 
+ file is backed up.</p>
+                        <p class="Notices"><b>Note:</b> This file 
+ name can also be specified using the <b>Advanced</b> 
+ button in the edit dialog.&#160;</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idx</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>To select a record (row) from the list of selected OIDs (records slot). 
+ This can be used to display and/or configure one or more fields of this 
+ record.</p>
+                        <p>Set this slot to the index of the required record in the list, to populate 
+ the following slots with the fields of this selected record: idxEnabled, 
+ idxWriteable, idxOID, idxName, idxType, idxValue and idxLastPollTime slot.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxEnabled</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Indicates whether the value, specified by the <b>idx</b> 
+ slot, is enabled to be polled (retrieved from the device) or not. This 
+ can be configured as required.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxLastPollTime</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>TIME</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Indicates the last time the value, specified 
+ by the <b>idx</b> slot, was automatically 
+ polled.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxName</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The textual description of the OID, specified by the <b>idx</b> 
+ slot.&#160;This 
+ can be configured as required, for instance after manually changing the 
+ OID, see the <b>idxOID</b> slot description.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxOID</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The OID, in numeric format, of the <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP managed objects<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">management data exposed by SNMP managed devices that might be hardware, configuration parameters, performance statistics, and any other data that directly relates to the operation of this device.</span></span> 
+ specified by the <b>idx</b> slot.&#160;This 
+ can be changed to another OID. If so this&#160;automatically 
+ changes the Name (<b>idxName</b> slot) 
+ of the selected record to “Unknown”.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxRate</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The rate, in milliseconds, that the OID value, specified by the <b>idx</b> slot, is polled (retrieved from 
+ the device). If this is 0 then the default poll rate (<b>pollrate</b> 
+ slot) is used instead. This can be configured as required.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxTag</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The name of the agent used to store this OID value, if one has been specified.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxTimestamp</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>TIME</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The time stamp of the current OID&#160;value.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxType</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>An Integer indicator of the return type of the value, specified by the 
+ <b>idx</b> slot. For details, see OID Return Type Indicators.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxValue</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The current value of the OID, specified by the <b>objectListIndex</b> 
+ slot.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>idxWriteable</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Indicates whether the OID value, specified by the <b>idx</b> 
+ slot, is enabled to be written to the device or not. This can be configured 
+ as required.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>ipAddress</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The IP Address of the SNMP managed device to be monitored.</p>
+                        <p class="Notices"><b>Note:</b> It is NOT 
+ possible to specify an IP address that has ALREADY been configured for 
+ another SNMPMgr agent!</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>ipPort</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The IP port of the SNMP managed device to be monitored 
+ - used when monitoring a device through a gateway.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>lastWriteStatus</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Displays a text message that informs the user whether 
+ the last value written to the device was successfully changed in the device 
+ or not.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>pollAllNow</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>If set to 1, this will cause all OIDs in the list to be manually polled 
+ now (ASAP), see Manually Polling OID Values.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>pollIdx</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>To manually poll any OID (receive its value from the device) that you 
+ added to the list (<b>records</b> slot), 
+ set this slot to the index of this OID in the list.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>readCommunity</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The SNMP Community String required that ONLY provides READ access to 
+ the <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP managed objects<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">management data exposed by SNMP managed devices that might be hardware, configuration parameters, performance statistics, and any other data that directly relates to the operation of this device.</span></span> 
+ of the network device. For further details, see SNMP Community 
+ Strings.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>records</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The list of the selected OIDs (SNMP objects).</p>
+                        <p>Each list entry is enclosed in #’s and adheres to the following format: 
+ *Index*Enable*Writable*Object Identifier*SNMP name*Return type*Current 
+ Value*<span class="AdroitAppName">Adroit</span> tag*PollRate</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>retries</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The number of times this agent will attempt to connect to the device, 
+ before deeming this device to be unavailable.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>scanRate</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The default or global rate, in milliseconds, at which the polling-enabled 
+ OIDs are retrieved from the device.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>start</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Determines whether the device is to be managed (1) or not (0).</p>
+                        <p>When enabled (1) the selected OID values will be polled and/or written 
+ to and SNMP traps will be received, if the <b>trapEnabled</b> 
+ slot is enabled (1).</p>
+                        <p class="Notices"><b>Note:</b> A scan point 
+ is consumed for every unique OID value that is polled, written to and/or 
+ trapped.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>timeout</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The maximum time (in milliseconds) for this agent to establish a connection 
+ to the specified SNMP managed device.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapCount</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The number of SNMP traps (and their sub-traps) received from the managed 
+ device in the main trap queue (for simple traps this is 1, for complex 
+ traps this is the number of OIDs [sub-traps] in this trap).</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapEnabled</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>This enables the receipt of SNMP traps from the managed device. (This 
+ only occurs once the <b>start</b> slot 
+ is set to 1 and consumes a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">scan point<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a scan point licence that is consumed from your Adroit license when information is being manipulated.</span></span> 
+ for each unique OID that is trapped.)</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapGeneric</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>An Integer value of the generic code or identification of this trap 
+ OID.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapOID</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The OID, in numeric format, which identifies the SNMP managed object 
+ for this event.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapPop</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Set this slot to 1 (via a script or button etc.) to read the first trap 
+ off the main trap queue, which reduces the <b>trapCount</b> 
+ slot by the number of OIDs in this trap (for simple traps this is 1, for 
+ complex traps this is more than 1). This populates the <b>trapTime</b>, 
+ <b>trapType</b>, <b>trapValue, 
+ trapGeneric</b>, <b>trapSpecific</b> 
+ and <b>trapOID</b> slots with the information 
+ pertaining to trap that is first in the queue.</p>
+                        <p>This reduces the <b>trapCount</b> 
+ slot by 1. </p>
+                        <p class="Notices"><b>WARNING!</b> Once 
+ a trap has been read off a queue it is discarded and cannot be accessed 
+ again.</p>
+                        <p class="Notices"><b>Note:</b> The queue 
+ of traps is processed from the oldest to the newest trap.</p>
+                        <p>For more details concerning the handling of traps and the related queues, see <a href="../AU_01_05/About_SNMP_Traps.htm">About SNMP Traps</a>.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapSpecific</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>An Integer value of the specific code or identification of this trap 
+ OID.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapTime</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>TIME</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The time that the value, specified by the <b>trapValue</b> 
+ slot, occurred.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapType</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>An Integer indicator of the return type of the value, specified by the 
+ <b>trapValue</b> slot. For details, 
+ see OID Return Type Indicators.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapValue</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>The value of the OID specified by the <b>trapOID</b> slot.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapValueIsBinary</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>This is enabled set to 1 when the trap value reports as ascii and will need conversion to hex/binary.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>trapWorkCount</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>For the current complex trap that is popped off the main trap queue, 
+ this contains all the OIDs [sub-traps] in this trap, except for the first 
+ OID that is transferred to the trap... slots.</p>
+                        <p>This work queue is provided to prevent the possible corruption of the 
+ main queue by popping off the incorrect number of sub-traps.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>userName</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p><b>SNMP&#160;version 3 ONLY:</b> the required user name for this device.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>version</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>An Integer value of the SNMP version that is supported by the network device.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyB-Column1-Body1">
+                        <p>writeCommunity</p>
+                    </td>
+                    <td class="BodyB-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="BodyA-Column2-Body1">
+                        <p>The SNMP Community String that provides read AND WRITE access to the 
+ <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP managed objects<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">management data exposed by SNMP managed devices that might be hardware, configuration parameters, performance statistics, and any other data that directly relates to the operation of this device.</span></span> 
+ of the network device. For further details, see SNMP 
+ Community Strings.</p>
+                        <p>This must be specified in order to change the values of OIDs in the 
+ device.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Specific status bits:&#160; </h2>
+        <p class="Notices"><b>Note:</b> These are 
+ of type BOOLEAN.</p>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 91px;" class="Column-Column1" />
+            <col style="width: 18.699%;" class="Column-Column2" />
+            <col style="width: 67.303%;" class="Column-Column2" />
+            <thead>
+                <tr class="Head-Header1">
+                    <th class="HeadE-Column1-Header1">Bit Number</th>
+                    <th class="HeadE-Column2-Header1">Name</th>
+                    <th class="HeadD-Column2-Header1">Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>status bit 16</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>InvalidConnection</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>On if the agent is UNABLE to access the specified 
+ device and its SNMP objects. To troubleshoot this, see <a href="../AU_01_05/Connecting_to_the_Managed_Device.htm">Connecting to the Managed Device</a>.</p>
+                        <p class="Notices"><b>Note1:</b> This will 
+ ALWAYS be On if the agent is loaded in the Stopped state and is only validated 
+ when the agent is Started or Updated.</p>
+                        <p class="Notices"><b>Note2:</b> When an 
+ invalid connection is specified this will cause a delay when closing and 
+ opening the Edit dialog of this agent, as the agent attempts to establish 
+ this connection.</p>
+                        <p class="Notices"><b>Note 3:</b> This is 
+ set to On, by default, for new agents.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>status bit 17</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>Stopped</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>On if the agent is ABLE to connect to the device 
+ BUT not getting, setting and/or trapping OID values.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>status bit 18</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>Started</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>On if the agent is ABLE to connect to the device 
+ AND getting, setting and/or trapping OID values. For details on stopping 
+ or starting the managing of the device, see <a href="../AU_01_05/Device_Management_Settings.htm">Device Management Settings</a>.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>status bit 19</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>Unlicensed</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>On if:</p>
+                        <ul>
+                            <li class="Bullets" value="1">the <b>Started</b> (statusBit18) is 
+ set</li>
+                            <li class="Bullets" value="2">Agent Server license does 
+ NOT contain the required OEM license and</li>
+                            <li class="Bullets" value="3">it is NOT the first SNMPMgr 
+ agent that was added.</li>
+                        </ul>
+                        <p>For details regarding the licensing and use of this 
+ agent, see <a href="../AU_01_05/SNMPMgr_Agent_Usage_Requirements.htm">Usage Requirements</a>.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>status bit 21</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>Error</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>On when a non connection-related error has occurred, while the <b>errorMsg</b> slot can be used to determine the reason 
+ why this status bit is being set. This specifies that one of the following 
+ errors have occurred:</p>
+                        <p class="Notices"><b>Note:</b> If this 
+ <b>Error</b> status bit is alarmed, using 
+ the default <b>Error</b> alarm type, 
+ then the contents of the errorMsg slot appears 
+ in the "Reported data" field of the alarm entry.</p>
+                        <ol>
+                            <li class="Numbers" value="1">If the <b>Started</b> 
+ (statusBit18) is set and any agent assigned to an OID is not found. For 
+ instance, when an agent is removed from the Agent Server after it was 
+ assigned.</li>
+                        </ol>
+                        <p class="ListNotice"><b>Note:</b> In this 
+ case the <b>errorMsg</b> slot contains the name of the 
+ missing agent. However, if multiple agents are not found, usually only 
+ the last agent that is "not found" will be displayed by this 
+ slot.</p>
+                        <ol start="2">
+                            <li class="Numbers" value="2">If the Started (statusBit18) 
+ is set and one or more of the polled, written and/or trapped OIDs cause 
+ the number of licensed scan points for this Agent Server to be exceeded.</li>
+                        </ol>
+                        <p class="ListNotice"><b>Note:</b> In this 
+ case the <b>errorMsg</b> slot contains 'Not enough scan 
+ points'.</p>
+                        <p class="ListNotice"><b>WARNING!</b> This 
+ immediate disables the polling, writing and/or trapping of ALL the OIDs, 
+ even if this agent only attempts to consume one scan point more than the 
+ total number of licensed scan points for this Agent Server. For details, 
+ see <span class="AdroitAppName">Adroit</span> Licensing.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>status bit 22</p>
+                    </td>
+                    <td class="BodyE-Column2-Body1">
+                        <p>Traps</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>On when this agent receives 1 or more SNMP traps from the device and 
+ the <b>trapCount</b> slot is &gt;= 1.</p>
+                        <p>These traps are stored in the trap queue for this agent, so that you 
+ can process them, typically by means of a script. For more details, see 
+ <a href="../AU_01_05/About_SNMP_Traps.htm">About SNMP Traps</a>.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyB-Column1-Body1">
+                        <p class="Bullets">status bit 23<br /></p>
+                    </td>
+                    <td class="BodyB-Column2-Body1">
+                        <p> Healthy</p>
+                    </td>
+                    <td class="BodyA-Column2-Body1">On if the agent is UNABLE to connect to the specified device.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Methods of creation:</h2>
+        <p>Manual</p>
+        <h2>Agents created by default: </h2>
+        <p>None</p>
+        <p>&#160;</p>
+        <p>For a description of which of these slots are saved to the <span class="AdroitAppName">Adroit</span> database 
+ file (.WGP), see:</p>
+        <p><a href="SNMPMgr_Agent_Database_File_Format.htm">SNMPMgr 
+ Agent - Database File Format</a>.</p>
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

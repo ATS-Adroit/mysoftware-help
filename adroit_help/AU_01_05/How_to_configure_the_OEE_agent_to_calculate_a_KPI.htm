@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents|The OEE Agent" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to configure the OEE agent to calculate a KPI</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>How to configure the OEE agent to calculate a KPI</h1>
+        <p>This explains the recommended method of configuring your <span class="AdroitAppName">Adroit</span> system 
+ to  calculate a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">KPI<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Key Performance Indicator, a quantifiable measurement that measures how well something is accomplishing its goals and objectives.</span></span> &#160;for specific equipment (machine/s) and/or an entire plant (process).</p>
+        <p>KPIs are either:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>simple</b> : some production value over time such as ton/hr, total produced or actual run-hours, etc. [KPI% = (Total input1/Run time)/Target KPI] OR</li>
+            <li class="Bullets" value="2"><b>complex</b>: one production value against (divided by) another production value, such as kWh/ton. [KPI% = (Total input1/Total input2)/Target KPI] </li>
+        </ul>
+        <p class="Notices"><b>Note:</b> If the SECOND variable is not specified, then the FIRST variable is automatically divided by time. </p>
+        <p>The KPI can either compare actual performance with benchmark (optimum) figures or compare shift performances. For instance you could compare today’s total performance with that of the previous day and/or today's shifts with those of the previous day.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ThingstodoBefore"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Before you can calculate a KPI, you may need to do the 
+ following:</a>
+        </p>
+        <div MadCap:targetName="ThingstodoBefore" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Ensure that the <b>OEE&#160;Count</b> parameter of your <span class="AdroitAppName">Adroit</span> 
+ license has specified the required number of OEE agents (these are specified in groups of 10). This <a name="kanchor2185"></a> 
+ enables the background engine of the OEE agent  to update the monitored KPI  in real-time.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> WITHOUT specifying the licensed number of OEE agents, only one instance of an OEE agent has its background engine enabled.  All other agents will appear not to be running.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">
+                    <p>Ensure that you can access and communicate the variable/s used to calculate the KPI to <span class="AdroitAppName">Adroit</span>. </p>
+                    <p>Scan the primary measurement variable to the <b>input1</b> slot.</p>
+                    <p class="Notices"><b>IMPORTANT:</b> The OEE agent expects that this <b>input1</b> slot will ONLY&#160;be STATIC if the <b>available</b> and/or <b>running</b> slot is OFF.&#160; If not, then production totals will continue to increment even though running/availability is OFF.</p>
+                    <p>If you are calculating a complex KPI, then also scan the secondary or dividing  measurement variable to the <b>input2</b> slot.</p>
+                </li>
+                <li class="Numbers" value="3">
+                    <p>Create the necessary Shift agent (for instance called OEE_SHIFT), which the OEE&#160;agent uses to specify the required shift patterns and to determine the current shift number. For details, see <a href="Configuring_the_Shift_agent.htm">Configuring the Shift agent</a>.</p>
+                    <p>Use the <b>Shift tag</b> field of the edit dialog (<b>shiftAgent</b> slot) to specify this Shift agent. </p>
+                </li>
+                <li class="Numbers" value="4">
+                    <p>Since we only calculate a KPI during time that the monitored equipment or process is running, the  associated BOOLEAN <b>running</b> slot (or the optional BOOLEAN  tag reference <b>runningTag</b>) should only be ON when the machine/process is supposed to be running.</p>
+                    <p class="Notices"><b>Note:</b> The OEE agent expects that this slot will be OFF if the <b>available</b> slot is OFF.&#160; If not, runtime will continue to increment even though availability is OFF.</p>
+                    <p>Therefore you could create a Scheduler agent that is  configured with the applicable OFF times for the monitored machine/process - such as maintenance/lunch/tea times etc. For details, see <a href="Configuring_the_Scheduler_agent.htm">Configuring the Scheduler agent</a>.</p>
+                    <p>Then browse in the  BOOLEAN <b>value</b> slot of this Scheduler agent as the <b>Running tag</b> (the <b>runningTag</b> slot) for this OEE agent to drive the <b>running</b> slot of this OEE&#160;agent directly. This is configured using the <b>Advanced OEE options</b> dialog of the OEE agent. </p>
+                </li>
+                <li value="5">
+                    <p>An optional OLE DB connection to a SQL database, configured using the <b>SQL connection string</b> field. </p>
+                </li>
+                <table style="margin-left: 0;margin-right: auto;width: 95%;" class="A4-Table-NoteGrayBack">
+                    <col />
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p><b>Note:</b>
+                                </p>
+                                <p>If you specify <b>global</b>, the <b>Global OLE DB connection</b> string of the Agent Server is used, which is specified  in the <b><span class="AdroitAppName">Adroit</span> Config Editor</b>.</p>
+                                <ul>
+                                    <li value="1">Typically, you can launch this tool from the Desktop shortcut. </li>
+                                    <li value="2">Select the <b>Agent Server Configuration </b><i>Welcome</i> menu item.</li>
+                                    <li value="3">Select the <b>Advanced Agent Server Configuration</b> option.</li>
+                                    <li value="4">At the bottom of the dialog, the <b>Global OLE DB connection</b> field is available for you to specify this connection string.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <li value="6">
+                    <p>If the connection string is specified then this agent logs shift data, manually triggered snapshots and 1 minute sample data to a table called ADR_OEE.&#160; </p>
+                    <p>Alternatively, the OEE agent can support database transactions to a table for the purposes of data warehousing. This requires specifying the required      <b>Data warehouse sample rate</b> from 1-60 minutes. By default this is 0 = DISABLED.</p>
+                </li>
+            </ol>
+        </div>
+        <h2>To calculate a KPI:</h2>
+        <ol>
+            <li class="Numbers" value="1">Edit 
+ an agent of type: <b>OEE</b>. </li>
+        </ol>
+        <p class="ListDesc">
+            <p>If necessary, add an agent of the required type, as follows:</p>
+            <div MadCap:targetName="AddingAgents">
+                <h2>In the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+                <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+                <ol>
+                    <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                    <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+                </ol>
+                <ol start="4">
+                    <li class="Numbers" value="4">If necessary, expand the <![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                    <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+                    <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup </b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+                    <li class="Numbers" value="7">Right click the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically, and select <b>Create Tag</b>.</li>
+                    <li class="Numbers" value="8">Specify the required <b>Tag Name</b> or agent name.</li>
+                </ol>
+                <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgtNmgConventns"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The following rules apply when naming agents:</a>
+                </p>
+                <div MadCap:targetName="AgtNmgConventns" style="display: none;">
+                    <ol>
+                        <li class="NumbersSubLetters" value="1">Agent names have a maximum 
+ of 27 characters.</li>
+                        <li class="NumbersSubLetters" value="2">Agent names cannot be the 
+ same as the names used for Agent Types or for Agent Groups.</li>
+                        <li class="NumbersSubLetters" value="3">Agent names cannot use 
+ the following characters:</li>
+                    </ol>
+                    <p class="ListDescSub">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p>Space</p>
+                                </td>
+                                <td>
+                                    <p>&#160;</p>
+                                </td>
+                                <td>
+                                    <p>Percent</p>
+                                </td>
+                                <td>
+                                    <p><b>%</b>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>Comma</p>
+                                </td>
+                                <td>
+                                    <p><b>,</b>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Period</p>
+                                </td>
+                                <td>
+                                    <p><b>.</b>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>back slash</p>
+                                </td>
+                                <td>
+                                    <p><b>\</b>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>Dollar</p>
+                                </td>
+                                <td>
+                                    <p><b>$</b>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </p>
+                </div>
+                <ol start="9">
+                    <li class="Numbers" value="9">If necessary, provide an optional <b>Description</b> that describes the purpose or describes the value of this tag (agent) for ease of reference.</li>
+                    <li class="Numbers" value="10">Click the <b>Finish</b> button.</li>
+                </ol>
+                <p>&#160;</p>
+            </div>
+            <p> If necessary, locate the required agent, as follows:</p>
+            <h2>In <a name="kanchor2186"></a>the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+            <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+            <ol>
+                <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+            </ol>
+            <ol start="4">
+                <li class="Numbers" value="4">If necessary, expand the <![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+                <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup</b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+                <li class="Numbers" value="7">If necessary, expand the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically.</li>
+                <li class="Numbers" value="8">Locate the required agent <img src="../Resources/Images/16/DataSources/Adroit_Agent.png" />, which is also listed alphabetically beneath their applicable agent 
+ type.</li>
+            </ol>
+            <p>&#160;</p>
+            <p>In the Enterprise Manager window: right click this agent and select <b>Configure</b>.</p>
+        </p>
+        <p>In the <b>Edit OEE Agent</b> dialog: </p>
+        <ol>
+            <li class="Numbers" value="1">Check the <b>Enable agent</b> checkbox (the <b>enable</b> slot).</li>
+            <li class="Numbers" value="2">
+                <p>Click the browse <img src="../COMMON/BrowseTag.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" />&#160; button to the left of the <b>Shift tag</b> checkbox 
+ and select the <b>Shift</b> agent 
+ you created to specify the required shift patterns and to determine the current shift number. For details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting a tag using the Agent Explorer</a></span>.</a></span></p>
+                <p>By default the OEE agent resets the recorded OEE at the end of each shift.</p>
+                <p>If you want to use the agent for recording the OEE or KPI on a “per batch” basis, then uncheck the <b>Shift auto-reset</b> checkbox and  programmatically  reset the agent at the end of every batch.&#160;</p>
+            </li>
+            <li class="Numbers" value="3">
+                <p>For a simple or complex KPI, scan the primary measurement variable to the <b>input1</b> slot of this OEE&#160;agent (OR use the <b>input1Tag</b> optional tag reference for the <b>input1</b> slot - <b>Advanced OEE options</b> dialog, <b>Input 1 tag</b>). </p>
+                <p><b>ONLY for a complex KPI</b> - scan the  secondary or dividing  measurement variable  to the <b>input2</b> slot of this OEE&#160;agent (OR use the <b>input2Tag</b> optional tag reference for the <b>input2</b> slot - <b>Advanced OEE options</b> dialog, <b>Input 2 tag</b>). </p>
+            </li>
+            <li class="Numbers" value="4">
+                <p>Specify the type of input signal of the primary measurement variable, from the  <b>Input 1 type</b> list, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="Input1TypeOptions"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                <p class="Notices"><b>Note:</b> Select the method that is used to add up this value.</p>
+                <div MadCap:targetName="Input1TypeOptions" style="display: none;">
+                    <ul>
+                        <li class="Bullets" value="1"><b>Accumulator:</b> The <b>input1</b> slot is interpreted as an accumulated production count over time e.g. 123 bags. </li>
+                    </ul>
+                    <p class="BullNotice"><b>Note:</b> This <b>Input 1 type</b> must be reset to 0 at the end of every shift using the <b>ShiftEnd</b> status bit  as a trigger.</p>
+                    <ul>
+                        <li class="Bullets" value="1"><b>Total:</b> The <b>input1</b> slot is interpreted as an accumulated production count over time e.g. 123 bags. </li>
+                    </ul>
+                    <p class="BullNotice"><b>Note:</b> This <b>Input 1 type</b> is never reset to 0.</p>
+                    <ul>
+                        <li class="Bullets" value="1"><b>Rate/hr:</b> The <b>input1</b> slot is interpreted as a per hour production rate which will be integrated by the agent over time to produce a totalised value.</li>
+                    </ul>
+                    <ul>
+                        <li class="Bullets" value="1"><b>Rate/min:</b> The <b>input1</b> slot is interpreted as a per minute production rate which will be integrated by the agent over time to produce a totalised value.</li>
+                    </ul>
+                    <ul>
+                        <li class="Bullets" value="1"><b>Rate/sec:</b> The <b>input1</b> slot is interpreted as a per second production rate which will be integrated by the agent over time to produce a totalised value.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="Numbers" value="5">
+                <p><b>ONLY&#160;if you are calculating a complex KPI</b> (where one measured variable is divided by another) then change the <b>Input 2 type</b> list from the default setting of  <b>Unused</b> and specify the type of input signal of the secondary or dividing measurement variable, as follows:</p>
+                <div MadCap:targetName="Input1TypeOptions" style="display: none;">
+                    <ul>
+                        <li class="Bullets" value="1"><b>Accumulator:</b> The <b>input2</b> slot is interpreted as an accumulated production count over time e.g. 123 bags. </li>
+                    </ul>
+                    <p class="BullNotice"><b>Note:</b> This <b>Input 2 type</b> must be reset to 0 at the end of every shift using the <b>ShiftEnd</b> status bit  as a trigger.</p>
+                    <ul>
+                        <li class="Bullets" value="1"><b>Total:</b> The <b>input2</b> slot is interpreted as an accumulated production count over time e.g. 123 bags. </li>
+                    </ul>
+                    <p class="BullNotice"><b>Note:</b> This <b>Input 2 type</b> is never reset to 0.</p>
+                    <ul>
+                        <li class="Bullets" value="1"><b>Rate/hr:</b> The <b>input2</b> slot is interpreted as a per hour production rate which will be integrated by the agent over time to produce a totalised value.</li>
+                    </ul>
+                    <ul>
+                        <li class="Bullets" value="1"><b>Rate/min:</b> The <b>input2</b> slot is interpreted as a per minute production rate which will be integrated by the agent over time to produce a totalised value.</li>
+                    </ul>
+                    <ul>
+                        <li class="Bullets" value="1"><b>Rate/sec:</b> The <b>input2</b> slot is interpreted as a per second production rate which will be integrated by the agent over time to produce a totalised value.</li>
+                    </ul>
+                </div>
+            </li>
+            <p class="Notices"><b>IMPORTANT:</b> If calculating a simple KPI whose measured variable should be divided by time and NOT another variable, then ensure that the <b>Input 2 type</b> list is ONLY&#160;set to <b>Unused</b>, the default setting.</p>
+            <li class="Numbers" value="6">If necessary, specify the units for the primary measured variable <b>input1</b> in the top <b>Totalised units</b>   edit box (the <b>units1</b> 
+ slot) and <b>ONLY&#160;if you are calculating a complex KPI</b> then also specify those of the  secondary or dividing  measurement variable <b>input2</b>in the bottom <b>Totalised units</b>   edit box (the <b>units2</b> 
+ slot).</li>
+            <li class="Numbers" value="7">
+                <p>Since KPI calculations are calculated against the time that the <b>Machine/process running</b> checkbox (the <b>running</b> slot) is ON - this should ONLY&#160;be ON when the machine/process is supposed to be running.</p>
+                <p class="Notices"><b>Note:</b> The OEE agent ALSO&#160;expects that this slot will be OFF if the <b>available</b> slot is OFF.&#160; If not, runtime will continue to increment even though availability is OFF.</p>
+                <p>Therefore instead of manually checking this checkbox:</p>
+                <ul>
+                    <li class="Bullets" value="1">Create a <b>Scheduler</b> agent that is  configured with the applicable OFF times for the monitored machine/process - such as maintenance/lunch/tea times etc.</li>
+                    <li class="Bullets" value="2">Click the <b>Advanced</b> button of this edit dialog and in the <b>Optional tag references</b> section, browse for  BOOLEAN <b>value</b> slot of this Scheduler agent as the <b>Running tag</b> (the <b>runningTag</b> slot).</li>
+                </ul>
+                <p>In this way, this Scheduler agent will drive the <b>running</b> slot of this OEE&#160;agent directly.</p>
+            </li>
+            <li class="Numbers" value="8">
+                <p>If necessary, specify an activity "deadband" or an acceptable level of inactivity for the monitored machine or process, in seconds, in the <b>Inactive Period (secs)</b> field (INTEGER <b>inactivityPeriod</b> slot). </p>
+                <p class="Notices"><b>Note:</b> To disable the inactivity period alarming, specify a value of 0.</p>
+                <p>If the primary measurement variable (the <b>input1</b>slot) remains inactive for a longer time than this period, then <b>the OEE agent will stop incrementing the running time</b> and the <b>Downtime</b> status bit is activated.&#160;<a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="RuntimeCalc"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a></p>
+                <div MadCap:targetName="RuntimeCalc" style="display: none;">
+                    <p>As long as the <b>input1</b>slot is changing AND is not zero, the agent assumes that  the process/machine is active and increments the running time.</p>
+                    <p>Therefore the actual production time is determined by a combination of the <b>running</b> slot and an active <b>input1</b>slot.</p>
+                </div>
+            </li>
+            <li class="Numbers" value="9">
+                <p>If necessary, you can use the <b>Setpoints</b> section of the <b>Advanced OEE options</b> dialog (displayed by clicking the <b>Advanced</b> button) to define the <b>Target value</b>, the <b>Low alarm</b> and/or <b>Low-low alarm</b> values for the overall <b>KPI%</b> calculation. </p>
+                <p class="Notices"><b>Note:</b>  These alarms are calculated in real time. </p>
+            </li>
+            <li class="Numbers" value="10">
+                <p>If necessary, you can also use the <b>Advanced OEE options</b> dialog to specify an optional OLE DB connection to a SQL database, to:</p>
+                <ul>
+                    <li class="Bullets" value="1">EITHER log shift data, manually triggered snapshots and 1 minute sample data </li>
+                    <li class="Bullets" value="2">OR log data warehouse records to a table called ADR_OEE.</li>
+                </ul>
+                <p>In this case you can use:&#160;</p>
+                <p>The <b>Batch ID</b> field to manually specify an optional batch ID that is recorded with these database entries (the <b>batchID</b> slot) OR&#160;use a tag value instead, which you specify using the <b>Batch ID tag</b> in the <b>Advanced OEE options</b> dialog (<b>batchIDTag</b> slot).</p>
+                <p>The <b>Product</b> field to specify an optional product name that will be recorded with database entries (the <b>product</b> slot) OR&#160;use a tag value instead, which you specify using the&#160;<b>Product tag</b>  in the <b>Advanced OEE options</b> dialog (<b>productTag</b> slot).</p>
+                <p>For more details on configuring the <b>Advanced OEE options</b> dialog (display this by clicking the <b>Advanced</b> button of the edit dialog), see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Advanced_OEE_agent_configuration_options.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Advanced OEE agent configuration options</a></span>.</p>
+            </li>
+            <li class="Numbers" value="11">
+                <p>Once OEE&#160;agent has been configured and working, you can:</p>
+                <ul>
+                    <li class="Bullets" value="1">Check the <b>Auto-refresh</b> checkbox, to view the real-time calculation of the production factors and the resultant OEE for the monitored machine or process.</li>
+                </ul>
+                <p>If you are logging this data to an OLE DB database, then you can:</p>
+                <ul>
+                    <li class="Bullets" value="1">Click the <b>Reset...</b> button to reset the current OEE data.</li>
+                    <li class="Bullets" value="2">Click the <b>Reset all...</b> button to reset ALL the recorded  OEE data.</li>
+                </ul>
+                <p class="Notices"><b>WARNING!</b> Since these buttons cannot be secured, it is recommended that you ensure that your operators NOT have access to the dialog!</p>
+                <p class="Notices"><b>Note:</b> You ONLY&#160;need to perform these functions if there is “rubbish” in the  shift data caused by faulty sensors etc. </p>
+            </li>
+            <li class="Numbers" value="12">
+                <p>The following slots provide the calculated KPI, which you may want to display or use elsewhere:</p>
+                <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                    <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                    <col style="width: 92px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <col style="width: 378px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <thead>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Slot Name
+                    </th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Type
+                    </th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function
+                    </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>kpiPercent</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>calculated KPI as a percentage.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>kpiCurrShift</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>calculated KPI for the current shift  as a percentage.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>kpiPrevShift</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>calculated KPI for the previous shift  as a percentage.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>kpiToday</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>calculated KPI  for the current day as a percentage.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>kpiTodayShift<b>n</b></p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>calculated KPI for the current day's shift <b>n</b> as a percentage where <b>n</b> = 1 to 6.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>kpiYesterday</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>calculated KPI  for the previous day as a percentage.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>kpiYesterShift</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>calculated KPI  for the current (same) shift on previous day as a percentage.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                                <p>kpiYesterShift<b>n</b></p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                                <p>calculated KPI  for the previous day’s shift <b>n</b> as a percentage where <b>n</b> = 1 to 6.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>In addition to these  calculated values, the following slots are also provide useful information concerning this OEE agent and the monitored process or machine:</p>
+                <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                    <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                    <col style="width: 92px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <col style="width: 378px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <thead>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Slot Name
+                    </th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Type
+                    </th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function
+                    </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>statusStr</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>STRING</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>The status of the OEE agent, as follows:  Not available(A=0,R=0), running (A=1,R=1), stopped (A=1,R=0)</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>total1CurrShift</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>The totalised value of the <b>input1</b> slot for the current shift.&#160; </p>
+                                <p class="Notices"><b>Note:</b> This agent allows putslots to this slot to correct the integrated totals.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>total1Predicted</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>The predicted total of <b>input1</b> for the shift</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>total1PrevShift</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Total value of the <b>input1</b> value for previous shift</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>totalToday</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Total value of <b>input1</b> for the day.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>totalTodayShift<b>n</b></p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Total value of  <b>input1</b>  for today’s shift <b>n</b> where <b>n</b> = 1 to 6</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>totalYesterday</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Total value of <b>input1</b> for yesterday</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>totalYesterShift<b>n</b></p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Total value of the <b>input1</b> value for shift <b>n</b> on previous day where <b>n</b> = 1 to 6.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column1-Body1" colspan="3"><b>If calculating a complex KPI, then you can also refer to these slots:</b>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>total2CurrShift</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>The total value of the <b>input2</b> slot for the current shift.&#160; </p>
+                                <p class="Notices"><b>Note:</b> This agent allows putslots to this slot to correct the integrated totals.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>total2Predicted</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>The predicted total of <b>input2</b> for the current shift.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>total2PrevShift</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Total value of the <b>input2</b> value for previous shift</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                                <p>total2YesterShift</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                                <p>REAL</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                                <p>Total value of <b>input2</b> for the same shift yesterday.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ol>
+        <p>&#160;</p>
+        <p>Related Links:</p>
+        <p><a href="Specific_Status_Bits_of_the_OEE_Agent.htm">OEE Agent - Specific Status Bits</a> : to indicate  various quality and other alarm conditions, the status of the agent, OLE DB connection and the current shift.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

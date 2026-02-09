@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents|The Shift Agent" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Configuring the Shift agent</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1489"></a>Configuring the Shift Agent</h1>
+        <p>&#160;</p>
+        <p>Edit 
+ an agent of type: <b>Scheduler</b>.</p>
+        <p>Please use the following sequence when adding shift patterns:</p>
+        <ol start="1">
+            <li class="Numbers" value="1">Entries that contain a <b>Special date</b> or <b>Day of month</b> value must always be specified first.</li>
+            <li class="Numbers" value="2"><b>Special date</b> entries must use the format “yyyy/mm/dd” e.g. 2010/04/04.&#160; An example of a “special date” is a public holiday which falls on a different day every year e.g. Easter Monday.</li>
+            <li class="Numbers" value="3"><b>Day of month</b> entries must use the format “mm/dd”.&#160; An example of a “day of month” is a public holiday which falls on the same day every year e.g. New Years day.</li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> Entries containing a <b>Special date</b> cannot contain a <b>Day of month</b> value too.</p>
+        <p class="ListNotice"><b>Note2:</b> Entries containing  a <b>Special date</b> or <b>Day of month</b> value force (disable) their <b>Day of week</b> value.</p>
+        <p class="ListNotice"><b>Tip:</b> Use the DEL key to delete unneeded <b>Special date</b> or <b>Day of month</b> field entries</p>
+        <ol start="4">
+            <li class="Numbers" value="4">The last entries should be the default shift patterns that ONLY contains a <b>Day of week</b> value and NO <b>Special date</b> or <b>Day of month</b> values.</li>
+        </ol>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="shiftPatternEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Shift pattern examples:</a>
+        </p>
+        <div MadCap:targetName="shiftPatternEx" style="display: none;">
+            <p>
+                <img src="ShiftPatternExamples.jpg" />
+            </p>
+            <p>This screenshot exemplifies the required order of entries and provides the following shift patterns:</p>
+            <ol start="1">
+                <li class="Numbers" value="1">For the 1<sup>st</sup> of January of any year.</li>
+                <li class="Numbers" value="2">For the 25<sup>th</sup> of December for any year.</li>
+                <li class="Numbers" value="3">ONLY on the 4<sup>th</sup> of April 2010</li>
+                <li class="Numbers" value="4">For ALL Saturdays and Sundays</li>
+                <li class="Numbers" value="5">For ALL&#160;normal weekdays</li>
+            </ol>
+            <p>Notice how the shift patterns that do NOT contain a <b>Special date</b> or <b>Day of month</b> column are at the END of this list.</p>
+        </div>
+        <p>The Shift agent caters for a maximum of 6 shifts per day.&#160; If you need less than 6 shifts, then specify the starting time of the last applicable shift for the unneeded shifts. </p>
+        <p>For instance, if only 3 shifts are used, then specify the starting time of shift 3 as the starting times of shifts 4, 5 and 6.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="shiftNumberEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Shift number examples:</a>
+        </p>
+        <div MadCap:targetName="shiftNumberEx" style="display: none;">
+            <p>
+                <img src="ShiftTimeExamples.jpg" />
+            </p>
+            <p>This screenshot shows the following shift time configurations:</p>
+            <ul>
+                <li class="Bullets" value="1">The first has TWO shifts one starting at 2 AM and the other at 2 PM.</li>
+                <li class="Bullets" value="2">The second has THREE shifts, which start at 2 AM, 10 AM and 6 PM</li>
+            </ul>
+            <p>Notice how the unneeded shifts ALWAYS specify the starting times of the last applicable shift.</p>
+        </div>
+        <p>&#160;</p>
+        <p><b>SQL connection string</b>: If specified, the shifts are added to the Adr_Grouping_Details table as the shifts occur in real time, which is used by <span class="AdroitAppName">Adroit</span> SCADA Intelligence. </p>
+        <table style="margin-left: 0;margin-right: auto;width: 95%;" class="A4-Table-NoteGrayBack">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p><b>Note:</b>
+                        </p>
+                        <p>If you specify <b>global</b>, the <b>Global OLE DB connection</b> string of the Agent Server is used, which is specified  in the <b><span class="AdroitAppName">Adroit</span> Config Editor</b>.</p>
+                        <ul>
+                            <li value="1">Typically, you can launch this tool from the Desktop shortcut. </li>
+                            <li value="2">Select the <b>Agent Server Configuration </b><i>Welcome</i> menu item.</li>
+                            <li value="3">Select the <b>Advanced Agent Server Configuration</b> option.</li>
+                            <li value="4">At the bottom of the dialog, the <b>Global OLE DB connection</b> field is available for you to specify this connection string.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>The <b>Current shift details</b> field displays the current day, the current shift number, the current shift duration and then the starting and ending times of the current shift. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="CurrShiftDetailsEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a></p>
+        <p MadCap:targetName="CurrShiftDetailsEx" style="display: none;">
+            <img src="ShiftInfoExample.jpg" />
+        </p>
+        <p class="Notices"><b>Tip:</b> If this does not reflect recent configuration changes then click the <b>Update</b> and then the <b>Refresh</b> buttons and it should display correctly.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

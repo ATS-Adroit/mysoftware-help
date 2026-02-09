@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Utilities|Adroit Security Manager" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_SecurityMngr" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="SecurMngr.doc" /><title>Configuring Groups and Users</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor499"></a><a name="kanchor500"></a><a name="kanchor501"></a>Configuring Groups and Users&#160;</h1>
+        <p>The <span class="AdroitAppName">Adroit</span> Security Manager 
+ allows you to configure the necessary groups and their users, as follows:</p>
+        <p class="Notices"><b>Tip</b>.About <span class="AdroitAppName">Adroit</span> Security Groups : 
+ Security in <span class="AdroitAppName">Adroit</span> works best with an INCLUSIVE security policy, see</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t19" name="kanchor502"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Select whether 
+ you will use a workgroup or domain:</a> this is the <b>most important consideration</b> 
+ when configuring your groups and users. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t16"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for 
+ more details:</a>&#160;</p>
+        <div MadCap:targetName="t19" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">  Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Security Manager</b>  and select it from the list.&#160;</li>
+                <li class="Numbers" value="2">If necessary, 
+ click the <b>Workgroup</b>/<b>Domain</b> branch in the left hand 
+ tree pane.</li>
+            </ol>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t18"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure groups and users 
+ on the LOCAL computer:</a>the specified groups and users ONLY apply to the local computer and 
+ this configuration MUST be duplicated on ALL the computers that will run 
+ <span class="AdroitAppName">Adroit</span> in this Workgroup</p>
+            <div MadCap:targetName="t18" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Click the <b>Workgroup</b> 
+ option.</li>
+                </ol>
+                <p class="ListDesc">The branch name changes to Workgroup.</p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t17"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure groups and users 
+ on a domain:</a>the specified groups and users apply to ALL the computers on this 
+ Domain.</p>
+            <div MadCap:targetName="t17" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Type in the name of the 
+ required domain in the edit box next to the Domain option.</li>
+                    <li class="Numbers" value="2">Click the <b>Domain</b> 
+ option.</li>
+                </ol>
+                <p class="ListDesc">This connects to the specified domain and changes this 
+ branch name to Domain.</p>
+            </div>
+            <p>&#160;</p>
+        </div>
+        <div MadCap:targetName="t16" style="display: none;">
+            <p>Although running outside of a domain is less costly, it is harder to 
+ manage groups and user accounts when deploying a distributed <span class="AdroitAppName">Adroit</span> system 
+ – especially if there are a large number of users that need to interact 
+ with <span class="AdroitAppName">Adroit</span>.</p>
+            <p>If you are using a Workgroup, then the <b><span class="AdroitAppName">Adroit</span> Security 
+ Manager</b> 
+ utility can reduce this management overhead by exporting your users and 
+ groups,<span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">Once you have created the necessary groups and/or users 
+ on one computer, you can export these users and groups (<b>Tools</b> menu\<b>Export</b>) 
+ and then import them in the <span class="AdroitAppName">Adroit</span> Security Manager 
+ running on another computer (<b>Tools</b> menu\<b>Import</b>) to automatically 
+ create the users and/or groups that do not exist on this computer. For more details, see <a href="Exporting_and_Importing_Groups_and_Users.htm" width="500" height="400" target="_popup">Exporting and Importing 
+ Groups and Users</a>.
+
+</span></span></p>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t15"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Specify the necessary groups 
+ of users:</a> 
+ add all the groups of users that you require for securing your <span class="AdroitAppName">Adroit</span> 
+ installation. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click for more details:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"><span class="AdroitAppName">Adroit</span> security works best if you create a hierarchy of user groups, 
+ where the users of higher groups are also members of all the lower groups. 
+ This is known as an INCLUSIVE security policy. </span></span></p>
+        <div MadCap:targetName="t15" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">  Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Security Manager</b>  and select it from the list.  &#160;&#160; </li>
+                <li class="Numbers" value="2">If necessary, 
+ click the <b>Workgroup</b>/<b>Domain</b> branch in the left hand 
+ tree pane.</li>
+                <li class="Numbers" value="3">Click on the <b>Groups</b> 
+ option.</li>
+            </ol>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t14"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To create the default <span class="AdroitAppName">Adroit</span> 
+ security groups:</a> <![CDATA[ 
+ ]]><a name="kanchor504"></a>this can create the recommended <a name="kanchor505"></a><span class="AdroitAppName">Adroit</span> groups, so that 
+ you can create an INCLUSIVE security policy or hierarchy of user groups. 
+ This also creates the typical user ‘DefaultOp’, which is automatically 
+ added to the lowest <span class="AdroitAppName">Adroit</span> security group ‘Users’.</p>
+            <div MadCap:targetName="t14" style="display: none;">
+                <p class="Notices"><b>Note:</b> ONLY do this if 
+ you have a new <span class="AdroitAppName">Adroit</span> installation and have not created user groups yet.</p>
+                <ol>
+                    <li class="Numbers" value="1">If necessary, specify a 
+ prefix in the <b><span class="AdroitAppName">Adroit</span> group prefix</b> edit box that is added 
+ to these default <span class="AdroitAppName">Adroit</span> user group names. This prefix can help to distinguish 
+ your <span class="AdroitAppName">Adroit</span> user groups from any other groups that you have created. For 
+ instance: ‘<span class="AdroitAppName">Adroit</span>_’.</li>
+                </ol>
+                <p class="ListNotice"><b>Note:</b> If you do not specify a prefix then ALL 
+ the configured groups of this computer or domain are displayed.</p>
+                <ol start="2">
+                    <li class="Numbers" value="2">Click the <b>Create default…</b> 
+ button.</li>
+                </ol>
+                <p class="ListDesc">The following groups and user are added automatically 
+ to either the local computer (if the branch is <b>Workgroup</b>) or to 
+ the domain (if the branch is <b>Domain</b>):</p>
+                <ul>
+                    <li class="ListBullets" value="1">The default <span class="AdroitAppName">Adroit</span> 
+ groups, in alphabetical order: Admins; Engineers: Managers; Operators; 
+ Supervisors and Users.</li>
+                    <li class="ListBullets" value="2">The user called 
+ 'DefaultOp' is made an automatic member of the ‘Users’ group; this user 
+ is typically used as an auto logon user.</li>
+                </ul>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t13"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To create a user group:</a> 
+ typically used to add another user group to your existing <span class="AdroitAppName">Adroit</span> security 
+ groups.</p>
+            <div MadCap:targetName="t13" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Click the Add <img src="ADD_BTN_16x16.bmp" style="width: 16;height: 16;" border="0" /> button.</li>
+                    <li class="Numbers" value="2">Specify the name of the 
+ required group in the displayed dialog.</li>
+                </ol>
+                <p class="ListNotice"><b>Note:</b> If you have 
+ specified an <b><span class="AdroitAppName">Adroit</span> group prefix</b> then this is added to the 
+ group name that you specify.</p>
+                <ol start="3">
+                    <li class="Numbers" value="3">Click the <b>OK</b> button.</li>
+                </ol>
+                <p class="ListDesc">This group is added to either the local computer (if 
+ the branch is <b>Workgroup</b>) or to the domain (if the branch is <b>Domain</b>). </p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t12"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove a user group:</a> 
+ typically used to remove a user group that is no longer required for your 
+ <span class="AdroitAppName">Adroit</span> security.</p>
+            <div MadCap:targetName="t12" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Select the name of the 
+ group that is no longer required in the Groups list.</li>
+                    <li class="Numbers" value="2">Click the Delete <img src="DEL_BTN.bmp" style="height: 13px;width: 14px;" width="14" height="13" border="0" /> button.</li>
+                    <li class="Numbers" value="3">Click the <b>OK</b> button.</li>
+                    <li class="Numbers" value="4">Click the <b>Yes</b> button 
+ of the confirmation dialog.</li>
+                </ol>
+                <p class="ListDesc">This specified group is removed from either the local 
+ computer (if the branch is <b>Workgroup</b>) or to the domain (if the 
+ branch is <b>Domain</b>). </p>
+            </div>
+            <p class="Notices"><b>Note:</b> Any users that 
+ are members of this group ONLY have their MEMBERSHIP to this group REMOVED, 
+ this does NOT DELETE the USERS themselves.</p>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t11"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Specify and/or configure the 
+ necessary users and/or add them to groups:</a> <a name="kanchor506"></a>add all the users that you require for securing your <span class="AdroitAppName">Adroit</span> installation 
+ and if necessary assign them to the necessary groups and/or manage their 
+ user account settings. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click for more details:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">If you are creating the recommended INCLUSIVE security 
+ policy, then you need to add the users of the higher groups to all the 
+ lower groups as well. 
+
+</span></span></p>
+        <div MadCap:targetName="t11" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">  Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Security Manager</b>  and select it from the list.&#160;  &#160;&#160; </li>
+                <li class="Numbers" value="2">If necessary, 
+ click the <b>Workgroup</b>/<b>Domain</b> branch in the left hand 
+ tree pane.</li>
+                <li class="Numbers" value="3">Click on the <b>Users</b> 
+ option.</li>
+            </ol>
+            <p class="ListDesc">The right hand pane provides upper and lower pairs of 
+ lists, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t10"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <div MadCap:targetName="t10" style="display: none;">
+                <ul>
+                    <li class="ListBullets" value="1">The upper pair 
+ of lists allows you to configure the account setting properties of each 
+ user, to create and delete <b><span class="AdroitAppName">Adroit</span>_Users</b> and to move users between 
+ the <b>All users</b> and <b><span class="AdroitAppName">Adroit</span>_Users</b> lists.</li>
+                </ul>
+                <p class="ListNoteSub"><b>Note1: ALL</b> the users 
+ listed in the <b><span class="AdroitAppName">Adroit</span>_Users</b><a name="kanchor507"></a> list are automatically added to the 
+ <span class="AdroitAppName">Adroit</span> Users group.</p>
+                <p class="ListNoteSub"><b>Note2:</b> ONLY the 
+ users listed in the <b><span class="AdroitAppName">Adroit</span>_Users</b> list can be added or removed from 
+ the <span class="AdroitAppName">Adroit</span> groups that are specified in the lower pair of lists.</p>
+                <ul>
+                    <li class="ListBullets" value="1">The lower pair 
+ of lists specifies and configures the groups that the currently selected 
+ user in the <b><span class="AdroitAppName">Adroit</span>_Users</b> list is a member of.&#160;</li>
+                </ul>
+                <p class="ListDesc"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Example:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">if you have a new <span class="AdroitAppName">Adroit</span> installation and 
+ you created the default security groups, then you will have one <b><span class="AdroitAppName">Adroit</span>_Users</b> 
+ user called DefaultOp, which is a member of the <b>Users</b> 
+ group. When this user is selected the <b>Users</b> 
+ group is displayed in the <b>Current memberships</b> list.
+
+</span></span>
+                </p>
+            </div>
+            <p>&#160;</p>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t9"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To move existing users to the 
+ <span class="AdroitAppName">Adroit</span>_Users list:</a> 
+ instead of adding new users you can also add existing users to the <b><span class="AdroitAppName">Adroit</span>_Users</b> 
+ list.</p>
+            <div MadCap:targetName="t9" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Select the required user 
+ in the <b>All users</b> list.</li>
+                    <li class="Numbers" value="2">Click the <img src="MOVE_LEFT_BTN_16x16.bmp" style="width: 16;height: 16;" border="0" /> button above this list.</li>
+                </ol>
+                <p class="ListDesc">The selected user is added to the <b><span class="AdroitAppName">Adroit</span>_Users</b> 
+ list.</p>
+                <p class="ListNotice"><b>Note:</b> This user is also automatically 
+ added to the <span class="AdroitAppName">Adroit</span> Users group of either the local computer (if the branch 
+ is <b>Workgroup</b>) or the domain (if the branch is <b>Domain</b>).</p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a new <span class="AdroitAppName">Adroit</span> user:</a> 
+ typically everyone who uses <span class="AdroitAppName">Adroit</span> should have their own user account.</p>
+            <div MadCap:targetName="t8" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Click the Add <img src="ADD_BTN_16x16.bmp" style="width: 16;height: 16;" border="0" /> button.</li>
+                    <li class="Numbers" value="2">Specify the name of this 
+ user in the displayed dialog.</li>
+                    <li class="Numbers" value="3">Click the <b>OK</b> button.</li>
+                </ol>
+                <p class="ListDesc">This user is immediately added to the <span class="AdroitAppName">Adroit</span> Users group 
+ of either the local computer (if the branch is <b>Workgroup</b>) or the 
+ domain (if the branch is <b>Domain</b>). </p>
+            </div>
+            <p class="Notices"><b>IMPORTANT:</b> Adding an 
+ <span class="AdroitAppName">Adroit</span> user does NOT set its password, so unless you specify a password 
+ this user is unable to log on.&#160;&#160;</p>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure the password for 
+ this user:</a> if the <span class="AdroitAppName">Adroit</span> Security Manager utility adds an <span class="AdroitAppName">Adroit</span> user, 
+ then you need to set its password so that it is able to log on to either 
+ the local computer (if the branch is <b>Workgroup</b>) or the domain (if 
+ the branch is <b>Domain</b>).&#160;</p>
+            <div MadCap:targetName="t7" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Select the required user 
+ in either the <b>All users</b> or <b><span class="AdroitAppName">Adroit</span>_Users</b> list.</li>
+                    <li class="Numbers" value="2">Click the <b>User 
+ Account Settings</b> <img src="UAC_BTN.bmp" style="height: 16px;width: 16px;" width="16" height="16" border="0" /> button.</li>
+                </ol>
+                <p class="ListNotice"><b>Tip:</b> You can also 
+ double click the required user.</p>
+                <p class="ListDesc">The <b>User details</b> dialog is displayed.</p>
+                <ol start="3">
+                    <li class="Numbers" value="3">Click the <b>Set password 
+ …</b> button.</li>
+                    <li class="Numbers" value="4">Specify the required password 
+ twice and click the <b>OK</b> button.</li>
+                </ol>
+                <p class="ListNotice"><b>Note:</b> You can also 
+ use this dialog to manage the user account settings for this user, see 
+ below for more details.</p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add an <span class="AdroitAppName">Adroit</span> user to a <span class="AdroitAppName">Adroit</span> 
+ group:</a> 
+ once you have added a user to the <b><span class="AdroitAppName">Adroit</span>_Users</b> list, you can add 
+ this user to any of the <span class="AdroitAppName">Adroit</span> groups that are listed in the <b>Available 
+ memberships</b> list.</p>
+            <div MadCap:targetName="t6" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Select the required user 
+ in the <b><span class="AdroitAppName">Adroit</span>_Users</b> list.</li>
+                </ol>
+                <p class="ListDesc">The <b>Available memberships</b> list lists all the <span class="AdroitAppName">Adroit</span> 
+ groups of either the local computer (if the branch is <b>Workgroup</b>) 
+ or the domain (if the branch is <b>Domain</b>) that this user is NOT yet 
+ a member of.</p>
+                <ol start="2">
+                    <li class="Numbers" value="2">Select the required <span class="AdroitAppName">Adroit</span> 
+ group that this user should join in the <b>Available memberships</b> list.</li>
+                    <li class="Numbers" value="3">Click the <img src="MOVE_LEFT_BTN_16x16.bmp" style="width: 16;height: 16;" border="0" /> button above this list.</li>
+                </ol>
+                <p class="ListDesc">This group is added to the list of <span class="AdroitAppName">Adroit</span> groups that 
+ this user is currently a member of, which is listed in the <b>Current 
+ memberships</b> list. </p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove an <span class="AdroitAppName">Adroit</span> user from 
+ a <span class="AdroitAppName">Adroit</span> group:</a> 
+ if necessary you can remove user in the <b><span class="AdroitAppName">Adroit</span>_Users</b> list from 
+ any of the <span class="AdroitAppName">Adroit</span> groups that this user is currently a member of, which 
+ are listed in the <b>Current memberships</b> list.</p>
+            <div MadCap:targetName="t5" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Select the required user 
+ in the <b><span class="AdroitAppName">Adroit</span>_Users</b> list.</li>
+                </ol>
+                <p class="ListDesc">The <b>Current memberships</b> list lists all the <span class="AdroitAppName">Adroit</span> 
+ groups of either the local computer (if the branch is <b>Workgroup</b>) 
+ or the domain (if the branch is <b>Domain</b>) that this user IS a member 
+ of.</p>
+                <ol start="2">
+                    <li class="Numbers" value="2">Select the required <span class="AdroitAppName">Adroit</span> 
+ group that this user should join in the <b>Current memberships</b> list.</li>
+                    <li class="Numbers" value="3">Click the <img src="MOVE_RIGHT_BTN_16x16.bmp" style="width: 16;height: 16;" border="0" /> button above this list.</li>
+                </ol>
+                <p class="ListDesc">This group is added to the list of <span class="AdroitAppName">Adroit</span> groups that 
+ this user is NOT currently a member of, which is listed in the <b>Available 
+ memberships</b> list. </p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To manage the user account settings 
+ of a user:</a> 
+ this allows you to configure such settings as setting the password for 
+ this user and/or changing the password settings and/or disabling the user 
+ account itself.</p>
+            <div MadCap:targetName="t4" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Select the required user 
+ in either the <b>All users</b> or <b><span class="AdroitAppName">Adroit</span>_Users</b> list.</li>
+                    <li class="Numbers" value="2">Click the <b>User Account 
+ Settings</b> <img src="UAC_BTN.bmp" style="height: 16px;width: 16px;" width="16" height="16" border="0" /> button.</li>
+                </ol>
+                <p class="ListNotice"><b>Tip:</b> You can also 
+ double click the required user.</p>
+                <p class="ListDesc">The <b>User details</b> dialog is displayed.</p>
+                <ul>
+                    <li class="ListBullets" value="1">If necessary, modify 
+ the <b>Full Name</b> and/or<b> Description</b> fields to better identify 
+ and/or describe the purpose or function of this user.</li>
+                    <li class="ListBullets" value="2">If necessary, enable 
+ (check) the following password-related settings:</li>
+                </ul>
+                <p class="ListDescSub"><b>User must change password at next 
+ logon</b>:</p>
+                <p class="ListDescSub"><b>User cannot change password:</b> This setting is 
+ recommended for the users of all the user groups except Administrators.</p>
+                <p class="ListDescSub"><b>Password never expires:</b> If you are going to 
+ use the auto logon feature, this setting is recommended for this user 
+ account. In a multi-user environment this setting poses a security risk.</p>
+                <p class="ListDescSub">ONLY check the <b>Account disabled</b> 
+ setting if you want to temporarily prevent this user from logging onto 
+ the local computer (if the branch is <b>Workgroup</b>) or to the 
+ domain (if the branch is <b>Domain</b>).&#160;</p>
+                <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure the password for this user:</a> if the <span class="AdroitAppName">Adroit</span> Security Manager utility adds an <span class="AdroitAppName">Adroit</span> user, 
+ then you need to set its password so that it is able to log on to either 
+ the local computer (if the branch is <b>Workgroup</b>) or the domain (if 
+ the branch is <b>Domain</b>).&#160;</p>
+                <div MadCap:targetName="t3" style="display: none;">
+                    <ol>
+                        <li class="NumbersSubLetters" value="1">Click 
+ the <b>Set password …</b> button.</li>
+                        <li class="NumbersSubLetters" value="2">Specify 
+ the required password twice and click the <b>OK</b> button.</li>
+                    </ol>
+                </div>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove an <span class="AdroitAppName">Adroit</span> user:</a>&#160; 
+ this ONLY removes the currently selected user from the <b><span class="AdroitAppName">Adroit</span>_Users</b> 
+ list and is UNABLE to remove users from the <b>All users</b> list.</p>
+            <div MadCap:targetName="t2" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Click the Delete <img src="DEL_BTN_16x16.bmp" style="width: 16;height: 16;" border="0" /> button.</li>
+                    <li class="Numbers" value="2">Click the <b>OK</b> button.</li>
+                    <li class="Numbers" value="3">Click the <b>Yes</b> button 
+ of the confirmation dialog.</li>
+                </ol>
+                <p class="ListDesc">This removes the currently selected user from the <b><span class="AdroitAppName">Adroit</span>_Users</b> 
+ list.</p>
+                <p class="ListDesc">This user is either removed from the local computer (if 
+ the branch is <b>Workgroup</b>) or the domain (if the branch is <b>Domain</b>).</p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To move users from the <span class="AdroitAppName">Adroit</span>_Users 
+ list:</a> 
+ instead of deleting users from the <b><span class="AdroitAppName">Adroit</span>_Users</b> list, you can simply 
+ move them to the <b>All users</b> list, where they are available for use 
+ if needed.</p>
+            <div MadCap:targetName="t1" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Select the required user 
+ in the <b><span class="AdroitAppName">Adroit</span>_Users</b> list.</li>
+                    <li class="Numbers" value="2">Click the <img src="MOVE_RIGHT_BTN_16x16.bmp" style="width: 16;height: 16;" border="0" /> button above this list.</li>
+                </ol>
+                <p class="ListDesc">The selected user is added to the <b>All users</b> list.</p>
+            </div>
+            <p class="Notices"><b>Tip:</b> In this case, it 
+ may be useful to disable these user accounts until they are needed, see 
+ managing user accounts below for more details.</p>
+        </div>&#160; 
+
+<p><a href="Exporting_and_Importing_Groups_and_Users.htm">Exporting 
+ and Importing Groups and Users</a>: how to use the <span class="AdroitAppName">Adroit</span> 
+ Security Manager to export and import configured users and groups.</p><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

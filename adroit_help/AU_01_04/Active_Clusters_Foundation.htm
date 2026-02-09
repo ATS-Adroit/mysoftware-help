@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Configuring Agents and the Agent Server|Clustering Agent Servers (Hot Standby)" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Active Clusters Foundation</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    // Support multi-word: highlight each word > 2 chars (keeps it sane)
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1706"></a>Clustering Agent Servers</h1>
+        <p>Clustered Agent Servers, previously known as hot standby, provide both client and server redundancy 
+ enabling high availability of the system. Typically, redundancy can be 
+ applied to all the levels within the plant.</p>
+        <p MadCap:conditions="Common.ExFromPDF">For more details on addressing the important issues that affect the operation and configuration of clustered <span class="AdroitAppName">Adroit</span> Agent Servers, see <a href="Important_Points_to_consider_when_Clustering_Agent_Servers.htm">Important Points to consider when Clustering Agent Servers</a>.</p>
+        <p>There are three general components in <span class="AdroitAppName">Adroit</span> which are aware of redundancy, 
+ namely, the clients, the servers and the server I/O, as illustrated below:</p>
+        <p>
+            <img src="../Images/ebx_2074861901.gif" NOalt="Images\ebx_2074861901.gif" style="height: 217px;width: 163px;" width="163" height="217" border="0" />
+        </p>
+        <p>In <span class="AdroitAppName">Adroit</span>, an Agent Server can be setup to be a cluster server, which 
+ is a set of two Agent Servers running a replicated database (WGP file) 
+ on the same project. A cluster Agent Server can be networked with other 
+ normal (non-cluster) Agent Servers.</p>
+        <p><a name="kanchor1707"></a>The general idea of clustering is that the master server services all 
+ the I/O and client tasks, while the standby server replicates the master 
+ server.</p>
+        <p>If the master server or computer fails, the standby server takes over 
+ as master and the UI’s and scanning tasks take appropriate action. There 
+ are three key mechanisms in Active Clusters namely <a href="Catch-up.htm">catch-up</a>, 
+ <a href="Replication.htm">replication </a>and <a href="Switchover.htm">switchover</a>.</p>
+        <p>A clustered Agent Server: </p>
+        <ol>
+            <li class="Bullets" value="1">can be networked with other 
+ normal (non-cluster) Agent Servers.</li>
+            <li class="Bullets" value="2">is either in the mode of master or standby server </li>
+            <li class="Bullets" value="3">is either in the state of healthy or unhealthy.</li>
+        </ol>
+        <p>A cluster Agent Server is either in the mode of master or standby server 
+ and can either be in the state of healthy or unhealthy.</p>
+        <p class="Notices"><b>Note:</b> Certain 
+ agent types on a cluster server require synchronization of internal data 
+ structures with their master partner. For details, see <a href="Real-time_Catch-up.htm">Real-time 
+ Catch-up</a>.</p>
+        <p>Also, some agents in an Agent Server have internal states that are
+unknown to and unsynchronised with the standby computer. Examples of such agents 
+ are: the Expression agent, the Recipe agent, the Counter agent, the Statistical 
+ agent and all other internal agents that do some calculation 
+ internal to the Agent Server. </p>
+        <p>All cluster information and operations including the historical synchronization can 
+ be viewed and managed within the UI by using the cluster-controlling graphic form.</p>
+        <p>See the <b>Active Cluster Control</b> tab of the <b>System Management</b> graphic form in the <b>System Information</b> project.</p>
+        <p MadCap:conditions="Common.ExFromPDF">&#160;</p>
+        <p MadCap:conditions="Common.ExFromPDF"><a href="Basic_principles_of_server_mode_assignment_strategies_in_Adroit.htm">Basic principles 
+ of Agent Server mode assignment strategies</a>
+        </p>
+        <p MadCap:conditions="Common.ExFromPDF"><a href="../AU_01_02/Cluster_Server_Configuration_Options.htm">Configuring Agent
+Server cluster options</a>
+        </p>
+        <p MadCap:conditions="Common.ExFromPDF">&#160;</p>
+        <p MadCap:conditions="Common.ExFromPDF">For more details on detecting and solving issues that most frequently prevent clustered <span class="AdroitAppName">Adroit</span> Agent Servers from working, see <a href="Troubleshooting_Clustered_Agent_Servers.htm">Troubleshooting Clustered Agent Servers</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>
