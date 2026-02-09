@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Available Agents|The Marshal Agent" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Component Bit Configuration</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor678"></a>Component Bit Configuration</h1>
+        <p>Each row of the grid represents a component bit, which has the functionality 
+ of a digital agent. The following columns permit the configuration of 
+ the 16 component bits:</p>
+        <p class="Notices"><b>Note:</b> It is possible 
+ to <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../COMMON/Change_the_Column_Width.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">manually change the width of any column</a></span> 
+ and to <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../COMMON/Auto-size_the_Column_Width.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">auto-size the width of any column</a></span>, 
+ in the grid.</p>
+        <ol>
+            <li class="Numbers" value="1"><b>Description:</b> 
+ A General description of this bit e.g. HeaterNo. 7</li>
+            <li class="Numbers" value="2"><b>Name:</b> 
+ The name of this bit. By default this name ranges from dig0 through dig15. 
+ However this name can be changed to switch0, switch15 etc. This will also 
+ change the name of the slot e.g. dig0.value then becomes switch0.value.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The following 
+ characters CANNOT be used when specifying the <b>Name</b> 
+ of the bits:</p>
+        <table style="margin-left: auto;margin-right: auto;caption-side: top;">
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <tr>
+                <td>
+                    <p>Space</p>
+                </td>
+                <td>
+                    <p>&#160;</p>
+                </td>
+                <td>
+                    <p>Percent</p>
+                </td>
+                <td>
+                    <p><b>%</b>
+                    </p>
+                </td>
+                <td>
+                    <p>Dollar</p>
+                </td>
+                <td>
+                    <p><b>$</b>
+                    </p>
+                </td>
+                <td>
+                    <p>Period</p>
+                </td>
+                <td>
+                    <p><b>.</b>
+                    </p>
+                </td>
+                <td>
+                    <p>Back slash</p>
+                </td>
+                <td>
+                    <p><b>\</b>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <ol start="3">
+            <li class="Numbers" value="3"><b>Value:</b> 
+ The corresponding value of this bit as extracted from the <b>value</b> 
+ slot of the Marshal agent. This value can be manually toggled, select 
+ the ‘Value’ cell, to reveal the following:</li>
+            <li class="Numbers" value="4">
+                <img src="05_0325_1.gif" NOalt="Images\ebx_658896766.gif" style="height: 31px;width: 61px;" width="61" height="31" border="0" /> This value 
+ can be switched between the two states, using the left mouse click. The 
+ value of the <b>value</b> slot of the 
+ Marshal agent will change accordingly. The names of the two states are 
+ determined by values of State0 and State1</li>
+            <li class="Numbers" value="5"><b>Rawvalue:</b> 
+ The corresponding value of this bit as extracted from the <b>raw 
+ value</b> slot of the Marshal agent. This value can be manually toggled, 
+ select the ‘Rawvalue’ cell, to reveal the following:</li>
+            <li class="Numbers" value="6">
+                <img src="05_0325_1.gif" NOalt="Images\ebx_658896766.gif" style="height: 31px;width: 61px;" width="61" height="31" border="0" /> This value 
+ can be switched between the two states, using the left mouse click. The 
+ value of the <b>raw value</b> slot of 
+ the Marshal agent will change accordingly. The names of the two states 
+ are determined by values of State0 and State1.</li>
+            <li class="Numbers" value="7"><b>Invert:</b> 
+ The default, unchecked, action is to cause the <b>value</b> 
+ of this bit to always correspond to the <b>rawvalue</b>, 
+ e.g. if the <b>rawvalue</b> is State0, 
+ then <b>value</b> will be State0. If 
+ checked, then the <b>value</b> will 
+ correspond to the inverted <b>rawvalue</b>, 
+ e.g. if the <b>rawvalue</b> is State0, 
+ then <b>value</b> will be State1.</li>
+            <li class="Numbers" value="8"><b>State0:</b> 
+ The text value that is used to describe the state of 0 for this bit.</li>
+            <li class="Numbers" value="9"><b>State1:</b> 
+ The text value that is used to describe the state of 1 for this bit.</li>
+            <li class="Numbers" value="10"><b>Pulse:</b> 
+ The default, unchecked, action does not pulse the value of the bit, so 
+ it will remain unchanged. If checked, then the value of the bit will be 
+ pulsed i.e. the period for which the digital is 1 is timed, when the timer 
+ expires then the bit is returned to 0. This is useful for emulating the 
+ action of a push button.</li>
+            <li class="Numbers" value="11"><b>Delay:</b> 
+ The amount of time that a pulsed bit will remain in state 1, in milliseconds. 
+ The default value is 3 seconds. To alter this value, select the ‘Delay’ 
+ cell, to display: <img src="../Images/ebx_-1890624496.gif" NOalt="Images\ebx_-1890624496.gif" style="height: 31px;width: 55px;" width="55" height="31" border="0" /> Either alter the value by using the left 
+ mouse button to click on the arrow buttons or modify the existing delay 
+ value using the keyboard, like any other edit box.</li>
+            <li class="Numbers" value="12"><b>Coldstart:</b> 
+ The default, unchecked, action does not allow for a cold start value, 
+ so that no value is sent to a front-end device when the Agent Server is 
+ loaded. If checked, then the initial value of this bit will be stored 
+ for later use.</li>
+            <li class="Numbers" value="13"><b>Coldstart 
+ Value:</b> The value of this bit is stored and will be sent to a front-end 
+ device when the Agent Server is first loaded.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

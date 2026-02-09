@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Translating Graphic Forms" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with graphic form translation</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor752"></a>Working with graphic form translation</h1>
+        <p><a name="kanchor753"></a>Projects can provide language support, also known as localization, 
+ because their graphic forms can be translated into the language(s) 
+ required by their end-users.</p>
+        <p>When graphic forms are created the currently specified <b>Graphic Form Language</b> of the user profile of the user that created them becomes the primary or reference language of this graphic form used when importing other languages and CANNOT BE CHANGED. <MadCap:conditionalText MadCap:conditions="Common.VerMinorOne">Any subsequent change to this user profile setting ONLY changes the preview language of the existing graphic forms (the language that used to display or preview the graphic form in the Designer).</MadCap:conditionalText> <![CDATA[ ]]></p>
+        <p>By default, this is the language of the Windows operating system. For details on how to configure this user profile setting, see <a href="../../40Mng/20Prf/10Cfg/Customizing_the_primary_translation_language_of_new_graphic_forms_and_the_display_language_of_new_and_existing_graphic_f.htm">Customizing the primary translation language of new graphic forms and the preview language of new and existing graphic forms</a>.</p>
+        <p class="Notices" MadCap:conditions="Common.VerMinorOne"><b>Note:</b> It is possible to change the language of the Operator via scripting at runtime, so that you can dynamically change the language in which graphic forms are displayed.</p>
+        <p MadCap:conditions="Common.VerMinorOne"><span class="VIPAppVerName">SmartUI 10</span> enhances the existing graphic form localization process and provides data translation or the translation of specific data strings, which if matched exactly are translated in real-time. So now both the graphic form user interface and the data that it displays can be localised. <MadCap:conditionalText MadCap:conditions="Common.ExFromPDF"> For details, see <a href="10Gbl/Globally_translating_projects.htm">Globally 
+ translating projects</a>.</MadCap:conditionalText></p>
+        <p>Each graphic form uses its own local translation table to perform the 
+translation of its configured form components, into the required 
+ language(s). <MadCap:conditionalText MadCap:conditions="Common.ExFromPDF">For details, see <a href="20GF/Translating_graphic_forms.htm" name="kanchor754">Translating 
+ graphic forms</a>.&#160;</MadCap:conditionalText></p>
+        <p><a name="kanchor757"></a>A graphic form can import translation(s) from the project translation 
+ table, which is global to all the graphic 
+ forms within this project.</p>
+        <p>You can also export the translations 
+ created in a graphic form translation table to the project's 
+ global translation table. Then import these translations 
+ to other graphic forms, as required. <MadCap:conditionalText MadCap:conditions="Common.VerMinorOne"><span class="VIPAppVerName">SmartUI 10</span> allows you to directly obtain the strings you want to translate directly from specific graphic forms, without having to manually type them in or export and import translation tables.</MadCap:conditionalText><MadCap:conditionalText MadCap:conditions="Common.ExFromPDF"> For details, see <a href="10Gbl/Globally_translating_projects.htm">Globally 
+ translating projects</a>.</MadCap:conditionalText></p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a>
+        </p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p>This global translation table or ‘phrase book’ of the project provides 
+ a central storage area that contains the languages and translated text 
+ for the common graphic form components used within any or all of the project’s 
+ graphic forms.&#160;</p>
+            <p>Using 
+ this global translation table, while not directly translating the graphic 
+ forms themselves, provides the following benefits:</p>
+            <ol>
+                <li class="Numbers" value="1">The translations for the 
+ common form components only need to be performed once and can then be 
+ imported into the necessary graphical forms.</li>
+                <li class="Numbers" value="2">This considerably simplifies 
+ the overall management of the translations, in that any changes only needs 
+ to this table, which can be imported throughout the project.</li>
+                <li class="Numbers" value="3">This ensures that translations 
+ are applied consistently throughout the project.</li>
+            </ol>
+            <p class="Notices"><b>Note:</b> There is no 
+ limit to the number of languages can be added to a translation table.</p>
+            <p>If special 
+ characters are required for the translated language, ensure the required input locale is installed on the operating system. <MadCap:conditionalText MadCap:conditions="Common.ExFromPDF">For details, see <a href="Adding_input_locales.htm">Adding input locales</a>.</MadCap:conditionalText></p>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Available Agents|The Command Agent|Using Pseudonyms and Macros" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Creating Pseudonyms</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1581"></a><a name="kanchor1582"></a>Creating Pseudonyms</h1>
+        <p>Pseudonyms can be created to simply the process of specifying commands, 
+ since a pseudonym is simply an abbreviation or alias for a tag 
+ (agent.slot), which once defined, can be used to represent this  
+ tag in commands that are sent to this <a href="The_Command_Agent.htm">Command 
+ agent</a>.</p>
+        <p>Before pseudonyms can be used in messages, it is necessary to alert 
+ this Command agent to their possible existence in its received messages, 
+ so that it can correctly interpret them and so that any outgoing messages 
+ will have the pseudonyms replaced with the full tag. For details, see 
+ <a href="Enabling_Pseudonyms_and_Macros.htm">Enabling Pseudonyms 
+ and Macros</a>.</p>
+        <p>Although pseudonyms can reduce the typing required to specify commands, 
+ they need to be defined for this Command agent before they can be used. 
+ For this reason, they can be used to to further restrict or limit the 
+ SET-table tags that can be performed by this Command agent. For details, 
+ see <a href="SET_Command_Usage_Restriction.htm">Limiting SET Commands</a>.</p>
+        <p class="Notices"><b>Note1:</b> Macros 
+ can be used as placeholders for entire commands, if required. For details, 
+ see <a href="Creating_Macros.htm">Creating Macros</a>.</p>
+        <p class="Notices"><b>Note2:</b> Pseudonyms, 
+ like macros, are specific to the Command agent in which they are defined 
+ and are not global to all Command agents. However when a Command agent 
+ is copied, any defined macros and pseudonyms will also be duplicated. 
+ For details, see <a href="../AU_01_04/To_Make_a_Copy_of_an_Agent.htm">Copying 
+ Agents</a>.</p>
+        <p class="Notices"><b>Note3:</b> It is also possible to remove any pseudonyms that are no longer 
+ required. For details, see <a href="Removing_Pseudonyms_and_Macros.htm">Removing 
+ Pseudonyms and Macros</a>.</p>
+        <h2>To define a pseudonym:</h2>
+        <ol>
+            <li class="Numbers" value="1">If necessary, add a Command 
+ agent. For details, see <a href="../AU_01_04/To_Add_a_New_Agent.htm">Adding 
+ Agents</a>.</li>
+            <li class="Numbers" value="2">Edit the required Command 
+ agent. For details, see <a href="../AU_01_04/Editing_an_agent.htm">Editing 
+ Agents</a>.</li>
+        </ol>
+        <p class="ListDesc">This will display the <b>Edit 
+ Command agent</b> dialog.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Select the <b>Pseudonyms 
+ and Macros</b> tab.</li>
+            <li class="Numbers" value="4">If necessary, click the 
+ <b>Add pseudonym or macro</b> <img src="../COMMON/AddButton.jpg" /> button to add a new entry.</li>
+            <li class="Numbers" value="5">If necessary, select the 
+ <b>Pseudonym/Macro</b> 
+ cell, in the required row and type in the name that will be used to represent 
+ the required  tag.</li>
+            <li class="Numbers" value="6">Select the <b>Replacement</b> 
+ cell and click the browse button to the left of this cell to browse for 
+ the required  tag (agent.slot). For details, see <a href="../AU_01_04/Selecting_the_Agent_and_Slot_Names.htm">Selecting 
+ the Agent and Slot Names</a>.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> Although 
+ it is also possible to type the name of this  tag (agent.slot) directly, 
+ it is recommended to use the browser instead.</p>
+        <p class="ListNotice"><b>Note:</b> Ensure 
+ that the <b>Expand pseudonyms in messages</b> 
+ checkbox, is checked, so that this pseudonym will be correctly recognised 
+ and interpreted by this Command agent.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

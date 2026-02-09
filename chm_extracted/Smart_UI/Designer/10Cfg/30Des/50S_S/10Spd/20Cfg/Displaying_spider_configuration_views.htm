@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders|Configuration" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Configuring spiders.doc" /><title>Displaying spider configuration views</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3746"></a><a name="kanchor3747"></a><a name="kanchor3748"></a>Displaying spider configuration views</h1>
+        <p>You can display the configuration views of all the spiders 
+ that have been added to the spider workspace or only the configuration 
+ view of the spider that you want to configure, as follows:</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To display the configuration views of all the spiders:</a>
+        </p>
+        <div MadCap:targetName="t7" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the required spider 
+ workspace.</li>
+                <li class="Numbers" value="2">Right-click the spider 
+ workspace and select the&#160;<b>Expand 
+ All Spiders</b> menu item.</li>
+            </ol>
+        </div>
+        <p class="Notices"><b>Tip:</b> This is the best 
+ method of opening a large number of spider configuration views at once, 
+ especially the configuration views of Data spiders.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To display the configuration view of a particular spider:</a>
+        </p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the required spider 
+ workspace.</li>
+                <li class="Numbers" value="2">Select the required spider. 
+ For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../Selecting_spiders.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting spiders</a></span>.</li>
+                <li class="Numbers" value="3">Right-click the title bar 
+ of this spider and select <b>Detail View</b>.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also double-click the spider title bar.</p>
+            <p class="ListDesc">The configuration view expands to the left and downward 
+ from the position of the title bar of the icon of the spider.</p>&#160;</div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To display the configuration view of a particular Property 
+ spider:</a>
+        </p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the required spider 
+ workspace.</li>
+                <li class="Numbers" value="2">In the spider workspace, 
+ locate the silk that is connected to the required property and navigate 
+ along the silk until you reach its associated node in the property tree 
+ pane at the left edge of the spider workspace.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip1:</b> If necessary, 
+ display the required pane by using the required pane display bar. For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../20DesEnv/Working_with_pane_display_bars.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working 
+ with pane display bars</a></span>.</p>
+            <p class="ListNotice"><b>Tip2:</b> If the required 
+ silk is currently grouped with other silk(s), select this silk first to 
+ assist you in located its connected Data spider. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../30Silks/Selecting_silks.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting 
+ silks</a></span>.</p>
+            <p class="ListDesc">If a dotted line is displayed, next to the silk in the 
+ property tree pane, this indicates that the associated node is currently 
+ hidden within this node of the tree.</p>
+            <p class="ListExample"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+            </p>
+            <div MadCap:targetName="t4" style="display: none;">
+                <p class="ListDesc">
+                    <img src="Spider%20-%20DisplayingDataSpdCFGView1.gif" style="border: none;width: 194px;height: 113px;float: none;border-style: none;" width="194" height="113" border="0" />
+                </p>
+            </div>
+            <ol start="3">
+                <li class="Numbers" value="3">If necessary, expand the 
+ tree node(s) until a solid line is displayed, next to the silk in the 
+ property tree pane, indicating that this is the required property.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> Whenever a 
+ branch is expanded the associated silk(s) will also move down to and either 
+ indicate where the required tree node is hidden or displayed.</p>
+            <p class="ListExample"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+            </p>
+            <div MadCap:targetName="t3" style="display: none;">
+                <p class="ListDesc">
+                    <img src="Spider%20-%20DisplayingDataSpdCFGView2.gif" style="border: none;width: 222px;height: 227px;float: none;border-style: none;" width="222" height="227" border="0" />
+                </p>
+            </div>
+            <ol start="4">
+                <li class="Numbers" value="4">Right-click this property 
+ (tree node) adjacent to this solid line and select <b>Show 
+ property spider</b>.</li>
+            </ol>
+            <p class="ListDesc">The associated configuration view is displayed in the 
+ spider workspace, which can be located by following the light purple ray, 
+ which expands from the position of the property tree node to the right 
+ side of the configuration view.</p>
+            <p class="ListExample"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+            </p>
+            <div MadCap:targetName="t2" style="display: none;">
+                <p class="ListDesc">
+                    <img src="DisplayDataSpdCfgVu3.png" style="border: none;width: 414px;height: 229px;float: none;border-style: none;" width="414" height="229" border="0" />
+                </p>
+            </div>
+            <p>&#160;</p>
+        </div>
+        <p class="Notices"><b>Note:</b> In addition to 
+ displaying its configuration view, a Data spider also indicates its 
+ associated data element or property by means of a light-purple ray.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

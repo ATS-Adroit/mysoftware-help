@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Graphic Forms|Designing Graphic Forms|Situational Awareness (or High Performance SCADA)" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer_VerMinorFour" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Displays</title>
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2342"></a>Displays</h1>
+        <p>A display, textually display the value of the associated process variable.</p>
+        <h3>Analogue Displays</h3>
+        <p><b>Purpose:</b> to textually display the value of the associated analogue   (floating point) process variable (PV).</p>
+        <p><b>Description:</b> A rectangle with a light grey background displaying the following information:</p>
+        <ul>
+            <li class="Bullets" value="1">the analogue process variable (PV) - the <b>value</b> slot of the Analog agent - in black and </li>
+            <li class="Bullets" value="2">the units of this value (the <b>unit</b> slot of the Analog agent), if specified, below this in light grey (otherwise it is not displayed)</li>
+            <li class="Bullets" value="3">an alarm priority indication, when applicable and only when the associated alarm bit has been specified   </li>
+        </ul>
+        <p>
+            <img src="SitAwareness_AnalogueDisplayPri3.png" />
+        </p>
+        <p>&#160;</p>
+        <p><b>wzdAnalogueDisplay_NoPriority_v01</b>: displays an analogue process variable (PV) value and/or unit without displaying any alarm priorities. </p>
+        <p style="font-weight: bold;">Required values:</p>
+        <p class="Notices"><b>Note: </b><span style="font-weight: normal;">When this wizard is added to a graphic form, all these values are MANDATORY and therefore must ALL be specified.</span>
+        </p>
+        <p class="Notices"><b>Tip: </b><span style="font-weight: normal;">These values are listed in the order they are specified in the wizard.</span>
+        </p>
+        <ul>
+            <li class="Numbers" value="1">The Analog agent name (although this can specify the <b>value</b> slot, but no other slot name).</li>
+        </ul>
+        <p>&#160;</p>
+        <p><b>wzdAnalogueDisplay_Priority3_v01</b>: displays an analogue  process variable (PV)  value and/or unit  and will display one of the following alarm priorities ONLY when applicable to do so:</p>
+        <ul>
+            <li class="Bullets" value="1">Priority 2 – Normal – Orange</li>
+            <li class="Bullets" value="2">Priority 1 – Low – Magenta</li>
+            <li class="Bullets" value="3">Priority 0 – Lowest – Royal blue - reserved for diagnostics alarms or events. </li>
+        </ul>
+        <p style="font-weight: bold;">Required values:</p>
+        <p class="Notices"><b>Note: </b><span style="font-weight: normal;">When this wizard is added to a graphic form, all these values are MANDATORY and therefore must ALL be specified.</span>
+        </p>
+        <p class="Notices"><b>Tip: </b><span style="font-weight: normal;">These values are listed in the order they are specified in the wizard.</span>
+        </p>
+        <ul>
+            <li class="Numbers" value="1">Browse in the Analog agent name (although this can specify the <b>value</b> slot, but no other slot name).</li>
+            <li class="Numbers" value="2">Browse in the least important (priority 0) alarm bit for this Analog agent (when using the default Analog agent alarms choose one  of the following slots: Changed, High, High-high, Low, Low-low, Normal, OutofRange, Rate-of-change).</li>
+            <li class="Numbers" value="3">Browse in the less important (priority 1) alarm bit for this Analog agent (when using the default Analog agent alarms choose one  of the following slots: Changed, High, High-high, Low, Low-low, Normal, OutofRange, Rate-of-change).</li>
+            <li class="Numbers" value="4">Browse in the normal (priority 2) alarm bit for this Analog agent (when using the default Analog agent alarms choose one  of the following slots: Changed, High, High-high, Low, Low-low, Normal, OutofRange, Rate-of-change).</li>
+        </ul>
+        <p>&#160;</p>
+        <p><b>wzdAnalogueDisplay_Priority5_v01</b>: displays an analogue  process variable (PV)  value and/or unit and will display one of the following alarm priorities ONLY when applicable to do so:</p>
+        <ul>
+            <li class="Bullets" value="1">Priority 4 – Highest – Red</li>
+            <li class="Bullets" value="2">Priority 3 – High – Yellow</li>
+            <li class="Bullets" value="3">Priority 2 – Normal – Orange</li>
+            <li class="Bullets" value="4">Priority 1 – Low – Magenta</li>
+            <li class="Bullets" value="5">Priority 0 – Lowest – Royal blue - reserved for diagnostics alarms or events. </li>
+        </ul>
+        <p style="font-weight: bold;">Required values:</p>
+        <p class="Notices"><b>Note: </b><span style="font-weight: normal;">When this wizard is added to a graphic form, all these values are MANDATORY and therefore must ALL be specified.</span>
+        </p>
+        <p class="Notices"><b>Tip: </b><span style="font-weight: normal;">These values are listed in the order they are specified in the wizard.</span>
+        </p>
+        <ul>
+            <li class="Numbers" value="1">Browse in the Analog agent name (although this can specify the <b>value</b> slot, but no other slot name).</li>
+            <li class="Numbers" value="2">Browse in the least important (priority 0) alarm bit for this Analog agent (when using the default Analog agent alarms choose one  of the following slots: Changed, High, High-high, Low, Low-low, Normal, OutofRange, Rate-of-change).</li>
+            <li class="Numbers" value="3">Browse in the less important (priority 1) alarm bit for this Analog agent (when using the default Analog agent alarms choose one  of the following slots: Changed, High, High-high, Low, Low-low, Normal, OutofRange, Rate-of-change).</li>
+            <li class="Numbers" value="4">Browse in the normal (priority 2) alarm bit for this Analog agent (when using the default Analog agent alarms choose one  of the following slots: Changed, High, High-high, Low, Low-low, Normal, OutofRange, Rate-of-change). </li>
+            <li class="Numbers" value="5">Browse in the second important (priority 3) alarm bit for this Analog agent (when using the default Analog agent alarms choose one  of the following slots: Changed, High, High-high, Low, Low-low, Normal, OutofRange, Rate-of-change).</li>
+            <li class="Numbers" value="6">Browse in the most important (priority 4) alarm bit for this Analog agent (when using the default Analog agent alarms choose one  of the following slots: Changed, High, High-high, Low, Low-low, Normal, OutofRange, Rate-of-change).</li>
+        </ul>
+        <p>&#160;</p>
+        <h3>Digital Displays</h3>
+        <p><b>Purpose:</b> to display the value of the associated Boolean  process variable (PV).</p>
+        <p><b>Description:</b> Typically a rectangle with a light grey background displaying the following information:</p>
+        <ul>
+            <li class="Bullets" value="1">a radio button control that is filled or empty depending on the value of the associated Boolean  process variable (PV) and </li>
+            <li class="Bullets" value="2">a description of this Boolean  process variable and </li>
+            <li class="Bullets" value="3">an alarm priority indication, when applicable and only when the associated alarm bit has been specified.</li>
+        </ul>
+        <p>
+            <img src="SitAwareness_DigitalDisplayPri2.png" />
+        </p>
+        <p>&#160;</p>
+        <p><b>wzdDigitalTextDisplay_NoPriority_v01</b>: this unlike the other Digital Display wizards, simply displays the text corresponding to the status of the value of the associated Boolean  process variable (PV) in a white rectangle.</p>
+        <p>
+            <img src="SitAwareness_DigitalTextualDisplay.png" />
+        </p>
+        <p style="font-weight: bold;">Required values:</p>
+        <p class="Notices"><b>Note: </b><span style="font-weight: normal;">When this wizard is added to a graphic form, all these values are MANDATORY and therefore must ALL be specified.</span>
+        </p>
+        <p class="Notices"><b>Tip: </b><span style="font-weight: normal;">These values are listed in the order they are specified in the wizard.</span>
+        </p>
+        <ol>
+            <li class="Numbers" value="1">Browse in the Digital agent name (which specifies its <b>textValue</b> slot) representing the Boolean process variable (PV).</li>
+        </ol>
+        <p>&#160;</p>
+        <p><b>wzdDigitalDisplay_NoPriority_v01</b>: displays the value of a Boolean process variable (PV) value via a radio button control and a specified textual description. </p>
+        <p style="font-weight: bold;">Required values:</p>
+        <p class="Notices"><b>Note: </b><span style="font-weight: normal;">When this wizard is added to a graphic form, all these values are MANDATORY and therefore must ALL be specified.</span>
+        </p>
+        <p class="Notices"><b>Tip: </b><span style="font-weight: normal;">These values are listed in the order they are specified in the wizard.</span>
+        </p>
+        <ul>
+            <li class="Numbers" value="1">The Digital agent name that specifies this Boolean process variable (although this can specify the <b>value</b> slot, but no other slot name).</li>
+            <li class="Numbers" value="2">Type in a static description of the item of equipment associated with this Boolean process variable (PV).</li>
+        </ul>
+        <p>&#160;</p>
+        <p><b>wzdDigitalDisplay_Priority3_v01</b>: displays the value of a Boolean process variable (PV) value via a radio button control and a specified textual description  and will display one of the following alarm priorities ONLY when applicable to do so:</p>
+        <ul>
+            <li class="Bullets" value="1">Priority 2 – Normal – Orange</li>
+            <li class="Bullets" value="2">Priority 1 – Low – Magenta</li>
+            <li class="Bullets" value="3">Priority 0 – Lowest – Royal blue - reserved for diagnostics alarms or events. </li>
+        </ul>
+        <p style="font-weight: bold;">Required values:</p>
+        <p class="Notices"><b>Note: </b><span style="font-weight: normal;">When this wizard is added to a graphic form, all these values are MANDATORY and therefore must ALL be specified.</span>
+        </p>
+        <p class="Notices"><b>Tip: </b><span style="font-weight: normal;">These values are listed in the order they are specified in the wizard.</span>
+        </p>
+        <ul>
+            <li class="Numbers" value="1">The Digital agent name that specifies this Boolean process variable (although this can specify the <b>value</b> slot, but no other slot name).</li>
+            <li class="Numbers" value="2">Type in a static description of the item of equipment associated with this Boolean process variable (PV).</li>
+            <li class="Numbers" value="3">Browse in the least important (priority 0) alarm bit for the Digital agent  representing the Boolean process variable (when using the default Digital agent alarms choose one  of the following slots: Changed, On, Off).</li>
+            <li class="Numbers" value="4">Browse in the less important (priority 1) alarm bit for the Digital agent  representing the Boolean process variable (when using the default Digital agent alarms choose one  of the following slots: Changed, On, Off).</li>
+            <li class="Numbers" value="5">Browse in the normal (priority 2) alarm bit for the Digital agent  representing the Boolean process variable (when using the default Digital agent alarms choose one  of the following slots: Changed, On, Off).</li>
+        </ul>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

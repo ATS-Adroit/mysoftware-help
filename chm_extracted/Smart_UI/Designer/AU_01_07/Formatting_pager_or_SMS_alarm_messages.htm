@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Alarming Agents|Configuring an Alarm Agent|Routing to Output Devices|The Notify Agent|Notify Agent to send SMS or Pager messages" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Formatting pager or SMS alarm messages</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3959"></a><a name="kanchor3960"></a>Formatting pager or SMS alarm messages </h1>
+        <p>This dialog is displayed by clicking the <b>Format…</b> 
+ button in the main edit window of the Notify agent. This dialog allows 
+ the selection and format of the relevant information fields that are to 
+ be sent to the off site personal:</p>
+        <ol>
+            <li class="Numbers" value="1">Use the <b>Information 
+ to send</b> table to select the information that is to be sent.</li>
+        </ol>
+        <p class="ListDesc">The table has the following columns:</p>
+        <ol>
+            <li class="NumbersSubLetters" value="1"><b>Field:</b> Use this column to select or 
+ unselect the various information fields, by using the clearing or checking 
+ the checkbox, in each of the following rows:</li>
+        </ol>
+        <p class="ListDescSub">Source, Date, Time, Agent, Description, Alarm Type, 
+ Reported Data, Computer, Sub-Source, Category, Action, Event ID, Extra 
+			Data, Filter Group and Priority. For a description of each of these 
+		rows, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="To_Specify_the_Column_Format_for_Event_Output_Agents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Specify 
+ the Column Format for Event Output Agents</a></span>.</p>
+        <ol start="2">
+            <li class="NumbersSubLetters" value="2"><b>Width:</b> This column displays the configured 
+ width of the <b>Field</b>s.</li>
+            <li class="NumbersSubLetters" value="3"><b>Sample:</b> This is a hard-coded sample 
+ of the typical information to be found in each of the <b>Field</b>s.</li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2">Use the <img src="../Images/ebx_-2031185446.gif" NOalt="Images\ebx_-2031185446.gif" style="height: 21px;width: 42px;" width="42" height="21" border="0" /> buttons 
+ to organise the Fields in the <b>Information 
+ to send</b> table, by moving the highlighted <b>Field</b> 
+ up or down.</li>
+            <li class="Numbers" value="3">Enter the desired width 
+ of the currently selected <b>Field</b>, 
+ in the <b>Width</b>, edit box, which 
+ is automatically selected as soon as a <b>Field</b> 
+ is specified.</li>
+            <li class="Numbers" value="4">Check the <b>Trim 
+ spaces</b> option, so that all empty spaces are removed from the Fields 
+ that are sent.</li>
+            <li class="Numbers" value="5">Check the <b>Include 
+ field name in message with separation text</b> option, so that field 
+ names are also included, separated from the field value by the specified 
+ separator.</li>
+            <li class="Numbers" value="6">Enter the desired <b>Field by field separation text</b>.</li>
+            <li class="Numbers" value="7"><b>Sample</b>, 
+ using the existing sample values, this displays how an alarm will appear 
+ when it is received.</li>
+        </ol>
+        <p class="Notices"><b>Note1:</b> The most 
+ frequently used configuration of the Fields is the following: Date (Width=5); 
+ Time (Width=5); Description (Width=20); Alarm Type (Width=10); Reported 
+ Data (Width=8).</p>
+        <p class="Notices"><b>Note2:</b> The message 
+ length is limited to 70 characters.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

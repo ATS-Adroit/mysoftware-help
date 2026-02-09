@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|OLE DB Datasources|DataBinders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Data" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Adding DataBinders</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor128"></a><a name="kanchor129"></a>Adding DataBinders</h1>
+        <p>After connecting your database to an OLE DB datasource, the <img src="../../../../Resources/Images/16/DataSources/OLEDB_Databinders.png" /><![CDATA[  ]]><b>DataBinders</b> folder 
+ appears beneath this datasource in which DataBinders can 
+ be added. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a></p>
+        <div MadCap:targetName="addInfo" style="display: none;">
+            <p>Adding a DataBinder allows you to create or define a sub-set or selection 
+ of the data contained within your database, required to achieve a certain 
+ outcome or purpose.</p>
+            <p>Therefore, instead of your users wading through every record 
+ in your database, they can access a tailored set of records containing 
+ exactly the data they need to perform a particular task.</p>
+            <p class="Notices"><b>PLEASE NOTE:</b> Databinders, 
+ themselves are unable to view or modify your data, they merely allow you 
+ to select the data (tables, views and fields) that they are to contain. </p>
+            <p class="Notices">Each DataBinder requires an associated VIZNETDataBinder component on a 
+ graphic form to display and/or modify this data. <MadCap:conditionalText MadCap:conditions="Common.ExFromPDF">For details see, <a href="Accessing_data_within_DataBinders.htm">Accessing data 
+ within DataBinders</a>.</MadCap:conditionalText></p>
+            <p class="Notices"><b>Note:</b> To see if 
+ a specific DataBinder contains the required data, simply expand the required 
+ DataBinder in the Enterprise Manager to reveal its selected tables, views 
+ and their fields.</p>
+        </div>
+        <h2>To add a DataBinder:</h2>
+        <ol>
+            <li class="Numbers" value="1">In the Enterprise Manager 
+ expand the required <img src="../../../../Resources/Images/16/DataSources/OLEDB.png" /> OLE DB DataSource.</li>
+            <li class="Numbers" value="2">Right click the <img src="../../../../Resources/Images/16/DataSources/OLEDB_Databinders.png" /><![CDATA[  ]]><b>DataBinders</b> folder 
+ and select <b>Add DataBinder</b>.</li>
+            <li class="Numbers" value="3"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t13"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Specify the required 
+ DataBinder Name in the Add DataBinder configuration dialog:</a>
+                <div MadCap:targetName="t13" style="display: none;">
+                    <p class="ListNotice"><b>WARNING!</b> Once 
+ a DataBinder has been named, it is NOT possible to rename it later.</p>
+                    <p class="ListNotice"><b>Note:</b>The 
+ specified name cannot be the same as any other DataBinder that has been 
+ already been specified.</p>
+                    <p class="ListNotice"><b>Tip:</b> Give this 
+ DataBinder a meaningful and concise name so that its purpose can be clearly 
+ identified. Try not to use all 50 characters.</p>
+                </div>
+            </li>
+            <li class="Numbers" value="4">Click <b>Next</b>, 
+ once the name has been specified.</li>
+            <li class="Numbers" value="5"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t12"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Select the fields that this DataBinder should contain:</a>
+                <div MadCap:targetName="t12" style="display: none;">
+                    <p class="ListDesc">Select the required <b>Tables</b> by clicking the checkbox next 
+ to each table’s name in the tree view. By default, this selects all the 
+ fields of the table, clear the checkboxes of the undesired fields.</p>
+                    <p class="ListDesc">If necessary, expand the <b>Views</b> 
+ node and check the checkbox of each view and their field/s that you would 
+ like to be queried, by clicking on it.</p>
+                    <p class="ListNotice"><b>Note1:</b> The default View 
+ includes all the specified fields.</p>
+                    <p class="ListNotice"><b>Note2:</b> Selecting a table, 
+ view or field does not necessarily mean that it needs to be displayed.</p>
+                    <p class="ListNotice"><b>Note3:</b> Each selected 
+ table or view has its own Select statement in the <b>Select 
+ Statements</b> (lower) list.</p>
+                    <p class="ListDesc">The <b>Preview</b> button, 
+ provides as easy way to debug your DataBinder as you create it.</p>
+                    <p class="ListDesc">Simply select the required view or table in <b>Select 
+ Statements</b> (lower) list before clicking this button.</p>
+                    <p class="ListDesc">This returns all the records that the currently configured 
+ DataBinder will return for this table or view, in the pane at the bottom 
+ of the configuration dialog. In this way you can ensure that your DataBinder 
+ provides the required data.</p>
+                </div>
+            </li>
+        </ol>
+        <p class="ListDesc">It is important to select BOTH the fields that you want 
+ the DataBinder to display and those that are needed to configure the DataBinder. 
+ </p>
+        <p class="ListDesc">So select the fields you want to use to create relationships 
+ between, define constraints for and use to sort the displayed results.</p>
+        <p class="ListNotice"><b>IMPORTANT:</b> 
+ If you will require users to add or remove records or update data from 
+ a table then select all the primary key fields defined for this table.</p>
+        <p class="ListNotice"><b>Tip:</b> The <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">primary key<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">A primary key is one or more fields in the table of a database that uniquely identify each record stored in this, so they can locate records. Therefore, the primary key column/s must have unique values for each their rows.</span></span> 
+ fields are highlighted in the table and field tree, so that they appear 
+ in brown unlike the other fields and table names that appear in black.</p>
+        <p class="ListNotice"><b>Note:</b> If there 
+ are relationships between tables, select BOTH of the related tables to 
+ represent the relationship.</p>
+        <ol start="6">
+            <li class="Numbers" value="6">Click <b>Next</b>, 
+ once the required tables, views and/or fields are selected.</li>
+            <li class="Numbers" value="7">If necessary, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t11"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />add or remove relationships between the selected tables and/or 
+ views in the Table Relationships Setup dialog:</a><div MadCap:targetName="t11" style="display: none;"><p class="ListDesc">In this case a relationship is simply a pair of selected 
+ fields, usually in different tables or views, whose values are required 
+ to be identical in order for a record to be returned.</p><p class="ListNotice"><b>Tip:</b> Select 
+ the required view or table in <b>Select 
+ Statements</b> (lower) list and press the <b>Preview</b> 
+ button to test your defined relationships, since an exception will be 
+ displayed if any of the data types of the related fields are NOT identical.</p><p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t10"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a relationship:</a></p><div MadCap:targetName="t10" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Click 
+ the <b>Add Relationship</b> button to 
+ create a relationship between two of the selected fields, as follows:</li><li class="NumbersSubLetters" value="2"><p>Click 
+ the drop-down list box button <img src="../../../../image59.gif" style="border: none;width: 16px;height: 17px;border-style: none;" width="16" height="17" border="0" /> at the right of each <b>Field</b> list and select the required field 
+ from both tables or views. </p><p>This list only displays the fields selected 
+ in the previous dialog, in the following syntax: [Tablename].[Fieldname] 
+ or [Viewname].[Fieldname].</p></li></ol></div><p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t9"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To delete a relationship:</a></p><div MadCap:targetName="t9" style="display: none;"><p class="ListDescSub">Click the <b>Delete 
+ Relationship</b> button to remove the last relationship from the Relationships 
+ list.</p><p class="ListNoteSub"><b>WARNING!</b> This 
+ will ALWAYS delete the relationship at the bottom of the list, regardless 
+ of the currently selected item.</p></div><p>&#160;</p></div></li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> These 
+ do not affect the relationships that you may have already created within 
+ your database.</p>
+        <p class="ListDesc">Typically, you create relationships between tables in 
+ order to perform lookups on fields between different tables, such as between 
+ a primary key s of two tables. </p>
+        <ol start="8">
+            <li class="Numbers" value="8">Click <b>Next</b>, 
+ once the required relationships have been defined.</li>
+            <li class="Numbers" value="9">If necessary, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />add or remove constraints for the values of one or more of the 
+ selected fields in the Constraints dialog:</a><div MadCap:targetName="t8" style="display: none;"><p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a constraint:</a></p><div MadCap:targetName="t7" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Specify 
+ the main View or the name of the table or view you want to constrain in 
+ the top list box.</li><li class="NumbersSubLetters" value="2">Click 
+ the <b>Add Constraint</b> button.</li><li class="NumbersSubLetters" value="3">If 
+ this constraint is NOT the first for the selected View or Table, specify 
+ how to relate this constraint to the previous constraints, as follows:</li><li class="ListSubBullet" value="4">AND: This is 
+ the default option, which makes this constraint mandatory. For instance, 
+ if there are two constraints with an AND between them, then the data will 
+ be restricted by BOTH constraints.</li><li class="ListSubBullet" value="5">OR: Use this 
+ option, to make the specified constraint optional. For instance, if there 
+ are two constraints with an OR between them then the data can be restricted 
+ with EITHER of these constraints.</li><li class="ListSubBullet" value="6">AND NOT: This 
+ makes the INVERSE of this constraint mandatory</li><li class="ListSubBullet" value="7">OR NOT: This 
+ makes the INVERSE of this constraint optional.</li></ol><ol start="4"><li class="NumbersSubLetters" value="4">Select 
+ the field, whose values you want to limit, from the <b>Field</b> 
+ drop-down list box.</li></ol><p class="ListNoteSub"><b>Note1:</b> This list only 
+ displays the selected fields.</p><p class="ListNoteSub"><b>Note2:</b> Only if the main 
+ View is selected is the syntax for the fields [Tablename].[Fieldname] 
+ or [Viewname].[Fieldname] , otherwise this is simply [Fieldname].</p><ol start="5"><li class="NumbersSubLetters" value="5">Select 
+ the method by which the values of this field are to be constrained or 
+ limited from the <b>Constraint</b> drop-down 
+ list box.&#160;For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Qry/Available_comparison_operators.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Available constraint operators</a></span>.</li><li class="NumbersSubLetters" value="6">Specify 
+ the constraining value or parameter in the <b>Value</b> 
+ field.</li></ol><p class="ListDescSub">Specify a value if your users will not need to change 
+ this criterion, otherwise specify a parameter if your users will need 
+ to change this criterion, for instance, if different users require different 
+ values. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Qry/Adding_parameters.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding parameters</a></span>.</p><p class="ListNoteSub"><b>Note1:</b> If you use parameters, 
+ then you must add controls to the required graphic form so that your users 
+ can specify these values and link these controls to each parameter. For 
+ details, see <a href="Linking_DataBinder_parameters_to_controls.htm">Linking 
+ DataBinder parameters to controls</a>.</p><p class="ListNoteSub"><b>Note2:</b> Ensure that the 
+ specified <b>Value</b> has the same data type as the specified <b>Field</b>, otherwise 
+ the DataBinder will not work.</p><p class="ListNoteSub"><b>Tip:</b> Click 
+ the <b>Preview</b> button to test your 
+ defined constraints, since an exception will be displayed if any of the 
+ data types of the related fields are NOT identical for the currently selected 
+ View or Table.</p><p class="ListDescSub">When previewing constraints containing parameters, 
+ a dialog box will appear so that you can provide a temporary value for 
+ each of them.</p></div><p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To delete a constraint:</a></p><div MadCap:targetName="t6" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Specify 
+ the View or the name of the Table you want to constrain in the Select 
+ View/Table list box.</li><li class="NumbersSubLetters" value="2">Click 
+ the <b>Delete Constraint</b> button to 
+ remove the last constraint from the Constraints list.</li></ol><p class="ListNoteSub"><b>WARNING!</b> This 
+ will ALWAYS delete the constraint at the bottom of the list, regardless 
+ of the currently selected item.</p><p>&#160;</p></div><p class="ListDesc">As you define the constraint(s), the appropriate SQL 
+ query commands are added to the Select Command field, which cannot be 
+ edited.</p></div></li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> You need 
+ to constrain the View and each selected table separately.</p>
+        <p class="ListDesc">Typically, you constrain or limit the values of a field 
+ to only return those records that you require. This is why it is a good 
+ idea to use parameters instead of hard-coded values since your users’ 
+ fields of interest may vary.</p>
+        <ol start="10">
+            <li class="Numbers" value="10">Click <b>Next</b>, 
+ once the required constraints have been created.</li>
+            <li class="Numbers" value="11">If necessary, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />define the sorting order of the resultant records in the Ordering dialog:</a><div MadCap:targetName="t5" style="display: none;"><p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a sorting order:</a></p><div MadCap:targetName="t4" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Specify 
+ the main View or the name of the table or view you want to sort in the 
+ top list box.</li><li class="NumbersSubLetters" value="2">Click 
+ the <b>Add Order</b> button.</li><li class="NumbersSubLetters" value="3">Select 
+ the field, whose values you want to sort, from the Field drop-down list 
+ box.</li></ol><p class="ListNoteSub"><b>Note1:</b> This list only 
+ displays the selected fields.</p><p class="ListNoteSub"><b>Note2:</b> If the main View 
+ is selected the syntax for the fields is [Tablename].[Fieldname] or [Viewname].[Fieldname], 
+ otherwise this is simply [Fieldname].</p><ol start="4"><li class="NumbersSubLetters" value="4">Select 
+ the method by which the values of this field are to be sorted from the 
+ Constraint drop-down list box, as follows:</li><li class="ListSubBullet" value="5">ASC: The default 
+ value, which sorts the values of the specified field in ascending order. 
+								The method used to sort the values,depends on the data type 
+								of the specified field, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> as follows:</a><div MadCap:targetName="t3" style="display: none;"><ol><li class="Numbers" value="1"><b>String:</b> 
+ This displays records beginning with non-text characters such as ‘_’ or 
+ ‘!”, then records from 0 to 9, then records from A to Z, with lowercase 
+ letters preceding uppercase letters e.g. for text like fgfd and Fgfd, 
+ the ASC order is fgfd and then Fgfd.</li><li class="Numbers" value="2"><b>Numeric:</b> 
+ This displays records from 0 to 9.</li><li class="Numbers" value="3"><b>Date 
+ Time:</b>&#160;This 
+ will display the records in this field from newest to oldest.</li></ol><p>&#160;</p></div></li><li class="ListSubBullet" value="6">DESC: This 
+ sorts the values of the specified field in descending order, which is 
+ the reverse of the ASC order.</li></ol><p>&#160;</p></div><p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To delete a sorting order:</a></p><div MadCap:targetName="t2" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Specify 
+ the required View or the name of the Table in the Select View/Table list 
+ box.</li><li class="NumbersSubLetters" value="2">Click 
+ the Delete Sort Order button to remove the last sort order from the Sort 
+ Orders list.</li></ol><p class="ListNoteSub"><b>WARNING!</b> This 
+ will ALWAYS delete the sort order at the bottom of the list, regardless 
+ of the currently selected item.</p></div><p class="ListDesc">As you define the sort order(s), the appropriate SQL 
+ query commands are added to the Select Command field, which cannot be 
+ edited.</p></div></li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> You need 
+ to sort the View and each selected table separately.</p>
+        <p class="ListDesc">Typically, you sort a view or table to ensure that the 
+ records are displayed in order of importance or relevance.</p>
+        <p class="ListDesc">Although more than one field can be used to sort the 
+ data, the closer the field is to the top of the list, the greater the 
+ impact it has upon the sorting process.</p>
+        <p class="ListDesc">Typically multiple fields are used to sort tables, when 
+ their entries are related – for instance can be used when sorting by surnames 
+ and then sorting by their first names. It may also be useful to sort by 
+ identity (ID) fields or by Country, when viewing a list of orders etc.</p>
+        <ol start="12">
+            <li class="Numbers" value="12">Click <b>Next</b>, 
+ once the required sort orders have been set up.</li>
+            <li class="Numbers" value="13">The <b>Custom 
+ View</b> dialog allows you to customise the main View that is created 
+ for this databinder. Only check the <b>Use 
+ Custom View</b> checkbox, if you do not want the default main View 
+ and have the SQL know-how to create your own customised view in the SQL 
+ editor.</li>
+        </ol>
+        <p class="ListDesc">When creating a customised view, parameters can be added 
+ so that their requirements can be specified before the main View is displayed. 
+ For details on specifying and using parameters, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Qry/Adding_parameters.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding parameters</a></span>.</p>
+        <p class="ListNotice"><b>Note1:</b> The <b>Preview</b> 
+ button, provides as easy way to debug your main View as you manually edit 
+ it. </p>
+        <p class="ListNotice">Clicking this button will return all the fields, in the pane at the 
+ bottom of the configuration dialog, that the current main View would return. 
+ In this way you can ensure that your main View returns what you want it 
+ to.</p>
+        <p class="ListNotice"><b>Note2:</b> When previewing 
+ a main View containing parameters, a dialog box will be displayed for 
+ each parameter, allowing you to provide a temporary value for them.</p>
+        <ol start="14">
+            <li class="Numbers" value="14">Click <b>Next</b>, 
+ if you do not require a custom main View or have finished creating it.</li>
+            <li class="Numbers" value="15">The <b>Final 
+ Select Commands</b> dialog allows you to <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />preview the Views 
+ and Table/s</a> 
+ that you have created to ensure that you are happy with their results 
+ and if not to alter them as required. <div MadCap:targetName="t1" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Select 
+ the required View or Table in the Select Commands list.</li><li class="NumbersSubLetters" value="2">Click 
+ the <b>Preview</b> button.</li><li class="NumbersSubLetters" value="3">If 
+ the selected View or Table contains parameterised constraints, a dialog 
+ box will appear so that you can provide a temporary value for each of 
+ them.</li></ol><p class="ListDescSub">This displays the records that comply with the configured 
+ relationships, constraints and/or sorting orders in the pane at the bottom 
+ of the configuration dialog.</p><p class="ListNoteSub"><b>Note:</b> If the 
+ required records are not displayed or an error is returned, then press 
+ the <b>Previous</b> button to locate 
+ the required page to rectify this problem.</p></div></li>
+        </ol>
+        <p class="ListDesc">Only click the <b>Finish</b> 
+ button when you are satisfied that the View and or Table/s return the 
+ correct data.</p>
+        <p class="ListNotice"><b>Note:</b> Once 
+ you click the <b>Finish</b> button the 
+ configuration dialog ends and you will need to edit this DataBinder manually in order 
+ make any further changes.</p>
+        <p class="ListNotice"><b>Tip:</b> The rate 
+ at which each DataBinder is monitored by the Server for new or updated 
+ data can be individually configured. For details, see <a href="Specifying_the_OLE_DB_table_or_view_or_databinder_polling_interval.htm">Specifying 
+ the databinder polling interval</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Available Agents|The Analog Agent" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>The Analog Agent</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1173"></a>The Analog Agent</h1>
+        <p><a name="kanchor1174"></a><a name="kanchor1175"></a>An Analog agent stores a real (floating point) value that provides the 
+ following functionality:</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>Scaling its value according to user defined minimum 
+ and maximum scaling settings. These scaling parameters are typically only 
+ specified, when a front-end device contains this value.</p>
+                <p>The Analog agent provides support for up to 51 bit numbers, in that the new maximum range is 2,000,000,000,000,000 for unsigned numbers or -1,000,000,000,000,000 to 1,000,000,000,000,000 for signed numbers.</p>
+                <p class="Notices"><b>Note:</b> To reduce the loss of accuracy in scaling caused by IEEE conversion issues, the Analog agent bypasses the scaling calculation, when the scaling is 1:1.</p>
+            </li>
+            <li class="Bullets" value="2">
+                <p>Monitoring its value against one or more of the 
+ following value-specific alarm limits: low-low, low, high, high-high and/or 
+ rate of change. </p>
+                <p>Any infringement of these alarm limits causes the agent 
+ to set its corresponding status bits, which can be alarmed.</p>
+            </li>
+            <li class="Bullets" value="3">Specifying the engineering units used to measure 
+ this value.</li>
+            <li class="Bullets" value="4">Monitoring its value for changes, where any change 
+ in value causes the agent to log an event and set a status bit, which 
+ can be alarmed.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Adr_VerMinorFour" value="5">Calculating statistics from the <b>value</b> slot every second, for a specific rolling period (specified in minutes). For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Calculating_statistics_from_Analog_values.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Calculating statistics from Analog values</a></span>.</li>
+            <li class="Bullets" value="6">Recording the time this value changes, which is 
+ saved to the <b>time</b> <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">slot<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a value (attribute) or field within an agent that can be retrieved and/or set.</span></span> of this agent</li>
+            <li class="Bullets" value="7">Reverse polarity scaling and the remote configuration 
+ of the alarm limits</li>
+            <li class="Bullets" value="8">Square root extraction for the linearization of 
+ flow signals,</li>
+            <li class="Bullets" value="9">Alarm deadband settings for the high and low alarm limits</li>
+            <li class="Bullets" value="10">A cold start value initialization option when starting the Agent Server.</li>
+        </ul>
+        <p>For details on how to configure some or all of this functionality for 
+ an Analog agent, see <a href="Configuring_Analog_Agents.htm">Configuring 
+ Analog Agents</a>.</p>
+        <p><b>IMPORTANT CHANGE FOR ANALOG AGENTS:</b> Changed the default method of handling what happens when the <b>rawvalue</b> slot goes out of range (either exceeds the <b>rawMax</b> value or is lower than the <b>rawMin</b> value), from now this causes the Analog agent to set the new <b>OutOfRange</b> status bit (which can be alarmed if needed).</p>
+        <p>This is to prevent the entire agent from being marked at as being bad, as happened previously, which causes all the instances of this value to be greyed out (disabled) on the mimics which display them. </p>
+        <p class="Notices"><b>Note:</b> If you prefer the legacy method of marking the agent bad (setting the <b>statusAgentBad</b> condition bit) when the <b>rawvalue</b> slot goes out of range, then you need to add the <a href="../AU_01_02/OutOfRangeEqualsAgentBad.htm">OutOfRangeEqualsAgentBad</a>  registry setting.</p>
+        <p>Typically Analog agents should be used for tank levels or any process 
+ value stored in a front-end device that needs to be scaled (converted) 
+ to and from its engineering value and/or that needs to be closely monitored 
+ and/or alarmed. </p>
+        <p>If you ONLY want to store a real (floating point) value 
+ then use the Real agent instead.</p>
+        <p class="Notices"><b>Note:</b> For those of you 
+ running a clustered Agent Server, this agent supports real-time catch-up 
+ so even if the master Agent Server fails, the standby will seamlessly 
+ continue with the current configuration settings including its scaling 
+ and alarm limit settings.</p>
+        <p>For details of the specific status bits of this agent that represent 
+ the agent-specific conditions that can be alarmed or directly displayed 
+ on a mimic to indicate when these conditions occur,&#160;see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Specific_Status_Bits_of_the_Analog_Agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Specific Status Bits of the Analog Agent</a></span>.</p>
+        <p>&#160;</p>
+        <p>For a description of all the slots
+ (values) contained in this agent, see <a href="../AU_05/Analog_Agent_Slot_Details.htm">Analog 
+ Agent Slots</a>.</p>
+        <p>For a description of how this agent is saved in the 
+ <span class="AdroitAppName">Adroit</span> database (.WGP) file, see <a href="../AU_05/Analog_Agent_Database_File_Format.htm">Analog 
+ Agent Database File Format</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Projects" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Configuring projects</title>
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2858"></a>Configuring projects</h1>
+        <p>Projects are configured within the <b>Projects</b> 
+ category of the required Server connection in the <b>Enterprise 
+ Manager</b>, by adding, copying or importing graphic forms and organizing 
+ these within a hierarchy of folders. For details, see <a href="Working_with_projects.htm">Working 
+ with projects</a>.</p>
+        <p class="Notices"><b>Note:</b> Projects 
+ are  saved in separate folders, with the exact structure of the project 
+ being maintained, to easily locate your graphic forms, so that they can 
+ be backed up, copied and/or moved. For details, see <a href="../../../07Mntn/Locating_saved_projects.htm">Locating 
+ saved projects</a>.</p>
+        <p>The following project-specific commands are provided:&#160;&#160;</p>
+        <p class="Notices"><b>Note:</b> These commands 
+ can only be performed if the currently logged on user has the necessary 
+ security permissions. For details, see <a href="Securing_projects.htm">Securing 
+ projects</a>.</p>
+        <ol>
+            <li class="Bullets" value="1"><a href="Opening_Projects.htm">Open a project</a> : to expose its 
+ configured graphic forms and folders.</li>
+        </ol>
+        <p>Add one or more of the following components to your project:</p>
+        <p class="Notices"><b>Tip:</b> You could also copy an entire project or folder from another project using <b>Copy sub-items</b> and paste it into this project, although any items that are named the same as the copied items will be overwritten.</p>
+        <ol>
+            <li class="Bullets" value="1"><a href="20GF/Creating_graphic_forms.htm">Create a graphic form</a> : to 
+ add a new graphic form to a project.</li>
+            <li class="Bullets" value="2"><a href="../30GF/40Wiz/Creating_wizards.htm">Create a wizard</a>: to add a wizard to a project.</li>
+            <li class="Bullets" value="3"><a href="10Fld/Creating_folders.htm">Create a folder</a> : to organise 
+ graphic forms within a project.</li>
+        </ol>
+        <p class="Notices"><b>Tip:</b> Projects and their folders provide an an <b>Open ... Folder</b> right click menu in the <b>Enterprise Manager</b> that will open this specific folder in Windows Explorer, when this project is on the same computer, so that content can be manually copied into or out of it.</p>
+        <p class="Notices"><b>Note:</b> You can also prevent the unauthorised editing of graphic forms and/or wizards, by password-protecting entire projects, folders and/or individual graphic forms and wizards. For details, see <a href="../30GF/Password_protecting_graphic_forms_and_or_wizards.htm">Password protecting graphic forms and/or wizards</a>.</p>
+        <p>Other possible operations:</p>
+        <ol>
+            <li class="Bullets" value="1"><a href="Closing_Projects.htm">Close a project</a> : to hide its 
+			configured graphic forms and folders from view.</li>
+            <li class="Bullets" value="2"><a href="Removing_projects.htm">Remove a project</a> : to delete 
+			it and its configured graphic forms and folders.</li>
+            <li class="Bullets" value="3"><a href="20GF/Renaming_graphic_forms.htm">Rename a graphic form</a> : to 
+ change the name of a graphic form.</li>
+            <li class="Bullets" value="4"><a href="20GF/Exporting_graphic_forms.htm">Export a graphic form</a> : to 
+ copy a graphic form&#160;to disk for archiving or later re-use.</li>
+            <li class="Bullets" value="5"><a href="20GF/Importing_graphic_forms.htm">Import a graphic form</a> : to 
+ import a graphic form from disk.</li>
+            <li class="Bullets" value="6"><a href="20GF/Copying_graphic_forms.htm">Copy a graphic form</a> : to 
+ duplicate a graphic form in another project or folder.</li>
+            <li class="Bullets" value="7"><a href="20GF/Pasting_graphic_forms.htm">Paste a graphic form</a> : to 
+ insert a copied graphic form into a project or folder.</li>
+            <li class="Bullets" value="8"><a href="20GF/Removing_graphic_forms.htm">Remove a graphic form</a> : to 
+ delete a graphic form.</li>
+            <li class="Bullets" value="9"><a href="10Fld/Opening_and_closing_folders.htm">Open and close a folder</a> 
+			: to expose/hide its configured graphic forms and folders.</li>
+            <li class="Bullets" value="10"><a href="10Fld/Renaming_folders.htm">Rename a folder</a> : to change 
+			the name of a folder.</li>
+            <li class="Bullets" value="11"><a href="10Fld/Removing_folders.htm">Remove a folder</a> : to delete 
+			a folder.</li>
+        </ol>
+        <p class="Notices"><b>Note:</b> Projects and their folders provide a <b>Preview Graphic Forms</b> option to displays thumbnail snapshots of all the graphic forms located in their immediate or root level to either open the required graphic form or populate the <b>Favorites</b> tool window. For details, see <a href="../30GF/Previewing_graphic_forms_and_wizards.htm">Previewing graphic forms</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

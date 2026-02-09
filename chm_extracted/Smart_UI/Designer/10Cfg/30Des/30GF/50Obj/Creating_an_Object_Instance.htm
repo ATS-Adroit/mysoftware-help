@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Object Model" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Creating an Object Instance</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Creating an Object Instance</h1>
+        <p>When you have created a template for an object, you can create any number of instances of the object. You can name each instance and specify the process values that uniquely configure it by using the assigned predefined value substitutions.</p>
+        <p>You can also choose to immediately deploy the instance, fully or partially, or deploy it at a later time.</p>
+        <ul>
+            <li value="1">Currently, the Object Model supports the following commonly-used drivers <i>(devices)</i>: <i>Modbus Ethernet, Mitsubishi Q, QnA, L, R and iQF Series Ethernet (3E Frames)</i><i>, OPC Client and Siemens Ethernet.</i></li>
+            <li value="2">If you need to use other drivers, then you simply create the necessary devices yourself before deploying an instance of this object model template.</li>
+        </ul>
+        <h2>To create an object instance:</h2>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2421702690_0" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />From the Object Model datasource in the Enterprise Manager</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2421702690_0" style="display: none;">
+                <p>Display the <b>Create New Instance</b> configuration dialog for the required object instance:</p>
+                <ol start="1">
+                    <li value="1">
+                        <p>Select the required <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> in the <b>Enterprise Manager</b> tab. 
+</p>
+                    </li>
+                    <li value="2">Open the <b>Enterprise 
+ Manager</b>. <br /><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Select-Enterprise-Server.png" MadCap:popupWidth="374" MadCap:popupHeight="372" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Select-Enterprise-Server_thumb_0_200.png" style="width: 201px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                    <li value="3">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                    <li value="4">The connection 
+ name is prefixed with the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> name.</li>
+                    <li value="5">Expand the remaining category folders 
+ <b>Datasources</b> &gt;  <b>Object Model</b> &gt;  <b>Templates</b>.</li>
+                    <li value="6">Right-click on the required template in the list, then select <b><b>Create new instance</b> of this template</b>.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Select-Create-New-Instance.png" MadCap:popupWidth="319" MadCap:popupHeight="134" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Select-Create-New-Instance_thumb_0_200.png" style="width: 319px;height: 134px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                    <li value="7">The <b>Create New Instance</b> configuration dialog opens.</li>
+                </ol>
+                <p>&#160;</p>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2421702690_1" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />From the Context View window:</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2421702690_1" style="display: none;">
+                <ol start="1">
+                    <li value="1">Select <b>Context View</b> tab at the bottom of the right-side panel in the Default Layout window.</li>
+                    <li value="2">Select the <b>Default</b> context from the list of contexts in bottom toolbar of this window then click the <b>Edit</b> <img src="../../../../Resources/Images/16/DataSources/ContextView_EditDefaultContext.png" /> button. </li>
+                    <li value="3">If required, <b>Add new user node</b> <img src="../../../../Resources/Images/16/DataSources/ContextView_AddNode.png" /> and expand the necessary node <img src="../../../../Resources/Images/16/DataSources/ContextView_Node.png" />.</li>
+                    <li value="4">Right-click the node and select <img src="../../../../Resources/Images/16/DataSources/ContextView_CreateInstance.png" /><b>Create new instance</b>.<ul start="1"><li value="1">Use the modified Data Element browser dialog to select the required template.</li><li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>You could also drag an existing Object Model template from the Enterprise Manager onto this node directly to skip the step where you need to specify the required template.</li><li value="3">The <b>Deployment Options</b> configuration dialog opens.</li></ul></li>
+                </ol>
+                <p>For more information about the Default context of the Context View window, see <a href="../../../20DesEnv/10TW/Editing_the_Default_context.htm" class="MCXref_0">Editing the Default context</a>.</p>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2421702690_2" onclick="FMCDropDown( this ); return false;" name="Step_1:_Create_New_Instance"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Step 1: Create New Instance</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2421702690_2" style="display: none;">
+                <h3>Name the instance and specify any instance-specific attributes</h3>
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step1.png" MadCap:popupWidth="533" MadCap:popupHeight="642" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step1_thumb_0_200.png" style="width: 166px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>.</p>
+                <ul>
+                    <li value="1">By default, the <b>New instance name</b> is assigned the name of the template and is prefixed with "INST_" instead of "TPL_".<ul><li value="1">You can edit the name as you prefer. </li><li value="2">Typically, you edit the name to create a unique and detailed name for this object.</li></ul></li>
+                    <li value="2">To ensure that the specified <b>Template</b> is the template that you want to use to create an instance.<ul><li value="1">Hover  the mouse pointer over the template name <img src="../../../../Resources/Images/16/DataSources/ObjectModel_Template.png" /> or any child template that is listed in the <b>Template hierarchy</b> tree.</li><li value="2">A preview image of each template is displayed.</li><li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>Only the parent template has the specified instance name, whereas any child templates retain their template names.</li></ul></li>
+                    <li value="3">The table labelled <b>Attributes for </b>displays any attributes specified for the selected template including their default values <ul><li value="1">You may change the value as required, such as its power rating. </li><li value="2">You can also add additional instance-specific attributes that only apply to or further describe this instance.</li></ul></li>
+                </ul>
+                <ul>
+                    <li value="1">Any custom attributes that you add are saved in your current profile and are available for future use to all users who use your profile. </li>
+                    <li value="2">You can click the <b>Reset the attribute library </b> <img src="ResetAttributeLibraryButton.png" /> button to clear the custom attributes that are specified for the current profile.</li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>This only removes the custom attributes from the list, which will no longer be available for selection. It does <i>not</i> remove any custom attributes that you have previously added to deployed objects, so these still appear in the <b>Context View</b> window.</li>
+                </ul>
+                <p class="A4-Note-SimpleTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>Typing in the first letter of an existing attribute immediately inserts the full text of this attribute name.</p>
+                <ul>
+                    <li value="1">
+                        <p>The Object Model datasource then uses the specified attributes to configure the <b>Context View</b> window automatically.</p>
+                    </li>
+                    <li value="2">When object instances are deployed, each <b>Name</b> of their defined attributes creates a different context <i>(tree-view)</i> in the <b>Context View</b> window and instances that have the same <b>Value</b> of an attribute are grouped in this context. </li>
+                    <li value="3">A simple one-level deep tree-view is created for each attribute <b>Name</b>, in which a node is created for every unique value specified for this attribute.</li>
+                    <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>Only the <b>Value</b> and <b>Instance</b> names can be searched in the <b>Context View</b> and <i>not</i> the attribute <b>Name</b>, which is added to the list of contexts at the bottom of the <b>Context View</b>.</li>
+                </ul>
+                <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>You can only delete the  additional instance-specific attributes that you add.</p>
+                <p>Click <b>Next</b>, once you are satisfied with the instance name and its specified attributes.</p>
+                <p>Click <b>Cancel</b>, if you selected the incorrect template.</p>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2421702690_3" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Step 2: SCADA&#160;Configuration:</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2421702690_3" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step2.png" MadCap:popupWidth="984" MadCap:popupHeight="661" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step2_thumb_0_200.png" style="width: 298px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>In this step, you specify and configure the agents that are associated with each template referenced by this object instance. </p>
+                <ul>
+                    <li value="1">The <b>SCADA&#160;Configuration</b> dialog displays a table containing the group of agents required for each template referenced by the object. These group names use dot notation to represent the template names as specified in the <i>Template hierarchy</i> tree shown on the first <a href="#Step_1:_Create_New_Instance"><b>‘Create New Instance’</b></a> dialog.</li>
+                    <li value="2">Selecting the INST_&lt;GroupName&gt; group displays the instance details for the template in the <b>Instance</b> tab of the <b>Configuration</b> pane below the <b>Agents</b> table.</li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The <b>Datasource</b> property indicates the name of the <span style="font-weight: bold;" class="AdroitAppName">Adroit</span> datasource <i>(Agent Server)</i> that is used to validate, create and configure these agents.<br /></li>
+                    <li value="4">If each group heading does not display a list of agents, then click the <b>Expand All</b> button to expand all the groups to display the list of required template agents.</li>
+                    <li value="5">If any template row containing a substitution displays a <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon, it is an indication that some substitution values require insertion.<ul><li value="1">To correct the value, click either the <b>Substitution Names</b> or <b>Substitution Values</b> cell in the row where a <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon is displayed to open the <b>Substitution Values</b> dialog.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step2-InsertSub.png" MadCap:popupWidth="548" MadCap:popupHeight="217" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step2-InsertSub_thumb_0_150.png" style="width: 379px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a></li><li value="2"> Type in the <b>Value</b> for each required substitution.</li><li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>You cannot proceed from this dialog until you have inserted all the required substitution values for each row containing a <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon.</li></ul></li>
+                    <li value="6">Use the <b>&lt;</b> and <b>&gt;</b> buttons to navigate to the previous or next substituted value. </li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="7"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>Commas separate multiple substitutions and their values in their cells. </li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="8"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>Use the <b>Name</b> cell to determine the eventual format of the entire substituted name.</li>
+                    <li value="9"> The background colour of the <b>Name</b> cell indicates whether the resultant agent name already exists or is new, as follows: <img src="NewOrExistingColors.png" /></li>
+                    <li value="10">Typically, you specify new tags that do not already exist. However, you can also specify an existing tag, which you want to reuse, such as an AlarmManagement agent.</li>
+                </ul>
+                <h2>Configuration pane </h2>
+                <p>Once an agent name is specified, then use the <b>Configuration</b> pane below the table to configure its <b>Scanning</b>, <b>Logging</b>, <b>Alarming</b>, and <b>Slots</b> as predefined in the templates by selecting the relevant tabs.</p>
+                <ul>
+                    <li value="1">Instead of querying each agent individually for their scan addresses, click  the <b>Bulk scan address editing</b> button to configure all the scan addresses associated with this object in a single list view.</li>
+                    <li value="2">The <b>Bulk scan address editing</b> dialog displays the list of all the scan addresses that are classified by the <b>Device</b>, <b>Tag</b> and <b>Address</b> columns. </li>
+                    <li value="3">You can also change each <b>Address</b> manually, by typing the required entry into each cell in this list.</li>
+                    <li value="4">Alternatively, you may use a text file editor of your choice to change these addresses.<ol><li value="1">Click the <b>Copy addresses to clipboard</b> button.</li><li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>You can also select all or deselect all rows by clicking the top-left cell in the list and use the CTRL+C to copy these to the clipboard.</li><li value="2">Open <b>MS Excel</b> or the text file editor of your choice.</li><li value="3">Paste the clipboard into it.</li><li value="4">Bulk edit the <b>Address</b> column as needed.</li><li value="5">Select <i>all</i> of these columns and copy them.</li><li value="6">Click the <b>Paste addresses from clipboard</b> button.</li></ol></li>
+                    <li value="5">Click <b>Next</b>, once you have replaced all the <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icons with valid values and have configured each of the agents appropriately.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2421702690_4" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Step 3: Device Setup</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2421702690_4" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step3.png" MadCap:popupWidth="984" MadCap:popupHeight="661" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step3_thumb_0_200.png" style="width: 298px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>In this step, you specify and configure the devices that each template uses to scan their values. These devices are listed in the <b>Devices</b> table. </p>
+                <ul>
+                    <li value="1">The background colour of the <b>Device</b> cell indicates whether the current device already exists or is new, as follows: <img src="NewOrExistingColors.png" /></li>
+                    <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>If the background colour of the device row is red (Setup required <img src="SetupReqdColor.png" />) for the device, then you must manually add this device-name via the <b>Config Editor</b> first before you can continue. This typically only occurs when a template uses a protocol driver that is not natively supported by the Object Model. </li>
+                    <li value="3">For more information using the <b>Config Editor</b>, see <a href="../../../../AU_01_02/Adding_a_Device_to_an_installed_Protocol_Driver.htm" class="MCXref_0">Adding a Device to an installed Protocol Driver</a>. </li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span> If the device already exists then any specified properties are <i>not</i> applied to it during the deployment of this object.</li>
+                    <li value="5">If the Object Model natively supports the specified new or existing device, then you can configure their Primary and Secondary device-specific <b>Properties</b>.</li>
+                    <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="6"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>The onus rests on the user, who is adding this instance, to possess the technical know-how to determine which of these device-specific values need to be specified.</li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="7"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>If the device already exists then any specified properties are <i>not</i> applied to it during the deployment of this object.</li>
+                    <li value="8">Click <b>Next</b>, once all the required devices have been added and have had their required properties specified.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2421702690_5" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Step 4: DBLogs</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2421702690_5" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step4.png" MadCap:popupWidth="984" MadCap:popupHeight="661" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step4_thumb_0_200.png" style="width: 298px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>This step only applies if one or more DBLog agents are selected for this template.</p>
+                <ul>
+                    <li value="1">You can configure each of the selected DBLog agents in the <b>DBLogs</b> list.</li>
+                    <li value="2">You can also view which slots of the other agents in this object are allocated, to each DBLog agent, in the <b>Tags</b> table below.</li>
+                    <li value="3">You can also see if you can configure their <b>Deadband</b>.</li>
+                    <li value="4">Click <b>Next</b>, once all the <i>deadbands</i> of the values in the DBLog agents are correctly specified.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2421702690_6" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Step 5: Graphic Substitutions</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2421702690_6" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step5.png" MadCap:popupWidth="984" MadCap:popupHeight="661" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step5_thumb_0_200.png" style="width: 298px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>This step is typically only required when you have changed the substitution names when creating the instance and the name of the substitution used in the <b>SCADA Configuration</b> step differs from the name used in the referenced wizard.</p>
+                <ul>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>You cannot proceed from this dialog until you have inserted all the required substitution values for each row containing a <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon.</li>
+                    <li value="2">Select the required row in the <b>Graphic Form</b> list that contains a <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon and then the <b>Value</b> cell in the <b>Substitutions</b> table below and type in the required value. </li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The background colour of the <i>Result</i> cell shows whether the specified value is <img src="Valid_Invalid_Static.png" />.</li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>If you keep the <i>same</i> substitution names as those used in the wizard, this makes it easier to implement your instances, since you only need to configure these substitutions <i>once</i>; otherwise you must specify substitutions both during the SCADA Configuration and Graphical Substitution stages.</li>
+                    <li value="5">Click <b>Next</b>, once you have replaced all the <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icons with their required substitution values.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2421702690_7" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Step 6: Deployment Options</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2421702690_7" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step6.png" MadCap:popupWidth="538" MadCap:popupHeight="635" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Create-Tpl-Instance-Step6_thumb_0_200.png" style="width: 169px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>This is the final step, which lets you deploy the instance of this object using the settings that you have specified. </p>
+                <ul>
+                    <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>When deploying a template, the following rule is applied. If a referenced agent exists then <i>none</i>&#160;of its properties are changed. The reason is if the template is currently in use on a running plant, it is critically important that it does not affect any existing values for safety reasons.</li>
+                    <li value="2">The following two options are provided:<ul><li value="1"><b>Deploy now</b>: After creating and saving the instances, the instances are deployed to the relevant Agent Server.</li><li value="2"><b>Deploy later</b> <i>(the default option)</i>: Only create and save the instances, but deploy later by right-clicking on the saved instance. For example, you may want to create the instance of an object at another site.</li></ul></li>
+                    <li value="3">If you select the <b>Deploy now</b> option, then the <b>On deployment</b> group is displayed. </li>
+                </ul>
+                <ul>
+                    <li value="1">When deployed, this object and all of its configuration are created immediately, such as:</li>
+                    <ul>
+                        <li value="1">Any new agents.</li>
+                        <li value="2">Any  new devices and their scanning.</li>
+                        <li value="3">The specified alarming, logging and DBLog agents.</li>
+                        <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>When the global destinations <i>(i.e. the </i><b style="font-style: italic;">Output</b><i> / </i><b style="font-style: italic;">Event Logs</b><i> categories)</i> of the specified alarm routes contain agents that do <i>not</i> exist in the Agent Server then the deployment is <i>not</i> created as these agents could cause potential issues.</li>
+                        <li value="5">The <b>Save Agent Server </b>checkbox is also selected by default which saves this configuration to the Agent Database file of the Agent Server of the specified <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><b>  <![CDATA[ ]]></b>datasource<b>.</b></li>
+                    </ul>
+                    <li value="2">To run the script defined for this object, select the <b>Run Script</b> checkbox as this is not selected, by default. </li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>If the <b>Run Script</b> checkbox is disabled <i>(greyed out)</i>, then the script was not defined or   did not compile successfully.</li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>Currently only the script defined for this object may be run. Any scripts defined for  child objects are ignored, even when no script is defined for the parent object.</li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="5"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>Use the <b>View</b> button to display the associated script action before it is run.</li>
+                    <li value="6">Perform a <b>partial deployment</b>  at this time, by clearing some of the following checkboxes: </li>
+                    <ul>
+                        <li value="1">Create agents</li>
+                        <li value="2">Create devices and scanning<ul><li value="1">Start devices</li></ul></li>
+                        <li value="3">Create alarming</li>
+                        <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>When the global destinations <i>(i.e. the </i><b style="font-style: italic;">Output</b><i> / </i><b style="font-style: italic;">Event Logs</b><i> categories)</i> of the specified alarm routes contain agents that do <i>not</i> exist in the Agent Server then the deployment is <i>not</i> created as these agents could cause potential issues.</li>
+                        <li value="5">Create data logging</li>
+                        <li value="6">Create DB logging</li>
+                    </ul>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="7"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>This configuration is <i>only</i>&#160;saved to the Agent Database file of the Agent Server of the <span class="AdroitAppName">Adroit</span> datasource when you select  the <b>Save Agent Server on deployment completion</b> checkbox. </li>
+                </ul>
+                <ul>
+                    <li value="1">Click the <b>Finish</b> button.</li>
+                </ul>
+            </div>
+        </div>
+        <p>In the case of a partially deployed or non-deployed instance, you can deploy it fully or partially at a later stage. </p>
+        <p>For more information about later deployment, see <a href="Deploying_an_Object_Instance.htm" class="MCXref_0">Deploying an Object Instance</a>.</p>
+        <ul>
+            <li value="1">If you selected any of the deployment checkboxes, then the <b>Object Model Deployment Status</b> progress dialog appears. </li>
+            <li value="2">For more information about the deployment status, see <a href="The_Object_Model_Deployment_Status_dialog.htm" class="MCXref_0">the Object Model Deployment Status dialog</a>.</li>
+            <li value="3">When you create an instance of an object template, you can view the template- and object-specific attributes that you defined along with their configured values for the object. </li>
+            <li value="4">For more information about  defined attributes, see <a href="View_the_defined_attributes_of_an_Object_Instance.htm" class="MCXref_0">Viewing the defined attributes of an Object Instance</a>.</li>
+        </ul>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

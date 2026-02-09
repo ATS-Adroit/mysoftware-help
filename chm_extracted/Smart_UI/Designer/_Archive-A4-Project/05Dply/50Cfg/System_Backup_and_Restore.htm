@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.ConfigEditor" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Top levelish Config Editor topics.doc" /><title>System Backup and Restore</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1 MadCap:conditions="Common.ExFromPDF"><a name="kanchor3933"></a><a name="kanchor3934"></a>System Backup and Restore</h1>
+        <p class="Notices" MadCap:conditions="Common.ExFromPDF"><b>WARNING:</b> This should NOT be used to transfer project files to and from an engineering workstation.</p>
+        <p>Currently the backup and restore provided by the <span class="VIPConfigEditorName">Adroit Config Editor</span> is SYSTEM-wide, that is why it is called SYSTEM backup and restore, where ONLY a specific Configuration can be backed up and restored at a time, as it is primarily intended to be  a disaster-recovery fail safe.</p>
+        <p>In other words, this functionality does NOT support selective restoration, which ONLY backs up your projects and their related files, such as their wizards and graphic forms, and not the Configuration-specific settings. In this case, see <a href="../../../05Dply/50Cfg/Project_Backup_and_Restore.htm">Project Backup and Restore</a>.</p>
+        <p class="Notices"><b>IMPORTANT:</b> While we may use the words SYSTEM and PROJECT interchangeably but they are not the SAME thing because in this context SYSTEM includes your complete Configuration, whereas  PROJECT could simply be one of the projects that you have configured in your SYSTEM.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SysBU_RestoreDetails"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a>
+        </p>
+        <div MadCap:targetName="SysBU_RestoreDetails" style="display: none;">
+            <p>A SYSTEM-wide backup and restore, backs up and restores your entire configuration. Therefore,  after restoring a SYSTEM backup ALL discrepancies between the configuration settings of the backed up Configuration (System) and the current Configuration will be OVERRIDDEN. </p>
+            <p>This has wide-ranging consequences, depending upon which configuration settings have been modified, such as:</p>
+            <ul>
+                <li class="Bullets" value="1">since all the CONFIG files are replaced, any custom configuration that you had made, will be lost.</li>
+                <li class="Bullets" value="2">since all the security settings including the allowed users and groups are restored, you may not be able to log into the Server and/or may not have access to all the projects or datasources, if your current user name is not supported or has less privileges in the restored Configuration.</li>
+                <li class="Bullets" value="3">
+                    <p>any paths referenced within the <span class="AdroitAppName">Adroit</span> agent database (.wgp) file to datalogs or scripts etc. may be incorrect and need to be checked.</p>
+                    <p class="Notices"><b>Note:</b> This usually occurs when the name of the backed up Configuration DIFFERS from that of the active (currently loaded) Configuration when it is restored.</p>
+                </li>
+            </ul>
+            <p>This backup and restore functionality is intended to be  a disaster-recovery fail safe, so that once you have backed up your system,  you can simply restore it again, after the computer has crashed or been replaced etc. and it your system will continue functioning seamlessly.</p>
+        </div>
+        <p class="Notices"><b>Note:</b> When backing up a Configuration, the active (currently loaded) Configuration is backed up but when restoring a Configuration, it is always restored over the active Configuration, thereby overriding the current Configuration.</p>
+        <p>The <b>System Backup and Restore</b> page of the <b>Welcome</b> section 
+ of the <span class="VIPConfigEditorName">Adroit Config Editor</span> configuration dialog performs the backup and/or restoration of your <span class="VIPAppName">SmartUI</span> and/or <span class="AdroitAppName">Adroit</span> user-configuration.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To display this page of settings:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</li>
+            </ol>
+            <p class="ListDesc">The <b>Welcome</b> 
+ section is displayed by default, unless multiple configurations have been created, in which case the <b>Configuration</b> page is displayed by default, which needs to be expanded to display the <b>Welcome</b> 
+ section. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../05Dply/50Cfg/Working_with_Configurations.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with Configurations</a></span>.</p>
+            <ol start="2">
+                <li class="Numbers" value="2"><span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Select<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span> 
+ the 
+                     <b>System Backup and Restore</b> option from this page.</li>
+            </ol>
+        </div>
+        <p>The backup process generates a single compressed file in the specified location, which contains the date and time of its creation, which contains all the relevant registry settings and all the files and folders containing the user-configuration of the currently specified Configuration.</p>
+        <p MadCap:conditions="Common.VerMinorTwo">When restoring, you can restore between x86 and x64 operating system architectures and across different operating system language sets. However, any file paths within the agent database (.wgp) file are not currently converted and still need to be manually edited after restoring the project.</p>
+        <p class="Notices"><b>Note:</b> Each Configuration is completely separate or insular, containing its own files, application settings and/or registry keys. For details, see <a href="../../../05Dply/50Cfg/Working_with_Configurations.htm">Working with Configurations</a>.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="FilesExclFromBU"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />This backup excludes the following files:</a>
+        </p>
+        <ol MadCap:targetName="FilesExclFromBU" style="display: none;">
+            <li class="Bullets" value="1">that were installed by the <span class="VIPAppName">SmartUI</span> and/or <span class="AdroitAppName">Adroit</span> installation. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">More details:<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> since if restoring on a clean computer, you need to install the <span class="VIPAppName">SmartUI</span> and/or <span class="AdroitAppName">Adroit</span> product instead of performing a manual file copy to ensure that the relevant files are registered and the system is properly configured. If need be, keep your current installation files in the same location that you keep this backup.</span></span></li>
+            <li class="Bullets" value="2">that are created internally by <span class="VIPAppName">SmartUI</span> and/or <span class="AdroitAppName">Adroit</span>. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">More details:<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> since these will merely be automatically re-created once your system is restored and hence do not need to be saved.</span></span></li>
+        </ol>
+        <h2>To backup the active configuration:</h2>
+        <p>If necessary, launch the <span class="VIPConfigEditorName">Adroit Config Editor</span> utility.</p>
+        <p>If you are using more than one Configuration, then open the <b>Configuration</b> page of the <span class="VIPConfigEditorName">Adroit Config Editor</span> and ensure that required Configuration is the current <b>Active Configuration</b>. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../05Dply/50Cfg/Working_with_Configurations.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with Configurations</a></span>.</p>
+        <p>In the <b>System Backup and Restore</b> page of the <b>Welcome</b> section:
+ </p>
+        <div MadCap:targetName="HowToBackup">
+            <ol>
+                <li class="Numbers" value="1">Click the <b>Backup</b> section.</li>
+                <li class="Numbers" value="2">If necessary, specify the required path and filename of the required compressed backup file. </li>
+            </ol>
+            <p class="ListDesc">By default this .ZIP file is stored in a Temp folder in the <span class="VIPAppName">SmartUI</span> ProgramData folder  and has the current date and time digits appended to it.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Click the <b>Full Backup</b> button.</li>
+            </ol>
+        </div>
+        <h2>To restore a backed up configuration: </h2>
+        <p>Ensure that you know where your compressed .ZIP backup file is located and that this file can be accessed from the current computer.</p>
+        <p>If possible, ensure that the name of the active (currently loaded) Configuration is the SAME as the name of the Configuration that you have backed up, to minimise the potential for incorrect paths.</p>
+        <p class="Notices"><b>WARNING!</b> This backed up Configuration will replace the active configuration regardless of its naming, so  ALL discrepancies between the configuration settings of the backed up Configuration (System) and the current Configuration will be OVERRIDDEN. </p>
+        <p>If necessary, launch the <span class="VIPConfigEditorName">Adroit Config Editor</span> utility.</p>
+        <p>In the <b>System Backup and Restore</b> page of the <b>Welcome</b> section:
+ </p>
+        <ol MadCap:targetName="HowToRestore">
+            <li class="Numbers" value="1">Click the <b>Restore</b> section.</li>
+            <li class="Numbers" value="2">Click the browse button to the right of the edit box and specify the required .ZIP backup file.</li>
+            <li class="Numbers" value="3">Click the <b>Restore</b> button to OVERWRITE all the currently-specified system files and settings, of this Configuration, with those stored in thebackup.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

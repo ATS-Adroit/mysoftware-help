@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders|Categories|Mathematical|Expression spiders|Expressions" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with expressions</title>
+        <link href="../../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor4073"></a>Working with expressions</h1>
+        <p>Each <b>Expression</b><a name="kanchor4074"></a><a name="kanchor4075"></a><a name="kanchor4076"></a> spider requires a user-defined calculation expression string to be defined for its <b>Expression</b> input.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p>
+                <img src="Spiders%20-%20CAT_Mathematical%20-%20ExpressionEG.png" style="border: none;float: none;border-style: none;width: 202px;height: 321px;" width="202" height="321" border="0" />
+            </p>
+        </div>
+        <p>This is a cumulative 
+ expression, where each sub-expression is placed on a new line. These sub expressions can use input and/or output 
+ variables and calculate their results immediately, providing they are valid.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Examples of expressions:</a>
+        </p>
+        <p class="Notices"><b>WARNING!</b> Do not 
+ press ENTER to create a new line, since this will only end the editing 
+ of this expression - instead press CTRL+ENTER 
+ to create a new line to insert each new expression.</p>
+        <p class="Notices"><b>Note1:</b> Add the necessary input and/or output variables to the spider first 
+ and  manually assign their values initially to quickly debug 
+ the expression and ensure that it evaluates correctly. For details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_input_variables.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding input variables</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_output_variables.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding output variables</a></span>.</p>
+        <p class="Notices"><b>Note2:</b> I# or i# and 
+ J# or j# are the only valid representations of the input and output variable 
+ names, where # is a unique number starting from 1.</p>
+        <p class="Notices"><b>Tip:</b> When creating 
+ or editing a complex cumulative expression, right-click the title bar 
+ of this <b>Expression</b> spider and 
+ select <b>Edit Expression...</b>, which 
+ displays a much larger text box.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="MoreExpressInfo"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a>
+        </p>
+        <div MadCap:targetName="MoreExpressInfo" style="display: none;">
+            <p>This allows expressions like:</p>
+            <p>j1=i1*2</p>
+            <p>j2=j1+1</p>
+            <p>which yield two results.</p>
+            <p>The <b>Result</b> output, is the result of the last assignment statement 
+ that is completed i.e. outputvariable = expression.</p>
+            <p>From the example above, <b>Result</b> would 
+ be the value of j2 and not j1.</p>
+            <p>Each expression is simply a sequence of operators and their operands, 
+ which is assigned to an output variable.</p>
+            <p>When several operations occur 
+ in an expression, each part is evaluated and resolved in a predetermined 
+ order called operator precedence. For details, see <a href="Available_operators.htm">Available 
+ operators</a>.</p>
+            <p>The operands can be: numbers, input variables (i#), output variables 
+ (j#), other sub-expressions or mathematical functions. For details, see 
+ <a href="Available_mathematical_functions.htm">Available mathematical functions</a>.</p>
+            <p class="Notices"><b>Tip1:</b> This order of precedence 
+ can be overridden through the use of brackets.</p>
+            <p class="Notices"><b>Tip2:</b> When specifying 
+ the expression string, press CTRL+ENTER to create a new line, which helps 
+ make sense of complicated expressions.</p>
+            <p class="Notices"><b>Tip3:</b> Make use of 
+ the right-click menu to cut, copy and/or paste sections, as necessary.</p>
+            <p class="Notices"><b>Tip4:</b> Name the <b>Expression</b> 
+ spider appropriately and/or make use of its description field to add further 
+ comments or notes regarding the purpose of this expression. For details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../Renaming_spiders.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Renaming spiders</a></span> or 
+ <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../Annotating_spiders.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Annotating spiders</a></span>.</p>
+            <p class="Notices"><b>Note1:</b> The <b>Evaluated</b> 
+ output, specifies whether this expression has been successfully evaluated 
+ (True) or not (False).</p>
+            <p class="Notices"><b>Note2:</b> The input and/or output variables need to be added and the correct values need to 
+ be assigned to them before the expression will be able to be evaluated.</p>
+        </div>
+        <div MadCap:targetName="t1" style="display: none;">
+            <h2>Expression examples</h2>
+            <p>j1 = sin(3.3) + i1 * sqrt(23)</p>
+            <p>j2 = cos(0.343)</p>
+            <p>j3 = pow(x, 3) + i2 / 3</p>
+            <p>&#160;</p>
+            <p>abs(value)</p>
+            <p>j1=abs(i1)</p>
+            <p>if i1 = -5.21 then j1 = 5.21</p>
+            <p>&#160;</p>
+            <p>cos(value)</p>
+            <p>j1=cos(i1)</p>
+            <p>if i1 = 0 then j1 = 1</p>
+            <p>&#160;</p>
+            <p>exp(value) where 2.71828182845904523547 is carried to the power of i1</p>
+            <p>j1=exp(i1)</p>
+            <p>if 
+ i1 = 2 then j1 = 7.38905609893065</p>
+            <p>&#160;</p>
+            <p>log(value) this log is to base e and not 10</p>
+            <p>j1=log(i1)</p>
+            <p>if 
+ i1 = 2 then j1 = 0.693147180559945</p>
+            <p>&#160;</p>
+            <p>not(value)</p>
+            <p>j1=not(i1)</p>
+            <p>if 
+ i1 = 0 then j1 = 1 and vice versa</p>
+            <p>&#160;</p>
+            <p>pow(x,y)</p>
+            <p>j1=pow(i1,i2)</p>
+            <p>if 
+ i1 = 3 and i2 = 2 then j1 = 9</p>
+            <p>&#160;</p>
+            <p>sin(value)</p>
+            <p>j1=sin(i1)</p>
+            <p>if 
+ i1 = 1 then j1 = 0.841470984807897</p>
+            <p>&#160;</p>
+            <p>sqrt(value)</p>
+            <p>j1=sqrt(i1)</p>
+            <p>if 
+ i1 = 9 then j1 = 3</p>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>About Agent Servers</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3456"></a><a name="kanchor3457"></a>About Agent Servers</h1>
+        <p>The Agent Server is the storage facility for all real time and historical 
+ data.</p>
+        <ul>
+            <li class="Bullets" value="1">The real time data resides 
+ within intelligent objects, known as agents, which exchange messages with 
+ other agents or picture objects either from their local host computer 
+ or from remote computer nodes elsewhere on the network.</li>
+            <li class="Bullets" value="2">Historical data is written 
+ to disk where it is available for rapid retrieval and on-line analysis.</li>
+        </ul>
+        <p class="Notices"><b>Note:</b> Redundancy 
+ can be provided by configuring the Agent Server as a cluster server, which 
+ is a set of two Agent Servers running a replicated database. <MadCap:conditionalText MadCap:conditions="Common.ExFromPDF">For details, see <a href="../AU_01_04/Active_Clusters_Foundation.htm">About 
+ Active Clustering</a> and <a href="../AU_01_04/Important_Points_to_consider_when_Clustering_Agent_Servers.htm">Important Points to consider when Clustering Agent Servers</a>.</MadCap:conditionalText></p>
+        <p>Agents are described as intelligent because they store live data as 
+ well as providing methods of manipulating that data. Agents can be both 
+ clients and servers at the same time, by operating on, and being operated 
+ upon, by other agents. For details, see <a href="About_Agents.htm">About 
+ Agents</a>.</p>
+        <p>The interaction of the agents with each other as well as with the Classic  User Interface and its picture objects, provides a powerful and dynamic 
+ monitoring and control capability which reflects the status of your process 
+ in real-time. For further details, see <a href="What_you_can_do_with_agents.htm">What 
+ you can do in <span class="AdroitAppName">Adroit</span></a>.</p>
+        <p>Agents are classified by function into a number of agent types, which 
+ can be used to implement a wide variety of system related, as well as 
+ application-specific tasks. For details, see <a href="About_Agent_Types.htm">About 
+ Agent Types</a>.</p>
+        <p class="Notices"><b>Note:</b> An instance 
+ of an agent type is usually referred to as an agent.</p>
+        <p>The Agent Server is therefore a collection or container of the supported 
+ agent types and stores and manages the instances of their created agents, 
+ in an agent database (.WGP) file. For further details regarding the storage 
+ of agents, see <a href="About_Adroit_Database_Files_Agent_Storage.htm">About <span class="AdroitAppName">Adroit</span> Database 
+ Files (Agent Storage)</a>.</p>
+        <p class="Notices"><b>Note:</b> The Agent 
+ Server is the only component in <span class="AdroitAppName">Adroit</span> that needs to be licensed. For 
+ details, see <a href="../AU_01_02/Adroit_Licensing.htm"><span class="AdroitAppName">Adroit</span> Licensing</a>.</p>
+        <p><span class="AdroitAppName">Adroit</span> OEMs, distributors, and even power end-users can create their 
+ own custom agent types programmatically by using the <span class="AdroitAppName">Adroit</span> agent interface. 
+ However, it is also possible to use the Custom agent type and its associated 
+ Custom Agent Designer utility. For details, see <a href="../AdrCusDes/How_to_Use_the_Custom_Agent_Designer.htm">How to Use the Custom Agent Designer</a>.</p>
+        <p>Due to the way in which <span class="AdroitAppName">Adroit</span> has been designed, there 
+ are no theoretical limits to the number of different agents that can be 
+ contained within an Agent Server.</p>
+        <p>In addition, multiple Agent Servers can be distributed across many physical 
+ computers, in a local or wide area network, by using the concept of a 
+ <b>Project.</b> For this reason, the total number of agents that can exist in an <span class="AdroitAppName">Adroit</span> installation 
+ is effectively unlimited. For further details concerning Projects in <span class="AdroitAppName">Adroit</span>, 
+ see <a href="About_Adroit_Projects.htm">About <span class="AdroitAppName">Adroit</span> Projects</a>.</p>
+        <p>Furthermore, because 32 bit Windows supports multi-threaded applications, 
+ <span class="AdroitAppName">Adroit</span> Agent Servers can concurrently interact with as many client workstations 
+ as may be required. This feature is facilitated by <span class="AdroitAppName">Adroit</span> <b>agent 
+ level locking</b> which ensures orderly access to any instance of an 
+ agent.</p>
+        <p><span class="AdroitAppName">Adroit</span> provides consistent mechanisms for creating and deleting agents, 
+ as well as efficient means of accessing information contained within them, 
+ making it easy to manage these agent collections. The Agent Server is 
+ typically configured by means of the Configurator dialog in the Classic 
+ UI or by means of the Project Explorer. For details, see <a href="../AU_01_04/Configuring_the_Agent_Server.htm">Configuring 
+ the Agent Server</a> or <a href="../PE/The_Project_Explorer.htm">The 
+ Project Explorer</a>.</p>
+        <p><span class="AdroitAppName">Adroit</span> Agent Servers, provide two basic methods of accessing the data 
+ within agents:</p>
+        <ol>
+            <li class="Numbers" value="1">The first allows a user 
+ to <b>get</b> a data value from or <b>put</b> a data value into an agent.</li>
+            <li class="Numbers" value="2">The second allows a user 
+ to register as a <b>subscriber</b> to 
+ another agent, and then to be notified whenever the relevant value changes. 
+ These <b>subscriptions</b> make for 
+ significant reductions in processor load, since changing values will not 
+ be communicated to a subscriber until necessary.</li>
+        </ol>
+        <p><a href="../AU_01_04/Command-line_Options_for_the_Agent_Server.htm">Command-line Options for 
+ the Agent Server</a>.</p>
+        <p><a href="../AU_01_04/To_Configure_the_Agent_Server_to_Run_the_Default_Setup_Configuration.htm">To run the Agent 
+ Server using the default Setup configuration</a>.</p>
+        <p><a href="../AU_01_04/To_Configure_the_Agent_Server_to_Run_a_Specific_Setup_Configuration.htm">To run the Agent 
+ Server using a specific Setup configuration</a>.</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

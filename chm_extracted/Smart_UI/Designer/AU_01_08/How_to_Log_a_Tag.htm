@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Logging Agents (Recording Values)" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to Log a Tag</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1116"></a>How to Log a Tag</h1>
+        <p><span class="AdroitAppName">Adroit</span> allows the value of a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> 
+ (agent.slot) to be recorded or logged to either proprietary log files or an OLE DB-compliant database.</p>
+        <p>The logging to ADO (SQL) databases by the Datalog agent is disabled by default (the SQL... button of the <b>Datasource</b> field is hidden in the Edit Datalog agent dialog).  This is to force users to use the DBLog agent instead, which logs data to SQL more efficiently. </p>
+        <p>Although if the Agent Server loads a legacy WGP file that ALREADY contains an ADO datalogging configuration, then the SQL... button of the <b>Datasource</b> field will be visible in the Edit Datalog agent dialog.</p>
+        <p>Hence the Datalog agent should only be used for proprietary logging and the datalog period (<b>Length...</b>) should not exceed what is required for operational trending purposes.  In other words, should an operator only need to see 24 hours of trend data to properly monitor and control his plant then the datalog period should only be set for 1 day.  Historical data (i.e. data outside of the datalog period), if requested, will be retrieved from the backup files, if required.</p>
+        <p class="Notices"><b>Note1:</b><b><a name="kanchor1117"></a>Disable 
+ logging on standby</b><a name="kanchor1118"></a> is now configured PER datalog SET. So you can 
+ disable an OLE DB logging set WITHOUT disabling any proprietary logging 
+ sets, which typically do not require this setting as each Agent Server 
+ logs to their own datalog files.</p>
+        <p class="Notices"><b>Note2:</b> The <b><a name="kanchor1119"></a><a name="kanchor1120"></a>Flush lazily</b> setting has moved from 
+ the main Edit Datalog Agent dialog to the <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Advanced_Datalog_Configuration_global_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot" name="kanchor1121">Advanced Datalog 
+ Configuration (global settings)</a></span> 
+ dialog, by pressing the <b>Advanced…</b> 
+ button.</p>
+        <h2>To Log a process value:</h2>
+        <p>&#160;</p>
+        <p>Open the Agent Configuration dialog, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgentConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <p class="Notices"><b>Tip:</b> This also opens the <span class="AdroitAppName">Adroit</span> Classic UI in the <span class="VIPAppName">SmartUI</span> Designer, which provides agent-specific menu functions,  such as importing and exporting agents.</p>
+        <div MadCap:targetName="AgentConfigurator" style="display: none;">
+            <p>In the <span class="VIPAppName">SmartUI</span> Designer:</p>
+            <p>Click the <b>Open Configurator</b> tool in the <b>Agent Server</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+            <p class="Notices"><b>Note:</b> When there is more than one <span class="AdroitAppName">Adroit</span> datasource available, a list is provided to select which  Agent Server to configure. </p>
+            <p>The <b>Agent Configuration</b> 
+ dialog is displayed within the Classic UI.</p>
+        </div>
+        <p>Select the required agent in the Agent Configurator, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SlctAgtInConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="SlctAgtInConfigurator" style="display: none;">
+            <ol>
+                <li class="UpperLetters" MadCap:conditions="" value="1">Ensure that the <b>Basic</b>, 
+ <b>Advanced</b> and/or <b>System</b> 
+ checkbox is checked to display the required agent type in this list. These 
+ checkboxes use these default agent groups to help you select the required 
+ agent quickly.</li>
+            </ol>
+            <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> If no 
+ checkboxes are selected, then all the available agent types will be displayed 
+ in the <b>Type</b> list box. This is 
+ useful if the required agent type has not been categorised.</p>
+            <ol start="2">
+                <li class="UpperLetters" MadCap:conditions="" value="2">Click the down arrow in 
+ the <b>Type</b> drop down list</li>
+                <li class="UpperLetters" MadCap:conditions="" value="3">Locate the required agent 
+ type, using the scroll bar and click on it.</li>
+            </ol>
+            <ol start="4">
+                <li class="UpperLetters" MadCap:conditions="" value="4">In the <b>Agents</b> 
+ list, click on the name of the required agent (if necessary scroll down 
+ to locate this).</li>
+            </ol>
+            <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> Right-click 
+ to display a menu of commands to perform upon the selected agent(s).</p>
+        </div>
+        <ol>
+            <li class="Numbers" value="1">Click the <b>Log...</b> 
+ button to display the <b>Edit DataLog Agent 
+ for</b> dialog.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> You can 
+ also right-click the agent and select the <b>Log…</b> menu item.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Select the value of this 
+ agent that you want to log from the <b>Slot</b> 
+ list box. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click for more details:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">This must be a <b>REAL</b>, 
+ INTEGER, BOOLEAN 
+ or a 7 character <b>STRING</b> (the 8th character will be forced to 0). 
+ For example, the <b>value</b> slot of an Analog agent.</span></span></li>
+            <li class="Numbers" value="3">Select the required data-logging 
+ <b>Mode, 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></b><div MadCap:targetName="t5" style="display: none;"><ul start="3"><li class="ListBullets" value="3"><b>Continuous:</b><span class="AdroitAppName">Adroit</span> logs data values when the value changes, provided the value does 
+ not change more frequently than the configured Time deadband ( see below).</li><li class="ListBullets" value="4"><b>Demand:</b><span class="AdroitAppName">Adroit</span> only logs a data value when the <b>LogNow</b> 
+ or <b>Trigger</b> slots of this Datalog 
+ agent are activated.</li></ul><p class="ListDescSub">This can be used if you want to avoid logging every 
+ change during a batch process, and only want to log the values at the 
+ end of the batch. </p><p class="ListDescSub">The <b>Trigger</b> 
+ tag may be browsed in here and a <b>Log 
+ Now</b> button is provided for manually triggering the logging.</p><p class="ListDescSub">If necessary, use 
+ the Datalog compression algorithm when using Demand 
+ logging, by adding the <b>SupportCompressionOnDemand</b> 
+ registry value. </p><ul><li class="ListBullets" value="1"><b>Both:</b> 
+ This uses both the Continuous and Demand data logging modes.</li></ul></div></li>
+        </ol>
+        <ol start="4">
+            <li class="Numbers" value="4">The DataLog agent can accommodate 
+ multiple log sets for a given agent and slot, which allow you to log a 
+ given tag (agent.slot) using different sample and/or logging destination 
+ settings etc.</li>
+        </ol>
+        <p class="Notices"><b>Note:</b> Multiple log sets are no longer required as <span class="AdroitAppName">Adroit</span> provides the <a href="The_DBLog_Agent.htm">DBLog agent</a> that should make SQL logging via the Datalog agent redundant. Also you no longer need multiple proprietary sets with increasing periods and larger time deadbands, since <span class="AdroitAppName">Adroit</span> provides a <a href="Datalog_backup_and_retrieval.htm">new datalog backup</a> feature with full trend-retrieval support.</p>
+        <p class="ListDesc"><b>Add</b> a <b>Set 
+ number</b> if more than one log set is required, and configure the 
+ following per set:</p>
+        <ul>
+            <li class="ListBullets" value="1">
+                <p>The <b>Datasource</b> field, allows you to select a proprietary data 
+ file - enter or browse in the name of the file you wish to log to, using 
+ the<b> …</b> browse button.</p>
+                <p>This defaults to the same name as the current agent 
+ file loaded, and has a .LGD extension. If a new filename is specified, 
+ it will only be created when the DataLog agent has its <b>Start</b> 
+ radio button activated.</p>
+                <p class="Notices"><b>Note:</b> If the 
+ specified file path does NOT exist, <span class="AdroitAppName">Adroit</span> will attempt to create it - 
+ if this path cannot be created (because the drive does not exist or file 
+ security disallows this etc) then this value will NOT be logged.</p>
+                <p>Typically the legacy <b>SQL…</b><a name="kanchor1125"></a> button ONLY appears when the Agent Server loads a legacy WGP file that ALREADY contains an ADO datalogging configuration to allow it to be configured. But even in this case you are encouraged to use the  DBLog agent instead, which logs data to SQL more efficiently. </p>
+            </li>
+            <li class="ListBullets" value="2">Select <b>Disable 
+ logging on standby</b>, when a clustered Agent Servers log to the same 
+ OLE DB compatible database to prevent the duplication of database entries 
+ by only logging entries from the master server. The default state is unchecked.</li>
+        </ul>
+        <p class="ListNoteSub"><b>Note:</b> This 
+ setting is now configured PER datalog SET. So you can disable an OLE DB 
+ logging set WITHOUT disabling any proprietary logging sets, which do not 
+ require this setting as each Agent Server logs to their own datalog files.</p>
+        <ul start="7">
+            <li class="ListBullets" value="7">Click the <b>Length</b> button and enter the <b>Log 
+ Length</b> in the time units of your choice for this set. The default setting is 10 days BUT this should not exceed what is required for operational trending purposes. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a><div MadCap:targetName="t3" style="display: none;"><p> In other words, should an operator only need to see 24 hours of trend data to properly monitor and control his plant then the datalog period should only be set for 1 day.  Historical data (i.e. data outside of the datalog period), if requested, will be retrieved from the backup files, if required.</p><p class="ListNoteSub"><b>Note1:</b> A rule 
+ of thumb is that the Log Length should not exceed 500000 x Shortest Logging 
+ Interval (this factor is true 
+ only when using the same time units).</p><p class="ListNoteSub"><b>Note2:</b> If 
+ <span class="AdroitAppName">Adroit</span> proprietary logging is selected and the logging period is increased 
+ ensure that the WGP file is saved and the Agent Server is restarted, at 
+ least once to allow the necessary LGD file compressions to occur. For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Increasing_Logging_Periods.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Increasing Logging Periods</a></span>.</p></div></li>
+            <li class="ListBullets" value="8">Specify the required logging <b>Deadbands</b> (methods 
+ to reduce the number of records logged for this value) <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> as 
+ follows:</a><div MadCap:targetName="t2" style="display: none;"><ul><li class="BulletSub" value="1"><b>Time 
+ deadband:</b> click the <b>Time...</b> 
+ button and specify the <b>Shortest Logging 
+ Interval</b> (how often this value must be logged). The default setting is 
+ 10 seconds. This setting can reduce the amount of logging required for 
+ this value, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">if this value changes more than once during this period then the specified 
+ <b>Compression</b> <b>Method</b> 
+ is used to determine what value is actually recorded.
+
+</span></span>&#160;</li><li class="BulletSub" value="2"><b>Value 
+ deadband:</b> specify the MINIMUM <b>Value</b> 
+ which the value being logged must EXCEED for it to be logged. This reduces 
+ the amount of logging for this value, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">if the change in value is LESS than this value then the value will NOT 
+ be logged.
+
+</span></span></li></ul><p class="ListNoteSub"><b>Note:</b> When 
+ logging DIGITAL values, ensure that this <b>Value 
+ deadband is 0</b>, otherwise NO values will be logged.</p></div></li>
+        </ul>
+        <p class="ListNoteSub"><b>Tip:</b> The <b>Time deadband</b> setting actually specifies 
+ the required <b><a name="kanchor1126"></a><a name="kanchor1127"></a>logging rate</b> of this 
+ value.</p>
+        <p>The Datalog agent allows for a maximum of 53000000 records.  This means that the specified datalog <b>Length...</b> (or period) and <b>Time...</b> deadband combination may not exceed 53000000 records.  This corresponds to a maximum of 1010.9 MB of data at 20 bytes per record, which means 613 days at 1 second or 30 days at 50 ms.</p>
+        <p class="Notices"><b>Note1:</b> The minimum <b>Time...</b> deadband allowed is 10 ms which only provides a maximum <b>Length...</b> (or period) of 6.13 days of logged data.</p>
+        <p class="Notices"><b>Note2:</b> When retrieving data from classic (legacy) trends the maximum number of datapoints that can be trended is 99999 therefore, for example,  only 27.77 hours of data can be retrieved at 1 second on a classic (legacy) trend.</p>
+        <ol>
+            <li class="ListBullets" value="1">If necessary, configure the <b>Out of limit logging</b> to immediately log out of limit values (values that are not within their specified operating range). For details, see <a href="Out_of_limit_data_logging.htm">Out of limit data logging</a>.</li>
+        </ol>
+        <ul start="8">
+            <li class="ListBullets" value="8">Choose the required 
+ <b>Compression</b> <b>Method</b> 
+ for the value to be logged. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Data_Logging_Compression_Methods.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Available Logging 
+ Compression Methods</a></span>.</li>
+        </ul>
+        <p class="ListNoteSub"><b>Tip:</b> To facilitate 
+ data compression it is RECOMMENDED to use a non-zero <b>Deadband</b> 
+ Value. The units are the same as for the slot being logged.</p>
+        <ul start="11">
+            <li class="ListBullets" value="11">If necessary, the 
+ <b>Options</b> section provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following <b>options</b> 
+ that apply to ALL Datalog agents:</a><div MadCap:targetName="t1" style="display: none;"><ul><li class="BulletSub" value="1">Select<b> 
+ Clear at Start</b> to clear any records from memory or disk each time 
+ logging commences.</li><li class="BulletSub" value="2">Select <b>Interpolate</b> 
+ if you are logging continuously changing values. Leave unselected if the 
+ values are discrete and change in a stepwise fashion.</li><li class="BulletSub" value="3">Select <b>Double 
+ entries</b> to log both the old and new value of a step change at the 
+ same time. This is necessary if you want to export the data to an Excel 
+ spreadsheet and avoid interpolation when plotting the data.</li><li class="BulletSub" value="4">Use the <b>Backup period</b> list etc., when the <b>Datasource</b> is a proprietary data 
+ (.LGD) file, to configure when and how this logged data should be backed up using .LGB&#160;files, when the LGD&#160;file wraps. This backed up historical data can then be retrieved by the datalogging system when needed. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Datalog_backup_and_retrieval.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Datalog backup and retrieval</a></span>. </li></ul></div></li>
+        </ul>
+        <p class="Notices"><b>IMPORTANT:</b> .LGB files are used when backing up datalogs as these can have their stored historical data seamlessly retrieved for trending and reporting. For details, see <a href="Datalog_backup_and_retrieval.htm">Datalog backup and retrieval</a>. </p>
+        <p class="Notices"><b>Note:</b> To disable datalog backups for a particular Datalog, set the <b>backupPeriod</b> slot of this Datalog agent to <b>0</b>.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">If necessary, click the 
+ <b>Advanced</b> button to configure the 
+ <b>Flush lazily</b> setting 
+ and other GLOBAL DATA LOGGING SETTINGS. For more details on when and how 
+ to configure each of these settings, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Advanced_Datalog_Configuration_global_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Advanced Datalog Configuration 
+ (global settings)</a></span>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The logged 
+ values are immediately queued to a global buffer, and then a separate, 
+ asynchronous thread reads the data and sends it to the correct datalog 
+ file. It is possible to change the size of the queue by clicking the <b>Advanced</b> button.</p>
+        <ol start="6">
+            <li class="Numbers" value="6">Click the <b>Start</b> 
+ radio button to begin logging.</li>
+        </ol>
+        <p class="Notices"><b>Note:</b> It is also 
+ possible to log multiple tags simultaneously i.e. to log multiple agents 
+ of the same type, using the most recently specified logging configuration. 
+ For details, see <a href="Bulk_Logging_Tags_Using_the_Same_Configuration.htm">Bulk 
+ Logging Tags Using the Same Configuration</a>.</p>
+        <p>&#160;</p>
+        <p>For more details about configuring log sets, see <a href="Multiple_Log_Sets.htm">Multiple 
+ Log Sets</a>.</p>
+        <p>For a comparison of these two logging methods and their intended usage, 
+ see <a href="Logging_Values.htm">Logging Tags</a>.</p>
+        <p>For further details concerning the agents responsible for managing this 
+ logging of data and links to these storage facilities and for other logging 
+ functionality, see <a href="Logging_Agents.htm">Logging Overview</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

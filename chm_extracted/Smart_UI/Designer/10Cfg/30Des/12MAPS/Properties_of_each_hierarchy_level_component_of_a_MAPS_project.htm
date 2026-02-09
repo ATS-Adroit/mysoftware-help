@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with MAPS" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.MAPS" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Properties of each hierarchy level (component) of a MAPS project</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor9"></a>Properties of each hierarchy level (component) of a <span class="VIPMAPSProductName">MAPS</span> project</h1>
+        <p class="Notices" MadCap:conditions="Common.MAPSinAdr"><b>Note:</b> In <span class="AdroitAppName">Adroit</span> all <span class="VIPMAPSProductName">MAPS</span>-related PLC functionality is disabled.</p>
+        <p>Each hierarchy level or component of a <span class="VIPMAPSProductName">MAPS</span> project provides its own 
+ right click <b>Properties</b> item that can configure certain of its settings 
+ EXCEPT its name, such as viewing or changing its <b>Description</b>.</p>
+        <p class="Notices"><b>Note:</b> 
+ The <b>Description</b> is typically used 
+ by the tooltip of the specific component in the tree, equipment descriptions 
+ are also added as comments to the PLC program.</p>
+        <p>Click the following components to display the most important tasks/settings 
+ you can achieve by editing/viewing its properties:</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Projects</a>
+            <img src="MAPSPrjIcon.bmp" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" />: 
+ to <a name="kanchor10"></a><a name="kanchor11"></a>specify where the PLC projects are saved and those that affect the 
+ <span class="VIPMAPSProductName">MAPS</span>  reports and other project-specific settings.</p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1"><b>Project Path</b>: specifies where the following items are saved:</li>
+                <li class="ListSubBullet" value="2"> the generated project  reports, in the Reports sub-folder, </li>
+                <li class="ListSubBullet" value="3"> the generated project  reports, in the Documents sub-folder, </li>
+            </ul>
+            <ul>
+                <li class="ListBullets" value="1"><b>Default 
+ Project Report:</b> specifies the path and name of the report template 
+ used for the project reports. If this is BLANK, the default setting, then 
+ the GENERIC project report template is used.</li>
+            </ul>
+            <p class="ListBullDesc">The GENERIC project report template provides the 
+ S88/S95 hierarchy, which includes <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following separate lists of each hierarchy level:</a></p>
+            <div MadCap:targetName="t4" style="display: none;">
+                <ul>
+                    <li class="ListSubBullet" value="1">A list of the configured 
+ Plant Areas and their settings.</li>
+                    <li class="ListSubBullet" value="2">A list of the configured 
+ PLCs (Process Cells) and their settings.</li>
+                    <li class="ListSubBullet" value="3">A list of the configured 
+ Units and their settings.</li>
+                    <li class="ListSubBullet" value="4">A list of each configured 
+ item of equipment and their signals.</li>
+                </ul>
+            </div>
+            <p class="ListBullNote"><b>Tip:</b> You 
+ can customise this GENERIC project report template, for example, by adding 
+ your company logo to its title. For details, see <a href="Customizing_report_templates.htm">Customizing 
+ report templates</a>. &#160;&#160;</p>
+            <ul>
+                <li class="ListBullets" value="1"><b>MAPS Reporting Database SQL Connection String</b>: if you want to use some or all of the <span class="AdroitAppName">Adroit</span> Reporting Suite reports to analyse your <span class="AdroitAppName">Adroit</span> alarming data to improve your alarming configuration and/or record any value that an operator manually changes for auditing purposes, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="CfgPrjReportDBforAdroitAnalysis"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />then do the following:</a> <![CDATA[ ]]></li>
+            </ul>
+            <div MadCap:targetName="CfgPrjReportDBforAdroitAnalysis" style="display: none;">
+                <ul>
+                    <li class="ListSubBullet" value="1">manually create an empty SQL (SQL&#160;2008 R2 with Advanced Services) database, typically via the SQL Server Management utility (which is installed by the SQL&#160;2008 R2 with Advanced Services installation) and </li>
+                    <li class="ListSubBullet" value="2">
+                        <p>specify the connection string to this database here, typically by clicking the browse button to the right of the <b>MAPS Reporting Database SQL Connection String</b> field and then use the displayed  <b>Connection Properties</b> dialog to connect to this  SQL database. </p>
+                        <p>Typically do NOT  change the <b>Data source</b> from the default of <b>.NET Framework Data Provider for OLE&#160;DB</b>, unless you are connecting to a SQL Compact database. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">More details:<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> in which case, click the <b>Change...</b> button and choose the datasource that corresponds to the correct version of SQL Compact and then the dialog will change so that you only need to browse in the required database file and specify the required password, if any.</span></span></p>
+                    </li>
+                </ul>
+                <p class="ListDescSub">Once this database is specified, then <MadCap:conditionalText MadCap:conditions="Common.VerMinorFour">you can right click the MAPS Project in the <b>Enterprise Manager</b> and select the <b>Create Adroit Report Suite</b> right click command, which creates</MadCap:conditionalText> the following agents for this <span class="VIPMAPSProductName">MAPS</span> project: an AlarmManagement, an Audit agent and a DBLog agent, which are configured as follows:</p>
+                <ul>
+                    <li class="ListSubBullet" value="1"> The AlarmManagement agent re-creates the S88 MAPS structure of your project for all the alarmed tags.</li>
+                </ul>
+                <p class="ListNoteSub"><b>IMPORTANT:</b> You need to purchase a separate license for the <span class="AdroitAppName">Adroit</span> AlarmManagement agent before you can use this agent to log your alarming data, which you can analyse using the Alarm Management reports.</p>
+                <ul>
+                    <li class="ListSubBullet" value="1">The Audit agent adds all the tags that are output enabled, so that any Operator change in value is audited (logged to this database) for later analysis. </li>
+                    <li class="ListSubBullet" value="2">The DBLog agent is enabled to start logging and all the agent values logged by the <span class="VIPMAPSProductName">MAPS</span> Templates of this project are also logged to this SQL database.</li>
+                </ul>
+                <p class="ListDescSub">The names of these created agents use the specified <span class="VIPMAPSProductName">MAPS</span> project name and the specific agent type name. For instance, if the <span class="VIPMAPSProductName">MAPS</span> project name is MYPROJ then the following three agents are created: MYPROJ_AMA, MYPROJ_AUDIT and MYPROJ_DBLOG.</p>
+                <p class="ListDescSub">Then after installing the required reports of the <span class="AdroitAppName">Adroit</span> Report Suite you can  use them to analyse your alarms and/or audited items and/or the agent values logged by the DBLog agent.</p>
+            </div>
+            <li style="margin-left: 55px;" class="ListBullets" value="8"><b>Default Operator GF:</b> Browse for the graphic form of this <span class="VIPMAPSProductName">MAPS</span> project  that the Operator view should display by default. Typically the  Operator view graphic form displays the plant area graphic form. But you can specify a unit or Custom graphic form instead.</li>
+            <p>Since one of the purposes of the Operator View, which is generated by each <span class="VIPMAPSProductName">MAPS</span> project, is to provide navigation through the defined   plant 
+ areas, PLCs, units and equipment, <span class="VIPMAPSProductName">MAPS</span> projects allow you to <b>Select Operator View Layout</b>, as follows:</p>
+            <ol>
+                <li class="Bullets" value="1">
+                    <p><b>Advanced</b>: this view provides a 
+  navigational structure of different panes, which each provide buttons that display the available  plant 
+ areas, PLCs, units and equipment defined in your <span class="VIPMAPSProductName">MAPS</span> project. </p>
+                    <p class="Notices"><b>Note:</b> This view is more visually appealing and allows your operators to customise this view by hiding or showing the different panes, as needed.</p>
+                </li>
+                <li class="Bullets" value="2">
+                    <p><b>Simple</b>: this view  uses menus and sub menus to navigate through the available  plant 
+ areas, PLCs, units and equipment defined in your <span class="VIPMAPSProductName">MAPS</span> project.</p>
+                    <p class="Notices"><b>Note:</b> This view provides the same functionality as the Advanced view only in a simpler navigational format.</p>
+                </li>
+            </ol>
+            <li style="margin-left: 55px;" class="ListBullets" value="9">
+                <p><b>Default Screen size:</b> Specify the required screen resolution of ALL the graphic forms of your <span class="VIPMAPSProductName">MAPS</span> project, by  selecting the required screen dimensions,  in pixels, from the list.</p>
+                <p><span class="VIPMAPSProductName">MAPS</span> then automatically adjusts the size of ALL your graphic forms in this project to fit onto the selected screen resolution.</p>
+            </li>
+            <li style="margin-left: 55px;" class="ListBullets" value="10"><b>Show Equipment Title:</b> specify whether you want to display or hide the names of your equipment on the graphic forms, by  checking or unchecking the <b>Show Equipment Title</b> checkbox, which is checked (displayed) by default. Typically you will hide these equipment names to unclutter their graphic forms or when these names only serve to confuse your operators.  </li>
+            <li style="margin-left: 55px;" class="ListBullets" value="11"><b>Database version:</b> For troubleshooting purposes the installed version of the <span class="VIPMAPSProductName">MAPS</span> database is displayed at the bottom of the <span class="VIPMAPSProductName">MAPS</span> Project Properties dialog.</li>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Areas</a>
+            <img src="MAPSPlantAreaIcon.bmp" style="border: none;width: 16px;height: 14px;float: none;border-style: none;border-style: none;" width="16" height="14" border="0" />: 
+ to <a name="kanchor12"></a><a name="kanchor13"></a>configure the associated plant area code, <span class="VIPAppName">SmartUI</span> Server and <span class="AdroitAppName">Adroit</span> Agent 
+ Server</p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1"><b>Plant 
+ Area Code:</b> an OPTIONAL (unique 5-character alphanumeric) code becomes the prefix 
+ that is used for all the equipment items that you add to this plant area.</li>
+            </ul>
+            <p class="BullNotice"><b>Note:</b> If you 
+ change this code, this will ONLY affect the equipment that you add from 
+ this point onward.</p>
+            <p class="BullNotice"><b>Tip:</b> The use 
+ of this code is recommended as it helps to ensure unique and identifiable 
+ tag names in the project, that allow you to easily differentiate your 
+ plant equipment.</p>
+            <ul>
+                <li class="Bullets" value="1">The first of the <b>Plant Area Settings</b>, specifies the <b><span class="VIPAppName">SmartUI</span> 
+ Server Name</b>, which is <b>Default</b>when this specifies the LOCAL <span class="VIPAppName">SmartUI</span> Server.</li>
+            </ul>
+            <p class="ListDesc">If necessary, you can specify a remote <span class="VIPAppName">SmartUI</span> Server, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> if you have more than one <span class="VIPAppName">SmartUI</span> Servers on your network (and their <b>BroadcastEnabled</b> 
+ setting is TRUE), then their <span class="VIPAppName">SmartUI</span> Server names will also appear in this 
+ list (in the following format: [ComputerName] Literal Server Name) - simply 
+ select the name of the required remote <span class="VIPAppName">SmartUI</span> Server from the list.</span></span></p>
+            <p class="ListDesc">Typically this <span class="VIPAppName">SmartUI</span> Server provides a connection to a 
+ single Agent Server that contains the SCADA tags for this plant area.</p>
+            <ul>
+                <li class="Bullets" value="1">Check 
+ the <b>Advanced</b> checkbox, if you have MORE THAN ONE Agent Server connected 
+ to a <span class="VIPAppName">SmartUI</span> server to display the <b>Agent Server</b> column and use this 
+ column to specify which Agent Server this plant Area should use.</li>
+            </ul>
+            <ul>
+                <li class="ListSubBullet" value="1"><b>Offline:</b> 
+ When the Agent Server does not exist or is not available - in this case 
+ you are unable to create or synchronise tags.</li>
+            </ul>
+            <p class="BullSubNote"><b>Note:</b> If the 
+ Agent Server is specified as being <b>Offline</b> 
+ then you need to type in an appropriate <b>Adroit 
+ Device</b> name when configuring the PLCs.</p>
+            <ul>
+                <li class="ListSubBullet" value="1">The name of the required 
+ <span class="AdroitAppName">Adroit</span> datasource - the connection that is made to an Agent Server from 
+ the specified <span class="VIPAppName">SmartUI</span> Server.</li>
+            </ul>
+            <p class="BullSubNote"><b>Note:</b> This 
+ is the name of the connection to the Agent Server as specified in the 
+ <span class="VIPAppName">SmartUI</span> Server and is NOT necessarily the name of the Agent Server as it is specified in<span class="AdroitAppName">Adroit</span>.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />PLCs</a> <img src="MAPSPlcIcon.bmp" style="border: none;width: 16px;height: 15px;border-style: none;border-style: none;" width="16" height="15" border="0" />: 
+ to specify<a name="kanchor14"></a><a name="kanchor15"></a> the name of the associated <span class="AdroitAppName">Adroit</span> device; to allocate the 
+ free IO when adding or removing equipment and to specify the correct start 
+ and end addresses for each IO type.&#160;</p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1"><b><span class="AdroitAppName">Adroit</span> 
+ Device Name:</b> specify the name of the  PLC device, that 
+ has been added to the Agent Server of this PLC's plant Area, which is 
+ configured to communicate to this PLC in the field. For details on adding 
+ and configuring devices, see Creating 
+ and configuring PLC devices in <span class="AdroitAppName">Adroit</span>.</li>
+            </ul>
+            <p>&#160;</p>
+        </div>
+        <p><b>Unit</b> <img src="MAPSUnitIcon.bmp" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" />: Only <a name="kanchor16"></a><a name="kanchor17"></a>allows 
+ you to view or change its description.</p>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Equipment<img src="MAPSElecEquipIcon.bmp" style="border: none;width: 15px;height: 12px;float: none;border-style: none;border-style: none;" width="15" height="12" border="0" /> or <img src="MAPSInstrmEquipIcon.bmp" style="border: none;width: 15px;height: 12px;float: none;border-style: none;border-style: none;" width="15" height="12" border="0" />:</a> 
+ to <a name="kanchor18"></a><a name="kanchor19"></a>change the SCADA graphic used to represent this item of equipment</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p><b>To change 
+ the SCADA graphic used to represent this item of equipment:</b>
+            </p>
+            <ol>
+                <li class="Numbers" value="1">Right click the required 
+ item of electrical <img src="MAPSElecEquipIcon.bmp" style="border: none;width: 15px;height: 12px;float: none;border-style: none;border-style: none;" width="15" height="12" border="0" /> or instrumentation <img src="MAPSInstrmEquipIcon.bmp" style="border: none;width: 15px;height: 12px;float: none;border-style: none;border-style: none;" width="15" height="12" border="0" /> equipment 
+ and select <b>Properties</b>.</li>
+                <li class="Numbers" value="2">Specify the SCADA graphical 
+ representation for this equipment from the <b>Graphic 
+ Name</b> list, by clicking the list button (on the left) and selecting 
+ the appropriate image (and its orientation) from the list provided by 
+ the selected <span class="VIPMAPSProductName">MAPS</span> template.</li>
+                <li class="Numbers" value="3">Click the <b>OK</b> 
+ button.</li>
+                <li class="Numbers" value="4">Right click the applicable 
+ unit <img src="MAPSUnitIcon.bmp" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> and select <b>Update 
+ Graphic</b>.</li>
+            </ol>
+            <p class="ListDesc">To update this unit graphic form with these changes.</p>
+        </div>
+        <p class="Notices"><b>Note:</b> If you edit/view 
+ the Properties of equipment that use the default name, the XXXX section 
+ to this default is changed to the name of the applicable <span class="VIPMAPSProductName">MAPS</span> template.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Exporting spiders and silks</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3173"></a><a name="kanchor3174"></a>Exporting spiders and silks</h1>
+        <p><a name="kanchor3175"></a><a name="kanchor3176"></a><a name="kanchor3177"></a><a name="kanchor3178"></a><a name="kanchor3179"></a><a name="kanchor3180"></a><a name="kanchor3181"></a><a name="kanchor3182"></a>Instead of  manually configuring spiders, silks and their 
+ template sets in the spider workspace, you can also  bulk configure them - by using the export and import configuration menu 
+ commands. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a></p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p>The <b>Export Configuration</b> spider 
+ workspace option can export the current spiders and/or silks 
+ configured within a spider workspace to a Microsoft Excel XML file.</p>
+            <p>This exported configuration can be viewed and/or edited in a compatible 
+ XML Spreadsheet program such as Microsoft Excel and re-imported later 
+ into this or another spider workspace. For details, see <a href="Importing_spiders_and_silks.htm">Importing 
+ spiders and silks</a>.</p>
+            <p class="Notices"><b>WARNING!</b> All NAMES 
+ are CASE-SENSITIVE. 
+ Therefore ENSURE that the CORRECT case is used when editing the exported file, otherwise they may 
+ NOT be recognised when IMPORTED.</p>
+            <p class="Notices"><b>Note:</b> It is not 
+ necessary to save the spider workspace before exporting its spiders and/or silk configuration.</p>
+            <p class="Notices"><b>Tip1:</b> This exported 
+ Microsoft Excel XML file can be used to quickly add a large number of 
+ silks on different template sets to different spiders and to quickly view 
+ and edit all the spiders’ configurations in a single spreadsheet.</p>
+            <p class="Notices"><b>Tip2:</b> To add an imported 
+ silk to more than one template set, , separate the different template 
+ set names with semi colons ";".</p>
+        </div>
+        <h2>To export the spider and/or silk configuration from a spider workspace:</h2>
+        <ol>
+            <li class="Numbers" value="1">If necessary, open the 
+ required spider workspace. </li>
+        </ol>
+        <ol start="1">
+            <li class="ListBullets" value="1">either press the 
+ <b>Export Configuration </b> <img src="../../../Resources/Images/16/DataSources/SpdConfig_ExportConfig.png" /> toolbar button, from the spider 
+ workspace toolbar.</li>
+        </ol>
+        <ol start="2">
+            <li class="ListBullets" value="2">or
+ right-click the spider workspace and select the <b>Export 
+ Configuration </b>menu item.</li>
+        </ol>&#160; 
+
+<p class="ListDesc">This displays the <b>Export 
+ Configuration</b> dialog of the <b>Export 
+ Wizard</b>.</p><ol start="2"><li class="Numbers" value="2">Specify the full path and 
+ name of the exported XML file, as follows:</li></ol><ol start="1"><li class="ListBullets" value="1">EITHER type this 
+ in manually, in which case, ensure that the specified path, file name 
+ and (.XML) extension is correctly specified.</li></ol><p class="ListNoteSub"><b>Note:</b> Failure 
+ to specify the .XML extension will not affect the import functionality, 
+ although may require this file to be manually opened.</p><ol start="1"><li class="ListBullets" value="1">OR select the browse 
+ button to the right of the edit box and browse for the required folder 
+ and either type in a new file name or select an existing XML file to overwrite 
+ it.</li></ol><p class="ListNotice"><b>Note:</b> If the 
+ specified file already exists, it will be overwritten.</p><ol start="3"><li class="Numbers" value="3">Select the configuration 
+ that should be exported from this spider configuration, by checking or 
+ clearing the following checkboxes:</li></ol><ol start="1"><li class="NumbersSubLetters" value="1"><b>Export Silk configuration:</b> If checked, 
+ this will export all the silks that have been configured within this spider 
+ workspace to link all data elements, spiders and properties. This also 
+ exports the template sets that have been configured too.</li></ol><p class="ListNoteSub"><b>Note:</b> If the 
+ spiders do not exist when re-importing the silk configuration, then the 
+ import utility will attempt to re-create them and will also provide further 
+ notification of any manual configuration required with regard to their 
+ inputs and outputs and of any spiders that could not be imported.</p><ol start="1"><li class="NumbersSubLetters" value="1"><b>Export Spider configuration:</b> If checked, 
+ this will export all the spiders that have been added to this spider workspace, 
+ both manually and automatically.&#160;</li></ol><ol start="4"><li class="Numbers" value="4">Click the <b>Next</b> 
+ button to export the selected configuration to the specified .XML file.</li></ol><p class="ListNotice"><b>Note:</b> Microsoft 
+ Excel locks spreadsheet files that are currently open, which prevents 
+ them from being exported to. Therefore ensure that the specified file 
+ is closed in Microsoft Excel before exporting this spider and/or silk 
+ configuration to it.</p><p class="ListDesc">This will display the <b>Export 
+ Results</b> dialog of the <b>Export Wizard</b>.</p><ol start="5"><li class="Numbers" value="5">If the specified file was 
+ successfully exported, this displays a hyperlink of the specified full 
+ path and name of the .XML file containing the exported silk and/or spider 
+ configuration.</li></ol><p class="ListNotice"><b>Note:</b> Selecting 
+ this hyperlink will open the program currently associated with the .XML 
+ file extension, provided this extension was specified. If you have a newer 
+ version of Microsoft Excel installed, then Microsoft Excel will open this 
+ file.</p><p class="ListDesc">If the specified file could not be exported, the error(s) 
+ that occurred during the export process will be displayed, such as: an 
+ invalid or nonexistent path; the file is read-only; the file was locked 
+ by another application or the file denied writing to it etc.</p><ol start="6"><li class="Numbers" value="6">Either select <b>Previous</b>, 
+ to change the name and/or path of the .XML file or to modify the required 
+ configuration that should be exported or select <b>Finish</b> 
+ to exit the <b>Export Wizard</b>.</li></ol><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

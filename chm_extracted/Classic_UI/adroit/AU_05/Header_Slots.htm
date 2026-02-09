@@ -1,0 +1,1198 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Reference|Agent Slots Reference|Agent Type Slot Reference" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Header Slots</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2348"></a>Agent Header Slots</h1>
+        <p>All agents types, regardless of their function, have header attributes 
+ that are assigned and managed by the Agent Server. These slots are identifiable 
+ by the fact that their names are all prefixed with word <b>agent</b>.</p>
+        <p class="Notices"><b>Note1:</b> The overall 
+ status of an agent can be determined from its <b>status</b> slot, which is common to all agent types. For details, see <a href="../AU_01_01/Agent_Status.htm">Agent 
+ Status</a>.</p>
+        <p class="Notices"><b>Note2:</b>The first 
+ bit in the status word, <b>statusBit00</b> 
+ (<b>statusBad)</b>, is the only bit 
+ an application needs to monitor to determine the integrity of this agent. 
+ For details, see <a href="../AU_01_01/Agent_or_Slot_Integrity_Monitoring_Bad_Handling.htm">Agent 
+ or Slot Integrity Monitoring (Bad Handling)</a>.</p>
+        <p class="Notices"><b>Note2:</b> The remaining 
+ slots for each agent are specific to the agent type. For details, see 
+ <a href="Agent_Type_Slot_Reference.htm">Agent Type and Slot Reference</a>.</p>
+        <table style="margin-left: auto;margin-right: auto;caption-side: top;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" style="width: 173px;" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 82px;" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 178px;" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 171px;" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Slot 
+ name</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Slot type</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Function</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Alternate<br />Slot names</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentAlarmVersion</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For future use.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentAllowCopy</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>If agent can be copied, set to 2.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentConfigXML</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For future use. An XML configuration view of this agent that categorises its slots, to provide an alternative means from using the Configurator to view an agent.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentDebugFlag</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Debugging level of an agent.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentDeconfigure</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TAGNAME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Used by the object model layers to have an agent deconfigure a secondary agent from it’s configuration e.g. tell the MODBUS device agent to deconfigure (unscan) an Analog agent.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentDeleteFlag</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Set this if the Agent <b>construct</b> 
+ function has failed and the agent must be deleted. You may also set it 
+ at any other time the Agent Server calls the agent, to delete this agent. 
+ The statusConnectionBad (statusRemoved) bit in the status word may also 
+ be used for this purpose.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentDescription</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>An 80 character alpha-numeric field 
+ for storing a detailed description of the agent.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentEndValidity</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TIME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>The time at which agent information 
+ becomes invalid. Does not accept subscription requests.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentFilter</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For future use. To be used to indicate 
+ a subset of the set of all AgentGroups. It will be the AgentGroups that 
+ this agent is joined to.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentFullTagName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TAGNAME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Tagname includes the Agent Server name.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentIcon</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>This slot provides the content for the 
+ <b>User</b> edit box and can provide 
+ agent-specific notes for operators, like the jotting functionality of 
+ the Execute Command Behaviour.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentId</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>AGENTID</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>The agent ID handle.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentInvalidSlot</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>NO TYPE</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Set if you subscribe to a non-existent 
+ slot.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentLogVersion</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For future use.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentMemberIds</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>RAWBYTES</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>This is an array of the AgentIds of 
+ all members of this agent. Does not accept subscription requests.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentMemberInfo</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>LIST</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Lists member names, IDs and typenames.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentMemberNames</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>LIST</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>This is a listslot containing one column 
+ with the agent names of all members of this agent. Does not accept subscription 
+ requests.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentMembers</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Number of members the agent has (other 
+ agents that have joined this agent). An agent cannot be deleted if it 
+ has outstanding members. Does not accept subscription requests.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentMembershipIds</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>RAWBYTES</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>This is an array of the AgentIds of 
+ all agents this agent is a member of. Does not accept subscription requests.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentMembershipNames</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>LIST</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>This is a listslot containing one column 
+ with the agent names of all agents this agent is a member of. Does not 
+ accept subscription requests.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentMemberShips</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>The number of agents joined by this 
+ agent. Does not accept subscription requests.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentNoSave</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>When TRUE, indicates that the Agent 
+ must not be saved to disk.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentOverlayLoad</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TRUE if an agent is to be overlayload 
+ enabled, and FALSE if an agent is to be overlayload disabled.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentPicture</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For future use.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentPriority</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>The priority of the Agent. Possible values are 
+ 0 (lowest), 1 (low), 2 (normal), 3 (high), 4 (highest). Default value 
+ is 2 (normal).</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentProxyHeader</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>HEADER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For Proxy agents only.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentRealId</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>AGENTID</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>The real agent ID handle (for Aliases).</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentRealTagName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TAGNAME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For Proxy agents only. Name of the actual 
+ agent being proxied.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentRealType</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For Proxy agents only. Agent type of 
+ the actual agent being proxied.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentRealTypeName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TAGNAME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For Proxy agents only. Agent type name 
+ of the actual agent being proxied.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentScanVersion</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For future use.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentsize</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>size of the agents header which may 
+ fluctuate, for example, due to its memberships.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentStartValidity</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TIME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>The time at which information becomes 
+ valid. Does not accept subscription requests.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentStepPtr</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Pointer to agent step number.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentTagName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TAGNAME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>A unique tag or name, by which all users 
+ refer to the agent.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentTimeStamp</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TIME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>A date/time variable that is updated 
+ after every successful modification of an agent slot. Does not accept 
+ subscription requests.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentTotalHeaderSlots</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Total number of header slots.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentTotalSlots</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Total number of slots owned by agent. 
+ Includes the agentTotalHeaderSlots count.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentType</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>A handle to the agent type. (for internal 
+ use by Agent Server).</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentTypeName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TAGNAME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>An alphabetic description of the agent 
+ type of this agent.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentUID</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>For future use.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentValuesXML</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Stores the values of the slots of an agent in XML format.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentVersion</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>A variable that is incremented after 
+ every successful modification of an agent slot.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>The 32-bit <b>status</b> 
+ word discussed below,  shows the status as determined by the status of the individual slot, for instance if one of the agent slots is scan bad, then the agent status slot will show scan bad. </p>
+                        <p>Each individual bit can be accessed by the agentStatusBit<b>xx</b> slots.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatus</p>
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit00</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Bad</b> 
+ - This is set when at least one of the following bits is on: statusScanBad, 
+ statusConnectionBad (a.k.a. statusRemoved) or statusAgentBad. It is a 
+ condition bit and fans in.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit00, statusBad</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit01</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Global 
+ Inhibit</b> - Equivalent to Scan Inhibit plus Log Inhibit plus Alarm 
+ Inhibit. This is a control bit and fans out.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit01, statusGlobalInhibit</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit02</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Operator 
+ Inhibit</b> - Disallows an operator from changing any slot in the agent. 
+ This is a control bit and fans out.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit02, statusOperatorInhibit</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit03</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Log 
+ Inhibit</b> - Disables any configured data logging for the agent or 
+ slot. This is a control bit and fans out.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit03, statusLogInhibit</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit04</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Alarm(s) 
+ Unacknowledged</b> Agent has one or more unacknowledged alarms. This 
+ is a condition bit and fans in.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit04, statusAlarmsUnacked</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit05</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Alarm 
+ Inhibit</b> - Disables any configured alarming on the agent. This is 
+ a control bit and fans out.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit05, statusAlarmInhibit</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit06</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Alarm(s) 
+ Active</b> Agent has one or more active alarms. This is a condition 
+ bit and fans in.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit06, statusAlarmsActive</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit07</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Alarmed</b> 
+ Agent is configured for alarming. This is a configuration bit and doesn’t 
+ fan in or out.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit07, statusAlarmed</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit08</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Scan 
+ Inhibit</b> - Disables any configured scanning of the agent from occurring. This is a control bit and fans out.</p>
+                        <p class="Notices"><b>Note:</b> To <b>Scan 
+ Inhibit</b>values when scanning, this needs to be added to their <b>IO Flags</b> bit mask . For details, see <a href="../AU_01_06/IO_Flags.htm">IO Flags</a>.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit08, statusScanInhibit</p>
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit09</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Legacy - used to be <b>Output 
+ Enable</b> - this is now being stored within the <b>IO Flags</b> bit mask for each scanned value. </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit10</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Scan 
+ Bad</b> - Communications with the front-end device are not happening 
+ successfully. This is a condition bit and fans in.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit10, statusScanBad</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit11</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Legacy - used to be<b>Output 
+ Initialise</b> - this is now being stored within the <b>IO Flags</b> bit mask for each scanned value. </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit12</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Connection 
+ Bad</b> - Proxy agent link to real agent has failed. It could also 
+ mean that an agent has been removed. Set this bit to delete an agent! 
+ This is a condition bit and fans in.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit12, statusRemoved, statusNetBad, statusConnectionBad</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit13</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Scanned</b> 
+ - This is usually set per slot, and it means that a slot is scanned. A 
+ slot may not be scanned more than once. This is a configuration bit and 
+ doesn’t fan in or out.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit13, statusScanned</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit14</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Agent 
+ Bad</b> - is set if the agent is unable to perform an operation or 
+ calculation due to invalid (out of range) data. For example syntactically 
+ incorrect Expressions will set this bit. This is a condition bit and fans 
+ in.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit14, statusAgentBad</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit15</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><b>Subscriptions active</b> - is set when the agent is actively being subscribed to or not, and all agents that are alarmed, logged or subscribed to by any other agent will have this bit set. This is a condition bit and 
+ fans in.</p>
+                        <p class="Notices"><b>Note:</b> This status bit in the agent header dialog only works if global demand scanning is enabled.  In other words if global demand scanning setting is NOT enabled, this status bit is ALWAYS off.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit15, statusSubscribed</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>statusBit16 to<br />statusBit31</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Agent type dependent. These are condition 
+ bits and fan in (the specific names of the agent type’s status bits will 
+ also suffice as slot address).</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>agentStatusBit16 to agentStatusBit31</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>statusRaw</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                        <p>The same as the status word, except 
+ that all fan-ins from the same and lower levels (i.e. the slot statuses 
+ and the bad bit) are discounted.</p>
+                        <p>In other words, the agent raw status word shows the status of the agent, without any regard for the status of the individual slots. For instance, if one of the agent slots is scan bad, the agent status slot will not necessarily show scan bad unless the agent itself has been marked as scan bad.</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>agentStatusRaw</p>
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

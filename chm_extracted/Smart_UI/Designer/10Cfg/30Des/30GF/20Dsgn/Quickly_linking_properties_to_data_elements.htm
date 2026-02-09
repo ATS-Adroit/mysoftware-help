@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Graphic Forms|Designing Graphic Forms|Quick Linking" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Quickly linking properties to data elements</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3100"></a>Quickly linking properties to data elements</h1>
+        <p>The value of a property can easily be assigned to a writable data element. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a> <![CDATA[ 
+ ]]></p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p>Simply drag the required data element from the Enterprise Manager and drop it onto the required graphic form 
+ or <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">graphic element<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a form component that typically provides drawing functionality for the graphic form. See form component.</span></span> 
+ or <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">control<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a visible form component used to display data or accept user input in the graphic form. See form component.</span></span>, 
+ in the <b>Design workspace</b>.</p>
+            <p>Then select the required property and the 
+ required event that must occur before this value is transferred and the 
+ necessary spiders and silks will be automatically created and 
+ configured for you.</p>
+            <p class="Notices"><b>Note1:</b> You are unable 
+ to link the properties of each <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">component<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a hidden form component that provides additional functionality to this graphic form and some or all of its form components. See form component.</span></span> 
+ within a graphic form, in this manner.</p>
+            <p class="Notices"><b>Note2:</b> Spiders and 
+ silks need to manually created, within the <b>Spider Configuration</b> 
+ tool window, in order to perform any other links. Such as the ability 
+ to modify or manipulate the values of one or more data elements or properties 
+ before they are linked. For details, see <a href="Methods_of_linking_data_to_properties_within_a_graphic_form.htm">Methods 
+ of linking data to properties within a graphic form</a>.</p>
+            <p class="Notices"><b>Note3:</b> It is also 
+ possible to quickly link data elements to properties. For details, see 
+ <a href="Quickly_linking_data_elements_to_properties.htm">Quickly linking data elements to 
+ properties</a>.</p>
+        </div>
+        <h2>To quickly link a property to a data element: </h2>
+        <ol>
+            <li class="Numbers" value="1">In the <b>Enterprise Manager</b>, 
+ ensure that the data element within the required datasource is exposed 
+ and visible. </li>
+            <li class="Numbers" value="2">In the<b> Design workspace</b>, 
+ ensure that the required graphic form has been opened and, if necessary, 
+ that the required item is visible. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../10Opn/Opening_graphic_forms.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Opening 
+ graphic forms</a></span> .</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> 
+ It is only possible to quickly link a data element to a property of a 
+ graphic form, graphic element or control, but not a component.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Drag the required data 
+ element from the <b>Enterprise Manager</b> to the required item in the 
+ <b>Design workspace</b>.</li>
+            <li class="Numbers" value="4">Select the <b>From 
+ Control Property…</b> submenu.</li>
+        </ol>
+        <p class="ListDesc">This lists all the controls at the mouse pointer's location, 
+ so that the LAST control that was added to the graphic form is at the 
+ TOP of the list and the graphic form (FORM) is at the BOTTOM of the list.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">Select the control whose 
+ property you want to connect to a data element.</li>
+        </ol>
+        <p class="ListDesc">This lists the pre-defined properties of the specified 
+ control that you can connect from. By default, this list contains the 
+ more commonly used properties of the specified control.</p>
+        <p class="ListNotice"><b>Note:</b> The onus is upon the user to ensure that 
+ the data types of the selected data element and property are compatible.</p>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OtherInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a> <![CDATA[
+ ]]></p>
+        <div MadCap:targetName="OtherInfo" style="display: none;">
+            <ul start="5">
+                <li class="ListBullets" value="5">If the property 
+ that you require is displayed in this menu, select it.</li>
+            </ul>
+            <p class="ListDescSub">This displays a further menu, listing the default 
+ events that have been configured for the specific item that you have selected.</p>
+            <ul>
+                <ol>
+                    <li class="NumbersSubLetters" value="1">If 
+ the required event is displayed in this menu, select it.</li>
+                </ol>
+            </ul>
+            <p class="ListDescSub" style="margin-left: 96px;">This will immediately create the necessary 
+ link, using the highlighted event to determine when the value is transferred.</p>
+            <ul>
+                <ol start="2">
+                    <li class="NumbersSubLetters" value="2">If 
+ the event that you require is not displayed in this menu, select the <b>Customise…</b> 
+ option</li>
+                </ol>
+            </ul>
+            <p class="ListDescSub" style="margin-left: 96px;">This will display the <b>Edit Common Events</b> 
+ configuration dialog, which alphabetically lists the events specific to the selected 
+ item.</p>
+            <ul>
+                <ol start="3">
+                    <li class="NumbersSubLetters" value="3">If 
+ necessary, tick any event that you want to appear in the default events 
+ menu for this item, in future.</li>
+                </ol>
+            </ul>
+            <p class="ListNoteSub" style="margin-left: 96px;"><b>Note:</b> 
+ Any event that has no tick next to it, can only be accessed from within 
+ this configuration dialog itself.</p>
+            <ul>
+                <ol start="4">
+                    <li class="NumbersSubLetters" value="4">Highlight 
+ the event, which is to be used to trigger the transfer of this value to 
+ this data element.</li>
+                    <li class="NumbersSubLetters" value="5">Ensure 
+ that the required event has been highlighted before clicking the <b>Finish</b> 
+ button.</li>
+                </ol>
+            </ul>
+            <p class="ListNoteSub"><b>Note1:</b> ONLY the highlighted 
+ event, even if it is not currently ticked, will be used as the selected 
+ event.</p>
+            <p class="ListNoteSub"><b>Note2:</b> Any changes 
+ made to the default events menu for the selected item, will ONLY be stored 
+ in the profile assigned to the currently logged in user, if its <b>Automatically update profile</b> option 
+ is enabled. For details, see <a href="../../../40Mng/20Prf/10Cfg/Customizing_connections_and_work_environment.htm">Customizing 
+ connections and work environment</a>. This is stored in the <b>User 
+ Profile Settings</b> of your profile in the <b>DefaultEvents</b> variable.</p>
+            <p class="ListDesc" style="margin-left: 73px;">This immediately creates the necessary link, 
+ using the highlighted event to determine when the value is transferred.</p>
+            <ul start="6">
+                <li class="ListBullets" value="6">If the property 
+ that you require is not displayed in this menu, select the <b>Customise…</b> 
+ option</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> Selecting 
+ the <b>Customise…</b> option aborts the linking process and simply allows 
+ you to configure which default properties should appear in this menu for 
+ the selected item in future.&#160;</p>
+            <p class="ListDescSub">This will display the <b>Edit Common Properties</b> 
+ configuration dialog, which alphabetically lists the properties specific to the selected 
+ item.</p>
+            <ul>
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Tick 
+ any property that you want to appear in the default properties menu for 
+ this item, in future.</li>
+                </ol>
+            </ul>
+            <p class="ListNotSubSub"><b>Note1:</b> Any property 
+ that has no tick next to it cannot be used to quickly link a property 
+ to a data element.</p>
+            <p class="ListNotSubSub"><b>Note2:</b> In this case, 
+ highlighting a property does nothing.</p>
+            <p class="ListNotSubSub"><b>Tip:</b> Double-clicking 
+ on the name of a property will check or empty the checkbox.&#160;</p>
+            <ul>
+                <ol start="2">
+                    <li class="NumbersSubLetters" value="2">Ensure 
+ that the required properties have been added or removed from this default 
+ properties menu before clicking the <b>Finish</b> button.</li>
+                </ol>
+            </ul>
+            <p class="ListNotSubSub"><b>Note:</b> Any 
+ changes made to the default properties menu for the selected item, will 
+ be stored in the profile assigned to the currently logged in user. For 
+ details on profiles, see <a href="../../../40Mng/20Prf/Working_with_profiles.htm">Working 
+ with profiles</a>. This is stored in the <b>User 
+ Profile Settings</b> of your profile in the DefaultProperties variable.</p>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

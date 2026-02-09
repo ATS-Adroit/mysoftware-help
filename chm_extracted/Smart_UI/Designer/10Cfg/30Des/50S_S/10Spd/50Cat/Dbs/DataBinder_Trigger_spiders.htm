@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders|Categories|Databasing|DataBinder Trigger spiders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Script Engine spiders.doc" /><title>DataBinder Trigger spiders</title>
+        <link href="../../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor344"></a>DataBinder Trigger spiders</h1>
+        <table style="margin-left: auto;margin-right: auto;">
+            <col style="width: 33.4pt;" />
+            <col style="width: 392.9pt;" />
+            <tr>
+                <td>
+                    <p>
+                        <img src="spiders%20-%20cat_data%20-%20databindertrigger%20icon.bmp" style="border: none;width: 34px;height: 48px;float: none;border-style: none;border-style: none;" width="34" height="48" border="0" />
+                    </p>
+                </td>
+                <td>
+                    <p>The <b>DataBinder Trigger</b> spider displays 
+ or to saves changes made to the data of a table in a DataBinder. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a></p>
+                    <p>  <![CDATA[ ]]></p>
+                </td>
+            </tr>
+        </table>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p>For details 
+ on DataBinders, see <a href="../../../../20DS/ODB/About_DataBinders.htm">About 
+ DataBinders</a>.</p>
+            <p>Technically speaking the <b>DataBinder Trigger</b> spider interacts 
+ with the BindingSource component associated with the specific table.</p>
+            <p class="Notices"><b>Note:</b> In order 
+ to use this spider you need to add a VIZNETDataBinder component 
+ to a graphic form and connect it to the required DataBinder.</p>
+            <p>Typically, this spider is required when you have not used the <b>Create Controls</b> option when adding a 
+ VIZNETDataBinder component to a graphic form. Or you want to add a button 
+ to load or save the data of a table.</p>
+        </div>
+        <p>&#160;</p>
+        <ul>
+            <li class="Bullets" value="1"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_DataBinder_Trigger_spiders.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To add 
+ this spider to the spider workspace</a></span>.</li>
+            <li class="Bullets" value="2"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Fetching_data_from_a_DataBinder_table.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To fetch data from a DataBinder table</a></span>.</li>
+            <li class="Bullets" value="3"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Updating_changes_made_to_a_DataBinder_table.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To update changes made to a DataBinder 
+ table</a></span>.</li>
+        </ul>
+        <h2>Configuration</h2>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Spider menu:</a> 
+ This describes the available menu items and their default settings for 
+ this spider.&#160;</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p class="Notices"><b>Note:</b> Menu items 
+ that are enabled will have a tick mark <img src="../../../../../../00CmnUse/Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;" width="20" height="20" border="0" /> to the left of them.</p>
+            <ol start="1">
+                <li class="Numbers" value="1"><b>Detail 
+ View:</b> This can be used to display the configuration view of this spider, 
+ so its name, description, inputs and outputs can be configured. For details, 
+ see <a href="../../20Cfg/Working_with_spider_configuration_views.htm">Working with 
+ spider configuration views</a>.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> Double-click 
+ the title bar of the spider to display or hide the configuration view 
+ of the spider.</p>
+            <ol start="2">
+                <li class="Numbers" value="2"><b>Trigger 
+ Spider From Event:</b> This enables the spider to be triggered (which 
+ will run its script) by means of an event. For details, see <a href="../../30Trigr/Triggering_a_spider_from_an_event.htm">Triggering 
+ a spider from an event</a>. This is enabled by default.</li>
+                <li class="Numbers" value="3"><b>Enable 
+ Silk Triggering:</b> This enables the spider to be triggered (which will 
+ run its script) by any silks that are attached to the inputs of this spider. 
+ For details, see <a href="../../30Trigr/Triggering_spiders.htm">Triggering 
+ spiders</a>. This is disabled by default.</li>
+                <li class="Numbers" value="4"><b>Propagate 
+ Outputs At Startup:</b> This enables the spider to supply the silks connected 
+ to its outputs with values as soon as its spider workspace enters into 
+ running mode. For details, see <a href="../../../Working_with_spider_workspaces.htm">Working 
+ with spider workspaces</a> or <a href="../../20Cfg/Sending_spider_outputs_at_startup.htm">Sending 
+ spider outputs at startup</a>. This is disabled by default.</li>
+                <li class="Numbers" value="5"><b>Trigger 
+ Now!:</b> This will cause this spider to immediately be triggered.</li>
+            </ol>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Inputs:</a> 
+ This describes the available inputs displayed by the default configuration 
+ view of this spider.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>This default configuration view of this spider, contains the following 
+ sections:</p>
+            <ol>
+                <li class="Numbers" value="1"><b>Inputs</b>, 
+ this section contains the inputs to this spider.</li>
+            </ol>
+            <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                <col style="width: 8.359%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                <col style="width: 11.048%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <col style="width: 70.476%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <thead>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Input</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Data</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>DataBinder Name</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>List</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This lists the names of all the VIZNETDataBinder components of this 
+ graphic form.</p>
+                            <p>Select the name of the required component.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>Table Name</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>List</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This lists the names of all the tables in the DataBinder associated 
+ with the selected VIZNETDataBinder component.</p>
+                            <p>Select the table that you want to interact with.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                            <p>Function</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                            <p>List</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                            <p>Select the function that you want to perform on the data of this table, 
+ as follows:</p>
+                            <p><b>Fill:</b> To fetch the data from 
+ this table in the database. This displays the data of this table in all 
+ the controls that are linked to this table. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../40FC/10CC/Ctrl/Linking_controls_to_BindingSource_components.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Linking 
+ controls to BindingSource components</a></span>.</p>
+                            <p><b>Update:</b> To save any changes 
+ made to this data to this table in the database.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>&#160;<ol start="2"><li class="Numbers" value="2"><p><b>Event Trigger</b>, 
+ this section is used to specify the event that is used to trigger this 
+ spider.</p><p>This is typically a control added to the graphic form, such as 
+ a Button control, which uses its Click event to perform the action.</p><p>For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../30Trigr/Triggering_a_spider_from_an_event.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Triggering 
+ a spider from an event</a></span>.</p></li></ol></div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

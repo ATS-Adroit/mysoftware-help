@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Graphic Elements (vectors)" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Vectors" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Exporting and Importing graphic elements</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3759"></a><a name="kanchor3760"></a><a name="kanchor3761"></a><a name="kanchor3762"></a><a name="kanchor3763"></a><a name="kanchor3764"></a>Exporting and importing graphic elements</h1>
+        <p>You can reuse graphical objects created from one or more configured graphic 
+ elements, by configuring them and then exporting them. Then import them into the 
+ same or other graphic forms, as required. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a></p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p>In this way it is possible to create a library of commonly used graphical 
+ objects, whose properties are fully or partially configured – instead 
+ of creating these objects from the individual graphic elements from scratch 
+ each time they are required.</p>
+            <p class="Notices"><b>Note:</b> Only the 
+ graphic elements and their MANUALLY configured properties can be exported, 
+ in other words any spiders, Behaviours or other methods that are used to 
+ configure their properties will NOT be exported.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To export graphic elements:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Select the required graphic 
+ element(s). For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Selecting_graphic_elements.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting 
+ graphic elements</a></span>.</li>
+                <li class="Numbers" value="2">Right-click and select 
+ the <img src="../../../../image17.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> <b>Export Selection</b> 
+ menu option.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> An Invalid 
+ Selection error message will be displayed if no graphic elements are currently 
+ selected when this option is used.</p>
+            <p class="ListDesc">This will display the <b>Save 
+ As</b> dialog.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Browse for the required 
+ folder and then type in the required file name and press the Save button.</li>
+            </ol>
+            <p class="ListNotice"><b>Note1:</b> The name and 
+ especially the extension of this file is immaterial and does not affect 
+ the importing process.</p>
+            <p class="ListNotice"><b>Note2:</b> If only a file 
+ name is specified then the .XML file extension is provided.</p>
+            <p class="ListDesc">This saves the selected graphic elements to the specified 
+ file.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To import graphic elements:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Ensure that the Windows 
+ Explorer and Designer application windows are positioned in such a way 
+ that the exported file containing the required graphic elements is visible 
+ in Windows Explorer and the required graphic form into which these graphic 
+ elements are to be added is also visible in the Designer.</li>
+                <li class="Numbers" value="2">Drag the file containing 
+ the exported graphic elements from Windows Explorer into the required 
+ graphic form in the Designer.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The initial location of imported graphic elements depends on where they have been dragged.</p>
+            <p class="ListDesc">This selects the imported graphic elements 
+ so they can be moved to another location, if necessary.</p>
+            <p class="ListNotice"><b>Note:</b> Only 
+ the attributes of the imported graphic elements are imported.</p>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

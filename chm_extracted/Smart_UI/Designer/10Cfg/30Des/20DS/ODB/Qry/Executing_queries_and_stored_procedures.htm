@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|OLE DB Datasources" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.DS_OLEDB" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Executing queries and stored procedures</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2291"></a><a name="kanchor2292"></a>Executing queries and stored procedures</h1>
+        <p>OLE DB datasource queries are performed using the Query spider.</p>
+        <h2>To execute a query using a Query spider: </h2>
+        <ol>
+            <li class="Numbers" value="1">If necessary, add the required 
+ OLE DB datasource and create the required query.</li>
+            <li class="Numbers" value="2">If necessary, add a project 
+ and a graphic form.</li>
+            <li class="Numbers" value="3">Ensure that the required 
+ graphic form is opened and displayed in the <b>Design workspace</b>. </li>
+            <li class="Numbers" value="4">If necessary, add the necessary controls 
+ to trigger and/or display the results of this query to the required graphic 
+ form.</li>
+            <li class="Numbers" value="5">Open the <b>Spider Configuration</b> 
+ tool window. </li>
+            <li class="Numbers" value="6">Right-click 
+ the spider workspace itself and select the <b>Create 
+ New Spider</b> menu.</li>
+            <li class="Numbers" value="7">Click 
+ the <b>Databasing</b> sub-menu and its 
+ <b>Query</b> item to add a Query spider.</li>
+            <li class="Numbers" value="8">Double click the Query spider to open its 
+ configuration view.</li>
+            <li class="Numbers" value="9">In the 
+ <b>Inputs</b> section:</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Open 
+ the <b>Servers</b> list box, to display the list of the names of all the 
+ connected Servers that are available. </li>
+            <li class="NumbersSubLetters" value="2"><span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Select<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span> 
+ the Server, which contains the OLE DB datasource that this query has been 
+ created for.</li>
+        </ol>
+        <p class="ListNoteSub"><b>Tip:</b> Use the 
+ <b>Default Server</b> selection, where 
+ possible, when referring to datasources on the login Server to simplify 
+ the importing of this spider. Otherwise this <b>Server</b> 
+ input will need to be reconnected after this spider has been imported.&#160;</p>
+        <ol start="3">
+            <li class="NumbersSubLetters" value="3">Open 
+ the <b>OLEDB</b> <b>Data Source</b> list 
+ box and select the name of the required OLE DB datasource.</li>
+        </ol>
+        <ol start="4">
+            <li class="NumbersSubLetters" value="4">Select 
+ the type of query (action) that you want to execute from the <b>Query 
+ Type</b> list box to display the list of available queries.</li>
+        </ol>
+        <ol start="5">
+            <li class="NumbersSubLetters" value="5">Select 
+ the name of the required query from the <b>Query 
+ Name</b> list.</li>
+            <li class="NumbersSubLetters" value="6">If 
+ this query contains parameters, these will be added as additional inputs 
+ to the <b>Inputs</b> section.</li>
+        </ol>
+        <p class="ListNoteSub"><b>Note:</b> The value of these 
+ parameter inputs can either be supplied by another spider or Data spider 
+ (e.g. property or data element) via a silk or can be typed in manually. 
+ For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../50S_S/30Silks/Creating_silks.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Creating silks</a></span>.</p>
+        <p class="ListNoteSub"><b>Note:</b> If using SQL, please 
+ ensure that all the date parameters for this query adhere to the universal 
+ date time standard for SQL, which is yyyy-mm-dd.</p>
+        <p class="ListNoteSub"><b>Tip:</b> When 
+ typing in a value manually, double-click the value column to the right 
+ of the parameter name in the <b>Inputs</b> section and type in the required 
+ value.</p>
+        <p class="ListDesc">This spider will perform this query, whenever it is triggered.</p>
+        <ol start="10">
+            <li class="Numbers" value="10">If necessary, connect this 
+ query to the properties of the required controls on the graphic form to 
+ trigger this spider to perform this query and/or to display its results.</li>
+        </ol>
+        <ol start="12">
+            <li class="Numbers" value="12">If necessary, click the 
+ <b>Preview</b> button to display the 
+ results of this query in the DataGrid.</li>
+            <li class="Numbers" value="13">Save the graphic form by 
+ pressing its <b>Save </b><![CDATA[  ]]><img src="../../../../../Resources/Images/16/Generic/Save.png" /> toolbar button to save these changes. </li>
+        </ol>
+        <p>&#160;</p>
+        <p>For details of the various types of queries that are provided, see <a href="../About_queries.htm">About queries</a>.</p>
+        <p>For details of parameterizing queries, see <a href="Adding_parameters.htm">Working 
+ with parameters</a>.</p>
+        <p>For details on triggering spiders, see <a href="../../../50S_S/10Spd/30Trigr/Triggering_spiders.htm">Triggering 
+ spiders</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

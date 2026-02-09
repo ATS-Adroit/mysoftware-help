@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Graphic Elements (vectors)" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Vectors" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Editing graphic elements</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3374"></a><a name="kanchor3375"></a><a name="kanchor3376"></a><a name="kanchor3377"></a><a name="kanchor3378"></a><a name="kanchor3379"></a><a name="kanchor3380"></a><a name="kanchor3381"></a><a name="kanchor3382"></a><a name="kanchor3383"></a>Editing graphic elements</h1>
+        <p><a name="kanchor3384"></a>After adding <a name="kanchor3385"></a>one for more graphic elements can be edited as follows:</p>
+        <p class="Notices"><b>Note:</b> Graphic 
+ elements need to be selected before they can be edited. For details, see 
+ <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Selecting_graphic_elements.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting graphic elements</a></span>.</p>
+        <p class="Notices"><b>Tip:</b> The <b>RoundedRectangleRadius</b>property, specified in pixels, adds support for rounded corners for the following graphic elements: Rectangle, Text, Picture and Button - by default this is 0 (disabled), except for <b>Button</b> which is 2. Values from 5 onward result in rounded corners.</p>
+        <ol>
+            <li class="Numbers" value="1"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t18" name="kanchor3386"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Moving:</a> Drag the selected graphic elements and/or controls to their required 
+ location. <div MadCap:targetName="t18" style="display: none;"><p class="ListNotice"><b>Note1:</b> By default, 
+ when moving a selection, it snaps (jumps) to the snaplines (displayed 
+ in blue) of the other form components, so as to be aligned with these 
+ components.</p><p class="ListNotice">This means that you are not able to place this selection in certain places 
+ on the graphic form.</p><p class="ListNotice"><b>Note2:</b> When 
+ moving a selection, the X and Y axis displacement (in pixels) of the current 
+ position relative to its original position is displayed next to the center-point 
+ in red, so that you can know when to release the mouse button.</p><p class="ListNotice"><b>Tip:</b> Hold down 
+ the ALT key while dragging to disable the default this snapping mode and 
+ provide free movement.</p></div></li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t16" name="kanchor3388"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Sizing:</a> 
+ The current selection provides <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">sizing handles<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">small boxes that appear around the perimeter of a selected item, which if dragged changes the size of this item. See drag.</span></span><img src="../../../../image12.gif" style="border: none;width: 13px;height: 13px;border-style: none;border-style: none;" width="13" height="13" border="0" /> that can be dragged to resize all the graphic elements 
+ in the selection. <div MadCap:targetName="t16" style="display: none;"><p class="ListDesc">When the mouse cursor passes over a sizing handle it 
+ changes into a double-headed arrow (<img src="../../../../image14.gif" style="border: none;width: 18px;height: 17px;border-style: none;border-style: none;" width="18" height="17" border="0" />), indicating the 
+ directions in which the selection can be sized.</p><p class="ListNotice"><b>Note:</b><a name="kanchor3389"></a> When 
+ resizing Text graphic elements, the text itself will ALSO be resized.</p><p class="ListNotice"><b>Tip:</b> To draw perfect squares and circles, hold down the <b>CTRL</b> key while resizing their graphic elements.</p></div></li>
+        </ol>
+        <ol start="3">
+            <li class="Numbers" value="3"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t14" name="kanchor3390"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Rotating:</a> 
+ Use the <MadCap:conditionalText MadCap:conditions="Common.VerMinorOne">rotation handle <img src="VectorRotationHandle.jpg" /> above the center of the vector as its rotation site</MadCap:conditionalText> for rotating the selection. <div MadCap:targetName="t14" style="display: none;"><p class="ListDesc">When the mouse cursor approaches the outer edge of the rotation site it changes into a rotation cursor (<img src="../../../../image2.jpg" style="border: none;width: 29px;height: 24px;border-style: none;border-style: none;" width="29" height="24" border="0" />), which 
+ when dragged rotates the selection clockwise or anti-clockwise.</p><p class="ListNotice"><b>Note1:</b> Each selection 
+ provides a center-point indicated by a circle (<img src="../../../../image15.gif" style="border: none;width: 9px;height: 9px;border-style: none;border-style: none;" width="9" height="9" border="0" />) around which 
+ it rotates. If necessary, drag this center-point to another position before 
+ rotating the selection.</p><p class="ListNotice"><b>Note2:</b> When rotating 
+ a selection, the angle (in degrees) of the current rotation relative to 
+ its original position is displayed next to the center-point in red, so 
+ that you can know when to release the mouse button. Clockwise rotation 
+ is positive and anti-clockwise rotation is negative.</p><p class="ListNotice"><b>Note3:</b> If necessary, 
+ the center-point can be reset by right-clicking and selecting the <b><a name="kanchor3392"></a>Reset Center-point</b> item. Graphic elements 
+ provide a task menu, opened by clicking its <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> icon, which 
+ also contains a <b>Reset Center-point</b> 
+ item.</p></div></li>
+        </ol>
+        <ol start="4">
+            <li class="Numbers" value="4"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t12" name="kanchor3393"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Editing nodes:</a> 
+ Graphic elements that are collections of basic shapes have nodes at the 
+ start and end of each constituent, represented as a small square box (<img src="../../../../image3.gif" style="border: none;width: 9px;height: 9px;border-style: none;border-style: none;" width="9" height="9" border="0" />). Nodes allow these constituent shapes to be moved, deleted 
+ and added.<div MadCap:targetName="t12" style="display: none;"><p class="ListDesc">For instance the <b>Polyline</b> <![CDATA[ 
+ ]]><a name="kanchor3394"></a>which is made up of separate lines, the <b>Spline</b> <a name="kanchor3395"></a>is made up of curves.</p><p class="ListDesc">Nodes are edited using the node pointer (<b><img src="../../../../image2.gif" style="border: none;width: 15px;height: 15px;border-style: none;" width="15" height="15" border="0" /></b>), as follows:</p><ul start="4"><li class="ListBullets" value="4"><b>Move</b> 
+ nodes by dragging them, if the node is attached to two constituents BOTH 
+ of them will readjust to their new starting or ending position.</li></ul><ul start="4"><li class="ListBullets" value="4"><b>Delete</b> 
+ nodes by<a name="kanchor3396"></a> pressing CTRL and clicking the required node, this removes the 
+ constituents attached to this node.</li></ul><ul start="4"><li class="ListBullets" value="4"><b>Add</b> 
+ nodes by pressing SHIFT and selecting the existing node that is to be 
+ the start or end of the new constituent. This adds the new node on top 
+ of the selected node, which needs to be dragged to the required position.</li></ul><p class="listdescsub">&#160;</p></div></li>
+        </ol>
+        <ol start="5">
+            <li class="Numbers" value="5"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8" name="kanchor3397"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Properties:</a> 
+ Each graphic element has properties, which affect how it appears and behaves 
+ etc. Properties can either be manually configured or driven by external 
+ values for animation purposes. <div MadCap:targetName="t8" style="display: none;"><p class="ListDesc">For instance, most graphic elements can be colored and 
+ filled (indicates a rising level from 0 to 100%). For details, see <a href="coloring_and_filling_graphic_elements.htm">coloring and filling graphic elements</a>.</p><p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Other important properties:</a></p><div MadCap:targetName="t7" style="display: none;"><ul><li class="ListBullets" value="1"><b><a name="kanchor3398"></a>Location</b> and <b><a name="kanchor3399"></a>size</b> - to dynamically adjust the size and location of this graphic element at runtime.</li><li class="ListBullets" value="2">StartPoint and 
+ EndPoint: adjusts the size and location of a Line.</li><li class="ListBullets" value="3">Rectangle: adjusts 
+ the location and dimensions of a Rectangle, Ellipse, Scale and Text.</li><li class="ListBullets" value="4">Closed: closes 
+ a Polyline or Spline if set to True - this automatically joining the beginning 
+ and ending points.</li><li class="ListBullets" value="5">ScaleType: changes 
+ the displayed scale of a Scale. Supported scale types</li><li class="ListBullets" value="6">Scale vector: the <b>DivisionsPosition</b> property changes where the scale appears within the vector i.e. on the Left, Centre or Right of it.</li><li class="ListBullets" value="7">Button vector: important properties: <b>Hovercolor</b>: displayed when the mouse pointer hovers over this button; <b>Presscolor</b>: displayed when the mouse clicks this button.</li><li class="ListBullets" value="8">Text vector: the Boolean TextScaling property is True by default. Set this property to False if you do not want to resize the text when the vector is resized. <b>Warning!</b> This also means that the text will not rotate and will remain horizontal regardless of the rotation of this Text vector.</li><li class="ListBullets" value="9">Text, TextAlign, 
+ Textcolor: change the content and appearance of the text of a Text.</li><li class="ListBullets" value="10"><b>RoundedRectangleRadius</b>, specified in pixels, adds support for rounded corners for the following graphic elements: Rectangle, Text, Picture and Button - by default this is 0 (disabled), except for <b>Button</b> which is 2. Values from 5 onward result in rounded corners.</li></ul></div><p class="ListNotice"><b>Note1:</b> The <b>Properties</b> 
+ tool window displays the available properties of the selected graphic 
+ element/s.</p><p class="ListNotice"><b>Note2:</b> If more than 
+ one graphic element is selected then only the properties shared by all 
+ the selected graphic elements are available.</p></div></li>
+        </ol>
+        <ol start="5">
+            <li class="Numbers" value="5"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5" name="kanchor3400"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Behaviours:</a> 
+ Graphic elements and grouped graphic elements provide a task menu, opened 
+ by clicking its <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> icon, which can add one or more display 
+ Behaviours. <div MadCap:targetName="t5" style="display: none;"><p class="ListDesc">These Behaviours use external data to typically modify 
+ the appearance of its associated item. For details, see <a href="../30B/About_Behaviors.htm">About Behaviours</a>.</p><p class="ListNotice"><b>Note:</b> Only 
+ one of each of the Behaviours can be added.</p></div></li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Available Agents|The SNMPMgr Agent|Configuring SNMPManager Agents" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Ver9" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Adding OIDs Manually</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1600"></a>Adding OIDs Manually</h1>
+        <p><a name="kanchor1601"></a><a name="kanchor1602"></a><a name="kanchor1603"></a>Normally, you will connect to the network device to browse 
+ for and select <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">OID<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">SNMP managed Object IDentifier, which describes the exact location of this value in the SNMP structure for its device.</span></span> 
+ values, using the <b>SNMP Objects Browser</b>. 
+ However, if the required device is not physically connected to the computer, 
+ then you can specify OIDs manually.</p>
+        <p class="Notices"><b>Note:</b> You need 
+ to <b>Disable polling</b> before you 
+ can manually add OIDs.</p>
+        <h2>To manually add an OID<a name="kanchor1604"></a>:</h2>
+        <ol start="1">
+            <li class="Numbers" value="1">Click the <b>Add 
+ OID manually</b> <img src="AddOIDManually.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" /> button in the edit dialog.</li>
+            <li class="Numbers" value="2">Specify the numeric name 
+ of the required <b>OID</b> in the <b>Add OID entry</b> dialog. For details regarding 
+ the naming of OIDs, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SNMP_Object_Identifiers.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">OID Naming Formats</a></span>.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> Since 
+ it is ESSENTIAL to specify this address correctly, we recommend that you 
+ copy this address from the relevant MIB file and then use the <img src="PasteFromClipboard.bmp" style="height: 20px;width: 24px;" width="24" height="20" border="0" /> button to paste it into this cell.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">If necessary, type in a 
+ <b>Name</b> that will help you identify 
+ this OID value (or leave this out entirely).</li>
+        </ol>
+        <ol start="4">
+            <li class="Numbers" value="4">Select the <b>Type</b> of data returned by the OID value from the list box.</li>
+            <li class="Numbers" value="5">Specify the appropriate 
+             <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span>, 
+ in the <b>Tag</b> field to get and/or 
+ set this value.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> Use the 
+ <b>Browse tag</b> <img src="BrowseTag.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" /> button 
+ to add and/or select this  tag. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting 
+ a Tag Using the Agent  Explorer</a></span>.</p>
+        <ol start="6">
+            <li class="Numbers" value="6">
+                <p>If necessary, specify the 
+ <b>Rate</b>, in milliseconds, at which 
+ this OID value should be polled (monitored) or specify 0 to use the default 
+ <b>Poll rate</b> of this agent, specified in the <b>Poll settings</b> section.</p>
+                <p class="Notices"><b>Note:</b> This 
+ rate cannot be less than 5 seconds, the minimum for the <b>Poll 
+ rate</b> for this agent.</p>
+            </li>
+            <li class="Numbers" value="7">If necessary, specify whether 
+ this OID value should be <b>Enabled for 
+ automatic polling</b>.</li>
+            <li class="ListBullets" value="8">If checked its 
+ value will be copied into the specified <b>Tag</b> 
+ whenever it changes.</li>
+            <li class="ListBullets" value="9">If unchecked (empty), 
+ you must manually poll this entry when it is required.</li>
+        </ol>
+        <ol start="8">
+            <li class="Numbers" value="8">If necessary, specify whether 
+ this OID value will be <b>Writable</b>.</li>
+            <li class="ListBullets" value="9">If checked then 
+ when value of the specified <b>Tag</b> 
+ changes it is written to this device, provided the necessary connection 
+ details are specified.</li>
+            <li class="ListBullets" value="10">If unchecked (empty) 
+ then this value will ONLY be monitored by this agent, depending upon the 
+ configuration of the <b>Enabled for automatic 
+ polling</b> checkbox.&#160;</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

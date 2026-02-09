@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Available Agents" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Available Agents </title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor325"></a><a name="kanchor326"></a><a name="kanchor327"></a>Available Agents</h1>
+        <p>The most fundamental building blocks of <span class="AdroitAppName">Adroit</span> are intelligent objects 
+ called agents, which in addition to being able to manipulate their own 
+ data can read and write to other agents and so 
+ influence them. For further details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_01/About_Agents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">About 
+ Agents</a></span> or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_01/What_you_can_do_with_agents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">How agents can 
+ be used</a></span>.</p>
+        <p>An <span class="AdroitAppName">Adroit</span> configuration is therefore made of many different agents, 
+ each of which is a unique instance of one of the supported agent types. 
+ For details about how to reference agents, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_05/Agent_Referencing_Convention.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Agent 
+ Referencing Convention</a></span>.</p>
+        <p>Each agent type provides externally accessible data attributes, or slots. 
+ For a description of the slots provided by each agent type, see <a href="../AU_05/Agent_Type_Slot_Reference.htm">Agent 
+ Type Slot Reference</a>.</p>
+        <p>&#160;</p>
+        <p><a name="kanchor328"></a>The following is an alphabetic list of all the available agent types:</p>
+        <ul>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="1"><a href="../AU_01_05/The_Accumulator_Agent.htm" class="MCXref_0">The Accumulator agent</a> : to analyse an accumulating process value to calculate its difference in value (or delta) between successive events or over a specific time period.</li>
+            <li class="Bullets" value="2"><a href="../AU_01_04/The_AgentGroup_Agent.htm">The AgentGroup 
+ Agent</a> : combines agents that have something in common into groups.</li>
+            <li class="Bullets" value="3"><a href="../AU_01_07/The_Alarm_Agent.htm">The Alarm Agent</a> 
+ : manages how <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">incidents<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">signified by AgentName.AlarmType, which indicate that this agent has gone into the condition or state specified by this alarm type. Each incident can either be an alarm (requiring action) or an event (not requiring action).</span></span> 
+ are communicated to the necessary personnel and/or applications.</li>
+            <li class="Bullets" value="4"><a href="../AU_01_07/The_AlarmList_Agent.htm">The AlarmList Agent</a> 
+ : lists current or unacknowledged incidents to display in an Alarm List 
+ Viewer window.</li>
+            <li class="Bullets" value="5"><a href="../AU_01_07/The_AlarmManagement_Agent.htm">The AlarmManagement 
+ Agent</a> : configures and records your active incidents so you can improve 
+ your alarming configuration.</li>
+            <li class="Bullets" value="6"><a href="../AU_01_05/The_Alias_Agent.htm">The Alias Agent</a> 
+ : creates a reference to an existing agent to adopt its Behaviour and state 
+ information.</li>
+            <li class="Bullets" value="7"><a href="../AU_01_05/The_Analog_Agent.htm">The Analog Agent</a> 
+ : stores a real (floating point) value and provides engineering functionality 
+ such as scaling.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="8"><a href="../AU_01_05/The_ARec_Agent.htm">The ARec Agent</a> 
+ : configures up to 256 states using truth table type logic on up to 32 
+ bits.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="9"><a href="../AU_01_05/The_Audit_Agent.htm">The Audit agent</a> : supplements the  Agent Server auditing 
+ by monitoring one or more tags for ANY change in value.</li>
+            <li class="Bullets" value="10"><a href="../AU_01_07/The_Beeper_Agent.htm">The Beeper Agent</a> 
+ : provides simple audio output using the built-in PC loudspeaker.</li>
+            <li class="Bullets" value="11"><a href="../AU_01_05/The_Primitive_Agents.htm">The Boolean Agent</a> 
+ : stores a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Boolean<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a value that only has two discrete states, 0 (FALSE) or 1 (TRUE).</span></span> 
+ value.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="12"><a href="../AU_01_05/The_Command_Agent.htm">The Command agent</a> 
+ : sends and receives <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SMS<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">Short Message Service is a service (protocol) for sending short text messages to and from mobile phones.</span></span> 
+ messages to remotely configure or report on your process.</li>
+            <li class="Bullets" value="13"><a href="../AU_01_05/The_Counter_Agent.htm">The Counter Agent</a> 
+ : a simple counter and averager.</li>
+            <li class="Bullets" value="14">The Custom Agent: a generic agent type used to create user-defined 
+ agent types. <br />Since this agent CANNOT be used in its generic format, the        <b>Custom 
+ Agent Designer</b> utility, facilitates the creation of these user-defined 
+ agent types.&#160;For details, see <a href="../AdrCusDes/How_to_Use_the_Custom_Agent_Designer.htm">How to Use the Custom Agent Designer</a></li>
+            <li class="Bullets" value="15"><a href="../AU_01_08/The_DataLog_Agent.htm">The DataLog Agent</a> 
+ : manages the historical logging of process values (<span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span>).</li>
+            <li class="Bullets" value="16"><a href="../AU_01_05/The_Date_Agent.htm">The Date Agent</a> 
+ : holds time and date information broken down into the date and time constituents.</li>
+            <li class="Bullets" value="17"><a href="../AU_01_13/The_DbAccess_Agent.htm">The DBAccess agent</a> 
+ : performs a transaction on a row in an OLE DB compatible database.</li>
+            <li class="Bullets" value="18"><a href="../AU_01_08/The_DBLog_Agent.htm">The DBLog Agent</a> : is a bulk OLE&#160;DB&#160;logging agent for typically logging Analog and/or Digital values  to a specific table in a database for later retrieval. </li>
+            <li class="Bullets" value="19"><a href="../AU_01_06/The_Device_Agent.htm">The Device Agent</a> : transfers 
+ process values between <span class="AdroitAppName">Adroit</span> and the <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">FED<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">front-end device, which is a device that is accessed directly by the user, such as a PLC or RTU.</span></span>.</li>
+            <li class="Bullets" value="20"><a href="../AU_01_05/The_Digital_Agent.htm">The Digital Agent</a> 
+ : stores a Boolean value and provides engineering functionality such as 
+ value inversion.</li>
+            <li class="Bullets" MadCap:conditions="Common.Ver9" value="21"><a href="../AU_01_05/The_DumpConfig_Agent.htm">The DumpConfig Agent</a>: stores the configuration of specific agents in an OLE&#160;DB database.</li>
+            <li class="Bullets" value="22"><a href="../AU_01_07/The_EventLogging_Agent.htm">The EventLogging 
+ Agent</a> : manages the logging of events by <span class="AdroitAppName">Adroit</span> to Windows event logs 
+ and to a database.</li>
+            <li class="Bullets" value="23"><a href="../AU_01_07/The_EventOutput_Agent.htm">The EventOutput 
+ Agent</a> : directs event log messages to output devices (printers, files, 
+ databases).</li>
+            <li class="Bullets" value="24"><a href="../AU_01_05/The_Expression_Agent.htm">The Expression 
+ Agent</a> : performs user-defined calculations to calculate an output 
+ value.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="25"><a href="../AU_01_05/The_Frame_Agent.htm">The Frame Agent</a> 
+ : stores up to 32 indexed strings.</li>
+            <li class="Bullets" value="26">The Hasp Agent: displays the current <span class="AdroitAppName">Adroit</span> license information.</li>
+            <li class="Bullets" MadCap:conditions="Common.Ver9" value="27"><a href="../AU_01_05/The_ICMP_Agent.htm">The ICMP (PING) Agent</a> : determines the existence of  a remote device on the network.</li>
+            <li class="Bullets" value="28"><a href="../AU_01_05/The_Primitive_Agents.htm">The Integer Agent</a> 
+ : stores an integer number +/– 2147483647 (32 bits).</li>
+            <li class="Bullets" value="29"><a href="../AU_01_05/The_IOT_Agent.htm">The IOT Agent</a>: can represent any object containing multiple properties (or slots).</li>
+            <li class="Bullets" value="30"><a href="../AU_01_05/The_Marshal_Agent.htm">The Marshal Agent</a> 
+ : provides the functionality of 16 Digital agents in a single agent.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="31"><a href="../AU_01_05/The_MaxDemand_Agent.htm">The MaxDemand 
+ Agent</a> : monitors your electricity usage so that you remain within 
+ your agreed usage limits.</li>
+            <li class="Bullets" value="32"><a href="../AU_01_07/The_MultiMedia_Agent.htm">The MultiMedia 
+ Agent</a> : runs a variety of Windows compatible multi-media files such 
+ as .WAV, .AVI and .MID.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="33"><a href="../AU_01_05/The_MultiState_Agent.htm">The MultiState 
+ Agent</a> : defines up to 16 discrete states to create operating and/or 
+ control sequences.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="34"><a href="../AU_01_07/The_Notify_Agent.htm">The Notify Agent</a> 
+ : directs alarms to pagers and also to cellular phones via SMS.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="35"><a href="../AU_01_05/The_OEE_Agent.htm">The OEE Agent</a> : EITHER  calculates the <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">OEE<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">stands for Overall Equipment Effectiveness, which typically identifies the productivity or utiltization of a machine or an entire plant, as a percentage.</span></span>&#160;for the monitored equipment and/or plant or  measures a specific <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">KPI<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Key Performance Indicator, a quantifiable measurement that measures how well something is accomplishing its goals and objectives.</span></span> for a measured production value.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="36"><a href="../AU_01_05/The_PerfMon_Agent.htm">The PerfMon Agent</a> 
+ : monitors up to 16 Windows Performance counters to detect performance 
+ bottlenecks.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="37"><a href="../AU_01_05/The_PID_Agent.htm">The PID Agent</a> : 
+ provides the 25 signals and tuning parameters associated with an external 
+ PID controller.</li>
+            <li class="Bullets" value="38">The Proxy Agent 
+ : provides continuous updates of the value of an agent referenced from 
+ a remote Agent Server.</li>
+            <li class="Bullets" value="39"><a href="../AU_01_05/The_Primitive_Agents.htm">The Real Agent</a> 
+ : stores a real (floating point) value.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="40"><a href="../AU_01_09/Recipe_Agent_Overview.htm">The Recipe Agent</a> 
+ : provides basic sequencing and batching and reporting capabilities.</li>
+            <li class="Bullets" value="41">The Scan Agent 
+ : communicates one or more tags to an FED, these agents are managed by 
+ Device agents.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="42"><a href="../AU_01_05/The_Scheduler_Agent.htm">The Scheduler 
+ Agent</a> : defines one or more time periods of time to enable or disable 
+ other agents.</li>
+            <li class="Bullets" value="43"><a href="../AU_01_09/The_Script_Agent.htm">The Script Agent</a> 
+ : performs one or more Visual basic or Java scripts to do complicated 
+ tasks.</li>
+            <li class="Bullets" value="44"><a href="../AU_01_05/The_Shift_Agent.htm">The Shift Agent</a> :  to configure your required shift patterns globally, for use by any interested agents.&#160;</li>
+            <li class="Bullets" MadCap:conditions="Common.Ver9" value="45"><a href="../AU_01_05/The_SNMPMgr_Agent.htm">The SNMPMgr Agent</a> : monitors and/or manages network devices using <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">Simple Network Management Protocol (SNMP) is used to monitor and manage a diverse range of devices on a computer network.</span></span>.</li>
+            <li class="Bullets" value="46"><a href="../AU_01_05/The_Statistical_Agent.htm">The Statistical 
+ Agent</a> : provides the basic functionality to create a statistical process 
+ control strategy.</li>
+            <li class="Bullets" value="47"><a href="../AU_01_05/The_Primitive_Agents.htm">The String Agent</a> 
+ : stores a "string" of text characters, only the first 79 of 
+ which can be used when<span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">scanning<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">the process of communicating a value (slot), typically to and/or from a front-end device (FED).</span></span>.</li>
+            <li class="Bullets" value="48"><a href="../AU_01_05/The_StringList_Agent.htm">The StringList 
+ Agent</a> : stores an unlimited number of indexed ASCII character strings 
+ of variable length.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="49"><a href="../AU_01_08/The_SystemDatalog_Agent.htm">The SystemDataLog 
+ Agent</a> : administers the backing up of datalogs and synchronises datalogs 
+ in an <span class="AdroitAppName">Adroit</span> cluster.</li>
+            <li class="Bullets" value="50"><a href="../AU_01_04/The_SystemInformation_Agent.htm">The SystemInformation 
+ Agent</a> : acts as an information center containing data that is global 
+ to the Agent Server.</li>
+            <li class="Bullets" MadCap:conditions="Adroit.Ex4HMI" value="51"><a href="../AU_01_05/The_Text_Agent.htm">The Text Agent</a> 
+ : stores a 79-character text string (this length excludes the mandatory 
+ zero terminator character).</li>
+            <li class="Bullets" value="52"><a href="../AU_01_05/The_Timer_Agent.htm">The Timer Agent</a> 
+ : performs several commonly used timing operations.</li>
+            <li class="Bullets" value="53">The UDT Agent:  a generic agent type used to create user-defined agent types that typically duplicate the structure 
+ of your UDTs in your PLCs, by adding properties (basic data types) to 
+ them. <br />Since this agent CANNOT be used in its generic format, the <b>UDT Agent Type Designer</b> utility, facilitates the creation of these user-defined 
+ agent types, see <a href="../UDT/UDT_Agent_Type_Designer.htm">UDT 
+ Agent Type Designer</a>.</li>
+        </ul>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

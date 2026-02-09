@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Alarming Agents" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Configuring EventLogging Agents</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2384"></a>Configuring EventLogging Agents</h1>
+        <p>The EventLogging agent manages the logging of events 
+ in <span class="AdroitAppName">Adroit</span> and/or can log events to an OLE DB compatible database.</p>
+        <p>This assumes that the <b><a name="kanchor2385"></a>Edit EventLogging Agent</b> 
+ dialog is open, which can be done, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Select the default <b>EventLogging</b> agent called eventLog. 
+ For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_known_agent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To Select an Agent</a></span>.</li>
+                <li class="Numbers" value="2">Right click and select 
+ the <b>Edit...</b> menu item to display 
+ the <b>Edit EventLogging Agent</b> dialog.</li>
+            </ol>
+        </div>
+        <p class="Notices"><b>Note:</b> 
+ There is <b>only</b> <![CDATA[  ]]><b>one default instance of this agent</b> per Agent 
+ Server, called <b>eventLog</b>.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To disable event logging for 
+ specific routes:</a> 
+ Select the required alarm route number from the <b>Select 
+ route number</b> list box.</p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Check the <b>Disable 
+ this route</b> checkbox.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To disable event logging from 
+ ALL alarm routes:</a>
+        </p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Check the <b>Disable 
+ all routes</b> checkbox in the <b>General 
+ Event Logging</b> <![CDATA[  ]]><b>details</b> section 
+ (set the <b>totalDisable</b> slot to 1).</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To set the default alarm route that events 
+ are logged for ALL Alarm agents:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Specify the number of the 
+ required alarm route in the <b>Default Routing</b> 
+ edit box (the <b>defaultRoute</b> slot) in the <b>General 
+ Event Logging details</b> section.</li>
+            </ol>
+        </div>
+        <p>For more details about alarm routes, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="About_Alarm_Routes.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">About Alarm Routes</a></span>.</p>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure the MAXIMUM priority 
+ level of the EventLogging agent:</a> 
+ this will DISCARD any event from an agent or <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">incidents<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">signified by AgentName.AlarmType, which indicate that this agent has gone into the condition or state specified by this alarm type. Each incident can either be an alarm (requiring action) or an event (not requiring action).</span></span> 
+ that has priority level LOWER than the configured level. This setting 
+ can be used to filter out unnecessary events, by simply not logging them.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Specify the highest Alarm 
+ priority (an integer from 0 to 4)&#160; in the<b> Discard Level</b> edit 
+ box (the <b>discardLevel</b> slot) in the <b>General Event Logging details</b> 
+ section.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The default 
+ setting of 9999 disables this feature.</p>
+            <p class="LineNote">For details of configuring the Alarm priority setting 
+ for an agent or an incident, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_Incident_Alarm_Priorities.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring Incident (Alarm) 
+ Priorities</a></span>.</p>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To log events to an OLE DB compatible database:</a> this allows you to log events to an OLE DB compatible database preferably 
+ on the SAME computer as the Agent Server. </p>
+        <p>This allows you to use the in-built 
+ querying functionality of the database to assist you in performing queries 
+ on the logged events to analyse them.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p class="Notices"><b>Note:</b> 
+ These logged events cannot be viewed in the Event Log Viewer window</p>
+            <ol>
+                <li class="Numbers" value="1">If necessary, check the 
+ <b>Enabled</b> checkbox in the <b>Local OLE DB logging</b> section.</li>
+                <li class="Numbers" value="2">Click the browse <img src="../COMMON/BrowseTag.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" /> button to the right of the <b>Custom 
+ OLE DB connection</b> edit box, to specify the required OLE DB compatible 
+ database. For details on specifying this connection string, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../COMMON/Connecting_to_an_OLE_DB_database.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Connecting to an OLE DB database</a></span>.</li>
+            </ol>
+            <p class="ListDesc">By default, <span class="AdroitAppName">Adroit</span> deletes events older than 90 days 
+ from this database to ensure that the database does not become too large. </p>
+            <p class="ListDesc">If necessary, specify the MAXIMUM number of days that you need to keep 
+ the logged events for in the <b>Delete records older than</b> edit box.</p>
+        </div>
+        <p>&#160;</p>
+        <p>The <b>Destinations</b> section of this dialog displays 
+ which physical event log files (one per computer) and which EventOutput 
+ agents are allocated to each route. </p>
+        <p>Typically these are configured within 
+ the Alarm agent edit dialog. For details, see <a href="Global_Incident_Destinations.htm">Global 
+ Incident Destinations</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

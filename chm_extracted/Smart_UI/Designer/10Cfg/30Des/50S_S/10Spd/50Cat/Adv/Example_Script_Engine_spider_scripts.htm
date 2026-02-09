@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders|Categories|Advanced|Script Engine spiders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Example Script Engine spider scripts</title>
+        <link href="../../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3848"></a><a name="kanchor3849"></a>Example Script Engine spider script</h1>
+        <p>The <b>Script Engine</b> spider allows users to create scripts to perform advanced customised operations. These scripts can use both  input and output 
+ variables, if necessary.</p>
+        <p>An example of a script that the <b>Script Engine</b> spider can run when it is triggered, which can be</p>
+        <p>copied and pasted as-is.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Code to open a graphic form from a Script Engine spider:</a>
+        </p>
+        <p class="Notices"><b>Note:</b> This script requires an input 
+ variable (“var 1”) that contains a fully qualified graphic form name.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>//.NET Namespaces:</p>
+            <p>using System;</p>
+            <p>using System.Drawing;</p>
+            <p>using System.Collections;</p>
+            <p>using System.Windows.Forms;</p>
+            <p>//VIZNET Namespaces:</p>
+            <p>using VIZNET.Shared.Interfaces;</p>
+            <p>using VIZNET.Shared.DataElements;</p>
+            <p>using VIZNET.Shared.DataElements.Engine;</p>
+            <p>using VIZNET.Shared.DataElements.Collections;</p>
+            <p>using VIZNET.Shared.Helpers;</p>
+            <p>using VIZNET.Shared.Interfaces.UI;</p>
+            <p>using VIZNET.Shared.Interfaces.Script;</p>
+            <p>namespace VIZNET.Scripting</p>
+            <p>{</p>
+            <p>&#160;&#160;&#160;public 
+ class Script : ICodeProviderScript, INeedConnection, INeedApplication, 
+ INeedGraphicObject, INeedSpiderInfo</p>
+            <p>&#160;&#160;&#160;{&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;private 
+ IConnection MyConnection = null;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;private 
+ IObjectManager MyApplication = null;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;private 
+ INeedController MyController = null;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;private 
+ Control MyGraphicObject = null;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;private 
+ Hashtable MyInputs = null;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;private 
+ Hashtable MyOutputs = null;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;//entry 
+ point for script engine</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;public 
+ void Main()</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//var 
+ 1 is the fully qualified GF Name (as an example)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DataElement 
+ __deGFName = MyInputs["var 1"] as DataElement;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if 
+ (__deGFName.Value!=null)</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;string 
+ __gfName = __deGFName.Value.ToString();</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//do 
+ the read from the server</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MethodReturnInfo 
+ __mri = MyConnection.ReadDataElements( new string[] { __gfName } );</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if 
+ (__mri.Success == true )</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DataElementCollection 
+ __dec = __mri.ReturnObject as DataElementCollection;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if(__dec 
+ != null)</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;IGraphicObject 
+ igo = __dec.GetElementByKeyValue(__gfName).Value as IGraphicObject;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MyApplication.OpenGraphicObject(igo, 
+ GraphicObjectDialogType.Replace);</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;#region 
+ VIZNET Generated Code</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;#region 
+ IHost Members&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;//INeedApplication 
+ Members&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;public 
+ IObjectManager Application</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;get&#160;&#160;{return 
+ MyApplication;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;set&#160;&#160;{MyApplication=value;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;//INeedConnection 
+ Members</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;public 
+ IConnection Connection</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;get&#160;&#160;{return 
+ MyConnection;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;set&#160;&#160;{MyConnection=value;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;//INeedGraphicObject 
+ Members</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;public 
+ System.Windows.Forms.Control Control</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;get&#160;&#160;{return 
+ MyGraphicObject;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;set&#160;&#160;{MyGraphicObject=value;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;public 
+ VIZNET.Shared.Interfaces.INeedController Controller</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;get&#160;&#160;{&#160;return 
+ MyController;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;set&#160;&#160;{&#160;MyController 
+ = value;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;}&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;//INeedSpiderInfo 
+ Members</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;public 
+ Hashtable Inputs</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;get&#160;&#160;{&#160;return 
+ MyInputs;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;set&#160;&#160;{&#160;MyInputs 
+ = value;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;public 
+ Hashtable Outputs</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;get&#160;&#160;{&#160;return 
+ MyOutputs;&#160;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;set&#160;&#160;{&#160;MyOutputs 
+ = value;&#160;}</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;#endregion&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;#endregion</p>
+            <p>&#160;&#160;&#160;}</p>
+            <p>}</p>
+            <p>&#160;</p>
+        </div>
+        <h2><a name="kanchor3850"></a>Code snippets:</h2>
+        <p>These are <b>incomplete pieces of code</b> that either demonstrate a general 
+ principle or perform a task. The goal or intent of these code snippets 
+ is to answer common "How do I...?" questions that relate to 
+ the general use of <span class="VIPAppName">SmartUI</span> and its graphic forms.</p>
+        <p class="Notices"><b>PLEASE NOTE:</b> These 
+ code snippets are typically written in the C# scripting language and are 
+ targeted at programmers who have experience in coding yet are new to <span class="VIPAppName">SmartUI</span>. Since prior knowledge of programming in general and 
+ in the .NET Framework, in particular, is required to modify these code 
+ snippets for your specific requirements.</p>
+        <p><a href="../../../../../../HowTos/Code_to_enable_ImageList_component_usage.htm">Code to implement the ImageList component</a>
+        </p>
+        <p><a href="../../../../../../HowTos/Code_to_enable_tooltips.htm">Code to implement tooltips in a graphic form</a>
+        </p>
+        <p><a href="../../../../../../HowTos/Code_to_execute_a_Script_on_the_Server.htm">Code to execute a Script on 
+ the Server</a>
+        </p>
+        <p><a href="../../../../../../HowTos/Code_to_open_a_graphic_form.htm">Code 
+ to open a graphic form</a>
+        </p>
+        <p><a href="../../../../../../HowTos/Code_to_read_and_update_a_data_element.htm">Code 
+ to read and update a data element</a>
+        </p>
+        <p><a href="../../../../../../HowTos/Code_to_set_the_active_tab_page_at_runtime_in_the_Operator.htm">Code 
+ to set the active tab page at runtime in the Operator</a>
+        </p>
+        <p><a href="../../../../90Scr/20INdInt/INeed_interfaces_object_reference.htm">INeed 
+ interfaces object reference</a>: INeed 
+ interfaces are made available to scripts to provide them access to the 
+ various components of the <span class="VIPAppName">SmartUI</span> Server and/or the <span class="VIPAppName">SmartUI</span> Client (Designer or Operator).</p>
+        <p>&#160;</p>
+        <p><a href="Creating_script_objects.htm">Creating 
+ scripts</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

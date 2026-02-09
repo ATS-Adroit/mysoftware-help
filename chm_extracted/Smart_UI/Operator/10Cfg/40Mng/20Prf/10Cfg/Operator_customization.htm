@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Configuring the Operator" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Deployment,VIP.OperatorConfig" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Operator.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="UncheckedProfileTopics.doc" /><title>Operator customization</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor94"></a><span class="VIPAppName">Smart UI</span> Operator customization</h1>
+        <p>User profiles can customize the default display and permitted user interaction within the <span class="VIPAppName">Smart UI</span> Operator window.</p>
+        <p class="Notices"><b>Note:</b> You can also specify default <span class="VIPAppName">Smart UI</span> Operator settings are applied 
+ before a user logs on. For details, see Default 
+ Operator user interface settings or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../16Op/Operator_command_line_arguments.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Operator command line arguments</a></span>.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ToCustomize"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To customize the <span class="VIPAppName">Smart UI</span> Operator display and user interaction:</a>
+        </p>
+        <div MadCap:targetName="ToCustomize" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">In the <span class="VIPAppName">Smart UI</span> Designer, create a profile or edit 
+ the profile that applies to the current user.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> Any user not associated with a profile 
+ has the <b>Default</b> profile applied to them.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">In the <b>Profile Configuration</b> 
+ dialog, select the <b>Operator Settings</b> dialog, from the left pane.</li>
+            </ol>
+            <ol start="3">
+                <li class="Numbers" value="3">Select the required setting 
+ to highlight the row and then configure this setting.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> It is also possible 
+ to double-click either the setting name or its value cell to expand or 
+ highlight numerical values selections or select the next value within 
+ the lists.</p>
+            <ol><b>Edit</b>: for <span class="AdroitAppName">Adroit</span> datasources ONLY, this option opens the <span class="AdroitAppName">Adroit</span> Agent Configurator with this tag (agent) selected (if it can be found), so that it can be edited.</ol>
+            <p class="ListNotice"><b>Note:</b> Since this option ONLY&#160;applies to <span class="AdroitAppName">Adroit</span> datasources and even then the editing of tags in the <span class="VIPAppName">Smart UI</span> Operator poses a security risk, so the display of this option is controlled via the <b>AllowEditTags</b> Boolean setting of the <b>Operator Settings</b> page of the profile dialog, which is False (hidden) by default.</p>
+        </div>
+        <h2>Customizable <span class="VIPAppName">Smart UI</span> Operator settings and their required configuration</h2>
+        <ol>
+            <li class="Bullets" value="1">
+                <p><b>AllowEditTags:</b> this setting applies, when linking tags from <span class="AdroitAppName">Adroit</span> datasources to controls and vectors of graphic forms. In this case, this option determines whether your Operator users have the ability to edit the exposed <span class="AdroitAppName">Adroit</span> tags, which are displayed either through the use of Show (All) Information or the Bad tag status indicators. For details on these tag exposing mechanisms, see <a href="../../../16Op/Working_with_Show_All_Information.htm">Working with Show (All) Information</a> and <a href="../../../30Des/20DS/Adr/Bad_tag_status_indicators.htm">Bad tag status indicators</a>.</p>
+                <p class="Notices"><b>IMPORTANT:</b> This option is disabled (False) by default, due to the security risk posed by allowing your operators to edit tags on the fly. </p>
+            </li>
+            <li class="Bullets" value="2"><b>AlwaysOnTop:</b> to <a name="kanchor95"></a>enable or disable the initial display of the <span class="VIPAppName">Smart UI</span> Operator window to be above all other applications. By default this is disabled (False). </li>
+            <li class="Bullets" value="3"><a name="kanchor96"></a><b>CanClose:</b> to allow users to close 
+ the <span class="VIPAppName">Smart UI</span> Operator window (True) or 
+ not (False).            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="CanClose"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ 
+ ]]></p>
+        <div MadCap:targetName="CanClose" style="display: none;">
+            <p class="ListDesc">Click the drop-down list box button <img src="../../../../00CmnUse/Generic%20-%20List%20box%20button.bmp" style="border: none;width: 17px;height: 18px;float: none;border-style: none;border-style: none;" width="17" height="18" border="0" /> at the right of this 
+ field and select the required value.</p>
+            <p class="ListNotice"><b>Note:</b> If the user CANNOT close the <span class="VIPAppName">Smart UI</span> Operator 
+ window, the close button will still appear in the top left hand corner 
+ but will not work.</p>
+        </div>
+        <ol start="2">
+            <li class="Bullets" value="2">
+                <p><b><a name="kanchor97"></a>DefaultGraphicFormLevel:</b> to select which level is initially displayed by the graphic form, specified by the <b>DefaultGraphicFormPath</b> 
+ setting.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DefaultGraphicFormLevel"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="DefaultGraphicFormLevel" style="display: none;">
+            <p class="ListDesc">Type in or paste (right click and select <b>Paste</b>) 
+ the required level name or leave this field blank to select the first 
+ level, as usual.</p>
+            <p class="ListNotice"><b>Note:</b> 
+ If the specified level does not exist in this graphic form, then the first 
+ level is selected.</p>
+        </div>
+        <ol start="3">
+            <li class="Bullets" value="3">
+                <p><b>DefaultGraphicFormPath:</b><a name="kanchor98"></a>to select the default graphic form that is displayed when the  <span class="VIPAppName">Smart UI</span> Operator window opens.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DefaultGraphicFormPath"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="DefaultGraphicFormPath" style="display: none;">
+            <p class="ListDesc">Click the browse button <img src="../../../../00CmnUse/Generic%20-%20Browse%20button_24x18.bmp" style="border: none;border-style: none;border-style: none;width: 24;height: 18;" border="0" /> at the right of this field to 
+ launch the <b>Graphic Form Selection</b> configuration dialog to locate this graphic 
+ form from its required project within the correct Server or leave this 
+ field blank.</p>
+        </div>
+        <ol start="4">
+            <li class="Bullets" value="4">
+                <p><b><a name="kanchor99"></a>DefaultGraphicFormTemplateSet:</b> to select which template set is initially activated in the graphic form, specified 
+ by the <b>DefaultGraphicFormPath</b> 
+ setting.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DefaultGraphicFormTemplateSet"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="DefaultGraphicFormTemplateSet" style="display: none;">
+            <p class="ListDesc">Type in or paste (right click and select <b>Paste</b>) 
+ the required template set name or leave this field blank to select the 
+ "Default" template set, as usual.</p>
+            <p class="ListNotice"><b>Note:</b> If the 
+ specified template set does not exist in this graphic form, then the "Default" 
+ template set is selected.</p>
+        </div>
+        <ol start="5">
+            <li class="Bullets" value="5">
+                <p><b><a name="kanchor100"></a>FullScreen:</b> to display the title bar at the top of the <span class="VIPAppName">Smart UI</span> Operator 
+ window (False) or not (True).</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="FullScreen"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="FullScreen" style="display: none;">
+            <p class="ListDesc">Click the drop-down list box button <img src="../../../../00CmnUse/Generic%20-%20List%20box%20button.bmp" style="border: none;width: 17px;height: 18px;float: none;border-style: none;border-style: none;" width="17" height="18" border="0" /> at the right of this 
+ field and select the required value.</p>
+        </div>
+        <ol start="6">
+            <li class="Bullets" value="6">
+                <p><b><a name="kanchor101"></a>ShowContextMenu:</b> to allow users to display 
+ the right-click menu in the <span class="VIPAppName">Smart UI</span> Operator 
+ window (True) or not (False).</p>
+                <p class="Notices"><b>Note:</b> This menu can close the <span class="VIPAppName">Smart UI</span> Operator window, 
+ configure its always-on-top property and toggle the Operator mode i.e. 
+ to hide or display the <b>Levels and Layers</b> 
+ window.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ShowContextMenu"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="ShowContextMenu" style="display: none;">
+            <p class="ListDesc">Click the drop-down list box button <img src="../../../../00CmnUse/Generic%20-%20List%20box%20button.bmp" style="border: none;width: 17px;height: 18px;float: none;border-style: none;border-style: none;" width="17" height="18" border="0" /> at the right of this 
+ field and select the required value.</p>
+            <p class="ListNotice"><b>Note:</b> If this setting 
+ is disabled, this ALSO disables the Ctrl+0 and Ctrl+T shortcuts to 
+ entirely prevent this menu from being displayed in the <span class="VIPAppName">Smart UI</span> Operator.</p>
+        </div>
+        <ol start="7">
+            <li class="Bullets" value="7">
+                <p><b><a name="kanchor102"></a>ShowMaximize:</b> to allow users to maximize 
+ the <span class="VIPAppName">Smart UI</span> Operator window (True) or 
+ not (False).</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ShowMaximize"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="ShowMaximize" style="display: none;">
+            <p class="ListDesc">Click 
+ the drop-down list box button <img src="../../../../00CmnUse/Generic%20-%20List%20box%20button.bmp" style="border: none;width: 17px;height: 18px;float: none;border-style: none;border-style: none;" width="17" height="18" border="0" /> at the right of this field 
+ and select the required value.</p>
+        </div>
+        <ol start="8">
+            <li class="Bullets" value="8">
+                <p><b><a name="kanchor103"></a>ShowMinimize:</b>  to allow users to minimize 
+ the <span class="VIPAppName">Smart UI</span> Operator window (True) or 
+ not (False).</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ShowMinimize"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="ShowMinimize" style="display: none;">
+            <p class="ListDesc">Click 
+ the drop-down list box button <img src="../../../../00CmnUse/Generic%20-%20List%20box%20button.bmp" style="border: none;width: 17px;height: 18px;float: none;border-style: none;border-style: none;" width="17" height="18" border="0" /> at the right of this field 
+ and select the required value.</p>
+        </div>
+        <ol start="9">
+            <li class="Bullets" value="9">
+                <p><b><a name="kanchor104"></a>StartupBorderStyle:</b> to specify the window type used for the graphic 
+ forms, which determine how users can interact with each graphic form window.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="StartupBorderStyle"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="StartupBorderStyle" style="display: none;">
+            <p class="ListDesc">Click the drop-down list box button <img src="../../../../00CmnUse/Generic%20-%20List%20box%20button.bmp" style="border: none;width: 17px;height: 18px;float: none;border-style: none;border-style: none;" width="17" height="18" border="0" /> at the right of this 
+ field and select one of the following styles:</p>
+            <p class="ListNotice"><b>Note:</b> Each style 
+ has its own pre-set properties, experiment with these styles as necessary.</p>
+            <ul>
+                <li class="BulletSub" value="1"><b>FixedSingle:</b> 
+ This has a title bar and frame, therefore you are able to close, move, 
+ minimize or maximize this window, although you are unable to resize it.</li>
+                <li class="BulletSub" value="2"><b>Fixed3D:</b> 
+ Similar to <b>FixedSingle</b>, except 
+ that it has a 3D frame, which makes its contents seem sunken.</li>
+                <li class="BulletSub" value="3"><b>FixedDialog:</b> 
+ Similar to <b>FixedSingle</b>, except 
+ that its a dialog.</li>
+                <li class="BulletSub" value="4"><b>Sizable:</b> 
+ Similar to <b>FixedSingle</b>, except 
+ that you are also able to resize this window.</li>
+                <li class="BulletSub" value="5"><b>FixedToolWindow:</b> 
+ Similar to <b>FixedSingle</b>, except 
+ its a dockable window that you are unable to resize.</li>
+                <li class="BulletSub" value="6"><b>SizableToolWindow:</b> 
+ Similar to <b>Sizable</b>, except that 
+ its a dockable window.</li>
+            </ul>
+        </div>
+        <ol start="10">
+            <li class="Bullets" value="10">
+                <p><b><a name="kanchor105"></a>StartupLocation:</b> to MANUALLY set the location of the <span class="VIPAppName">Smart UI</span> Operator window on 
+ the screen, by specifying the required position of the 
+ top left corner of the window in pixels.</p>
+                <p class="Notices"><b>Tip:</b> The <b>StartupWindowPosition</b> setting provides preset system-dependent startup positions.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="StartupLocation"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="StartupLocation" style="display: none;">
+            <p class="ListDesc">These pixel measurements are measured relative to the top left corner 
+ of the screen.</p>
+            <p class="ListDesc">The first digit specifies the leftmost (X) position and 
+ the second the topmost (Y) position.</p>
+            <p class="ListDesc">Either specify both positions 
+ separated by a comma or expand this setting and specify these positions 
+ separately.</p>
+            <p class="ListNotice"><b>Note1:</b> Only integer values 
+ can be used when specifying these positions.</p>
+            <p class="ListNotice"><b>Note2:</b> This setting is overridden if the <b><a name="kanchor106"></a>StartupWindowPosition</b> setting is NOT set to <b>Manual</b>.</p>
+        </div>
+        <ol start="11">
+            <li class="Bullets" value="11">
+                <p><b><a name="kanchor107"></a>StartupSize:</b> to set the maximum dimensions of the <span class="VIPAppName">Smart UI</span> Operator 
+ window on the screen, by specifying the required window size 
+in pixels.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="StartupSize"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="StartupSize" style="display: none;">
+            <p class="ListDesc">These pixel measurements 
+ are relative to the size of the screen.</p>
+            <p class="ListDesc">The first digit specifies the 
+ width of the window and the second digit specifies its height.</p>
+            <p class="ListDesc">Either 
+ specify both dimensions separated by a comma or expand this setting and 
+ specify these dimensions separately.</p>
+            <p class="ListNotice"><b>Note:</b> Only integer 
+ values can be used when specifying these positions.</p>
+        </div>
+        <ol start="12">
+            <li class="Bullets" value="12">
+                <p><b><a name="kanchor108"></a>StartupWindowPosition:</b>  to set the location of the <span class="VIPAppName">Smart UI</span> Operator window on 
+ the screen, by selecting one of the preset system-dependent startup positions.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="StartupWindowPosition"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="StartupWindowPosition" style="display: none;">
+            <p class="ListDesc">Click the drop-down 
+ list box button at the right of this field and select one of the following preset system-dependent startup positions:</p>
+            <ul>
+                <li class="BulletSub" value="1"><b>Manual:</b> 
+ This is the default option, which uses the <b>StartupLocation</b> 
+ setting to determine the location of the <span class="VIPAppName">Smart UI</span> Operator window on 
+ the screen at startup.</li>
+                <li class="BulletSub" value="2"><b>CenterScreen:</b> 
+ This option overrides the <b>StartupLocation</b> 
+ setting and positions the <span class="VIPAppName">Smart UI</span> Operator window in the centre of 
+ the screen.</li>
+                <li class="BulletSub" value="3"><b>WindowsDefaultLocation:</b> 
+ This option overrides the <b>StartupLocation</b> 
+ setting and cascades the <span class="VIPAppName">Smart UI</span> Operator window at the Windows default 
+ location on the screen.</li>
+                <li class="BulletSub" value="4"><b>WindowsDefaultBounds:</b> 
+ This option overrides the <b>StartupLocation</b> 
+ setting and positions the <span class="VIPAppName">Smart UI</span> Operator window at the Windows default 
+ location on the screen and has its bounds determined by the Windows default.</li>
+                <li class="BulletSub" value="5"><b>CenterParent:</b> 
+ This option overrides the <b>StartupLocation</b> 
+ setting and positions the <span class="VIPAppName">Smart UI</span> Operator window in the centre of 
+ its parent form, which is not applicable in this case.</li>
+            </ul>
+            <p class="ListNotice"><b>Note:</b> These 
+ startup positions, with the exception of <b>Manual</b>, 
+ typically use the currently selected active monitor (monitor with the 
+ mouse cursor) when dual monitors are being used, which is determined by 
+ the windows video driver.</p>
+            <p class="ListNotice"><b>Tip:</b> It is 
+ recommended that this setting either be set to <b>Manual</b> 
+ (default) or <b>CenterScreen</b>.</p>
+        </div>
+        <ol start="13">
+            <li class="Bullets" value="13">
+                <p><b><a name="kanchor109"></a>StartupWindowState:</b> to select the initial state of the <span class="VIPAppName">Smart UI</span> Operator 
+ window - in other words should this window be maximized, normal or minimized.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="StartupWindowState"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuration:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="StartupWindowState" style="display: none;">
+            <p class="ListDesc">Click the drop-down 
+ list box button <img src="../../../../00CmnUse/Generic%20-%20List%20box%20button.bmp" style="border: none;width: 17px;height: 18px;float: none;border-style: none;border-style: none;" width="17" height="18" border="0" /> at the right of this field and select 
+ the required state.</p>
+        </div>
+        <h2>Related links</h2>
+        <p>Creating profiles</p>
+        <p>Editing profiles</p>
+        <p>Default profiles</p>
+        <p>Applying profiles to allowed users or groups</p>
+        <p>Working with profiles</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

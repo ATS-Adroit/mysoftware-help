@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Configuring the Operator" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.AdroitDesAndOp" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Operator.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Work Enviro stuff.doc" /><title>Working with Show (All) Information</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1>Working with <a name="kanchor268"></a>Show (All) Information</h1>
+        <p>To assist in troubleshooting your graphic forms,  the <span class="VIPAppName">Smart UI</span> Operator can allow a control or vector, on the displayed graphic form, to display 
+ the list of all the data elements connected to its properties, to do the following:</p>
+        <ol>
+            <li class="Bullets" value="1">to view the quality (good or bad) status of the data element</li>
+            <li class="Bullets" value="2">allow you to copy this data element name and </li>
+            <li class="Bullets" value="3">in the case of <span class="AdroitAppName">Adroit</span> can allow you to edit this tag.</li>
+        </ol>
+        <p>Enable this troubleshooting facility, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1"> To enable this for ONLY&#160;the <a name="kanchor269"></a> topmost 
+ control or vector currently under the mouse pointer (for the current TEMPLATE SET), right-click 
+ and select <b>Show Information</b>. </li>
+            <li class="Bullets" value="2">To enable this for ALL the controls and vectors <a name="kanchor270"></a> on the graphic 
+ form (for the current TEMPLATE SET), press CTRL+S or right-click and select 
+ <b>Show All Information</b>. </li>
+        </ul>
+        <p>Any control or vector that has this troubleshooting facility enabled, indicates this by displaying the <img src="ShowInfoIcon.bmp" /> icon in the top right corner.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ShowAllInfoEx"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example</a>
+        </p>
+        <p>
+            <img src="ShowAllInfoEx.jpg" MadCap:targetName="ShowAllInfoEx" style="display: none;" />
+        </p>
+        <p>Clicking on the <img src="ShowInfoIcon.bmp" /> icon, displays the <b>Elements</b> menu item, which displays the list of datasources whose data elements (values) have been connected to the properties of the selected control or vector.</p>
+        <p>Clicking the name of the required datasource displays the list of only its data elements that are connected to the properties of the selected control or vector.</p>
+        <p>This list of data elements graphically indicates the quality of these data elements, by displaying  good data elements in green and the bad data elements in red. </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ShowInfoDatasourcesEx"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p>
+            <img src="ShowInfoDatasourcesEx.jpg" MadCap:targetName="ShowInfoDatasourcesEx" style="display: none;" />
+        </p>
+        <p class="Notices"><b>Tip:</b> For <span class="AdroitAppName">Adroit</span> datasources, you can also use the bad-tag status indicators, if displayed, to further troubleshoot any bad tags connected to the controls or vectors of your graphic forms. For details on using these, see <a href="../30Des/20DS/Adr/Bad_tag_status_indicators.htm">Bad tag status indicators</a>.</p>
+        <p>Clicking one of the displayed data elements in this list display, the following datasource-specific options:</p>
+        <ol>
+            <li class="Bullets" value="1"><b>Copy</b> : to copy the specified, fully qualified data element name to the clipboard (containing the datasource name and full path to this data element), for reference purposes.</li>
+        </ol>
+        <ol>
+            <li class="Bullets" value="1"><b>Edit</b>: for <span class="AdroitAppName">Adroit</span> datasources ONLY, this option opens the <span class="AdroitAppName">Adroit</span> Agent Configurator with this tag  (agent) selected (if it can be found), so that it can be edited.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Since this option ONLY&#160;applies to <span class="AdroitAppName">Adroit</span> datasources and even then the editing of tags in the <span class="VIPAppName">Smart UI</span> Operator poses a security risk, so the display of this option is controlled via the <b>AllowEditTags</b> Boolean setting of the <b>Operator Settings</b> page of the profile dialog, which is False (hidden) by default.</p>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectedDEEx"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:conditions="Common.Screenshots">
+            <img src="Op_ShowInfoExample.jpg" MadCap:targetName="SelectedDEEx" style="display: none;" />
+        </p>
+        <p class="Notices"><b>Note:</b> The currently selected data element is displayed in light blue, which masks its quality indication.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

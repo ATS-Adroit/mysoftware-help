@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Scanning-issue Checklist before Contacting Support</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2020"></a><a name="kanchor2021"></a>Scanning-issue Checklist before Contacting Support</h1>
+        <p>If <span class="AdroitAppName">Adroit</span> is not scanning (communicating) with your PLC or FED, please do the following checks to try to resolve this issue yourself:</p>
+        <ol>
+            <li class="Numbers" value="1">Is a HASP attached to your 
+ Agent Server computer?</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">If 
+ yes, ensure that the correct licence information appears in the Agent 
+ Server window? If not then check that both the port (use the port testing 
+ utility supplied in the utilities folder on the <span class="AdroitAppName">Adroit</span> installation<span class="AdroitAppMedia">DVD</span> 
+ in the ‘Utilities\comm port tester’ folder) also ensure that the HASP 
+ is not faulty.</li>
+            <li class="NumbersSubLetters" value="2">If 
+ no, open the Agent Server window and ensure that the following message 
+ was not reported over three minutes ago: "Server shutting down scanning 
+ in 180 seconds", if so then the hour of free scanning has elapsed 
+ and the Agent Server must be restarted in demo mode for scanning to continue.</li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2">Open the Agent Server Configuration page of your <span class="AdroitAppName">Adroit</span> Setup utility and determine if your <b>Agent Server Type</b> set to 
+ "Cluster server". For details, see <a href="../AU_01_02/Agent_Server_Project_Configuration.htm">Agent Server Project Configuration</a>. If yes, take note of your <b>Project 
+ Name</b> and <b>Agent Server Name</b> 
+ fields and then open the <span class="AdroitAppName">Adroit</span> Classic UI, open the <b>Options</b> 
+ menu, click <b>Preferences</b> and open 
+ the <b>Connection</b> tab and determine if your Agent Server is in <b>Standby</b> mode. 
+ If yes, ensure that Parallel scanning has been configured for the cluster, 
+ to do this open the <span class="AdroitAppName">Adroit</span> Classic Setup utility (psexe.exe) and click the <a href="../AU_01_02/Cluster_Server_Configuration_Options.htm">Options. 
+ . . button</a> next to the <b>Agent Server 
+ Type</b> field.</li>
+            <li class="Numbers" value="3">Is the required device 
+ started? If not, start it.</li>
+            <li class="Numbers" value="4">Verify that you are physically 
+ connected to the device you are trying to communicate to.</li>
+            <li class="Numbers" value="5">Open your <span class="AdroitAppName">Adroit</span> Setup utility, 
+ as in step 2, and select the <b>Drivers</b> 
+ page and double click the required device in the Installed devices list 
+ and verify that all the driver setup configuration parameters (comm. port 
+ etc.) make sense to you, and that any two drivers do not use the same 
+ resource/port. For more details, see <a href="../AU_01_02/Configuring_a_Device_of_a_Protocol_Driver.htm">Configuring a Device of a Protocol Driver</a>.</li>
+            <li class="Numbers" value="6">Verify that your hardware 
+ is working, check that the cables are not damaged, and test continuity 
+ if applicable.</li>
+        </ol>
+        <p>If you are still unable to resolve this scanning issue, then please perform the following steps before contacting support about your  driver communication problem, so that you can provide them with the necessary information so that they can determine and/or resolve this issue:</p>
+        <ol>
+            <li class="Numbers" value="1">Launch the <a href="../DrvMon/Protocol_Driver_Monitor_Launcher.htm">Driver 
+ Monitor Launcher</a>, by selecting the <b>Start</b> 
+ menu, <b>Programs</b>, <b><span class="AdroitAppGroupName">Adroit 10</span></b> and then the <b>Driver Monitor 
+ Launcher</b> item.</li>
+            <li class="Numbers" value="2">Select the driver that 
+ is causing the communication problems from the <b>Driver</b> 
+ list box.</li>
+            <li class="Numbers" value="3">Write down both the description 
+ and revision of this installed driver, which are displayed below this 
+ list box.</li>
+            <li class="Numbers" value="4">In the <b>Device 
+ name</b> list box, double-click on the name of the device that is causing 
+ the communication problem, to open its Driver Monitor.</li>
+            <li class="Numbers" value="5">Select this <a href="../DrvMon/Protocol_Driver_Monitor.htm">Driver 
+ Monitor</a> and press the "3" key to display the "Error 
+ Log" screen and try to determine the nature of the problem from the 
+ live detailed reports for all problems in a driver, that are displayed 
+ in this screen.</li>
+            <li class="Numbers" value="6">If the nature of the problem 
+ cannot be detected, then press the "ESC" key, to return to the 
+ main menu and press the "1" key to display the "Datascope" 
+ screen.</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">If 
+ you are familiar with communication protocols, use the "Datascope" 
+ screen to try and analyse the problem.</li>
+        </ol>
+        <p class="ListNoteSub"><b>Note:</b> By default 
+ this screen opens in ASCII mode, which is indicated in the title bar of 
+ the window, to toggle the mode to HEX and vice verse (depending on protocol), 
+ type in "A".</p>
+        <ol start="2">
+            <li class="NumbersSubLetters" value="2">If 
+ you are unfamiliar with communication protocols, create a log-file of 
+ the messages in the "Datascope" 
+ screen, which you can FAX/e-mail it to the Support desk, as follows: press the "L" key, waiting for the screen to fill 
+ with messages and then press the "L" key again. This will create a <b>Devicename</b>.txt file in your <span class="AdroitAppName">Adroit</span> 
+ system folder e.g. <span class="AdroitInstallFolder">C:\Program Files\Adroit Technologies\Adroit</span>, where 
+ <b>Devicename</b> is the name of the 
+ device selected in step 4.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Having 
+ an Internet e-mail address available ensures that the Support desk can 
+ forward patches to your computer and/or that you can send your database 
+ (the .WGP file) and other relevant information to the Support desk.</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

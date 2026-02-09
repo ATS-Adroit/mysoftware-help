@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents|The SNMPMgr Agent" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Ver9" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>About SNMP Traps</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor215"></a><a name="kanchor216"></a><a name="kanchor217"></a><a name="kanchor218"></a>About SNMP Traps</h1>
+        <p><a name="kanchor219"></a><a name="kanchor220"></a>SNMP traps are unsolicited SNMP messages that devices send to notify 
+ an SNMP manager of significant events. Each message is known as 'a trap 
+ of the event', hence the term SNMP traps.</p>
+        <p class="ListNotice"><b>IMPORTANT:</b> NEVER run the Windows SNMP Trap (listener) service because it conflicts with the <span class="AdroitAppName">Adroit</span> SNMP&#160;trap functionality!</p>
+        <p class="ListNotice"><b>Note:</b> This agent  does NOT require the Windows SNMP Service to function, this service is ONLY required on each computer that this agent monitors.</p>
+        <p>Using SNMP traps can reduce the number of <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP managed objects<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">management data exposed by SNMP managed devices that might be hardware, configuration parameters, performance statistics, and any other data that directly relates to the operation of this device.</span></span> 
+ (values) that you need to monitor (poll) for each device. In other words, 
+ instead of monitoring every OID value on every device, by using SNMP traps, 
+ a device can simply inform its SNMPMgr agent of the important values, which are then pushed to the SNMPMgr when an event occurs.</p>
+        <p class="Notices"><b>Note:</b> This will 
+ also increase your required <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">scan point<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a scan point licence that is consumed from your Adroit license when information is being manipulated.</span></span> allocation, since one scan point is consumed for every unique <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">OID<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">SNMP managed Object IDentifier, which describes the exact location of this value in the SNMP structure for its device.</span></span> 
+ value that is polled, written to and/or trapped.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To enable the receipt of 
+ traps for an SNMPMgr agent:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <p>Check the <b>Enable traps</b> checkbox 
+ (BOOLEAN <b>trapEnabled</b> slot), in 
+ the <b>Connection settings</b> section 
+ of the <b>Edit SNMPMgr  Agent</b> 
+ dialog, which is cleared (disabled) by default.</p>
+            <p class="Notices"><b>Note1:</b> You also 
+ need to <b>Enable polling</b> (the <b>start</b> slot) before you will receive 
+ traps.</p>
+            <p class="Notices"><b>Note2:</b> <span class="AdroitAppName">Adroit</span> 
+ relies on the <b>SNMP Trap Service</b> 
+ to receive traps, which is installed with the SNMP Service.</p>
+        </div>
+        <p>&#160;</p>
+        <p MadCap:conditions="">By definition a trap can either be simple - one OID (unique or not) 
+ OR complex- multiple OIDs (unique or not). Click for how to handle  traps:</p>
+        <ul>
+            <li class="Bullets" MadCap:conditions="" value="1">you need to create a script 
+ to process non-unique OIDs</li>
+            <li class="Bullets" MadCap:conditions="" value="2">you can manually add unique 
+ OIDs to the OID list, so that the value of its associated Tag is updated 
+ when this trap is fired.</li>
+        </ul>
+        <p MadCap:conditions="">&#160;</p>
+        <p>The SNMP Manager provides the following two trap handling  Queues (which are FIFO in nature i.e. First In, First Out):</p>
+        <p class="Notices"><b>Note:</b> The trap queues are processed from the oldest to the newest trap.</p>
+        <ul>
+            <li class="Bullets" value="1">the first or main trap queue collects all the incoming traps</li>
+            <li class="Bullets" value="2">
+                <p> the second or work queue is used to hold the remainder variable sets (described below) for external parsing. This queue ensures that the trap handling scripts no longer need to ensure stack integrity.</p>
+                <p>So now the script ONLY needs to monitor the following two size slots to ensure correct operation:</p>
+                <li class="ListBullets" value="3"><b>trapCount</b> (INTEGER): The number of OIDs traps (and their sub-traps) contained 
+ in the main trap queue (for simple traps this is 1, for complex traps 
+ this is the number of OIDs [sub-traps] in this trap).</li>
+                <li class="ListBullets" value="4"><b>trapWorkCount</b> (INTEGER): The number of remainder OIDs sub traps contained in the working trap queue (for simple traps this is NOT used, for complex traps this is the number of remainder OIDs [sub-traps] in this trap, minus the first one which was passed through to the trap slots directly).</li>
+            </li>
+        </ul>
+        <p>One <b>trap event</b> may consist of one or more trap variable sets, and one <b>trap variable set</b> consists of the following set of slots:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>trapGeneric</b> <![CDATA[ 
+ ]]>(INTEGER): An Integer value of the 
+ generic code or identification of this trap OID.</li>
+            <li class="Bullets" value="2"><b>trapSpecific</b> <![CDATA[ 
+ ]]>(INTEGER): An Integer value of the 
+ specific code or identification of this trap OID.               <![CDATA[  ]]></li>
+            <li class="Bullets" value="3"><b>trapOID</b> (VARSTRING): The OID, in numeric format, which identifies the SNMP 
+ managed object for this event.</li>
+            <li class="Bullets" value="4"><b>trapValue</b> (VARSTRING): The value of the OID specified by <b>trapOID</b>.</li>
+            <li class="Bullets" value="5"><b>trapTime</b> (TIME): The time that the value, specified by <b>trapValue</b>, 
+ occurred.</li>
+            <li class="Bullets" value="6"><b>trapType</b> (INTEGER): An Integer indicator of the return type of the value, 
+ specified by <b>trapValue</b>, for information 
+ purposes only. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="OID_Return_Type_Integers.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">OID Return Type Indicators</a></span>.</li>
+        </ul>
+        <p class="ListDesc">This indicator can help you to determine which tag 
+ you should use to store this value.</p>
+        <p>These <a name="kanchor221"></a>slots are marked as empty when there is no trap to parse, so triggering <b>trapPop</b> is this case does nothing.</p>
+        <p>Once the SNMPMgr agent receives the traps for the device that it 
+ is managing:</p>
+        <ul>
+            <li class="Bullets" value="1">the <b>Traps</b> 
+ status bit is enabled (set)</li>
+            <li class="Bullets" value="2">these incoming SNMP messages 
+ are stored in the main trap queue</li>
+        </ul>
+        <p>Triggering  the <b>trapPop</b> will transfer the trap variable set to the slots above for use by a domain specific script.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>trapPop</b> (BOOLEAN): Set this slot to 1 (via a script or button etc.) to 
+ read the first trap off the main trap queue, which reduces the <b>trapCount</b> 
+ slot by the number of OIDs in this trap (for simple traps this is 1, for 
+ complex traps this is more than 1).</li>
+        </ul>
+        <p>Simple traps (only one set) are therefore pushed directly to the set slots and not stored in the work queue at all, which is only of the remainder sets.</p>
+        <p class="Notices"><b>WARNING!</b> Once 
+ a trap has been read off a queue it is discarded and cannot be accessed 
+ again.</p>
+        <p class="Notices"><b>Note1:</b> You also need to <b>Enable polling</b> (the start slot) before you will receive traps.</p>
+        <p class="Notices"><b>Note2:</b> <span class="AdroitAppName">Adroit</span> relies on the SNMP Trap Service to receive traps, which is installed with the SNMP Service. (It is advisable to add these two services to the Agent Server dependencies list if running the Agent Server as a service.)</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

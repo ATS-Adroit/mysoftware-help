@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Graphic Forms" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer_VerMinorFour" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="file:///C:/Docs/VIZNET Help/Designer/OGraphicForms.doc" /><title>Optimizing graphic forms</title>
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3535"></a>Optimizing graphic forms</h1>
+        <p>The manner in which a graphic form is designed has a significant role to play in its performance, such as how long it takes to open and so the <b>Optimizations</b> button in the graphic form toolbar, launches a configuration dialog that provides a number of search routines you can choose to use to analyse your graphic form to detect design issues that are known to negatively affect the performance of graphic forms, which you can choose to remove or keep as needed.</p>
+        <p class="Notices"><b>IMPORTANT:</b> Since any optimizations made to this graphic form are irreversible once it has been saved, we recommend that you make a backup copy of this graphic form before you optimise it.</p>
+        <p class="Notices"><b>Note:</b> The <img src="../../../Resources/Images/16/Generic/GF_OptimizeSize.png" /> <b>Optimise graphic form size</b>    graphic form toolbar button resizes the graphic form to fit its contents by shrinking or enlarging the graphic form so that all of its controls and vectors are within its bounds and there is no empty space around the right  and bottom border.</p>
+        <p class="Notices"><b>Tip:</b> You can use the <b>Statistics</b> graphic form toolbar button to determine the efficacy of the graphic form optimization process, by comparing an optimised graphic form to its original, for instance, to see the difference in the number of design elements.</p>
+        <p>The following <b>Vectors and Controls</b> optimizations are provided:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Remove transparency from controls to improve runtime performance:</b> this determines whether any controls have transparency enabled; since this increases the overhead of displaying controls which decrease the overall performance of the graphic form. </li>
+        </ul>
+        <p>Often when designing large graphic forms it becomes increasingly difficult to manage the spider workspace effectively. This can lead to the duplicate configuration of certain properties of your controls and/or leaving spiders behind after removing their associated controls and/or adding spiders that are never used. </p>
+        <p>It is important to ensure that your graphic form is not cluttered by unnecessary components and is efficiently designed to use the least number of spiders and silks and other design elements so ensure that it performs optimally. Since the manner in which a graphic form is designed has a significant role to play in its performance, such as how long it takes to open.</p>
+        <p>The following two <b>Spiders and Silks</b> optimizations are provided:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Remove duplicate connections to (property) spiders:</b> this scans the spider workspace of your graphic form for all the properties of the graphic form and its form components that have two or more connections (silks) to any of their inputs. </li>
+        </ul>
+        <p class="ListDesc">This optimization lists the located silks, but not select (check) any of them because you need to decide which of these duplicate connections are valid and which can be removed.</p>
+        <p class="ListNotice"><b>Note:</b> In some cases it is necessary to have more than one silk connected to the same input of a property, for instance when using silk templates. </p>
+        <ul>
+            <li class="Bullets" value="1"><b>Remove all spiders that are not being used:</b> this scans the spider workspace of your graphic form for any spider that is not being triggered (activated) by any method and any spider that is being triggered by a form component that no longer exists - in other words this form component has been deleted by its associated spiders have not.</li>
+        </ul>
+        <p class="ListDesc">This optimization lists the located spiders and will check (select) most of these spiders for removal by default except for Script spiders, since you may want to save their scripts first.</p>
+        <h2>To optimise a graphic form:</h2>
+        <ol>
+            <li class="Numbers" value="1">Locate the required graphic form in <b>the Enterprise Manager</b>.</li>
+            <li class="Numbers" value="2">Do not open it yet, since you need to ensure that you have backed up this graphic form, since the optimization made are irreversible once the graphic form is saved. You can most easily backup this graphic form as follows:</li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1">Right click the graphic form and select <b>Copy</b>.</li>
+            <li class="ListBullets" value="2">Right click the folder or project containing this graphic form and select <b>Paste</b>.</li>
+        </ul>
+        <p class="ListNoteSub"><b>Note:</b> You will get a warning if this graphic form is currently open, if so close it and repeat this process.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Open the required graphic form.</li>
+            <li class="Numbers" value="4">Click the  <b>Optimizations</b> toolbar button (that appears above the graphic 
+ form in the <b>Design workspace</b>).</li>
+            <li class="Numbers" value="5">Select the optimization/s (specific searches) that you want to analyse your graphic form for, by checking their required checkboxes.</li>
+            <li class="Numbers" value="6">Click the <b>Analyse</b> button.</li>
+            <li class="Numbers" value="7">Once this process is finished, the brief results are displayed in the <b>Findings and Results</b> field at the bottom of this dialog.</li>
+        </ol>
+        <p class="ListDesc">Typically these results will provide a hyperlink, which when clicked display the detailed results, in the <b>Analysis Findings</b> tab, which lists each item located by each optimization that you selected. These detailed results can also be displayed when you click the <b>Advanced View &gt;</b> button.</p>
+        <p class="ListDesc">Usually you are required to view these detailed results to decide which of the detected item you want to remove from this graphic form, although in some cases an optimization will select certain items automatically.</p>
+        <p class="ListNotice"><b>Tip:</b> You can also use the <b>Select All</b> or <b>Remove All</b> buttons to help you select which items you want to remove or keep.</p>
+        <ol start="8">
+            <li class="Numbers" value="8">Click the <b>Optimise</b> button, once you are happy with your selections to remove these items from the graphic form or click  the <b>Cancel</b> button to not perform any of these changes.</li>
+        </ol>
+        <p class="ListDesc">After finishing the optimization process, the results are displayed in the <b>Optimization Results</b> tab, which details all the changes that have been made to this graphic form.</p>
+        <ol start="9">
+            <li class="Numbers" value="9">Click the <b>Finish</b> button.</li>
+            <li class="Numbers" value="10">If you are happy with these changes then <b>Save</b> this graphic form (CTRL+S).</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

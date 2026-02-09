@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Deployment" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Deployment considerations</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1624"></a>Deployment considerations</h1>
+        <p>The <span class="VIPAppName">SmartUI</span> has been designed 
+ to be as open as possible and as such there is no limitation or restriction 
+ to the number of different deployment scenarios that are possible. Since 
+ any number of Clients are able to connect to any number of Servers. For 
+ details about the function of the <span class="VIPAppName">SmartUI</span> and a description of its component 
+ applications, see <a href="Overview.htm">Working with the <span class="VIPAppName">SmartUI</span></a>.</p>
+        <p class="Notices"><b>Note1:</b> Servers can 
+ also be clustered to provide both load balancing and redundancy. For details, 
+ see <a href="../50Cfg/Server_clustering.htm">Server clustering</a>.</p>
+        <p class="Notices"><b>Note2:</b> Click Once 
+ allows a user to use a fully fledged <span class="VIPAppName">SmartUI</span> Operator in Internet Explorer 
+ without requiring an initial installation. For details, see <a href="../30Ins/Working_with_the_Click_Once_Operator_install.htm">Working 
+ with Click Once</a>.</p>
+        <h2>Possible Client connections:</h2>
+        <p>Although there are no restrictions to the number of <span class="VIPAppName">SmartUI</span> Servers that any 
+ one <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span> 
+ can connect to, the following two constraints determine the maximum number 
+ of Clients that any one Server can be connected to:</p>
+        <ol>
+            <li class="Numbers" value="1">
+                <p>The operating system that 
+ is running on the Server computer i.e. any Server that is not running 
+ on a Windows Server operating system, e.g. Windows Server 2003, is only 
+ able to allow 5 Clients to connect to the Server, over the Internet, at 
+ any one time. </p>
+                <p>	Also if more than 10 Clients are required to connect to the Server, 
+ over the LAN, at any one time, it is also recommended to use a Server 
+ operating system, as otherwise this may cause performance problems.&#160;</p>
+            </li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2">The licencing of the <span class="VIPAppName">SmartUI</span> Server 
+ i.e. this will determine the total number of possible Clients that can 
+ connect to a Server at any one time.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The licencing 
+ of the Server also determines if the Server has access to any additional 
+ components, such as datasources, spiders etc. For more information on licensing  the <span class="VIPAppName">SmartUI</span> Server, see <a href="../../ALU/Working_with_the_Adtech_Licensing_Utility.htm">Licensing 
+  the Server</a>.</p>
+        <h2>Network topology used for Client connections: </h2>
+        <p>When connecting Clients to Servers, the most important decision is what 
+ network topology should be used to connect the Client to the Server i.e. 
+ whether to use the LAN or the Internet.</p>
+        <p class="Notices"><b>Note:</b> By default, 
+ the <span class="VIPAppName">SmartUI</span> Launcher can be used to deploy and update the Operator application 
+ via the selected network topology. Although this can also be used to deploy 
+ and update the Designer and additional components, such as datasources, 
+ spiders etc. if necessary. For details, see <a href="../30Ins/Working_with_the_Launcher.htm">Working 
+ with the Launcher</a>.&#160;</p>
+        <ol>
+            <li class="Numbers" value="1">It is recommended that 
+ only the <span class="VIPAppName">SmartUI</span> Operator application be connected to the Server over the Internet, 
+ unless you are using a high bandwidth Internet connection. This is because 
+ the Designer, unlike the Operator, requires a two-way flow of data between 
+ itself and the Server, when designing graphic forms.</li>
+            <li class="Numbers" value="2">If one or more <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span> 
+ can connect to the Server over the Internet, then the <span class="VIPAppName">SmartUI</span> Server needs 
+ to communicate to IIS and the firewall, if present, will also need to 
+ be configured, so that the Server can communicate to IIS and the Clients. 
+ For details, see <a href="../50Cfg/Firewall_configuration.htm">Firewall configuration</a>.</li>
+        </ol>
+        <p class="ListNotice" MadCap:conditions="Adroit.Adr_MAPS"><b>Tip:</b> For a 
+ detailed step-by-step procedure of connecting Operators to a Server over 
+ the Internet, see <a href="../../HowTos/How_to_Connect_to_the_SmartUI_Server_over_the_Web.htm">How to Connect 
+ to the Server over the Web</a>.</p>
+        <p class="ListNotice"><b>Note1:</b> The <span class="VIPAppName">SmartUI</span> Web 
+ Service needs to be installed on the web server (IIS computer) to facilitate 
+ the communication between the Client and the Server. For details, see 
+ <a href="../30Ins/Portal_Installations.htm"><span class="VIPAppName">SmartUI</span> Installations</a>.</p>
+        <p class="ListNotice"><b>Note2:</b> Since the <span class="VIPAppName">SmartUI</span> Server 
+ only needs to communicate to IIS, these applications can be on different 
+ computers, which can even be in different domains, providing the necessary 
+ trust relationships exists between these computers.</p>
+        <p class="ListNotice"><b>Note3:</b> IIS is also required 
+ when exposing Web services to the Internet.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

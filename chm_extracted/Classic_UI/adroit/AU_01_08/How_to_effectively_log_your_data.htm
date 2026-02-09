@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Logging Tags (Recording Values)" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to effectively log your data</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>How to effectively log your data</h1>
+        <p>Like any SCADA system one of the essential requirements of <span class="AdroitAppName">Adroit</span> is to log values, so that they can be retrieved for 
+ long term analysis and reporting purposes. </p>
+        <p>At first it would appear that this process is relatively simple, but the logging of values has evolved over the years into a fairly complex sub-system that requires a guide such as this one for you to use this effectively.</p>
+        <p>For instance, in the past it was potentially necessary to log the same tag using different logging rates and log sizes and even different destinations so multiple log sets could be created within a 
+ single datalog agent. Now these multiple log sets are no longer required due to subsequent improvements made to the datalogging sub-system. </p>
+        <p style="font-weight: normal;">When recording or logging the values contained in agents in the Agent 
+ Server, the first decision you need to make is the logging method that best suits your logging 
+ requirements. <span class="AdroitAppName">Adroit</span> provides the following methods of storing data:</p>
+        <p class="Notices"><b>IMPORTANT:</b> If rapid 
+ logging is required, then use the Datalog agent to log to the propriety <span class="AdroitAppName">Adroit</span> 
+ database.</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p><b>Proprietary 
+ <span class="AdroitAppName">Adroit</span> log files:</b> This logging method uses the <b>Datalog</b> <b>agent</b> and has been specifically designed 
+ for the needs of the SCADA industry to provide improved  <b>HIGH SPEED</b> logging performance, 
+ typically achieving sub-second logging rates. </p>
+                <p>You should always use this logging method if you need REAL-TIME trending of your data within <span class="AdroitAppName">Adroit</span> itself, such as in a chart on a graphic form.</p>
+            </li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> Unlike in previous versions of <span class="AdroitAppName">Adroit</span> the logging to databases by the Datalog agent is disabled by default in <span class="AdroitAppVerName">Adroit 10</span> to force users to use the DBLog agent, which has been specifically designed for this task</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p><b>A table in an OLE&#160;DB&#160;database</b>: This logging method  is ideally suited for logging slow moving data  and NOT&#160;for high speed logging and can use the following two agents, depending upon your intended reason for storing the data: </p>
+                <p class="Notices"><b>IMPORTANT:</b> BOTH these logging methods are <b>MUCH SLOWER</b> than when using the Datalog agent due to the inherent inefficiencies 
+ of the OLE DB interface, in interfacing with remote databases.</p>
+                <ul>
+                    <li class="BulletsClear" value="1">
+                        <p><b>Batch processing</b>: In this case, use the <b>DbAccess agent</b>, which is ideally suited for batch processing as it allows you to define your table structure and then map agents to the various fields, so that you can  log both TEXT and NUMERIC values separately to create a single record per batch and then requires that you specify the unique trigger to log this batch. </p>
+                        <p>However, the DbAccess agent is not suited to logging a large number of tags to a database as it requires that you specify a trigger for each record that you intend to log and does not provide any tag importing functionality.</p>
+                    </li>
+                    <li class="BulletsClear" value="2">
+                        <p><b>Bulk logging of NUMERIC or DIGITAL tags</b>: In this case, use the <b>DBLog agent</b>, which has been specifically designed to efficiently log large numbers of primarily NUMERIC (e.g. Analog) or DIGITAL tags to databases, by providing bulk triggering mechanisms and tag importing functionality and even housekeeping functionality to ensure that only the most current data is stored in the database. </p>
+                        <p>However, the DBLog agent is not suited to batch processing as it uses a predefined database table so it is more difficult to group the values that belong to the same batch and <b>it can ONLY&#160;log TEXT by converting all the logged values to Strings</b>.</p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <h2>When logging to proprietary 
+ <span class="AdroitAppName">Adroit</span> log files:</h2>
+        <p>As previously stated this is a fast logging method facilitated by the Datalog agent that is designed to provide improved logging performance, by using datalog (.LDG) files to store the active logged data and log backup (.LDB) files that store the historical data.</p>
+        <p> You should always use this logging method if all you need to do is to display (report) your data within <span class="AdroitAppName">Adroit</span> itself, such as in a chart on a graphic form.</p>
+        <p>When configuring the Datalog agent, firstly select the required data-logging 
+ <b>Mode</b>, which depends upon how this process value is being used
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t5" style="display: none;"><ul start="3"><li class="Bullets" value="3"><b>Continuous:</b> the default setting, where <span class="AdroitAppName">Adroit</span> logs data values as and when the value changes and then ONLY when this value meets the conditions imposed by the specified <b>Deadbands</b> (see below for more details). This is the default setting as this mode typically applies to most process variables, whose values you want to record for trending etc. </li><li class="Bullets" value="4"><b>Demand:</b> <span class="AdroitAppName">Adroit</span> only logs a data value when the <b>LogNow</b> 
+ or <b>Trigger</b> is activated  and then ONLY when this value meets the conditions imposed by the specified <b>Deadbands</b> (see below for more details).</li></ul><p class="ListDesc">This mode typically applies to batch  type processes, to prevent the logging of every change it receives during the 
+ execution of a batch and only log the value at the end of a batch, in this case:</p><ul><li class="BulletSub" value="1">The <b>Trigger</b> edit field, allows a String tag  (agent.slot) to be specified, which is monitored for a zero to non-zero transition, at which time a log occurs (provided it complies with the . When this occurs, a log occurs provided this value meets the conditions of the specified deadbands.</li><li class="BulletSub" value="2">The <b>Log 
+ Now</b> button is provided for manually triggering the logging.</li><li class="Bullets" value="3"><b>Both:</b> 
+this is a hybrid mode that uses both the <b>Continuous</b> and <b>Demand</b> data logging modes.</li></ul></div></p>
+        <h3>Configuring the effective logging rate</h3>
+        <p>It is important to understand that a value is only logged when it changes and then ONLY when this value meets the conditions imposed by the specified <b>Deadbands</b>, which can be used:</p>
+        <ul>
+            <li class="Bullets" value="1">to eliminate the nuisance values or noise that can clutter up a log file without providing any meaningful change in value or</li>
+            <li class="Bullets" value="2">to reduce the number of records that you log for 
+ a value which effectively 'compresses' your log files so you are able 
+ to store more data on the same storage medium.</li>
+        </ul>
+        <p>So the effective logging rate is determined by  configuring the 
+ <b>Time...</b> and/or <b>Value</b> deadbands, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1">Using the <b>Value deadband:</b> Values 
+ are ONLY logged if their change in value EXCEEDS the specified deadband 
+ value. Hence when the value of a logged point does not exceed 
+ the previously logged value by more than the deadband, the value is not 
+ logged.</li>
+            <li class="Bullets" value="2">Using the <b>Time 
+ deadband:</b> One of the following <b>Compression 
+ Method</b> algorithms is used to determine which value is logged, if 
+ the logged value changes MORE THAN ONCE during the specified deadband 
+ period:</li>
+        </ul>
+        <p class="ListNotice"><b>IMPORTANT:</b> When using the Demand <b>Mode</b>, you need to configure the <b>Support 
+ compression algorithm on demand logging</b> global datalogging setting via the <b>Advanced...</b> button, in order to use these Datalog compression algorithms. </p>
+        <p class="ListNotice"><b>Note:</b> To use a logging Compression 
+ Method, you need to use a <b>Time...</b> logging deadband that is greater than 0.</p>
+        <ul>
+            <li class="BulletSub" value="1"><b>Actual</b>: the logged value is the value at the end 
+ of the specified <b>Time</b> deadband  (the default).</li>
+            <li class="BulletSub" value="2"><b>Average</b>: a time-weighted average is maintained for 
+ all the changes that occur and this is logged at the end of the specified.</li>
+            <li class="BulletSub" value="3"><b>Minimum</b>: the lowest or minimum value is logged at 
+ the end of the specified <b>Time</b> deadband.</li>
+            <li class="BulletSub" value="4"><b>Maximum</b>: the highest or maximum value is logged at 
+ the end of the specified <b>Time</b> deadband.</li>
+        </ul>
+        <p class="ListDesc"> If you are using the <b>Time...</b> deadband to compress your log file to store more data then the <b>Average</b> method is recommended, 
+ since it calculates a time-weighted average of all the values that were 
+ recorded during the Time deadband period and this average is then logged 
+ at the end of this period.&#160;</p>
+        <p class="ListDesc">In other words a 1-hour average (as 
+ opposed to a 1-hour interval raw log) will provide a more accurate representation 
+ of what happened in the plant, than the same raw log. Since the raw log 
+ value will only represent the instantaneous value in the hour, not the 
+ average for the hour.</p>
+        <p>It is important to know that a value is only logged when it changes and  when this change in value meets the conditions imposed by the specified <b>Deadbands</b> because this means that the specified <b>Length...</b> of the datalog (.LDG) file is only an estimation, which assumes that this value will change substantially at the effective rate of logging determined by the deadbands, however:</p>
+        <ul>
+            <li class="Bullets" value="1">if the value changes less than the effective rate of logging, then this log file will contain data for more than the specified duration but</li>
+            <li class="Bullets" value="2">if the value changes more often than the effective rate of logging, these changes will not be recorded. </li>
+        </ul>
+        <p>The Datalog agent allows for a maximum of 53000000 records.  This means that the specified datalog <b>Length...</b> (or period) and <b>Time...</b> deadband combination may not exceed 53000000 records.  This corresponds to a maximum of 1010.9 MB of data at 20 bytes per record, which means 613 days at 1 second or 30 days at 50 ms.</p>
+        <p class="Notices"><b>Note:</b> The minimum <b>Time...</b> deadband allowed is 10 ms which only provides a maximum <b>Length...</b> (or period) of 6.13 days of logged data.</p>
+        <p>Furthermore, you can use <b>Out of limit logging</b> to bypass this process and immediately log any out of limit values (values that are not within their specified operating range), by ignoring the effective rate of logging, which is specified by the <b>Time...</b> deadband and using the faster log rate specified by the <b>Out of limit logging</b> -&gt; <b>Time...</b>  setting instead. </p>
+        <div>
+            <p> In other words, as soon as the logged value that is being logged,  enters or leaves its user-specified limit range it is logged unconditionally, and continues to be logged at the new time deadband as specified by the <b>Out of limit logging</b> time setting (<b>Time...</b>).  This  allows the Datalog agent to catch short spikes whose duration is less than the normal time deadband logging interval (<b>Deadbands</b> -&gt; <b>Time...</b>)</p>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OutOfLimitUsageExample"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Usage Example:</a>
+            </p>
+            <div MadCap:targetName="OutOfLimitUsageExample" style="display: none;">
+                <p>A customer wants to monitor his incoming voltage of 220 V. </p>
+                <p><b>Previously, without using out of limit monitoring:</b> he would create a Datalog agent to log this voltage tag at a logging rate of 1 second for a period of 1 week. So, in this case, this Datalog agent is configured (<b>Length</b> = 7 days and <b>Deadbands Time</b> = 1 sec) to log all changes to the voltage at 1 second and always keep one week's worth of this data.</p>
+                <p><b>Using out of limit monitoring:</b> since he is actually not that interested in logging this voltage, if it remains within its normal operating voltage range of 215-225 volts, as long as the voltage is within this value range he is happy to log it at a far slower rate -  say 10 seconds.</p>
+                <p> But when the voltage breaches this range, then he wants this Datalog agent to log this value at 1 second intervals. So, in this case, this Datalog agent is configured (<b>Length</b> = 7 days and <b>Deadbands Time</b> = 10 sec and <b>Out of limit monitoring Time</b> = 1 sec and <b>Upper limit</b> = 225 and <b>Lower limit</b> = 215).</p>
+                <p class="Notices"><b>Note:</b> In this case he will be able to catch short voltage spikes whose duration whose duration are less 10 seconds, the normal logging interval.</p>
+                <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OutOfLimitEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example of this configured dialog:</a>
+                </p>
+                <p>
+                    <img src="OutOfLimitEx.jpg" MadCap:targetName="OutOfLimitEx" style="display: none;" />
+                </p>
+            </div>
+            <p class="ListNotice"><b>Note:</b> To disable out of limit data logging, set both of the limit values are zero (default values), then NO limit checking is done and the Datalog agent operates normally by ONLY using the normal time deadband logging interval (<b>Deadbands</b> -&gt; <b>Time...</b>).</p>
+        </div>
+        <h3>Specifying the required logging period</h3>
+        <p>Typically the specified <b>Length...</b> of the datalog (.LDG) file should not exceed what is required for operational trending purposes.  In other words, should an operator only need to see 24 hours of trend data to properly monitor and control his plant then the datalog size should only be set for 1 day. </p>
+        <p class="Notices"><b>Note:</b> Any datalogs that cause their .LGD file to be greater than 2 GB will fail to start and user is notified accordingly and an associated eventlog entry is also created.</p>
+        <p>When the allocated size of the datalog  (.LGD) file is filled, it wraps (starts again at the beginning). At which time one or more datalog  backup (.LGB) files are created to store this older (historical) data. The  datalogging sub-system automatically retrieves this historical data from these files, when this data is required by  trends (charts) or other requests for historical data. </p>
+        <p class="Notices"><b>Note:</b> To disable datalog backups for a particular Datalog, set the <b>backupPeriod</b> slot of this Datalog agent to <b>0</b>.</p>
+        <p class="Notices"><b>Tip:</b> You can use these datalog  backup (.LGB) files to extend the potential amount of logged data without creating larger log files, since larger log files have the side effect of causing the Agent Server to take longer to start up. In this case, while the active log (.LGD) file can remain small, the log backup (.LDB) files can store historical data for much longer time periods. </p>
+        <p>These datalog  backup (.LGB) files also prevent the need to multiple proprietary datalog sets with increased periods and larger time deadbands and also replaced the legacy backup capability provided by the Systemdatalog agent.</p>
+        <p>When the associated .LGD file wraps, each Datalog agent creates their own backup (.LGB) files, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LGBFileCreation"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <ol MadCap:targetName="LGBFileCreation" style="display: none;">
+            <li class="Bullets" value="1">these .LGB&#160;backup files are created in a “backups” sub-folder that is automatically added to the folder containing the .LGD file; </li>
+            <li class="Bullets" value="2">these .LGB&#160;backup files are created on a per tag basis, so if you log 10 tags to the same .LGD file, then 10 backup files are created and maintained; </li>
+            <li class="Bullets" value="3">each .LGB backup file contains a month of data, so the current .LGB file is updated with new data (each time the .LGD file wraps) and a new .LGB file is only added once a month has passed and</li>
+            <li class="Bullets" value="4">each .LGB backup file adheres to the following naming convention: <b>log$agent$slot M-yyyy-mm</b>, where yyyy is the year and mm is the month of the year.</li>
+        </ol>
+        <p>In <span class="AdroitAppVerName">Adroit 10</span>, the naming convention of these backup files have improved compared to <span class="AdroitAppName">Adroit</span> <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">8.4</MadCap:conditionalText> to significantly reduce the number of files that are created. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LGBFileCreation"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+        <div MadCap:targetName="LGBFileNamingConvention">
+            <p>When creating monthly datalog backup files in <span class="AdroitAppName">Adroit</span> <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">8.4</MadCap:conditionalText>, a separate file was created for each day of the month that had data logged, since the file name also included the day that the data was logged.</p>
+            <p>For instance:</p>
+            <p>1.	A data value with a timestamp of 2017-11-21 10:00:00 would go to a backup file called 2017-11-21-m-11</p>
+            <p>2.	A data value with a timestamp of 2017-11-22 10:00:00 would go to a backup file called 2017-11-22-m-11</p>
+            <p>In <span class="AdroitAppVerName">Adroit 10</span>, the name of the backup file only specifies the year and month so that now only one file is created for the month.</p>
+            <p>For instance:</p>
+            <p>1.	A data value with a timestamp of 2017-11-21 10:00:00 would go to a backup file called 2017-11</p>
+            <p>2.	A data value with a timestamp of 2017-11-22 10:00:00 would also go to a backup file called 2017-11</p>
+        </div>
+        <p>In addition to creating .LGB files for <span class="AdroitAppName">Adroit</span> to retrieve historical data, you can also create .CSV files to enable third party applications to trend or report this data too, by checking the <b>Enable CSV backups</b> checkbox at the bottom of the Datalog agent. </p>
+        <p>In this case these .CSV files also contain a month of data and are stored in the same folder as the .LGB backup files and adhere to the SAME naming convention. Each .CSV is formatted to create reports by storing the logged data in the following 3 column file structure: Date (yyyy/mm/dd HH:mm:ss), Value and Quality.</p>
+        <p class="Notices"><b>IMPORTANT:</b> If .CSV files are being created, <span class="AdroitAppName">Adroit</span> ONLY&#160;only looks for and uses the data in the .LGB files. Therefore if you have deleted aN .LGB file but still have the .CSV file for the same period, <span class="AdroitAppName">Adroit</span> is unable to retrieve the historical data for this time period. </p>
+        <p class="Notices"><b>Note:</b> These .CSV files are optional and are ONLY created for the Datalog agent/s that have this option selected.</p>
+        <p class="Numbers">Since multiple  datalog  backup (.LGB) files and optionally  .CSV files are created by each Datalog agent, the <b>Delete backup files older than (days)</b> housekeeping feature (at the bottom of each Datalog agent) ensures that the created .LGB&#160;(and .CSV) files older than a specified number of days (default 90 days) are deleted from the backup folder.</p>
+        <p class="Notices"><b>Note:</b> If you want to keep data older than this specified housekeeping number of days, then ensure that you have a MANUAL backup procedure in place to ensure that you move these older .LGB files to the required folder. However, in this case <span class="AdroitAppName">Adroit</span> is unable to access the data contained in the moved files!</p>
+        <h3>Managing Datalog agents and their proprietary datalog (.LGD) files</h3>
+        <ul>
+            <li class="Bullets" value="1">If you export and  delete  Datalog agents that use  proprietary log (.LGD) files, ensure that you restart the  Agent Server before re-importing - so that they can remove the areas that they currently use, since multiple Datalog agents can potentially use a single LGD file.</li>
+            <li class="Bullets" value="2">When increasing the logging period (<b>Length...</b>) then ensure that the agent database (.WGP) file is saved and the Agent Server is restarted at 
+ least once to configure the associated  datalog (.LDG) file.</li>
+        </ul>
+        <p class="ListNotice"><b>Tip:</b> This is 
+ NOT required when reducing the logging period.</p>
+        <h2>When logging to a table in an OLE&#160;DB&#160;database:</h2>
+        <p>As mentioned previously this logging method   is ideally suited for logging slow moving data  and NOT&#160;for high speed logging and can use the following two agents, depending upon your intended reason for storing the data: </p>
+        <p class="Notices"><b>IMPORTANT:</b> BOTH these logging methods are <b>MUCH SLOWER</b> than when using the Datalog agent due to the inherent inefficiencies 
+ of the OLE DB interface, in interfacing with remote databases.</p>
+        <h3>Using the DbAccess agent for Batch processing</h3>
+        <p>Batch processing is an ideal use for logging to a table in a database because it is inherently slow moving as it only requires logging data at the end of 
+ a batch job or a shift. </p>
+        <p>As stated above the <b>DbAccess agent</b> is ideally suited for batch processing because this agent allows you to define your table structure and then map the required tags to the various fields, so that you can  log both TEXT and NUMERIC values separately to create a single record per batch and then this agent requires that you specify the unique trigger to log this batch. </p>
+        <p>This agent can also be used for the exchange of batch-specific data from databases. For instance, by retrieving the required set points from a database before the batch is started.</p>
+        <p>However, the DbAccess agent is not suited to logging a large number of tags to a database as it requires that you specify a trigger for each record that you intend to log and does not provide any tag importing functionality.</p>
+        <p class="Notices"><b>Note:</b> All DbAccess 
+ Agents require a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">scan point<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a scan point licence that is consumed from your Adroit license when information is being manipulated.</span></span> license to run. This license is checked prior 
+ to actually doing a DbAccess transaction for the first time (on a per 
+ agent basis) and is only returned when the agent is deleted. </p>
+        <p>These agents require careful consideration in terms of both the number 
+ of agents to be used and the amount of work that they are to do, as they 
+ are resource "hungry".</p>
+        <p>Hence, both the Agent Server memory and overall memory usage should 
+ be monitored during configuration to avoid the excessive usage of these 
+ resources. The CPU usage should be monitored while during operation to 
+ ensure that the computer is able to handle the additional load.</p>
+        <h4>Configuring the DbAccess agent for batch processing:</h4>
+        <p>The DbAccess Agent only establishes one connection per 
+ database; so many DbAccess Agents may share the same connection if they 
+ transact with the same database.</p>
+        <p class="Notices"><b>IMPORTANT:</b> 
+ If you are connecting to a database across the network and your Agent 
+ Server is running as a service, then ensure that the user profile that 
+ the Agent Server service uses to log onto the computer HAS the necessary 
+ rights to browse the network and connect to the remote database. </p>
+        <p>Check the <b>Connect to database</b> checkbox after specifying the required database, to allow the table to be selected from the database and then click the <b>Update</b> button.</p>
+        <p>Specify the name of the table that you want to log your batch data to in the <b>Table 
+ name</b> edit box, either by typing in the name or if there is at 
+ least one connection to the database identified in the connection string, 
+ then the browse button <img src="../AU_01_13/13_035_20x20.gif" NOalt="Images\ebx_1159522385.gif" style="width: 20;height: 20;" border="0" /> can be used to select the required 
+ table, from the list of tables available in the selected database.</p>
+        <p style="font-weight: normal;">While the DbAccess agent is able to perform a number of transactions on a database, in this case all you typically use the default  <b>Transaction 
+ Type</b> of  <b>Insert row</b>, which does NOT require you to specify the <b>Identify 
+ row</b> edit field.</p>
+        <p style="font-weight: normal;"> Click the <img src="../COMMON/AddButton.jpg" /> button to add the required number of tag-to-field mappings, which allows you to define the structure of the specified table in the specified database.</p>
+        <p class="Notices"><b>Tip:</b> If necessary you and specify the required format of the tag in this field in the <b>Field Format</b> column, by  using the available <b>Field Format Specifiers</b> depending on the data type of the tag that is being assigned to the field.</p>
+        <p>Typically you will ONLY want to specify a trigger for this batch job, so click the <b>Edit...</b> button in the <b>Transaction Scheduling and Triggering</b> group and then browse in the required <b>Trigger</b> tag and the <b>Condition</b> that must be met by this value (namely: when zero, when non-zero and when changed) before this batch is logged. </p>
+        <p class="Notices"><b>Tip:</b> The <b>Details...</b> button opens a  dialog that gives the status of the transactions and shows any 
+ database connection errors.</p>
+        <h3>Using the DBLog agent for the bulk logging of values to databases</h3>
+        <p> The <b>DBLog agent</b> has been specifically designed to efficiently log large numbers of primarily NUMERIC (e.g. Analog) or DIGITAL tags to databases, by providing bulk triggering mechanisms and tag importing functionality and even housekeeping functionality to ensure that only the most current data is stored in the database. </p>
+        <p class="Notices"><b>Note:</b> While the DBLog agent can be configured to log STRING tags, it can only do this by <b>converting all the logged values to Strings</b>, so in this case it is better to limit this DBLog agent to ONLY containing STRING tags.</p>
+        <p>In other words, instead of logging each numeric (e.g. Analog) and/or Digital value separately, you can simply specify a list of tags to log and  either export/import this list from a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">CSV<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Comma Separated Value file containing data, which consists of a number of fields in one or more rows, in which the different fields (values) are typically separated by commas.</span></span> file or browse in this list individually in the required DBLog agent.</p>
+        <h4>Typical usage scenarios for the DBLog agent:</h4>
+        <ul>
+            <li class="Bullets" value="1">to store data in a database for historical or primary SCADA functions, that do NOT require real-time trending.</li>
+            <li class="Bullets" value="2">to log data for an external application  that uses an  OLE DB database, such as MS&#160;SQL, to report on or analyse your data, such as: </li>
+            <li class="BulletSub" value="3">proprietary reports like the Adroit Report Suite, whose General Reports report pack includes standard reports on the DBLog agent data, which provides basic trending and  summarises your data in a structured way.</li>
+            <li class="BulletSub" value="4">to provide the source data for the SCADA Intelligence tool to analyse your data in detail (in this case you need to check the <b>String logging</b> checkbox)</li>
+            <p class="ListNotice"><b>Note:</b> While DBLog agents typically log Numerical and Digital values or bits, they can be configured to convert ALL values to  Strings, by checking the <b>String logging</b> checkbox - but this is NOT&#160;recommended for general use, since <b>it requires MORE SPACE to store String values compared to Numerical values</b> and this can also cause formatting problems.<br />So in this case it is better for a DBLog agent to ONLY contain STRING tags.</p>
+        </ul>
+        <p>However, the DBLog agent is not suited to batch processing as it uses a predefined database table so it is more difficult to group the values that belong to the same batch and it can ONLY&#160;log TEXT by converting all the logged values to Strings.</p>
+        <h4>Practical DBLog agent recommendations:</h4>
+        <ul>
+            <li class="Bullets" value="1">As stated above this agent is NOT suited to logging data at a high resolution (logging rates below a minute) and this also places an unnecessary strain on the database and requires increased database management. So <b>aim for a minimum logging interval of 5 minutes</b>. Factors affecting your achievable logging interval are:</li>
+            <li class="BulletSub" value="2">
+                <p>Each agent added to a DBLog agent generates its own SQL transaction, so the maximum number of agents per DBLog agent depends upon their required logging interval (rate). </p>
+                <p>In other words, the number of agents that you need to log determines their possible or achievable logging rate, in that the greater the number of agents you choose to log, the lower their achievable logging rate.</p>
+            </li>
+            <li class="BulletSub" value="3">Your hardware configuration also affects your achievable logging interval, as you are typically able to log data at a higher resolution to a SQL Server that is located on a separate computer than your SCADA Server, so that these database transactions do not affect your SCADA Server.</li>
+            <li class="Bullets" value="4">Due to the different logging requirements of numeric (e.g. Analog) and Digital tags, it is recommended to separate the numeric from the Digital tags, so that one DBLog agent only contains numeric tags and another only contains Digital tags.</li>
+            <li class="Bullets" value="5">For ease of management <b>do NOT add more than 1000 agents to a single DBLog agent</b>, instead create additional DBLog agents to share the load of the agents being logged.  </li>
+            <li class="Bullets" value="6">
+                <p>While DBLog agents typically log Numerical and Digital values or bits, they can be configured to convert ALL values to  Strings, by checking the <b>String logging</b> checkbox - but this is <b>NOT&#160;recommended for general use</b>, since it requires MORE SPACE to store String values compared to Numerical values and this can also cause formatting problems.</p>
+                <p>This should typically ONLY&#160;be set when you need to log string values in bulk, such as when providing the source data for the SCADA Intelligence tool to analyse your data in detail. </p>
+            </li>
+        </ul>
+        <h4>Recommendations for selecting the correct Logging Method: </h4>
+        <p>The DBLog agent provides a number of bulk logging methods, so it is important that you select the correct one and configure its related settings correctly to ensure that the relevant data is being logged.</p>
+        <ul>
+            <li class="Bullets" value="1">For ANY&#160;data that is being retrieved from a telemetry system use the <b>Log on change</b> method, since it is possible to miss this data when using the <b>Log all on interval</b> method.</li>
+            <li class="Bullets" value="2">For NUMERICAL data that is being regularly logged:</li>
+            <li class="BulletSub" value="3">either use the <b>Log all on interval</b> method, if all the specified tags that have been added to the DBLog agent are being logged at a similar rate so that the specified <b>Logging interval</b> ensures that all the changes in values of these tags are logged. </li>
+            <li class="BulletSub" value="4">or use the <b>Log on change</b> method, in which ONLY the tags that change are logged, typically  when their value or quality status changes. </li>
+        </ul>
+        <p class="BullSubDesc">For this logging method specify the required VALUE deadband for each tag to ensure that only meaningful changes in value are logged via the <b>Deadband</b> column of either the CSV file or the <b>Tag list</b>. </p>
+        <p class="BullSubDesc">In other words, specify the MINIMUM Value which the value being logged must EXCEED for it to be logged. Since, if the change in value is LESS than this value then this value is NOT logged.</p>
+        <p class="BullSubNote"><b>Note:</b> To prevent this logging method from logging the tags when their quality status changes, add the following registry value and set it to 1: <a href="../AU_01_02/DisableOnQualityChangeLogging.htm">DisableOnQualityChangeLogging</a>.</p>
+        <p class="ListDesc">The <b>Log all on change</b> logging method logs all the listed tags if ANY of their tag values change, if you decide to use this method then also specify the VALUE <b>Deadband</b> for each tag to ensure that only meaningful changes in value are logged. </p>
+        <ul>
+            <li class="Bullets" value="1">For DIGITAL data that is being regularly logged:</li>
+        </ul>
+        <p class="ListDesc">Use the <b>Log on change</b> method, in which ONLY the tags that change are logged, typically  when their value or quality status changes.</p>
+        <p class="ListNotice"><b>IMPORTANT:</b> When using this logging method for DIGITAL values, ensure that the value <b>Deadband is 0</b>, otherwise NO values will be logged.</p>
+        <p class="ListNotice"><b>Note:</b> To prevent this logging method from logging the tags when their quality status changes, add the following registry value and set it to 1: <a href="../AU_01_02/DisableOnQualityChangeLogging.htm">DisableOnQualityChangeLogging</a>.</p>
+        <p class="ListDesc">However, if you are trending these DIGITAL tags in a chart, then you ALSO&#160;need to create another DBLog agent for these same Digital agents that uses the <b>Log all on interval</b> method, whose <b>Logging interval</b> is set to the charting period to ensure that the current state of all these DIGITAL tags will be displayed. More details: </p>
+        <p class="ListDesc">When charting DIGITAL tags, the chart ONLY displays the value of each tag for the time specified by the specific charting period. </p>
+        <p class="ListDesc">But if you ONLY&#160;use the <b>Log on change</b> logging method, then if a DIGITAL tag  does not change in value during this charting period then no data is returned, even though it has an existing valid state. </p>
+        <p class="ListDesc">This is why you need the other DBLog agent for the same Digital agents that uses the <b>Log all on interval</b> method, whose logging interval is set to the charting period, which ensures that the last known state of each DIGITAL tag will be displayed by the chart.</p>
+        <p>&#160;</p>
+        <p>The following triggering methods are seldom used as they generally are used for batch processing:</p>
+        <ul MadCap:targetName="LoggingMethods" style="display: none;">
+            <li class="Bullets" value="1"><b>Log all on trigger value -&gt; zero</b>: all the listed tags are logged when the value of the specified <b>Trigger tag</b> goes to zero.</li>
+            <li class="Bullets" value="2"><b>Log all on trigger value -&gt; non-zero</b>: all the listed tags are logged when the value of the specified <b>Trigger tag</b> leaves zero.</li>
+            <li class="Bullets" value="3"><b>Log all on trigger any value change</b>:all the listed tags are logged when the value of the specified <b>Trigger tag</b> changes value.</li>
+        </ul>
+        <h4>Other important DBLog agent settings</h4>
+        <p>The following top checkboxes of the DBLog agent configuration dialog affect the general operation of this agent, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>The <b>Enable</b> checkbox allows you to start/stop this agent from logging the listed tags.</p>
+                <p class="Notices"><b>IMPORTANT:</b> If this <b>Enable</b> checkbox is not checked then this agent will NOT log tags.</p>
+            </li>
+            <li class="Bullets" value="2">The <b>Disable on standby</b> checkbox   allows you to  disable this agent, when its Agent Server is part of a cluster and is in standby node - to prevent the logging of DUPLICATE tags.</li>
+            <li class="Bullets" value="3">The <b>String logging</b> checkbox, when enabled logs the tag values  as Strings and not numeric values; this also allows you to log other string slots (this will log the first 79 characters). </li>
+        </ul>
+        <p class="BullNotice"><b>Note:</b> This is unchecked by default as it is  NOT&#160;recommended for general use, since it requires MORE SPACE to store String values compared to Numerical values and this can also cause formatting problems.</p>
+        <p class="ListDesc">This should typically ONLY&#160;be set when you need to log string values in bulk, such as when providing the source data for the SCADA Intelligence tool to analyse your data in detail. In this case it is recommended that you ONLY add string values to this DBLog agent.</p>
+        <p>The DBLog agent provides the following methods for specifying its list of tags:</p>
+        <p class="Notices"><b>Note:</b> The <b>Tag list</b> of the  DBLog agent is automatically sorted alphabetically, so the last tag that you add may not be at the end of this list.</p>
+        <ul>
+            <li class="Bullets" value="1">Click the <img src="DBLogAddTagButton.jpg" /> button to both browse in the tag and add it to the list.</li>
+            <li class="Bullets" value="2">Click the  <img src="DBLogAddRowButton.jpg" /> button to add a blank row to this list, so that you can manually type in the required <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span>.</li>
+            <li class="Bullets" value="3">Or you can click the <b>Export...</b> button to export this as a CSV file and open the current CSV editor for you, such as Microsoft Excel, so you can populate this list will all the required tags. </li>
+        </ul>
+        <p class="ListDesc">Then save the CSV file and click the <b>Import...</b> button and browse for this required CSV file to import the configured tag list.</p>
+        <p class="BullNotice"><b>Note:</b> In this case you need to manually add the first tag to the <b>Tag List</b>, by using one of the first two methods, since you cannot export an empty list.</p>
+        <h4>Database configuration</h4>
+        <p>Use the following fields to specify both the OLE&#160;DB&#160;database and table that you want to log your tags to:</p>
+        <p class="Notices"><b>Note:</b> While these fields specify SQL, you are able to connect to any OLE DB database.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>SQL connection string</b>: typically click the browse button to the right of this field and use the dialog to create the required OLE DB connection string to the database where these tag values are to be kept.&#160; </li>
+        </ul>
+        <p class="ListDesc">By default this field specifies <b>global</b>, which uses the <b>Global OLE DB connection</b> string of the Agent Server, which can be specified in the <b><span class="AdroitAppName">Adroit</span> Config Editor</b>, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> typically launch this tool from the Desktop shortcut. Click the <b>Agent Server Configuration</b> Welcome menu item and then click the <b>Advanced Agent Server Configuration</b> item and towards the bottom of this dialog, the <b>Global OLE DB connection</b> field to specify this connection string.</span></span></p>
+        <ul>
+            <li class="Bullets" value="1"><b>SQL table name</b>: specify (type in) the name of the table in this database to log these tags to.</li>
+        </ul>
+        <p class="BullNotice"><b>Note:</b> While multiple DBLog agents can log to the same table, this can cause database management complications, if you need the tags within specific DBLog agents to be  stored for different durations. See the <b>Housekeeping</b> section below...</p>
+        <p>  <![CDATA[ ]]></p>
+        <p>In order to help you ensure that you ONLY&#160;store the most useful data in the database, by default the  DBLog agent  implements <b>Housekeeping</b>, so that any records older than 90 days are deleted, by default.</p>
+        <p>Housekeeping is simply a cleanup action triggered on the table, specified by the <b>SQL table name</b> field of the database identified by the <b>SQL connection string</b> field. </p>
+        <p>Modify this setting, by increasing or decreasing the maximum period that records should remain in the table, depending upon the storage capacity you have 
+ available for your database and how useful this data becomes to you the 
+ older it gets.</p>
+        <p class="Notices"><b>Note1:</b> A value of 0 disables this housekeeping functionality, provided NO OTHER DBLog agents log to the specified table that have configured housekeeping!</p>
+        <p class="Notices"><b>Note2:</b> By design, one additional day's worth of data is kept for you.</p>
+        <p>By default housekeeping takes place at the turn of midnight, however you can change this by  adding the <a href="../AU_01_02/HousekeepingHour.htm">HousekeepingHour</a> registry setting to specify the hour of the day that you want this housekeeping performed.</p>
+        <p>As mentioned previously <b>Housekeeping</b> is a cleanup action triggered on the specified table that a DBLog agent logs its tags to. Furthermore, multiple DBLog agents can log to the same table. Therefore when multiple DBLog agents log to the same table that have DIFFERENT <b>Housekeeping</b> periods configured, the SHORTEST period will always be used!</p>
+        <p>By way of explanation, consider the following Housekeeping configuration examples:</p>
+        <div MadCap:targetName="dblog_house_ex" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">DBLog1 writes data to Table1  and is configured with no housekeeping:</li>
+            </ul>
+            <p class="ListDesc">So housekeeping will NOT&#160;run on Table1, as expected.</p>
+            <ul>
+                <li class="Bullets" value="1">DBLog2 writes data to Table2 and housekeeping is configured:</li>
+            </ul>
+            <p class="ListDesc">So the specified housekeeping WILL run on Table2, as expected.</p>
+            <ul>
+                <li class="Bullets" value="1">DBLog3 and DBLog4 writes data to the same table Table34 - </li>
+                <li class="BulletSub" value="2">DBLog3 is configured with no housekeeping AND</li>
+                <li class="BulletSub" value="3">DBLog4 is configured with 30 days housekeeping:  </li>
+            </ul>
+            <p class="ListDesc">So Housekeeping WILL run on Table34 as per DBLog4’s housekeeping configuration for this SHARED table.</p>
+            <ul>
+                <li class="Bullets" value="1">DBLog5 and DBLog6 writes data to the same table Table56 - </li>
+                <li class="BulletSub" value="2">DBLog5 is configured with 30 days housekeeping AND</li>
+                <li class="BulletSub" value="3">DBLog6 is configured with 90 days housekeeping: </li>
+            </ul>
+            <p class="ListDesc">So  Housekeeping will run on Table34 as per DBLog5’s housekeeping configuration and the data older than 30 days will be deleted, since the SHORTEST housekeeping period is always used as this is the period that is reached first for this SHARED table.</p>
+        </div>
+        <p>&#160;</p>
+        <p>Furthermore, when performing housekeeping you can also specify an OPTIONAL <b>Backup folder</b>, which is used to backup the old data before it is deleted from the table.</p>
+        <p>If you implement this <b>Backup folder</b>, we recommend that this is located on a backup or external drive that will not affect your drive on which your database is installed. </p>
+        <p class="Notices"><b>IMPORTANT1:</b> This folder needs to exist on the computer where the database is installed (this is NOT the Agent Server computer when using a remote database); otherwise HOUSEKEEPING WILL NOT HAPPEN!</p>
+        <p class="Notices"><b>IMPORTANT2:</b> ALSO  ensure that the specified folder name does NOT contain SPACES or housekeeping will ALSO  NOT HAPPEN!</p>
+        <p class="Notices"><b>IMPORTANT3:</b> ALSO  ensure that the database has the necessary permissions needed to add these files to this specified folder  or housekeeping will ALSO  NOT HAPPEN!</p>
+        <p>This <b>Backup folder</b> therefore specifies a path that is relative to the computer on which the database is installed (this is NOT the Agent Server computer when using a remote database).</p>
+        <p class="Notices"><b>Note:</b> Leaving the <b>Backup folder</b> field empty disables this backup functionality, which is the default setting.</p>
+        <p>When this backup folder is being used each DBLog agent creates a daily flat cabinet (.CAB) file of the data that is to be deleted (by the SHORTEST <b>Housekeeping</b> setting if multiple DBLog agents log to the same table).</p>
+        <p>These files are self-extracting SQL scripts, which you need to manually execute against the required SQL database, in order to import your data.</p>
+        <p class="Notices"><b>PLEASE NOTE:</b> It is up to you to manage the files stored in this folder yourself.</p>
+        <p>&#160;</p>
+        <p>Once the DBLog Agent has been configured and enabled, it creates the table specified by the <b>SQL table name</b> field, which has the following <b>predefined structure</b>:</p>
+        <ul MadCap:targetName="DBLOGColumns" style="display: none;">
+            <li class="Bullets" value="1"><b>id</b>: a unique indexing identifier</li>
+            <li class="Bullets" value="2"><b>dt</b>: the Timestamp of the logged value</li>
+            <li class="Bullets" value="3"><b>Tagname</b>: the name of the tag being logged</li>
+            <li class="Bullets" value="4"><b>Value</b>:– the value of the tag being logged</li>
+            <li class="Bullets" value="5"><b>Quality</b>: an indication of whether value of this logged tag was good or bad.</li>
+        </ul>
+        <p>In addition to this table the DBLog agent also creates the <b>Adr_DBLog_AgentDetails</b> table, which is updated when: the agent is started; or when its tag list is changed; and unconditionally every morning at 01h00.</p>
+        <p>This table contains all the agents referenced by all DBLog agents to provide more details about these referenced agents, which can be used to provide more context about them for reports. </p>
+        <p>For instance, this provides their agent type and agent description and is especially useful for Analog agents in providing their unit of measurement, their alarm limits and value ranges. </p>
+        <p>If you do not intend to make use of this table then you can prevent this table from being created by all of your DBLog agents, by adding the following registry value and setting it to 0: <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_02/DumpAgentDetailsEnabled.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">DumpAgentDetailsEnabled</a></span>.</p>
+        <p>The DBLog agent also creates the <b>Adr_DBLog_Housekeeping_Config</b> table, which  contains a list of all DBLog agent tables requiring housekeeping, which is required to perform this housekeeping without affecting the logging operations of the DBLog agents.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

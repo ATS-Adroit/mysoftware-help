@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.NewFeaturesVerMinorFour" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>What is new in the Adroit10 Release</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <p>Apart from various performance enhancements of the existing functionality, <span MadCap:conditions="Common.ExForMAPS" class="AdroitAppName">Adroit</span> provides the following additions:</p>
+        <h2>Product Licensing Changes</h2>
+        <p class="Notices"><b>IMPORTANT:</b> HASPs are NOT backwardly compatible with previous product versions due to a change in the internal licensing structure of the HASPs.</p>
+        <p>The <img src="AdtechLicensingUtility.png" style="width: 16px;height: 16px;" /> <b>Adtech Licensing Utility</b> allows you to get, view and/or update your <span MadCap:conditions="Common.ExForMAPS" class="AdroitAppName">Adroit</span> product license.</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>The product license is now a .XML document to make it easier to read and is displayed in the <b>License</b> tab.</p>
+            </li>
+            <li class="Bullets" value="2">
+                <p><b>IMPORTANT:</b> The former  <b>Remote Nodes</b> licenses that applied to all types of clients have been <b>DISCONTINUED</b>. These have now been  replaced by  the following client specific node licenses, each of which have different costs:</p>
+            </li>
+            <li class="BulletSub" value="3">
+                <p><b>Clients</b>: typically <b>Operators</b> and/or <b>Designers</b> and </p>
+            </li>
+            <li class="BulletSub" value="4">
+                <p><b>Web Clients</b>: typically <b>Performance Anywhere</b> clients.</p>
+            </li>
+            <li class="BulletSub" value="5">
+                <p>Remote Desktop (RDP) clients can now get a free node connection to obtain engineering access to the Agent Server, by  adding and configuring the <b>RDAdminName</b> WG.INI registry string value.</p>
+                <p class="Notices"><b>Note:</b> By default this registry entry does not exist and therefore all Remote Desktop (RDP) clients are subject to node licensing. This registry value must be created and set to the required Windows username to establish free connections for this user.</p>
+            </li>
+            <li class="Bullets" value="6">
+                <p>The OEM (separately-licensed) components are no longer specified by their associated OEM codes but now included as separate textual entries in the product license, so that users can easily see exactly which components they are currently licensed for.</p>
+                <p class="Notices"><b>Tip:</b> Only the OEM&#160;components that you are licensed for will appear.</p>
+            </li>
+            <li class="Bullets" value="7">
+                <p>All product licenses have a GLOBAL expiry and can also support  product-specific expiries, which can be used for product trials.</p>
+            </li>
+            <li class="Bullets" value="8">
+                <p>.V2C (Vendor to Customer) and .C2V (Customer to Vendor) files are now used to create and update product licenses instead of using .RUS files.</p>
+            </li>
+        </ul>
+        <p style="font-weight: bold;">Important differences between a HASP and a soft license:</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>A HASP license is bound to a USB HASP, which has a specific serial number - this is therefore portable and not restricted to a specific computer, but has associated security risks and needs to be insured at your own risk.</p>
+            </li>
+            <li class="Bullets" value="2">
+                <p>A Soft license is bound to a specific computer and therefore cannot be transferred to another computer. Therefore if the computer fails then the soft license will no longer work.</p>
+            </li>
+        </ul>
+        <h2 MadCap:conditions="">Install</h2>
+        <ul>
+            <li class="Bullets" MadCap:conditions="" value="1">
+                <p>
+                    <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS"><span class="AdroitAppVerName">Adroit 10</span>
+                    </MadCap:conditionalText> is designed to run on Windows 7 and Windows Server 2008 R2 onwards, it no longer supports the Windows Vista nor Windows Server 2008 operating systems.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="" value="2">
+                <p>
+                    <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS"><span class="AdroitAppVerName">Adroit 10</span>
+                    </MadCap:conditionalText> requires Microsoft .NET Framework 4.5.2. If this is not installed then the installation uses an offline installation that it provides to install this for you (so no further downloading is required).</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="" value="3">
+                <p><b>IMPORTANT:</b> The install can no longer be installed if the name of the user running it is called "Administrator", since this COULD be the built-in Windows Administrator account, which is DISALLOWED because UAC is automatically disabled whenever this built-in Administrator account is used, which causes a myriad of problems to occur.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="" value="4">
+                <p>When installing the Agent Server,  the <b>Component Configuration Settings</b> dialog provides the <b>Configure services</b> checkbox that allows you to choose if you want to install the Agent Server Service and to configure the startup of this (and the <span class="VIPAppName">SmartUI</span> Server) service.</p>
+                <p>If you choose to (the default option) then it is now mandatory to specify both a username and password for the Agent Server Service, which should be those of a user that has the rights / permissions to access the network resources (printers, SQL Express, network shares) that the Agent Server requires access to. Hence this dialog has been reorganised as follows:</p>
+                <p>
+                    <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">
+                        <img class="Border" src="Images/CompConfigSettings_Adr10_278x202.png" style="width: 278;height: 202;" />
+                    </MadCap:conditionalText>
+                </p>
+                <p class="Notices"><b>Note:</b> If you choose not to install the Agent Server Service, you can do this later in the Agent Server Configuration page of the <span class="VIPConfigEditorName">Adroit Config Editor</span>. </p>
+            </li>
+            <li class="Bullets" value="5">
+                <p>The install installs/updates the latest INSTALLABLE drivers files, typically in the Drivers sub folder of the <span class="AdroitAppName">Adroit</span> installation folder. When users want to install a new driver via the Config Editor this folder is now selected by default. While the drivers that are automatically installed by the install, such as the OPC Client driver are automatically installed and/or updated. For all other drivers, we do not touch the installed drivers and the onus is upon the user to update the necessary drivers.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="" value="6">
+                <p>When the installed version is same as the version of the install, a message box is displayed to allow users to select whether they want to reinstall the existing components or they can opt to install additional components that have not been installed yet or exit the install (the default option).</p>
+            </li>
+            <li class="Bullets" value="7">
+                <p>The install now detects when the .NET Framework 4 install seems to install without any issue but does not update Microsoft .NET Runtime Execution Engine (mscoree.dll) and prevents the install from continuing in this instance and provides assistance to resolve this Microsoft issue that ONLY affects Windows 7 and Windows Server 2008 R2.</p>
+            </li>
+            <li value="8">
+                <p>Added Performance Anywhere to the list of available installable components and added the <b>Performance Anywhere Server</b> option to the list of available installation options, which also installs the required Web Server component:</p>
+                <p>Performance Anywhere needs to be installed on a Web Server - a computer that has IIS (Internet Information Services) installed and ensures that the <span class="VIPAppName">SmartUI</span> Web Service is also installed. </p>
+            </li>
+        </ul>
+        <div class="TextAndImage" style="page-break-before: always;">
+            <h2>Product theme, icons and shortcuts</h2>
+            <p>The <span class="VIPAppName">SmartUI</span> applications now support the following two themes that affect how these applications are displayed:</p>
+            <table style="width: 100%;">
+                <col />
+                <col />
+                <tbody>
+                    <tr>
+                        <td>
+                            <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">
+                                <img class="Border" src="Images/SUI_LightTheme_266x192.png" style="width: 266;height: 192;" />
+                            </MadCap:conditionalText>
+                        </td>
+                        <td>
+                            <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">
+                                <img class="Border" src="Images/SUI_DarkTheme_266x192.png" style="width: 266;height: 192;" />
+                            </MadCap:conditionalText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Light</b>
+                        </td>
+                        <td><b>Dark</b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Users can select which theme they want to use, when installing the <span class="VIPAppName">SmartUI</span> Operator, Designer or Server for the first time (in other words this is not displayed when any of these components are installed subsequently), from the following installation dialog:</p>
+        <p>
+            <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">
+                <img class="Border" src="Images/SUI_ThemeInstallPage_266x192.png" style="width: 266;height: 192;" />
+            </MadCap:conditionalText>
+        </p>
+        <p class="Notices"><b>Tip:</b> You change this theme at any time by opening the <span class="VIPConfigEditorName">Adroit Config Editor</span> and specifying the required option from the <b>Theme</b> list box at the bottom of this application.</p>
+        <p>The product icons have been revised and updated and standardised and are now classified using different colored vertical bars on their left hand side. Each color representing the following categories of function to make them easier to recognise and use:</p>
+        <p>
+            <img class="Border" src="ClassifiedIcons_374x145.png" style="width: 374;height: 145;" />
+        </p>
+        <div class="TextAndImage" style="page-break-before: always;">
+            <p>The <img src="../Resources/Images/ADTECH%20LAUNCHER_23x23.png" style="width: 23;height: 23;" /> <span MadCap:conditions="Common.ExForMAPS" style="font-weight: bold;" class="AdroitAppName">Adroit</span><b> Utilities</b>  has been added to provide a central location from which the installed utilities can be launched, instead of installing a host of separate shortcuts for each individual utility. This shortcut is also installed on the Desktop.</p>
+            <p>
+                <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">
+                    <img class="Border" src="AdroitUtilitiesLauncher_287x181.png" style="width: 287;height: 181;" />
+                </MadCap:conditionalText>
+            </p>
+            <p>This application also describes their supported command line options and by right clicking the utility you can specify which command line options you want to use when launching the utility. </p>
+        </div>
+        <h2 MadCap:conditions="Adroit.AgentServer"><span class="AdroitAppName">Adroit</span> Agent Server</h2>
+        <ul>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="1">
+                <p>Added the Accumulator agent that calculates the difference in value (or delta) of a value that accumulates over time  between successive events or over a specific time period (interval).</p>
+                <p>You can also specify a MS SQL database to  maintain a history of these periodic counts/totals. </p>
+                <p>You can also configure alarm limits for both the (differential) value and rate of change in value for the current period. </p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="2">
+                <p>Added the ICMP or PING agent that uses the Internet Control Message Protocol to troubleshoot network problems.</p>
+                <p>By continuously polling the specified remote IP address, this agent is therefore able to identify potential network problems as they occur by generating alarms when errors are obtained when attempting to contact the specified remote IP address and/or when the round trip time exceeds specified High and High-high times.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="3">
+                <p>Added the DumpConfig agent, which simply stores the configuration of specific agents in an OLE&#160;DB database. </p>
+                <p>One example for its use is when you need to report on agents in the context of their configuration at the time of the report, alternatively this could be used as an extensive method of auditing changes made to specific agents.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="4">
+                <p>The following primitive agent types have also been added to HMI mode: Real and Integer, however these agents (including Boolean) should ONLY be used where efficient use of memory is required.</p>
+                <p class="Notices"><b>PLEASE NOTE:</b> These legacy primitive agents do not support Alarming and other SCADA functionality, use Analog/Digital agents instead!</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="5">
+                <p>The Analog agent now provides support for up to 51 bit numbers, in that the new maximum range is 2,000,000,000,000,000 for unsigned numbers or -1,000,000,000,000,000 to 1,000,000,000,000,000 for signed numbers.</p>
+                <p>To reduce the loss of accuracy in scaling caused by IEEE conversion issues, the Analog agent bypasses the scaling calculation, when the scaling is 1:1.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="6">
+                <p>The AlarmManagement agent now provides the Integer <b>kpiCalcRate</b> slot that sets the maximum rate at which the KPIs should be calculated, in minutes, to improve the performance of this agent, which by default is set to 1. </p>
+                <p>If this slot is set to 0 then KPI calculations are NEVER executed on new or changed alarm occurrences and so also added the Boolean <b>kpiCalcNow</b> slot that pulses to allow users to perform a KPI calculation at any time, especially when they have  set the kpiCalcRate slot to 0.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="7">
+                <p>The Notify agent now provides a <b>valueEx</b> VARSTRING  slot that is now SMS’d or emailed to subsystems that can handle long strings.  It is also the slot that is saved to the WGP file.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="8">
+                <p>Custom agents created via the Custom Agent Designer that require scripting intelligence now provides support for JavaScript  (.jav file) or you can choose to use the existing VBScript  (.vbs file).</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="9">
+                <p>The enhanced SNMPMgr agent replaces the legacy SNMPManager agent</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="10">
+                <p>This agent supports up to SNMP version 3 and allows an <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">MIB<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">SNMP Management Information Base, this is a database that lists uniquely described and organises SNMP managed objects hierarchically.</span></span> file to be browsed in, in order to select which <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">OID<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">SNMP managed Object IDentifier, which describes the exact location of this value in the SNMP structure for its device.</span></span> values you need to monitor and/or control and/or trap.</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="11">
+                <p>Any existing SNMPManager agent is converted to SNMPMgr agent when the Agent Server loads.</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="12">
+                <p>This agent does not use .wgx files as now the OID configuration 
+ of your SNMPMgr agents are saved to the Agent database (.wgp) file directly.</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="13">
+                <p>Various improvements have been made in the way the SNMPMgr agent handles reporting the quality (the bad or good state) of the OID list linked tags.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="14">
+                <p>For a new project, the available agent types are now classified into the following default groups to better  facilitate the selection of the required agent when designing your system:</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="15">
+                <p><b>Basic</b>: these agent types form the basic building blocks of a system and are used for gathering, handling and processing data to and from the physical external world.</p>
+                <p>Analog, Counter, Date, Digital, Expression, Marshal, MultiState, String, StringList, Timer</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="16">
+                <p><b>Advanced</b>: these agent types provide powerful SCADA and integration functionality that allow the Basic agents to be alarmed and logged to databases and provides various means of reporting and/or controlling their values.</p>
+                <p>AgentGroup, Alarm, Alarm List, AlarmManagement, ARec, Command, DbAccess, DBLog, EventLogging, EventOutput, Multimedia, Notify, Recipe, Scheduler, Script, Shift, Statistical</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="17">
+                <p><b>MIS/MES</b>: these are very specific and usually quite complex agent types used to do monitor, control and solve higher level shop-floor and general industrial challenges.</p>
+                <p>MaxDemand, OEE, PID</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="18">
+                <p><b>IT</b>: these agent types facilitate the integration and management of SCADA and IT</p>
+                <p>Audit, DumpConfig, ICMP, Perfmon, SNMPMgr</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="19">
+                <p><b>System</b>: these agent types are used internally to perform certain SCADA and other specific functions.</p>
+                <p class="Notices"><b>Note:</b> Instances of these Agents are created automatically and cannot be added manually by the user.</p>
+                <p>Alias, Beeper, DataLog, Device, Hasp, Proxy, Scan, SystemDataLog, SystemInformation</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="20">
+                <p><b>Primitive</b>: these agent types are primitive because they offer limited value and are limited in functionality when compared to the Basic agents, they are essentially single value containers.</p>
+                <p>Boolean, Integer, Real, Text and Frame</p>
+                <p class="Notices"><b>IMPORTANT:</b> These agent types CANNOT be alarmed and their values are not scaled etc, so use the Basic agent types instead to represent your process values.</p>
+            </li>
+        </ul>
+        <div class="TextAndImage" style="page-break-before: always;">
+            <p class="ListDesc" MadCap:conditions="Adroit.AgentServer">Hence the <b>Agent filter</b> section of the <b>Agent Configuration</b> dialog provides checkboxes for these default agent groups which if checked, allows you to determine which agent types are displayed in the <b>Type</b> list:</p>
+            <p class="ListDesc" MadCap:conditions="Adroit.AgentServer">
+                <img class="Border" src="Images/AgentFilter_Configurator_168x142.png" style="width: 168;height: 142;" />
+            </p>
+        </div>
+        <ul>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="1">
+                <p>Simplified the configuration of scanning related settings when scanning tags, hence the following checkboxes appear in the <b>Tag Scanning Configuration</b> dialog:</p>
+                <p>
+                    <img class="Border" src="ScanChanges_245x65.png" style="width: 245;height: 65;" />
+                </p>
+                <p>Also these settings are now being stored in the Agent Database (.wgp) file along with the other scanning related settings, such as the scan address, scan rate etc, as an <b>IO flags</b> setting, which is displays as an additional column in the Currently scanned tags list. </p>
+                <p>For this reason Adroit WGP files for 10 are NOT backward compatible with previous versions, which saved these settings in the agent header slots.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="2">
+                <p>Added support for NASA protocol drivers a sub-class of protocol drivers  specifically written to take advantage of the scanning improvements and enhancements provided by NASA (New Adroit Scanning Architecture), such as demand scanning and highly optimised scan tasks.</p>
+                <p>The demand scanning of tags, ensures that tags are only communicated when they are being used. For example a graphic form is open with the tag in it.  Once the graphic form closes, if this is the only subscription (reference) to this tag then the communication of that tag will stop.  </p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="3">
+                <p>Added the OPC UA client, a NASA driver, which communicates with OPC UA Servers in accordance with the OPC UA specification. OPC UA (OLE for Process Control Unified Architecture) is a standard specification that makes it possible for automation/control software applications and field systems/devices to interoperate and communicate data between each other. Since this is NASA  driver it provides support for demand scanning and highly optimised scan tasks.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="4">
+                <p>The logging to ADO (SQL) databases by the Datalog agent is disabled by default (the SQL... button of the <b>Datasource</b> field is hidden in the Edit Datalog agent dialog).  This is to force users to use the DBLog agent instead, which logs data to SQL more efficiently. </p>
+                <p>Although if the Agent Server loads a legacy WGP file that ALREADY contains an ADO datalogging configuration, then the SQL... button of the <b>Datasource</b> field will be visible in the Edit Datalog agent dialog.</p>
+                <p>The Datalog agent should therefore only be used for proprietary logging and the datalog period (<b>Length...</b>) should not exceed what is required for operational trending purposes. </p>
+                <p> In other words, should an operator only need to see 24 hours of trend data to properly monitor and control his plant then the datalog period should only be set for 1 day.  Historical data (i.e. data outside of the datalog period), if requested, will be retrieved from the backup files, if required.</p>
+                <p>When the allocated size of the datalog  (.LGD) file is filled, it wraps (starts again at the beginning). At which time one or more datalog  backup (.LGB) files are created to store this older (historical) data. The  datalogging sub-system automatically retrieves this historical data from these files, when this data is required by  trends (charts) or other requests for historical data. </p>
+                <p>In <span class="AdroitAppVerName">Adroit 10</span>, the naming convention of these backup files have improved compared to <span class="AdroitAppName">Adroit</span> <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">8.4</MadCap:conditionalText> to significantly reduce the number of files that are created. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LGBFileCreation"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+                <div MadCap:targetName="LGBFileNamingConvention">
+                    <p>When creating monthly datalog backup files in <span class="AdroitAppName">Adroit</span> <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">8.4</MadCap:conditionalText>, a separate file was created for each day of the month that had data logged, since the file name also included the day that the data was logged.</p>
+                    <p>For instance:</p>
+                    <p>1.	A data value with a timestamp of 2017-11-21 10:00:00 would go to a backup file called 2017-11-21-m-11</p>
+                    <p>2.	A data value with a timestamp of 2017-11-22 10:00:00 would go to a backup file called 2017-11-22-m-11</p>
+                    <p>In <span class="AdroitAppVerName">Adroit 10</span>, the name of the backup file only specifies the year and month so that now only one file is created for the month.</p>
+                    <p>For instance:</p>
+                    <p>1.	A data value with a timestamp of 2017-11-21 10:00:00 would go to a backup file called 2017-11</p>
+                    <p>2.	A data value with a timestamp of 2017-11-22 10:00:00 would also go to a backup file called 2017-11</p>
+                </div>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="5">
+                <p>Enhanced the Agent Browser utility, as follows:</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="6">
+                <p>This dialog is now resizable and when the selected slot is a LIST slot then a browse (...) button is displayed to the right of the slot value, which when clicked displays the contents of this LIST slot in a table with the required headings.</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="7">
+                <p>Double clicking an agent displays a dialog that allows you to view the real time status of an agent at a glance.</p>
+                <p>By default the Agent Browser displays a categorised view of the double-clicked agent, although you can check the <b>Sorted</b> checkbox to display an alphabetical listing.</p>
+                <p>
+                    <img class="Border" src="AgentBrowserNewDlg_204x163.png" style="width: 204;height: 163;" />
+                </p>
+                <p>You can also click the <b>Previous</b> / <b>Next</b> buttons (or use the PAGE UP / PAGE DOWN keys) to view other agents of the selected agent type, in this manner.</p>
+            </li>
+            <li class="BulletSub" MadCap:conditions="Adroit.AgentServer" value="8">
+                <p>When launched in admin mode you can add or remove agents from it using the + or - buttons of the Agents list.</p>
+            </li>
+            <li class="Bullets" MadCap:conditions="Adroit.AgentServer" value="9">
+                <p>Added the <b>Ping</b> tab to the Agent Server Monitor utility, which can help you determine whether any of the currently connected clients have connection issues to the Agent Server.</p>
+            </li>
+            <li MadCap:conditions="Adroit.AgentServer" value="10">
+                <p>The alarm and event routes support lists of up to 256 characters instead of the legacy 80 characters.</p>
+            </li>
+        </ul>
+        <h2 MadCap:conditions="VIP.ConfigEditor"><span class="VIPAppName">SmartUI</span> Config Editor</h2>
+        <ul MadCap:conditions="VIP.ConfigEditor">
+            <li class="Bullets" value="1">
+                <p>You can change the <span class="VIPAppName">SmartUI</span> application theme at any time by opening the <span class="VIPConfigEditorName">Adroit Config Editor</span> and specifying the required option from the <b>Theme</b> list box at the bottom of this application:</p>
+                <p>
+                    <img class="Border" src="Images/VIPConfig_Theme_406x27.png" style="width: 406;height: 27;" />
+                </p>
+            </li>
+            <li class="Bullets" value="2">
+                <p>The <b>Agent Server Configuration</b> page now provides the <b>Agent Server Service</b> section that allows you to install the Agent Server service or change the configuration of a pre-installed  Agent Server service, such as by changing the credentials of the log on user and/or specifying whether this service  (and the <span class="VIPAppName">SmartUI</span> Server) service should automatically start.</p>
+            </li>
+            <li class="Bullets" value="3">
+                <p>The <b>Driver Configuration</b> page now provides the <b>Advanced Driver Options</b> button in the bottom right of this page, which allows global settings that affect scanning, to be added or modified, such as the one that enables or disables demand scanning.
+			</p>
+            </li>
+        </ul>
+        <h2 MadCap:conditions="VIP.Designer"><span class="VIPAppName">SmartUI</span> Designer</h2>
+        <ul MadCap:conditions="VIP.Designer">
+            <li class="Bullets" MadCap:conditions="VIP.Designer" value="1">
+                <p>Added the Object Model datasource, which enables you to enhance your existing wizards, by adding SCADA configuration to them.</p>
+                <h3>What can the object model do for you?</h3>
+                <p>It saves you SCADA engineering time by allowing you to reliably duplicate objects that can have all or most of their SCADA configuration pre-configured.</p>
+                <p>The objects that you can create will typically  be items of equipment, like  pumps or motors and can be anything that you have already created a wizard to represent.</p>
+                <p>You can also use the <MadCap:conditionalText MadCap:conditions="Common.ExFromHTML"><img src="../10Cfg/30Des/30GF/50Obj/OMTemplExpImp/ObjMdlTempExpImp_16Icon.png" style="width: 16px;height: 16px;" /></MadCap:conditionalText><![CDATA[  ]]><b>Object Model Template Export and Import</b> utility  to export one or more of your existing Object Model Templates to a proprietary .TEF (Template Export File) file and also to import Object Model Templates from a .TEF file.</p>
+                <p>When creating an object template or an object instance, you are able to  add one or more attributes or searchable strings or identifiers to them that you can use to filter or group the objects that you deploy in the <b>Context View</b> window.</p>
+                <h3>What does the object model NOT do for you?</h3>
+                <p>It does not help you create the graphical representation of the object, it requires a working instance of a wizard to begin.</p>
+                <p>It does not help you create the SCADA configuration required by this object, it requires that all the necessary agents already exist for the wizard instance that you have selected and that these agents have already been configured.</p>
+                <p style="font-weight: bold;">Practical example:</p>
+                <p>Consider an industrial plant has a large number of similar pumps made by the same manufacturer, each of which had some characteristics that differed such as their power calibration. </p>
+                <p>The engineer would initially create a wizard that provides the graphical representation of this pump.</p>
+                <p> Then the engineer would implement the wizard and create the necessary SCADA configuration for this pump, such as its required scanning, logging and alarming. </p>
+                <p>The engineer would then test that this SCADA configuration was working correctly. </p>
+                <p>Then the engineer would create a template from this working wizard, ensuring that the characteristics that differed between these pumps would be substitutable. </p>
+                <p>Using this template the engineer would then create multiple instances of the pump, changing each of their differing characteristics as needed. </p>
+                <p>So each instance of this pump would then have their  scanning, logging and alarming pre-configured.</p>
+                <p>Improvements made to the Object Model datasource:</p>
+            </li>
+            <li class="BulletSub" value="2">You can define a script for each object so that it can be run when an instance of this object is deployed.</li>
+            <li class="BulletSub" value="3">When creating an instance of an object, you can now configure all the scan addresses of an object instance in a single list view (that can be copied and pasted to and from any text file editor like MS Excel for bulk configuration),  instead of having to query each agent individually for these scan addresses.</li>
+            <li class="Bullets" value="4">
+                <p>The <b>Context View</b> window, logically groups or organises the deployed objects according to their defined attributes, so that they can be easily located and/or searched. In other words all the objects that have the SAME attribute are added a separate group or 'context'. </p>
+                <p>Furthermore this grouping is hierarchical so that the objects are further classified or grouped according to their specified values of this attribute. This allows you to see which objects have the same values and/or view all the values that have been specified for a particular attribute.</p>
+                <p>
+                    <img class="Border" src="Images/ContextView_AutoContextEx_235x146.png" style="width: 235;height: 146;" />
+                </p>
+                <p>For instance, if an attribute defined the power rating for equipment, then you could see all your equipment that had the same power rating OR if an attribute defined the manufacturer, you could see how much of your equipment was made by each manufacturer.</p>
+                <p>Therefore by defining common attributes for your deployed objects, the Context View window can become a very useful tool in managing not just your deployed objects but your entire process.</p>
+                <p>While these automatically generated contexts cannot be edited, you can edit the <b>Default</b> context to create your own logical organisation of your objects and/or other data, by either:</p>
+                <p>
+                    <ul>
+                        <li class="BulletSub" value="1">manually adding the necessary hierarchy of nodes <img src="../Resources/Images/16/DataSources/ContextView_Node.png" /></li>
+                    </ul>
+                </p>
+                <p>
+                    <ul>
+                        <li class="BulletSub" value="1">or if you have implemented Alarm Management, you can import your existing hierarchy of categories as nodes <img src="../Resources/Images/16/DataSources/ContextView_Node.png" />, with or without the agents that are associated with their configured incidents.</li>
+                    </ul>
+                </p>
+                <p>Nodes <img src="../Resources/Images/16/DataSources/ContextView_Node.png" /> are like folders, each of which typically represent a specific contextual area and can contain additional nodes or a graphic form associated to them or have data elements and/or object model objects added to them.</p>
+                <p>You can also use the <b>TemplateGOContextNav</b> control to display the graphic forms associated with the nodes and/or added to the nodes of this <b>Default</b> context. </p>
+                <p>The  <b>Default</b> context lends itself to the creation of object instances, especially those whose name and substitution/s use a predefined naming convention that specifies the context in which the instance is created. </p>
+                <p>
+                    <img class="Border" src="Images/ContextView_ObjectInstancesEx_227x145.png" style="width: 227;height: 145;" />
+                </p>
+                <p>However, make best use of this feature you need to:</p>
+                <ul>
+                    <li class="Bullets" value="1">
+                        <p>define the necessary hierarchy of Nodes, each of which typically represent specific contextual areas and especially specify each <b>Node descriptor</b>, which is typically a 3 character reference code for each contextual area.</p>
+                    </li>
+                    <li class="Bullets" value="2">
+                        <p>if your object employs multiple substitutions to define its process variable names, then ensure that these substitutions are specified in the template in the logical order of the defined contextual areas.</p>
+                    </li>
+                </ul>
+            </li>
+            <li class="Bullets" value="5">
+                <p>The primary purpose of a graphic form is to display data elements (tags). Over the years a number of separate mechanisms have been created to make this process as easy as possible and/or to facilitate their duplication to save on their engineering time. This means that:</p>
+                <p>
+                    <ul>
+                        <li class="BulletSub" value="1">locating all the references of a tag on a graphic form is a non-trivial task and so this tool is essential and </li>
+                    </ul>
+                </p>
+                <p>
+                    <ul>
+                        <li class="BulletSub" value="1">not all of these mechanisms allow the tag to be externally replaced by this tool, without breaking the mechanisms themselves.</li>
+                    </ul>
+                </p>
+                <p>To work around this limitation, the following two utilities have been created which have different capabilities or uses:</p>
+                <p>
+                    <ul>
+                        <li class="BulletSub" value="1">
+                            <p>The GLOBAL <b>Find</b> <img src="../Resources/Images/16/DataSources/Project_TagReference.png" /> utility in the <b>Project</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon, enables you to select one or more graphic forms of one or more projects to find where text, typically a tag (agent name),  has been referenced and used, you can then export the list of located references  to Excel.</p>
+                            <p class="Notices"><b>Note:</b> This utility only appears when the <b>Spider Configuration Mode</b> section of <b>View</b> tab of the Designer ribbon is set to <b>Advanced</b>, since it is intended for advanced users only. </p>
+                            <p>
+                                <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">
+                                    <img class="Border" src="Images/SUI_Global_Find_190x220.png" style="width: 190;height: 220;" />
+                                </MadCap:conditionalText>
+                            </p>
+                            <p>This utility can save much time when redesigning large projects and when creating and maintaining multiple SCADA systems in keeping track of your agents or other graphic form components.</p>
+                            <p class="Notices"><b>Note:</b> You need to close all open graphic forms before you can use this tool and you cannot perform any other action in the Designer while this utility is open.</p>
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    <ul>
+                        <li class="BulletSub" value="1">
+                            <p>The LOCAL <b>Find and Replace</b> utility in the graphic form toolbar, searches for the specified text, typically a tag (agent name), in the currently selected graphic form and unlike the other utility provides:</p>
+                            <p>
+                                <ul>
+                                    <li class="ListSquareBullets" value="1">an <b>Edit</b> column in the <b>Find Results</b> tab that allows you to edit the indirect mechanisms so that you can change these references to the required replacement one at a time;</li>
+                                </ul>
+                            </p>
+                            <p>
+                                <ul>
+                                    <li class="ListSquareBullets" value="1">the <b>Replace</b> tab to replace the direct references to the searched for text with the specified replacement and</li>
+                                    <li class="ListSquareBullets" value="2">a moveable dialog, so that you can carry on working on others things or can find and replace text  in more than one currently open graphic form.</li>
+                                </ul>
+                            </p>
+                            <p>
+                                <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">
+                                    <img class="Border" src="Images/Local_FindAndReplace_190x220.jpg" style="width: 190;height: 220;" />
+                                </MadCap:conditionalText>
+                            </p>
+                            <p>This utility also allows you to export the list of references to the searched for text  to Excel, if needed.</p>
+                        </li>
+                    </ul>
+                </p>
+            </li>
+            <li class="Bullets" value="6">
+                <p>Enhanced the <b>Data Element Browser</b> dialog by providing the ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog.</p>
+                <p>
+                    <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">
+                        <img class="Border" src="Images/DataElementBrowser_Watches_Adr10_230x267.png" style="width: 230;height: 267;" />
+                    </MadCap:conditionalText>
+                </p>
+            </li>
+            <li class="Bullets" value="7">
+                <p>Added the facility to publish run-time versions of graphic forms, typically once a graphic form has been designed and is working as required.</p>
+                <p>This process creates an optimised run-time version of the graphic form for the Operator as it strips out the design-time information from the graphic form to reduce the size and complexity of the graphic form that is sent to the Operator, which also improves its loading time. </p>
+                <p>Simply click the  <b>Save and Publish</b> graphic form toolbar button.</p>
+            </li>
+            <li class="Bullets" value="8">
+                <p>Made it easier to locate the wizards associated with wizard instances and/or edit the wizard instance, by providing a number of new right click menu options for wizard instances:</p>
+                <p>
+                    <img class="Border" src="EnhancedWizardEditing_183x216.png" style="width: 183;height: 216;" />
+                </p>
+            </li>
+        </ul>
+        <h3 MadCap:conditions="VIP.Designer">Affecting Controls</h3>
+        <ul MadCap:conditions="VIP.Designer">
+            <li class="Bullets" value="1">
+                <p>Enhanced the <b>AlarmViewer control</b> to support the inhibiting (shelving) of alarms and the acknowledgement of all the alarms from a new menu opened via the <b>More options</b> link (in the bottom right corner of the  AlarmViewer control).</p>
+            </li>
+            <li class="Bullets" value="2">
+                <p>Enhanced the <b>WebBrowser control</b> to support the latest Web clients, which allows you to display content that was previously not possible, such as hosting the Adroit Report Suite  in the Operator.</p>
+            </li>
+            <li class="Bullets" value="3">
+                <p>In addition to viewing the defined contexts in the Context View window in the Operator you can also use the <b>TemplateGOContextNav</b> control to display all the graphic forms and/or object instances that have been added to your defined contexts.</p>
+                <p>Typically this control is used to view the <b>Default</b> context in the Operator, to display the graphic forms associated to the nodes <img src="../Resources/Images/16/DataSources/ContextView_Node.png" /> of this context and/or any additional graphic forms added to the nodes too.</p>
+                <p>This  provides the Context View window pane on the left and a TemplateGO pane on the right to display graphic forms.</p>
+            </li>
+            <li class="Bullets" value="4">
+                <p>Enhanced the usability of the <b>TrendConfigurator control</b> by providing the following new features:</p>
+                <ul>
+                    <li class="BulletsClear" value="1">an optional inbuilt LineChart can be used;</li>
+                    <li class="BulletsClear" value="2">a new <b>Adroit</b> <b>DataSource Mode</b> is provided that allows you to  directly browse, list and select Adroit data element names for each pen, without requiring the need for scripting, a database or Agent group to list Adroit data elements for pens;</li>
+                    <li class="BulletsClear" value="3">the list of set names in the <b>Set Name</b> drop-down list can be sorted in alphabetical order;</li>
+                    <li class="BulletsClear" value="4">each pen provides advanced settings that affect how the series of this pen will be charted or how the vertical Y-Axis of the LineChart for the pen is displayed;</li>
+                    <li class="BulletsClear" value="5">the list of available pen (charted) values in the <b>Pen</b> drop-down list can be sorted in alphabetical order;</li>
+                    <li class="BulletsClear" value="6">the new Advanced Set Configuration dialog allows users to configure the display of the bottom (X) chart axis of each set;</li>
+                    <li class="BulletsClear" value="7">users can also configure the chart axes of the associated LineChart at runtime and</li>
+                    <li class="BulletsClear" value="8">users can now export and import the configuration of all the sets in the currently logged on user’s profile to and from an XML file to bulk configure these.</li>
+                </ul>
+                <p>The TrendConfigurator control provides users the ability to configure and save trended values (pens) in a set, which they can then reload when they next logon. In this way, each user can customise the values trended using an associated LineChart control, according to their requirements.</p>
+                <p>
+                    <img class="Border" src="Images/TrendConfigurator_305x214.jpg" style="width: 305;height: 214;" />
+                </p>
+            </li>
+            <li class="Bullets" value="5">
+                <p>Enhanced all the charting controls  to provide the following new features:</p>
+                <ul>
+                    <li class="BulletsClear" value="1">their <b>PrintingSettings</b> property now provides the following additional print settings that are applied by default when this chart is printed:<ul><li class="BulletSquare" value="1"><b>Grayscale</b>: By default this is False to print the chart in full color, but if set to True it will print the chart in shades of grey (greyscale).</li><li class="BulletSquare" value="2"><b>Landscape</b>: By default this is False to print the chart in portrait orientation mode, but if set to True it will print the chart using the landscape orientation mode.</li><li class="BulletSquare" value="3"><b>UseAntiAlias</b>: By default this is False to print the chart using standard printing quality, but if set to True it will print the chart using high printing quality using a higher pixel resolution.</li></ul></li>
+                    <li class="BulletsClear" value="2">it is now easier to hide specific columns in the Data Legend (typically this only applies to LineChart and XYPLotChart controls which display the legend by default), by using the new visibility settings for each of the columns.</li>
+                    <li class="BulletsClear" value="3">the value axes can now provide logarithmic scaling, when necessary.</li>
+                </ul>
+            </li>
+        </ul>
+        <h2 MadCap:conditions="VIP.Designer"><span class="VIPAppName">SmartUI</span> Operator</h2>
+        <ol>
+            <li class="Bullets" value="1">
+                <p MadCap:conditions="VIP.Designer">Provides the <b>Context View</b> window to   display all the graphic forms and/or object instances that have been added to your defined contexts, such as the  graphic forms associated to the nodes <img src="../Resources/Images/16/DataSources/ContextView_Node.png" /> of your <b>Default</b> context.</p>
+                <p MadCap:conditions="VIP.Designer">
+                    <img class="Border" src="Images/Operator_ContextView_Trunc_170x135.png" style="width: 170;height: 135;" />
+                </p>
+                <p MadCap:conditions="VIP.Designer">In addition to searching for your objects, you can also right click them to view the defined attributes of each object instance and/or show the children (sub-components) of any item in your contexts.</p>
+            </li>
+        </ol>
+        <h2 MadCap:conditions="">Other components:</h2>
+        <h3>SCADA Components and Utilities and Samples:</h3>
+        <p>This was previously known as the Additional SCADA Components install. </p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>Added the following components:&#160;</p>
+                <p class="Notices"><b>Note:</b> Performance Anywhere is now installed as part of the main product install.</p>
+            </li>
+            <li class="BulletSub" value="2">Recipe Management - this installs a <span class="VIPAppName">SmartUI</span> project on a <span class="VIPAppName">SmartUI</span> Server, which allows users to create recipes and then run them at scheduled times.</li>
+            <li class="BulletSub" value="3">Wanlink - links Agent Servers over a slow or Wide Area Network.</li>
+            <li class="BulletSub" value="4">Agent Server ActiveX Control - an alternative to the Agent Server OLE interface (MISSRVR).</li>
+            <li class="BulletSub" value="5">Adroit Classic Backup Utility - backs up the Classic Adroit system and data files and registry settings.</li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1">
+                <p> Removed the following unnecessary and unused components:</p>
+            </li>
+            <li class="BulletSub" value="2">SCADA DB Generator - to create WGP files from 3rd party sources - since the object model does this.&#160;</li>
+            <li class="BulletSub" value="3">
+                <p>Dependency Walker - to troubleshoot applications or DLLs - since this is a developer tool not a user tool.</p>
+            </li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>Updated the Geographic Information System (GIS) Component to version 2.0, which provides the following improvements:</p>
+            </li>
+            <li class="BulletSub" value="2">You can add intelligence to maps by defining map nodes that you can organise in whatever hierarchical order that makes most sense to your application.</li>
+            <li class="BulletSub" value="3">
+                <p>In addition to static map pins, map nodes can also represent dynamic pins whose coordinates are specified by tag values and/or static regions.</p>
+                <p class="Notices"><b>Note:</b>In addition to their default color, map nodes can  visually indicate when they are in alarm and/ or display colors representing user-defined states.</p>
+            </li>
+            <li class="BulletSub" value="4">The associated GIS map control provides the following additional features:</li>
+            <li class="BulletSubSub" value="5">a in-built tree view that displays a hierarchical list of the configured map nodes on the left hand side that visually indicates which nodes or their child nodes are in alarm and/or allows one to filter or limit the display of the available map nodes, such as only displaying those map nodes that are in alarm.</li>
+            <li class="BulletSubSub" value="6">the ability to overlay a map with pre-defined GIS shapes from various formats (.shp,.kml,.svg) and  users can change their ordering and/or determine which of these should be displayed or hidden at runtime.</li>
+            <li class="BulletSubSub" value="7">you can display the movement of any dynamic map pin during a user-specified historical time period.</li>
+            <li class="BulletSubSub" value="8">a navigation panel at the bottom of the map, which provides  a map panning and  a map zooming slider control and  the  latitude and longitude of the mouse cursor and a relative map scale for the current zoom level of the map.</li>
+        </ul>
+        <p class="ListDescSub">
+            <img class="Border" src="Images/GIS2ctrlAtWork_strunc_344x146.png" style="width: 344;height: 146;" />
+        </p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>The following enhancements have been made to the SCADA Excel AddIn:</p>
+            </li>
+            <li class="BulletSub" value="2">The <b>Scanning</b> sheet now displays the new <b>IO flags</b> column.	</li>
+            <li class="BulletSub" value="3">The Excel Configuration Template now automatically jumps to first agent listed in the <b>Selected Types</b>.</li>
+            <li class="BulletSub" value="4">When the Excel Addin Configurator is closed an automatic save is now performed to ensure that the selected agent types and slots are saved.</li>
+            <li class="BulletSub" value="5">
+                <p>You can now view the historical data of a logged tag (agent.slot), which is configured via the <b>Historical Data</b> tool from the <b>Project</b> group:</p>
+            </li>
+        </ul>
+        <p class="ListDescSub" />
+        <ul>
+            <li class="BulletSub" value="1">The <b>Historical Page</b> now informs the user of invalid inputs and fixed the issues around its Date Time Picker dialog.</li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1">
+                <p>The <b>Configuration Templates</b> dialog now provides an <b>Include Header Slot</b> checkbox so that these can also be displayed and selected when needed.</p>
+                <p>
+                    <img class="Border" src="ConfigTempl_IncludeHeaderSlot_204x144.png" style="width: 204;height: 144;" />
+                </p>
+            </li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1">Added the following two new tools that to the <b>Import Variables</b> group: <b>Create Agents</b> and <b>Add to SCAN Sheet</b> to simplify the process of adding variables from a GX Works2 project into the Agent Server, as follows:</li>
+        </ul>
+        <ul>
+            <li class="BulletSubSub" value="1">Click the <b>Create Agents</b> to create the applicable agents using the selected variable names.</li>
+            <li class="BulletSubSub" value="2">Click the <b>Add to SCAN Sheet</b> to scan these new agents.</li>
+            <li class="BulletSubSub" value="3">Specify the MAPS Driver Device to which these agents need to be scanned.</li>
+            <li class="BulletSubSub" value="4">
+                <p>Click the <b>Scan</b> button.</p>
+            </li>
+        </ul>
+        <p class="ListBullDesc">However, you can still use the previous method that uses the <b>Add to Agents Sheet</b> tool to first add variables to the various agents sheets, for instance when you need to modify the various fields and agent settings before creating the agents and scanning, logging and alarming them.</p>
+        <h3>HMI SCADA&#160;Demo install:</h3>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>Updated the look and feel of the demo and included the new <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS"><span class="AdroitAppVerName">Adroit 10</span></MadCap:conditionalText> features.</p>
+            </li>
+        </ul>
+        <p class="ListDesc">
+            <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">
+                <img class="Border" src="Images/Adroit10Demo_310x249.png" style="width: 310;height: 249;" />
+            </MadCap:conditionalText>
+        </p>
+        <h3>Report Suite 1.3</h3>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>Provides a new look and feel for easier navigation:</p>
+                <p class="ListDesc">
+                    <img class="Border" src="Images/ARS1.3_NavBarOnly_333x119.png" style="width: 333;height: 119;" />
+                </p>
+            </li>
+            <li class="Bullets" value="2">
+                <p>Enhanced the free  SCADA Report Pack, by adding an Agent Configuration Export report for your DumpConfig and DBLog agents and added 21 CFR Part 11-specific Audit Activity and Authorization Detail reports.</p>
+            </li>
+            <li class="Bullets" value="3">
+                <p>Added the OEE Report Pack, which provides four reports that analyse and provide management information about your configured OEE agents and their KPIs.</p>
+            </li>
+            <li class="Bullets" value="4">
+                <p>Improved the Alarm Management Report Pack, by adding the Interrupt Reasons and Interrupt Details reports.</p>
+            </li>
+        </ul>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

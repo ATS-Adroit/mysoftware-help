@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Adroit Utilities|Classic Setup (PSEXE)|Drivers Configuration" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer,VIP.AdroitConfig" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Advanced Scanning Settings</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3808"></a>Advanced Scanning Settings</h1>
+        <p MadCap:conditions="VIP.AdroitConfig">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</p>
+        <ol>
+            <li MadCap:conditions="VIP.AdroitConfig" class="Numbers" value="1">Click <b>Agent Server Configuration</b> in the right hand pane.</li>
+            <li MadCap:conditions="VIP.AdroitConfig" class="Numbers" value="2">Click <b>Driver Configuration</b> in the right hand pane.</li>
+            <li MadCap:conditions="VIP.AdroitConfig" class="Numbers" value="3">Click the <b>Advanced Driver Options</b> button in the bottom right of this page.</li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="VIP.AdroitConfig">This replaces the <b>Installed Drivers and Devices</b> list with the <b>Advanced driver options</b> list, which allows the following commonly used global settings that affect scanning, to be added or modified:</p>
+        <ul>
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="1"><b>Demand scanning enabled:</b> checkbox, which is enabled by default, to allow any <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">NASA<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">This stands for New Adroit Scanning Architecture and describes a sub-class of protocol drivers that are specifically written to take advantage of the scanning improvements and enhancements provided by NASA, such as demand scanning and highly optimised scan tasks.</span></span> protocol driver to provide demand scanning.  For more details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_06/Demand_Scanning.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Demand Scanning</a></span>. </li>
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="2"><b><a name="kanchor3809"></a>Halt agent server on startup if device/s fail 
+				to load:</b> By 
+			default this is disabled. </li>
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="3"><b><a name="kanchor3810"></a>Mark tags bad if device agent stopped:</b> 
+				If this checkbox is cleared then <span class="AdroitAppName">Adroit</span> will NOT grey scanned tags once 
+			their device has stopped. This is enabled by default. </li>
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="4"><b><a name="kanchor3811"></a>Allow changes in scan-inhibit and output-enable 
+				to affect tags immediately:</b> If this checkbox 
+				is ticked, then the scanning sub-system will create an extra subscription 
+				to each tag that is being scanned to detect changes made to their <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Output_Enable.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">output-enable</a></span> 
+				and <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Scan_Inhibit.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">scan-inhibit</a></span> 
+			statuses, so that they take affect immediately. </li>
+        </ul>
+        <p class="ListNoteSub" MadCap:conditions="VIP.AdroitConfig"><b>Note:</b> For 
+			details concerning the scanning strategy in which this setting can be 
+		used, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_06/Read_Only_Scanning_Strategy.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Read Only Scanning Strategy</a></span>.</p>
+        <p class="ListDescSub" MadCap:conditions="VIP.AdroitConfig">By default, when this checkbox is cleared, the scan-point 
+			must be re-added or the device re-started for the scanning sub system 
+		to detect a status (output-enable or scan-inhibit) bit change.</p>
+        <p class="ListDescSub" MadCap:conditions="VIP.AdroitConfig">This setting will also allow "read only" 
+			scanned tags to display the correct values if the values are manipulated 
+		from within the Agent Server or from a mimic.</p>
+        <p class="ListDescSub" MadCap:conditions="VIP.AdroitConfig">However, this is not generally a problem because "read 
+			only" scanned tags should not normally be configured with operator 
+			actions that allow their values to be changed unless they are configured 
+		to be output enabled i.e. to be read/write scanned tags.</p>
+        <p class="ListNoteSub" MadCap:conditions="VIP.AdroitConfig"><b>PLEASE NOTE:</b> 
+			Turning on this setting will increase the number of subscriptions (1 for 
+			each scanned tag) within the server, this will have a small effect on 
+			device stopping and starting times because each subscription, for tags 
+			scanned by a device, is destroyed when stopping the device and recreated 
+		when starting the device.</p>
+        <ol start="4">
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="4"><b>Text agents convert bit strings into status 
+				bits:</b> If this checkbox is ticked, then 
+				a Text agent will convert a string of up to 16 1's and 0's into the corresponding 
+			status bits (16 thru 32). By default this is cleared. </li>
+        </ol>
+        <p class="ListNoteSub" MadCap:conditions="VIP.AdroitConfig"><b>Note:</b> This 
+		setting will affect all the Text agents in the system.</p>
+        <p class="ListNoteSub" MadCap:conditions="VIP.AdroitConfig"><b>PLEASE NOTE:</b> 
+			The following marshalling functionality of the Multistate agent has been 
+			superceded by the         <a href="../AU_01_05/The_Marshal_Agent.htm">Marshal agent</a>, which is specifically 
+		designed to do this task and is more powerful and easier to use.</p>
+        <ol start="5">
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="5"><b><a name="kanchor3812"></a>Multistate agent status bits 16-31 are equal 
+				to the rawValue slot:</b> Tick this checkbox, if 
+				you intend using some of your Multistate agents as marshalling agents. 
+				Then any Multistate agent that does not have states defined, will result 
+				in its value slot and status bits reflecting the rawValue slot directly 
+			and its states will NOT be processed. By default this is cleared. </li>
+            <li class="ListBullets" value="6">
+                <p MadCap:conditions="VIP.AdroitConfig"><b><a name="kanchor3813"></a>Multistate bits are reversed:</b> 
+					Tick this checkbox, if you are using your Multistate agents as marshalling 
+					agents and are using large endian ordering when scanning its I/O to the 
+				PLC. </p>
+                <p MadCap:conditions="VIP.AdroitConfig">This reverses the rawValue slot and places this value into the 
+				value slot of the agent. By default this is cleared. </p>
+            </li>
+        </ol>
+        <p class="ListNoteSub" MadCap:conditions="VIP.AdroitConfig"><b>Note:</b> This 
+		setting will affect all the Multistate agents in the system.</p>
+        <ol start="7">
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="7"><b><a name="kanchor3814"></a>Outputs are sent before values are read on device start:</b> Tick this checkbox, to enable 
+				the resending of the <span class="AdroitAppName">Adroit</span> value to the front-end device when a tag that 
+				is output enabled receives a value from the front-end device that is different 
+			from the value currently in <span class="AdroitAppName">Adroit</span>. By default this is cleared. </li>
+        </ol>
+        <p class="ListNoteSub" MadCap:conditions="VIP.AdroitConfig"><b>Note1:</b> This 
+			setting ONLY has effect if the tag’s <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Scan_Inhibit.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">scan inhibit</a></span> 
+		bit is on.</p>
+        <p class="ListNoteSub" MadCap:conditions="VIP.AdroitConfig"><b>Note2:</b> For 
+			details of the scanning strategy, in which this setting should be used, 
+			see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_06/Agent_Server_Master_Write_Scanning_Strategy.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Agent Server Master Write Scanning Strategy</a></span> 
+			or for further details on combining the various scanning settings, see 
+			<a href="../AU_01_06/The_Effect_of_Combining_Scanning_Settings.htm">The 
+		Effect of Combining Scanning Settings</a>.</p>
+        <ol start="8">
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="8"><b><a name="kanchor3815"></a>Check for Comm port availability:</b> 
+				Tick this checkbox to  allow the device configuration 
+				dialog to check the availability of each COM port. Each ports’ availability 
+				is represented in the port selection box, by a green icon if available 
+			and a red icon if unavailable.</li>
+        </ol>
+        <p class="ListDescSub" MadCap:conditions="VIP.AdroitConfig">But when you are connecting to virtual ports, such 
+			as MOXA, you should DISABLE this setting, because if these virtual ports 
+			are unavailable it takes a LONG time to determine this, which delays the 
+		loading of the device configuration dialog.</p>
+        <ol start="8">
+            <li class="ListBullets" value="8">
+                <p MadCap:conditions="VIP.AdroitConfig"><b><a name="kanchor3816"></a>Interval (ms) between starting any 
+					2 devices during Agent Server startup:</b> 
+					When the Agent Server starts up, all the devices are started one at a 
+				time with a 2 second delay between each device.</p>
+                <p MadCap:conditions="VIP.AdroitConfig">	If a huge amount of traffic is generated during this time, secondary 
+					failures can be caused in the scanning subsystem. If so, change this delay, 
+					it is recommended to set this value to 5000 ms instead of its default 
+				setting of 2000 ms. </p>
+            </li>
+        </ol>
+        <p class="ListNoteSub" MadCap:conditions="VIP.AdroitConfig"><b>Note:</b> This 
+			value can also be set to 1000 ms to speed up the starting of devices if 
+		you are happy that the system can handle it.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

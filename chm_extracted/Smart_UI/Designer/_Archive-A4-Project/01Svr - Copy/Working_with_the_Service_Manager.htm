@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Server,Adroit.ExcludeFromProject" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with the Service Manager</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1036"></a><a name="kanchor1037"></a>Working with the <span class="VIPAppName">SmartUI</span> Service Manager</h1>
+        <p>Typically use the <b><span class="VIPAppName">SmartUI</span>  Service Manager</b> to manage running the <span class="VIPAppName">SmartUI</span> Server as a service in Windows</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="launch"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To launch the <span class="VIPAppName">SmartUI</span> Service Manager:</a>
+        </p>
+        <p MadCap:targetName="launch" style="display: none;">Click the <b>Start</b> menu, <b>Programs</b>, <b><span class="VIPAppGroupName">Adroit 10</span></b> and the <b><span class="VIPAppName">SmartUI</span> Service Manager</b> item.</p>
+        <p>The <span class="VIPAppName">SmartUI</span> Service Manager, displays a tray icon  in the tray 
+ bar, located in the bottom right corner of the screen, that is used to:</p>
+        <ol>
+            <li class="Bullets" value="1"> 
+ start, stop and restart the service and</li>
+            <li class="Bullets" value="2">display the operational status 
+ of the Server service and</li>
+            <li class="Bullets" value="3">also indicates how the Server is currently being 
+ licensed.</li>
+        </ol>
+        <p>The tray icon indicates the operational status of the <span class="VIPAppName">SmartUI</span> Server service, 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">&#160;a flashing green 
+ triangle (alternating between light and dark green) indicates that the Server service is still running.</li>
+            </ul>
+            <ul>
+                <li class="Bullets" value="1">&#160;a red square in the lower right corner, indicates that the Server service has been stopped.</li>
+            </ul>
+        </div>
+        <p>Clicking the tray icon displays a tool tip that indicates the current 
+ status of the <span class="VIPAppName">SmartUI</span> Server service.</p>
+        <p>Right clicking the tray icon displays the following menu options:</p>
+        <ol>
+            <li class="Numbers" value="1"><b>Open 
+ / Close Service Manager:</b> Displays or hides the <b>Service 
+ Controller</b> window that configures the Server service. This window 
+ also allows you to start, stop and/or restart the Server service and displays 
+ the operational status of the Server service.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> This 
+ <b>Service Controller</b> window remains 
+ open until you click the Close  button.</p>
+        <ol start="2">
+            <li class="Numbers" value="2"><b><a name="kanchor1038"></a>Start 
+ Service</b> or <b><a name="kanchor1039"></a>Stop Service:</b> 
+ This option toggles between allowing you to start and stop the Server 
+ service.</li>
+            <li class="Numbers" value="3"><b>Restart 
+ Service</b><a name="kanchor1040"></a>: This stops and then starts the Server service. This is 
+ typically used when you have changed your licensing configuration.</li>
+            <li class="Numbers" value="4"><b>Licence 
+ Information:</b> Opens a window displaying how the Server is currently 
+ being licensed. For details, see <a href="../../07Mntn/01Svr/Viewing_Server_license_information.htm">Viewing 
+ Server license information</a>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> This 
+ <b>Licence Information</b> window remains 
+ open until you click the Close  button.</p>
+        <ol start="5">
+            <li class="Numbers" value="5"><b>Exit 
+ Service Manager:</b> Removes this Server tray icon from the tray bar.</li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> To display this tray icon, launch the Service 
+ Manager from the Start menu program group.</p>
+        <p class="ListNotice"><b>Note2:</b> The next time the computer is restarted, this 
+ tray icon, will again appear in the tray bar.</p>
+        <ol start="6">
+            <li class="Numbers" value="6"><b>Cancel:</b> 
+ Closes this menu.</li>
+        </ol>
+        <p>&#160;</p>
+        <p>For details on running the Server as an application or service, see 
+ <a href="../../07Mntn/01Svr/Launching_the_Server.htm">Launching the Server</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

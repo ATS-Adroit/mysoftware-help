@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Available Agents|The PerfMon Agent" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>To Edit or Configure a PerfMon Agent</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2770"></a>Configuring a PerfMon Agent</h1>
+        <p><a href="The_PerfMon_Agent.htm">The Perfmon agent</a>.</p>
+        <p>Since Adroit is a 32 bit application, if you have installed a 64 bit operating system then when you run the default Performance Monitor (PERFMON.EXE) all the counters for Adroit will be missing, because the 64 bit version of PERFMON is being run which can only load 64bit counter dlls! Therefore, in order to force Windows to load the 32 bit version of PERFMON, open the Command Prompt and specify the following statement: mmc /32 perfmon.msc</p>
+        <ol>
+            <li class="Numbers" value="1"><a href="../AU_01_04/Editing_an_agent.htm">Edit</a> 
+ an agent of type: <b>PerfMon</b>.</li>
+        </ol>
+        <p class="ListDesc">The <b><a name="kanchor2771"></a>Edit PerfMon Agent</b> 
+ dialog box is displayed.</p>
+        <p class="ListNotice"><b>Note:</b> Due to 
+ the long names of these performance counters, it is possible <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../COMMON/To_Resize_a_Dialog.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">to resize this edit dialog</a></span> 
+ appropriately. This edit dialog will remember these settings when it is 
+ next opened.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Use the grid to add, configure 
+ and remove the Performance counters. This grid is comprised of the following 
+ columns, which are used to configure the Performance counters, as follows:</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The grid 
+ provides <a href="../COMMON/Grid_Configuration.htm" name="kanchor2772">standard 
+ configuration options</a>.</p>
+        <ol>
+            <li class="NumbersSubLetters" value="1"><b>Counter:</b> Use this field to specify a 
+ Performance counter, either type in this counter directly or click the 
+ <b>Browse</b> button, to launch the <a href="The_Browse_Performance_Counter_Dialog.htm">Browse Performance 
+ Counters</a> dialog.</li>
+            <li class="NumbersSubLetters" value="2"><b>Tag:</b> If necessary, use this field specify 
+ an external <span class="AdroitAppName">Adroit</span> tag, to which the value of this Performance counter 
+ will be sent. Either type in this tag directly or click the <b>Browse</b> 
+ button, to launch the <a href="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm">agent 
+ browser</a>.</li>
+        </ol>
+        <p class="ListDescSub">For instance the total memory used i.e. \\Memory\\Committed 
+ Bytes could be sent to the value slot of an Analog agent, which could 
+ be alarmed if this value exceeded the physical memory of the computer.</p>
+        <ol start="2">
+            <li class="NumbersSubLetters" value="2"><b>Value:</b> This column, which cannot be 
+ edited, only displays the value of the selected Performance counter, which 
+ is updated at one second intervals.</li>
+            <li class="Numbers" value="3">Click the <b>Update</b> 
+ button to save the change(s) made to the configuration of the agent.</li>
+            <li class="Numbers" value="4">Click the <b>Refresh</b> 
+ button to determine the current configuration of the agent.</li>
+            <li class="Numbers" value="5">The <b>Browse</b> 
+ button is used for browsing for <a href="The_Browse_Performance_Counter_Dialog.htm">Counters</a> 
+ or <a href="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm">Tags</a>, 
+ depending upon which cell is currently selected in the grid.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

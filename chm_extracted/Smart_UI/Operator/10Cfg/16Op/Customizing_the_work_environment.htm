@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Configuring the Operator" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Operator" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Operator.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Work Enviro stuff.doc" /><title>Customizing the work environment</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor75"></a>Customizing the work environment</h1>
+        <p>The <span class="VIPAppName">Smart UI</span> Operator displays configured 
+ graphic forms, so they can be operated or interacted with and  allows you to customize the working environment, as follows:</p>
+        <p>The display  and the amount 
+ of interaction that a user has with the <span class="VIPAppName">Smart UI</span> Operator window, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OpWndInteractionOptions"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> is determined 
+ by:</a></p>
+        <div MadCap:targetName="OpWndInteractionOptions" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1"> the user profile  configured for this user in the <span class="VIPAppName">Smart UI</span> Designer. For details, see <a href="../40Mng/20Prf/10Cfg/Operator_customization.htm">Operator customization</a>.</li>
+                <li class="Bullets" value="2">and/or the command 
+ line argument options used to launch the <span class="VIPAppName">Smart UI</span> Operator. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Operator_command_line_arguments.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Operator command line arguments</a></span>.</li>
+            </ul>
+            <p class="Notices"><b>Note:</b> The INITIAL display of the <span class="VIPAppName">Smart UI</span> Operator  and configuration of  the work environment can be configured by <span class="VIPAppName">Smart UI</span> Operator settings. For details, see Operator user interface settings.</p>
+        </div>
+        <p>The work environment of the <span class="VIPAppName">Smart UI</span> Operator consists 
+ the  workspace and tool windows. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Operator_workspace.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Operator workspace</a></span>.</p>
+        <p class="Notices"><b>Note:</b> The tool windows can be hidden 
+ to increase the viewing space. For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Available_tool_windows.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Available 
+ tool windows</a></span>.</p>
+        <p>The work environment can be further customized by right-clicking the <span class="VIPAppName">Smart UI</span> Operator window and selecting one of the following menu items:</p>
+        <p class="Notices"><b>Note:</b> Menu items 
+ that are enabled will have a tick mark <img src="Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;border-style: none;" width="20" height="20" border="0" /> to the left of them.</p>
+        <div MadCap:targetName="RightClickMenuOptions">
+            <ol start="1">
+                <li class="Numbers" value="1"><a name="kanchor76"></a><a name="kanchor77"></a><a name="kanchor78"></a>To display or hide the 
+ tool windows and document tabs,  press CTRL+O or right-click 
+ and select <b>Toggle Operator Mode</b>.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The default 
+ setting can also be configured using the Boolean <b>InitialOperatorMode</b> <span class="VIPAppName">Smart UI</span> Operator setting of the user profile configured in the <span class="VIPAppName">Smart UI</span> Designer.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">To display <a name="kanchor79"></a><a name="kanchor80"></a><a name="kanchor81"></a>or hide document 
+ tabs within the Operator window, press CTRL+T or right-click and select 
+ <b>Toggle Graphic Form Tabs</b>. For 
+ details on the use of these tabs, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Operator_workspace.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Operator 
+ workspace</a></span>.</li>
+                <li class="Numbers" value="3">
+                    <p><a name="kanchor82"></a><a name="kanchor83"></a>To enable or disable the 
+ running or "live" state of the currently displayed graphic form, 
+ either press F5 or right-click and select <b>Running</b>. 
+ </p>
+                    <p>This may be necessary if a running graphic form consumes excessive bandwidth 
+ ( for instance when using an Internet connection).</p>
+                </li>
+                <li class="Numbers" value="4"><a name="kanchor84"></a>To print the 
+ currently displayed graphic form, press CTRL+P or right-click and select 
+ <b>Print</b>.</li>
+                <li class="Numbers" value="5">To assist in troubleshooting your graphic forms you can allow all or a single control or vector to display 
+ the list of all the data elements connected to its properties. For more information, see <a href="Working_with_Show_All_Information.htm">Working with Show (All) Information</a>. </li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> When using <span class="AdroitAppName">Adroit</span> tags you can also display bad-tag status indicators on relevant controls and/or vectors. For details, see <a href="../30Des/20DS/Adr/Bad_tag_status_indicators.htm">Bad tag status indicators</a>.</p>
+            <ol start="6">
+                <li class="Numbers" value="6">To <a name="kanchor85"></a>enable or disable the display of the <span class="VIPAppName">Smart UI</span> Operator window above all other applications, right-click and select <b>Always 
+ On Top</b>.</li>
+            </ol>
+            <ol start="8">
+                <li class="Numbers" value="8"><a name="kanchor86"></a>To enable or disable the full screen display of the <span class="VIPAppName">Smart UI</span>Operator window (filling the entire 
+ screen without a title bar), press F11 or right-click and select <b>Full Screen</b>.</li>
+                <li class="Numbers" value="9">To <a name="kanchor87"></a>display 
+ the current bandwidth speeds for sending and retrieving data from the <span class="VIPAppName">Smart UI</span> Server and the amount of data that is being sent and received, press F6 
+ or right-click and select <b>Transfer Statistics</b>.</li>
+                <li class="Numbers" value="10">To <a name="kanchor88"></a>log off the <span class="VIPAppName">Smart UI</span> Operator, 
+ either press CTRL+N or right-click and select <b>Disconnect</b>.</li>
+                <li class="Numbers" value="11">To<a name="kanchor89"></a> close the <span class="VIPAppName">Smart UI</span> Operator window, 
+ either press ALT+F4 or right-click and select <b>Exit</b>.</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Ver9" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Config.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Connecting to the Managed Device</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor146"></a>Connecting to the Managed Device</h1>
+        <p>The SNMPMgr agent must 
+ connect to the required device and specify the required level of access 
+ to its values (<span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP managed objects<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">management data exposed by SNMP managed devices that might be hardware, configuration parameters, performance statistics, and any other data that directly relates to the operation of this device.</span></span>) 
+ before you can monitor and/or manage this device.</p>
+        <p class="Notices"><b>IMPORTANT:</b> Since the SNMPMgr agent supports up to SNMP version 3 and SNMP version 3 supports additional connection settings, therefore you need to know beforehand which SNMP version the device requires before you can connect to it. </p>
+        <h2>To connect to a SNMP device:</h2>
+        <p>Specify the following settings in the <b>Connection 
+ settings</b> section of the <b>Edit SNMPMgr  Agent</b> dialog:</p>
+        <ol start="1">
+            <li class="Numbers" value="1"><b>IP address</b> (STRING <b>ipAddress</b> slot): Type in the IP address 
+ of the device that is to be monitored and/or managed by this SNMPMgr 
+ agent. For details on the requirements and guidelines regarding the use 
+ of this agent to monitor and/or manage devices, see <a href="SNMPMgr_Agent_Usage_Requirements.htm">Usage Requirements</a>.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip1:</b> Use the 
+ LEFT and RIGHT arrow keys to quickly move to each number separated by the periods.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">
+                <p><b>Port address:</b> (INTEGER <b>ipPort</b> slot) this allows SNMP devices 
+ to be addressed via a gateway where the IP addresses are not unique and 
+ so a unique port address is required.&#160;By default this is 161 the port that is used for SNMP communications. </p>
+                <p class="Notices"><b>IMPORTANT:</b> Ensure that the specified port is unblocked (enabled) in any firewalls that may exist.</p>
+            </li>
+            <li class="Numbers" value="3"><b>Timeout</b> (INTEGER <b>timeout</b> slot): If necessary, specify 
+ the maximum time (in seconds) to establish a connection to this device. 
+ This is 1 seconds, by default.</li>
+            <li class="Numbers" value="4"><b>Version</b> (INTEGER <b>version</b> slot): Select which SNMP version this device supports. 
+ This is version 1, by default.</li>
+            <li class="Numbers" value="5"><b>Read 
+ comm.</b> (STRING <b>readCommunity</b> slot): If you ONLY want to 
+ retrieve (poll) values from this device then specify its read-only SNMP 
+ Community String. For further details, see SNMP Community Strings.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> Since 
+ most equipment ships from the factory with a read-only community string 
+ that is set to "public", this is its default value.</p>
+        <ol start="3">
+            <li class="Numbers" value="3"><b>Write comm.</b> (STRING <b>writeCommunity</b> slot): If you want to write 
+ (set) values for this device then specify its read-write SNMP Community 
+ String.</li>
+            <li class="Numbers" value="4"><b>Username</b> (STRING <b>userName</b> slot): <b>SNMP&#160;version 3 ONLY:</b> the required user name.</li>
+            <li class="Numbers" value="5"><b>Authentication</b> (STRING <b>authPassword</b> slot): <b>SNMP&#160;version 3 ONLY:</b> the required password for authentication on this device.</li>
+            <li class="Numbers" value="6"><b>Encryption</b> (STRING <b>encrPassword</b> slot): <b>SNMP&#160;version 3 ONLY:</b> the required encryption password for this device.</li>
+        </ol>
+        <ol start="4">
+            <li class="Numbers" value="4"><b>Retries</b> (INTEGER <b>retries</b> slot): If necessary, specify the number of attempts to connect 
+ to the device, before deeming this device to be unavailable. This is 3 
+ times, by default.</li>
+            <li class="Numbers" value="5">Only check the <b>Enable traps</b> checkbox (BOOLEAN <b>trapEnabled</b> slot): if you want to receive 
+ <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP traps<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">unsolicited SNMP messages sent by a device to notify an SNMP manager of significant events.</span></span> 
+ from this device. For more details, see <a href="About_SNMP_Traps.htm">About SNMP Traps</a>.</li>
+        </ol>
+        <p class="Notices"><b>Note:</b> If the <b>Update</b> button is clicked after modifying 
+ the <b>IP address</b> or <b>Read comm.</b> or <b>WriteRead comm.</b> settings, the agent will attempt to reconnect to the device using these 
+ new settings.</p>
+        <p>The<b>InvalidConnection</b>status bit (<b>Invalid connection</b> checkbox) indicates if this agent CAN (if empty) 
+ or CANNOT (if checked) connect to the specified device. BUT this checkbox 
+ is ONLY validated when you press the <b>Update</b> 
+ button or select the <b>Enable polling</b> 
+ option for this agent, so it will ALWAYS be CHECKED when the <b>Disable 
+ polling</b> option is selected.</p>
+        <p class="Notices"><b>Note1:</b> If you 
+ are monitoring a computer and have NOT installed the SNMP service, then 
+ this <b>Invalid connection</b> status bit 
+ will be set.</p>
+        <p class="Notices"><b>Note2:</b> An invalid 
+ connection will delay the closing and opening the Edit dialog, as the 
+ agent attempts to establish this connection.</p>
+        <p class="notices">&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

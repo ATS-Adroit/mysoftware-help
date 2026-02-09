@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents|The SNMPMgr Agent|Configuring SNMPManager Agents" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Ver9" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Device Management Settings</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor208"></a>Device Management Settings</h1>
+        <p>Each SNMPMgr can manage a single device 
+ by getting and/or setting and/or trapping its <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP managed objects<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">management data exposed by SNMP managed devices that might be hardware, configuration parameters, performance statistics, and any other data that directly relates to the operation of this device.</span></span> (values).</p>
+        <p>The <b>Poll 
+ settings</b> section of the <b>Edit SNMP Mngr Agent</b> dialog, either enables or disables this device management 
+ and can specify a rate at which values are retrieved from the managed 
+ device and how many values are included in each polling transaction, as follows:</p>
+        <p class="Notices"><b>PLEASE NOTE:</b> If 
+ the <b>Unlicensed</b> checkbox (status 
+ bit indicator) is checked, then you need to correctly license your Agent 
+ Server before you can run 2 or more SNMPMgr agents. </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To start managing the device: </a> 
+ to start polling (monitoring) and/or writing (controlling) and/or trapping 
+ (enabling events) of the OID values of this device.</p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Select the <b>Enable 
+ polling</b> option (BOOLEAN <b>start</b> slot).</li>
+                <li class="Numbers" value="2">Click the <b>Update</b> 
+ button.</li>
+            </ol>
+            <p class="ListDesc">This sets the <b>Started</b> 
+ (status bit 18), which checks the <b>Started</b> 
+ checkbox.</p>
+            <p class="ListNotice"><b>Note:</b> A scan 
+ point is consumed for every unique OID value that is polled, written to 
+ and/or trapped.</p>
+            <p class="ListNotice"><b>WARNING!</b> If 
+ a SNMPMgr agent requires more than your available scan points then 
+ ALL these OID operations are DISABLED and its <b>Error</b> 
+ status bit is set.</p>
+        </div>
+        <p class="Notices"><b>IMPORTANT:</b> If 
+ the InvalidConnection status bit is set (the <b>Invalid 
+ connection</b> checkbox is checked), then NONE of these OID operations 
+ will be performed as the agent cannot connect to this device</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To stop managing the device:</a> 
+ to stop polling and/or writing and/or trapping OID values of this device 
+ and to release the scan point licenses the agent was using for these OID 
+ operations.</p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Select the <b>Disable 
+ polling</b> option (BOOLEAN <b>start</b> slot).</li>
+                <li class="Numbers" value="2">Click the <b>Update</b> 
+ button.</li>
+            </ol>
+            <p class="ListDesc">The <b>Stopped</b> (status 
+ bit 17) is set, which checks the <b>Stopped</b> 
+ checkbox</p>
+            <p class="ListDesc">The <b>Started</b> (status 
+ bit 18) is cleared, which clears the <b>Started</b> 
+ checkbox.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure the poll rate: </a> 
+ the default rate, in milliseconds, that the agent fetches OID values (that 
+ are enabled for polling in the list) and copies these values into their 
+ associated  tags.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Specify the <b>Poll 
+ rate</b> (INTEGER <b>scanRate</b> 
+ slot) in milliseconds.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The 
+ lowest rate is 5000 milliseconds (5 seconds).</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure the number of OID values per polling transaction: </a> 
+ the number of OID values to retrieve in a single polling transaction, which effectively determines how many transactions are required for each poll.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">In the <b>Pdu</b> edit box specify the number of OID items to include in a single polling transaction.</li>
+            </ol>
+            <p class="ListDesc">For instance if you have a list with 15 OIDs and you specify a Pdu of 5 then each poll will require 3 transactions.</p>
+            <p class="ListNotice"><b>Note:</b> The device determines how many OID values that it is able to return in a single transaction.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To view the activity of this agent: </a> 
+ to allow advanced users to use the Datascope window to monitor the state 
+ and current activity of this agent.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p class="Notices"><b>Note:</b> Ensure that 
+ you <b>Enable polling</b> before you 
+ can monitor this agent.</p>
+            <ol>
+                <li class="Numbers" value="1">Click the <b>Datascope</b> 
+ button.</li>
+                <li class="Numbers" value="2">In the <b><span class="AdroitAppName">Adroit</span> 
+ Protocol Driver Monitor</b> dialog, type 1 to select the <b>Datascope</b> 
+ option.</li>
+                <li class="Numbers" value="3">In the <b>Datascope</b> 
+ window, type A to convert the Datascope from HEX to ASCII.</li>
+            </ol>
+            <p class="ListDesc">This window displays the current STATE of this agent, 
+ where [1] means running and [2] means stopped.&#160;</p>
+            <p class="ListDesc">The other messages indicate the current activity of the 
+ agent, such as tree building, reading writing polling general activity.</p>
+            <p class="ListDesc">In general this facility allows you to know if the agent 
+ is working or not.</p>
+            <p class="ListDesc">&#160;</p>
+        </div>
+        <p><a href="Specific_Status_Bits_of_the_SNMPMgr_Agent.htm">Specific 
+ Status Bits</a>: Lists the non connection-related errors that the <b>Error</b> 
+ status bit can indicate.</p>
+        <p><a href="Connecting_to_the_Managed_Device.htm">Connecting to the Managed Device</a>: How to connect to the required device.</p>
+        <p><a href="SNMPMgr_Agent_Usage_Requirements.htm">Usage Requirements</a> 
+ : Requirements in order to use this agent.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

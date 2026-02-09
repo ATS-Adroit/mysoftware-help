@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Alarming Agents" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to Alarm Process Values</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2946"></a>How to Alarm Process Values</h1>
+        <p><a name="kanchor2947"></a><a name="kanchor2948"></a><a name="kanchor2949"></a>In <span class="AdroitAppName">Adroit</span>, your process values (tags) are stored as slots within agents. 
+ You therefore alarm your process values by alarming the agent in which 
+ they reside.</p>
+        <h2><a name="kanchor2950"></a><a name="kanchor2951"></a>To alarm an agent (process value):</h2>
+        <p><b>For instance:</b> 
+ we will alarm an agent called ANA001 of the Analog agent type, using the 
+ <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">defaultAlarmAgent:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">the Alarm agent that is created by default by <span class="AdroitAppName">Adroit</span>.
+
+</span></span>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Things to be aware of when alarming 
+ process values:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p>Since the <b>Alarm agent</b> manages 
+ the alarming of agents, you need to ensure that the Alarm agent you use 
+ provides the following:</p>
+            <ul>
+                <li class="Bullets" value="1">Alarm 
+ routes that provide the required destinations (methods) to communicate 
+ these alarms or events to the relevant personnel.</li>
+            </ul>
+            <p class="ListDesc">In 
+ this case we will use the default configuration for alarm route 2 and 
+ 3 provided by the defaultAlarmAgent, which routes alarms to the LOCAL 
+ Alarm List (within the Alarm agent itself) where they can be displayed 
+ in the Alarm List Viewer window and the LOCAL event log, where they can 
+ be displayed in the Event Log Viewer window.</p>
+            <ul>
+                <li class="Bullets" value="1">Alarm types that represent 
+ ALL the necessary alarm-able state/s for the agent type of the agent that 
+ contains this process value.</li>
+            </ul>
+            <p class="ListDesc">In this case we will use the default alarm types for 
+ the Analog agent type.</p>
+            <p class="Notices"><b>Tip:</b> Is it recommended 
+ that you create an <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">alarming strategy<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a set of guidelines or a plan to optimise the configuration of the alarming of agents. Once created it can easily be transferred and adapted for other projects, as required.</span></span> 
+ BEFORE you start alarming agents to determine how best this can be achieved.</p>
+            <p class="Notices">&#160;</p>
+            <p>If necessary, create an 
+ Analog agent. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">For instance:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">in this case, called ANA001.
+</span></span>. For details, see <a href="../AU_01_04/To_Add_a_New_Agent.htm">To Add a New Agent</a>.</p>
+            <p>&#160;</p>
+            <p>Open the Agent Configuration dialog, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgentConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <p class="Notices"><b>Tip:</b> This also opens the <span class="AdroitAppName">Adroit</span> Classic UI in the <span class="VIPAppName">SmartUI</span> Designer, which provides agent-specific menu functions,  such as importing and exporting agents.</p>
+            <div MadCap:targetName="AgentConfigurator" style="display: none;">
+                <p>In the <span class="VIPAppName">SmartUI</span> Designer:</p>
+                <p>Click the <b>Open Configurator</b> tool in the <b>Agent Server</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                <p class="Notices"><b>Note:</b> When there is more than one <span class="AdroitAppName">Adroit</span> datasource available, a list is provided to select which  Agent Server to configure. </p>
+                <p>The <b>Agent Configuration</b> 
+ dialog is displayed within the Classic UI.</p>
+            </div>
+            <p>Select the required agent in the Agent Configurator, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SlctAgtInConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <div MadCap:targetName="SlctAgtInConfigurator" style="display: none;">
+                <ol>
+                    <li class="UpperLetters" MadCap:conditions="" value="1">Ensure that the <b>Basic</b>, 
+ <b>Advanced</b> and/or <b>System</b> 
+ checkbox is checked to display the required agent type in this list. These 
+ checkboxes use these default agent groups to help you select the required 
+ agent quickly.</li>
+                </ol>
+                <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> If no 
+ checkboxes are selected, then all the available agent types will be displayed 
+ in the <b>Type</b> list box. This is 
+ useful if the required agent type has not been categorised.</p>
+                <ol start="2">
+                    <li class="UpperLetters" MadCap:conditions="" value="2">Click the down arrow in 
+ the <b>Type</b> drop down list</li>
+                    <li class="UpperLetters" MadCap:conditions="" value="3">Locate the required agent 
+ type, using the scroll bar and click on it.</li>
+                </ol>
+                <ol start="4">
+                    <li class="UpperLetters" MadCap:conditions="" value="4">In the <b>Agents</b> 
+ list, click on the name of the required agent (if necessary scroll down 
+ to locate this).</li>
+                </ol>
+                <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> Right-click 
+ to display a menu of commands to perform upon the selected agent(s).</p>
+            </div>
+        </div>
+        <ol>
+            <li class="Numbers" value="1">Right-click this agent 
+ and select its <b>Alarm…</b> menu item.</li>
+            <li class="Numbers" value="2">If necessary, select the 
+ Alarm agent that will monitor the agent, from the <b>Use 
+ alarm agent</b> list box. By default, the <b>defaultAlarmAgent</b> 
+ is selected, so in this case we do not need to change this agent.</li>
+            <li class="Numbers" value="3">Double click each <![CDATA[ 
+ ]]><b>Available</b><span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">alarm type<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a named (abnormal) condition or state of an agent that is defined by which of its status bits are simultaneously ON or OFF, which can also list the slots of this agent to report when this condition occurs.</span></span> 
+ (an alarm-able state), you want to monitor for this agent. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">For instance:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">in this case ANA001 to add it to the <b>Current</b> list.
+
+</span></span>&#160;</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> 
+ ONLY the alarm types in the <b>Current</b> list are monitored by the Alarm 
+ agent as potential <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">incidents<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">signified by AgentName.AlarmType, which indicate that this agent has gone into the condition or state specified by this alarm type. Each incident can either be an alarm (requiring action) or an event (not requiring action).</span></span>.</p>
+        <p class="ListNotice"><b>Tip:</b> 
+ The default alarm types (alarm-able states) typically correspond to the 
+ specific status bits of the selected agent type, which describe how these 
+ states are triggered (become active).</p>
+        <ol start="5">
+            <li class="Numbers" value="5">For each alarm type in 
+ the <b>Current</b> list, you can 
+ specify the following:</li>
+            <li class="ListBullets" value="6">The 
+ route of this Alarm agent that you require this incident to be sent to 
+ when it occurs, by selecting the required route number from the <b>Select 
+ route</b> list box.</li>
+            <li class="ListBullets" value="7">Whether this incident requires 
+ acknowledgement (is an alarm) or not (is an event), by checking or clearing 
+ the <b>Acknowledgement required</b> checkbox.</li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />For instance:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1">Add the <b>High</b>, 
+ <b>High-high</b>, <b>Low</b> and <b>Low-low</b> alarm types to the <b>Current</b> 
+ list and for each of them <b>Select route</b> 2 and leave the <b>Acknowledgement 
+ required</b> checkbox checked, since these are ALARMS which require a 
+ response and ACTION from the operator.</li>
+                <li class="ListBullets" value="2">Add the <b>Changed</b> 
+ alarm type to the <b>Current</b> list and <b>Select route</b> 3 and clear 
+ <b>Acknowledgement required</b> checkbox, since this is an EVENT, which 
+ ONLY PROVIDES INFORMATION, in this case indicating that a value has changed.</li>
+            </ul>
+        </div>
+        <ol start="6">
+            <li class="Numbers" value="6">Now when any of these incidents 
+ occur (becomes <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">active<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">the monitored condition of this incident (alarm/event) is still in effect and has not yet returned to its normal operating state.</span></span>), 
+ it is routed along the specified route to ALL the destinations on this 
+ route, which are specified in the <b>Route details</b> section of the 
+ <b>Alarming</b> dialog.</li>
+        </ol>
+        <p class="ListDesc"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">For instance:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">both these alarms and events can be viewed in the Alarm List Viewer 
+ window and Event Log Viewer window.
+
+</span></span>
+        </p>
+        <ol start="7">
+            <li class="Numbers" value="7">If necessary, you can also 
+ specify the following for each alarm type:</li>
+            <li class="ListBullets" value="8"><b>Priority:</b> 
+ Typically you prioritise your incidents to ensure 
+ that your operators ONLY receive IMPORTANT alarms - since some alarms 
+ are critical, whereas others are more informational in nature. For details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_Incident_Alarm_Priorities.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Prioritizing 
+ or Filtering Incidents</a></span>.</li>
+            <li class="ListBullets" value="9"><b>Delay 
+ (secs):</b> Typically you delay an <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">active<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">the monitored condition of this incident (alarm/event) is still in effect and has not yet returned to its normal operating state.</span></span> 
+ incident from entering the alarm system to prevent intermittent alarms 
+ from flooding your alarm system or to ensure that this alarm is raised 
+ when the operator needs to respond to it. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Delaying_Incidents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Delaying Incidents</a></span>.</li>
+            <li class="ListBullets" value="10"><b>Conditional 
+ expressions:</b> Typically you specify a conditional expression to 
+ ensure that each incident is unique and does not duplicate existing active 
+ incidents. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Creating_Conditional_Expressions_for_Incidents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Creating Conditional Expressions 
+ for Incidents</a></span>.</li>
+            <li class="ListBullets" value="11"><b>Inhibited 
+ until:</b> Typically you temporarily suspend alarming when you 
+ are performing maintenance on a plant section or a particular item of 
+ equipment or when an alarm indicator is not functioning correctly or is 
+ being tested. For detail, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Temporarily_Suspending_Alarming.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Temporarily Suspending Alarming</a></span>.</li>
+        </ol>
+        <h2>Related topics:</h2>
+        <p>For some reasons for and recommendations when creating an alarming strategy, 
+ see <a href="Alarming_strategy.htm">About Alarming Strategies</a>.</p>
+        <p>For details about the default routes and their destinations of 
+ the <b>defaultAlarmAgent</b>, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="About_the_DefaultAlarmAgent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">About the defaultAlarmAgent</a></span>.</p>
+        <p>For more details about alarm types, see <a href="About_Alarm_Types.htm">About 
+ Alarm Types</a>.</p>
+        <p>For more details about alarm routes, see <a href="About_Alarm_Routes.htm">About 
+ Alarm Routes</a>.</p>
+        <p>For more details about alarm destinations, see <a href="Local_Incident_Destinations.htm">Local 
+ Incident Destinations</a> or <a href="Global_Incident_Destinations.htm">Global 
+ Incident Destinations</a>.</p>
+        <p>For an overview of alarming, see <a href="Alarming_Overview.htm">Alarming 
+ Overview</a>.</p>
+        <p MadCap:conditions="VIP.Adroit">For more details about viewing lists of alarms, see <a href="../10Cfg/30Des/40FC/10CC/Ctrl/AlarmViewer_controls.htm">AlarmViewer controls</a>.</p>
+        <p MadCap:conditions="VIP.Adroit">For more details about viewing lists of events, see <a href="../10Cfg/30Des/40FC/10CC/Ctrl/EventViewer_controls.htm">EventViewer controls</a>.</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

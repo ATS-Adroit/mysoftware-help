@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="How to Connect to the VIP Server over the Web.doc" /><title>How to Connect to the SmartUI Server over the Web</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <div placeholder="" id="header" style="width: 100%;position: relative;">
+            <p>&#160;</p>
+        </div>
+        <h1><a name="Top"></a>How to connect to the Server over the Web</h1>
+        <p>This describes the recommended procedure 
+ to connect Operators to a Server over the Internet, as follows: </p>
+        <ol>
+            <li class="Numbers" value="1">The <b><span class="VIPAppName">SmartUI</span> Web Service</b> 
+ must be installed on a web server or ‘Internet PC, which provides Internet 
+ connectivity between the Server and its clients. <a href="#Installing_the_VIP_Web_Service"><br />	Installing the <span class="VIPAppName">SmartUI</span> Web Service</a>.</li>
+            <li class="Numbers" value="2">Since <span class="VIPAppName">SmartUI</span> Operators 
+ are typically deployed using the <span class="VIPAppName">SmartUI</span> Launcher application, the <span style="font-weight: bold;" class="VIPDistributorService">VIP Distributor</span> <![CDATA[  ]]><b>service</b> must be 
+ started on the <span class="VIPAppName">SmartUI</span> Server computer. <a href="#Starting_the_VIP_Distributor_service"><br />	Starting the <span class="VIPAppName">SmartUI</span> Distributor 
+ service</a>. </li>
+        </ol>
+        <p class="ListDesc">This is used together with the <b><span class="VIPAppName">SmartUI</span> Launcher</b> 
+ application, as follows:&#160; </p>
+        <p class="ListNotice"><b>Note</b>: 
+ This also provides a good way of testing whether the Internet connectivity 
+ is working.
+        </p>
+        <ul>
+            <li class="ListBullets" value="1">The <span style="font-weight: bold;" class="VIPDistributorService">VIP Distributor</span> 
+ service identifies a "distribution" folder on its computer. 
+ </li>
+            <li class="ListBullets" value="2">The <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Launcher</b> 
+ then connects to the computer that is running the <span class="VIPDistributorService">VIP Distributor</span> service 
+ and is able to download all files and folders that have been placed in 
+ the "distribution" folder and allows any downloaded executables 
+ to be launched.</li>
+        </ul>
+        <p class="ListNotice"><b>Note</b>: The <span class="VIPAppName">SmartUI</span> Launcher 
+ also ensures that these downloaded files are kept up-to-date with the 
+ files located in the “distribution” folder on the computer that it connects 
+ to.
+        </p>
+        <ol start="3">
+            <li class="Numbers" value="3">Test 
+ that the <span class="VIPAppName">SmartUI</span> Web Service is working locally, via the Intranet. <a href="#Testing_Intranet_Connection_to_VIP_Server"><br />	Testing the Intranet connection to the <span class="VIPAppName">SmartUI</span> Server</a>.</li>
+            <li class="Numbers" value="4">Test that the <span class="VIPAppName">SmartUI</span> Web 
+ Service is working externally, via the Internet. <a href="#Testing_Internet_Connection_to_VIP_Server"><br />	Testing Internet connection to the <span class="VIPAppName">SmartUI</span> Server</a>.</li>
+            <li class="Numbers" value="5">A troubleshooting section 
+  is also provided to correct common issues preventing communication. 
+ <a href="#Troubleshooting">Troubleshooting communication 
+ issues</a>.</li>
+        </ol>
+        <h2><a name="Installing_the_VIP_Web_Service"></a>Installing 
+ the <span class="VIPAppName">SmartUI</span> Web Service
+        </h2>
+        <p>Install the <b><span class="VIPAppName">SmartUI</span> Web Service</b>, either 
+ on the Server computer itself or on any other machine that is able to 
+ communicate to the Server computer. Provided this machine has BOTH the 
+ .NET framework (necessary for <span class="VIPAppName">SmartUI</span> to install) and Microsoft Internet Information 
+ Services (IIS) installed.</p>
+        <p>For the purposes of this scenario, this will 
+ be installed on a computer called “pserver”, which is running the firewall 
+ for the company. This is recommended so as to provide secure connectivity 
+ to the <span class="VIPAppName">SmartUI</span> Server.</p>
+        <ol>
+            <li class="Numbers" value="1">Insert the <span class="VIPAppName">SmartUI</span>  installation media and wait for the autorun Setup menu to appear. </li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2">Click the <b>Install</b> 
+ option. </li>
+            <li class="Numbers" value="3">Accept the license 
+ agreement and click <b>Next</b> and <b>Next</b> again.</li>
+            <li class="Numbers" value="4">Select the <b>Custom</b> 
+ installation option and click <b>Next</b>.</li>
+            <li class="Numbers" value="5">Then ONLY select the <b>Web Service</b> component from the list of available components and click <b>Next</b>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note</b>: You 
+ are unable to continue if you do not have IIS installed on this computer, then an error message is displayed and a valid installation 
+ option is selected instead.</p>
+        <p MadCap:conditions="">The <span class="VIPAppName">SmartUI</span> Web Service  ALSO requires the ASP.NET sub-component of Internet Information Services (IIS), which is NOT installed by default, when adding the IIS feature to Windows, please ensure that this component is installed, as follows:</p>
+        <p MadCap:conditions=""><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="Win7"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />If you have Windows 7 / Windows Server 2008 R2 installed:</a>
+        </p>
+        <div MadCap:targetName="Win7" style="display: none;">
+            <ol>
+                <li class="Numbers" MadCap:conditions="" value="1">Launch Control Panel -&gt; All Control Panel Items -&gt; Programs and Features -&gt; click the "Turn Windows features on or off" link on the left hand side:</li>
+                <li class="Numbers" MadCap:conditions="" value="2">In the displayed "Windows Features" dialog, scroll down to:</li>
+                <li class="Numbers" MadCap:conditions="" value="3">Internet Information Services -&gt; World Wide Web Services -&gt; Application Development Features -&gt; ASP.NET (ensure that this check box is checked)</li>
+                <li class="Numbers" MadCap:conditions="" value="4">Click the OK button.</li>
+            </ol>
+        </div>
+        <p MadCap:conditions=""><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="Win8"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />If you have Windows 8/8.1 / Windows Server 2012/R2 installed:</a>
+        </p>
+        <div MadCap:targetName="Win8" style="display: none;">
+            <ol>
+                <li class="Numbers" MadCap:conditions="" value="1">Launch Control Panel -&gt; All Control Panel Items -&gt; Programs and Features -&gt; click the "Turn Windows features on or off" link on the left hand side:</li>
+                <li class="Numbers" MadCap:conditions="" value="2">In the displayed  "Windows Features" dialog, scroll down to:</li>
+                <li class="Numbers" MadCap:conditions="" value="3">Internet Information Services -&gt; World Wide Web Services -&gt; Application Development Features -&gt; ASP.NET 4.5 (ensure that this check box is checked)</li>
+                <li class="Numbers" MadCap:conditions="" value="4">Click the OK button.</li>
+            </ol>
+        </div>
+        <p MadCap:conditions=""><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="Win10"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />If you have Windows 10 installed:</a>
+        </p>
+        <div MadCap:targetName="Win10" style="display: none;">
+            <ol>
+                <li class="Numbers" MadCap:conditions="" value="1">Launch Control Panel -&gt; All Control Panel Items -&gt; Programs and Features -&gt; click the "Turn Windows features on or off" link on the left hand side:</li>
+                <li class="Numbers" MadCap:conditions="" value="2">In the displayed  "Windows Features" dialog, scroll down to:</li>
+                <li class="Numbers" MadCap:conditions="" value="3">Internet Information Services -&gt; World Wide Web Services -&gt; Application Development Features -&gt; ASP.NET 4.6 (ensure that this check box is checked)</li>
+                <li class="Numbers" MadCap:conditions="" value="4">Click the OK button.</li>
+            </ol>
+        </div>
+        <p class="ListNotice">&#160;</p>
+        <ol start="5">
+            <li class="Numbers" value="5">Click the <b>Install</b> 
+ button and if necessary, specify the <b>Name</b> of the required Virtual Directory 
+ and the <b>Web Site</b> in which this Virtual Directory will be created.      <![CDATA[ 
+ ]]></li>
+        </ol>
+        <p class="ListDesc">For this scenario these have been left as their 
+ defaults i.e. <b><span class="VIPAppName">SmartUI</span></b> and <b>Default Web Site</b> respectively.</p>
+        <ol start="6">
+            <li class="Numbers" value="6">Click <b>Next</b> to 
+ install the necessary files.</li>
+            <li class="Numbers" value="7">Once installed, it 
+ is recommended to ensure that both the web service itself and the virtual 
+ directory that is created during this installation is fully operational, 
+ as follows:</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Launch 
+ your web browsing application.
+            </li>
+            <li class="NumbersSubLetters" value="2">Type in the required 
+ path of your newly created virtual folder, as follows: http://WebSiteName/VirtualDirectoryName, 
+ since the ‘Default Web Site’ is selected, this will simply be: <a href="http://computername/VirtualDirectoryName">http://ComputerName/VirtualDirectoryName</a> 
+ i.e. http://pserver/<span class="VIPWebSrvcVirtDirName">VIP</span>.</li>
+            <li class="NumbersSubLetters" value="3">If everything has been 
+ successfully installed and configured, this should immediately display 
+ the default web page, which explains how you can use the Web Service.</li>
+        </ol>
+        <ol start="8">
+            <li class="Numbers" value="8">By default the <span class="VIPAppName">SmartUI</span> 
+ Web Service assumes that the Server is on the local computer. Since, the 
+ Server is on a remote computer, in this scenario, the following additional 
+ configuration after successfully installing the <span class="VIPAppName">SmartUI</span> Web Service:</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Launch 
+ the <b>Windows Explorer</b> (Windows Key + E).
+            </li>
+            <li class="NumbersSubLetters" value="2">Navigate to the <span class="VIPAppName">SmartUI</span> 
+ Web Services installation folder, typically this is: <span class="VIPWebServiceInstallPath">C:\Program Files\Adroit Technologies\Adroit\SmartUI\Webservice</span>.</li>
+            <li class="NumbersSubLetters" value="3">Locate the “Web.config” 
+ file in this folder.</li>
+        </ol>
+        <ol start="4">
+            <li class="NumbersSubLetters" value="4">Open this “Web.config” 
+ file in a text editor, such as Notepad.</li>
+        </ol>
+        <p class="ListNoteSub">Its first four lines should appear as follows: </p>
+        <p class="Code" style="margin-left: 76px;">&lt;?xml version="1.0" 
+ encoding="utf-8" ?&gt;</p>
+        <p class="Code" style="margin-left: 76px;">&lt;configuration&gt;</p>
+        <p class="Code" style="margin-left: 76px;">&#160;&#160;&#160;&lt;appSettings&gt;</p>
+        <p class="Code" style="margin-left: 76px;">&#160;&#160;&#160;&#160;&#160;&#160;&lt;add 
+ key="server" value="localhost" /&gt;</p>
+        <ol start="5">
+            <li class="NumbersSubLetters" value="5">Modify the “localhost”, 
+ so that the value refers to either the network name of the remote Server 
+ computer or its IP address. In this case: 192.168.0.53 </li>
+        </ol>
+        <p>&#160;</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="Starting_the_VIP_Distributor_service"></a>Starting the <span class="VIPDistributorService">VIP Distributor</span> 
+ Service</h2>
+        <p>On the <span class="VIPAppName">SmartUI</span> Server machine, start the <span class="VIPDistributorService">VIP Distributor</span> service (eventually 
+ this will be automatically started), as follows:</p>
+        <ol>
+            <li class="Numbers" value="1">Open 
+ the Services applet (<b>Start</b> menu, <b>Settings</b>, 
+ <b>Control Panel</b>, <b>Administrative 
+ Tools</b> and select the <b>Services</b> applet).
+            </li>
+            <li class="Numbers" value="2">Navigate to the <span style="font-weight: bold;" class="VIPDistributorService">VIP Distributor</span><b>  <![CDATA[ ]]></b>service, right click and select <b>Start</b>.</li>
+        </ol>
+        <p class="ListNotice">This<span style="font-weight: bold;" class="VIPDistributorService">VIP Distributor</span> service specifies the folder 
+ that will contain the files and folders that the <span class="VIPAppName">SmartUI</span> Launcher will download; 
+ always ensuring that it contains the latest files. Typically, this folder 
+ is <span class="VIPInstallFolder">C:\Program Files\Adroit Technologies\Adroit\SmartUI</span>\Distribution. </p>
+        <p class="ListNotice"><b>Note</b>: 
+ If necessary it can be changed by editing the ‘VIP Distribution.exe.config’ 
+ file in the <span class="VIPAppName">SmartUI</span> installation folder, as required. However, in this scenario 
+ this will not be changed.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Ensure that this “distribution” 
+ folder contains the necessary files:</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Using Windows Explorer, 
+ navigate to the <span class="VIPAppName">SmartUI</span> Server installation folder, typically this is: <span class="VIPInstallFolder">C:\Program Files\Adroit Technologies\Adroit\SmartUI</span>.</li>
+            <li class="NumbersSubLetters" value="2">Locate the “Distribution” 
+ sub-directory. This contains an empty “plugins” folder; typically, this 
+ will be <span class="VIPInstallFolder">C:\Program Files\Adroit Technologies\Adroit\SmartUI</span>\Distribution\plugins. 
+ </li>
+        </ol>
+        <p class="ListNoteSub"><b>Note</b>: 
+ This folder MUST contain all the plugins that are currently being used. 
+ </p>
+        <p class="ListNoteSub">For this scenario, all the files in the <span class="VIPInstallFolder">C:\Program Files\Adroit Technologies\Adroit\SmartUI</span>\plugins folder were copied to this folder. 
+ </p>
+        <p>&#160;</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2>&#160; <a name="Testing_Intranet_Connection_to_VIP_Server"></a>Testing Intranet 
+ Connection to <span class="VIPAppName">SmartUI</span> Server</h2>
+        <p>On the computer on which the <span class="VIPAppName">SmartUI</span> Web Service has been installed, copy 
+ the <span class="VIPAppName">SmartUI</span> Launcher from the <span class="VIPAppName">SmartUI</span> Server computer and place this into a temporary 
+ folder, for instance, on the Desktop.</p>
+        <p class="Notices"><b>Note</b>: 
+ The <span class="VIPAppName">SmartUI</span> Launcher is typically used to download the files required for 
+ the Operator application, either over a LAN or the Internet. To do this, 
+ the Launcher needs to connect to a computer that has the <span style="font-weight: normal;" class="VIPDistributorService">VIP Distributor</span> 
+ service installed and configured, which in this case is the <span class="VIPAppName">SmartUI</span> Server 
+ computer. </p>
+        <p>Start the <span class="VIPAppName">SmartUI</span> Launcher from this temporary folder and complete its <b>Connection</b> 
+ dialog, as follows:</p>
+        <ol>
+            <li class="Numbers" value="1">Specify 
+ the Internet address of the WebService, which makes this Internet connection 
+ possible, which is typically: http://ComputerName/VirtualDirectory/wsdistributor.asmx. 
+ Where:
+            </li>
+            <li class="ListBullets" value="2"><b>ComputerName 
+ </b>is the name of the IIS server on which the <b><span class="VIPAppName">SmartUI</span> Web Service</b> 
+ has been installed. </li>
+            <li class="ListBullets" value="3"><b>VirtualDirectory</b> 
+ is the name of the virtual directory that contains the wsdistributor.asmx 
+ file, which was specified when installing the <b><span class="VIPAppName">SmartUI</span> Web Service</b>. 
+ </li>
+        </ol>
+        <p class="ListNotice">In this scenario, this will be: <a href="http://pserver/vip/wsdistributor.asmx" style="color: #323232;">http://pserver/<span class="VIPWebSrvcVirtDirName">VIP</span>/wsdistributor.asmx</a></p>
+        <p class="ListNotice"><b>Tip</b>: The 'http://' 
+ prefix and '/wsdistributor.asmx' suffix will be added to this URL on connection, 
+ if they have not been specified.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Ensure that the <b>Internet</b> 
+ selection is selected.</li>
+            <li class="Numbers" value="3">In the <b>Authenticate</b> 
+ group, specify the required <b>User</b> and <b>Password</b>, which are 
+ required when connecting to this computer.</li>
+            <li class="Numbers" value="4">If a proxy server is 
+ required for this Internet connection, check the <b>Enable Proxy</b> checkbox 
+ and click the <b>Proxy Settings</b> button.</li>
+        </ol>
+        <ol start="5">
+            <li class="Numbers" value="5">Then press the <b>Connect</b> 
+ button.</li>
+        </ol>
+        <p class="ListDesc">If everything has been correctly specified, the <b>Download</b>  dialog should be displayed.</p>
+        <p class="ListDesc">If this is displayed, you can stop testing, since this 
+ proves that the <b><span class="VIPAppName">SmartUI</span> Web Service</b> is working over http in your internal 
+ network (Intranet).</p>&#160; 
+
+<br /><p><a href="#Top">Back 
+ to top</a></p><h2><a name="Testing_Internet_Connection_to_VIP_Server"></a>Testing Internet 
+ Connection to <span class="VIPAppName">SmartUI</span> Server</h2><ol><li class="Numbers" value="1">Launch 
+ your web browsing application.</li><li class="Numbers" value="2">Type in the required 
+ URL, as follows: http://WebSiteName/VirtualDirectoryName, which in this 
+ case is : <a href="http://213.49.35.19/VIP/">http://213.49.35.19/<span class="VIPWebSrvcVirtDirName">VIP</span>/</a></li><li class="Numbers" value="3">This should immediately 
+ display the default web page, in which case, click on the ‘<span class="VIPAppName">SmartUI</span> Launcher 
+ Setup Download link’ link to download and install the <span class="VIPAppName">SmartUI</span> Launcher onto your computer.</li></ol><p class="ListNotice"><b>Note</b>: 
+ In order for this installation to succeed, the .NET framework MUST be 
+ installed on this computer first.</p><ol start="4"><li class="Numbers" value="4">Once the download has 
+ completed, click the <b>Launcher</b> shortcut that is installed on your Desktop.</li></ol><ol start="5"><li class="Numbers" value="5">This will display 
+ its <b>Connection</b> dialog, which should be completed as follows: </li></ol><ol start="1"><li class="NumbersSubLetters" value="1">Ensure that the <b>Internet</b> 
+ selection is selected.</li><li class="NumbersSubLetters" value="2">If a proxy server is 
+ required for this Internet connection, check the <b>Enable Proxy </b>checkbox 
+ and click the <b>Proxy Settings</b> button. Specify the <b>Machine Name or IP</b>&#160;address of the proxy server and its designated <b>Port</b> number. </li><li class="NumbersSubLetters" value="3">In the <b>Computer/URL</b> field, specify 
+ the Internet address of the WebService, which makes this Internet connection 
+ possible, which is typically: http://ComputerName/VirtualDirectory. 
+ Where:</li><li class="ListSubBullet" value="4"><b>ComputerName 
+ </b>is the IP address of the web server (IIS computer) on which the <span class="VIPAppName">SmartUI</span> 
+ Web Service has been installed. </li><li class="ListSubBullet" value="5"><b>VirtualDirectory</b> 
+ is the name of the virtual directory specified  when installing the <b><span class="VIPAppName">SmartUI</span> Web Service</b>. 
+ In this scenario, this will be http://213.49.35.19/vip</li></ol><p class="ListNoteSub"><b>Tip</b>: The 'http://' 
+ prefix  will be added to this URL on connection, 
+		if it is not been specified.</p><ol start="2"><li value="2">In the <b>Authentication 
+			Details</b>, specify the required <b>User</b> and <b>Password</b>, which 
+		are required when connecting to this computer that is running the <span class="VIPDistributorService">VIP Distributor</span>, which is typically the <span class="VIPAppName">SmartUI</span> Server computer.</li></ol><ol start="6"><li class="Numbers" value="6">Then 
+ press the <b>Connect</b> button.</li></ol><p class="ListDesc">If everything has been correctly specified, the <b>Download</b> 
+ dialog should be displayed.</p><ol start="7"><li class="Numbers" value="7">Click the <b>Download</b> 
+ button to download the files specified by the <span style="font-weight: normal;" class="VIPDistributorService">VIP Distributor</span> service. 
+ For details, see <a href="#Starting_the_VIP_Distributor_service">Starting_the_VIP_Distributor_service</a>. 
+ This will download these files into the <b><span class="VIPAppName">SmartUI</span> Launcher</b> installation 
+ folder.</li></ol><p class="ListDesc">Once all the required files have been downloaded the 
+ <b><span class="VIPAppName">SmartUI</span> Launcher</b> will display all the executable programs that have 
+ been downloaded. Typically the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b>Config Editor</b> and  <b>Operator</b>. 
+ </p><ol start="8"><li class="Numbers" value="8">Double-click on the 
+ <b><span class="VIPAppName">SmartUI</span> Operator</b> to launch it. </li></ol><ol start="9"><li class="Numbers" value="9">The next time you run 
+ the <b><span class="VIPAppName">SmartUI</span> Launcher</b> program it should automatically display these 
+ executables.</li></ol><p class="ListDesc">If however, any of the file(s) and folder(s) are newer 
+ on this remote computer or which do not exist on the local computer, they 
+ will be displayed for downloading. </p><p class="ListDesc">In this way the <span class="VIPAppName">SmartUI</span> Launcher ensures that the files 
+ within its installation folder are kept up-to-date with the files located 
+ in the distribution folder on the computer that the <span class="VIPAppName">SmartUI</span> Launcher connects 
+ to.</p><p class="ListNotice"><b>Note</b>: 
+ If you want to specify other connection settings instead, then simply 
+ open the File menu and select the 
+ Connection item, which will display 
+ the Connection dialog instead. </p><p class="ListNotice"><b>Tip</b>: 
+ To automatically execute a downloaded executable after the <span class="VIPAppName">SmartUI</span> launcher 
+ has finished processing, simply edit the shortcut used to launch the <span class="VIPAppName">SmartUI</span> 
+ launcher and add the name of this executable (its extension is not required) 
+ as its command-line parameter to the <b>Target</b> 
+ field e.g. add "VIP Operator" to launch the Operator.</p>&#160;<p><a href="#Top">Back 
+ to top</a></p><h2><a name="Troubleshooting"></a>Troubleshooting Communication Issues</h2><p class="Notices"><b>Note:</b> While default port numbers have been used, it is possible to change the port number that either application uses via the <span class="VIPAppName">SmartUI</span> Config Editor but ONLY&#160;advanced users should attempt this.</p><p>The <span class="VIPAppName">SmartUI</span> Launcher is unable to connect to the remote distributor 
+ computer (i.e. the computer that is running the <span style="font-weight: normal;" class="VIPDistributorService">VIP Distributor</span> service) if 
+ port 9010 is being blocked by the firewall. </p><p>This port is used by the <span style="font-weight: normal;" class="VIPDistributorService">VIP Distributor</span> service to communicate to and from other computers and must 
+ be unblocked in order for it to communicate freely.</p><p class="Notices"><b>PLEASE NOTE</b>: 
+ The <span class="VIPAppName">SmartUI</span> Server will also be unable to connect to a remote client (Operator 
+ or Designer) computer if port <span class="VIPServerPort">9000</span> is being blocked by the firewall. </p><p class="Notices">This 
+ port is used by the <span class="VIPAppName">SmartUI</span> Server service to communicate to and from other 
+ remote (Operator and Designer) computers and must be unblocked in order 
+ for it to communicate freely.</p><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

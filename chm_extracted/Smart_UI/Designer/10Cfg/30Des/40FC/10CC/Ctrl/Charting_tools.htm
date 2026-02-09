@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Specialized Controls|Charting controls" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Charts" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Charting tools</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor4111"></a>Charting tools</h1>
+        <p>Charting tools can be added or removed from charting controls as needed.</p>
+        <p class="Notices"><b>Note:</b> Each tool provides a property 
+ spider, so you can retrieve and/or drive its values.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t16"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add an instance of a charting tool:</a>
+        </p>
+        <div MadCap:targetName="t16" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Right click the charting 
+ control and select the <b>Add\Delete Tools</b> 
+ menu item.</li>
+            </ol>
+            <p class="ListDesc">This displays the <b>Add\Delete 
+ Tools</b> configuration dialog</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Select the required charting 
+ tool from the <b>Tool Type</b> list box</li>
+                <li class="Numbers" value="3">Click the <b>Add</b> 
+ button.</li>
+            </ol>
+            <p class="ListDesc">This adds an instance of the selected tool to the list 
+ box beneath the buttons.</p>
+        </div>
+        <p class="Notices"><b>Note:</b> You can 
+ add more than one instance of each tool, if necessary.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t15"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove an instance of a charting tool:</a>
+        </p>
+        <div MadCap:targetName="t15" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Right click the charting 
+ control and select the <b>Add\Delete Tools</b> 
+ menu item.</li>
+            </ol>
+            <p class="ListDesc">This displays the <b>Add\Delete 
+ Tools</b> configuration dialog</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Select the instance of 
+ the charting tool that you do not require from the list box beneath the 
+ buttons.</li>
+                <li class="Numbers" value="3">Click the <b>Delete</b> 
+ button.</li>
+            </ol>
+        </div>
+        <p>&#160;</p>
+        <p>The following charting tools are provided:</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <img src="../../../../../image80.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /><a name="kanchor4112"></a> <b>CursorTool:</b> This is a horizontal and/or vertical line 
+ that you associate with a specific series, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t14"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />which you can use 
+ as follows:</a><div MadCap:targetName="t14" style="display: none;"><ul><li class="Bullets" value="1">Either drag these around 
+ the chart manually, in which case their current position (X and Y values) 
+ are reported via the associated property spider</li><li class="Bullets" value="2">Or use the associated spider 
+ to drive (reposition) these lines instead, in which case this tool can 
+ provide limit lines to specify the required or desired maximum or minimum 
+ limit for a charted series.</li></ul><p class="Notices"><b>Tip:</b> This tool 
+ should only be used for Line and XYPlot charting controls; however it 
+ does not work well for time based charts.</p></div></li>
+        </ul>
+        <p class="LineNote" style="margin-left: 12pt;"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t13"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />CursorTool configuration:</a> 
+ this describes how to display the configurable settings for an instance 
+ of the CursorTool charting tool and the more important settings.</p>
+        <div MadCap:targetName="t13" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">If necessary, right click 
+ the charting control and select the <b>Add\Delete 
+ Tools</b> menu item.</li>
+            </ol>
+            <p class="ListDesc">This displays the <b>Add\Delete 
+ Tools</b> configuration dialog</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Select the instance of 
+ the <img src="../../../../../image81.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> <b>CursorTool</b> 
+ that you want to edit from the list box beneath the buttons.</li>
+            </ol>
+            <p class="ListDesc">The <b>Cursor Tool Settings</b> 
+ are displayed in the right hand pane for the selected instance of this 
+ tool.</p>
+            <ul>
+                <li class="ListBullets" value="1">The 
+ <b>Active</b> checkbox allows you to show (if checked) or hide (if cleared) 
+ this tool from this charting control.</li>
+                <li class="ListBullets" value="2">Specify the <b>Series</b> that this tool should be associated 
+ with from this list box.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> This 
+ tool is ONLY able to retrieve the values for this series.</p>
+            <ul start="3">
+                <li class="ListBullets" value="3">Specify whether 
+ you want a Vertical, Horizontal or Both (vertical and horizontal) line 
+ to appear on the chart for this tool from the <b>Style</b> 
+ list box.</li>
+                <li class="ListBullets" value="4">If necessary, you 
+ can provide a label for this cursor, by adding an <a name="kanchor4113"></a><b>Annotation</b> 
+ charting tool and specifying its zero based index in the <b>Annotation</b> 
+ list box. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t12"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a><div MadCap:targetName="t12" style="display: none;"><p class="ListDesc">Labeling a cursor means is that the text specified by 
+ this <b>Annotation</b> tool follows this 
+ cursor so that users can easily see which cursor is being used. This is 
+ typically needed when you have a large number of cursors in a chart.</p><p class="ListDesc"><a name="kanchor4114"></a>The zero based index of the Annotation tool is the position 
+ of this Annotation tool within the list of ALL the added charting tools 
+ added to this chart. For instance, if you have added a CursorTool, AxisArrow 
+ and Annotation tool to a chart, then the zero based index specified for 
+ this Annotation tool is 2.</p><p class="ListNotice"><b>Note:</b> If you 
+ are using an <b>Annotation</b> tool to 
+ label your cursor, please ensure that its <b>Position</b> 
+ parameter is set to <b>Custom;</b> otherwise 
+ its text will NOT follow the cursor.</p></div></li>
+            </ul>
+            <ul start="3">
+                <li class="ListBullets" value="3">Specify the available 
+ display options for these lines.</li>
+                <li class="ListBullets" value="4">Specify the options 
+ that configure the display of the actual lines, such as the color and 
+ style and thickness of the lines. Alternative clear the <b>Visible</b> 
+ checkbox to ONLY use the default settings.</li>
+            </ul>
+            <p>&#160;</p>
+        </div>
+        <p class="LineNote"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t11"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuring the associated property spider:</a> 
+ all the instances of the CursorTool for a charting control can be configured 
+ using the <b>Cursors</b> property spider, 
+ within the <b>Data</b> sub-category of 
+ properties of the relevant charting control.</p>
+        <div MadCap:targetName="t11" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Ensure that the required 
+ charting control is currently selected in the graphic form.</li>
+                <li class="Numbers" value="2">Open the <b>Spider 
+ Configuration</b> window and if necessary display the properties pane 
+ on the right.</li>
+                <li class="Numbers" value="3">Open the <b>Data</b> 
+ sub-category of properties for this charting control.</li>
+                <li class="Numbers" value="4">Right click the <b>Cursors</b> 
+ property and select the <b>Show Property 
+ Spider</b> menu item.</li>
+            </ol>
+            <p class="ListDesc">The <b>Cursors</b> property 
+ spider for this charting control is displayed in the central spider workspace 
+ pane.</p>
+            <p class="ListNotice"><b>Note:</b> Each 
+ CursorTool instance is described by the instance name CursorZ, where Z 
+ is a zero-based index</p>
+            <p class="ListDesc">Each instance of the CursorTool provides the following 
+ four <b>Inputs:</b> these can be externally 
+ driven (specified).</p>
+            <ul>
+                <li class="ListBullets" value="1">CursorZ [Series]: 
+ the series of this charting control that is associated with this instance.</li>
+                <li class="ListBullets" value="2">CursorZ [Visible]: 
+ whether the cursor associated with this instance is hidden (False) or 
+ displayed (True) in the chart.</li>
+                <li class="ListBullets" value="3">CursorZ [XValue]: 
+ the required X (horizontal value) for this cursor in the chart.</li>
+                <li class="ListBullets" value="4">CursorZ [YValue]: 
+ the required Y (vertical value) for this cursor in the chart.</li>
+            </ul>
+            <p class="ListDesc">Each instance of the CursorTool provides the following 
+ two <b>Outputs:</b> these can be displayed 
+ on a graphic form or used to drive another value etc.</p>
+            <ul>
+                <li class="ListBullets" value="1">CursorZ [XValue]: 
+ the current X (horizontal value) of this cursor in the chart.&#160;</li>
+                <li class="ListBullets" value="2">CursorZ [YValue]: 
+ the current Y (vertical value) of this cursor in the chart.</li>
+            </ul>
+        </div>
+        <ul>
+            <li class="Bullets" value="1">
+                <img src="../../../../../image82.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /><a name="kanchor4115"></a><b> DrawLines:</b> This allows your users to draw lines on 
+ the chart at runtime, which they can then reposition and/or rotate and/or 
+ delete these lines, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t10"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t10" style="display: none;"><p class="ListDesc"><b>To draw a line:</b> 
+ click and drag in the direction of the required line.</p><p class="ListNotice"><b>Note:</b> By default 
+ the left mouse button is used to draw lines, although this is a configurable 
+ setting.</p><p class="ListDesc"><b>To reposition a line:</b> 
+ click the line and move it to the required location.</p><p class="ListDesc"><b>To rotate a line:</b> 
+ click the required anchor (end box) and move it around.</p><p class="ListDesc"><b>To delete a line:</b> 
+ click the line and press the DELETE key.</p></div></li>
+        </ul>
+        <p class="LineNote"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t9"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />DrawLines 
+ configuration:</a> 
+ this describes how to display the configurable settings for an instance 
+ of the DrawLines charting tool and the more important settings.</p>
+        <div MadCap:targetName="t9" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">If necessary, right click 
+ the charting control and select the <b>Add\Delete 
+ Tools</b> menu item.</li>
+            </ol>
+            <p class="ListDesc">This displays the <b>Add\Delete 
+ Tools</b> configuration dialog</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Select the instance of 
+ the <img src="../../../../../image82.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> DrawLines 
+ that you want to edit from the list box beneath the buttons.</li>
+            </ol>
+            <p class="ListDesc">The <b>DrawLine Tool Settings</b> 
+ are displayed in the right hand pane for the selected instance of this 
+ tool.</p>
+            <ul>
+                <li class="ListBullets" value="1">The<b> 
+ Active</b> checkbox allows you to show (if checked) or hide (if cleared) 
+ this tool from this charting control.</li>
+                <li class="ListBullets" value="2">Specify the <b>Series</b> that this tool should be associated 
+ with from this list box.</li>
+            </ul>
+            <ul start="3">
+                <li class="ListBullets" value="3">If necessary, specify 
+ which <b>Button</b> should be used to 
+ draw these lines.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> do not 
+ select the <b>Right</b> mouse button.</p>
+            <ul start="3">
+                <li class="ListBullets" value="3">Check the <b>Enable Draw</b> checkbox to allow your users 
+ to draw lines on the chart.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> You 
+ can ONLY draw line for ONE DrawLines instance at a time, therefore if 
+ multiple instances have this checkbox enabled ONLY lines for the last 
+ instance can be drawn.</p>
+            <ul start="3">
+                <li class="ListBullets" value="3">Check the <b>Enable Select</b> checkbox to allow your 
+ users to select the lines on the chart, to reposition, rotate and/or delete 
+ them.</li>
+                <li class="ListBullets" value="4">Specify the options 
+ that configure the display of the actual lines, such as the color and 
+ style and thickness of the lines. Alternative clear the <b>Visible</b> 
+ checkbox to ONLY use the default settings.</li>
+            </ul>
+            <p>&#160;</p>
+        </div>
+        <p class="LineNote"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuring the associated property spider:</a> 
+ all the instances of the DrawLines for a charting control can be configured 
+ using the <b>DrawLines</b> property spider, 
+ within the <b>Data</b> sub-category of 
+ properties of the relevant charting control.</p>
+        <div MadCap:targetName="t8" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Ensure that the required 
+ charting control is currently selected in the graphic form.</li>
+                <li class="Numbers" value="2">Open the <b>Spider 
+ Configuration</b> window and if necessary display the properties pane 
+ on the right.</li>
+                <li class="Numbers" value="3">Open the <b>Data</b> 
+ sub-category of properties for this charting control.</li>
+                <li class="Numbers" value="4">Right click the <b>DrawLines</b>  property and select the <b>Show Property 
+ Spider</b> menu item.</li>
+            </ol>
+            <p class="ListDesc">The <b>DrawLines</b> property 
+ spider for this charting control is displayed in the central spider workspace 
+ pane.</p>
+            <p class="ListNotice"><b>Note:</b> Each 
+ DrawLines instance is described by the instance name DrawLineZ, where 
+ Z is a zero-based index.</p>
+            <p class="ListDesc">Each instance of the DrawLines tool provides the following 
+ four <b>Inputs:</b> these can be externally 
+ driven (specified).</p>
+            <ul>
+                <li class="ListBullets" value="1">DrawLineZ [EnableDraw]: 
+ to enable (True) or disable (False) your users to draw lines on the chart.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> You 
+ can ONLY draw line for ONE DrawLines instance at a time, therefore if 
+ multiple instances have this checkbox enabled ONLY lines for the last 
+ instance can be drawn.</p>
+            <ul>
+                <li class="ListBullets" value="1">DrawLineZ [DataSet]: 
+ specify dataset data to automatically create and /or dynamically configure 
+ these lines. This dataset requires <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">the following four columns:<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">&#160;X1, Y1, 
+ X2, Y2 which are the coordinates of the start and end points of each line.
+
+</span></span>&#160;</li>
+                <li class="ListBullets" value="2">DrawLineZ [EnableSelect]: 
+ to allow (True) or prevent (False) the selection of the drawn lines on 
+ the chart, to reposition, rotate and/or delete them.</li>
+                <li class="ListBullets" value="3">DrawLineZ [Visible]: 
+ whether you can (True) or cannot (False) see the drawn lines on the chart.</li>
+            </ul>
+            <p class="ListDesc">Each instance of the DrawLines provides the following 
+ two <b>Outputs:</b> these can be displayed 
+ on a graphic form or used to drive another value etc.</p>
+            <ul>
+                <li class="ListBullets" value="1">DrawLineZ [DataSet]: 
+ this provides a dataset that provides the start and end points of the 
+ drawn lines. This dataset provides <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">the following four columns:<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">&#160;X1, Y1, 
+ X2, Y2 which are the coordinates of the start and end points of each line.
+
+</span></span>&#160;</li>
+            </ul>
+        </div>
+        <ul>
+            <li class="Bullets" value="1"><b><img src="AxisArrow.jpg" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" /> AxisArrow:</b> This allows your users to add arrows to 
+ axes which can be used for scrolling horizontal axes left/right or scrolling 
+ vertical axes up/down.</li>
+        </ul>
+        <p class="LineNote"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /><b>AxisArrow configuration:</b></a>  
+ this describes how to display the configurable settings for an instance 
+ of the AxisArrow charting tool and the more important settings.</p>
+        <div MadCap:targetName="t7" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">If necessary, right click 
+ the charting control and select the <b>Add\Delete 
+ Tools</b> menu item.</li>
+            </ol>
+            <p class="ListDesc">This displays the <b>Add\Delete 
+ Tools</b> configuration dialog</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Select the instance of 
+ the <b><img src="AxisArrow.jpg" style="border: none;width: 16px;height: 16px;float: none;border-style: none;" width="16" height="16" border="0" /> AxisArrow</b> 
+ that you want to edit from the list box beneath the buttons.</li>
+            </ol>
+            <p class="ListDesc">The <b>AxisArrow Tool Settings</b> 
+ are displayed in the right hand pane for the selected instance of this 
+ tool.</p>
+            <ul>
+                <li class="ListBullets" value="1">The<b> 
+ Active</b> checkbox allows you to show (if checked) or hide (if cleared) 
+ this tool from this charting control.</li>
+                <li class="ListBullets" value="2">Specify the <b>Axis</b> that this tool should be associated 
+ with from this list box.</li>
+                <li class="ListBullets" value="3">Specify whether 
+ you require a scrolling arrow on one or both sides of this axis by selecting 
+ the required option from the <b>Position</b> 
+ list box, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t6" style="display: none;"><ul><li class="BulletSub" value="1"><b>Start:</b> 
+ This ONLY adds a scrolling arrow to the:</li><ul><li class="SubSubBullet" value="1">Top end of 
+ a vertical axis (e.g. Left or Right axis)</li><li class="SubSubBullet" value="2">Left end 
+ of a horizontal axis (e.g. Top or Bottom axis)</li></ul></ul><ul><li class="BulletSub" value="1"><b>End:</b> 
+ This ONLY adds a scrolling arrow to the:</li><ul><li class="SubSubBullet" value="1">Bottom end 
+ of a vertical axis (e.g. Left or Right axis)</li><li class="SubSubBullet" value="2">Right end 
+ of a horizontal axis (e.g. Top or Bottom axis)</li></ul><li class="BulletSub" value="2"><b>Both:</b> 
+ This adds a scrolling arrow to both ends of the selected <b>Axis</b>.</li></ul></div></li>
+            </ul>
+            <ul start="3">
+                <li class="ListBullets" value="3">If necessary, specify 
+ the <b>Length</b> of the arrow/s, in 
+ pixels, that are displayed on the specified <b>Axis</b>.</li>
+            </ul>
+            <p class="ListDescSub">A <b>Length</b> up 
+ to 8 allows you to create an arrowhead of increasing size. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />For instance:</a></p>
+            <div MadCap:targetName="t5" style="display: none;">
+                <p>The following arrow head size is displayed when <b>Length</b> 
+ is 8: <img src="ArrowHead.jpg" style="border: none;width: 9px;height: 9px;float: none;" width="9" height="9" border="0" /></p>
+            </div>
+            <p class="ListDescSub">A <b>Length</b> above 
+ 8 allows you to configure the size of its tail. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />For instance:</a></p>
+            <div MadCap:targetName="t4" style="display: none;">
+                <p>The following arrow tail size is displayed when <b>Length</b> 
+ is 16: <img src="ArrowWithTail.jpg" style="border: none;width: 17px;height: 9px;float: none;" width="17" height="9" border="0" /></p>
+            </div>
+            <ul start="3">
+                <li class="ListBullets" value="3">If necessary, configure 
+ the required scrolling options that are used when a user clicks on the 
+ scrolling arrow/s.</li>
+            </ul>
+        </div>
+        <ul>
+            <li class="Bullets" value="1"><b><img src="Annotation.jpg" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" /> Annotation:</b> This allows you to add text to a chart 
+ and change its position, size and/or formatting.</li>
+        </ul>
+        <p class="LineNote"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /><b>Annotation 
+ configuration:</b></a>  
+ this describes how to display the configurable settings for an instance 
+ of the Annotationcharting tool 
+ and the more important settings.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">If necessary, right click 
+ the charting control and select the <b>Add\Delete 
+ Tools</b> menu item.</li>
+            </ol>
+            <p class="ListDesc">This displays the <b>Add\Delete 
+ Tools</b> configuration dialog</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Select the instance of 
+ the <b><img src="Annotation.jpg" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" /> Annotation</b> 
+ that you want to edit from the list box beneath the buttons.</li>
+            </ol>
+            <p class="ListDesc">The settings for this <b>Annotation</b> 
+ tool are displayed in the right hand pane.</p>
+            <ul>
+                <li class="ListBullets" value="1">The<b> 
+ Active</b> checkbox allows you to show (if checked) or hide (if cleared) 
+ this tool from this charting control.</li>
+                <li class="ListBullets" value="2">Specify the <b>Text</b> that you want this tool to display 
+ on the chart.</li>
+            </ul>
+            <ol start="3">
+                <li class="ListBullets" value="3">Specify the <b>Position</b> of this <b>Text</b> 
+ on the chart, as follows:</li>
+            </ol>
+            <ul>
+                <li class="BulletSub" value="1">Either use <b>Auto</b> 
+ to select one of the four preset chart positions.</li>
+                <li class="BulletSub" value="2">Or check the <b>Custom</b> checkbox and manually provide 
+ the initial <b>Left</b> and <b>Top</b> 
+ coordinates of this text box.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> If you 
+ are using this <b>Annotation</b> tool 
+ to label a <b>CursorTool</b> then ensure 
+ that its <b>Position</b> parameter is 
+ set to <b>Custom</b>, otherwise the text 
+ box will NOT follow the cursor.</p>
+            <ol start="3">
+                <li class="ListBullets" value="3">If necessary, specify 
+ the options that configure the display of this text, such as its <b>Font</b>, background and text <b>color</b> 
+ and <b>Text Alignment</b>.</li>
+            </ol>
+            <ol start="3">
+                <li class="ListBullets" value="3">If necessary, specify 
+ the options that configure the appearance of the&#160;text 
+ box, such as <b>Round Frame</b> or <b>Transparent</b>, in which case specify the 
+ degree of <b>Transparency</b>, with 0 
+ being entirely transparent and 255 being entirely visible.</li>
+            </ol>
+            <ol start="3">
+                <li class="ListBullets" value="3">If necessary, specify 
+ the <b>size</b> of this text box, by 
+ checking the <b>Custom</b> checkbox and 
+ manually providing the <b>Height</b> 
+ and <b>Width</b> dimensions of this text 
+ box, in pixels.</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

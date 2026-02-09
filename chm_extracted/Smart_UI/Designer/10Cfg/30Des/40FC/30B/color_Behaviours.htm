@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Behaviors" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>color Behaviours</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3241"></a>color Behaviours</h1>
+        <p><a name="kanchor3242"></a><a name="kanchor3243"></a><a name="kanchor3244"></a>You can apply this Behaviour to controls and graphic elements (vectors) to achieve the following effects:</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p><a name="kanchor3245"></a><a name="kanchor3246"></a><a name="kanchor3247"></a><a name="kanchor3248"></a>To assign colors to the two states of a Boolean or digital value, so that depending on its value, this object will alternate 
+					between these two pre-defined colors. </p>
+            </li>
+            <li class="Bullets" value="2">
+                <p><a name="kanchor3249"></a>To blink a specific color property of the object <a name="kanchor3250"></a> (alternate 
+ between two pre-defined colors at a specified interval in milliseconds) 
+ and display another pre-defined color when this blinking is stopped. </p>
+                <p>This 
+ blinking can either be continuous or be started and stopped by a value.</p>
+            </li>
+            <li class="Bullets" value="3">
+                <p>To blink the visibility<a name="kanchor3251"></a> of the object (alternate 
+ between hiding and showing the object at a specified interval in milliseconds) .</p>
+                <p> This 
+ blinking can either be continuous or be started and stopped by a value.</p>
+            </li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1">
+                <p><a name="kanchor3252"></a><a name="kanchor3253"></a><a name="kanchor3254"></a>To define <a name="kanchor3255"></a>colored states, 
+ each associated with specific value/s, which provides a visual indication 
+ of a specific String, Double or Integer value. </p>
+                <p>If necessary, one or more 
+ of these states can blink.</p>
+            </li>
+        </ul>
+        <ul MadCap:conditions="VIP.Designer_VerMinorTwo">
+            <li class="Bullets" value="1">
+                <p><a name="kanchor3256"></a><a name="kanchor3257"></a>To define <a name="kanchor3258"></a>colored bit masks, 
+ each having an associated by an Integer value that represents a specific sequence of bits that are set (to 1) for up to 32 bits. </p>
+                <p>If necessary, one or more 
+ of these bit masks can blink.</p>
+            </li>
+        </ul>
+        <p class="Notices"><b>Note:</b> Only numerical 
+ and Boolean values can be used to activate blinking. Invalid values grey 
+ out the associated object.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DigitalStateHowTo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To assign colors to the two  states of a digital (Boolean) value:</a>
+        </p>
+        <div MadCap:targetName="DigitalStateHowTo" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Add or edit a <b>Color</b> Behaviour to display its configuration dialog.</li>
+                <li class="Numbers" value="2">Select the <b>Digital-state</b> 
+ option to display the <b>Digital-state Options</b> 
+ section.</li>
+                <li class="Numbers" value="3">
+                    <p>Click the browse button <img src="../../../../image68.gif" style="border: none;width: 20px;height: 20px;border-style: none;" width="20" height="20" border="0" /> to the right of the       <b>Input Data Element</b> 
+ edit box to select the required digital (Boolean) value (data element) whose value will determine the displayed color, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ClrDEBlinkTrgrCfg;VisibDEBlinkTrgCfg;ClrStateInputDECfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                </li>
+                <p class="NumbersSubLetters" MadCap:targetName="ClrStateInputDECfg" style="display: none;">This dialog displays a tree view of all the datasources and their data 
+ elements that are contained within the connected Servers, like that displayed 
+ by the <b>Enterprise Manager</b>.</p>
+                <p class="NumbersSubLetters" MadCap:targetName="ClrStateInputDECfg" style="display: none;">The value selected initially by this browser is determined, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrowserSelection"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                <div MadCap:targetName="DEBrowserSelection" style="display: none;">
+                    <ul>
+                        <li class="ListSubBullet" value="1">If you have NOT selected a data element for the current field, then it displays the last data element, that you browsed in, using ANY DE browser.</li>
+                    </ul>
+                    <p class="ListNotSubSub"><b>Tip:</b> This is particularly helpful, when you are working with the SAME datasource, as it expands this datasource in the tree, highlighting the last browsed-in data element, which you can use as a reference.</p>
+                    <ul>
+                        <li class="ListSubBullet" value="1">If you have browsed in a data element for the current field, then this then data element is automatically selected for you.</li>
+                    </ul>
+                </div>
+                <ul start="1" MadCap:targetName="ClrStateInputDECfg" style="display: none;">
+                    <li class="NumbersSubLetters" value="1">If necessary, expand 
+ the datasources in the tree, to expose the required data element, by clicking 
+ their plus boxes <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;" width="9" height="9" border="0" />.</li>
+                </ul>
+                <p class="ListDescSub" MadCap:targetName="ClrStateInputDECfg" style="display: none;">The name of the currently selected data 
+ element is displayed at the bottom of this configuration dialog.</p>
+                <ul start="2" MadCap:targetName="ClrStateInputDECfg" style="display: none;">
+                    <li class="NumbersSubLetters" value="2">Double 
+ click the required data element.</li>
+                </ul>
+                <p MadCap:targetName="ClrStateInputDECfg" style="display: none;">The <b>Data Element Browser</b> dialog provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrwsrFeatures"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following features to assist you in this task of selecting the required value:</a></p>
+                <div MadCap:targetName="ClrStateInputDECfg" style="display: none;">
+                    <ol>
+                        <li class="Bullets" value="1">The <b>Recently selected elements</b> list, which displays the last 10 selected data elements  - so that these data elements can be quickly selected again, whose display is controlled by the <img src="../../30GF/20Dsgn/DEBrowser_ShowButton.jpg" /> or <img src="../../30GF/20Dsgn/DEBrowser_HideButton.jpg" /> button in the top right hand corner.</li>
+                    </ol>
+                    <p class="ListDesc">If the data element, in this <b>Recently selected elements</b> list, does not have an associated icon, then either this data element does not exist or, in the case of the <span class="AdroitAppName">Adroit</span> datasource, that you have not opened the associated Agentgroup in the <span class="AdroitAppName">Adroit</span> datasource tree and so if this data element is selected it will not be found in the <b>Browser</b> window.</p>
+                    <ol>
+                        <li class="Bullets" value="1">The ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../../../../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../../../../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../../../../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog. </li>
+                        <li class="Bullets" value="2">A data element searching capability to quickly locate similarly-named values without manually browsing for them: simply type the required search criteria into the <b>Search in browser for</b> edit box and all the data element names containing the specified search string are displayed in a list providing the name of the data element and its path. If necessary, click the <img src="../../30GF/20Dsgn/DEBrowser_BackButton.jpg" /> button to return to the tree view.</li>
+                    </ol>
+                    <p class="ListDesc">By default, to speed up searching on large <span class="AdroitAppName">Adroit</span> Agent Server projects, the searching stops at the agent and not the slot level.</p>
+                    <ol>
+                        <li class="Bullets" value="1">The tree view provides the full Enterprise Manager context sensitive right click menu functionality. So in the case of using an <span class="AdroitAppName">Adroit</span> datasource you can create the required agent/s when configuring a Behaviour.</li>
+                        <li class="Bullets" value="2">When selecting tags from an <span class="AdroitAppName">Adroit</span> datasource, you can also create on-the-fly agents by editing the selected data element string to create another tag. In this case, when you click <b>Finish</b>, a message is displayed asking whether you want to create this new tag or not, if you select <b>Yes</b> then this tag is  created and selected.</li>
+                    </ol>
+                </div>
+                <li class="Numbers" value="4">Select the <b>color for 'ON' digital value</b> and 
+<b>color for 'OFF' digital value</b> colors. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Using the color edit box 
+ to select a color</a></span>.</li>
+            </ol>
+            <ol start="5">
+                <li class="Numbers" value="5">Click the <b>Finish</b> 
+ button.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="BlinkColorHowTo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To blink a color of a control or vector:</a>
+        </p>
+        <div MadCap:targetName="BlinkColorHowTo" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Add or edit a <b>Color</b> Behaviour to display its configuration dialog.</li>
+                <li class="Numbers" value="2">
+                    <p>Use the <b>Apply to</b> 
+ drop down list to select the required color 
+ property of the object to blink, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="BlinkClrProp"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                    <p MadCap:targetName="BlinkClrProp" style="display: none;">This list only displays the color properties of this object that are visible to the end-user.</p>
+                    <p MadCap:targetName="BlinkClrProp" style="display: none;">By default, the <b>Backcolor</b> property is selected, if it exists, since this 
+ is the most common used color property.</p>
+                    <p MadCap:targetName="BlinkClrProp" style="display: none;"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To select another property from this list:<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">Click the drop down list to open it and select another property.
+
+</span></span>
+                    </p>
+                </li>
+                <li class="Numbers" value="3">Select the <b>Blink</b> 
+ option to display the <b>Blink Options</b> 
+ section.</li>
+                <li class="Numbers" value="4">Ensure that <b>Color</b> is selected in the <b>Apply blinking to</b> section.</li>
+            </ol>
+            <p class="ListDesc">This configures the selected color property to change from an <b>On Color</b> to an <b>Off 
+ Color</b> at a <b>Blink Interval</b> 
+ defined in milliseconds and to display the <b>Stop Color</b> when the blinking ends.</p>
+            <p class="ListNotice"> <b>Note:</b> To ensure that a color-property is specified, this will change the <b>Apply to</b> property is changed to Backcolor (or BackColor.Solidcolor for vectors), if the current property does not contain the word "color" in it.</p>
+            <ol start="5">
+                <li class="Numbers" value="5">Select the required <b>On</b> and<b> 
+ Off</b> and <b>Stop</b> colors. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Using the color edit box 
+ to select a color</a></span>.</li>
+                <li class="Numbers" value="6">Specify the required <b>Blink Interval</b>, which is the time (in 
+ milliseconds) to display the <b>On Color</b> 
+ and<b> Off Color</b>.</li>
+                <li class="Numbers" value="7">Specify the required <b>Blink Trigger</b> method (how to initiate 
+ this blinking) as follows:</li>
+                <li class="ListBullets" value="8">Select <b>Always 
+ blinking</b> if this color should continually blink, in other words 
+ the <b>Stop Color</b> is never displayed.</li>
+                <li class="ListBullets" value="9">Select <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ClrBlinkTriggerCfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Started by data element</a> 
+ to use a value to start and stop the blinking of this color.</li>
+            </ol>
+            <ol start="8">
+                <li class="Numbers" value="8">Click the <b>Finish</b> 
+ button.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t12;BlinkVisHowTo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To blink the visibility of a control or vector:</a>
+        </p>
+        <div MadCap:targetName="BlinkVisHowTo" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Add or edit a <b>Color</b> Behaviour to display its configuration dialog.</li>
+                <li class="Numbers" value="2">Select the <b>Blink</b> 
+ option to display the <b>Blink Options</b> 
+ section.</li>
+                <li class="Numbers" value="3">Ensure that <b>Visibility</b> is selected in the <b>Apply blinking to</b> section.</li>
+            </ol>
+            <p class="ListDesc">This configures this object to alternate between being displayed and then hidden at a <b>Blink Interval</b> 
+ defined in milliseconds.</p>
+            <p class="ListNotice"> <b>Note:</b> To ensure that a visibility-property is specified, this will change the <b>Apply to</b> property is changed to Visible, if the current property does not contain the word "visible" in it.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">Specify the required <b>Blink Interval</b>, which is the time (in 
+ milliseconds) to hide and display the object.</li>
+                <li class="Numbers" value="5">Specify the required <b>Blink Trigger</b> method (how to initiate 
+ this blinking) as follows:</li>
+                <li class="ListBullets" value="6"><b>Always 
+ blinking</b> if this object should continually blink.</li>
+                <li class="ListBullets" value="7">Select <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="VisBlinkTriggerCfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Started by data element</a> to use a value to start and stop the blinking.<div MadCap:targetName="VisBlinkTriggerCfg" style="display: none;"><p>Use the <b>Start blinking when</b> 
+ edit box to select the value (data element) that controls 
+ the blinking, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ClrDEBlinkTrgrCfg;VisibDEBlinkTrgCfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p><p class="NumbersSubLetters" MadCap:targetName="VisibDEBlinkTrgCfg" style="display: none;">This dialog displays a tree view of all the datasources and their data 
+ elements that are contained within the connected Servers, like that displayed 
+ by the <b>Enterprise Manager</b>.</p><p class="NumbersSubLetters" MadCap:targetName="VisibDEBlinkTrgCfg" style="display: none;">The value selected initially by this browser is determined, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrowserSelection"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p><div MadCap:targetName="DEBrowserSelection" style="display: none;"><ul><li class="ListSubBullet" value="1">If you have NOT selected a data element for the current field, then it displays the last data element, that you browsed in, using ANY DE browser.</li></ul><p class="ListNotSubSub"><b>Tip:</b> This is particularly helpful, when you are working with the SAME datasource, as it expands this datasource in the tree, highlighting the last browsed-in data element, which you can use as a reference.</p><ul><li class="ListSubBullet" value="1">If you have browsed in a data element for the current field, then this then data element is automatically selected for you.</li></ul></div><ul start="1" MadCap:targetName="VisibDEBlinkTrgCfg" style="display: none;"><li class="NumbersSubLetters" value="1">If necessary, expand 
+ the datasources in the tree, to expose the required data element, by clicking 
+ their plus boxes <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;" width="9" height="9" border="0" />.</li></ul><p class="ListDescSub" MadCap:targetName="VisibDEBlinkTrgCfg" style="display: none;">The name of the currently selected data 
+ element is displayed at the bottom of this configuration dialog.</p><ul start="2" MadCap:targetName="VisibDEBlinkTrgCfg" style="display: none;"><li class="NumbersSubLetters" value="2">Double 
+ click the required data element.</li></ul><p MadCap:targetName="VisibDEBlinkTrgCfg" style="display: none;">The <b>Data Element Browser</b> dialog provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrwsrFeatures"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following features to assist you in this task of selecting the required value:</a></p><div MadCap:targetName="VisibDEBlinkTrgCfg" style="display: none;"><ol><li class="Bullets" value="1">The <b>Recently selected elements</b> list, which displays the last 10 selected data elements  - so that these data elements can be quickly selected again, whose display is controlled by the <img src="../../30GF/20Dsgn/DEBrowser_ShowButton.jpg" /> or <img src="../../30GF/20Dsgn/DEBrowser_HideButton.jpg" /> button in the top right hand corner.</li></ol><p class="ListDesc">If the data element, in this <b>Recently selected elements</b> list, does not have an associated icon, then either this data element does not exist or, in the case of the <span class="AdroitAppName">Adroit</span> datasource, that you have not opened the associated Agentgroup in the <span class="AdroitAppName">Adroit</span> datasource tree and so if this data element is selected it will not be found in the <b>Browser</b> window.</p><ol><li class="Bullets" value="1">The ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../../../../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../../../../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../../../../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog. </li><li class="Bullets" value="2">A data element searching capability to quickly locate similarly-named values without manually browsing for them: simply type the required search criteria into the <b>Search in browser for</b> edit box and all the data element names containing the specified search string are displayed in a list providing the name of the data element and its path. If necessary, click the <img src="../../30GF/20Dsgn/DEBrowser_BackButton.jpg" /> button to return to the tree view.</li></ol><p class="ListDesc">By default, to speed up searching on large <span class="AdroitAppName">Adroit</span> Agent Server projects, the searching stops at the agent and not the slot level.</p><ol><li class="Bullets" value="1">The tree view provides the full Enterprise Manager context sensitive right click menu functionality. So in the case of using an <span class="AdroitAppName">Adroit</span> datasource you can create the required agent/s when configuring a Behaviour.</li><li class="Bullets" value="2">When selecting tags from an <span class="AdroitAppName">Adroit</span> datasource, you can also create on-the-fly agents by editing the selected data element string to create another tag. In this case, when you click <b>Finish</b>, a message is displayed asking whether you want to create this new tag or not, if you select <b>Yes</b> then this tag is  created and selected.</li></ol></div><p>Select if the blinking starts when the selected value 
+ is <b>On</b> or <b>Off</b>.</p><p class="Notices"><b>Note1:</b> For numerical values, 
+ any value other than 0 (zero) will start the blinking, ONLY 
+ the value 0 (zero) is able to stop the blinking.</p><p class="Notices"><b>Note2:</b> For String values, only Boolean state 
+ values ("True", "False") can be used.</p></div></li>
+            </ol>
+            <ol start="7">
+                <li class="Numbers" value="7">Click the <b>Finish</b> 
+ button.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ColoredStatesHowTo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To define colored states for a control or vector to visually indicate a value:</a>
+        </p>
+        <div MadCap:targetName="ColoredStatesHowTo" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Add or edit a <b>Color</b> Behaviour to display its configuration dialog.</li>
+                <li class="Numbers" value="2">
+                    <p>Use the <b>Apply to</b> 
+ drop down list to select the required color 
+ property of the object to blink, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="BlinkColorApplyTo;BlinkStateClrApplyTo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                    <p MadCap:targetName="BlinkStateClrApplyTo" style="display: none;">This list only displays the color properties of this object that are visible to the end-user.</p>
+                    <p MadCap:targetName="BlinkStateClrApplyTo" style="display: none;">By default, the <b>Backcolor</b> property is selected, if it exists, since this 
+ is the most common used color property.</p>
+                    <p MadCap:targetName="BlinkStateClrApplyTo" style="display: none;"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To select another property from this list:<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">Click the drop down list to open it and select another property.
+
+</span></span>
+                    </p>
+                </li>
+                <li class="Numbers" value="3">Select the <b>Multi-state\Blink</b> 
+ option.</li>
+                <li class="Numbers" value="4">
+                    <p>Use the <b>Input Data Element</b> 
+ edit box to select the value (data element) to monitor, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ClrDEBlinkTrgrCfg;VisibDEBlinkTrgCfg;ClrStateInputDECfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                    <p class="NumbersSubLetters" MadCap:targetName="ClrStateInputDECfg" style="display: none;">This dialog displays a tree view of all the datasources and their data 
+ elements that are contained within the connected Servers, like that displayed 
+ by the <b>Enterprise Manager</b>.</p>
+                    <p class="NumbersSubLetters" MadCap:targetName="ClrStateInputDECfg" style="display: none;">The value selected initially by this browser is determined, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrowserSelection"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                    <div MadCap:targetName="DEBrowserSelection" style="display: none;">
+                        <ul>
+                            <li class="ListSubBullet" value="1">If you have NOT selected a data element for the current field, then it displays the last data element, that you browsed in, using ANY DE browser.</li>
+                        </ul>
+                        <p class="ListNotSubSub"><b>Tip:</b> This is particularly helpful, when you are working with the SAME datasource, as it expands this datasource in the tree, highlighting the last browsed-in data element, which you can use as a reference.</p>
+                        <ul>
+                            <li class="ListSubBullet" value="1">If you have browsed in a data element for the current field, then this then data element is automatically selected for you.</li>
+                        </ul>
+                    </div>
+                    <ul start="1" MadCap:targetName="ClrStateInputDECfg" style="display: none;">
+                        <li class="NumbersSubLetters" value="1">If necessary, expand 
+ the datasources in the tree, to expose the required data element, by clicking 
+ their plus boxes <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;" width="9" height="9" border="0" />.</li>
+                    </ul>
+                    <p class="ListDescSub" MadCap:targetName="ClrStateInputDECfg" style="display: none;">The name of the currently selected data 
+ element is displayed at the bottom of this configuration dialog.</p>
+                    <ul start="2" MadCap:targetName="ClrStateInputDECfg" style="display: none;">
+                        <li class="NumbersSubLetters" value="2">Double 
+ click the required data element.</li>
+                    </ul>
+                    <p MadCap:targetName="ClrStateInputDECfg" style="display: none;">The <b>Data Element Browser</b> dialog provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrwsrFeatures"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following features to assist you in this task of selecting the required value:</a></p>
+                    <div MadCap:targetName="ClrStateInputDECfg" style="display: none;">
+                        <ol>
+                            <li class="Bullets" value="1">The <b>Recently selected elements</b> list, which displays the last 10 selected data elements  - so that these data elements can be quickly selected again, whose display is controlled by the <img src="../../30GF/20Dsgn/DEBrowser_ShowButton.jpg" /> or <img src="../../30GF/20Dsgn/DEBrowser_HideButton.jpg" /> button in the top right hand corner.</li>
+                        </ol>
+                        <p class="ListDesc">If the data element, in this <b>Recently selected elements</b> list, does not have an associated icon, then either this data element does not exist or, in the case of the <span class="AdroitAppName">Adroit</span> datasource, that you have not opened the associated Agentgroup in the <span class="AdroitAppName">Adroit</span> datasource tree and so if this data element is selected it will not be found in the <b>Browser</b> window.</p>
+                        <ol>
+                            <li class="Bullets" value="1">The ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../../../../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../../../../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../../../../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog. </li>
+                            <li class="Bullets" value="2">A data element searching capability to quickly locate similarly-named values without manually browsing for them: simply type the required search criteria into the <b>Search in browser for</b> edit box and all the data element names containing the specified search string are displayed in a list providing the name of the data element and its path. If necessary, click the <img src="../../30GF/20Dsgn/DEBrowser_BackButton.jpg" /> button to return to the tree view.</li>
+                        </ol>
+                        <p class="ListDesc">By default, to speed up searching on large <span class="AdroitAppName">Adroit</span> Agent Server projects, the searching stops at the agent and not the slot level.</p>
+                        <ol>
+                            <li class="Bullets" value="1">The tree view provides the full Enterprise Manager context sensitive right click menu functionality. So in the case of using an <span class="AdroitAppName">Adroit</span> datasource you can create the required agent/s when configuring a Behaviour.</li>
+                            <li class="Bullets" value="2">When selecting tags from an <span class="AdroitAppName">Adroit</span> datasource, you can also create on-the-fly agents by editing the selected data element string to create another tag. In this case, when you click <b>Finish</b>, a message is displayed asking whether you want to create this new tag or not, if you select <b>Yes</b> then this tag is  created and selected.</li>
+                        </ol>
+                    </div>
+                </li>
+                <li class="Numbers" value="5">Define the required state/s, as follows:</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">Specify 
+ the value/s that defines this state in the <b>State</b> 
+ field as follows:</li>
+            </ol>
+            <p class="ListDescSub"><b>String</b> values: 
+ specify the required text that the <b>Input 
+ Data Element</b> must be matched exactly, for instance 'True' or 'False' 
+ for Boolean values.</p>
+            <p class="ListNoteSub" style="margin-left: 56px;"><b>Note:</b> 
+ Do not specify the required name of this state within quotes.</p>
+            <p class="ListDescSub"><b>Integer</b> or 
+ <b>Double</b> values: specify the range 
+ of values that the <b>Input Data Element</b> 
+ must lie within, by connecting the minimum and maximum values of this 
+ range with ":" character, for instance, 5.5:6.5 or -20:-10.&#160;&#160;</p>
+            <p class="ListNoteSub"><b>Note:</b> Ensure 
+ there are NO spaces between the specified numbers and this ":" 
+ character.</p>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">Select 
+ the color to represent this state in the <b>State 
+ Color</b> field by clicking to the left of the color description to 
+ display the color edit box. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Using the color 
+ edit box to select a color</a></span>.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> Remove 
+ unnecessary states by selecting the row indicator (the first cell of the 
+ row) and pressing the DEL key.</p>
+            <ol start="6">
+                <li class="Numbers" value="6">If you need to configure 
+ one or more of these states to blink, then click the <b>Advanced View</b> button, which displays the additional columns required to configure this blinking, as follows:</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">Check 
+ the <b>Blink</b> checkbox of the required 
+ state.</li>
+                <li class="NumbersSubLetters" value="2">Select 
+ the color to represent the alternating color in the <b>Blink 
+ Color</b> field by clicking to the left of the color description to 
+ display the color edit box. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Using the color edit 
+ box to select a color</a></span>.</li>
+                <li class="ListSubBullet" value="3">If this state 
+ should continually blink, then ensure that the  field is empty.</li>
+                <li class="ListSubBullet" value="4">
+                    <p>If a value 
+ is required to start and stop the blinking of this state, then select this value in the <b>Blinking Trigger</b> field, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ClrStateBlinkTrigDECfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a>.</p>
+                    <p class="NumbersSubLetters" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">This dialog displays a tree view of all the datasources and their data 
+ elements that are contained within the connected Servers, like that displayed 
+ by the <b>Enterprise Manager</b>.</p>
+                    <p class="NumbersSubLetters" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">The value selected initially by this browser is determined, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrowserSelection"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                    <div MadCap:targetName="DEBrowserSelection" style="display: none;">
+                        <ul>
+                            <li class="ListSubBullet" value="1">If you have NOT selected a data element for the current field, then it displays the last data element, that you browsed in, using ANY DE browser.</li>
+                        </ul>
+                        <p class="ListNotSubSub"><b>Tip:</b> This is particularly helpful, when you are working with the SAME datasource, as it expands this datasource in the tree, highlighting the last browsed-in data element, which you can use as a reference.</p>
+                        <ul>
+                            <li class="ListSubBullet" value="1">If you have browsed in a data element for the current field, then this then data element is automatically selected for you.</li>
+                        </ul>
+                    </div>
+                    <ul start="1" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">
+                        <li class="NumbersSubLetters" value="1">If necessary, expand 
+ the datasources in the tree, to expose the required data element, by clicking 
+ their plus boxes <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;" width="9" height="9" border="0" />.</li>
+                    </ul>
+                    <p class="ListDescSub" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">The name of the currently selected data 
+ element is displayed at the bottom of this configuration dialog.</p>
+                    <ul start="2" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">
+                        <li class="NumbersSubLetters" value="2">Double 
+ click the required data element.</li>
+                    </ul>
+                    <p MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">The <b>Data Element Browser</b> dialog provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrwsrFeatures"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following features to assist you in this task of selecting the required value:</a></p>
+                    <div MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">
+                        <ol>
+                            <li class="Bullets" value="1">The <b>Recently selected elements</b> list, which displays the last 10 selected data elements  - so that these data elements can be quickly selected again, whose display is controlled by the <img src="../../30GF/20Dsgn/DEBrowser_ShowButton.jpg" /> or <img src="../../30GF/20Dsgn/DEBrowser_HideButton.jpg" /> button in the top right hand corner.</li>
+                        </ol>
+                        <p class="ListDesc">If the data element, in this <b>Recently selected elements</b> list, does not have an associated icon, then either this data element does not exist or, in the case of the <span class="AdroitAppName">Adroit</span> datasource, that you have not opened the associated Agentgroup in the <span class="AdroitAppName">Adroit</span> datasource tree and so if this data element is selected it will not be found in the <b>Browser</b> window.</p>
+                        <ol>
+                            <li class="Bullets" value="1">The ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../../../../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../../../../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../../../../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog. </li>
+                            <li class="Bullets" value="2">A data element searching capability to quickly locate similarly-named values without manually browsing for them: simply type the required search criteria into the <b>Search in browser for</b> edit box and all the data element names containing the specified search string are displayed in a list providing the name of the data element and its path. If necessary, click the <img src="../../30GF/20Dsgn/DEBrowser_BackButton.jpg" /> button to return to the tree view.</li>
+                        </ol>
+                        <p class="ListDesc">By default, to speed up searching on large <span class="AdroitAppName">Adroit</span> Agent Server projects, the searching stops at the agent and not the slot level.</p>
+                        <ol>
+                            <li class="Bullets" value="1">The tree view provides the full Enterprise Manager context sensitive right click menu functionality. So in the case of using an <span class="AdroitAppName">Adroit</span> datasource you can create the required agent/s when configuring a Behaviour.</li>
+                            <li class="Bullets" value="2">When selecting tags from an <span class="AdroitAppName">Adroit</span> datasource, you can also create on-the-fly agents by editing the selected data element string to create another tag. In this case, when you click <b>Finish</b>, a message is displayed asking whether you want to create this new tag or not, if you select <b>Yes</b> then this tag is  created and selected.</li>
+                        </ol>
+                    </div>
+                </li>
+            </ol>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="CurrClrState"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />How the displayed colored state is determined:</a>
+            </p>
+            <div MadCap:targetName="CurrClrState" style="display: none;">
+                <p class="Notices"><b>Note:</b> The states 
+ are processed in order from top to bottom, until the first match is found, 
+ after which the remaining states are ignored.</p>
+                <ul>
+                    <li class="Bullets" value="1">For <b>String</b> 
+ values: if the current value matches any of the states then this property 
+ is set to its associated color.</li>
+                    <li class="Bullets" value="2">For <b>Double</b> 
+ or <b>Integer</b> values: if the current 
+ value falls within the range of a state then this property is set to its 
+ associated color.</li>
+                </ul>
+                <p class="LineNote">If the current value cannot be matched to any of the 
+ states, then the property displays the default "Control" color 
+ instead.</p>
+            </div>
+        </div>
+        <p class="Notices" MadCap:conditions="Common.VerMinorFour"><b>Note:</b> The Boolean Operator <b>SetOutputColorEvenIfNotChanged</b>config setting, which is disabled (set to FALSE) by default ensures that these states are ONLY set when the color changes to prevent high CPU loads for graphic forms using a large number of <b>Color</b> behaviours using the <b>Multi-state\Blink</b> mode.</p>
+        <p MadCap:conditions="VIP.Designer_VerMinorTwo"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ColoredBitMasksHowTo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To define colored bit masks for a control or vector to visually indicate the associated Integer value:</a>
+        </p>
+        <div MadCap:targetName="ColoredBitMasksHowTo" style="display: none;">
+            <ol>
+                <li class="Numbers" MadCap:conditions="VIP.Designer_VerMinorTwo" value="1">Add or edit a <b>Color</b> Behaviour to display its configuration dialog.</li>
+                <li class="Numbers" value="2">
+                    <p MadCap:conditions="VIP.Designer_VerMinorTwo">Use the <b>Apply to</b> 
+ drop down list to select the required color 
+ property of the object to blink, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="BlinkColorApplyTo;BlinkStateClrApplyTo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                    <p MadCap:targetName="BlinkStateClrApplyTo" style="display: none;">This list only displays the color properties of this object that are visible to the end-user.</p>
+                    <p MadCap:targetName="BlinkStateClrApplyTo" style="display: none;">By default, the <b>Backcolor</b> property is selected, if it exists, since this 
+ is the most common used color property.</p>
+                    <p MadCap:targetName="BlinkStateClrApplyTo" style="display: none;"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To select another property from this list:<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">Click the drop down list to open it and select another property.
+
+</span></span>
+                    </p>
+                </li>
+                <li class="Numbers" MadCap:conditions="VIP.Designer_VerMinorTwo" value="3">Select the <b>BitMask</b> 
+ option.</li>
+                <li class="Numbers" value="4">
+                    <p MadCap:conditions="VIP.Designer_VerMinorTwo">Use the <b>Input Data Element</b> 
+ edit box to select the Integer value (data element) to monitor, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ClrDEBlinkTrgrCfg;VisibDEBlinkTrgCfg;ClrStateInputDECfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                    <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorTwo"><b>Note</b>: Each bit mask has an associated Integer value that represents the order of bits that are set, up to 32 bits .</p>
+                    <p MadCap:conditions="VIP.Designer_VerMinorTwo">When the integer <b>Input Data Element</b>  matches the associated integer value of a specific <b>Mask Name</b> then the color property specified by the <b>Apply to</b> field is set to the associated <b>Active Color</b>.</p>
+                    <p class="NumbersSubLetters" MadCap:targetName="ClrStateInputDECfg" style="display: none;">This dialog displays a tree view of all the datasources and their data 
+ elements that are contained within the connected Servers, like that displayed 
+ by the <b>Enterprise Manager</b>.</p>
+                    <p class="NumbersSubLetters" MadCap:targetName="ClrStateInputDECfg" style="display: none;">The value selected initially by this browser is determined, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrowserSelection"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                    <div MadCap:targetName="DEBrowserSelection" style="display: none;">
+                        <ul>
+                            <li class="ListSubBullet" value="1">If you have NOT selected a data element for the current field, then it displays the last data element, that you browsed in, using ANY DE browser.</li>
+                        </ul>
+                        <p class="ListNotSubSub"><b>Tip:</b> This is particularly helpful, when you are working with the SAME datasource, as it expands this datasource in the tree, highlighting the last browsed-in data element, which you can use as a reference.</p>
+                        <ul>
+                            <li class="ListSubBullet" value="1">If you have browsed in a data element for the current field, then this then data element is automatically selected for you.</li>
+                        </ul>
+                    </div>
+                    <ul start="1" MadCap:targetName="ClrStateInputDECfg" style="display: none;">
+                        <li class="NumbersSubLetters" value="1">If necessary, expand 
+ the datasources in the tree, to expose the required data element, by clicking 
+ their plus boxes <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;" width="9" height="9" border="0" />.</li>
+                    </ul>
+                    <p class="ListDescSub" MadCap:targetName="ClrStateInputDECfg" style="display: none;">The name of the currently selected data 
+ element is displayed at the bottom of this configuration dialog.</p>
+                    <ul start="2" MadCap:targetName="ClrStateInputDECfg" style="display: none;">
+                        <li class="NumbersSubLetters" value="2">Double 
+ click the required data element.</li>
+                    </ul>
+                    <p MadCap:targetName="ClrStateInputDECfg" style="display: none;">The <b>Data Element Browser</b> dialog provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrwsrFeatures"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following features to assist you in this task of selecting the required value:</a></p>
+                    <div MadCap:targetName="ClrStateInputDECfg" style="display: none;">
+                        <ol>
+                            <li class="Bullets" value="1">The <b>Recently selected elements</b> list, which displays the last 10 selected data elements  - so that these data elements can be quickly selected again, whose display is controlled by the <img src="../../30GF/20Dsgn/DEBrowser_ShowButton.jpg" /> or <img src="../../30GF/20Dsgn/DEBrowser_HideButton.jpg" /> button in the top right hand corner.</li>
+                        </ol>
+                        <p class="ListDesc">If the data element, in this <b>Recently selected elements</b> list, does not have an associated icon, then either this data element does not exist or, in the case of the <span class="AdroitAppName">Adroit</span> datasource, that you have not opened the associated Agentgroup in the <span class="AdroitAppName">Adroit</span> datasource tree and so if this data element is selected it will not be found in the <b>Browser</b> window.</p>
+                        <ol>
+                            <li class="Bullets" value="1">The ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../../../../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../../../../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../../../../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog. </li>
+                            <li class="Bullets" value="2">A data element searching capability to quickly locate similarly-named values without manually browsing for them: simply type the required search criteria into the <b>Search in browser for</b> edit box and all the data element names containing the specified search string are displayed in a list providing the name of the data element and its path. If necessary, click the <img src="../../30GF/20Dsgn/DEBrowser_BackButton.jpg" /> button to return to the tree view.</li>
+                        </ol>
+                        <p class="ListDesc">By default, to speed up searching on large <span class="AdroitAppName">Adroit</span> Agent Server projects, the searching stops at the agent and not the slot level.</p>
+                        <ol>
+                            <li class="Bullets" value="1">The tree view provides the full Enterprise Manager context sensitive right click menu functionality. So in the case of using an <span class="AdroitAppName">Adroit</span> datasource you can create the required agent/s when configuring a Behaviour.</li>
+                            <li class="Bullets" value="2">When selecting tags from an <span class="AdroitAppName">Adroit</span> datasource, you can also create on-the-fly agents by editing the selected data element string to create another tag. In this case, when you click <b>Finish</b>, a message is displayed asking whether you want to create this new tag or not, if you select <b>Yes</b> then this tag is  created and selected.</li>
+                        </ol>
+                    </div>
+                </li>
+                <li class="Numbers" MadCap:conditions="VIP.Designer_VerMinorTwo" value="5">Define the required bit mask/s, as follows:</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" MadCap:conditions="VIP.Designer_VerMinorTwo" value="1">Specify a descriptive name of the condition or state that each of the bit masks represent in the <b>Mask Name</b> field</li>
+                <li class="NumbersSubLetters" MadCap:conditions="VIP.Designer_VerMinorTwo" value="2">Specify (click) the bit numbers from 00 to 31 for all the bits that need to be simultaneously on (set to 1) for this bit mask.</li>
+                <li class="NumbersSubLetters" MadCap:conditions="VIP.Designer_VerMinorTwo" value="3">Select 
+ the color that this bit mask should display in the     <b>Active Color</b> field by clicking to the left of the color description to 
+ display the color edit box. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Using the color 
+ edit box to select a color</a></span></li>
+            </ol>
+            <p class="ListNotice" MadCap:conditions="VIP.Designer_VerMinorTwo"><b>Note:</b> Remove 
+ unnecessary bit masks by selecting the row indicator (the first cell of the 
+ row) and pressing the DEL key.</p>
+            <ol start="6">
+                <li class="Numbers" MadCap:conditions="VIP.Designer_VerMinorTwo" value="6">If you need to configure 
+ one or more of these states to blink, then click the <b>Advanced View</b> button, which displays the additional columns required to configure this blinking, as follows:</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" MadCap:conditions="VIP.Designer_VerMinorTwo" value="1">Check 
+ the <b>Blink</b> checkbox of the required 
+ state.</li>
+                <li class="NumbersSubLetters" MadCap:conditions="VIP.Designer_VerMinorTwo" value="2">Select 
+ the color to represent the alternating color in the <b>Blink 
+ Color</b> field by clicking to the left of the color description to 
+ display the color edit box. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Using the color edit 
+ box to select a color</a></span>.</li>
+                <li class="ListSubBullet" MadCap:conditions="VIP.Designer_VerMinorTwo" value="3">If this state 
+ should continually blink, then ensure that the  field is empty.</li>
+                <li class="ListSubBullet" value="4">
+                    <p MadCap:conditions="VIP.Designer_VerMinorTwo">If a value 
+ is required to start and stop the blinking of this state, then select this value in the <b>Blinking Trigger</b> field, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ClrStateBlinkTrigDECfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a>.</p>
+                    <p class="NumbersSubLetters" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">This dialog displays a tree view of all the datasources and their data 
+ elements that are contained within the connected Servers, like that displayed 
+ by the <b>Enterprise Manager</b>.</p>
+                    <p class="NumbersSubLetters" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">The value selected initially by this browser is determined, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrowserSelection"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                    <div MadCap:targetName="DEBrowserSelection" style="display: none;">
+                        <ul>
+                            <li class="ListSubBullet" value="1">If you have NOT selected a data element for the current field, then it displays the last data element, that you browsed in, using ANY DE browser.</li>
+                        </ul>
+                        <p class="ListNotSubSub"><b>Tip:</b> This is particularly helpful, when you are working with the SAME datasource, as it expands this datasource in the tree, highlighting the last browsed-in data element, which you can use as a reference.</p>
+                        <ul>
+                            <li class="ListSubBullet" value="1">If you have browsed in a data element for the current field, then this then data element is automatically selected for you.</li>
+                        </ul>
+                    </div>
+                    <ul start="1" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">
+                        <li class="NumbersSubLetters" value="1">If necessary, expand 
+ the datasources in the tree, to expose the required data element, by clicking 
+ their plus boxes <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;" width="9" height="9" border="0" />.</li>
+                    </ul>
+                    <p class="ListDescSub" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">The name of the currently selected data 
+ element is displayed at the bottom of this configuration dialog.</p>
+                    <ul start="2" MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">
+                        <li class="NumbersSubLetters" value="2">Double 
+ click the required data element.</li>
+                    </ul>
+                    <p MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">The <b>Data Element Browser</b> dialog provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrwsrFeatures"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following features to assist you in this task of selecting the required value:</a></p>
+                    <div MadCap:targetName="ClrStateBlinkTrigDECfg" style="display: none;">
+                        <ol>
+                            <li class="Bullets" value="1">The <b>Recently selected elements</b> list, which displays the last 10 selected data elements  - so that these data elements can be quickly selected again, whose display is controlled by the <img src="../../30GF/20Dsgn/DEBrowser_ShowButton.jpg" /> or <img src="../../30GF/20Dsgn/DEBrowser_HideButton.jpg" /> button in the top right hand corner.</li>
+                        </ol>
+                        <p class="ListDesc">If the data element, in this <b>Recently selected elements</b> list, does not have an associated icon, then either this data element does not exist or, in the case of the <span class="AdroitAppName">Adroit</span> datasource, that you have not opened the associated Agentgroup in the <span class="AdroitAppName">Adroit</span> datasource tree and so if this data element is selected it will not be found in the <b>Browser</b> window.</p>
+                        <ol>
+                            <li class="Bullets" value="1">The ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../../../../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../../../../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../../../../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog. </li>
+                            <li class="Bullets" value="2">A data element searching capability to quickly locate similarly-named values without manually browsing for them: simply type the required search criteria into the <b>Search in browser for</b> edit box and all the data element names containing the specified search string are displayed in a list providing the name of the data element and its path. If necessary, click the <img src="../../30GF/20Dsgn/DEBrowser_BackButton.jpg" /> button to return to the tree view.</li>
+                        </ol>
+                        <p class="ListDesc">By default, to speed up searching on large <span class="AdroitAppName">Adroit</span> Agent Server projects, the searching stops at the agent and not the slot level.</p>
+                        <ol>
+                            <li class="Bullets" value="1">The tree view provides the full Enterprise Manager context sensitive right click menu functionality. So in the case of using an <span class="AdroitAppName">Adroit</span> datasource you can create the required agent/s when configuring a Behaviour.</li>
+                            <li class="Bullets" value="2">When selecting tags from an <span class="AdroitAppName">Adroit</span> datasource, you can also create on-the-fly agents by editing the selected data element string to create another tag. In this case, when you click <b>Finish</b>, a message is displayed asking whether you want to create this new tag or not, if you select <b>Yes</b> then this tag is  created and selected.</li>
+                        </ol>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <p>&#160;</p>
+        <p class="Notices"><b>Tip1:</b> When adding a Behaviour to a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SmartUI Template<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A graphic form that has one or more configured aliases and is therefore designed to be displayed within a TemplateGO control.</span></span> , you can use {} notation to automatically create an alias for any data element field. For more details, see <a href="../../30GF/30Als/Working_with_SmartUI_Templates.htm">Working with SmartUI Templates</a>.</p>
+        <p class="Notices"><b>Tip2:</b> When adding a Behaviour to a  <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">wizard<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A pre-drawn and/or pre-configured skeleton of graphical objects and their assigned Behaviours (if any), which has placeholders (substitutions) for data elements.</span></span>, you can use {} notation to automatically create a substitution for any data element field. For more details, see <a href="../../30GF/40Wiz/Working_with_wizards.htm">Working with wizards</a>.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3" name="kanchor3259"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a  Behaviour to a control or graphic element:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <p>Ensure that you have added the required control 
+ or graphic element to the graphic form.</p>
+            <ol>
+                <li class="Numbers" value="1">Select the required control 
+ or graphic element.</li>
+                <li class="Numbers" value="2">
+                    <p>If necessary, select the <b>Behaviours</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                    <p class="Notices"><b>Note:</b> Any Behaviour that cannot be applied to this control 
+ or graphic element will be greyed out.</p>
+                </li>
+                <li class="Numbers" value="3">Select the required Behaviour from the relevant group.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also select its  <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph to display its task menu and then select the required  Behaviour from the <b>New 
+ Behaviour</b> drop down list.</p>
+            <p class="ListDesc">This displays the configuration dialog of this Behaviour.</p>
+        </div>
+        <p class="Notices" MadCap:conditions="Common.VerMinorFour"><b>Tip:</b> When you add or edit a Behaviour you can name it, which makes it easier to identify the spiders and their regions associated with your Behaviours.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2" name="kanchor3260"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To edit a Behaviour of a control or graphic 
+ element:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Right click the required control 
+ or graphic element to the graphic form.</li>
+                <li class="Numbers" value="2">Select the required <b>BehaviourName#</b> menu item, where <b>BehaviourName</b> is the name of the added Behaviour and <b>#</b> usually only appears if more than one of same type of Behaviours have been  
+ added. For example: Execute Command1</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also select its <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph to display its task menu and then select the required  link beneath the <b>Behaviours</b> 
+ heading.</p>
+            <p class="ListDesc">This displays the  configuration dialog of this Behaviour.</p>
+        </div>
+        <p class="Notices"><b>Tip:</b> The <b>Behaviours</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon provides the <b>Edit Behaviour</b> list box that lists all the Behaviours  configured for the currently selected form component. Clicking its browse <img src="../../../../_WhatsNew/EditBehaviorListBoxBrowseButton.jpg" /> button displays the configuration dialog of the currently selected behaviour. </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1" name="kanchor3261"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove one or more added Behaviours from a control or graphic 
+ element:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Select the required control 
+ or graphic element.</li>
+                <li class="Numbers" value="2">
+                    <p>If necessary, select the <b>Behaviours</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                </li>
+                <li class="Numbers" value="3">Select the <b>Remove</b> command from the <b>Remove</b> group.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also select its  <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph to display its task menu and then select the <b>Remove</b>link beneath the <b>Behaviours</b> 
+ heading.</p>
+            <p class="ListDesc">This displays the <b>Behaviour Removal</b> configuration dialog. </p>
+            <ol start="4">
+                <li class="Numbers" value="4">Select (check the checkboxes) 
+ of the Behaviour/s that you want to remove from this list in the <b>Behaviour Removal</b> configuration dialog.</li>
+            </ol>
+            <p class="ListNotice"><b>WARNING!</b> Ensure 
+ that ONLY the Behaviour/s you do not require is selected, since no deletion 
+ confirmation dialogs are displayed.</p>
+            <ol start="5">
+                <li class="Numbers" value="5">Click the <b>Finish</b> 
+ button to remove the selected Behaviour/s or <b>Cancel</b> to abort.</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

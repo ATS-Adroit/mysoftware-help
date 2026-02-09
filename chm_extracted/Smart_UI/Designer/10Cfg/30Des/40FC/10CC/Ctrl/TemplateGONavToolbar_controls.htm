@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Specialized Controls|TemplateGONavToolbar controls" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Templates" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>TemplateGONavToolbar controls</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2801"></a>
+            <img src="TGONavTlb_icon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" /> TemplateGONavToolbar controls</h1>
+        <p><a name="kanchor2802"></a><a name="kanchor2803"></a><a name="kanchor2804"></a><a name="kanchor2805"></a>This control allows you to create 
+ a hierarchical menu structure or toolbar of graphic forms so your end-users (operators) can 
+ navigate between them, by selecting 
+ the required toolbar or menu item, this controls displays the associated graphic form. For details, see <a href="../../../../../HowTos/How_to_create_a_graphic_form_navigational_menu_from_a_TGONavToolbar_control.htm">How to create a graphic form navigational menu from a TGONavToolbar control</a>.</p>
+        <p class="Notices"><b>Note:</b> The currently selected menu item is <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">persisted<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">this is temporary form of saving, for instance it can be session based or only while an object is open.</span></span>  by means of a color change.
+</p>
+        <p>This TGONavToolbar control  consists of the following two areas:</p>
+        <ul>
+            <li class="Bullets" value="1">The toolbar (menu), typically at the top of the TGO that contains all the sub menus and their menu items that are all linked to the appropriate graphic forms of your project/s. </li>
+            <li class="Bullets" value="2">The Template Graphic Object (TGO) control, which is the large area, typically, below the menu bar in which each Graphic Form (GF) is loaded. </li>
+        </ul>
+        <p>The TGONavToolbar control provides a menu (toolbar) designing grid, which is launched by clicking the <b>Browse for Toolbar Graphic Forms...</b> task of <b>Tasks</b> menu (which is itself launched by clicking the <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">smart tag<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a glyph that usually displayed in the top left corner of the selected control or vector that when clicked displays a list of the commonly used configuration tasks.</span></span> <img src="../../glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph of this control). </p>
+        <p>Using this  menu (toolbar) designing grid, you can create this menu navigation structure quickly, for instance, you can:</p>
+        <ul>
+            <li class="Bullets" value="1">import your existing project structure by clicking the <b>Add Project</b> button in the menu (toolbar) designing grid.</li>
+            <li class="Bullets" value="2">bulk  configuring multiple rows at once, either in the provided menu designing grid and/or by exporting the menu to CSV, bulk configuring the menu in an external editor and then importing the edited menu into this control again.</li>
+            <li class="Bullets" value="3">provide advanced configuration of some or all of the menu items and their associated graphic forms via behaviours or graphic form scripts or spiders, since this control exposes and uniquely names every menu item (see the <b>Toolbar Item Name</b> column in the menu-designing grid). </li>
+        </ul>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p class="LineNote">This shows a TemplateGONavToolbar control displaying its <b>Tasks</b> menu, which has a default graphic form configured and the other graphic forms that can be displayed 
+ clicking their menu items (namely: Section One, Section Two and Section 
+ Three):</p>
+            <p class="LineNote">
+                <img src="TGONTB_EX.jpg" style="border: none;width: 687px;height: 304px;float: none;border-style: none;border-style: none;" width="687" height="304" border="0" />
+            </p>
+        </div>
+        <p class="Important"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />How to create 
+ a potentially advanced graphic form navigational system:</a> 
+ this describes how 
+ to create a toolbar (menu) <a name="kanchor2806"></a>that contains one or more graphic forms and provides optional advanced configuration options.</p>
+        <p class="Important">So that an end user can select a menu item to display the associated 
+ graphic form in this control.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Create the graphic forms 
+ that you will need this control to navigate to (open via the toolbar items).</li>
+                <li class="Numbers" value="2">If necessary, create an 
+ overview graphic form that this control will display by default.</li>
+            </ol>
+            <p class="LineNote"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AdvGFCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Advanced graphic form configuration:</a>
+            </p>
+            <div MadCap:targetName="AdvGFCfg" style="display: none;">
+                <p class="ListDesc">If necessary, add and associate 
+ aliases to the properties of these graphic forms and/or their form components 
+ that you want to assign to data elements using the TemplateGONavToolbar 
+ control. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../30GF/30Als/Associating_aliases_to_properties.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding and associating aliases to 
+ properties</a></span>.</p>
+                <p class="ListNotice"><b>IMPORTANT:</b> Any <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">alias<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a property of a graphic form or its form components that is exposed, so that it can be independently configured when this graphic form is displayed within a TemplateGO control.</span></span> that this control configures can be accessed by ALL 
+ the graphic forms that this control contains. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click for more 
+ details:<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">Therefore if one or more of these graphic forms provide the SAME alias, 
+ then this alias will be identically configured. This is typically used 
+ to display the values of common data elements.
+<br /></span></span></p>
+            </div>
+            <ol start="3">
+                <li class="Numbers" value="3">Add this control to the 
+ required graphic form. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_TemplateGONavToolbar_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding 
+ TemplateGONavToolbar controls</a></span>.</li>
+            </ol>
+            <p class="LineNote"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AdvCtrlCfg1"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Advanced TemplateGONavToolbar control configuration:</a>
+            </p>
+            <ul MadCap:targetName="AdvCtrlCfg1" style="display: none;">
+                <li class="Bullets" value="1">Decide which side of the 
+ control that you want the toolbar to be positioned, by configuring the 
+ <b>ToolbarLocation</b> property; by default 
+ this is located at the top of the control.</li>
+                <li class="Bullets" value="2">Decide how you want your 
+ end users to identify the toolbar items, by configuring the <b>ToolStripDisplayStyle</b> property, to specify whether you want the 
+ items to display text and/or images, by default both text and images are 
+ displayed.</li>
+                <li class="Bullets" value="3">
+                    <p>Decide whether you want 
+ a preview pane (tool tip) to open when your end users hover over a toolbar 
+ item.</p>
+                    <p>This tool tip displays the path of the graphic form and/or an enlarged representative 
+ view of the graphic form depending upon your configuration of the <b>ToolStripDisplayStyle</b> property, by configuring 
+ the Boolean <b>ShowPreviewPane</b> property.</p>
+                    <p class="Notices"><b>Tip:</b> If the 
+ <b>ShowPreviewPane</b> 
+ property is enabled the path of the graphic form and/or an enlarged representative 
+ view of the graphic form is displayed when a user <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">hovers<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">also called a mouse hover, is the action of putting the mouse cursor (pointer) over a designated area.</span></span> 
+ over a toolbar item, similar to the way the taskbar works.</p>
+                </li>
+            </ul>
+            <ol start="4">
+                <li class="Numbers" value="4">If you created an overview graphic form, then configure this control to display it by default. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Specifying_the_default_graphic_form_of_TemplateGONavToolbar_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Specifying the default graphic form</a></span>.</li>
+                <li class="Numbers" value="5">
+                    <p>Create the menu items (and sub-menus) for 
+ the graphic forms that you want your end users to navigate between.</p>
+                    <p>If necessary configure the order of these menu items and/or change their identifying text. For details, see<a href="../../../../../HowTos/How_to_create_a_graphic_form_navigational_menu_from_a_TGONavToolbar_control.htm"> Configuring the graphic form navigational menu</a>.</p>
+                </li>
+            </ol>
+            <p class="LineNote"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AdvCtrlCfg2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Advanced TemplateGONavToolbar control configuration:</a>
+            </p>
+            <ul MadCap:targetName="AdvCtrlCfg2" style="display: none;">
+                <li class="Bullets" value="1">If you added aliases to the graphic forms specified by this menu, then assign the required data elements to 
+ each <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">alias<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a property of a graphic form or its form components that is exposed, so that it can be independently configured when this graphic form is displayed within a TemplateGO control.</span></span> 
+ of the referenced graphic forms. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Connecting_data_elements_to_common_aliases.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Connecting 
+ data elements to common aliases</a></span>.</li>
+                <li class="Bullets" value="2">If you want to display 
+ images for your toolbar items, then you need to ensure that this control 
+ receives condensed images of each of the graphic forms from the Server. 
+ For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_toolbar_item_images.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding toolbar item 
+ images</a></span>.</li>
+            </ul>
+            <ol start="6">
+                <li class="Numbers" value="6">Save the changes you have 
+ made to this graphic form.</li>
+                <li class="Numbers" value="7">Test that this graphic 
+ form navigation system works as desired in <b>Run</b> 
+ mode.</li>
+            </ol>
+        </div>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_TemplateGONavToolbar_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To add this control to a graphic 
+ form</a></span>: 
+ A control needs to be added to a graphic form before it can be used and 
+ configured.</p>
+        <h2><a name="kanchor2807"></a>Configuration options</h2>
+        <ul>
+            <li class="Bullets" value="1"><a href="Important_TemplateGONavToolbar_properties.htm">Important 
+ properties</a>, this describes the functions of properties that can configure this control and/or its associated graphic forms. However, you should typically use the <b>Tasks</b> menu to configure this control.</li>
+            <li class="Bullets" value="2">A <b>Tasks</b> menu, 
+ displayed when control is initially added and can be accessed from the 
+ <img src="../../glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph of this control, allow you to select the required 
+ graphic forms, add icons for them and if necessary to configure their 
+ aliases, by displaying the following:</li>
+        </ul>
+        <p><b>Common configuration tasks:</b>
+        </p>
+        <p><a href="Specifying_the_default_graphic_form_of_TemplateGONavToolbar_controls.htm">To choose the default graphic form for 
+ this control</a>: This describes how to select the default graphic form 
+ that is initially displayed by this control.</p>
+        <p><a href="../../../../../HowTos/How_to_create_a_graphic_form_navigational_menu_from_a_TGONavToolbar_control.htm" name="kanchor2808">To configure the graphic form toolbar</a>: 
+ This describes how to add graphic forms so that they appear as items in 
+ the toolbar of this control and/or to configure their displayed order 
+ and/or to specify their required labels and/or to remove unnecessary graphic 
+ forms.</p>
+        <p><a href="Adding_toolbar_item_images.htm">To add representative icons to the 
+ toolbar</a>: This describes how to add condensed images of each of the 
+ graphic forms to the toolbar items.</p>
+        <p class="Notices"><b>Note:</b> These are 
+ only displayed if the <b>ToolStripDisplayStyle</b> property displays images, which is does by default.</p>
+        <p><a href="Connecting_data_elements_to_aliases.htm">To connect data elements to aliases</a>: 
+ This describes how to assign data elements to the aliases 
+ of the referenced graphic forms, if any. <MadCap:conditionalText MadCap:conditions="Common.ExFromPDF">For details on how aliases can be used to allow you to configure specific properties of the graphic form you display within another, see <a href="../../../30GF/30Als/Working_with_aliases.htm">Working with aliases</a>.</MadCap:conditionalText></p>
+        <h2><a name="kanchor2809"></a>End-user interaction 
+ </h2>
+        <p>Click on the required toolbar (menu) item and/or icon to display the associated 
+ graphic forms in the control.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

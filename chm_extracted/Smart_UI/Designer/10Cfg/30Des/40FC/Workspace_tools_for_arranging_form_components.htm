@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Workspace tools for arranging form components</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor494"></a>Workspace tools for arranging form components</h1>
+        <p>The <b>Workspace</b> group of the <b>Design</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon, provides the following groups of tools for  arranging<a name="kanchor495"></a> and/or organizing <a name="kanchor496"></a><a name="kanchor497"></a>ALL&#160;form 
+ components i.e. BOTH&#160;controls and vectors for the currently displayed graphic form:</p>
+        <p class="Notices"><b>Note:</b> Many of 
+ these tools require selecting more than one form component. In this case the term "primary form component" 
+ is used to indicate either the <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">primary control<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">when a group of controls are selected, the sizing handles of this control are white and its attributes will be used if this group of controls are formatted. See control.</span></span> 
+ or <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">primary graphic element<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">when a group of graphic elements are selected, this is the first graphic element that is selected and its attributes will be used if this group of graphic elements are formatted. See graphic element.</span></span>, 
+ depending upon the selected form component type.</p>
+        <ol>
+            <li class="Numbers" value="1">
+                <img src="../../../Resources/Images/32/Generic/AlignmentContainer.png" />&#160;<a name="kanchor498"></a><a name="kanchor499"></a><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Alignment:</a> these tools align the currently
+ selected form components with each other using the selected primary form 
+ component as the alignment reference.<div MadCap:targetName="t7" style="display: none;"><table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0"><col style="width: 17.65%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" /><col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 100px;" /><col style="width: 64.7%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" /><thead><tr class="TableStyle-AdTechBasicTableStyle-Head-Header1"><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Alignment</th><th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/AlignGrid.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Align To Grid&#160;</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Snaps the top left of the selected controls to the closest grid.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/AlignLeft.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Align Lefts</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Positions the left-most edges in line with the primary form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/AlignCenter.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Align Centers&#160;</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Positions the centers in line with the primary form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/AlignRight.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Align Rights</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Positions the right-most edges in line with the primary form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/AlignTop.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Align Tops</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Positions the tops in line with the primary form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/AlignMiddle.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Align Middles</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Positions the middles in line with the primary form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/AlignBottom.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1"><p>Align Bottoms</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1"><p>Positions the bottoms in line with the primary form component.</p></td></tr></tbody></table></div></li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6" name="kanchor500"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Snap lines:</a> 
+ these tools align vectors and controls in a graphic form.</p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <p class="ListDesc">When you drag a control, the following two lines appear:</p>
+            <ul>
+                <li class="ListBullets" value="1">A blue line, which 
+ indicates the alignment of this control.</li>
+                <li class="ListBullets" value="2">A light grey line, 
+ which indicates the recommended distance between controls.</li>
+            </ul>
+        </div>
+        <ol start="2">
+            <li class="Numbers" value="2">
+                <img src="../../../Resources/Images/32/Generic/SizeContainer.png" />&#160;<a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5" name="kanchor501"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />size:</a> these tools change 
+ the size of the selected form components, using the selected primary form 
+ component as the sizing reference.<div MadCap:targetName="t5" style="display: none;"><table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0"><col style="width: 17.65%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" /><col style="width: 138px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" /><col style="width: 64.7%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" /><thead><tr class="TableStyle-AdTechBasicTableStyle-Head-Header1"><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Sizing</th><th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/SameWidth.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Make Same Width&#160;</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Adjusts the width of all selected form components to the width of the 
+ primary form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/SizeToGrid.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>size To Grid</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Adjusts the width and height of the selected form component(s) to the 
+ closest grid.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/SameHeight.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Make Same Height&#160;</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Adjusts the height of all selected form components to the height of 
+ the primary form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/SameSize.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1"><p>Make Same size</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1"><p>Adjusts both the width and the height of all selected form components 
+ to the width and height of the primary form component.</p></td></tr></tbody></table></div></li>
+            <li class="Numbers" value="3">
+                <img src="../../../Resources/Images/32/Generic/SpaceContainer.png" /><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4" name="kanchor505"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Spacing:</a> these tools change 
+ the horizontal and/or vertical spacing between the selected form components.&#160;<div MadCap:targetName="t4" style="display: none;"><table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0"><col style="width: 17.65%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" /><col style="width: 17.65%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" /><col style="width: 64.7%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" /><thead><tr class="TableStyle-AdTechBasicTableStyle-Head-Header1"><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Spacing</th><th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/HorizontalSpacingEqual.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Make Horizontal Spacing Equal</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Makes equal space between the selected form components using the outermost 
+ form components as endpoints.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/IncreaseHorizontalSpacing.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Increase Horizontal Spacing</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Increases the horizontal spacing by one grid unit relative to the primary 
+ form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/DecreaseHorizontalSpacing.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Decrease&#160;Horizontal Spacing</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Decreases the horizontal spacing by one grid unit relative to the primary 
+ form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/RemoveHorizontalSpacing.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Remove Horizontal Spacing</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Removes the horizontal space so that the form components are aligned 
+ with their edges touching, relative to the primary form component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/VerticalSpacingEqual.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Make Vertical Spacing Equal</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Makes equal space between the selected form components using the top 
+ and bottom form components as the end points.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/IncreaseVerticalSpacing.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Increase Vertical Spacing</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Increases the vertical spacing by one grid relative to the primary form 
+ component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/DecreaseVerticalSpacing.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Decrease Vertical Spacing&#160;</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Decreases the vertical spacing by one grid relative to the primary form 
+ component.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/RemoveVerticalSpacing.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1"><p>Remove Vertical Spacing</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1"><p>Removes the vertical spacing so that the form component's borders are 
+ touching, relative to the primary form component.</p></td></tr></tbody></table><p class="Notices"><b>Note:</b> If a spacing tool does not 
+ produce the results you want, try to manually rearrange some of the form 
+ components and repeat this tool.</p></div></li>
+            <li class="Numbers" value="4">&#160;<img src="../../../Resources/Images/32/Generic/LayoutContainer.png" /> <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2" name="kanchor514"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Layout:</a> these tools center and/or change 
+ the order of the selected form component(s) on the graphic form.<div MadCap:targetName="t2" style="display: none;"><table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0"><col style="width: 17.65%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" /><col style="width: 17.65%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" /><col style="width: 64.7%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" /><thead><tr class="TableStyle-AdTechBasicTableStyle-Head-Header1"><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Layout</th><th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/CenterHorizontally.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Center Horizontally&#160;</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Aligns the middles of the selected form component(s) to a horizontal 
+ line in the middle of the graphic form.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/CenterVertically.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Center Vertically</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Aligns the centers of the selected form component(s) to a vertical line 
+ in the center of the graphic form.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/BringToFront.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Bring To Front&#160;</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>Moves the selected form component(s) to the front of all other form 
+ components on a graphic form.</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1"><p><img src="../../../Resources/Images/32/Generic/SendToBack.png" /></p></td><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1"><p>Send To Back</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1"><p>Moves the selected form component(s) behind all other form components 
+ on a graphic form.</p></td></tr></tbody></table><p class="Notices"><b>Note:</b> Graphic 
+ elements will ALWAYS be placed “behind” controls on a graphic form.</p></div></li>
+            <li value="5">
+                <p><b>View Tab Order</b> <img src="../../../Resources/Images/32/Generic/ViewTabOrder.png" />: this toggles the display of the tab ordering of the controls and wizards added to this graphic form, which are displayed as numbers in a blue box in their top left corners, which you can re-order by clicking the required boxes to change their numbers to establish the required order. </p>
+                <p>
+                    <img src="10CC/DesignTab_TabOderingEx.png" />
+                </p>
+                <p class="Notices"><b>Note:</b> When a control is inside a container (such as part of a wizard) this becomes a floating number that allows you to specify the tab order of the controls within this container too.</p>
+            </li>
+        </ol>
+        <p>The <b>Vectors</b> group of the <b>Design</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon, provides the following tools for editing vectors (graphic elements). For details, see <a href="Vector_tools_for_editing_and_designing_vectors.htm">Vector tools for editing and designing vectors</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

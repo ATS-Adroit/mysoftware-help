@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Deployment" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="VIZNET Installations.doc" /><title>Connecting to the distribution computer</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1089"></a>Connecting to the <a name="kanchor1090"></a>distribution computer</h1>
+        <p>The <span class="VIPAppName">SmartUI</span> Launcher is 
+ used to download the files required for the <span class="VIPAppName">SmartUI</span>Operator 
+ application, either over a LAN or the Internet.</p>
+        <p class="Notices" MadCap:conditions="Adroit.Adr_MAPS"><b>Tip:</b> For a 
+ detailed step-by-step procedure of connecting Operators to a Server over 
+ the Internet, see <a href="../../../HowTos/How_to_Connect_to_the_SmartUI_Server_over_the_Web.htm">How to Connect 
+ to the Server over the Web</a>.</p>
+        <p>To do this, the Launcher 
+ needs to connect to a computer that has the <span class="VIPAppName">SmartUI</span> Distributor 
+ service installed and configured, which is typically the <span class="VIPAppName">SmartUI</span> Server computer. 
+ The <span class="VIPDistributorService">VIP Distributor</span> service specifies the folder that the Launcher uses to synchronises its installation 
+ folder with. For details, see <a href="../../../05Dply/30Ins/Working_with_the_Launcher.htm">Working with 
+ the <span class="VIPAppName">SmartUI</span> Launcher</a>.</p>
+        <p class="Notices"><b>Note1:</b> If the distribution 
+ computer uses firewall software ensure that the Distributor service has 
+ access to the necessary communication port. For details, see <a href="../../../05Dply/50Cfg/Firewall_configuration.htm">Firewall 
+ configuration</a>.</p>
+        <p class="Notices"><b>Note2:</b> Once the Launcher 
+ has successfully connected to a distribution computer, these connections 
+ settings will automatically be used whenever it is run.</p>
+        <p class="Notices"><b>Note3:</b> This connection 
+ dialog can also be displayed, for instance to connect to another computer, 
+ by opening the launcher, selecting <b>File</b> menu and its <b>Connection</b> 
+ item.</p>
+        <p>The following procedure describes how to create a new connection.</p>
+        <ol>
+            <li class="Bullets" value="1">First ensure that the <span class="VIPDistributorService">VIP Distributor</span> service is running on the required computer.</li>
+        </ol>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="StartDistribService" name="kanchor1091"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To manually start or configure the <span class="VIPAppName">SmartUI</span>Distributor 
+ service:</a>
+        </p>
+        <div MadCap:targetName="StartDistribService" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the Services applet on the required computer, as follows: click the <b>Start</b> menu, <b>Control Panel</b>, <b>Administrative Tools</b> and the <b>Services</b> item.</li>
+                <li class="Numbers" value="2">Locate the <span class="VIPDistributorService">VIP Distributor</span> entry in the list.</li>
+                <li class="Numbers" value="3">Right-click this item and select <b>Start</b>.</li>
+            </ol>
+            <p class="Notices"><b>Tip:</b> Select <b>Properties…</b>to configure this service to your liking within the Services environment i.e. to determine the Startup type or the Log on account that should be used for this service.</p>
+        </div>
+        <h2>To connect to the distribution computer:</h2>
+        <ol>
+            <li class="Numbers" value="1">Run 
+ the <span class="VIPAppName">SmartUI</span> Launcher, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="InstalledLauncher;InstalledOpOrDsgner"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a> <![CDATA[ ]]></li>
+            <li class="ListBullets" MadCap:targetName="InstalledLauncher" value="2" style="display: none;">If you have installed the <span class="VIPAppName">SmartUI</span> Launcher: use the <b>Launcher</b> 
+ shortcut on the Desktop by the installation or from within 
+ the <span class="VIPLauncherProgGrp">VIP Launcher</span>r program 
+ group.</li>
+            <li class="ListBullets" MadCap:targetName="InstalledOpOrDsgner" value="3" style="display: none;">If <span class="VIPAppName">SmartUI</span> supports the use of the Launcher and you have  the Operator or Designer components already installed, then double click the <span class="VIPAppName">SmartUI</span><b> Launcher</b> executable in the installation folder, which is typically: <span class="VIPInstallFolder">C:\Program Files\Adroit Technologies\Adroit\SmartUI</span>.</li>
+        </ol>
+        <p class="ListDesc">The <b><span class="VIPAppName">SmartUI</span> Launcher</b> is displayed.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">If necessary, selecting 
+ <b>File</b> menu and its <b>Connection</b> item to display the <b>Connection</b> 
+ dialog.</li>
+            <li class="Numbers" value="3">If necessary, select how 
+ this distribution computer is to be reached i.e. over the LAN or over 
+ the Internet.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> By default, 
+ this dialog displays the fields required when connecting to a distribution 
+ computer over the LAN.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />If this connection is required over the LAN:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol start="4">
+                <li class="Numbers" value="4">Specify the network name 
+ of this required computer that has the <span class="VIPAppName">SmartUI</span> Distributor service installed 
+ and configured in the <b>Computer/URL</b> edit box.</li>
+                <li class="Numbers" value="5">Ensure that the <b>LAN 
+ or WAN</b> selection is selected.</li>
+                <li class="Numbers" value="6">In the <b>Authenticate</b> 
+ group, specify the required <b>User</b> and <b>Password</b>, which are 
+ required when connecting to this computer.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> At least the 
+ <b>User</b> field needs to be completed, in order for a connection to 
+ be created; a <b>Password</b> does not need to be specified.</p>
+            <ol start="7">
+                <li class="Numbers" value="7">Click the <b>Connect</b> 
+ button, once the necessary details, have been correctly specified.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />If this connection is required over the Internet:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p class="Notices"><b>Note:</b> Before a connection 
+ can be made over the Internet to the Server, the Web service needs to 
+ be installed. For details, see <a href="../../../05Dply/30Ins/Installing_the_Portal_Web_Service.htm">Installing 
+ the <span class="VIPAppName">SmartUI</span> Web Service</a>.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">Specify the Internet address 
+ (URL) of the Web service, which makes this Internet connection possible, 
+ in the <b>Computer/URL</b> edit box, 
+ which is typically: http://ComputerName/VirtualDirectory/wsdistributor.asmx. 
+ Where:</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1"><b>ComputerName</b> is the name of the IIS 
+ server hosting the distribution service (on which the <b>Web service</b> 
+ has been installed)</li>
+                <li class="NumbersSubLetters" value="2"><b>VirtualDirectory</b> is the name 
+ of the virtual directory containing  the wsdistributor.asmx file, which was specified when installing 
+ the <b><span class="VIPAppName">SmartUI</span></b> <![CDATA[  ]]><b>Web Service</b>, which is typically: <span class="VIPAppName">SmartUI</span></li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> The 'http://' 
+ prefix and '/wsdistributor.asmx' suffix will be added to this URL on connection, 
+ if they have not been specified.</p>
+            <p class="ListDesc">For further details, open this web page: http://ComputerName/VirtualDirectory 
+ e.g. http://localhost/<span class="VIPAppName">SmartUI</span>, 
+ which can be used to download the Launcher application and also contains 
+ instructions on how to connect and download the distribution files too.</p>
+            <p class="ListNotice"><b>Note:</b> The <span class="VIPAppName">SmartUI</span> 
+ Web Service does not need to be installed on the same computer as the 
+ Distributor service, as long as these two computers can communicate over 
+ the LAN.</p>
+            <ol start="6">
+                <li class="Numbers" value="6">Ensure that the <b>Internet</b> 
+ selection is selected.</li>
+                <li class="Numbers" value="7">In the <b>Authenticate</b> 
+ group, specify the required <b>User</b> and <b>Password</b>, which are 
+ required when connecting to this computer.</li>
+                <li class="Numbers" value="8">If a proxy server is required 
+ for this Internet connection, check the <b>Enable Proxy</b> checkbox and 
+ click the <b>Proxy Settings</b> button.</li>
+            </ol>
+            <p class="ListDesc">This displays the <b>Proxy 
+ Settings</b> dialog, so that the necessary connection settings for 
+ this Proxy server can be specified, as follows:</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1">Specify 
+ the network name of this Proxy server or its IP address in the <b>Machine 
+ Name or IP</b> edit box.</li>
+                <li class="NumbersSubLetters" value="2">Specify 
+ the port that this Proxy Server uses in the <b>Port</b> edit box, this 
+ is typically port 8080.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> If necessary, 
+ the required port for this proxy server can also be determined from <b>Internet 
+ Options</b> (typically launched from the <b>Tools</b> menu in Internet 
+ Explorer), by selecting the <b>Connections</b> tab and its <b>LAN Settings…</b> 
+ button.</p>
+            <ol start="3">
+                <li class="NumbersSubLetters" value="3">If 
+ user authentication is required when connecting to this proxy server, 
+ then check the<b> Authenticate</b> checkbox and supply the necessary<b> 
+ User</b> and <b>Password.</b></li>
+                <li class="NumbersSubLetters" value="4">Click 
+ <b>OK</b>.</li>
+            </ol>
+            <ol start="8">
+                <li class="Numbers" value="8">Click the <b>Connect</b> 
+ button, once the necessary details, have been correctly specified.</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

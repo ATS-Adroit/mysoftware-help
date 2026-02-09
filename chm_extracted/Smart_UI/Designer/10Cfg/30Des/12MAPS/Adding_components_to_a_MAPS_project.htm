@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with MAPS" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.MAPS" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Adding components to a MAPS project</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor4039"></a><a name="kanchor4040"></a><a name="kanchor4041"></a>Adding components to a <span class="VIPMAPSProductName">MAPS</span> project</h1>
+        <p>Each component in a <span class="VIPMAPSProductName">MAPS</span> project provides a right click option that 
+ allows you to add a sub-component to it.</p>
+        <p>For example, you can add a plant Area to the <span class="VIPMAPSProductName">MAPS</span> project or a PLC to 
+ a plant Area; however you SHOULD have PLANNED for these higher level components 
+ already BEFORE creating a <span class="VIPMAPSProductName">MAPS</span> project. For more details, see <a href="How_to_use_the_MAPS_project_wizard_to_add_a_MAPS_project.htm">How to use the MAPS project wizard to add a MAPS project</a>.</p>
+        <p>You may however, need to add:</p>
+        <ul>
+            <li class="Bullets" value="1">a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">unit<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a logical grouping of the electrical and/or instrumentation equipment within a PLC</span></span>&#160;<img src="MAPSUnitIcon.bmp" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> to a PLC <img src="MAPSPlcIcon.bmp" style="border: none;width: 16px;height: 15px;border-style: none;border-style: none;" width="16" height="15" border="0" /> - to represent a complex item 
+ of equipment that consists of more than one items of electrical and/or 
+ instrumentation equipment, such as a conveyor or</li>
+            <li class="Bullets" value="2">an item of electrical <img src="MAPSElecEquipIcon.bmp" style="border: none;width: 15px;height: 12px;float: none;border-style: none;border-style: none;" width="15" height="12" border="0" /> or instrumentation <img src="MAPSInstrmEquipIcon.bmp" style="border: none;width: 15px;height: 12px;float: none;border-style: none;border-style: none;" width="15" height="12" border="0" /> equipment to a unit <img src="MAPSUnitIcon.bmp" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" />.</li>
+        </ul>
+        <p><b>BEFORE</b><a name="kanchor4042"></a><a name="kanchor4043"></a><a name="kanchor4044"></a><a name="kanchor4045"></a>adding equipment to an 
+ existing project (either by adding units or individual items of equipment), 
+ ensure that you update the <b>Last Used</b> 
+ address for the IO types of the relevant PLC, by clicking the <b>Get 
+ Last Used</b> button in the <b>PLC Settings</b> 
+ table of the PLC properties.</p>
+        <p>This ensures that when <span class="VIPAppName">SmartUI</span> allocates the IO that you do NOT get duplicate 
+ addresses being allocated. For details of the other PLC properties and 
+ the properties of the other project components, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Properties_of_each_hierarchy_level_component_of_a_MAPS_project.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Properties 
+ of each hierarchy level (component) of a <span class="VIPMAPSProductName">MAPS</span> project</a></span>.</p>
+        <p class="Notices"><b>Note:</b> Also do this when REMOVING equipment, to ensure that you do 
+ not have ‘holes’ in your allocated addressing and use all the freed up IO.</p>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />How to add a unit to a PLC of a MAPS project:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">In the <span class="VIPMAPSProductName">MAPS</span> window, right 
+ click the required PLC <img src="MAPSPlcIcon.bmp" style="border: none;width: 16px;height: 15px;border-style: none;border-style: none;" width="16" height="15" border="0" /> and select <b>Add 
+ Unit</b>.</li>
+            </ol>
+            <p class="ListDesc">The <b>Add</b> unit 
+ wizard should open, in which you specify the required <b>Name</b> and <b>Description</b> 
+ of this unit and then click <b>Next</b>.</p>
+            <p class="ListNotice"><b>WARNING!</b> You 
+ CANNOT rename this unit name.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Specify 
+ ALL the types of electrical equipment and their quantities as required 
+ for this site (<span class="VIPMAPSProductName">MAPS</span> project) in the <b>Electrical Data</b> page.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Electrical Data</b> 
+ page once all the MANDATORY fields are correctly completed for all the 
+ added units.</p>
+            <p class="ListDesc">In <span class="VIPMAPSProductName">MAPS</span>, each type of electrical equipment requires an 
+ associated <span class="VIPMAPSProductName">MAPS</span> template. For more details, see <a href="Electrical_equipment_templates.htm">Electrical 
+ equipment templates</a>.</p>
+            <p class="ListDesc">In the case of complex items of equipment that consist 
+ of more than one piece of electrical and/or instrumentation equipment, 
+ like conveyors - create a Unit for this item of equipment and associate 
+ all the component electrical equipment to <span class="VIPMAPSProductName">MAPS</span> templates.</p>
+            <p class="ListDesc">The <b>Electrical Data</b> 
+ page opens so that you can specify the required quantities of <span class="VIPMAPSProductName">MAPS</span> templates 
+ to represent your electrical equipment within this process site (<span class="VIPMAPSProductName">MAPS</span> 
+ project). Add a row to the <b>Electrical 
+ Data</b> table for each type of <span class="VIPMAPSProductName">MAPS</span> template that you need and complete 
+ the following fields:&#160;&#160;</p>
+            <ul>
+                <li class="ListBullets" value="1">Select the MANDATORY 
+ <b>Template Name</b> for this type of 
+ electrical equipment from the list.</li>
+            </ul>
+            <p class="ListBullDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Electrical_equipment_templates_2.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Default Electrical equipment templates</a></span>: the electrical equipment templates</p>
+            <p class="ListBullDesc">Once a template is selected, click the <b>Template 
+ Description</b> field to display a description of exactly which type 
+ of electrical equipment this <span class="VIPMAPSProductName">MAPS</span> template represents.</p>
+            <ul>
+                <li class="ListBullets" value="1">Specify the MANDATORY 
+ <b>Quantity</b> of this type of electrical 
+ equipment.</li>
+            </ul>
+            <p class="ListBullDesc">This should specify the TOTAL number of this type 
+ of electrical equipment with the entire process site (<span class="VIPMAPSProductName">MAPS</span> project).</p>
+            <p class="ListNotice"><b>WARNING!</b> 
+ Once you click the <b>Next</b> button, 
+ you are UNABLE to return to this page again, so ensure that this is correctly 
+ specified.</p>
+            <p class="ListNotice"><b>Tip:</b> If your estimation 
+ is NOT exact, you can always add other <span class="VIPMAPSProductName">MAPS</span> templates manually.&#160;</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Click <b>Next</b> to configure 
+ each item of electrical equipment in the <b>Electrical Detail Data</b> 
+ page.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Electrical Detail 
+ Data</b> page when quantities are specified for all the added electrical 
+ equipment templates.</p>
+            <p class="ListDesc">The <b>Electrical Detail 
+ Data</b> page opens so that you can configure the individual items 
+ of electrical equipment of this process site (<span class="VIPMAPSProductName">MAPS</span> project). Each row 
+ of the <b>Electrical Equipment Detail Data</b> table represents an item of electrical equipment that is associated 
+ to a <span class="VIPMAPSProductName">MAPS</span> template, which requires the configuration of the following 
+ fields:</p>
+            <p class="ListDesc">By default, the quantities of each <span class="VIPMAPSProductName">MAPS</span> electrical equipment 
+ template, as specified in the <b>Electrical 
+ Data</b> page, are added as individual rows.</p>
+            <p class="ListNotice"><b>Note:</b> Rows 
+ can be manually added and configured from scratch, if you need additional 
+ items of electrical equipment.</p>
+            <ul>
+                <li class="ListBullets" value="1">The MANDATORY <b>Template Name</b> is the <span class="VIPMAPSProductName">MAPS</span> template that 
+ represents this item of electrical equipment (or one of its electrical 
+ equipment sub-components in the case of complex equipment).</li>
+                <li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Unit</b> <![CDATA[  ]]><b>Name</b> (logical grouping) 
+ to which this electrical item of equipment belongs.</li>
+                <li class="ListBullets" value="3">Specify the MANDATORY 
+ <b>Name</b> of this item of electrical 
+ equipment, which is used to identify this item of equipment in the SCADA 
+ and PLC. By default, the following suggested naming format is provided: 
+ a name that is prefixed by the specified plant area code (if any) and 
+ an incrementing counter as a suffix.</li>
+            </ul>
+            <p class="ListBullNote"><b>WARNING!</b> 
+ You CANNOT rename this equipment name.</p>
+            <p class="ListBullNote"><b>Note:</b> 
+ Do not rely on the uniqueness of the specified suffix, if you manually 
+ add rows this suffix resets itself to 0001.</p>
+            <p class="ListBullNote"><b>Tip:</b> If you specify 
+ any duplicate equipment names, these are flagged (one-by-one) when you 
+ click the <b>Next</b> button, so that 
+ you can correct these.</p>
+            <ul>
+                <li class="ListBullets" value="1">Specify a MANDATORY 
+ <b>Description</b> for this item of electrical equipment, which describes 
+ its function or purpose.</li>
+                <li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Graphic</b> that represents this item of electrical equipment in the 
+ SCADA representation of this unit. The available graphical representations 
+ depend upon the selected template. For details, see <a href="Electrical_equipment_templates.htm">Electrical 
+ equipment templates</a>.</li>
+            </ul>
+            <p class="ListBullDesc">Typically the provided template graphics will always 
+ list one or more ISO representations (of the associated ISO 14617 symbol, 
+ if one exists for this item of equipment) at the top of the list, which 
+ may be followed by one or more physical representations of this item of 
+ equipment.</p>
+            <p class="ListBullDesc">Ensure that you select the graphical representation, 
+ which provides the required orientation of this item of equipment.</p>
+            <p class="ListBullNote"><b>Note:</b> To 
+ change the <b>Graphic</b> after you have 
+ selected it - highlight the name of the selected graphic and press the 
+ DELETE key, then the list box appears so that you can choose another graphic.</p>
+            <ul>
+                <li class="ListBullets" value="1">If necessary, check 
+ the <b>Create tags</b> checkbox to create the necessary SCADA tags in 
+ <span class="AdroitAppName">Adroit</span> for this item of equipment and to perform any other necessary SCADA 
+ configuration required by this template, such as scanning, logging, alarming 
+ and/or trending.</li>
+            </ul>
+            <p class="ListBullNote"><b>Note:</b> If 
+ you check the <b>Create tags</b> checkbox, this will increase the time 
+ required to create the <span class="VIPAppName">SmartUI</span> project.</p>
+            <p class="ListBullDesc">If you do NOT check the <b>Create tags</b> checkbox 
+ for this item of equipment, then AFTER finishing this wizard, select the 
+ <b>Sync tags</b> right click option for this <span class="VIPMAPSProductName">MAPS</span> project in the <span class="VIPMAPSProductName">MAPS</span> 
+ window.&#160;</p>
+            <ol start="4">
+                <li class="Numbers" value="4">Click <b>Next</b> and specify 
+ ALL the types of instrumentation equipment and their quantities as required 
+ for this site (<span class="VIPMAPSProductName">MAPS</span> project) in the <b>Instrumentation Data</b> page.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> 
+ You will only advance to the <b>Instrumentation Data</b> page once all 
+ the MANDATORY fields are correctly completed for your electrical equipment 
+ and all of their names are unique.</p>
+            <p class="ListDesc">In <span class="VIPMAPSProductName">MAPS</span>, each type of instrumentation equipment requires 
+ an associated <span class="VIPMAPSProductName">MAPS</span> template. For more details, see <a href="Instrumentation_equipment_templates.htm">Instrumentation 
+ equipment templates</a>.</p>
+            <p class="ListDesc">In the case of complex items of equipment that consist 
+ of more than one piece of instrumentation and/or electrical equipment, 
+ like conveyors - create a Unit for this item of equipment and associate 
+ all the component instrumentation equipment to <span class="VIPMAPSProductName">MAPS</span> templates.</p>
+            <p class="ListDesc">The <b>Instrumentation Data</b> page opens so 
+ that you can specify the required quantities of <span class="VIPMAPSProductName">MAPS</span> templates to represent 
+ your electrical equipment within this process site (<span class="VIPMAPSProductName">MAPS</span> project). Add 
+ a row to the <b>Instrumentation Data</b> table for each type of <span class="VIPMAPSProductName">MAPS</span> template 
+ that you need and complete the following fields:&#160;&#160;</p>
+            <ul>
+                <li class="ListBullets" value="1">Select the MANDATORY 
+ <b>Template Name</b> for this type of 
+ instrumentation equipment from the list.</li>
+            </ul>
+            <p class="ListBullDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Instrumentation_equipment_templates_2.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Default Instrumentation 
+ equipment templates</a></span>: the instrumentation equipment templates</p>
+            <p class="ListBullDesc">Once a template is selected, click the <b>Template 
+ Description</b> field to display a description of exactly which type 
+ of instrumentation equipment this <span class="VIPMAPSProductName">MAPS</span> template represents.</p>
+            <ul>
+                <li class="ListBullets" value="1">Specify the MANDATORY 
+ <b>Quantity</b> of this type of instrumentation 
+ equipment.</li>
+            </ul>
+            <p class="ListBullDesc">This should specify the TOTAL number of this type 
+ of instrumentation equipment with the entire process site (<span class="VIPMAPSProductName">MAPS</span> project).</p>
+            <p class="ListNotice"><b>WARNING!</b> 
+ Once you click the <b>Next</b> button, 
+ you are UNABLE to return to this page again, so ensure that this is correctly 
+ specified.</p>
+            <p class="ListNotice"><b>Tip:</b> If your estimation 
+ is NOT exact, you can always add other <span class="VIPMAPSProductName">MAPS</span> templates manually.&#160;</p>
+            <ol start="5">
+                <li class="Numbers" value="5">Click <b>Next</b> to configure 
+ each item of instrumentation equipment in the <b>Instrumentation Detail Data</b> page.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Instrumentation Detail Data</b> 
+ page when quantities are specified for all the added instrumentation equipment 
+ templates.</p>
+            <p class="ListDesc">The <b>Instrumentation Detail Data</b> 
+ page opens so that you can configure the individual items of instrumentation 
+ equipment of this process site (<span class="VIPMAPSProductName">MAPS</span> project). Each row of the <b>Instrumentation Equipment Detail Data</b> table 
+ represents an item of instrumentation equipment that is associated to 
+ a <span class="VIPMAPSProductName">MAPS</span> template, which requires the configuration of the following fields:</p>
+            <p class="ListDesc">By default, the quantities of each <span class="VIPMAPSProductName">MAPS</span> instrumentation 
+ equipment template, as specified in the <b>Instrumentation Data</b> page, are added 
+ as individual rows.</p>
+            <p class="ListNotice"><b>Note:</b> Rows 
+ can be manually added and configured from scratch, if you need additional 
+ items of instrumentation equipment.</p>
+            <ul>
+                <li class="ListBullets" value="1">The MANDATORY <b>Template Name</b> is the <span class="VIPMAPSProductName">MAPS</span> template that 
+ represents this item of instrumentation equipment (or one of its instrumentation 
+ equipment sub-components in the case of complex equipment).</li>
+                <li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Unit</b> <![CDATA[  ]]><b>Name</b> (logical grouping) 
+ to which this instrumentation item of equipment belongs.</li>
+                <li class="ListBullets" value="3">Specify the MANDATORY 
+ <b>Name</b> of this item of instrumentation 
+ equipment, which is used to identify this item of equipment in the SCADA 
+ and PLC. By default, the following suggested naming format is provided: 
+ a name that is prefixed by the specified plant area code (if any) and 
+ an incrementing counter as a suffix.</li>
+            </ul>
+            <p class="ListBullNote"><b>WARNING!</b> 
+ You CANNOT rename this equipment name.</p>
+            <p class="ListBullNote"><b>Note:</b> 
+ Do not rely on the uniqueness of the specified suffix, if you manually 
+ add rows this suffix resets itself to 0001.</p>
+            <p class="ListBullNote"><b>Tip:</b> If you specify 
+ any duplicate equipment names, these are flagged (one-by-one) when you 
+ click the <b>Next</b> button, so that 
+ you can correct these.</p>
+            <ul>
+                <li class="ListBullets" value="1">Specify a MANDATORY 
+ <b>Description</b> for this item of instrumentation equipment, which describes 
+ its function or purpose.</li>
+                <li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Graphic</b> that represents this item of instrumentation equipment 
+ in the SCADA representation of this unit - therefore ensure that you select 
+ the graphic that provides the required orientation of this graphic. The 
+ available graphical representations depend upon the selected template. 
+ For details, see <a href="Electrical_equipment_templates.htm">Electrical 
+ equipment templates</a>.</li>
+            </ul>
+            <p class="ListBullDesc">Typically the provided template graphics will always 
+ list one or more ISO representations (of the associated ISO 14617 symbol, 
+ if one exists for this item of equipment) at the top of the list, which 
+ may be followed by one or more physical representations of this item of 
+ equipment with different orientations.</p>
+            <p class="ListBullNote"><b>Note:</b> To 
+ change the <b>Graphic</b> after you have 
+ selected it - highlight the name of the selected graphic and press the 
+ DELETE key, then the list box appears so that you can choose another graphic.</p>
+            <ul>
+                <li class="ListBullets" value="1">If necessary, check 
+ the <b>Create tags</b> checkbox to create the necessary SCADA tags in 
+ <span class="AdroitAppName">Adroit</span> for this item of equipment and to perform any other necessary SCADA 
+ configuration required by this template, such as scanning, logging, alarming 
+ and/or trending.</li>
+            </ul>
+            <p class="ListBullNote"><b>Note:</b> If 
+ you check the <b>Create tags</b> checkbox, this will increase the time 
+ required to create the <span class="VIPMAPSProductName">MAPS</span> project.</p>
+            <p class="ListBullDesc">If you do NOT check the <b>Create tags</b> checkbox 
+ for this item of equipment, then AFTER finishing this wizard, select the 
+ <b>Sync tags</b> right click option for this <span class="VIPMAPSProductName">MAPS</span> project in the <span class="VIPMAPSProductName">MAPS</span> 
+ window.&#160;</p>
+            <ol start="6">
+                <li class="Numbers" value="6">Click <b>Finish</b> to add this unit and its equipment to this MAPS project.</li>
+            </ol>
+            <p class="ListNotice"><b>IMPORTANT:</b> If you selected the <b>Create 
+ tags</b> checkbox for any electrical or instrumentation equipment, then you need to START the relevant          <![CDATA[
+ ]]><span class="AdroitAppName">Adroit</span> AGENT SERVER applications BEFORE you CLICK the <b>Finish</b> button so that this process can 
+ occur.</p>
+            <p class="ListDesc">If you selected the<b> Create tags</b> checkbox for any 
+ electrical or instrumentation equipment, then their associated SCADA tags 
+ are created and any other necessary SCADA configuration is performed.</p>
+            <p class="ListDesc">If you chose NOT to check 
+ the <b>Create tags</b> checkbox for any item of equipment, then right 
+ click this unit <img src="MAPSUnitIcon.bmp" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> and select <b>Sync Tags</b> (see <span class="VIPMAPSProductName">MAPS</span> 
+ Project options) and when the <b>Tag Data</b> dialog is displayed click 
+ <b>Finish.</b></p>
+        </div>&#160; 
+
+<p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />How to add an item of equipment to a unit of a MAPS project:</a></p><div MadCap:targetName="t1" style="display: none;"><ol><li class="Numbers" value="1">In the <span class="VIPMAPSProductName">MAPS</span> window, right 
+ click the required unit <img src="MAPSUnitIcon.bmp" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> and select <b>Add 
+ equipment</b>.</li></ol><p class="ListDesc">The <b>Add</b> equipment wizard should open.</p><ol start="2"><li class="Numbers" value="2">Specify 
+ ALL the types of electrical equipment and their quantities as required 
+ for this site (<span class="VIPMAPSProductName">MAPS</span> project) in the <b>Electrical Data</b> page.</li></ol><p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Electrical Data</b> 
+ page once all the MANDATORY fields are correctly completed for all the 
+ added units.</p><p class="ListDesc">In <span class="VIPMAPSProductName">MAPS</span>, each type of electrical equipment requires an 
+ associated <span class="VIPMAPSProductName">MAPS</span> template. For more details, see <a href="Electrical_equipment_templates.htm">Electrical 
+ equipment templates</a>.</p><p class="ListDesc">In the case of complex items of equipment that consist 
+ of more than one piece of electrical and/or instrumentation equipment, 
+ like conveyors - create a Unit for this item of equipment and associate 
+ all the component electrical equipment to <span class="VIPMAPSProductName">MAPS</span> templates.</p><p class="ListDesc">The <b>Electrical Data</b> 
+ page opens so that you can specify the required quantities of <span class="VIPMAPSProductName">MAPS</span> templates 
+ to represent your electrical equipment within this process site (<span class="VIPMAPSProductName">MAPS</span> 
+ project). Add a row to the <b>Electrical 
+ Data</b> table for each type of <span class="VIPMAPSProductName">MAPS</span> template that you need and complete 
+ the following fields:&#160;&#160;</p><ul><li class="ListBullets" value="1">Select the MANDATORY 
+ <b>Template Name</b> for this type of 
+ electrical equipment from the list.</li></ul><p class="ListBullDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Electrical_equipment_templates_2.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Default Electrical equipment templates</a></span>: the electrical equipment templates</p><p class="ListBullDesc">Once a template is selected, click the <b>Template 
+ Description</b> field to display a description of exactly which type 
+ of electrical equipment this <span class="VIPMAPSProductName">MAPS</span> template represents.</p><ul><li class="ListBullets" value="1">Specify the MANDATORY 
+ <b>Quantity</b> of this type of electrical 
+ equipment.</li></ul><p class="ListBullDesc">This should specify the TOTAL number of this type 
+ of electrical equipment with the entire process site (<span class="VIPMAPSProductName">MAPS</span> project).</p><p class="ListNotice"><b>WARNING!</b> 
+ Once you click the <b>Next</b> button, 
+ you are UNABLE to return to this page again, so ensure that this is correctly 
+ specified.</p><p class="ListNotice"><b>Tip:</b> If your estimation 
+ is NOT exact, you can always add other <span class="VIPMAPSProductName">MAPS</span> templates manually.&#160;</p><ol start="3"><li class="Numbers" value="3">Click <b>Next</b> to configure 
+ each item of electrical equipment in the <b>Electrical Detail Data</b> 
+ page.</li></ol><p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Electrical Detail 
+ Data</b> page when quantities are specified for all the added electrical 
+ equipment templates.</p><p class="ListDesc">The <b>Electrical Detail 
+ Data</b> page opens so that you can configure the individual items 
+ of electrical equipment of this process site (<span class="VIPMAPSProductName">MAPS</span> project). Each row 
+ of the <b>Electrical Equipment Detail Data</b> table represents an item of electrical equipment that is associated 
+ to a <span class="VIPMAPSProductName">MAPS</span> template, which requires the configuration of the following 
+ fields:</p><p class="ListDesc">By default, the quantities of each <span class="VIPMAPSProductName">MAPS</span> electrical equipment 
+ template, as specified in the <b>Electrical 
+ Data</b> page, are added as individual rows.</p><p class="ListNotice"><b>Note:</b> Rows 
+ can be manually added and configured from scratch, if you need additional 
+ items of electrical equipment.</p><ul><li class="ListBullets" value="1">The MANDATORY <b>Template Name</b> is the <span class="VIPMAPSProductName">MAPS</span> template that 
+ represents this item of electrical equipment (or one of its electrical 
+ equipment sub-components in the case of complex equipment).</li><li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Unit</b> <![CDATA[  ]]><b>Name</b> (logical grouping) 
+ to which this electrical item of equipment belongs.</li><li class="ListBullets" value="3">Specify the MANDATORY 
+ <b>Name</b> of this item of electrical 
+ equipment, which is used to identify this item of equipment in the SCADA 
+ and PLC. By default, the following suggested naming format is provided: 
+ a name that is prefixed by the specified plant area code (if any) and 
+ an incrementing counter as a suffix.</li></ul><p class="ListBullNote"><b>WARNING!</b> 
+ You CANNOT rename this equipment name.</p><p class="ListBullNote"><b>Note:</b> 
+ Do not rely on the uniqueness of the specified suffix, if you manually 
+ add rows this suffix resets itself to 0001.</p><p class="ListBullNote"><b>Tip:</b> If you specify 
+ any duplicate equipment names, these are flagged (one-by-one) when you 
+ click the <b>Next</b> button, so that 
+ you can correct these.</p><ul><li class="ListBullets" value="1">Specify a MANDATORY 
+ <b>Description</b> for this item of electrical equipment, which describes 
+ its function or purpose.</li><li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Graphic</b> that represents this item of electrical equipment in the 
+ SCADA representation of this unit. The available graphical representations 
+ depend upon the selected template. For details, see <a href="Electrical_equipment_templates.htm">Electrical 
+ equipment templates</a>.</li></ul><p class="ListBullDesc">Typically the provided template graphics will always 
+ list one or more ISO representations (of the associated ISO 14617 symbol, 
+ if one exists for this item of equipment) at the top of the list, which 
+ may be followed by one or more physical representations of this item of 
+ equipment.</p><p class="ListBullDesc">Ensure that you select the graphical representation, 
+ which provides the required orientation of this item of equipment.</p><p class="ListBullNote"><b>Note:</b> To 
+ change the <b>Graphic</b> after you have 
+ selected it - highlight the name of the selected graphic and press the 
+ DELETE key, then the list box appears so that you can choose another graphic.</p><ul><li class="ListBullets" value="1">If necessary, check 
+ the <b>Create tags</b> checkbox to create the necessary SCADA tags in 
+ <span class="AdroitAppName">Adroit</span> for this item of equipment and to perform any other necessary SCADA 
+ configuration required by this template, such as scanning, logging, alarming 
+ and/or trending.</li></ul><p class="ListBullNote"><b>Note:</b> If 
+ you check the <b>Create tags</b> checkbox, this will increase the time 
+ required to create the <span class="VIPAppName">SmartUI</span> project.</p><p class="ListBullDesc">If you do NOT check the <b>Create tags</b> checkbox 
+ for this item of equipment, then AFTER finishing this wizard, select the 
+ <b>Sync tags</b> right click option for this <span class="VIPMAPSProductName">MAPS</span> project in the <span class="VIPMAPSProductName">MAPS</span> 
+ window.&#160;</p><ol start="4"><li class="Numbers" value="4">Click <b>Next</b> and specify 
+ ALL the types of instrumentation equipment and their quantities as required 
+ for this site (<span class="VIPMAPSProductName">MAPS</span> project) in the <b>Instrumentation Data</b> page.</li></ol><p class="ListNotice"><b>Note:</b> 
+ You will only advance to the <b>Instrumentation Data</b> page once all 
+ the MANDATORY fields are correctly completed for your electrical equipment 
+ and all of their names are unique.</p><p class="ListDesc">In <span class="VIPMAPSProductName">MAPS</span>, each type of instrumentation equipment requires 
+ an associated <span class="VIPMAPSProductName">MAPS</span> template. For more details, see <a href="Instrumentation_equipment_templates.htm">Instrumentation 
+ equipment templates</a>.</p><p class="ListDesc">In the case of complex items of equipment that consist 
+ of more than one piece of instrumentation and/or electrical equipment, 
+ like conveyors - create a Unit for this item of equipment and associate 
+ all the component instrumentation equipment to <span class="VIPMAPSProductName">MAPS</span> templates.</p><p class="ListDesc">The <b>Instrumentation Data</b> page opens so 
+ that you can specify the required quantities of <span class="VIPMAPSProductName">MAPS</span> templates to represent 
+ your electrical equipment within this process site (<span class="VIPMAPSProductName">MAPS</span> project). Add 
+ a row to the <b>Instrumentation Data</b> table for each type of <span class="VIPMAPSProductName">MAPS</span> template 
+ that you need and complete the following fields:&#160;&#160;</p><ul><li class="ListBullets" value="1">Select the MANDATORY 
+ <b>Template Name</b> for this type of 
+ instrumentation equipment from the list.</li></ul><p class="ListBullDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Instrumentation_equipment_templates_2.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Default Instrumentation 
+ equipment templates</a></span>: the instrumentation equipment templates</p><p class="ListBullDesc">Once a template is selected, click the <b>Template 
+ Description</b> field to display a description of exactly which type 
+ of instrumentation equipment this <span class="VIPMAPSProductName">MAPS</span> template represents.</p><ul><li class="ListBullets" value="1">Specify the MANDATORY 
+ <b>Quantity</b> of this type of instrumentation 
+ equipment.</li></ul><p class="ListBullDesc">This should specify the TOTAL number of this type 
+ of instrumentation equipment with the entire process site (<span class="VIPMAPSProductName">MAPS</span> project).</p><p class="ListNotice"><b>WARNING!</b> 
+ Once you click the <b>Next</b> button, 
+ you are UNABLE to return to this page again, so ensure that this is correctly 
+ specified.</p><p class="ListNotice"><b>Tip:</b> If your estimation 
+ is NOT exact, you can always add other <span class="VIPMAPSProductName">MAPS</span> templates manually.&#160;</p><ol start="5"><li class="Numbers" value="5">Click <b>Next</b> to configure 
+ each item of instrumentation equipment in the <b>Instrumentation Detail Data</b> page.</li></ol><p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Instrumentation Detail Data</b> 
+ page when quantities are specified for all the added instrumentation equipment 
+ templates.</p><p class="ListDesc">The <b>Instrumentation Detail Data</b> 
+ page opens so that you can configure the individual items of instrumentation 
+ equipment of this process site (<span class="VIPMAPSProductName">MAPS</span> project). Each row of the <b>Instrumentation Equipment Detail Data</b> table 
+ represents an item of instrumentation equipment that is associated to 
+ a <span class="VIPMAPSProductName">MAPS</span> template, which requires the configuration of the following fields:</p><p class="ListDesc">By default, the quantities of each <span class="VIPMAPSProductName">MAPS</span> instrumentation 
+ equipment template, as specified in the <b>Instrumentation Data</b> page, are added 
+ as individual rows.</p><p class="ListNotice"><b>Note:</b> Rows 
+ can be manually added and configured from scratch, if you need additional 
+ items of instrumentation equipment.</p><ul><li class="ListBullets" value="1">The MANDATORY <b>Template Name</b> is the <span class="VIPMAPSProductName">MAPS</span> template that 
+ represents this item of instrumentation equipment (or one of its instrumentation 
+ equipment sub-components in the case of complex equipment).</li><li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Unit</b> <![CDATA[  ]]><b>Name</b> (logical grouping) 
+ to which this instrumentation item of equipment belongs.</li><li class="ListBullets" value="3">Specify the MANDATORY 
+ <b>Name</b> of this item of instrumentation 
+ equipment, which is used to identify this item of equipment in the SCADA 
+ and PLC. By default, the following suggested naming format is provided: 
+ a name that is prefixed by the specified plant area code (if any) and 
+ an incrementing counter as a suffix.</li></ul><p class="ListBullNote"><b>WARNING!</b> 
+ You CANNOT rename this equipment name.</p><p class="ListBullNote"><b>Note:</b> 
+ Do not rely on the uniqueness of the specified suffix, if you manually 
+ add rows this suffix resets itself to 0001.</p><p class="ListBullNote"><b>Tip:</b> If you specify 
+ any duplicate equipment names, these are flagged (one-by-one) when you 
+ click the <b>Next</b> button, so that 
+ you can correct these.</p><ul><li class="ListBullets" value="1">Specify a MANDATORY 
+ <b>Description</b> for this item of instrumentation equipment, which describes 
+ its function or purpose.</li><li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Graphic</b> that represents this item of instrumentation equipment 
+ in the SCADA representation of this unit - therefore ensure that you select 
+ the graphic that provides the required orientation of this graphic. The 
+ available graphical representations depend upon the selected template. 
+ For details, see <a href="Electrical_equipment_templates.htm">Electrical 
+ equipment templates</a>.</li></ul><p class="ListBullDesc">Typically the provided template graphics will always 
+ list one or more ISO representations (of the associated ISO 14617 symbol, 
+ if one exists for this item of equipment) at the top of the list, which 
+ may be followed by one or more physical representations of this item of 
+ equipment with different orientations.</p><p class="ListBullNote"><b>Note:</b> To 
+ change the <b>Graphic</b> after you have 
+ selected it - highlight the name of the selected graphic and press the 
+ DELETE key, then the list box appears so that you can choose another graphic.</p><ul><li class="ListBullets" value="1">If necessary, check 
+ the <b>Create tags</b> checkbox to create the necessary SCADA tags in 
+ <span class="AdroitAppName">Adroit</span> for this item of equipment and to perform any other necessary SCADA 
+ configuration required by this template, such as scanning, logging, alarming 
+ and/or trending.</li></ul><p class="ListBullNote"><b>Note:</b> If 
+ you check the <b>Create tags</b> checkbox, this will increase the time 
+ required to create the <span class="VIPMAPSProductName">MAPS</span> project.</p><p class="ListBullDesc">If you do NOT check the <b>Create tags</b> checkbox 
+ for this item of equipment, then AFTER finishing this wizard, select the 
+ <b>Sync tags</b> right click option for this <span class="VIPMAPSProductName">MAPS</span> project in the <span class="VIPMAPSProductName">MAPS</span> 
+ window.&#160;</p><ol start="6"><li class="Numbers" value="6">Click <b>Finish</b> to add the selected equipment to this unit <img src="MAPSUnitIcon.bmp" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" />.</li></ol><p class="ListNotice"><b>IMPORTANT:</b> If you selected the <b>Create 
+ tags</b> checkbox for any electrical or instrumentation equipment, then you need to START the relevant          <![CDATA[
+ ]]><span class="AdroitAppName">Adroit</span> AGENT SERVER applications BEFORE you CLICK the <b>Finish</b> button so that this process can 
+ occur.</p><p class="ListDesc">If you selected the<b> Create tags</b> checkbox for any 
+ electrical or instrumentation equipment, then their associated SCADA tags 
+ are created and any other necessary SCADA configuration is performed.</p><p class="ListDesc">If you chose NOT to check 
+ the <b>Create tags</b> checkbox for any item of equipment, then right 
+ click this unit <img src="MAPSUnitIcon.bmp" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> and select <b>Sync Tags</b> (see <span class="VIPMAPSProductName">MAPS</span> 
+ Project options) and when the <b>Tag Data</b> dialog is displayed click 
+ <b>Finish.</b></p></div><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

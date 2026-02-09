@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Logging Agents (Recording Values)" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Out of limit data logging</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor4032"></a><a name="kanchor4033"></a><a name="kanchor4034"></a><a name="kanchor4035"></a><a name="kanchor4036"></a><a name="kanchor4037"></a>Out of limit data logging</h1>
+        <p>Out of limit monitoring enables Datalog agents to immediately log out of limit values (values that are not within their specified operating range), by ignoring the normal time deadband value and using the faster log rate specified by the out of limit time deadband instead. </p>
+        <div>
+            <p> In other words, as soon as the logged value that is being logged,  enters or leaves its user-specified limit range it is logged unconditionally, and continues to be logged at the new time deadband as specified by the <b>Out of limit logging</b> time setting (<b>Time...</b>).  This  allows the Datalog agent to catch short spikes whose duration is less than the normal time deadband logging interval (<b>Deadbands</b> -&gt; <b>Time...</b>)</p>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OutOfLimitUsageExample"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Usage Example:</a>
+            </p>
+            <div MadCap:targetName="OutOfLimitUsageExample" style="display: none;">
+                <p>A customer wants to monitor his incoming voltage of 220 V. </p>
+                <p><b>Previously, without using out of limit monitoring:</b> he would create a Datalog agent to log this voltage tag at a logging rate of 1 second for a period of 1 week. So, in this case, this Datalog agent is configured (<b>Length</b> = 7 days and <b>Deadbands Time</b> = 1 sec) to log all changes to the voltage at 1 second and always keep one week's worth of this data.</p>
+                <p><b>Using out of limit monitoring:</b> since he is actually not that interested in logging this voltage, if it remains within its normal operating voltage range of 215-225 volts, as long as the voltage is within this value range he is happy to log it at a far slower rate -  say 10 seconds.</p>
+                <p> But when the voltage breaches this range, then he wants this Datalog agent to log this value at 1 second intervals. So, in this case, this Datalog agent is configured (<b>Length</b> = 7 days and <b>Deadbands Time</b> = 10 sec and <b>Out of limit monitoring Time</b> = 1 sec and <b>Upper limit</b> = 225 and <b>Lower limit</b> = 215).</p>
+                <p class="Notices"><b>Note:</b> In this case he will be able to catch short voltage spikes whose duration whose duration are less 10 seconds, the normal logging interval.</p>
+                <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OutOfLimitEx"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example of this configured dialog:</a>
+                </p>
+                <p>
+                    <img src="OutOfLimitEx.jpg" MadCap:targetName="OutOfLimitEx" style="display: none;" />
+                </p>
+            </div>
+            <p class="ListNotice"><b>Note:</b> To disable out of limit data logging, set both of the limit values are zero (default values), then NO limit checking is done and the Datalog agent operates normally by ONLY using the normal time deadband logging interval (<b>Deadbands</b> -&gt; <b>Time...</b>).</p>
+        </div>
+        <p><b>To configure out of limit data logging:</b> the Datalog agent logs the value at the "out of limits" log interval when the value enters or leaves the specified limit range </p>
+        <p class="Notices"><b>Note:</b> This method of logging only applies to those values that have a range of values like Analog, Integer or Real values - and not discreet values like Boolean or Digital values.</p>
+        <ol>
+            <li class="Numbers" value="1">Log a value or edit an existing logged value, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LogOrEditLoggedValue"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></li>
+        </ol>
+        <div MadCap:targetName="LogOrEditLoggedValue" style="display: none;">
+            <p class="ListDesc">
+                <p>&#160;</p>
+                <p>Open the Agent Configuration dialog, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgentConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                <p class="Notices"><b>Tip:</b> This also opens the <span class="AdroitAppName">Adroit</span> Classic UI in the <span class="VIPAppName">SmartUI</span> Designer, which provides agent-specific menu functions,  such as importing and exporting agents.</p>
+                <div MadCap:targetName="AgentConfigurator" style="display: none;">
+                    <p>In the <span class="VIPAppName">SmartUI</span> Designer:</p>
+                    <p>Click the <b>Open Configurator</b> tool in the <b>Agent Server</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                    <p class="Notices"><b>Note:</b> When there is more than one <span class="AdroitAppName">Adroit</span> datasource available, a list is provided to select which  Agent Server to configure. </p>
+                    <p>The <b>Agent Configuration</b> 
+ dialog is displayed within the Classic UI.</p>
+                </div>
+                <p>Select the required agent in the Agent Configurator, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SlctAgtInConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                <div MadCap:targetName="SlctAgtInConfigurator" style="display: none;">
+                    <ol>
+                        <li class="UpperLetters" MadCap:conditions="" value="1">Ensure that the <b>Basic</b>, 
+ <b>Advanced</b> and/or <b>System</b> 
+ checkbox is checked to display the required agent type in this list. These 
+ checkboxes use these default agent groups to help you select the required 
+ agent quickly.</li>
+                    </ol>
+                    <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> If no 
+ checkboxes are selected, then all the available agent types will be displayed 
+ in the <b>Type</b> list box. This is 
+ useful if the required agent type has not been categorised.</p>
+                    <ol start="2">
+                        <li class="UpperLetters" MadCap:conditions="" value="2">Click the down arrow in 
+ the <b>Type</b> drop down list</li>
+                        <li class="UpperLetters" MadCap:conditions="" value="3">Locate the required agent 
+ type, using the scroll bar and click on it.</li>
+                    </ol>
+                    <ol start="4">
+                        <li class="UpperLetters" MadCap:conditions="" value="4">In the <b>Agents</b> 
+ list, click on the name of the required agent (if necessary scroll down 
+ to locate this).</li>
+                    </ol>
+                    <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> Right-click 
+ to display a menu of commands to perform upon the selected agent(s).</p>
+                </div>
+            </p>
+            <ol>
+                <li class="ListBullets" value="1">Click the <b>Log...</b> 
+ button to display the <b>Edit DataLog Agent 
+ for</b> dialog.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can 
+ also right-click the agent and select the <b>Log…</b> menu item.</p>
+            <p class="ListDesc">For more details on configuring the options of this dialog to log a value, see <a href="How_to_Log_a_Tag.htm">How to Log a Tag</a>.</p>
+        </div>
+        <p class="LineNote">Configure the  <b>Out of limit monitoring</b> section, at the bottom, of the <b>Edit Datalog agent</b> dialog, as follows:</p>
+        <ol start="2">
+            <li value="2">Set the <b>Time...</b> (limitLogInterval slot) to the required out-of-limit logging interval, which is typically much faster than the in-range logging interval.</li>
+        </ol>
+        <p class="ListNotice"><b>IMPORTANT:</b> Configure this log interval at the required sample rate  while the value is out of limits to catch its short value spikes.</p>
+        <ol start="3">
+            <li value="3">Configure the <b>Upper limit</b> (upperLimit slot) and <b>Lower limit</b> (lowerLimit slot) fields to define the normal operating range for the value that is being logged.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If both of these limit values are zero (default values) then NO limit checking is done and the Datalog agent operates normally.</p>
+        <p>&#160;</p>
+        <p><b>To disable out of limit data logging:</b> this disable any limit checking so the Datalog agent operates normally and ignores the "out of limits" log interval</p>
+        <ol>
+            <li class="Numbers" value="1">Log a value or edit an existing logged value. See above for details.</li>
+            <li class="Numbers" value="2">Configure the  <b>Out of limit monitoring</b> section in the <b>Edit Datalog agent</b> dialog, as follows:</li>
+            <li class="Numbers" value="3">Set the values of the <b>Upper limit</b> and <b>Lower limit</b> fields to 0.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer,Adroit.ExcludeFromProject" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Creating an Object Template</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Creating or Editing an Object Template</h1>
+        <p>When creating an object template typically use a wizard instance on a graphic form that you have already configured, which is working EXACTLY the way you want it to work and for which you have already configured the necessary SCADA configuration (the scanning logging and alarming etc.) and any other agents that this object needs configured.</p>
+        <p class="Notices"><b>IMPORTANT:</b> You need to ensure that the required SCADA configuration of this wizard instance is EXACTLY what you require, since this will be copied exactly; in other words: garbage in = garbage out!</p>
+        <p class="Notices"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="CreateDetails"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a>
+        </p>
+        <div MadCap:targetName="CreateDetails" style="display: none;">
+            <p class="Notices"><b>Tip:</b> If you keep the SAME substitution names as those used in the wizard, this will make it easier to implement your instances, since you will only need to configure these substitutions ONCE, otherwise you will need to specify substitutions both during the SCADA Configuration and Graphical Substitution stages.</p>
+            <p>Then create a template from it, which incorporates the graphical components of the wizard (and any substitutions that it uses) along with SCADA configuration that you specify, from which you can create numerous instances each of which will create their own unique tags, which will be scanned, logged and/or alarmed, as specified by the template.</p>(missing or bad snippet)<p class="Notices"><b>Note:</b> In order to create an object template you need to be fully aware about how your SCADA system (Agent Server) is configured. </p><p>Once you create an object template then any instance that you create of this template will provide the referenced wizard to provide the graphical components and uniquely configure the specified SCADA configuration for the process values that you specify for each object. </p></div>
+        <h2>To create an object template:</h2>
+        <p>Open a graphic form that contains an instance of a wizard for which the necessary SCADA configuration (the scanning logging and alarming etc.) and any other agents that this object needs has been created and is working well.</p>
+        <p>Right click this wizard instance in the Designer and select <b>Create Object Template</b> .</p>
+        <p>This displays the first page of the <b>Create Object Template</b> configuration dialog:</p>
+        <p class="Notices"><b>IMPORTANT:</b> if you <b>Cancel</b> the configuration dialog then you will lose any configuration that you have done. However, you can use the <b>Previous</b> and <b>Next</b> buttons to navigate back and forward between the steps, which retains the current configuration of each step.</p>
+        <p class="Notices">&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="EntMan_ObjectModel"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To edit an existing object template:</a>
+        </p>
+        <div MadCap:targetName="EntMan_ObjectModel" style="display: none;">(missing or bad snippet)<ol start="1"><li class="Numbers" value="1">If necessary, expand the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b>Datasources</b> category.</li><li class="Numbers" value="2">If necessary, expand the <img src="../../../../Resources/Images/16/DataSources/ObjectModel.png" style="width: 16px;height: 16px;" /> <b>Object Model</b>  datasource (by using the arrow or double clicking it).</li><li class="Numbers" value="3">If necessary, expand the <img src="../../../../Resources/Images/16/DataSources/ObjectModel_TemplatesFolder.png" style="width: 16px;height: 16px;" /> <b>Templates</b> folder.</li><li class="Numbers" value="4">Right click the required template <img src="../../../../Resources/Images/16/DataSources/ObjectModel_Template.png" style="width: 16px;height: 16px;" /> and select <b>Edit</b>.</li></ol><p class="ListDesc">This displays the first page of the <b>Edit Template</b> configuration dialog:</p><p class="ListNotice"><b>IMPORTANT:</b> if you <b>Cancel</b> the configuration dialog then you will lose any configuration that you have done. However, you can use the <b>Previous</b> and <b>Next</b> buttons to navigate back and forward between the steps, which retains the current configuration of each step.</p></div>
+        <p class="Notices">&#160;</p>
+        <h3>Step 1 of 12: Validate Wizard Data Elements</h3>
+        <p>By default the <b>Template Name</b> is the name of the wizard that the selected wizard instance is an instance of, prefaced by "TPL_". This wizard is further described by the <b>Path</b> edit field of the <b>Primary wizard</b> tab, which displays the exact path to this wizard when the mouse hovers over its name and/or representation.</p>
+        <p>You can also specify a <b>Template Descriptor</b>, which is the last portion of the default deployed object name, that relates to the object itself and not its context. Typically, this is a standardised abbreviation for this object, such as PMP for pump, after which you typically need to provide the unique, detailed name for this object e.g. PMP_SUMP_01.</p>
+        <p>By default a number of predefined descriptors have been created for you. However you can <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddCustomTemplDesciptor"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />add a custom descriptor:</a> <![CDATA[ ]]></p>
+        <p MadCap:targetName="AddCustomTemplDesciptor" style="display: none;">To add a custom template descriptor: click the list button to the right of the <b>Template Descriptor</b> field and then click the <b>Add new descriptor...</b> button at the bottom of this dialog, in which case you need to specify their required <b>Category</b> and <b>Description</b>, in addition to the required <b>Descriptor</b> - so that they can be easily identified in this list of predefined descriptors.</p>
+        <p>The <b>Wizard Data Elements</b> table should contain the valid names of the specified data elements used for the substitutable values of this primary wizard, so no further configuration should be required.</p>
+        <p>This displays all the data elements from all the datasources that apply to the specified wizard, however only the <span class="AdroitAppName">Adroit</span>-specific data elements will be processed, since the purpose of a template is to  specify the necessary SCADA configuration for this primary wizard.</p>
+        <p>If necessary, click the <b>Associated wizards</b> tab to specify related wizards that use the SAME  substitutable values as this primary wizard (or LESS of these  substitutable values).</p>
+        <p class="Notices"><b>Note:</b> Another wizard can ONLY be associated when it has the SAME  or LESS substitutions as the Primary wizard.</p>
+        <p>Examples of valid Associated wizards:</p>
+        <ul>
+            <li class="Bullets" value="1">if you have created different graphical orientations for the <b>same</b> item of equipment like a left or right or top or bottom view, which use the SAME  substitutable values</li>
+            <li class="Bullets" value="2">if you have a simpler view of the primary wizard, in other words a wizard that uses LESS of the  substitutable values</li>
+        </ul>
+        <p>Click <b>Next</b>, once you are happy with the template name and have specified any associated wizards.</p>
+        <h3>Step 2 of 12: Select Agents</h3>
+        <p>By default the <b>Agents</b> tree displays the list of <span class="AdroitAppName">Adroit</span> tags directly referenced by the wizard.</p>
+        <p>If an agent is used by (referenced within) another agent, such as an expression, these agents are added to the <b>Related Agents</b> list.</p>
+        <p class="Notices"><b>Note:</b> Only DBLog agents that have been enabled will appear in this list, when they reference one of the selected agents.</p>
+        <p>Then the template designer needs to decide which of the agent relationships are required by the template, as these intra-agent relationships may become complex depending upon how nested they are. By default only the first level of agents are linked to by default.          </p>
+        <p>This task is best suited to a user who has an in-depth knowledge of how their SCADA system (Agent Server) has been designed.</p>
+        <p>You may also need to manually add any agents not directly linked to the agents in this wizard, which are also required. Such as Script agents or an AlarmManagement agent etc, by clicking the <b>Add agent</b> button and selecting these agents. Any added agent, both existing or created at this time, is displayed in <span style="color: #0000ff;">blue</span>.</p>
+        <p class="Notices"><b>IMPORTANT:</b> Currently the Object Model only supports the following agent types: alarm, alarmmanagement, alarmlist, analog, beeper, counter, dblog, digital, eventoutput, expression, icmp, integer, marshal, maxdemand, oee, pid, real, shift, snmpmgr, statistical, string, stringlist, text and timer.</p>
+        <p class="Notices"><b>Note:</b> Do NOT include the agents used to directly alarm, log or scan the agent. </p>
+        <p class="Notices"><b>Tip:</b> You can also create agents at this stage, if necessary.</p>
+        <p>Click <b>Next</b>, once all the relevant agents have been specified.</p>
+        <h3>Step 3 of 12: Assign Agent Substitutions</h3>
+        <p>This step is where you decide which portions of the agent name you want to be substitutable or which may need to be variable when creating instances of this object. So that they adhere to any tag naming conventions that are applicable.</p>
+        <p>Typically the substitutions for all the values used within the referenced wizard are listed here, prefixed by the <span class="AdroitAppName">Adroit</span> datasource name. </p>
+        <p class="Notices"><b>Tip:</b> If you keep the SAME substitution names as those used in the wizard, this will make it easier to implement your instances, since you will only need to configure these substitutions ONCE, otherwise you will need to specify substitutions both during the SCADA Configuration and Graphical Substitution stages.</p>
+        <p>Unless the substitution included the datasource name, in which case and for any manually added agents, the tag name is used instead and you need to manually add the required substitutions. You can also modify the existing substitutions at this point too, if needed.</p>
+        <p class="Notices"><b>IMPORTANT:</b> Any tag that is NOT substituted will be referenced by ALL the instances of this template.</p>
+        <p class="Notices"><b>Note:</b> Templates do not support the obtaining of tags from two different <span class="AdroitAppName">Adroit</span> datasources - all the specified tags need to exist on the same Agent Server.</p>
+        <p>In this case, double click the row containing the required agent and then  specify each required substitution within curly brackets {...} in the <b>Substitutions</b> dialog.</p>
+        <p>For instance, if there is a plant area code and an equipment code : {PlantAreaCode}_{EquipmentCode}.value</p>
+        <p>Alternatively you can use a single substitution for both the agent name and slot value, such as {AnalogTag}</p>
+        <p class="Notices"><b>Note:</b> It is not possible to substitute the <span class="AdroitAppName">Adroit</span> datasource name, however you can specify which <span class="AdroitAppName">Adroit</span> datasource (Agent Server) you want to use when creating an instance of this template.</p>
+        <p class="Notices"><b>Tip:</b> When you click the <b>Remove Substitution(s)</b> button, this removes all the  specified substitutions of the current row (only if one has been selected) replacing these substitutions with the name of the specified agent. </p>
+        <p>Click <b>Next</b>, once all the relevant substitutions have been specified.</p>
+        <h3>Step 4 of 12: Configure Slots</h3>
+        <p>Typically each agent that is selected for use in this template, provides a filtered list of values (slots) that a user can configure. </p>
+        <p>Select the row containing an agent whose values (slots) you want to configure, which displays this filtered list in the <b>Slots</b> table below.</p>
+        <p class="Notices"><b>Note:</b> Any agent used to scan, log or alarm this agent are NOT configured at this point, such as the DBLog agent. </p>
+        <p>However, since the purpose of the object template is to create specific objects to simplify the lives of your users, you need to decide how informed each of your users will be i.e. complex your objects need to be and therefore which of these values should be configured by selecting one of the following four configuration modes:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Agent Default (Not displayed)</b>: these values are pre-configued for this object and are hidden from your users.</li>
+            <li class="Bullets" value="2"><b>User Default (Read-only)</b>: these values are pre-configued for this object and are also displayed for information purposes so that your users can still see them, even though they cannot edit them (like alarm limits or set points).</li>
+            <li class="Bullets" value="3"><b>Editable with a default value</b>: a recommended or suggested value is provided, which a user can change when adding an instance if they want to. This is the DEFAULT option.</li>
+            <li class="Bullets" value="4"><b>Editable with NO default value</b>: in this case users MUST specify these values when creating each instance.</li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> This ONLY&#160;applies to values are NOT of type String (since a blank string can be valid).</p>
+        <p>Click <b>Next</b>, once you have appropriately configured the slots of EACH agent referenced by this object.</p>
+        <h3>Step 5 of 12: Configure Scanning</h3>
+        <p>This step lists all the slots (values) of the selected agents that are being scanned and some of their commonly configured scanning settings, such as the device and the scan address in this device, along with the scan rate and deadband and the four scanning IO&#160;settings that affect how this value is scanned. For more details, see <a href="../../../../AU_01_06/06_008_IOFlags.htm" class="MCXref_0">"IO Flags" on page&#160;1</a>.</p>
+        <p class="Notices"><b>Note:</b> If you want to make changes to these scanning settings, then ensure that the <b>Update all devices on edit</b> checkbox is checked</p>
+        <p>Click <b>Next</b>, once you are happy with how each of these slots are being scanned.</p>
+        <h3>Step 6 of 12: Configure Devices</h3>
+        <p>This step allows you to configure the devices that values are being scanned to specify any default settings that will be used when creating an instance of this object. </p>(missing or bad snippet)<p class="Notices"><b>Note:</b> This step may or may not be required, depending upon the requirements of your site and how you intend deploying the instances of this template.</p><p> Select the row containing the device you want to configure, which displays the protocol driver-specific list of primary properties (settings) that can be specified for this device in <b>Primary</b> tab of the <b>Properties</b> table below.</p><p>Either leave these properties blank - so that when creating an instance these will be specified or type in a default value as needed.</p><p>Click <b>Next</b>, once you have appropriately configured the primary settings of all the required devices.</p><h3>Step 7 of 12: Data Logging Summary</h3><p>This step lists all the slots (values) of the selected agents that are being datalogged and some of their commonly configured logging settings that affect how this value is being logged.</p><p>If necessary, you can modify one or more of these logging settings.</p><p>Click <b>Next</b>, once you are happy with how each of these slots are being logged.</p><h3>Step 8 of 12: DBLogging Summary</h3><p>This step allows you to configure each of the selected DBLog agents and view which of the slots of the other selected agents have been allocated to each DBLog agent.</p><p> Select the row containing the DBLog agent you want to configure  in the <b>DBLogs</b> list, which displays the slots of the other selected agents in the <b>Tags</b> table below, for information purposes only.</p><p>Click <b>Next</b>, once you have appropriately configured the  DBLog agents.</p><h3>Step 9 of 12: Alarming Summary</h3><p>This step lists all the slots (values) of the selected agents that are being alarmed and some of their commonly configured alarming settings that affect how this value is being alarmed.</p><p>If necessary, you can modify one or more of these alarming settings.</p>(missing or bad snippet)<p>Click <b>Next</b>, once you are happy with how each of these slots are being alarmed.</p><h3>Step 10 of 12: Add Attributes</h3><p>This step allows you to add one or more attributes or searchable strings or identifiers that you can use to filter or classify the objects that you create in the Context View window. </p><p>Each specified attribute will apply to all the object instances and requires both a <b>Name</b> and a <b>Value</b>.</p><p class="Notices"><b>Note:</b> You cannot edit the <b>Name</b> once you create it, if you need to change it then delete this attribute and add it again.</p><p>In other words these provide user-friendly terms that can be used to identify this object, such as equipment Type, whose value is motor or valve etc. or perhaps the power specification, such as 'kWh' and then specify the required value for each object.</p>(missing or bad snippet)<p>To add an attribute:</p><ol><li class="Numbers" value="1">Click the <img src="AddButton.png" /> button.</li><li class="Numbers" value="2">Either, type in a new attribute or click the drop-down list <img src="../../../../00CmnUse/Generic - DropDownListButton.png" /> button on the right to select one of the existing attributes.</li></ol><p class="ListNotice"><b>Tip:</b> Typing in the first letter of an existing attribute immediately inserts the full text of this attribute name.</p><p class="ListDesc">The following general attributes always appear in this list: Manufacturer; Description; Model and Type</p><ol start="3"><li class="Numbers" value="3">Click the <b>Finish</b> button.</li></ol>(missing or bad snippet)<p>Since these attributes and their values are displayed on the first page when creating an instance, you can add the default <b>Description</b> attribute to provide a detailed description of this template, so that a user can know that they are adding the required object instance.</p><p class="Notices"><b>Note:</b> The <b>Delete</b> button deletes the currently selected attribute, which by default is the last attribute in the list.</p><p class="Notices"><b>Tip:</b> In addition to these attributes, when adding an instance your users can specify additional instance-specific attributes too.</p><h3>Step 11 of 12: Add Child Templates</h3><p>This step allows you to define logical parent-child relationships between this template (the parent) and any other related object model templates (the children), for example, by adding a PLC template to a Plant Area template.</p><p>These template relationships are only defined and viewable in the <span class="VIPAppName">SmartUI</span> and only affects <span class="AdroitAppName">Adroit</span> as to which tags and their configuration to create when this template is deployed.</p><p class="Notices"><b>IMPORTANT:</b> Even though these child templates are deployed along with the parent template, you still need to separately drag them onto the required graphic forms in order to display them.</p><p class="Notices"><b>Note:</b> You need to create your lower-level or commonly used object templates first as you can only select existing templates as child templates.</p><p>To add a template, simply click the <img src="../../../../Resources/Images/GreenPlus.png" /> <b>Click here to add child template</b> link and select the required template from the  <b>Templates</b> list.</p><p>This template <img src="../../../../Resources/Images/16/DataSources/ObjectModel_Template.png" style="width: 16px;height: 16px;" /> is added to the root <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /><b> User</b> folder of the <img src="../../../../Resources/Images/16/DataSources/ObjectModel_TemplatesFolder.png" style="width: 16px;height: 16px;" /><![CDATA[  ]]><b>Templates</b> folder of the <img src="../../../../Resources/Images/16/DataSources/ObjectModel.png" style="width: 16px;height: 16px;" /> <b>Object Model</b>  datasource in the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b> Datasources</b> category of the Enterprise Manager.</p>(missing or bad snippet)<p>Once you create an object template then any instance that you create of this template will provide the referenced wizard to provide the graphical components and uniquely configure the specified SCADA configuration for the process values that you specify for each object. For details, see <a href="Creating_an_Object_Instance.htm" class="MCXref_0">Creating an Object Instance</a>.</p>(missing or bad snippet)<h3>Step 12 of 12: Run A Script</h3><p>This step allows you to define a script for this Object Model Template, so that when deploying an instance users can run this script (only if it compiles successfully).</p><p class="Notices"><b>Note:</b> Currently only the script defined for the template can be run. Therefore any scripts defined for  child templates will be ignored, even if no script is defined for the parent template.</p><p>By default, the <b>Include script in this template</b> checkbox is unchecked.</p><p>If this option is checked, then click the <b>Launch Script Editor</b> button to launch the Script Editor with the default (sample) script.</p><p>Then edit and ideally compile this script and then close the Script Editor window to save this script.</p><p class="Notices"><b>Note:</b> A warning is displayed when the current script has not been compiled yet or has not compile successfully (so in this case  click the <b>Launch Script Editor</b> button to edit and compile the script). </p><p class="Notices">However, this does not stop you from clicking the <b>Finish</b> button, but when an instance of this template is deployed it will NOT run this script (unless it has been edited in the interim to successfully compile).</p><p>When deploying an instance of a template, a new checkbox is provided called <b>Run Script</b>, which is unchecked by default and will be greyed out if a script was not specified or when the specified script does not successfully compile.</p><p>Click <b>Finish</b>, once you are happy with the configuration of this object template.</p><p class="Notices"><b>Tip:</b> You can use the <b>Previous</b> and <b>Next</b> buttons to navigate back and forward between the steps, to edit any of the steps before clicking <b>Finish</b>.</p><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Specialized Controls|AdroitHistoricalAlarmViewer controls" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer_VerMinorFour,VIP.Operator_VerMinorFour" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Script Engine spiders.doc" /><title>Configuring AdroitHistoricalAlarmViewer columns</title>
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3147"></a>Configuring AdroitHistoricalAlarmViewer columns</h1>
+        <p>The <img src="AdrHistAlmVuewr.png" />AdroitHistoricalAlarmViewer control allows you to choose which columns are displayed, their order and their specific properties via the <b>Columns</b> tab of the <b>Initial Configuration</b>and the <b>Columns Configuration</b> and <b>General Configuration Settings</b> dialogs, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1">To display or hide a column: check or uncheck the checkbox in the <b>Columns</b> list on the left.</li>
+            <li class="Bullets" value="2">To change the order of the displayed columns: select the required column in the <b>Columns</b> list  on the left and then click the or arrow to move it up or down as required.</li>
+            <li class="Bullets" value="3">To edit the properties of a column: select the required column in the <b>Columns</b> list  on the left and then modify the required property in the <b>Column Properties</b> section on the right. </li>
+            <li class="Bullets" value="4">The <b>Best Fit Columns</b> checkbox is checked by default to force all the displayed columns in the grid to automatically resize their widths so that their contents fit in the control without requiring any horizontal scrolling.</li>
+        </ul>
+        <h2>Available column properties: </h2>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 21.333%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 78.667%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>DisplayName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">changes the name of the column heading in the grid.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>BestFit</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p> determines whether the column auto-sizes (if True) or not, in other words if it changes its width to accommodate the largest entry.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Width</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"> configures how wide the column is, in pixels, which is 100 by default.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>FormatString</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>a string of data type specific format specifiers in {} braces that specify how the entries of this column are formatted. The default is column-specific. For details, see the <a href="../../../50S_S/10Spd/50Cat/Adv/Value_formatting_syntax.htm">Value formatting syntax</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>GroupIndex</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p> this determines whether this column is automatically used to group the data of the other columns and if so what its relative order is, if more than one column is configured to automatically group data, as follows:  -1 the default, which means do not initially group data using this column; 0 = 1st level grouping; 1 = 2nd level grouping; 2 = 3rd level grouping etc.</p>
+                        <p class="Notices"><b>Note:</b> These grouping settings only affect the initial grouping of the data, but users can choose to remove all grouping columns and/or group data using any column.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>GroupInterval</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>when this column initially groups the data, this allows you to select how the data within this column is used to group the other data. Hence these settings are data specific so the data time settings only apply to date time data etc.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>SortIndex</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>when multiple columns are initially sorting the data, this defines the order in which these columns are used, as follows:  -1, this is the default, which means do not initially use this column to sort the data; 0 = primary sorting column; 1 = secondary sorting column; 2 = tertiary sorting column etc.</p>
+                        <p class="Notices"><b>Note:</b> These sorting settings only affect the initial sorting of the data, but users can choose to remove all sorting and/or sort data using any column.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>SortOrder</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p> when this column initially sorts the data, this defines how the data in the column is sorted, as follows:</p>
+                        <ul>
+                            <li class="Bullets" value="1">None (the default): this does not sort the data</li>
+                            <li class="Bullets" value="2">Ascending: from smallest to biggest (a to z).</li>
+                            <li class="Bullets" value="3">Descending: from biggest to smallest (z to a)</li>
+                        </ul>
+                        <p>By default the control is sorted in Descending order of the Date Time column, so that the latest alarm is displayed at the top.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>SummaryType</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>this allows you to perform a calculation on all the entries in this column and display the result of this calculation in the summary row, which the last row at the bottom of the grid. The default is column-specific.</p>
+                        <ul>
+                            <li class="Bullets" value="1">Sum: the summary row displays the total of all the values in this column;</li>
+                            <li class="Bullets" value="2">Min: the summary row displays the minimum (lowest) value for this column;</li>
+                            <li class="Bullets" value="3">Max: the summary row displays the maximum (highest) value for this column;</li>
+                            <li class="Bullets" value="4">Count: the summary row displays the number of items in this column - which is the default setting of the DateTime (DT) column</li>
+                            <li class="Bullets" value="5">Average : the summary row displays the average value for this column;</li>
+                            <li class="Bullets" value="6">None (the default): no summary calculation is performed on this column's entries</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>SummaryDisplayFormat</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>when a column is calculating a summary, this allows you to specify the required format specifier string for the summary value in {} braces and any descriptive text that should also be displayed. For instance the default summary format for the DateTime (DT) column is: {0:n0} rows. For details about formatting the calculated value, see the <a href="../../../50S_S/10Spd/50Cat/Adv/Value_formatting_syntax.htm">Value formatting syntax</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>Fixed</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>determines whether the column is frozen like in Excel so that this column is always visible when scrolling left and right, as follows:</p>
+                        <ul>
+                            <li class="Bullets" value="1">None (the default) - the column takes part in left and right scrolling</li>
+                            <li class="Bullets" value="2">Left: the column is anchored to the left edge of the grid and is always visible when scrolling left and right.</li>
+                            <li class="Bullets" value="3">Right: the column is anchored to the right edge of the grid and always visible when scrolling left and right.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Charts" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to chart and/or report data from a database</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>How to chart and/or report data from a database</h1>
+        <p>This document describes the procedure for trending/charting and/or reporting/displaying data that  has been logged:</p>
+        <ul>
+            <li class="Bullets" value="1">by using the <a name="kanchor1888"></a>DBLog agent of <span class="AdroitAppName">Adroit</span> - although this how can be adapted for ANY data logging method.</li>
+            <li class="Bullets" value="2">to a MS&#160;SQL database that is connected to a <span class="VIPAppName">SmartUI</span> Server via an OleDB datasource</li>
+        </ul>
+        <h2>Prerequisites</h2>
+        <p class="Notices"><b>Note:</b> This document assumes that the reader has a basic working knowledge of using SQL databases and using databases in <span class="VIPAppName">SmartUI</span>. </p>
+        <p MadCap:conditions="Adroit.Adr_MAPS">Have <span class="AdroitAppName">Adroit</span> 8 (MAPS 3) or later installed.</p>
+        <p class="Notices"><b>Note:</b> If you are using a version later than this then this how to will probably also apply to your version too, although some dialogs and/or commands may have changed slightly.</p>
+        <h2>Configuring the DBLog agent</h2>
+        <p>The DBLog agent is a bulk OLE&#160;DB&#160;logging agent for typically logging Analog and/or Digital values  to a specific table in a database for later retrieval. This provides  various different logging methods, such as “log on change”, “log on interval” etc. For a detailed description of configuring the DBLog agent, see <a href="../AU_01_08/Configuring_DBLog_Agents.htm">Configuring DBLog Agents</a>.</p>
+        <p class="Notices"><b>Tip:</b> Typically you need to separate the Analog and Digital tags that you want to log into different DBLog agents, due to their unique logging requirements.</p>
+        <p>Once the DBLog Agent has been configured and enabled, it creates table<MadCap:conditionalText MadCap:conditions="Adroit.Adr_VerMinorThree">/s</MadCap:conditionalText> in the specified database with <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DBLOGColumns"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following fields:</a></p>
+        <ul MadCap:targetName="DBLOGColumns" style="display: none;">
+            <li class="Bullets" value="1"><b>id</b>: a unique indexing identifier</li>
+            <li class="Bullets" value="2"><b>dt</b>: the Timestamp of the logged value</li>
+            <li class="Bullets" value="3"><b>Tagname</b>: the name of the tag being logged</li>
+            <li class="Bullets" value="4"><b>Value</b>:– the value of the tag being logged</li>
+            <li class="Bullets" value="5"><b>Quality</b>: an indication of whether value of this logged tag was good or <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">bad<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">data has a bad status when data is missing, incorrectly reported or extrapolated.</span></span>.</li>
+        </ul>
+        <p>This agent ALSO creates the <b>Adr_DBLog_AgentDetails</b> table, which contains all the agents referenced by all DBLog agents to provide more details about these referenced agents, which can be used to provide more context about them for reports. </p>
+        <p>This table is updated when: the agent is started; or when its tag list is changed; and unconditionally every morning at 01h00 and this table contains <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgentDescFields"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following fields:</a></p>
+        <ul MadCap:targetName="AgentDescFields" style="display: none;">
+            <li class="Bullets" value="1"><b>ID</b> – integer key: a unique indexing identifier </li>
+            <li class="Bullets" value="2"><b>Owner</b> – varchar(255): the DBLog agent name for future use to remove entries owned by the agent
+</li>
+            <li class="Bullets" value="3"><b>AgentName</b> – varchar(255): the name of the agent of the tag being logged
+</li>
+            <li class="Bullets" value="4"><b>AgentDescription</b> - varchar(255): the description of the agent being logged
+</li>
+            <li class="Bullets" value="5"><b>AgentType</b> – varchar(255): the agent type of the tag being logged
+</li>
+            <li class="Bullets" value="6"><b>TagName</b> – varchar(255): the tag being logged
+</li>
+            <li class="Bullets" value="7"><b>TagDescription</b> – varchar(255): a description of the tag being logged; always equal to <b>AgentDescription</b> unless agent type is Marshal whereupon it contains the description of the bit
+</li>
+            <li class="Bullets" value="8"><b>Units</b> - varchar(255): for Analog agents only
+</li>
+            <li class="Bullets" value="9"><b>OffText</b> - varchar(255): for Digital and Marshal agents only
+</li>
+            <li class="Bullets" value="10"><b>OnText</b> - varchar(255): for Digital and Marshal agents only</li>
+            <li class="Bullets" value="11"><b>RawMin</b> - float: Raw (device-scale) minimum scaling limit for Analog agents only</li>
+            <li class="Bullets" value="12"><b>RawMax</b> - float: Raw (device-scale) maximum scaling limit for Analog agents only</li>
+            <li class="Bullets" value="13"><b>EngMin</b> - float: Engineering minimum scaling limit for Analog agents only</li>
+            <li class="Bullets" value="14"><b>EngMax</b> - float: Engineering maximum scaling limit for Analog agents only</li>
+            <li class="Bullets" value="15"><b>LoLo</b> - float: Low-low alarm level for Analog agents only</li>
+            <li class="Bullets" value="16"><b>Lo</b> - float: Low alarm level for Analog agents only</li>
+            <li class="Bullets" value="17"><b>Hi</b> - float: High alarm level for Analog agents only</li>
+            <li class="Bullets" value="18"><b>HiHi</b> - float: High-high alarm level for Analog agents only</li>
+        </ul>
+        <p class="Notices"><b>Note:</b> If you do not intend to make use of this table then you can prevent this table from being created by all of your DBLog agents, by adding the following registry value and setting it to 0: <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_02/DumpAgentDetailsEnabled.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">DumpAgentDetailsEnabled</a></span>.</p>
+        <p>The <b>Adr_DBLog_Housekeeping_Config</b> table is also created, simply contains a list of all DBLog agent tables requiring housekeeping, which is required to perform this housekeeping without affecting the logging operations of the DBLog agents.</p>
+        <h2>Configuring <span class="VIPAppName">SmartUI</span> to chart/report this data </h2>
+        <p><a name="Top"></a>This document describes the following steps:</p>
+        <ol>
+            <li class="Numbers" value="1"><a href="#AddingOleDBdatasource">Add an OleDB datasource and connect it to the required database</a>
+            </li>
+            <li class="Numbers" value="2"><a href="#CreateSelectTagsQuery">Create the Select Tags query</a>
+            </li>
+            <li class="Numbers" value="3"><a href="#CreateSelectTagValuesQuery">Create the Select Tag Values query</a>
+            </li>
+            <li class="Numbers" value="4"><a href="#AddnConfigLineChartcontrol">Add and configure a LineChart control to chart the tag data</a>
+            </li>
+            <li class="Numbers" value="5"><a href="#AddOtherGFcontrols">Add the other controls required by this graphic form</a>
+            </li>
+            <li class="Numbers" value="6">Link the controls to the queries via the Spider Engine of this graphic form, as follows:</li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1"><a href="#SelectTagsQuerySpd_AddAndConfig">Add and configure a Query spider to run the Select Tags query</a>
+            </li>
+            <li class="ListSubBullet" value="2"><a href="#Link_the_Return_Object_output_to_the_ComboBox">Troubleshoot query and link the Return Object output to the ComboBox control</a>
+            </li>
+            <li class="ListBullets" value="3"><a href="#SelectTagValuesQuery_Adding">Add another Query spider to run the Select Tag Values query</a>
+            </li>
+            <li class="ListSubBullet" value="4"><a href="#SelectTagValuesQuery_paramConfig">Link the applicable control properties to supply the values of the 3 parameters of this query</a>
+            </li>
+            <li class="ListSubBullet" value="5"><a href="#Troubleshoot_SelectedTagvalues_query">Troubleshoot query</a>
+            </li>
+            <li class="ListSubBullet" value="6"><a href="#SelectTagValuesQuery_LinechartOutput">Connect the output of this Query spider to the LineChart control</a>
+            </li>
+            <li class="ListSubBullet" value="7"><a href="#SelectTagValuesQuery_DataGridVuOutput">Also connect the output of this Query spider to the DataGridView control</a>
+            </li>
+            <li class="ListSubBullet" value="8"><a href="#ButtontoRunSelectTagValuesQuery">Configure this Query spider to perform the query when the Button control is clicked</a>
+            </li>
+        </ul>
+        <ol start="7">
+            <li value="7">Save and test that this graphic form works as expected.</li>
+        </ol>
+        <p>&#160;</p>
+        <p MadCap:conditions="Common.Screenshots">When finished, you should end up with <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="chartDBLOG_GF"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following graphic form and its related configured items:</a></p>
+        <p MadCap:targetName="chartDBLOG_GF" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="ChartDataFromDB_Files/06000005.png" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="AddingOleDBdatasource"></a>Adding an OleDB datasource</h2>
+        <p>Create an OleDB datasource and name it <b>LoggingDB</b> and link it to the required database, which in this case is where the DBLog agent the tags to. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../10Cfg/30Des/20DS/ODB/Adding_OLE_DB_datasources.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding OLE DB datasources</a></span>.</p>
+        <h2><a name="CreateSelectTagsQuery"></a>Create the Select Tags query</h2>
+        <p>The function of this query is to return the names of all tags whose values are being logged by the DBLog agent.</p>
+        <ol>
+            <li class="Numbers" value="1">Add a <b>Select Query</b> to this  <b>LoggingDB</b> OleDB datasource, called <b>Tag Names</b>, which returns a unique and sorted set of values from the <b>Tagname</b> field of the database table that the  DBLog agent logs to. For details, see <a href="../10Cfg/30Des/20DS/ODB/Select_queries.htm">Select queries</a>.</li>
+            <li class="Numbers" value="2">Select the appropriate table from the database, specified by this  OleDB datasource, which is typically called “Adr_DBLog”. </li>
+            <li class="Numbers" value="3">
+                <p>Ensure that the resultant query adheres to the following syntax: </p>
+                <p><b>SELECT DISTINCT [Adr_DBLog].Tagname FROM [Adr_DBLog] ORDER BY [Adr_DBLog].Tagname ASC</b>
+                </p>
+            </li>
+        </ol>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="CreateSelectTagValuesQuery"></a>Create the Select Tag Values query</h2>
+        <p>The function of this query is to return the values of a specific tag between a specific starting and ending time.</p>
+        <ol>
+            <li class="Numbers" value="1">Add a <b>Select Query</b> to this  <b>LoggingDB</b> OleDB datasource, called <b>Tag Values</b>, which returns a  set of values logged for a specific tag starting from a specific time and ending at a specific time. </li>
+        </ol>
+        <p class="ListDesc">This query therefore uses the following three parameters, whose values will eventually be specified by using suitable controls on the graphic form:</p>
+        <ul>
+            <li class="ListBullets" value="1">tagname: this parameter specifies the required name of the tag, whose values should be returned, </li>
+            <li class="ListBullets" value="2">startdate: this parameter specifies the date and time at which the required values of the specified tag should be retrieved from</li>
+            <li class="ListBullets" value="3">enddate: this parameter specifies the date and time at which the required values of the specified tag should be retrieved to</li>
+        </ul>
+        <ol start="2">
+            <li value="2">Ensure that the resultant query adheres to the following syntax:</li>
+        </ol>
+        <p class="ListDesc"><b>SELECT [Adr_DBLog].[dt], [Adr_DBLog].[Value] FROM [Adr_DBLog] WHERE&#160; [Adr_DBLog].[Tagname] = '&lt;!!tagname!!&gt;' AND ([Adr_DBLog].[dt] between '&lt;!!startdate!!&gt;' and '&lt;!!enddate!!&gt;')</b>
+        </p>
+        <p class="Notices"><b>Note:</b> You can simply copy and paste this query as-is into the <b>Custom Query</b> dialog, you do not need to specifically add parameters and/or constraints by using the <b>Select Query Builder</b> dialogs. The required parameter data type is specified by its specific formatting in the query string, whether this is typed in manually or selected from the right click menu. </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="AddnConfigLineChartcontrol"></a>Add and configure a LineChart control to chart the tag data</h2>
+        <p>By default the LineChart is configured to chart real-time values, so you need to change its properties as you are charting historical (logged) data from a database.</p>
+        <ol>
+            <li class="Numbers" value="1">If necessary, add the required project and/or graphic form to this project.</li>
+            <li class="Numbers" value="2">Add a <b>LineChart</b> control to this graphic form, from the <b>Data</b> category of the <b>Toolbox</b> window.</li>
+            <li class="Numbers" value="3">Click <b>Cancel</b> to close the chart configuration dialog that is automatically displayed.</li>
+            <li class="Numbers" value="4">In the <b>Properties</b> window, ensure the (Trendline) <b>UseTrendLines</b> Boolean property of this LineChart control is set to False, from the default value of True, so that this linechart control will only use Line and not Trendline series to chart the logged values.</li>
+            <li class="Numbers" value="5">Click the <img src="../10Cfg/30Des/40FC/glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">glyph<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a glyph is a specific graphic symbol, for instance employed by form components, which when clicked launch alternate configuration dialogs.</span></span>, in 
+ the top left corner of the LineChart control, which lists its commonly-used properties and configuration tasks.</li>
+        </ol>
+        <p class="ListDesc">In the <b>Data Settings</b> section of this task list:</p>
+        <ul>
+            <li class="ListBullets" value="1">Uncheck the <b>Realtime</b> checkbox, which is checked by default and not required since this chart is trending data from a database and not real-time data</li>
+            <li class="ListBullets" value="2">Uncheck the <b>Extrapolate Data</b> checkbox, to ensure that only the logged values are charted and no interpolation will occur between successively logged values - this is the most accurate method of trending data, although it may be not as visually appealing as extrapolated data.</li>
+        </ul>
+        <p class="ListDesc">In the <b>Configuration Dialogs</b> section of this task list:</p>
+        <ul>
+            <li class="ListBullets" value="1">Click the <b>Edit Time Details...</b> link to display the <b>Time Detail Settings</b> dialog:</li>
+        </ul>
+        <p class="ListBullDesc">Change the <b>Period Type</b> to <b>Start DateTime to End DateTime</b> from the default of <b>End Datetime - Timespan</b>, since in this example the start and end date times define the charting value range.</p>
+        <ul>
+            <li class="ListBullets" value="1">Click the <b>Edit Chart...</b> link to display the LineChart configuration dialog.</li>
+        </ul>
+        <p class="ListBullDesc">In the <b>Series Setup</b> page, change the <b>Datasource</b> column of the initial series from <b>Values</b> to <b>DataSet</b>.</p>
+        <p class="ListBullDesc">This displays the <b>DataSet</b> tab beneath the series table, which you need to configure as follows:</p>
+        <ul>
+            <li class="ListSubBullet" value="1">In the  <b>Data Element</b> field, browse in the required table of the configured OleDB datasource, in this case: the Adr_DBLog table of the LoggingDB datasource, so theshould be: LoggingDB.Tables.Adr_DBLog.</li>
+            <li class="ListSubBullet" value="2">In the <b>YValue Member</b> field, specify the value field (row) of this table, in this case this is the <b>Value</b> field.</li>
+            <li class="ListSubBullet" value="3">In the <b>XValue Member</b> field, specify the datetime field (row) of this table, in this case this is the <b>dt</b> field.</li>
+        </ul>
+        <p class="ListBullNote"><b>Note:</b> In this case only a single value is being trended at a time so only one series is required.</p>
+        <p class="ListBullDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ConfigedLineChart"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p class="ListBullDesc" MadCap:targetName="ConfigedLineChart" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="ChartDataFromDB_Files/06000004_624x617.png" style="width: 624;height: 617;" />
+        </p>
+        <p class="ListBullDesc">Click <b>Finish</b> to save these changes and close the LineChart configuration dialog.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="AddOtherGFcontrols"></a>Add  the other controls required by this graphic form</h2>
+        <p>Add the following controls to this graphic form, from the <b>Windows Forms</b> category of the <b>Toolbox</b> window:</p>
+        <ol>
+            <li class="Numbers" value="1">One  <b>DataGridView</b> control - positioned underneath the LineChart control.</li>
+            <li class="Numbers" value="2">One <b>ComboBox</b> control to select the tags - to the left of the LineChart control, as are all the other controls.</li>
+            <li class="Numbers" value="3">Two  <b>DateTimePicker</b> controls to select the start and end times for the selected tag values, change their <b>(Name)</b> properties to <b>dtStart</b> and <b>dtEnd</b> respectively. For this example specify the following custom date time format, as follows: change their <b>Format</b> property to <b>Custom</b>, then specify the following string in their <b>CustomFormat</b> properties: <b>dd/MM/yyyy hh:mm:ss</b></li>
+            <li class="Numbers" value="4">Three <b>Label</b> controls to label the <b>Tag name</b> ComboBox control and the <b>Start date:</b> and <b>End date:</b> DateTimePickers controls, so position them and change their <b>Text</b> properties accordingly.</li>
+            <li class="Numbers" value="5">One <b>Button</b> control to populate the <b>DataGridView</b> control with the values of the selected tag between the specified starting and ending times, so change its <b>Text</b> property to <b>Fetch data</b> and change its <b>(Name)</b> properties to <b>btnFetch</b>. </li>
+        </ol>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="LinkControls2queries"></a>Link the controls to the OleDB datasource queries</h2>
+        <ol>
+            <li class="Numbers" value="1">Click the <b>Spider Configuration</b> tab to configure the spider engine of this graphic form, as follows:</li>
+            <li class="Numbers" value="2">Right click the spider workspace and select the <b>Hide Unselected Spiders/Regions</b> sub-menu and select <b>None</b> - so that you can see all the spiders that you add to this spider workspace.</li>
+        </ol>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="SelectTagsQuerySpd_AddAndConfig"></a>Add and configure a Query spider to run the Select Tags query</h3>
+        <p class="Notices"><b>Note:</b> Query spiders can perform queries and execute statements provided by any 
+ OLE DB datasource.</p>
+        <ol>
+            <li class="Numbers" value="1">Right click the spider workspace and select <b>Create New Spider</b> and select the <b>Query</b> spider from the <b>Databasing</b> category.</li>
+            <li class="Numbers" value="2">Double click the spider icon to display its spider configuration dialog.</li>
+            <li class="Numbers" value="3">Double click the default name, for instance <b>Query1</b> and type in the new name: <b>Tag Names</b>.</li>
+            <li class="Numbers" value="4"> Configure the <b>Inputs</b> section of this spider to specify the <b>Select Query</b> created for the <b>LoggingDB</b> OleDB datasource, which is called <b>Select Tags</b>, as follows:</li>
+            <li class="Numbers" value="5">Set the <b>Server</b> input to <b>Default Server</b>; the <b>OLEDB&#160;Data Source</b> input to <b>LoggingDB</b>; and the <b>Query Type</b> input to <b>Select Query</b>and the <b>Query Name</b> input to <b>Select Tags</b></li>
+            <li class="Numbers" value="6">Configure this Query spider to perform this query when the graphic form is opened, by configuring the <b>Event Trigger</b> section, to select <b>Form</b> as the <b>Event Object</b> and <b>Load</b> as the <b>Event Name</b>.</li>
+        </ol>
+        <h4><a name="Link_the_Return_Object_output_to_the_ComboBox"></a>Troubleshoot query and link the Return Object output to the ComboBox control</h4>
+        <ol start="7">
+            <li class="Numbers" value="7">Right click the  Spider header (bar at the top of this <b>Tag Names</b> spider) and select <b>Trigger Now!</b> to get the initial dataset for this Query spider.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Ensure that the <b>Success</b> output is True (i.e. the query ran successfully), if this is False then there is either a problem with the query syntax or another problem preventing this query from running.</p>
+        <p class="ListNotice"><b>Tip:</b> The <b>Rows Exist</b> output is only True when the query returns data and is False if an empty dataset is returned.</p>
+        <ol start="8">
+            <li class="Numbers" value="8">In the graphic form, click the <b>comboBox</b> control to display this control's properties in the <b>Objects</b> tree on the right of the spider workspace.</li>
+            <li class="Numbers" value="9">In the <b>Outputs</b> section of the <b>Tag Names</b> Query spider, drag the <b>Return Object</b> output onto the <b>Data</b> property group (to expand it) and then onto the <b>Datasource</b> property of the <b>comboBox</b> control to connect them with a Silk.</li>
+        </ol>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="TagNamesQuerySpd"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="TagNamesQuerySpd" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="ChartDataFromDB_Files/03000006_624x232.png" style="visibility: visible;mso-wrap-style: square;width: 624;height: 232;" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="SelectTagValuesQuery_Adding"></a>Add another Query spider to run the Select Tag Values query</h3>
+        <ol>
+            <li value="1">Similarly add another Query spider called <b>Selected Tag values</b> and specify the <b>Select Tag Values</b> query of the <b>LoggingDB</b> OleDB datasource.</li>
+        </ol>
+        <p class="ListDesc">You will notice, that once this query is selected that the names of its 3 parameters, namely <b>tagname</b>, <b>startdate</b> and <b>enddate</b> are also added to the <b>Inputs</b> section.</p>
+        <h3><a name="SelectTagValuesQuery_paramConfig"></a>Link the applicable control properties to supply the values of the 3 parameters of this query</h3>
+        <h4>Linking the Text property of the ComboBox to the tagname parameter</h4>
+        <ol>
+            <li class="Numbers" value="1">In the graphic form click the <b>comboBox</b> ComboBox control to display this control's properties on the right of the spider workspace.</li>
+            <li class="Numbers" value="2">In the <b>Objects</b> tree on the right of the spider workspace, expand the <b>Appearance</b> property group and right click the <b>Text</b> property and select <b>Show property spider</b>.</li>
+            <li class="Numbers" value="3">Right click the Spider header (bar at the top of this <b>comboBox.Text</b> spider) and, if necessary, disable the default Silk triggering method (remove the tick from the <b>Enable Silk Triggering</b> option) and enable Event triggering instead (add a tick to the <b>Trigger Spider From Event</b> option). </li>
+            <li class="Numbers" value="4">In the <b>Event Trigger</b> section of this <b>comboBox.Text</b> spider, configure this <b>Value</b> property of the <b>comboBox</b> control to update when its selected index  changes, by selecting <b>SelectedIndexChanged</b> from the <b>Event Name</b> list, since the <b>Event Object</b> should already specify <b>comboBox</b>.</li>
+            <li class="Numbers" value="5">Drag the <b>Text</b> output  (in the <b>Outputs</b> section of this <b>comboBox.Text</b> spider) onto the <b>tagname</b> input of the <b>Selected Tag values</b> Query spider to connect these spiders by a Silk.</li>
+        </ol>
+        <h4>Linking the Value properties of the DateTimePickers to the startdate and enddate parameters</h4>
+        <ol>
+            <li class="Numbers" value="1">In the graphic form click the <b>dtStart</b> DateTimePicker control to display this control's properties on the right of the spider workspace.</li>
+            <li class="Numbers" value="2">In the <b>Objects</b> tree on the right of the spider workspace, expand the <b>Behaviour</b> property group and right click the <b>Value</b> property and select <b>Show property spider</b>.</li>
+            <li class="Numbers" value="3">Right click the Spider header (bar at the top of this <b>dtStart.Value</b> spider) and, if necessary, disable the default Silk triggering method (remove the tick from the <b>Enable Silk Triggering</b> option) and enable Event triggering instead (add a tick to the <b>Trigger Spider From Event</b> option). </li>
+            <li class="Numbers" value="4">In the <b>Event Trigger</b> section of this <b>dtStart.Value</b> spider, configure this <b>Value</b> property of the <b>dtStart</b> control to update when its value  changes, by selecting <b>ValueChanged</b> from the <b>Event Name</b> list, since the <b>Event Object</b> should already specify <b>dtStart</b>.</li>
+            <li class="Numbers" value="5">Drag the <b>Value</b> output (in the <b>Outputs</b> section of this <b>dtStart.Value</b> spider) onto the <b>startdate</b> input of the <b>Selected Tag values</b> Query spider to connect these spiders by a Silk.</li>
+            <li class="Numbers" value="6">Similarly configure and connect the <b>Value</b> property of the <b>dtEnd</b> DateTimePicker control to the <b>enddate</b> input of the <b>Selected Tag values</b> Query spider.</li>
+        </ol>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectedTagvalues_paramConfig"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="SelectedTagvalues_paramConfig" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="ChartDataFromDB_Files/03000007_624x239.png" style="visibility: visible;mso-wrap-style: square;width: 624;height: 239;" />
+        </p>
+        <h4><a name="Troubleshoot_SelectedTagvalues_query"></a>Troubleshoot query</h4>
+        <ol start="7">
+            <li class="Numbers" value="7">Right click the  Spider header (bar at the top of this <b>Selected Tag values</b> spider) and select <b>Trigger Now!</b> to get the initial dataset for this Query spider.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Ensure that the <b>Success</b> output is True (i.e. the query ran successfully), if this is False then there is either a problem with the query syntax or another problem preventing this query from running.</p>
+        <p class="ListNotice"><b>Tip:</b> The <b>Rows Exist</b> output is only True when the query returns data and is False if an empty dataset is returned.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="SelectTagValuesQuery_LinechartOutput"></a>Connect the output of this Query spider to the LineChart control</h3>
+        <p>To use the series of the LineChart control to trend the returned values of the selected tag:</p>
+        <ol>
+            <li class="Numbers" value="1">In the graphic form click the <b>lineChart</b> LineChart control to display this control's properties on the right of the spider workspace.</li>
+            <li class="Numbers" value="2">In the <b>Objects</b> tree on the right of the spider workspace, expand the <b>Data</b> property group and right click the <b>Series</b> property and select <b>Show property spider</b>.</li>
+            <li class="Numbers" value="3">In the <b>Outputs</b> section of the <b>Selected Tag values</b> Query spider, drag the <b>Return Object</b> output to the <b>line [Value/Dataset]</b> input of the <b>lineChart.Series</b> spider.</li>
+        </ol>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectedTagvalues_LineChartOutput"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="SelectedTagvalues_LineChartOutput" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="ChartDataFromDB_Files/03000008_624x321.png" style="visibility: visible;mso-wrap-style: square;width: 624;height: 321;" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="SelectTagValuesQuery_DataGridVuOutput"></a>Also connect the output of this Query spider to the DataGridView control</h3>
+        <p>To use the DataGridView  control to display the returned values of the selected tag in a table:</p>
+        <ol>
+            <li class="Numbers" value="1">In the graphic form click the <b>dataGridView</b> DataGridView control to display this control's properties on the right of the spider workspace.</li>
+            <li class="Numbers" value="2">In the <b>Objects</b> tree on the right of the spider workspace, expand the <b>Data</b> property group and right click the <b>DataSource</b> property and select <b>Show property spider</b>.</li>
+            <li class="Numbers" value="3">In the <b>Outputs</b> section of the <b>Selected Tag values</b> Query spider, drag the <b>Return Object</b> output to the <b>DataSource</b> input of the <b>dataGridView.DataSource</b> spider.</li>
+        </ol>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectedTagvalues_DataGridVuOutput"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="SelectedTagvalues_DataGridVuOutput" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="ChartDataFromDB_Files/03000009_624x367.png" style="visibility: visible;mso-wrap-style: square;width: 624;height: 367;" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="ButtontoRunSelectTagValuesQuery"></a>Configure this Query spider to perform the query when the Button control is clicked</h3>
+        <p>Finally, configure this <b>Selected Tag values</b> Query spider to perform this query when the <b>Fetch Data</b>  Button control (called <b>btnFetch</b>) is clicked, by configuring the <b>Event Trigger</b> section, to select <b>btnFetch</b> as the <b>Event Object</b> and <b>Click</b> as the <b>Event Name</b>.</p>
+        <h2>Save and test that this graphic form works as expected</h2>
+        <ol>
+            <li class="Numbers" value="1">Click the <b>Save</b> toolbar button  to save this graphic form.</li>
+            <li class="Numbers" value="2">Click the <b>Run</b> toolbar button to display this graphic form in run-time mode so that you can operate it and determine that it works as expected.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

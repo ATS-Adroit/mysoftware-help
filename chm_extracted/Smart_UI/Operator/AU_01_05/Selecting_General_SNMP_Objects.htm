@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Ver9Replaced" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Operator.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Selecting General SNMP Objects</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor124"></a><a name="kanchor125"></a><a name="kanchor126"></a><a name="kanchor127"></a><a name="kanchor128"></a><a name="kanchor129"></a><a name="kanchor130"></a><a name="kanchor131"></a><a name="kanchor132"></a><a name="kanchor133"></a><a name="kanchor134"></a><a name="kanchor135"></a><a name="kanchor136"></a><a name="kanchor137"></a>Selecting General SNMP Objects</h1>
+        <p>The <b>General</b> 
+ tab of this <b>SNMP Objects Browser</b> contains 
+ a collection of commonly used statistics for device management.</p>
+        <p class="Notices"><b>Note:</b> You CANNOT 
+ write to the items you select from this <b>General</b> 
+ tab.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To select an item from the General tab:</a>
+        </p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Ensure that the <b>General</b> 
+ tab of the <b>SNMP Objects Browser</b> 
+ dialog is selected.</li>
+                <li class="Numbers" value="2">Check the checkbox next 
+ to the required item.</li>
+            </ol>
+            <p class="ListDesc">This immediately adds this item to the OID list of this 
+ SNMPManager agent, which is differentiated from browsed objects (those 
+ selected from the <b>Browse</b> tab), 
+ as follows:</p>
+            <ul>
+                <li class="ListBullets" value="1">their <b>OID</b> 
+ field is simply "General Object",</li>
+                <li class="ListBullets" value="2">their <b>Name</b> 
+ field is prefaced by [G#], where # typically specifies the order of this 
+ object in this <b>General</b> tab.</li>
+            </ul>
+            <p>&#160;</p>
+        </div>
+        <p>The statistics provided by this tab are 
+ divided into the following two groups:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>General 
+ objects for computers only:</b>SNMP managed objects<a name="kanchor138"></a> 
+ that are computer-specific and can only be used when monitoring computers. 
+ In this case a number of specific usage requirements need to be met first. 
+ For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SNMPManager_Agent_Usage_Requirements.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Usage Requirements</a></span>.</li>
+        </ul>
+        <p class="ListDesc">The statistics provided by this group is further classified 
+ into the following sub-groups:</p>
+        <ol start="1">
+            <li class="BulletSub" value="1"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Incoming 
+ network traffic:</a> 
+ these statistics are generally used to determine the status of the network 
+ received by the specified computer.<div MadCap:targetName="t5" style="display: none;"><p class="Notices"><b>Note:</b> These calculated 
+ statistics ONLY use the SNMP objects that refer to the FIRST network card 
+ on the monitored computer, so if there are more than one network cards 
+ these statistics will not present the full picture.</p><ol><li class="Numbers" value="1"><b>Bandwidth 
+ (kbit per second):</b> This statistic measures the currently utilised 
+ networking bandwidth that is being received by the computer, in kilobits 
+ per second.</li></ol><p class="ListNotice"><b>Note:</b> If the 
+ monitored computer has more than one network card, it may be necessary 
+ to perform this bandwidth calculation manually for the other network cards. 
+ For details, see <a href="Manual_Network_Bandwidth_Calculation.htm">Manual 
+ Network Bandwidth Calculation</a>.</p><ol start="2"><li class="Numbers" value="2"><b>Unicast 
+ packets per second:</b> This statistic measures the number of packets 
+ received by the computer per second, which are ONLY intended for this 
+ computer.</li></ol><p class="ListNotice"><b>Note:</b> Unicast 
+ packets are packets that ONLY have a SINGLE device as their destination</p><ol start="3"><li class="Numbers" value="3"><b>Non-unicast 
+ packets per second:</b> This statistic measures the number of broadcast 
+ packets received by the computer per second.</li></ol><p class="ListNotice"><b>Note:</b> Non-unicast 
+ packets are broadcast packets meant for all devices or a group of devices 
+ on a network.</p><ol start="4"><li class="Numbers" value="4"><b>Errors 
+ per minute:</b> This statistic measures the number of packet errors 
+ received by the computer per minute.</li></ol></div></li>
+            <li class="BulletSub" value="2"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Outgoing 
+ network traffic:</a> 
+ these statistics are generally used to determine the status of the network 
+ away from the specified computer.<div MadCap:targetName="t4" style="display: none;"><p class="Notices"><b>Note:</b> These calculated 
+ statistics ONLY use the SNMP objects that refer to the FIRST network card 
+ on the monitored computer, so if there are more than one network cards 
+ these statistics will not present the full picture.</p><ol><li class="Numbers" value="1"><b>Bandwidth 
+ (kbit per second):</b> This statistic measures the currently utilised 
+ networking bandwidth, which is being sent out of the computer, in kilobits 
+ per second.</li></ol><p class="ListNotice"><b>Note:</b> If the 
+ monitored computer has more than one network card, it may be necessary 
+ to perform this bandwidth calculation manually for the other network cards. 
+ For details, see <a href="Manual_Network_Bandwidth_Calculation.htm">Manual 
+ Network Bandwidth Calculation</a>.</p><ol start="2"><li class="Numbers" value="2"><b>Unicast 
+ packets per second:</b> This statistic measures the number of unicast 
+ packets sent out of the computer per second.</li></ol><p class="ListNotice"><b>Note:</b> Unicast 
+ packets are packets that ONLY have a SINGLE device as their destination.</p><ol start="3"><li class="Numbers" value="3"><b>Non-unicast 
+ packets per second:</b> This statistic measures the number of broadcast 
+ packets sent out of the computer per second.</li></ol><p class="ListNotice"><b>Note:</b> Non-unicast 
+ packets are broadcast packets meant for all devices or a group of devices 
+ on a network.</p><ol start="4"><li class="Numbers" value="4"><b>Errors 
+ per minute:</b><a name="kanchor139"></a>This statistic measures the number of packet errors 
+ sent out of the computer per minute.</li></ol></div></li>
+            <li class="BulletSub" value="3"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3" name="kanchor140"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />System information:</a> 
+ these are generally applicable computer management statistics.<div MadCap:targetName="t3" style="display: none;"><ol><li class="Numbers" value="1"><b>System 
+ available memory:</b> This statistic measures the available RAM, on 
+ the computer being monitored, in Megabytes.</li></ol><p class="ListDesc">For instance, this can determine whether this computer 
+ is under-performing or in other words is currently over-utilising its 
+ resources or not.</p><ol start="2"><li class="Numbers" value="2"><b>Available 
+ hard drive space (C:\):</b> This statistic measures the available hard 
+ drive space on the &lt;C:\&gt; drive, on the computer being monitored, 
+ in Megabytes.</li></ol><p class="ListDesc">Since the majority of <span class="AdroitAppName">Adroit</span>-related information is stored 
+ on the &lt;C:\&gt; drive, this statistic can be used to determine when 
+ a computer is running out of storage space.</p></div></li>
+            <li class="BulletSub" value="4"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2" name="kanchor142"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /><span class="AdroitAppName">Adroit</span> processes:</a> 
+ these are commonly used <span class="AdroitAppName">Adroit</span> applications that may be running on the 
+ specified computer.<div MadCap:targetName="t2" style="display: none;"><ol><li class="Numbers" value="1"><b>Agent 
+ Server (as.exe):</b> This Boolean value can be used to determine the 
+ current status of the Agent Server process on the device being 
+ monitored.</li></ol><p class="ListDesc">For instance, when used to monitor a computer that is 
+ designated to run the Agent Server, this value can be used to trigger 
+ an alarm when the Agent Server is shut down.</p><ol start="2"><li class="Numbers" value="2"><b>Classic 
+ User Interface (adroit.exe):</b> This Boolean value can be used to 
+ determine the current status of the Classic User Interface process 
+ on the device being monitored.</li></ol><p class="ListDesc">For instance, when used to monitor a computer that is 
+ designated to run the Classic User Interface, this value could 
+ also trigger an alarm when this is shut down.</p></div></li>
+        </ol>
+        <ol start="2">
+            <li class="Bullets" value="2"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />General objects 
+ for most devices:</a> 
+ SNMP managed objects that are generally provided by all devices.<div MadCap:targetName="t1" style="display: none;"><ol><li class="Numbers" value="1"><b>Host 
+ name:</b><a name="kanchor143"></a>This statistic displays the textual (network) name of the 
+ device being monitored.</li><li class="Numbers" value="2"><b>Host 
+ description:</b><a name="kanchor144"></a>This statistic displays the textual system description 
+ of the device being monitored, which includes the processor type and operating 
+ system employed on this device.</li><li class="Numbers" value="3"><b>System 
+ uptime:</b><a name="kanchor145"></a>This statistic measures the time (in hundredths of a second) 
+ since the network management portion of the device was last re-initialized, 
+ in other words, since its SNMP service has been restarted.</li></ol></div></li>
+        </ol>
+        <p>While some of these items are individual OIDs, others are calculations 
+ using the values of one or more OIDs. It is also possible to perform these 
+ calculations yourself within <span class="AdroitAppName">Adroit</span>. For details, see <a href="Manual_Network_Bandwidth_Calculation.htm">Manual 
+ Network Bandwidth Calculation</a>.</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Registry Settings" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Registry Values affecting the Agent Server</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2415"></a>Registry Values affecting the Agent Server</h1>
+        <p>This is an ALPHABETICAL list of the otherwise undocumented registry 
+ Values that affect the Agent Server and therefore its agents and their 
+ operation:</p>
+        <p class="Notices"><b>WARNING:</b> Registry settings are recorded as ADVANCED 
+ information and should not be used unless you understand exactly how these 
+ will affect the operation of your <span class="AdroitAppName">Adroit</span>&#160; installation, IF YOU HAVE ANY 
+ DOUBTS, PLEASE CONTACT <span style="text-transform: uppercase;"><span class="AdroitAppName">Adroit</span></span> SUPPORT, BEFORE CHANGING THE REGISTRY.<br /><br /><b>PLEASE NOTE:</b> When working on a 64 bit operating system, remember to add  "\Wow6432Node" to the path of each registry setting after "\SOFTWARE", for instance: "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Adroit Technologies". 
+</p>
+        <p class="Notices"><b>Note1:</b> The <a href="Advanced_Scanning_Settings.htm">Advanced Scanning Settings</a> dialog 
+ can be used to configure the registry settings affecting the marshalling 
+ functionality of the Multistate agent and for enabling the 16 status bits 
+ of a Text agent to be set by the bit stream value of that text string 
+ e.g. "1110010011011000" (EnableTextBitStreams).</p>
+        <p class="Notices"><b>Note2:</b> Many global datalogging settings can be set in the Advanced settings dialog of the DataLog agent, whenever you log a tag, see <a href="../AU_01_08/Advanced_Datalog_Configuration_global_settings.htm">Advanced 
+ Datalog Configuration</a>.</p>
+        <p>The <b>StartupDelay</b> setting to 
+ delay the start up of the Agent Server is configured in the <b>Service</b> 
+ tab of the <b><span class="AdroitAppName">Adroit</span> Configuration Setup</b> 
+ utility. For details, see Configuring Agent Server Startup 
+ Delay.</p>
+        <p>&#160;</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="AcknowledgeAtStartup.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">AcknowledgeAtStartup</a></span>: To ensure that the Agent Server automatically acknowledges alarms at startup, either do NOT add this key or if you have added it, then set it to  1.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="AcknowledgeAtStartup_2.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Active Link Monitoring</a></span>: To remedy and troubleshoot slow (or unresponsive) Agent Servers and/or their clients.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="AnalogRawComms.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">AnalogRawComms</a></span>: 
+ To ensure the correct operation of the Analog agent, when communicating 
+ alarm limits and to also provide reverse polarity for all Analog agents.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="AutoCreate.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">AutoCreate</a></span>: 
+ To query the user as to whether a Datalog agent should be created when 
+ the <b>Log</b> button is clicked in the 
+ Configurator.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="AcknowledgeAtStartup_3.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ConnectionProtocol</a></span>: To specify the required mechanism that <span class="AdroitAppName">Adroit</span> client software  want to use when connecting to local and remote Agent Servers</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="CreateDumpFiles.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">CreateDumpFiles</a></span>: 
+ To enable the creation of the Agent Server dump file (.DMP) when the agent 
+ database (.WGP) file is faulty.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="DisableADOTableNamePrefix.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">DisableADOTableNamePrefix</a></span>: 
+ To remove the "AdroitRawLog_" table name prefix when logging 
+ to an OLE DB database.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="DisableEventOutputOnStandby.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">DisableEventOutputOnStandby</a></span>: 
+ To prevent the EventOutput agent from outputting events when its clustered 
+ Agent Server is in standby mode.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="DisableOnQualityChangeLogging.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">DisableOnQualityChangeLogging</a></span>: To disable DBLog agents from logging on quality change ONLY for the "Log on change" logging method.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="DumpAgentDetailsEnabled.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">DumpAgentDetailsEnabled</a></span>: To prevent all DBLog agents from creating  the Agent Details table.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="EnableUnchangedValueWrites.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">EnableUnchangedValueWrites</a></span>: 
+ To send an output to a PLC REGARDLESS of whether the scanned rawvalue 
+ slot of the Digital agent is changing or not. By default this only occurs 
+ when the rawvalue slot changes.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Extensions.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Extensions</a></span>: 
+ To enable column header names to be added to fetch calls, which return 
+ a string array.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ExtractFloatResolution.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ExtractFloatResolution</a></span>: 
+ To support decimal resolution for real logged values that are retrieved 
+ using the Extract utility.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ForceJet.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ForceJet</a></span>: 
+ To use the DbAccess agent with databases that require square brackets 
+ around the field names, otherwise their SQL transactions fail.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ForceJet_2.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ForceSendIfDuplicate</a></span>:  To determine whether the same message can be resent or not from a Notify agent.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="HousekeepingHour.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">HousekeepingHour</a></span>: To specify the hour of the day that the housekeeping of DBLog agents should occur.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ForceJet_3.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">IgnoreBadAlarms</a></span>: To enable the alarming of agents that are currently in a bad status (ScanBad or Bad).</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="IPEnableHeartbeat.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">IPEnableHeartbeat</a></span>: When using sockets as the communication mechanism between the Agent Server and its clients, this setting allows the Agent Server to monitor the status of these client connections and to close any unhealthy connections.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="IsPostgress.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">IsPostgress</a></span>: 
+ To allow you to log to a postgress database.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="LazyFlushing.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">LazyFlushing</a></span>: 
+ To enable the log data to be immediately written to disk.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="LMOperatorAction.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">LMOperatorAction</a></span>: 
+ To change the default Alarm route used for Operator Action Behaviours from 
+ route 1.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="LogADODateTimes.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">LogADODateTimes</a></span>: 
+ To add an additional column containing readable timestamps to the database 
+ table, when datalogging to an ADO-compliant database.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="LogCompressionFactor.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">LogCompressionFactor</a></span>: 
+ To override the 20% data log capacity or the "divide by 5" storage 
+ factor applied to datalog files by default.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Managing_Subscription_Queue_Length.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Managing Subscription Queue Length</a></span>: 
+ To prevent the Subscription Manager queue length from overfilling.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="MarshalAlarmMode.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">MarshalAlarmMode</a></span>: To specify the type of information reported in the description field for Marshal agent alarms.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="MaxAgents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">MaxAgents</a></span>: To specify  the total number of expected agents on all the connected 
+ Agent Servers, which by default is set to 199000.</p>
+        <p class="Notices"><b>Note:</b> ONLY&#160;when memory is a serious constraint, should you alter this default setting by adding and configuring this registry setting. </p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Memsize.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Memsize</a></span>: 
+ To reduce the memory usage of the Alarm agent, when your very large alarming 
+ configuration spread over many Alarm agents is causing the virtual memory 
+ size of the Agent Server process to reach its upper 2 GB limit.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="OutOfRangeEqualsAgentBad.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">OutOfRangeEqualsAgentBad</a></span>: To use the legacy method of marking your Analog agents are being bad when their rawvalue slot goes out of range</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="PropagateTrigger.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">PropagateTrigger</a></span>: 
+ To disable subscription updates for the value slot of a triggered Expression 
+ agent, if the value slot has not actually changed, to prevent unnecessary 
+ Agent Server CPU loads and network traffic when remote UI clients have 
+ been deployed.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="RestartOnZeroChannels.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">RDAdminName</a></span>: To allow Remote Desktop (RDP) clients to get a free node connection to obtain engineering access to the Agent Server.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="RestartOnZeroChannels_2.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">RestartOnZeroChannels</a></span>: 
+ To prevent the Agent Server from restarting when the number of free channels 
+ is zero.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ServiceCleanShutdown.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ServiceCleanShutdown</a></span>: 
+ To cause the Agent Server service to attempt a clean shutdown to ensure 
+ that the OPC client drivers disconnect from their OPC Servers so that 
+ these OPC Servers can clean up their resources and shutdown if necessary.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SmartInhibit.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">SmartInhibit</a></span>: 
+ To define how the alarming subsystem treats current alarms if an agent’s 
+ statusalarmInhibit slot is set to one and the agent is currently in alarm 
+ and/or unacknowledged.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SubsWriteTimeout.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">SubsWriteTimeout</a></span>: 
+ To force the Agent Server to timeout once the network channel between 
+ it and a slow client has filled up.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SupportCompressionOnDemand.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">SupportCompressionOnDemand</a></span>: 
+ To enable the use of the Datalog compression algorithm when using Demand 
+ logging.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SuppressLogAtStartup.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">SuppressLogAtStartup</a></span>: 
+ To suppress the log of the POST_STARTUP value after an Agent Server restart.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

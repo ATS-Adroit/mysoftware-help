@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Ver9Replaced" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Operator.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Manual Network Bandwidth Calculation</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor280"></a><a name="kanchor281"></a>Manual Network Bandwidth Calculation</h1>
+        <p>In the <b>General</b> 
+ tab of the <b>SNMP Objects Browser</b>, 
+ the <b>Incoming network traffic</b> and 
+ the <b>Outgoing network traffic</b> groups 
+ contains a collection of commonly used statistics for monitoring and managing 
+ computers, which are all calculated from the values of one or more of 
+ the OIDs.</p>
+        <p>However, these calculations ONLY use the 
+ OID values that refer to the FIRST network card on the monitored computer, 
+ so if there is more than one network cards these statistics will not present 
+ the full picture.</p>
+        <p class="Notices"><b>Note:</b> The Microsoft 
+ Loopback Adaptor will be included in this list, if it has been enabled.</p>
+        <p>Therefore, it may be necessary to perform 
+ these calculations manually for the other network cards.</p>
+        <p class="Notices"><b>Note:</b> The following 
+ calculation can calculate the incoming (or outgoing) bandwidth for each 
+ network card of the monitored computer in kilobits per second.</p>
+        <h2>To manually calculate the network card bandwidth:</h2>
+        <p>Add and/or Edit an Analog agent:</p>
+        <p>If necessary, add an agent of the required type, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddingAgents"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="AddingAgents" style="display: none;">
+            <p>In the <span class="VIPAppName">Smart UI</span> Designer:</p>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="EntManSvrSeln"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Select the required <span class="VIPAppName">Smart UI</span> Server in the <b>Enterprise Manager</b>, as follows:</a> <![CDATA[
+]]></p>
+            <div MadCap:targetName="EntManSvrSeln" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                    <li class="NumbersSubLetters" value="2">If necessary, <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">expand <img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">click the plus (+) box&#160;to the left of the current icon or name</span></span><![CDATA[  ]]><img src="../Resources/Images/16/Generic/VIPServers.png" /><![CDATA[  ]]><b>Servers</b>.</li>
+                    <li class="NumbersSubLetters" value="3">If necessary, expand the 
+ name of the required Server connection <img src="../Resources/Images/16/Generic/VIPServer.png" />. </li>
+                </ol>
+                <p class="ListNoteSub"><b>Tip:</b> The connection 
+ name is prefaced by the <span class="VIPAppName">Smart UI</span> Server computer name.</p>
+            </div>
+            <ol start="4">
+                <li class="Numbers" value="4">If necessary, expand the <![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon .</li>
+                <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup </b>  tree.</li>
+                <li class="Numbers" value="7">Right click the required agent type , which are listed alphabetically, and select <b>Create Tag</b>.</li>
+                <li class="Numbers" value="8">Specify the required <b>Tag Name</b> or agent name.</li>
+            </ol>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgtNmgConventns"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The following rules apply when naming agents:</a>
+            </p>
+            <div MadCap:targetName="AgtNmgConventns" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Agent names have a maximum 
+ of 27 characters.</li>
+                    <li class="NumbersSubLetters" value="2">Agent names cannot be the 
+ same as the names used for Agent Types or for Agent Groups.</li>
+                    <li class="NumbersSubLetters" value="3">Agent names cannot use 
+ the following characters:</li>
+                </ol>
+                <p class="ListDescSub">
+                    <table>
+                        <tr>
+                            <td>
+                                <p>Space</p>
+                            </td>
+                            <td>
+                                <p>&#160;</p>
+                            </td>
+                            <td>
+                                <p>Percent</p>
+                            </td>
+                            <td>
+                                <p><b>%</b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>Comma</p>
+                            </td>
+                            <td>
+                                <p><b>,</b>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Period</p>
+                            </td>
+                            <td>
+                                <p><b>.</b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>back slash</p>
+                            </td>
+                            <td>
+                                <p><b>\</b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>Dollar</p>
+                            </td>
+                            <td>
+                                <p><b>$</b>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </p>
+            </div>
+            <ol start="9">
+                <li class="Numbers" value="9">If necessary, provide an optional <b>Description</b> that describes the purpose or describes the value of this tag (agent) for ease of reference.</li>
+                <li class="Numbers" value="10">Click the <b>Finish</b> button.</li>
+            </ol>
+            <p>&#160;</p>
+        </div>
+        <p> If necessary, locate the required agent, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectingAgents"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <p>&#160;</p>
+        <p>In the Enterprise Manager window: right click this agent and select <b>Configure</b>.</p>
+        <p class="Numbers">In the <b>Edit Analog Agent</b> dialog:</p>
+        <ol>
+            <li class="Numbers" value="1">In the <b>Device 
+ Span</b> (raw) group, set the <b>Maximum</b> 
+ value to 10000000000000.</li>
+            <li class="Numbers" value="2">In the <b>Engineering 
+ Span</b> (eng) group, set the <b>Maximum</b> 
+ value to 78125000000 and click the <b>OK</b> 
+ button.</li>
+        </ol>
+        <p>Add and/or Edit a Statistical Agent 
+ and in the <b>Edit Statistical 
+ Agent</b> dialog:</p>
+        <ol>
+            <li class="Numbers" value="1">In the <b>Input 
+ Tag</b> edit box, click the browse button to the right of this and 
+ select the VALUE slot of the Analog agent that was added in step 1. For 
+ details, see Selecting a Tag Using the Agent 
+ Explorer.</li>
+            <li class="Numbers" value="2">Click the <b>Start</b> 
+ button and then click the <b>OK</b> button.</li>
+        </ol>
+        <p>Add and/or Edit an SNMPManager 
+ agent and in the <b>Edit 
+ SNMPManager Agent</b> dialog:</p>
+        <ol>
+            <li class="Numbers" value="1">Ensure that this agent 
+ can connect to the required computer. For details, see <a href="Connecting_to_the_Managed_Device.htm">Connecting 
+ to the Managed Device</a> or see <a href="SNMPManager_Agent_Usage_Requirements.htm">SNMPManager 
+ Agent Usage Requirements</a> for potential issues when monitoring computers.</li>
+            <li class="Numbers" value="2">Click the <b>Browse OID to add</b>&#160; button 
+ to display the <b>SNMP Objects Browser</b> 
+ dialog, if the connection settings are correct.</li>
+            <li class="Numbers" value="3">Select the <b>Browser</b> 
+ tab and browse for the OIDs (values) of the required network bandwidth 
+ that you want to monitor. For details, see <a href="Selecting_Browsed_SNMP_Objects.htm">Browsing 
+ for SNMP Objects</a>.</li>
+        </ol>
+        <p class="ListDesc">To monitor the incoming bandwidth, expand the tree to 
+ expose this OID: interfaces.ifTable.ifEntry.ifInOctets.</p>
+        <p class="ListDesc">To monitor the output bandwidth, expand the tree to expose 
+ this OID: interfaces.ifTable.ifEntry.ifOutOctets</p>
+        <ol start="4">
+            <li class="Numbers" value="4">Once this branch has been 
+ expanded, select the node number that corresponds to required network 
+ card and click the <b>Add to list</b> 
+ button.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Node 
+ 1 is not a network card and should not be selected.</p>
+        <p class="ListNotice"><b>Tip:</b> To establish 
+ which network card corresponds to a node number, examine the values that 
+ are exposed by the following OID: interfaces.ifTable.ifEntry.ifPhysAddress, 
+ which displays the MAC addresses of the cards associated with each node 
+ number. </p>
+        <p class="ListNotice">To verify the MAC address of a card, enter 'ipconfig /all' in 
+ a command prompt (DOS window), on the required computer, and look at its 
+ specified 'Physical Address' value.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">In the OID list of the 
+ SNMPManager agent, enable the polling of this OID and assign its value 
+ to the RAWVALUE slot of the edited Analog agent. </li>
+            <li class="Numbers" value="6">Select the <b>Enable 
+ Polling</b> option (BOOLEAN <b>start</b> slot) to start managing this 
+ device, by polling (getting), writing (setting) and/or trapping (enabling 
+ events) of its OIDs. For further details, see <a href="Global_Device_Management_Settings.htm">Global 
+ Device Management Settings</a>.</li>
+            <li class="Numbers" value="7">Display the <b>rate</b> 
+ slot of the edited  Statistical agent, to display the 
+ selected network bandwidth in kbits/s for the specified network card.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> The first 
+ few values displayed by this <b>rate</b> 
+ slot will not be accurate, as the Statistical agent needs to obtain a 
+ number of samples first, before it can calculate the correct value.</p>
+        <ol start="8">
+            <li class="Numbers" value="8">Repeat this procedure, 
+ as necessary.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If any 
+ network card (or Microsoft Loopback Adaptor) is disabled, while the computer 
+ is being monitored, this will remove its associated node from the SNMP 
+ tree, which will prevent the monitoring of the network bandwidth for this 
+ node and possibly the others too.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Technical explanation of this calculation:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">The network bandwidth is 
+ an accumulative value of the number of bits that are either received (incoming) 
+ or sent (output) from the specified network card.</li>
+            </ol>
+            <p class="ListDesc">Therefore, its current value must be calculated by subtracting 
+ it from the previous value, which is performed by the <b>rate</b> 
+ slot of the Statistical agent.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">These bits are recorded 
+ as octets and so need to be multiplied by 8 before this value displays 
+ the number of bits, then the value needs to be divided by 1024 so that 
+ it is displayed as kilobits.</li>
+            </ol>
+            <p class="ListDesc">The Analog agent performs this conversion, since its 
+ Device Span (raw) <b>Maximum</b> value 
+ of the Analog agent is set to 10000000000000, to ensure that this value 
+ will not be exceeded. </p>
+            <p class="ListDesc">Its Engineering Span (eng) <b>Maximum</b> 
+ value is set to 78125000000, because this is the Device Span Maximum value 
+ multiplied by 8 and divided by 1024.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">This value must then be 
+ calculated over time to give you the value per second. This is why the 
+ <b>rate</b> slot of the Statistical 
+ agent needs to be displayed</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

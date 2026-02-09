@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Alarming Agents|Alarm Management|Incidents" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="AlmMngAgt.doc" /><title>Optional Incident Configurable Settings</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor333"></a><a name="kanchor334"></a><a name="kanchor335"></a><a name="kanchor336"></a><a name="kanchor337"></a><a name="kanchor338"></a><a name="kanchor339"></a>Optional Incident Configurable Settings</h1>
+        <p>Each <a name="kanchor340"></a>incident in the <b>Categories</b> tree of the <b>AlarmManagement 
+ Agent</b><a name="kanchor341"></a> <a name="kanchor342"></a>edit dialog of an AlarmManagement agent provide a number of 
+ optional settings. </p>
+        <p>If you diligently configure these settings then you 
+ will improve the efficacy of your alarming configuration and ensure that 
+ each alarm complies with the industry-approved <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Effective_Alarm_Characteristics.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">effective alarm 
+ characteristics</a></span>.</p>
+        <p class="Notices"><b>Note:</b> The color of the incident icon indicates 
+ whether reasons and/or notes are required or not for this incident. For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Incident_Icon_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Incident icon colors</a></span>.</p>
+        <p class="Notices"><b>Tip:</b> You can also bulk 
+ configure these settings for all your incidents by exporting the <b>Categories</b> 
+ tree to a .CSV file. For details, see <a href="Exporting_categories_and_their_incidents.htm">Exporting 
+ the categories and their incidents</a>.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To manually configure a setting for a 
+ SINGLE incident:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Edit the required AlarmManagement 
+ agent.</li>
+                <li class="Numbers" value="2">Click the required category 
+ <img src="AlmMngCat.jpg" style="height: 16px;width: 16px;" width="16" height="16" border="0" /> in the <b>Categories</b> tree.</li>
+                <li class="Numbers" value="3">Click the required incident 
+ in the top right hand <b>Incidents</b> 
+ list.</li>
+                <li class="Numbers" value="4">Double-click the <b>Value</b> 
+ cell next to the required entry&#160;in 
+ the <b>Attribute</b> column of the bottom right-hand <b>incident 
+ details</b> list.</li>
+            </ol>
+        </div>
+        <p class="Notices"><b>Note:</b> You are 
+ UNABLE to configure incident settings when you select MORE THAN ONE incident 
+ from the top right hand <b>Incidents</b> 
+ list.</p>
+        <p>The following OPTIONAL settings can be specified for each incident:</p>
+        <ol start="1">
+            <li class="Numbers" value="1"><b>Reason 
+ required:</b> When enabled (Yes), this enforces the entry of reasons for 
+ this incident. In other words when this incident is raised, the operator 
+ must specify a reason before this incident is removed from the <b>Adr_AM_CurrentIncidents</b> 
+ table and added to the <b>Adr_AM_HistoricalIncidents</b> 
+ table. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a><div MadCap:targetName="t2" style="display: none;"><p class="ListDesc">A reason is simply the selection of the cause of the 
+ incident from a user-configurable list of reasons and, if necessary sub-reasons, 
+ which you need to specify.&#160;</p><p class="ListNotice"><b>Note:</b> Click the <b>Edit 
+ reasons…</b> button to edit the displayed reasons and their sub reasons 
+ for this AlarmManagement agent.</p><p class="ListNotice"><b>Tip:</b> Operators 
+ can specify these reasons and/notes from the right-click menu of the Alarm 
+ List Viewer window.</p></div></li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2"><b>Notes 
+ required:</b> When enabled (Yes), this enforces the entry of notes for 
+ this incident. In other words when this incident is raised, the operator 
+ must specify a reason before this incident is removed from the <b>Adr_AM_CurrentIncidents</b> 
+ table and added to the <b>Adr_AM_HistoricalIncidents</b> 
+ table.</li>
+        </ol>
+        <p class="ListDesc">A note is specific text that the operator must type in 
+ that is supplements a reason or replaces the need for a reason.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">
+                <p><b><a name="kanchor343"></a>AssociatedTags:</b> 
+ Specify one or more values to record with the incident.&#160; </p>
+                <p>These values 
+ ensure that the alarm is relevant in that it provides the operator with 
+ information to respond to. If you are manually specifying this value, 
+ separate multiple tags with commas “,”.</p>
+            </li>
+        </ol>
+        <p class="ListDesc"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To add a value:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">Double click the <b>AssociatedTags</b> row 
+ and use the in-built Tag browser to select the required <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span>. 
+ For details, see <a href="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm" target="_popup">Selecting a Tag</a>.
+
+</span></span>
+        </p>
+        <p class="ListDesc"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To remove ALL the selected values:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">Select the <b>AssociatedTags</b> row and press the DELETE key.</span></span>
+        </p>
+        <ol start="4">
+            <li class="Numbers" value="4"><b>Document:</b> 
+ An optional document that can provide further information to clarify the 
+ incident and assistance on how to deal with it or react to it. This document 
+ can ensure that this incident (alarm) satisfies the last four of the <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Effective_Alarm_Characteristics.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Effective Alarm Characteristics</a></span>.</li>
+        </ol>
+        <p class="ListDesc">If left empty, a default HTML document is created by 
+ this agent 
+ for each <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">active<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">the monitored condition of this incident (alarm/event) is still in effect and has not yet returned to its normal operating state.</span></span> 
+ incident. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details about the location and naming 
+ convention of this default document:</a></p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1">This document is 
+ created in the Data subfolder of your designated project folder, which 
+ is typically <span class="AdroitAdrPrjFolder">C:\ProgramData\Adroit Technologies\Adroit\Configurations\Default</span>\Data.</li>
+                <li class="ListBullets" value="2">This document adheres 
+ to the following naming format: AgentName.AlarmType.HTM 
+ e.g. ANA001.High-High.htm. Either edit this document using an HTML editor 
+ of your choice or create your own document.</li>
+                <li class="ListBullets" value="3">This document supports 
+ the <b>Adroit Path</b> as specified in 
+ the <b>UI Preferences</b> tab of the 
+ <b><span class="AdroitAppName">Adroit</span> Configuration Setup</b> utility, 
+ so if it occurs within one of these folders, you ONLY need to provide 
+ the file name and can exclude the path.</li>
+            </ul>
+        </div>
+        <p class="ListNotice"><b>Note1:</b> You are warned 
+ when you specify a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">local file path<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">this path, as opposed to a UNC path, can ONLY be accessed from the computer that it refers to, this path adopts the following general format: &lt;driveletter&gt;:\directories\filename.</span></span>instead of a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">UNC<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">Universal Naming Convention (UNC) is used to specify the location of servers, printers, files and other shared resources on a local area network (LAN). UNC  names begin with \\ (two backslashes) and take the form: \\Computer_name\Share_name</span></span>  path to this document. 
+ A UNC path is required if you need to view this alarm (and open this document) 
+ on remote clients.</p>
+        <p class="ListNotice"><b>Note2:</b> Please configure 
+ the appropriate access permissions to this document from the <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">NTFS<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">this stands for NT File System, the secure and robust file system for Windows NT operating systems. It allows you to set permissions for groups or individual users to access files.</span></span> 
+ to ensure that ONLY the required users are able to edit this document. 
+ For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Securing_Documents_using_NTFS.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Securing Documents 
+ using NTFS</a></span>.</p>
+        <p>&#160;</p>
+        <p class="LineNote">Specify delays for incidents when you alarm agents in 
+ the Alarming configuration dialog. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Delaying_Incidents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Delaying 
+ Incidents</a></span>.</p>
+        <p class="LineNote">Specify conditional expressions for incidents when you 
+ alarm agents in the Alarming configuration dialog. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Creating_Conditional_Expressions_for_Incidents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Creating Conditional Expressions for Incidents</a></span>.</p>
+        <p class="LineNote"> 
+ Applying a condition ensures that incidents are unique and do not simply 
+ duplicate downstream alarms.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

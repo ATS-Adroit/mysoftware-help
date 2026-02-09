@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Graphic Forms|Wizards" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with substitutions</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1909"></a><a name="kanchor1910"></a>Working with  substitutions </h1>
+        <p>A Wizard is a pre-drawn and/or pre-configured skeleton of graphical 
+ objects and their assigned Behaviours (if any), which has placeholders (substitutions) for data elements, which can simplify and speed up the task of creating graphic forms. But, instead of directly specifying 
+ the values that drive these Behaviours, these are replaced with value <MadCap:conditionalText MadCap:conditions="VIP.Designer_VerMinorTwo">or static text</MadCap:conditionalText> placeholders (substitutions). </p>
+        <p MadCap:conditions="VIP.Designer_VerMinorTwo" class="Notices"><b>Tip:</b> Wizards that display one or more SmartUI Templates can use their substitutions to drive the values of the aliases of these child SmartUI Templates. For details, see <a href="Driving_aliases_with_wizard_substitutions.htm">Driving aliases with wizard substitutions</a>.</p>
+        <h2><a name="kanchor1911"></a>Adding substitutions to wizards</h2>
+        <p>The following types of substitutions that can be made:</p>
+        <ul>
+            <li value="1"><b>value substitutions</b>: these are  placeholders for values (data elements) and so you are actually adding <b>Data Element</b> spiders, which allow you to determine which portion/s of the specified data element should be replaced at runtime. Each substituted value must be enclosed in curly braces {}, as follows: </li>
+        </ul>
+        <ul MadCap:targetName="SpecifySubst" style="display: none;">
+            <li class="BulletSub" value="1">if you require the ENTIRE Data Element to be substituted then specify {requiredValueName}</li>
+            <li class="BulletSub" value="2">if you require multiple parts of the data element name to be separately replaced then specify multiple substitutions, such as concatenating a number of hierarchical levels for this data element: {DataSource}.{Structure}.{DataName}.{Value}.</li>
+        </ul>
+        <p class="ListNotice"><span style="font-weight: bold;">Note</span>: A data element that is specified without curly braces is assumed to be an existing data element. </p>
+        <ul MadCap:conditions="VIP.Designer_VerMinorTwo">
+            <li value="1"><b>static substitutions</b>: these are  placeholders for text </li>
+        </ul>
+        <p>Substitutions are automatically created for you, by using this {} notation, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AutoSubstCreationWays"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />in the following instances:</a></p>
+        <p MadCap:conditions="VIP.Designer_VerMinorTwo" class="Notices"><b>IMPORTANT:</b> In the case of String or Text properties, you can choose whether the substitution name enclosed in { } braces is either a static (text) or a value substitution.</p>
+        <div MadCap:targetName="AutoSubstCreationWays" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">in the <b>Properties</b> tool window: for any String or Text properties, you can specify the required name enclosed in { } braces.</li>
+                <li class="Bullets" value="2">when configuring Behaviours: for any data element field, you can specify the required name enclosed in { } braces.</li>
+                <li class="Bullets" MadCap:conditions="VIP.Designer_VerMinorTwo" value="3">when configuring a charting control, for the applicable Series values specify the required name enclosed in { } braces.</li>
+                <li class="Bullets" MadCap:conditions="VIP.Designer_VerMinorTwo" value="4">when configuring an Adroit Alarm Viewer control,  specify the required name enclosed in { } braces for the <b>Alarm List / Alarm Agent</b> value.</li>
+            </ul>
+            <ul>
+                <li class="Bullets" value="1">When you create or edit <b>Data Element</b> spiders and/or click its <b>Substitutions</b> <img src="WizSubstitutionsIcon.bmp" /> spider toolbar button (or spider menu item) to specify the required substitution/s in the <b>Substitutions</b> dialog for this data element, which is typically used when you have saved a graphic form as a wizard. For more details about Data Element spiders, see <a href="../../50S_S/10Spd/50Cat/Data_Element_spiders.htm">Data Element spiders</a>.</li>
+            </ul>
+        </div>
+        <h2><a name="kanchor1912"></a>Substituting values in wizards</h2>
+        <p>Wizards <img src="../../../../Resources/Images/16/DataSources/Project_WizardGraphicObject.png" /> provide the ability to change (substitute) the values of certain data elements, these substitutions can be configured as follows:</p>
+        <p class="Notices"><span style="font-weight: bold;">Tip</span>: Not all values require substitutions – some or most values can be assigned to valid (unchanging) values, if desired.</p>
+        <ul>
+            <li class="Bullets" value="1">when creating and editing wizards: use the <b><a name="kanchor1913"></a>Substitutions Overview</b> dialog to manage your substitutions, which displays all the data elements and/or substitutions provided by this wizard, in a single dialog and can be accessed <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="MethodsOfSubsOverviewDlgAccess"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />using one of the following methods:</a></li>
+        </ul>
+        <ol MadCap:targetName="MethodsOfSubsOverviewDlgAccess" style="display: none;">
+            <li class="BulletSub" MadCap:conditions="" value="1">via the <b>Substitutions</b> <img src="../../../../Resources/Images/16/Generic/Substitution.png" /> wizard toolbar button</li>
+            <li class="BulletSub" MadCap:conditions="" value="2">by right clicking a wizard and selecting <b>Substitutions</b></li>
+        </ol>
+        <p class="ListDesc">This dialog is useful, if you have been using valid data elements to drive specific values in a wizard and now you want to substitute these values. As this  helps locate these values easily, without having to  sift through the spider workspace. </p>
+        <p class="ListDesc">The method used to locate and manage these values/substitutions depends upon how they have been assigned, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LocateSubsValuesList"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <ul MadCap:targetName="LocateSubsValuesList" style="display: none;">
+            <li class="ListSquareBullets" value="1">For all data elements or substitutions <span style="font-weight: bold;">directly assigned</span> to the controls or vectors (in other words to their properties and/or Behaviours):</li>
+            <ol>
+                <li class="Numbers" value="1">Select the required control or vector from the <span style="font-weight: bold;">Graphic Objects</span> list to display its configured Behaviours and/or Property spiders (properties), that either have substitutions or data elements assigned to them</li>
+                <li class="Numbers" value="2">This specifies the names of the assigned data elements and hence whether these data element names have configured substitution/s or not.</li>
+                <li class="Numbers" value="3">Then double click the required entries to edit or to create the required substitutions.</li>
+            </ol>
+            <li class="ListSquareBullets" value="2">For all data elements or substitutions <span style="font-weight: bold;">indirectly assigned</span> to the controls or vectors (in other words through the use of associated spiders or other indirect methods):</li>
+            <ol>
+                <li class="Numbers" value="1">Click the <span style="font-weight: bold;">Other</span> tab, which indicates where these data elements have been assigned and the names of the associated data elements and hence whether these data element names have configured substitution/s or not.</li>
+                <li class="Numbers" value="2">Again double click the required entries to edit or to create the required substitutions.</li>
+            </ol>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1">when adding a wizard to (or editing a wizard instance in) a graphic form: use the <b>Substitution Assignment</b> dialog, can be accessed <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="MethodsOfSAdlgAccess"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />using one of the following methods:</a> <![CDATA[ ]]></li>
+        </ul>
+        <div MadCap:targetName="MethodsOfSAdlgAccess" style="display: none;">
+            <ol>
+                <li class="BulletSub" MadCap:conditions="" value="1">by dragging a wizard onto a graphic form</li>
+                <li class="BulletSub" MadCap:conditions="" value="2">via the <b>Substitution Assignment</b> <img src="../../../../Resources/Images/16/Generic/SubstitutionAssignment.png" />  graphic form toolbar button</li>
+                <li class="BulletSub" MadCap:conditions="" value="3">by right clicking a wizard instance and selecting <b><a name="kanchor1914"></a>Substitution Assignment</b></li>
+                <li class="BulletSub" MadCap:conditions="" value="4">by clicking the <img src="../../40FC/glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph in the top right corner of a wizard instance and selecting the <b>Substitution Assignment</b> link from its <b>Tasks</b> menu. </li>
+                <li class="BulletSub" MadCap:conditions="" value="5">by clicking the wizard glyph <img src="../../../../Resources/Images/16/DataSources/Project_WizardGraphicObject.png" /> in the top left corner of a wizard instance.</li>
+            </ol>
+            <p MadCap:conditions="Common.Screenshots" class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="WizInstanceFeaturesEx"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example showing these features of a wizard instance:</a>
+            </p>
+            <p MadCap:conditions="Common.Screenshots" class="ListDesc">
+                <img src="AddedWizardEx.png" MadCap:targetName="WizInstanceFeaturesEx" style="display: none;" />
+            </p>
+        </div>
+        <p class="ListDesc">This <b>Substitution Assignment</b> dialog is re-sizable and verifies whether the specified data element values can be located.           <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SubstAssignMoreDetails"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+        <div MadCap:targetName="SubstAssignMoreDetails" style="display: none;">
+            <p class="ListDesc">The <b>Result</b> column background is green if the specified data element is <b>Valid</b> (has been located) or red to alert users that this data element is <b>Invalid</b> (does not currently exist, but is assumed that it will be added later).</p>
+            <p MadCap:conditions="VIP.Designer_VerMinorTwo" class="ListNotice"><b>Note:</b> Static substitutions are differentiated by a yellow background in the <b>Substitution Assignment</b> dialog, since they are placeholders for text and not data elements. </p>
+            <p class="ListDesc">When you have used multiple substitutions are used to create a single value (data element)  name, then click the <b>Context</b> checkbox to display the complete substituted data element name so that you can clearly see which part of this name you are supplying a value for.</p>
+            <p class="ListNotice"><span style="font-weight: bold;">Tip:</span> Typically you should only use the data element browser, when the substitution refers to the ENTIRE data element name, otherwise after specifying the required data element, you need to MANUALLY delete the unnecessary portions (which are being handled by other substitutions).</p>
+            <p class="ListDesc">This dialog allows you to specify the <span style="font-weight: bold;">Wizard Name</span>, which is the name of the wizard control that is added to this graphic form. By default the name of the wizard is used, which is appended by a unique number if more that one control by this name already exists on the graphic form.</p>
+            <p class="ListNotice"><span style="font-weight: bold;">Note:</span> You cannot specify spaces for this <span style="font-weight: bold;">Wizard Name</span>, since spaces are NOT allowed in the names of controls.</p>
+            <ul>
+                <li class="ListSquareBullets" value="1">By default the <span style="font-weight: bold;">Grouped</span> checkbox is enabled, which groups the vectors and/or controls of this wizard and therefore allows their substitution assignments to be edited after this is added to a graphic form.</li>
+                <li class="ListSquareBullets" value="2">If you uncheck the <span style="font-weight: bold;">Grouped</span> checkbox, then the vectors and/or controls of this wizard and added to the graphic form in situ (where they are dragged onto the graphic form) and you are UNABLE to edit their substitution assignments AFTER adding them to this graphic form, which you will be warned about. </li>
+            </ul>
+            <p class="ListDesc">If you specify an invalid substitution value, then on clicking <span style="font-weight: bold;">Finish</span> a confirmation dialog appears, warning you of each value substitution that is incorrect, which you can either dismiss and continue (click Yes) or click No and correct the incorrect substitution/s.</p>
+        </div>
+        <h2 MadCap:conditions="VIP.Designer_VerMinorTwo"><a name="kanchor1915"></a>Substituting static text in wizards</h2>
+        <p MadCap:conditions="VIP.Designer_VerMinorTwo">When specifying a substitution name enclosed in braces for a String or Text property of a control or vector, you can choose whether this will be a placeholder for a value (data element) or whether this will be a static substitution, which is a placeholder for text.</p>
+        <p MadCap:conditions="VIP.Designer_VerMinorTwo">Static substitutions are differentiated by a yellow background in the <b>Substitution Assignment</b> dialog, since they are placeholders for text and not data elements. </p>
+        <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorTwo"><b>Note:</b> If you choose to browse in a data element for a Static substitution, then only its current value is added to the <b>Value</b> column .</p>
+        <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorTwo"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SubstAssignStaticSubst"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example of the Substitution Assignment dialog showing a static substitution:</a>
+        </p>
+        <p MadCap:conditions="VIP.Designer_VerMinorTwo" MadCap:targetName="SubstAssignStaticSubst" style="display: none;">
+            <img src="SubstAssignmentWizShowingStaticSubst_518x101.png" style="width: 518;height: 101;" MadCap:conditions="Common.Screenshots" /> <![CDATA[       ]]></p>
+        <p MadCap:conditions="VIP.Designer_VerMinorTwo">In other words, the text string in the <b>Value</b> column of this dialog is what is  displayed in the wizard for each Static substitution, as follows:</p>
+        <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorTwo"><b>Note:</b> Static substitutions can also be manually configured in the <b>Spider Workspace</b> via the <b>Static Substitution</b> custom output of the <b>Constant</b> spider, in case you need to drive an input of another spider with a Static substitution value.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

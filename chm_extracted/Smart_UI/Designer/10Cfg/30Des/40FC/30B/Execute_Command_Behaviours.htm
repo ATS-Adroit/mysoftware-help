@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Behaviors" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Execute Command Behaviours</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor897"></a>Execute Command Behaviours</h1>
+        <p>This Behaviour can be applied to controls and graphic elements (vectors) to perform the following commands:</p>
+        <p class="Notices"><b>Note:</b> You CANNOT test Execute Command behaviour that perform graphic forms operations (opening, closing etc.) in the <span class="VIPAppName">SmartUI</span> Designer in Run mode, this functionality is only available in the <span class="VIPAppName">SmartUI</span> Operator. If you try to do so, an alert informing you of this is displayed.</p>
+        <p class="Notices"><b>Tip:</b> If necessary, more than one Execute Command Behaviour (command) may be assigned to perform additional commands.</p>
+        <h2>To add a command to a control or vector:</h2>
+        <div MadCap:targetName="AddExeCmdBhv">
+            <ul>
+                <li class="Numbers" value="1">Add or edit an <b>Execute Command</b> Behaviour to display its configuration dialog.</li>
+                <li class="Numbers" value="2">Select the required command from the <b>Command</b> list and configure it as follows:</li>
+            </ul>
+            <p><span style="font-weight: bold;">Start application:</span> to launch an application and specify any required parameters,  you <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="StartAppCfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />configure this command as follows:</a></p>
+            <div MadCap:targetName="StartAppCfg" style="display: none;">
+                <ul>
+                    <li class="Numbers" value="1"><b>Application Name:</b> browse in the required application.</li>
+                </ul>
+                <ul>
+                    <li class="ListBullets" value="1">By default this specifies an <span style="font-weight: bold;">absolute</span> path.</li>
+                    <li class="ListBullets" value="2">Check the <span style="font-weight: bold;">Exclude path</span> checkbox to specify a <span style="font-weight: bold;">relative</span> path, from the folder in which the Client executable is being run from, which is typically the installation folder.</li>
+                </ul>
+                <p class="ListNotice"><b>IMPORTANT:</b> You need to ensure that this application is located in the specified path of your Operators and/or Web Operators.</p>
+                <ul start="2">
+                    <li class="Numbers" value="2"><b>Parameters:</b> specify any parameters required by this application.</li>
+                </ul>
+            </div>
+            <p><span style="font-weight: bold;">Open graphic form</span>: to open a specific graphic form,  you <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OpenGFCfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />configure this command as follows:</a></p>
+            <div MadCap:targetName="OpenGFCfg" style="display: none;">
+                <ul>
+                    <li class="Numbers" value="1"><b>Graphic Form:</b> click the browse button to launch the <b>Graphic Form Selection</b> dialog to select the required graphic form from the configured projects on the available <span class="VIPAppName">SmartUI</span> Servers.</li>
+                    <li class="Numbers" value="2"><b>Open As</b>: specify how the graphic form opens, as follows:</li>
+                    <li class="ListBullets" value="3"><b>Modal Form</b>: the graphic form opens as a separate window that requires the user to interact with it or close it before being able to continue using the application. This is the default selection.</li>
+                    <li class="ListBullets" value="4"><b>Modeless Form</b>: the graphic form opens as a  separate window that allows the user to interact with it and also return to a previous task without closing it.</li>
+                    <li class="ListBullets" value="5"><b>Tab Page</b>:  the graphic form opens as a another tabbed page within the workspace.</li>
+                    <li class="ListBullets" value="6"><b>Replace</b>: the graphic form replaces the currently displayed graphic form.</li>
+                    <li class="ListBullets" value="7">
+                        <p><b>Template Graphic Object</b>: the graphic form is opened within a specific Template Graphic Object control. </p>
+                        <p>This option displays the <b>TemplateGO</b> field to specify the name of the required TemplateGO <MadCap:conditionalText MadCap:conditions="VIP.Designer_VerMinorFour">or TemplateGONavToolbar</MadCap:conditionalText> control, from the list - assuming that one or more of these controls have been added to the graphic form on which this Execute Command Behaviour is on. </p>
+                    </li>
+                </ul>
+                <ul start="3" MadCap:continue="true">
+                    <li class="Numbers" value="8">
+                        <p><b>Position</b>: specify where, on the screen, the graphic form opens, as follows:</p>
+                        <ul>
+                            <li class="Bullets" value="1"><span style="font-weight: bold;">Center of Screen</span>: opens the graphic form in the center of the screen (the default setting).</li>
+                            <li class="Bullets" value="2"><span style="font-weight: bold;">Location</span>: uses the <b>Location</b> settings to specify the required <b>X</b> and <b>Y</b> position of the top left hand corner of the graphic form.</li>
+                            <li class="Bullets" value="3"><span style="font-weight: bold;">Mouse cursor</span>: opens the graphic form at the current position of the mouse cursor</li>
+                        </ul>
+                    </li>
+                    <li class="Numbers" value="9"><b>Template Set</b>:  specify which pre-configured template set to activate, when this graphic form opens.</li>
+                    <li class="Numbers" value="10"><b>Level</b> : specify which pre-configured level to show, when this graphic form opens.</li>
+                    <li class="Numbers" value="11"><b>size</b>: specify the dimensions of the opened graphic form, as follows:</li>
+                    <li class="ListBullets" value="12">By default, this conforms to the size of opened graphic form.</li>
+                    <li class="ListBullets" value="13">If you check the <span style="font-weight: bold;">Custom</span> checkbox then specify the required <b>Width</b> and <b>Height</b> dimensions of the opened graphic form.</li>
+                </ul>
+                <p class="Notices"><b>Note1:</b> The <b>Advanced View</b> provides an <b>Aliases</b> tab for this <b>Open Graphic Form</b> command, which lists any configured aliases of the specified graphic form, so that these values can be set either by specific data elements or by static values. <MadCap:conditionalText MadCap:conditions="VIP.Designer_VerMinorTwo">This tab can be used to <a href="../../30GF/40Wiz/Driving_aliases_with_wizard_substitutions.htm">Drive alias values with wizard substitutions</a> or <a href="../../30GF/30Als/Passing_alias_values_from_parent_to_child.htm">Pass alias values from parent to child SmartUI Templates</a>.</MadCap:conditionalText></p>
+                <p class="Notices"><b>Note2:</b> If the specified graphic form does not exist (for instance if it was typed in incorrectly or if this Behaviour was copied from another project), then when this Behaviour is performed in the <span class="VIPAppName">SmartUI</span> Operator, it opens the specified graphic form containing the text 'graphic form not found'.</p>
+            </div>
+            <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorTwo"><b>IMPORTANT:</b> The default action for values entered into the <b>Aliases</b> tab of the <b>Advanced View</b> has been changed to always specify the text that is either manually entered or browsed in, unless the <b>Use Tag Value</b> checkbox is checked, at which time it will try to resolve the required data element value from the entered (typically browsed in) text.</p>
+            <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorTwo">Therefore when passing substitutions or aliases, in curly {} brackets, ensure that  the <b>Use Tag Value</b> checkbox is NOT checked, which is its default setting.</p>
+            <p class="Notices"><b>Tip:</b> If necessary this graphic form can be opened within a specific <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">TemplateGO<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a Template Graphic Object control that  displays a graphic form and connects data elements to any aliases of this graphic form.</span></span> control on this graphic form.</p>
+            <p><span style="font-weight: bold;">Close graphic form</span>:  to either close a specific graphic form or the currently open graphic form,  you <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="CloseGFCfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />configure this command as follows:</a></p>
+            <div MadCap:targetName="CloseGFCfg" style="display: none;">
+                <ul>
+                    <li value="1">Either specify the required graphic form to close, as follows:</li>
+                </ul>
+                <p class="ListDesc"><b>Graphic Form:</b> click the browse button to launch the <b>Graphic Form Selection</b> dialog to select the required graphic form from the configured projects on the available <span class="VIPAppName">SmartUI</span> Servers.</p>
+                <ul>
+                    <li class="Bullets" value="1">Or check the <span style="font-weight: bold;">This form</span> checkbox to close the graphic form that is currently open, when this command is performed.</li>
+                </ul>
+            </div>
+            <p><span style="font-weight: bold;">Print graphic form</span>: to send the currently displayed graphic form to the default printer.</p>
+            <p MadCap:conditions="Common.VerMinorFour">If you check the <b>Show Print Dialog</b> option, then your users can choose which printer is used to print this graphic form and/or which print settings are used when printing this graphic form, such as the required page orientation.</p>
+            <p MadCap:conditions="Common.VerMinorFour">Otherwise you the currently displayed graphic form will be sent to the default printer.</p>
+            <p><span style="font-weight: bold;">Log off</span>: to log off the current <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span> user,  you <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LogOffCfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />configure this command as follows:</a></p>
+            <div MadCap:targetName="LogOffCfg" style="display: none;">
+                <ul>
+                    <li class="Bullets" value="1">No further configuration is required to simply log off the current user.</li>
+                    <li class="Bullets" value="2">If you have configured an auto-login account for this Client, then you can check the <span style="font-weight: bold;">Auto login</span> checkbox to automatically log in again using the specified auto-login user credentials.</li>
+                </ul>
+                <p class="ListDesc">This, in effect, performs a “switch user” operation for the pre-configured  auto-login user. </p>
+            </div>
+            <p><span style="font-weight: bold;">Log on</span>: to perform a “switch user” operation by logging in another user,  you <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LogOnCfg"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />configure this command as follows:</a></p>
+            <div MadCap:targetName="LogOnCfg" style="display: none;">
+                <ul>
+                    <li class="Numbers" value="1"><b>Username:</b> either type in the name of the required Allowed or Impersonated user or use the browse button to use the <b>User Browser</b> to specify this user name.</li>
+                    <li class="Numbers" value="2"><b>Password:</b> type in the required password of the selected user.</li>
+                </ul>
+            </div>
+            <p>&#160;</p>
+            <p>If necessary, click the <b>Advanced View</b> button to specify some or all of the following <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AdvExCmdOptions"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />additional configurable options:</a></p>
+            <div MadCap:targetName="AdvExCmdOptions" style="display: none;">
+                <p><b>Confirmation:</b> provide pre and/or post confirmation for this command, by selecting one or both of the following checkboxes: </p>
+                <ul>
+                    <li class="Bullets" value="1"><span style="font-weight: bold;">Log action</span>: logs (records) this command in the <span class="VIPEventLogCategory">Application</span> event log for forensic or audit trail purposes.</li>
+                    <li class="Bullets" value="2"><span style="font-weight: bold;">Confirm action</span>: pops up a yes/no confirmation message box before the command is performed.</li>
+                </ul>
+                <p><b>Security:</b> ensure  this action is only performed when the designated user/s and/or group/s are logged on, as follows:</p>
+                <ul start="2">
+                    <li class="Bullets" value="2">Either click the browse button to specify a String data element, which contains the  names of the required users and/or groups. </li>
+                </ul>
+                <p class="BullNotice"><b>Note:</b> The user and group names in this string must be delimited by semi colons “;”.</p>
+                <ul>
+                    <li class="Bullets" value="1">Or click the <b>Security</b> button to open the <b>Security</b> configuration dialog to select the required users and/or groups.</li>
+                </ul>
+                <p class="BullNotice"><b>Tip:</b> Instead of using the buttons to move users and groups from the <b>Available</b> and <b>Selected</b> lists, you can simply double click them.</p>
+                <p><span style="font-weight: bold;">Event Trigger</span>: specify which event of this control or graphic element (vector) triggers this Behaviour, as follows:</p>
+                <ul>
+                    <li class="Bullets" value="1">Either select the required event from the list of common or frequently used events.</li>
+                    <li class="Bullets" value="2">Or click the browse button and use the <b>Event Selector</b> to select the required event.</li>
+                </ul>
+            </div>
+            <p class="Notices"><b>Tip:</b> Click the <b>Simple View</b> button to hide these advanced options, if necessary.</p>
+        </div>
+        <p>&#160;</p>
+        <p class="Notices"><b>Tip1:</b> When adding a Behaviour to a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SmartUI Template<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A graphic form that has one or more configured aliases and is therefore designed to be displayed within a TemplateGO control.</span></span> , you can use {} notation to automatically create an alias for any data element field. For more details, see <a href="../../30GF/30Als/Working_with_SmartUI_Templates.htm">Working with SmartUI Templates</a>.</p>
+        <p class="Notices"><b>Tip2:</b> When adding a Behaviour to a  <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">wizard<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A pre-drawn and/or pre-configured skeleton of graphical objects and their assigned Behaviours (if any), which has placeholders (substitutions) for data elements.</span></span>, you can use {} notation to automatically create a substitution for any data element field. For more details, see <a href="../../30GF/40Wiz/Working_with_wizards.htm">Working with wizards</a>.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3" name="kanchor898"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a  Behaviour to a control or graphic element:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <p>Ensure that you have added the required control 
+ or graphic element to the graphic form.</p>
+            <ol>
+                <li class="Numbers" value="1">Select the required control 
+ or graphic element.</li>
+                <li class="Numbers" value="2">
+                    <p>If necessary, select the <b>Behaviours</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                    <p class="Notices"><b>Note:</b> Any Behaviour that cannot be applied to this control 
+ or graphic element will be greyed out.</p>
+                </li>
+                <li class="Numbers" value="3">Select the required Behaviour from the relevant group.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also select its  <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph to display its task menu and then select the required  Behaviour from the <b>New 
+ Behaviour</b> drop down list.</p>
+            <p class="ListDesc">This displays the configuration dialog of this Behaviour.</p>
+        </div>
+        <p class="Notices" MadCap:conditions="Common.VerMinorFour"><b>Tip:</b> When you add or edit a Behaviour you can name it, which makes it easier to identify the spiders and their regions associated with your Behaviours.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2" name="kanchor899"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To edit a Behaviour of a control or graphic 
+ element:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Right click the required control 
+ or graphic element to the graphic form.</li>
+                <li class="Numbers" value="2">Select the required <b>BehaviourName#</b> menu item, where <b>BehaviourName</b> is the name of the added Behaviour and <b>#</b> usually only appears if more than one of same type of Behaviours have been  
+ added. For example: Execute Command1</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also select its <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph to display its task menu and then select the required  link beneath the <b>Behaviours</b> 
+ heading.</p>
+            <p class="ListDesc">This displays the  configuration dialog of this Behaviour.</p>
+        </div>
+        <p class="Notices"><b>Tip:</b> The <b>Behaviours</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon provides the <b>Edit Behaviour</b> list box that lists all the Behaviours  configured for the currently selected form component. Clicking its browse <img src="../../../../_WhatsNew/EditBehaviorListBoxBrowseButton.jpg" /> button displays the configuration dialog of the currently selected behaviour. </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1" name="kanchor900"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove one or more added Behaviours from a control or graphic 
+ element:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Select the required control 
+ or graphic element.</li>
+                <li class="Numbers" value="2">
+                    <p>If necessary, select the <b>Behaviours</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                </li>
+                <li class="Numbers" value="3">Select the <b>Remove</b> command from the <b>Remove</b> group.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also select its  <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph to display its task menu and then select the <b>Remove</b>link beneath the <b>Behaviours</b> 
+ heading.</p>
+            <p class="ListDesc">This displays the <b>Behaviour Removal</b> configuration dialog. </p>
+            <ol start="4">
+                <li class="Numbers" value="4">Select (check the checkboxes) 
+ of the Behaviour/s that you want to remove from this list in the <b>Behaviour Removal</b> configuration dialog.</li>
+            </ol>
+            <p class="ListNotice"><b>WARNING!</b> Ensure 
+ that ONLY the Behaviour/s you do not require is selected, since no deletion 
+ confirmation dialogs are displayed.</p>
+            <ol start="5">
+                <li class="Numbers" value="5">Click the <b>Finish</b> 
+ button to remove the selected Behaviour/s or <b>Cancel</b> to abort.</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

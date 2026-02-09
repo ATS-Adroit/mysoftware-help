@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Server,Adroit.ExcludeFromProject" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Working with the Server.doc" /><title>Saving the Server</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3340"></a>Saving the <span class="VIPAppName">SmartUI</span> Server</h1>
+        <p>The <span class="VIPAppName">SmartUI</span>Server is a "data portal" which exposes data from a number 
+ of disparate sources that are both external and internal to it.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Save the  Server for the following reasons:</a>
+        </p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">To save all the datasources 
+ connected to it.</li>
+            </ol>
+            <p class="ListNotice"><b>Note1:</b> Each datasource 
+ specifies which of its items are required to be saved.</p>
+            <p class="ListNotice"><b>Note2:</b> The <span class="VIPAppName">SmartUI</span>Server  saves the complete datasource, including any Server configuration options, 
+ which have been performed via the <span class="VIPAppName">SmartUI</span> Designer.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">To save any changes that 
+ have been made to internal sources of data, which consist of Client-specific 
+ data that is managed by the Server. This includes the security and profile 
+ configuration and any projects that have been created.</li>
+            </ol>
+            <p class="ListNotice"><b>Note1:</b> For details 
+ on where these and any other data files that are saved by <span class="VIPAppName">SmartUI</span> 
+ can be located, see&#160;<a href="../../07Mntn/Locating_saved_data.htm">Locating 
+ saved data</a>.</p>
+            <p class="ListNotice"><b>Note2:</b> For 
+ details on how to automate backing up the Server data, see <a href="../../07Mntn/Backing_up_Server_data.htm">Backing 
+ up Server data</a>.</p>
+        </div>
+        <h2>Methods of saving the Server’s data:</h2>
+        <ol>
+            <li class="Numbers" value="1"><b>Automatically:</b> 
+ Typically the <span class="VIPAppName">SmartUI</span> Server will be automatically saved when it is closed (or 
+ when the service is stopped), however this can increase the time taken 
+ for the Server to shutdown. This automatic saving can either be enabled 
+ or disabled by configuring the <b>SaveServerOnShutdown</b> Server setting. 
+ For details on accessing this setting, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../05Dply/50Cfg/Advanced_Server_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Advanced 
+ Server settings</a></span>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> It is usually 
+ NOT recommended to disable this automatic saving when the Server is running 
+ as a service. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../07Mntn/01Svr/Launching_the_Server.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Launching 
+ the <span class="VIPAppName">SmartUI</span> Server</a></span>.</p>
+        <p class="ListDesc">In addition the <span class="VIPAppName">SmartUI</span> Server is also able to save its data 
+ continually, according to a user-configurable frequency, which by default 
+ saves this data every 2 hours. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../05Dply/50Cfg/Server_saving_and_backup_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Server saving 
+ settings</a></span>.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">
+                <p><b>Manually:</b> You can save the <span class="VIPAppName">SmartUI</span> Server manually, from within the <span class="VIPAppName">SmartUI</span> Designer, which configures the <span class="VIPAppName">SmartUI</span> Server, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SaveManually"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                <div MadCap:targetName="SaveManually" style="display: none;">
+                    <ol>
+                        <li class="Numbers" value="1">Open the <b>Enterprise 
+ Manager</b>. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../10Cfg/20DesEnv/10TW/Accessing_tool_windows.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Accessing 
+ tool windows</a></span>.</li>
+                        <li class="Numbers" value="2">If necessary, <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">expand <img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">click the plus (+) box&#160;to the left of the current icon or name</span></span><img src="../../Resources/Images/16/Generic/VIPServers.png" /> <b>Servers</b>.</li>
+                    </ol>
+                    <ol start="3">
+                        <li class="Numbers" value="3">Right-click the name or 
+ icon<img src="../../10Cfg/30Des/05Cxn/Connections%20-%20NormalIcon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" /> of the required Server connection and select <b>Save Server Data</b>.</li>
+                    </ol>
+                </div>
+                <p>In addition to 
+ making remote configuration of the <span class="VIPAppName">SmartUI</span> Server possible, this also allows the 
+ <span class="VIPAppName">SmartUI</span> Server to be configured when it is being run as a service.</p>
+            </li>
+        </ol>
+        <p class="ListDesc">It is also possible to save the <span class="VIPAppName">SmartUI</span> Server manually when 
+ it is run as an application, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ActivMon"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="ActivMon" style="display: none;">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3717967699_0" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Open the Activity Monitor</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3717967699_0" style="display: none;">
+                    <ol>
+                        <li value="1">Launch the 
+ Server as an application by clicking the <b>Start</b> menu, <b>Programs</b>, <b><span class="VIPAppGroupName">Adroit 10</span></b>, and the <b><span class="VIPAppName">SmartUI</span> Server</b> item. <br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server.png" MadCap:popupWidth="263" MadCap:popupHeight="259" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-SmartuI-Server_thumb_0_150.png" style="width: 152px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a><ul><li value="1">Click the <b>Launch  Activity Monitor</b> to open the Activity Monitor.</li></ul></li>
+                    </ol>
+                    <ol>
+                        <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The Activity 
+ Monitor is only displayed if the <b>ActivityMonitorFormEnabled </b>setting 
+ for this Server is enabled. For more information on this 
+ setting, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../05Dply/50Cfg/Advanced_Server_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Advanced 
+ Server settings</a></span>. <br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartUI-Editor-Server-ActMon.png" MadCap:popupWidth="1000" MadCap:popupHeight="562" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartUI-Editor-Server-ActMon_thumb_0_200.png" style="width: 356px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a> <br /> The <b>ActivityMonitorFormTitle</b> 
+ setting specifies the title of this application. 
+ &#160;</li>
+                    </ol>
+                    <ol>
+                        <li class="A4-BulletWarningPinkBack" MadCap:autonum="&lt;span style=&quot;color: #6b0000;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Warning: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #6b0000;" class="mcFormatColor"><b>Warning: &#160;</b></span></span></span>The <b>Server </b>window is not displayed if the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> is <a href="../../07Mntn/01Svr/Working_with_the_Activity_Monitor.htm#Server_as_a_service">running as a service</a>. </li>
+                    </ol>
+                    <ol>
+                        <li value="2">If the server is already running, then right-click the <i>Service Manager</i> icon <img src="../../Resources/Images/ADT10-Service-Manager-Icon_22x22.png" alt="" style="mc-thumbnail-max-height: 22px;mc-thumbnail-max-width: auto;width: 22;height: 22;" /> in the Taskbar tray to open the Service Manager dialog, then select <b>Launch Activity Monitor</b>.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Tray-Service-Manager.png" MadCap:popupWidth="717" MadCap:popupHeight="323" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-Tray-Service-Manager_thumb_0_150.png" style="width: 333px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                    </ol>
+                    <ul>
+                        <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>When the <i><span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b></i> is running as an application, you may also press the ALT+TAB KEYS repeatedly until the task switcher displays the <i>Server</i> window, then select <b>Launch Activity Monitor</b>.</li>
+                    </ul>
+                    <ol>
+                        <li value="3">If the server is already running as a service, then right-click the <i>Service Manager</i> icon <img src="../../Resources/Images/ADT10-Service-Manager-Icon_22x22.png" alt="" style="mc-thumbnail-max-height: 22px;mc-thumbnail-max-width: auto;width: 22;height: 22;" /> in the Taskbar tray to open the Service Manager dialog, then select <b>Launch Activity Monitor</b>.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Tray-Service-Manager-Running.png" MadCap:popupWidth="715" MadCap:popupHeight="320" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-Tray-Service-Manager-Running_thumb_0_150.png" style="width: 335px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                        <li value="4">The Activity Monitor opens and displays information on the <b>Local Machine</b> tab.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor.png" MadCap:popupWidth="1203" MadCap:popupHeight="847" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor_thumb_0_200.png" style="width: 284px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                    </ol>
+                    <p>&#160;</p>
+                </div>
+            </div>
+            <p class="ListDesc">Click the <b>Save Server Data</b> link from the <b>Tasks</b>  panel.</p>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

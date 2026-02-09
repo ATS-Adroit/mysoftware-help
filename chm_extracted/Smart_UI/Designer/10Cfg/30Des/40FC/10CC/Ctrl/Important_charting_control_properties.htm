@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Specialized Controls|Charting controls" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Charts" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Important charting control properties</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Important charting control properties</h1>
+        <p>This describes the functions of some of the more important properties 
+ that can be used to configure the charting controls.</p>
+        <p class="Notices"><b>Note:</b> These 
+ properties can be viewed and configured in the <b>Properties</b> 
+ tool window. </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="GenProp"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />General charting properties:</a> 
+ properties that display the charting toolbar, enable the chart to configured 
+ in runtime and change the main title of this chart, amongst others</p>
+        <div MadCap:targetName="GenProp" style="display: none;">
+            <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                <col style="width: 21.333%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                <col style="width: 67.169%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <thead>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Property</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Designer_VerMinorFour">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AntiAliased</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property, which is True by default, uses antialiasing to smooth the edges of the drawn chart.</p>
+                            <p class="Notices"><b>Note:</b> You can turn this off to improve the charting speed but then the chart will appear more jagged.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>DataLegendDigits</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Integer property allows you to specify the number of significant 
+ places to use when values are rounded off in the data Legend.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Designer_VerMinorFour">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">Direct2DMode</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">This Boolean property, which is False by default, uses GDI+ to chart the data, which is slower as the charting is only performed by the CPU and by the graphics card. When you set this property to True, then the charting is done using Direct2D, which is faster as this is performed using the graphics card and not the CPU.</td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">PrintingSettings</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>Allows you to configure the default print settings that are applied when this chart is printed, by configuring the following sub-properties accordingly:</p>
+                            <ul>
+                                <li class="Bullets" value="1"><b>Grayscale</b>: By default this is False to print the chart in full color, but if set to True it will print the chart in shades of grey (greyscale).</li>
+                                <li class="Bullets" value="2"><b>Landscape</b>: By default this is False to print the chart in portrait orientation mode, but if set to True it will print the chart using the landscape orientation mode.</li>
+                                <li class="Bullets" value="3"><b>MarginUnits</b>: Either specified as a HundredthsInch (hundredths of an inch) or as Percent.</li>
+                                <li class="Bullets" value="4"><b>PrintPanelBackground</b>: Prints a transparent Chart Panel when set to False.</li>
+                                <li class="Bullets" value="5"><b>Proportional</b>: Sets the print dimensions of the chart proportional to those onscreen when set to True.</li>
+                                <li class="Bullets" value="6"><b>Resolution</b>: Sets chart printing detail resolution, from 1 to 100.</li>
+                                <li class="Bullets" value="7"><b>UseAntiAlias</b>: By default this is False to print the chart using standard printing quality, but if set to True it will print the chart using high printing quality using a higher pixel resolution.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>Title</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This String property can specify the name of this chart.</p>
+                            <p class="Notices"><b>Note:</b> If this property 
+ is cleared i.e. a blank string then more space is provided within the 
+ control for charting the data.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ToolbarVisible</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the display of the charting toolbar. This 
+ toolbar allows end users allows your end-users to print and/or preview 
+ the chart, rotate the chart and if necessary chart additional data, amongst 
+ other actions. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Charting_control_toolbar.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Charting control toolbar</a></span>.</p>
+                            <p class="Notices"><b>Note:</b> This toolbar 
+ is best suited to real time trending, as it allows one to move back and 
+ forward between the historical and real time data. For details, see the 
+ <b>TimeInfo</b> property below.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>View3D</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property determines whether this chart is by default displayed in  three 
+ dimensional view or not, by appropriately configuring the <b>View 
+ chart in 3D mode</b> <img src="ChtTB_3DView.bmp" style="border: none;width: 23px;height: 22px;float: none;border-style: none;border-style: none;" width="23" height="22" border="0" /> toolbar button. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                            <p>ViewName</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                            <p>This String property, determines whether the configuration changes performed 
+ by the <b>Runtime Configuration</b> toolbar 
+ button will be saved, as follows:</p>
+                            <ul>
+                                <li class="Bullets" value="1">If empty, the runtime configuration 
+ of series will NOT be saved.</li>
+                                <li class="Bullets" value="2">If not empty, this specifies 
+ the name of the variable that is used to save the runtime configuration 
+ of series to the profile of the currently logged in user. For details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_charted_series_at_runtime.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring charted series at runtime</a></span>.</li>
+                            </ul>
+                            <p class="Notices"><b>Note1:</b> If a value 
+ is specified, this automatically enables the (Appearance) <b>ViewButtonEnable</b> 
+ property to display the <b>Runtime Configuration</b> toolbar button.</p>
+                            <p class="Notices"><b>Note2:</b> If the value 
+ is deleted, this automatically disables the (Appearance) <b>ViewButtonEnable</b> 
+ property. <br />	However, this property can still be manually enabled if necessary, 
+ although any runtime configuration will then NOT be saved.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>&#160;</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Line, Surface and XYPlot charting control properties:</a> 
+ properties that display the data legendand configure its height and column 
+ widths and visibility, display toolbar buttons and configure the charting time interval 
+ amongst others.</p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                <col style="width: 21.333%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                <col style="width: 67.169%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <thead>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Property / (Category)</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>Badcolor</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This specifies the line color that is used to indicate that the plotted 
+ points have a bad status i.e. when data points are missing, incorrectly 
+ reported or extrapolated.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">&#160;</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><b>Data Legend-specific properties:</b>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>DataLegendVisible</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the display of the data legend that appears 
+ at the bottom of this control, which is used to display statistical information 
+ concerning the charted values. For details, see <a href="Operating_charting_controls.htm">Operating 
+ charting controls</a>.</p>
+                            <p class="Notices"><b>Note:</b> The data legend settings only apply if the data legend of this charting control is displayed, 
+								which is determined by the (Appearance) <b>DataLegendVisible</b> 
+							property.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>DataLegendHeight</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Integer property allows the height of the data legend of this charting 
+							control to be specified, in pixels.</p>
+                            <p class="Notices"><b>Note:</b> Depending on the number of series, this size could result in one or more of the series not being displayed by the data legend grid, in which case use the scroll bar to see the hidden series.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">Data
+						LegendHeightAutosize</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">This Boolean property toggles the ability to  automatically increase the size of the data legend grid to display all the trended series.</td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>SeriesWidth</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Integer property allows the width of the <b>Series</b> 
+								column in the data legend of this charting control to be specified, in 
+							pixels.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>MinWidth</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Integer property allows the width of the <b>Minimum</b> 
+								column in the data legend of this charting control to be specified, in 
+							pixels.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">MinVisible</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"> This Boolean property can hide (False) or display (True the default) the <b>Minimum</b> column in the data legend of this charting control.</td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>MaxWidth</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Integer property allows the width of the <b>Maximum</b> 
+								column in the data legend of this charting control to be specified, in 
+							pixels.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">MaxVisible</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"> This Boolean property can hide (False) or display (True the default) the <b>Maximum</b> column in the data legend of this charting control.</td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>AveWidth</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Integer property allows the width of the <b>Average</b> 
+								column in the data legend of this charting control to be specified, in 
+							pixels.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AveVisible</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"> This Boolean property can hide (False) or display (True the default) the <b>Average</b> column in the data legend of this charting control.</td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Designer_VerMinorFour">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">CurrentWidth</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">This Integer property allows the width of the <b>Current</b> 
+								column in the data legend of this charting control to be specified, in 
+							pixels.</td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>CntWidth</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Integer property allows the width of the <b>Count</b> 
+							column in the data legend to be specified, in pixels.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">CntVisible</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"> This Boolean property can hide (False) or display (True the default) the <b>Count</b> column in the data legend of this charting control.</td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>SDevWidth</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Integer property allows the width of the <b>Std 
+							Dev</b> column in the data legend to be specified, in pixels.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">SDevVisible</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"> This Boolean property can hide (False) or display (True the default) the <b>Std 
+							Dev</b> column in the data legend of this charting control.</td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ErrorsWidth</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Integer property allows the width of the <b>Errors</b> column in the data legend to be specified, in pixels.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">ErrorsVisible</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"> This Boolean property can hide (False) or display (True the default) the <b>Errors</b> column in the data legend of this charting control.</td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">&#160;</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><b>Charting data-specific properties:</b>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ExtrapolateData</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the ability of charted data to be extrapolated 
+ from its last known value.</p>
+                            <p>In other words, when the value of a charted series is not received, 
+ instead of inserting a gap in the trend where this value should have been, 
+ its last known value is charted instead.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">HistoricalDataSampleRate</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p> This Integer property, mainly applies to the LineChart series and serves to limit the  retrieved number of  historical data points to improve the performance of historical trending. This data sampling rate is specified in milliseconds.</p>
+                            <p>Historical data sampling is AUTOMATICALLY DISABLED  when the specified sample rate is SMALLER than 10 x your current time frame window. In other words, the default sample rate of 5 seconds is only applied when the time frame window is greater than 50 seconds. </p>
+                            <p>Setting this sample rate to 0 PERMANENTLY DISABLES historical data sampling and always returns all the available historical data.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>TimeInfo</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This composite property contains a number of sub-properties that specify 
+ the time-specific properties for the chart, as follows:</p>
+                            <p class="Notices"><b>Note1:</b> This property 
+ only applies to Line and XYPlot charts.</p>
+                            <p class="Notices"><b>Note2:</b> This property 
+ can also be configured at runtime, but any changes made will not be saved. 
+ For details, see <a href="Modifying_chart_time_at_runtime.htm">Modifying chart time at 
+ runtime</a>.</p>
+                            <p><b>RealTime</b> This Boolean property determines 
+ whether the trending will be real-time (True) or historical (False).</p>
+                            <p>This also determines which of its sub-properties need to be configured 
+ to set the required trending period:</p>
+                            <ol>
+                                <li class="Numbers" value="1"><b>Real 
+ time trending:</b> When <b>RealTime</b> is True, then the initial view 
+ of the trend will display data scrolling in realtime. <br />	When the trend is opened, it will fetch the historical data (if there 
+ is any) for the initial data period. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />This trending period is calculated 
+ as follows:</a><div MadCap:targetName="t2" style="display: none;"><ol start="1"><li class="NumbersSubLetters" value="1"><b>TimeSpan</b>&#160; This specifies the time 
+ period that the real-time trend window displays. This value can be specified, 
+ as follows: "[-]d.hh:mm:ss.ff, where: "-" is an optional 
+ sign for negative <b>TimeSpan</b> values, 
+ the "d" component is days, "hh" is hours, "mm" 
+ is minutes, "ss" is seconds, and "ff" is fractions 
+ of a second.</li></ol><p class="ListNoteSub"><b>Note1:</b> If an integer is typed into this value box 
+ it will be assumed to be a multiple of days.</p><p class="ListNoteSub"><b>Note2:</b> The <b>StartTime</b> 
+ and <b>EndTime</b> properties are meaningless for real time trending.</p><ol start="2"><li class="NumbersSubLetters" value="2"><b>Interval</b> This specifies the required update 
+ rate for the trended data (in milliseconds) i.e. how often the trend must 
+ update with the latest real time data and shift the data across the screen.</li></ol><p>&#160;</p></div></li>
+                            </ol>
+                            <ol start="2">
+                                <li class="Numbers" value="2"><b>Historical 
+ trending:</b> When <b>RealTime</b> is False, then the initial view of 
+ the trend will display the historical data specified between the start 
+ and end time, although it is also possible to 
+ view data that is being logged currently too.<a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />This trending period is calculated as follows:</a><div MadCap:targetName="t1" style="display: none;"><ol start="1"><li class="NumbersSubLetters" value="1"><b>TimeSpan</b>&#160; This specifies the interval 
+ that is required between the <b>StartTime</b> and <b>EndTime</b>. This 
+ value can be specified, as follows: "[-]d.hh:mm:ss.ff, where: "-" 
+ is an optional sign for negative <b>TimeSpan</b> 
+ values, the "d" component is days, "hh" is hours, 
+ "mm" is minutes, "ss" is seconds, and "ff" 
+ is fractions of a second.</li></ol><p class="ListNoteSub"><b>Note:</b> If 
+ an integer is typed into this value box it will be assumed to be a multiple 
+ of days.</p><ol start="2"><li class="NumbersSubLetters" value="2"><b>StartTime</b> This specifies the date and time, 
+ in the past, at which the trend is required to begin. This date and time 
+ is displayed in the format specified by your current Regional Settings.</li><li class="NumbersSubLetters" value="3"><b>EndTime</b> This specifies the date and time, 
+ in the past, at which the trend is required to end. This date and time 
+ is displayed in the format specified by your current Regional Settings.</li></ol><p class="ListNotice"><b>Note1:</b> The <b>TimeSpan</b>, 
+ <b>StartTime</b> and <b>EndTime</b> properties are all linked i.e. changing 
+ the <b>StartTime</b> will recalculate the <b>EndTime</b> using the specified 
+ <b>TimeSpan</b>.</p><p class="ListNotice"><b>Note2:</b> The <b>Interval</b> 
+ property is not required for static trends.</p></div><p class="Notices"><b>Tip:</b> You can configure the (Data) <b>HistoricalDataSampleRate</b> 
+ property to improve the performance of historical trending.</p></li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">&#160;</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><b>Toolbar - specific properties:</b>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>PageLeftVisible</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the display of the <b>Page 
+ Left</b> toolbar button used to move back quickly in time.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>PageRightVisible</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the display of the  <b>Page 
+ Right</b> toolbar button used to move forward in time.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ScrollLeftVisible</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the display of the <b>Scroll 
+ Left</b> toolbar button used to move back in time.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ScrollRealTimeVisible</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the display of the <b>Go 
+ to real time mode</b> toolbar button used to move forward in time until 
+ the real time values of the data are displayed.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ScrollRightVisible</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the display of the <b>Scroll 
+ Right</b> toolbar button used to move forward quickly in time.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ScrollLineButtonVisible</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the display of the<b> 
+ Scroll line to view historical values</b> toolbar button used to enable/disable 
+ a vertical black and blue scroll line to display these historical values in the data legend.</p>
+                            <p class="Notices"><b>Tip:</b> Enable the (ScrollLine) <b>ShowScrollLineMarkers</b> property, to display the point at which each scroll line intersects the series of the chart, by means of a dot, which has the same color as the series.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>TimeDetailsButtonEnabled</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the enabling of the <b>Modify 
+ the time details</b> toolbar button that allows the charted time period 
+ to be altered in runtime mode.&#160;For 
+ details, see <a href="Modifying_chart_time_at_runtime.htm">Modifying chart time at runtime</a>.</p>
+                            <p class="Notices"><b>Note:</b> If this 
+ property is disabled, while the <b>TimeDetailsButtonVisible</b>  property is enabled then this button will appear greyed out in 
+ the toolbar.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>TimeDetailsButtonVisible</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This Boolean property toggles the display of the <b>Modify 
+ the time details</b> toolbar button.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                            <p>ViewButtonEnable</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                            <p>This Boolean property toggles the display of the <b>Runtime 
+ Configuration</b> toolbar button that allows series (data elements) 
+ to be added to the chart in runtime mode. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_charted_series_at_runtime.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring charted series at runtime</a></span>.</p>
+                            <p class="Notices"><b>Note:</b> Any series 
+ (data elements) that are added at runtime will ONLY be saved if the (Behaviour) 
+ <b>ViewName</b> property is NOT empty.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

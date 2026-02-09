@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Utilities|Adroit Security Manager" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_SecurityMngr" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="SecurMngr.doc" /><title>Configuring Windows Security Policies</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1184"></a><a name="kanchor1185"></a><a name="kanchor1186"></a><a name="kanchor1187"></a><a name="kanchor1188"></a>Configuring Windows Security Policies </h1>
+        <p>The <span class="AdroitAppName">Adroit</span> Security Manager      provides 
+ the following security policies, which affect the Windows operating system 
+ of the computer that these policies are applied to, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p><b><a name="kanchor1189"></a>Configure 
+ Power Users:</b> All <span class="AdroitAppName">Adroit</span> users must, at least, belong to the LOCAL 
+ "Power Users" security group over and above the default "User" 
+ group; otherwise they are not able to perform all the functions necessary 
+ to run <span class="AdroitAppName">Adroit</span> on this computer. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">For instance:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">if you are NOT part of the Power Users group, although you will able 
+ to start the User Interface, you will not be able to start the  Agent Server or the  <span class="AdroitAppName">Adroit</span> Setup utility. 
+ Also if the Agent Server is installed as a service, then the Agent Server 
+ will also start.
+
+</span></span> <![CDATA[ 
+  ]]></p>
+            </li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> If you are 
+ running a domain and you are configuring the domain controller computer, 
+ you do not need to perform this configuration as this computer already 
+ has a POWER USERS group and the <span class="AdroitAppName">Adroit</span> users are already assigned to this 
+ group.</p>
+        <ul>
+            <li class="Bullets" value="1"><b><a name="kanchor1190"></a>Enable 
+ Auto-Logon:</b> If enabled this setting allows other users to start your 
+ computer and use the account that you establish to automatically log on. 
+ <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">For instance:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">many SCADA installations create a user that is part of the <span class="AdroitAppName">Adroit</span> Operator 
+ security group called DefaultOP, which is used to auto logon to Windows. 
+ For this reason, if you choose to create the default groups, this user 
+ is created for you; however you need to make this user a member of the 
+ <span class="AdroitAppName">Adroit</span> Operators default group yourself.
+
+</span></span>&#160;</li>
+        </ul>
+        <p class="ListNotice"><b>WARNING!</b> Although 
+ enabling auto logon makes your computer more convenient to use, it can 
+ pose a security risk. Therefore it is recommended that the user account 
+ that you specify has the LOWEST access permissions for the computer and 
+ the <span class="AdroitAppName">Adroit</span> installation.</p>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To BYPASS the Windows automatic logon to log 
+ on as a different user:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1">Hold down the SHIFT 
+ key after you log off or after Windows XP restarts.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> This ONLY 
+ applies to the first logon attempt of the computer.</p>
+        </div>
+        <ul>
+            <li class="Bullets" value="1"><b><a name="kanchor1191"></a>Replace 
+ the Shell:</b> This is the easiest method of creating a restricted workstation 
+ for your operators, as this simply replaces the default Explorer shell 
+ with the Classic UI. This means that when Windows is launched, 
+ the Classic UI is displayed by default and NOT the Windows 
+ Desktop.</li>
+        </ul>
+        <p class="ListNotice"><b>Tip:</b> By applying 
+ the <b>Disable Alt-Tab</b> and <b>Disable 
+ Ctl-Esc</b> policies you can run the Classic UI on top of the XP (without 
+ removing shell) and STILL prevent your operators from accessing Windows.</p>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To enable a security policy:</a> 
+ this allows you to specify which of the available security policies you 
+ want to apply.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">  Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Security Manager</b>  and select it from the list.  &#160;</li>
+                <li class="Numbers" value="2">If necessary, 
+ expand (double click) the <b>Windows Security Options</b> branch 
+ in the left hand tree pane.</li>
+                <li class="Numbers" value="3">Click on the required option.</li>
+                <li class="Numbers" value="4">Ensure that the <b>Apply 
+ Setting</b> checkbox is checked.</li>
+                <li class="Numbers" value="5">If necessary, perform any 
+ additional configuration.</li>
+            </ol>
+        </div>
+        <p class="Notices"><b>IMPORTANT:</b>Simply enabling a policy (option) does NOT change this policy on this 
+ computer; you need to APPLY the policy to a specific computer in order 
+ to change the security settings of this computer.</p>
+        <p>For details on how to save and/or apply the specified 
+ security settings, see <a href="Applying_Security_Policies.htm">Applying Security Policies</a>.&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

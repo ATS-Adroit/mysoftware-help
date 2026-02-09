@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="ParmQryInDataGrid.doc" /><title>How to create a parameterised database query and view it in a DataGrid control</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>How to create a parameterised database 
+ query and view it in a DataGrid control
+        </h1>
+        <p>Queries can be performed on an OLE DB compliant database to produce 
+ a sub-set of data, which comply with the specified requirements of the 
+ query. This is useful to create different views or sets of the data, so 
+ that the displayed data can be uniquely adapted to the need.</p>
+        <p>OLE DB is an open standard for accessing data from a variety of sources 
+ – both relational and non-relational data. An OLE DB datasource exposes 
+ the data contained within an OLE DB compliant database or data store as 
+ fields within one or more tables. </p>
+        <p class="Notices"><b>IMPORTANT:</b> The <MadCap:conditionalText MadCap:conditions="Common.Screenshots">screenshots and </MadCap:conditionalText>specified configuration settings relate to an OLD version of the <span class="VIPAppName">SmartUI</span> product and so your specific settings and screens may differ.
+ </p>
+        <p><a name="Top"></a>Queries can only be added once an OLE DB datasource is required for 
+ the required OLE DB compliant database.</p>
+        <p><a href="#OLEDBdatasrc">Adding an OLE DB datasource</a>
+        </p>
+        <p>The criteria of these queries can also be parameterised, so that results 
+ produced by the query can vary dynamically, depending upon the specified 
+ values of the parameters.&#160; </p>
+        <p><a href="#ParmUsrQry">Adding a parameterised user 
+ query to an OLE DB datasource</a>
+        </p>
+        <p>Once a query has been created, a graphic from can be designed to execute 
+ the query and display its results by means of a DataGrid control and if 
+ necessary, specify the values of any parameters of the query.</p>
+        <p><a href="#DatGrdInGF">Designing the graphic form 
+ to configure, execute and display the query</a>
+        </p>
+        <p>Since the data obtained by a query is not updated automatically, it 
+ only remains as current as the last time that it was executed. To this 
+ end, a Special Function spider can be used to execute the user query so 
+ that its retrieved data remains up to date. In addition, this spider exposes any parameters that are specified for 
+ this query, so that their values can be specified.</p>
+        <p><a href="#SpcFntSpdCfg">Using a Special Function 
+ spider to configure and execute the user query</a>
+        </p>
+        <p>It is also possible to ensure that the users of this graphic form are 
+ indeed able to configure, execute and view the data returned by this query, 
+ by previewing this graphic form.&#160; </p>
+        <p><a href="#PrevueQryInDataGrd">Previewing the user 
+ query in the OLE DB datasource on the DataGrid</a>
+        </p>
+        <h2><a name="OLEDBdatasrc"></a>Adding an OLE DB datasource</h2>
+        <p>An OLE DB datasource must be added before the data 
+ within an OLE DB compliant database can be exposed to the clients (Designer 
+ and/or Operator) of the Server.
+        </p>
+        <ol>
+            <li class="Numbers" value="1">Open 
+ the <span class="VIPAppName">SmartUI</span> Designer and display the <b>Enterprise Manager</b> window.
+            </li>
+            <li class="Numbers" value="2">If 
+ necessary, expand the <b>Servers</b>.
+            </li>
+            <li class="Numbers" value="3">Right-click 
+ on the name of the required Server and select <b>Add Datasource</b>.
+            </li>
+        </ol>
+        <p class="ListDesc">The <b>Add Datasource</b> configuration dialog is displayed, listing 
+ the available datasource plugins. </p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image001.jpg" style="width: 386px;height: 211px;border-style: none;border-style: none;" width="386" height="211" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 1: Add Datasource configuration dialog
+        </p>
+        <ol start="4">
+            <li class="Numbers" value="4">Double-click 
+ on the <b>OLE DB</b> entry.
+            </li>
+        </ol>
+        <p class="ListDesc">The <b>Add An OLE DB Datasource</b> configuration dialog is displayed 
+ to configure this OLE DB datasource.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">Type 
+ an appropriate name for this datasource into the <b>Name</b> edit box, 
+ for this example type in NorthWindDB.
+            </li>
+            <li class="Numbers" value="6">Connect 
+ to the required OLE DB database, by clicking the browse button to the 
+ right of the <b>Connection String</b> edit box.
+            </li>
+        </ol>
+        <p class="ListDesc">This will display the <b>Data Link Properties</b> dialog.</p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image003.jpg" style="width: 312px;height: 397px;border-style: none;border-style: none;" width="312" height="397" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 2: Data Link Properties dialog
+        </p>
+        <ol start="7">
+            <li class="Numbers" value="7">Use 
+ the <b>Provider</b> tab, which is displayed by default, to select the 
+ appropriate OLE DB provider for the type of data you want to access, from 
+ the list. In this case select ‘Microsoft OLE DB Provider for SQL Server’.
+            </li>
+            <li class="Numbers" value="8">Click 
+ the <b>Next</b> button to display the <b>Connection</b> tab for the selected 
+ OLE DB provider. This tab provides the necessary details to connect to 
+ the required data store. 
+            </li>
+        </ol>
+        <p class="ListDesc">In this example we connect to the NorthWind Database 
+ which is provided by SQL Server. </p>
+        <ol start="9">
+            <li class="Numbers" value="9">Click 
+ <b>OK</b> when done.
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image005.jpg" style="width: 389px;height: 160px;border-style: none;border-style: none;" width="389" height="160" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 3: Connecting to the NorthWind 
+ SQL database
+        </p>
+        <ol start="10">
+            <li class="Numbers" value="10">Click 
+ the <b>Test Server Connection</b> button to ensure that the Server is 
+ able to connect to this OLE DB data store successfully. 
+            </li>
+            <li class="Numbers" value="11">Click 
+ <b>Finish</b> once the connection is tested and the datasource has been 
+ named.
+            </li>
+        </ol>
+        <p class="ListNotice">This will add this specified OLE DB datasource to the 
+ Datasources category in the <b>Enterprise Manager</b>, which is identified 
+ by its specified name or icon.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="ParmUsrQry"></a>Adding a parameterised user query to the OLE 
+ DB datasource</h2>
+        <p>Once an OLE DB datasource is added, the data within 
+ its OLE DB compliant database exposes the data contained or data store 
+ as fields within one or more tables. 
+        </p>
+        <p>User-defined queries can be added to produce a sub-set 
+ of these fields, which comply with the specified requirements of the query. 
+ This is useful to create different views or sets of the data, so that 
+ the displayed data can be uniquely adapted to the need. 
+        </p>
+        <ol>
+            <li class="Numbers" value="1">Navigate to and expose 
+ the required OLE DB datasource in the <b>Enterprise Manager</b> window 
+ in the Designer.</li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2">Expand 
+ the <b>Queries</b> folder and right click the Select Queries category and select <b>Add Select Query</b>.&#160;</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/AddSelectQuery.jpg" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 4: Adding a Select query
+        </p>
+        <p class="ListDesc">The <b>Add Select Query</b> configuration dialog is displayed, which 
+ apart from specifying the name of the query also allows the method by 
+ which this query is to be created to be selected.</p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image009.jpg" style="width: 424px;height: 207px;border-style: none;border-style: none;" width="424" height="207" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 5: Add Select Query configuration dialog
+        </p>
+        <ol start="3">
+            <li class="Numbers" value="3">Specify 
+ the name of this query in the <b>Query Name</b> edit field, in this case 
+ this is <b>OrdersQuery</b>. 
+            </li>
+            <li class="Numbers" value="4">There are two ways in which the query can be created, the default 
+ selection is <b>Select Query</b> configuration dialog, which is recommended as this 
+ dialog automates the common querying tasks, writing the necessary SQL 
+ query commands for you. 
+            </li>
+        </ol>
+        <p class="ListDesc">However at the end of this configuration dialog you are also presented 
+ with the same window that is displayed by the <b>Custom Query</b> option 
+ that allows you to type in any other SQL query commands that you may require. 
+ In this case we are going to use the <b>Select Query</b> configuration dialog to create our 
+ user query. </p>
+        <p class="ListDesc">In this case, ensure that the default option, entitled 
+ <b>Select Query</b> configuration dialog, is selected. </p>
+        <ol start="5">
+            <li class="Numbers" value="5">Click 
+ <b>Next</b>.
+            </li>
+            <li class="Numbers" value="6">The 
+ <b>New User Defined Query</b> dialog is displayed, to specify which of 
+ the tables and/or fields are to be queried or searched by this query. 
+ 
+            </li>
+        </ol>
+        <p class="ListDesc">This lists the tables and fields within this OLE DB 
+ datasource within the <b>Tables and Fields</b> tree. </p>
+        <ol>
+            <li class="NumbersSubLetters" value="1">Check 
+ the checkbox of each table and field that you would like to be queried, 
+ by clicking on it. As you select the required tables and fields, the appropriate 
+ SQL query commands are added to the SQL Query field (this cannot be edited 
+ in this dialog). 
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image011.jpg" style="width: 425px;height: 289px;border-style: none;border-style: none;" width="425" height="289" border="0" /><span lang="EN-GB" style="font-size: 10.0pt;font-family: Arial;">&#160;</span>
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 6: Selecting tables and fields to be included in the query
+        </p>
+        <p class="ListDescSub">In this case, all the fields belonging to the <b>Customers</b> 
+ and Orders tables are selected.</p>
+        <ol start="7">
+            <li class="Numbers" value="7">Click 
+ <b>Next</b>, once the required tables and/or fields are selected.
+            </li>
+            <li class="Numbers" value="8">The 
+ <b>Relationship Setup</b> dialog is displayed, to optionally specify one 
+ or more relationships between the values of queried fields. 
+            </li>
+        </ol>
+        <p class="ListDesc">Each relationship is defined between any two fields 
+ that have been selected to be queried by this query. If the values, of 
+ these two fields, do not comply with the specified relationship, then 
+ this row of values will not be returned by the query. </p>
+        <ol start="9">
+            <li class="Numbers" value="9">If 
+ necessary, click the <b>Add Mapping</b> button to create a relationship 
+ between two of the queried fields, as follows:
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image013.jpg" style="width: 424px;height: 191px;border-style: none;border-style: none;" width="424" height="191" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 7: Creating a relationship between two queried fields
+        </p>
+        <ol>
+            <li class="NumbersSubLetters" value="1">Click 
+ the drop-down list box button at the right of each <b>Field</b> list and 
+ select the required field. 
+            </li>
+        </ol>
+        <p class="ListDescSub">This list only displays the fields that have been selected 
+ to be queried by this query, in the following syntax: [Tablename].[Fieldname]. 
+ </p>
+        <ol start="2">
+            <li class="NumbersSubLetters" value="2">Currently 
+ the only means of relating the two fields is "=" equal to. 
+            </li>
+        </ol>
+        <p class="ListDescSub">As you define the relationship(s), the appropriate 
+ SQL query commands are added to the SQL Query field (this cannot be edited 
+ in this dialog). </p>
+        <p class="ListDesc">For this example, a relationship between the CustomerID 
+ field of the Order table and the CustomerID field of the Customer table 
+ is added.</p>
+        <ol start="10">
+            <li class="Numbers" value="10">Click 
+ <b>Next</b>, once the required relationships, if any, have been defined.
+            </li>
+            <li class="Numbers" value="11">The 
+ <b>Constraints</b> dialog is displayed, to optionally specify constraints 
+ for the values of one or more queried fields. 
+            </li>
+        </ol>
+        <p class="ListDesc">Each constraint is actually a requirement that must 
+ be met by the value of a field that have been selected to be queried by 
+ this query. If the value of this field does not comply with the specified 
+ requirement, then this row of values will not be returned by the query. 
+ </p>
+        <p class="ListNotice"><b>Note</b>: This 
+ is where parameters can be used!</p>
+        <ol start="12">
+            <li class="Numbers" value="12">If 
+ necessary, click the <b>Add Constraint</b> button to create a constraint 
+ for a queried field, as follows:
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image015.jpg" style="width: 424px;height: 190px;border-style: none;border-style: none;" width="424" height="190" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 8: Adding a constraint
+        </p>
+        <ol>
+            <li class="NumbersSubLetters" value="1">Click 
+ the drop-down list box button at the right of the Field list and select 
+ the required field. 
+            </li>
+        </ol>
+        <p class="ListDescSub">This list only displays the fields that have been selected 
+ to be queried by this query, in the following syntax: [Tablename].[Fieldname]. 
+ </p>
+        <ol start="2">
+            <li class="NumbersSubLetters" value="2">Click 
+ the drop-down list box button at the right of the Constraint list and 
+ select the required comparison operator. 
+            </li>
+        </ol>
+        <p class="ListDescSub">This operator defines how the selected Field is to 
+ relate to the specified Value. &#160;</p>
+        <ol start="3">
+            <li class="NumbersSubLetters" value="3">Either: 
+ click within the Value field and specify the requirement, which needs 
+ to be met by the values of the specified field. 
+            </li>
+        </ol>
+        <p class="ListDescSub">Or: right-click the Value field and select the type 
+ of placeholder which can be used to dynamically specify this value instead, 
+ as follows:</p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image017.jpg" style="width: 361px;height: 175px;border-style: none;border-style: none;" width="361" height="175" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 9: Parameterising a constraint
+        </p>
+        <p class="ListDescSub"><b>Add String Parameter</b>: this can be used for string values and adheres to the following 
+ format: '&lt;!!param!!&gt;'. 
+        </p>
+        <p class="ListDescSub"><b>Add Generic Parameter</b>: this can be used for any other values and adheres to the 
+ following format: &lt;!!param!!&gt;. 
+        </p>
+        <p class="ListDescSub">To edit this parameter, click within the <b>Value</b> 
+ field. As you define the constraint(s), the appropriate SQL query commands 
+ are added to the SQL Query field, which cannot be edited. </p>
+        <p class="ListDescSub">For this example two constraints on the Order OrderDate 
+ field of the Order table are created, which are constrained by string 
+ parameters as follows: [Orders].[OrderDate] &gt;= &lt;!!param!!&gt; and 
+ [Orders].[OrderDate] &lt;= &lt;!!param1!!&gt;.</p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image019.jpg" style="width: 379px;height: 126px;border-style: none;border-style: none;" width="379" height="126" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 10: Configured parameterised constraints
+        </p>
+        <p>&#160;</p>
+        <ol start="13">
+            <li class="Numbers" value="13">Click 
+ the <b>Preview</b> button (<img src="ParmQryInDataGrid_files/image021.jpg" style="width: 66px;height: 20px;border-style: none;border-style: none;" width="66" height="20" border="0" />), at the bottom of this dialog, 
+ to preview the results of this user query. 
+            </li>
+        </ol>
+        <p class="ListDesc">When previewing queries containing parameters, a dialog 
+ box is displayed for each parameter, allowing you to provide a temporary 
+ value for them. </p>
+        <p class="ListDesc">In this case, the following dialogs are displayed:</p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image023.jpg" style="width: 303px;height: 121px;border-style: none;border-style: none;" width="303" height="121" border="0" />
+        </p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image025.jpg" style="width: 303px;height: 121px;border-style: none;border-style: none;" width="303" height="121" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 11: Input parameter values required to preview query 
+        </p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image027.jpg" style="width: 427px;height: 484px;border-style: none;border-style: none;" width="427" height="484" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 12: Previewing the results returned by the query as currently 
+ configured
+        </p>
+        <ol start="14">
+            <li class="Numbers" value="14">Click 
+ <b>Next</b>, once the required constraints have been defined, to end the 
+ query configuration dialog.
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image029.jpg" style="width: 425px;height: 482px;border-style: none;border-style: none;" width="425" height="482" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 13: Custom Query dialog
+        </p>
+        <ol start="15">
+            <li class="Numbers" value="15">The 
+ ‘Custom Query’ dialog is now displayed, which allows you to manually configure 
+ this query. If necessary, type or modify the existing SQL querying commands 
+ in the SQL Query edit box, which is finally editable. 
+            </li>
+            <li class="Numbers" value="16">Click 
+ <b>Finish</b>, once you are satisfied with this query. 
+            </li>
+        </ol>
+        <p class="ListDesc">This adds this query with its specified name beneath 
+ the <b>Queries</b> folder under this OLE DB datasource, in the <b>Enterprise 
+ Manager</b>.&#160; </p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image031.jpg" style="width: 203px;height: 329px;border-style: none;border-style: none;" width="203" height="329" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 14: The OrdersQuery added to the Queries folder of the OLE DB 
+ DataSource 
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="DatGrdInGF"></a>Designing the graphic form to configure, execute 
+ and display the query</h2>
+        <p>Since the purpose of a query is to produce a customised view of the 
+ data contained within an OLE DB datasource, this will generally need to 
+ be displayed to the end user by means of a in a graphic form. In this 
+ case a DataGrid control will be used to display the results of the query 
+ in the graphic form.</p>
+        <p>However, in addition to merely displaying the results of the query, 
+ the graphic form is also able to allow users to specify the values of 
+ the parameters of this query, if any and to execute this query using the 
+ specified values for these parameters. </p>
+        <p>As the OrdersQuery requires two dates as parameters, the following graphic 
+ form will be created in this case:</p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image033.jpg" style="width: 456px;height: 473px;border-style: none;border-style: none;" width="456" height="473" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 15: Graphic form used to configure, execute and display the query.
+        </p>
+        <ol>
+            <li class="Numbers" value="1">If 
+ necessary add a project (right click the <b>Projects</b> folder in the 
+ <b>Enterprise Manager</b> and select <b>Add Project</b> and specify the 
+ required name) and create a graphic form (right click the project and 
+ select <b>Create Graphic Form</b>).
+            </li>
+            <li class="Numbers" value="2">In 
+ the <b>Toolbox</b> window expand the <b>Windows Forms</b> and drag the 
+ <b>DataGrid</b> control onto the graphic form.
+            </li>
+            <li class="Numbers" value="3">Also 
+ drag one <b>GroupBox</b> control and a <b>Button</b> control onto the 
+ graphic form. </li>
+            <li class="Numbers" value="4">Select 
+ and rename the <b>Button</b> control name to btnFetch in the property 
+ grid. This Button control will be used to trigger a Special Function spider 
+ that will execute the user query of the OLE DB DataSource. For details, 
+ see <a href="#SpcFntSpdCfg">Using a Special Function 
+ spider to configure and execute the user query</a>.
+            </li>
+            <li class="Numbers" value="5">Drag 
+ two <b>Labels</b> and two <b>DateTimePicker</b> controls into the <b>GroupBox</b> 
+ control on the graphic form. 
+            </li>
+            <li class="Numbers" value="6">Select 
+ and rename the <b>DataTimePicker</b> controls names as dtpStartDate and 
+ dtpEndDate respectively in the property grid. These controls will be used 
+ to specify the start and end date parameters respectively for the user 
+ query of the OLE DB DataSource. For details, see <a href="#SpcFntSpdCfg">Using 
+ a Special Function spider to configure and execute the user query</a>.
+            </li>
+            <li class="Numbers" value="7">The 
+ <b>DataGrid</b> provides an option to apply different <b>Auto Format</b> 
+ styles to it. Select different Auto Format styles for your DataGrid by 
+ clicking on <b>Auto Format</b> on property grid while the DataGrid is 
+ selected.
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image035.jpg" style="width: 303px;height: 185px;border-style: none;border-style: none;" width="303" height="185" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 16: DataGrid Auto Format Dialog with different Auto Format styles
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="SpcFntSpdCfg"></a>Using a Special Function spider to configure 
+ and execute the user query</h2>
+        <p>Special Function spiders are able to execute queries that are added 
+ to OLE DB datasources. This makes it possible to execute a query from 
+ a control that has been added to a graphic form. For this reason, it is 
+ necessary to ensure that the results of the query are displayed by the 
+ required control. </p>
+        <p>Furthermore, it is also possible to provide the default values of any 
+ parameters specified in the query and if necessary ensure that the required 
+ controls are able to specify their values.</p>
+        <p>In this case, the OrdersQuery will be executed when the <b>btnFetch</b> 
+ Button control is clicked and displayed by the DataGrid control, in addition 
+ the values (dates) of the two parameters of this query <b>param </b>and<b> 
+ param1 </b>will be provided by the two DataTimePicker controls <b>dtpStartDate</b> 
+ and <b>dtpEndDate</b>, as follows:</p>
+        <ol>
+            <li class="Numbers" value="1">Add 
+ a new Special Function spider to the Spider Workspace by right clicking 
+ in the Spider Workspace and selecting <b>Create New Spider</b> &gt; <b>Advanced</b> 
+ &gt; <b>Special Function</b>.
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image037.jpg" style="width: 556px;height: 295px;border-style: none;border-style: none;" width="556" height="295" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 17: Adding a new Special Function Spider to the Spider Workspace
+        </p>
+        <ol start="2">
+            <li class="Numbers" value="2">Double-click 
+ on the new Special Function spider to expand it.
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image039.jpg" style="width: 286px;height: 315px;border-style: none;border-style: none;" width="286" height="315" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 18: Configuring the Special Function Spider
+        </p>
+        <ol start="3">
+            <li class="Numbers" value="3">Set 
+ its <b>Server</b> input to ‘Default Server’
+            </li>
+            <li class="Numbers" value="4">Select 
+ the <b>DataSource</b> you wish to use from the combo box in the Data Source 
+ input. In this case, select the ‘NorthWindDB’ Data Source.
+            </li>
+            <li class="Numbers" value="5">Select 
+ the user query you wish to execute from the combo box in the <b>Function</b> 
+ input. In this case, select the ‘OrdersQuery’ user query.
+            </li>
+            <li class="Numbers" value="6">Set 
+ default date values for the two parameter inputs that are also exposed 
+ by this Special Function spider, as follows: <b>param</b> will set the 
+ start date of the user query and <b>param1</b> will set the end date of 
+ the user query.
+            </li>
+            <li class="Numbers" value="7">In 
+ the <b>Event Trigger</b> section, select the object and its event that 
+ will be used to trigger this spider. In this case, select the <b>Event 
+ Object</b> as the Button control <b>btnFetch</b> and the <b>Event Name</b> 
+ as <b>Click</b>. 
+            </li>
+        </ol>
+        <p class="LineNote">Now ensure that the DataGrid control displays the results 
+ of the query:</p>
+        <ol start="8">
+            <li class="Numbers" value="8">Right 
+ click on the spider and select ‘Trigger Now!’ to trigger the spider to 
+ obtain the initial DataSet, which contain the results of the query and 
+ will be used to set the <b>DataSource</b> property of the DataGrid control, 
+ so that the results can be displayed in this control. 
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image041.jpg" style="width: 296px;height: 318px;border-style: none;border-style: none;" width="296" height="318" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 19: Triggering the Special Function Spider to get the initial 
+ DataSet
+        </p>
+        <ol start="9">
+            <li class="Numbers" value="9">Ensure 
+ that the <b>Return Object</b> output is set with a DataSet before continuing 
+ on to the next step.
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image043.jpg" style="width: 294px;height: 294px;border-style: none;border-style: none;" width="294" height="294" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 20: Triggered Special Function Spider containing a Return Object 
+ output
+        </p>
+        <ol start="10">
+            <li class="Numbers" value="10">Select 
+ the DataGrid control on the graphic form and drag the <b>Return Object</b> 
+ output of this Special Function spider (which is a DataSet) onto the <b>DataSource</b> 
+ property of the DataGrid in the Property pane on the left of the Spider 
+ Configuration window. 
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image045.jpg" style="width: 556px;height: 495px;border-style: none;border-style: none;" width="556" height="495" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 21: Dragging the Return Object output onto the DataSource property 
+ 
+        </p>
+        <p class="ListDesc">This will display the <b>Filter DataSet</b> dialog.</p>
+        <ol start="11">
+            <li class="Numbers" value="11">In 
+ the <b>Filter DataSet</b> dialog, select the columns that this DataGrid 
+ control should display. 
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ParmQryInDataGrid_files/image047.jpg" style="width: 391px;height: 459px;border-style: none;border-style: none;" width="391" height="459" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 22: Filter DataSet dialog – Table and Columns selection
+        </p>
+        <p class="ListDesc">In this case, all the columns are 
+ required, which is the default option.
+        </p>
+        <ol start="12">
+            <li class="Numbers" value="12">Click 
+ <b>Finish.</b></li>
+        </ol>
+        <p class="ListNotice"><b>Note</b>: The other dialogs 
+ of this dialog, allow one to provide extra filtering to this DataSet data 
+ and to customise the sorting of this data. However, since these steps 
+ are optional and not required for the purposes of this example, they have 
+ been skipped.</p>
+        <p class="LineNote">Now ensure that the <b>dtpStartDate</b> 
+ and <b>dtpEndDate</b> DataTimePicker controls can provide the values for 
+ the corresponding parameters of this query, namely <b>param </b>and<b> 
+ param1</b>: 
+        </p>
+        <ol start="13">
+            <li class="Numbers" value="13">Select the <b>dtpStartDate</b> <b>DateTimePicker</b> control on the graphic form and drag its <b>Value</b> 
+ property onto the corresponding <b>param</b> input in the Special Function 
+ spider.
+                <p>&#160;</p><p style="text-align: center;" MadCap:conditions="Common.Screenshots"><img src="ParmQryInDataGrid_files/image049.jpg" style="width: 556px;height: 470px;border-style: none;border-style: none;" width="556" height="470" border="0" /></p><p class="Caption" MadCap:conditions="Common.Screenshots">Figure 23: Dragging the Value property of dtpStartDate DateTimePicker 
+ onto the param input of the Special Function spider
+                </p><ol start="14"><li class="Numbers" value="14">Select 
+ the <b>dtpEndDate</b> DateTimePicker control on the graphic form and drag 
+ its <b>Value</b> property onto the corresponding <b>param1</b> input of 
+ the Special Function spider.
+                    </li></ol><p style="text-align: center;" MadCap:conditions="Common.Screenshots"><img src="ParmQryInDataGrid_files/image051.jpg" style="width: 555px;height: 469px;border-style: none;border-style: none;" width="555" height="469" border="0" /></p><p class="Caption" MadCap:conditions="Common.Screenshots">Figure 24 : Dragging the Value property of dtpEndDate DateTimePicker 
+ onto the param1 input of the Special Function spider
+                </p><p class="LineNote">Now ensure that the correct DateTimePicker event 
+ is used to trigger their <b>Value</b> property to update the values of 
+ these parameters: </p><ol start="15"><li class="Numbers" value="15">Select 
+ the <b>dtpStartDate</b> DateTimePicker on the graphic form and right click 
+ on its <b>Value</b> property and select <b>Show Property Spider</b> to 
+ display its Property spider.
+                    </li><li class="Numbers" value="16">In 
+ the <b>Event Trigger</b> section of this Property spider, change the <b>Event 
+ Name</b> to <b>ValueChanged</b>.
+                    </li></ol><p style="text-align: center;" MadCap:conditions="Common.Screenshots"><img src="ParmQryInDataGrid_files/image053.jpg" style="width: 555px;height: 467px;border-style: none;border-style: none;" width="555" height="467" border="0" /></p><p class="Caption" MadCap:conditions="Common.Screenshots">Figure 25: Changing the triggering event of the dtpStartDate DateTimePicker 
+ Value property to ValueChanged
+                </p><ol start="17"><li class="Numbers" value="17">Select 
+ the <b>dtpEndDate</b> DateTimePicker on the graphic form and right click 
+ on its <b>Value</b> property and select <b>Show Property Spider</b> to 
+ display its Property spider.
+                    </li><li class="Numbers" value="18">In 
+ the <b>Event Trigger</b> section of this Property spider, change the <b>Event 
+ Name</b> to <b>ValueChanged</b>.
+                    </li></ol><p style="text-align: center;" MadCap:conditions="Common.Screenshots"><img src="ParmQryInDataGrid_files/image055.jpg" style="width: 556px;height: 473px;border-style: none;border-style: none;" width="556" height="473" border="0" /></p><p class="Caption" MadCap:conditions="Common.Screenshots">Figure 26: Changing the triggering event of the dtpEndDate DateTimePicker 
+ Value property to ValueChanged
+                </p><p><a href="#Top">Back to top</a></p><h2><a name="PrevueQryInDataGrd"></a>Previewing the user query in the 
+ OLE DB datasource on the DataGrid</h2><p>It is always good engineering practice to test the correct operation 
+ after designing something. In this case, it is necessary to test that 
+ users of this graphic form will indeed be able to set the parameters of 
+ this user query using the DateTimePicker controls and then execute this 
+ query using the Button control and display the results of this query in 
+ the DataGrid control.&#160; </p><ol><li class="Numbers" value="1">Save 
+ the graphic form by clicking the <b>Save</b> button on the top left corner 
+ of the graphic form.
+                    </li><li class="Numbers" value="2">Switch 
+ the graphic form into Preview mode by clicking the <b>Preview</b> button 
+ on the bottom left corner of the graphic form. This provides the same 
+ view of this graphic form that users would see.
+                    </li><li class="Numbers" value="3">Select 
+ start and end dates from the two respective <b>DateTimePickers</b> on 
+ the graphic form for the user query.
+                    </li><li class="Numbers" value="4">Click 
+ the <b>Fetch</b> button to execute the user query between the selected 
+ start and end dates and ensure that the DataGrid displays the results 
+ of this query correctly.
+                    </li></ol><p style="text-align: center;" MadCap:conditions="Common.Screenshots"><img src="ParmQryInDataGrid_files/image057.jpg" style="width: 556px;height: 473px;border-style: none;border-style: none;" width="556" height="473" border="0" /></p><p class="Caption" MadCap:conditions="Common.Screenshots">Figure 27: Previewing and testing that this graphic form configures, 
+ executes and displays the OrdersQuery user query
+                </p></li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

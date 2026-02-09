@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Specialized Controls|VIZNETBindingNavigator controls" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Data" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Important VIZNETBindingNavigator properties</title>
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Important VIZNETBindingNavigator properties</h1>
+        <p>The following Boolean properties can be used to display or hide the 
+ functionality provided by the toolbar of the VIZNETBindingNavigator control:</p>
+        <p>&#160;</p>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 21.333%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 78.667%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Property / (Category)</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>(Misc)</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>BindingSource</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Select the BindingSource component of the required table or View from 
+ the list, that this VIZNETBindingNavigator control should communicate 
+ to.</p>
+                        <p class="Notices"><b>Note:</b> Typically, 
+ you will not need to change this setting as it is configured by the VIZNETDataBinder 
+ configuration dialog.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowAddButton</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility of the <b>Add 
+ New Record</b> <img src="../../../../../image38.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button and so can allow users to add 
+ records from the associated table.</p>
+                        <p class="Notices"><b>Note:</b> The DataBinder 
+ MUST contain all the primary key column/s for this table, before your 
+ users can remove records from this table.</p>
+                        <p class="Notices"><b>Tip1:</b> Instead of 
+ determining this setting once for all users, it is possible to use graphic 
+ form security to only display this button for users that have the necessary 
+ security privileges to add records.</p>
+                        <p class="Notices"><b>Tip2:</b> Disable this 
+ setting for all Views, which cannot be edited.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowCancelButton</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility of the <b>Undo 
+ All Changes</b> <img src="../../../../../image40.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</p>
+                        <p class="Notices"><b>Tip1:</b> Instead of 
+ determining this setting once for all users, it is possible to use graphic 
+ form security to only display this button for users that have the necessary 
+ security privileges to add records.</p>
+                        <p class="Notices"><b>Tip2:</b> Disable this 
+ setting for all Views, which cannot be edited.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowCount</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility of the <b>Total 
+ Number of Items (Records)</b> field.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowDeleteButton</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility of the <b>Delete 
+ Record</b> <img src="../../../../../image39.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button and so can allow users to remove records 
+ from the associated table.</p>
+                        <p class="Notices"><b>Note:</b> The DataBinder 
+ MUST contain all the primary key column/s for this table, before your 
+ users can remove records from this table.</p>
+                        <p class="Notices"><b>Tip1:</b> Instead of 
+ determining this setting once for all users, it is possible to use graphic 
+ form security to only display this button for users that have the necessary 
+ security privileges to add records.</p>
+                        <p class="Notices"><b>Tip2:</b> Disable this 
+ setting for all Views, which cannot be edited.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowLastInPage</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility of the <b>Move 
+ to Last Record in Page</b> <img src="../../../../../image35.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowLoadButton</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility of the <b>Load 
+ Data</b> <img src="../../../../../image31.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</p>
+                        <p class="Notices"><b>Tip:</b> If the <b>AutoLoad</b> property of the associated 
+ VIZNETDataBinder component is enabled, then this button can be hidden, 
+ as the data is automatically fetched when the graphic form is displayed.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowLookup</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility 
+ of the <b>Lookup</b>, <b>Filter</b> 
+ and <b>Find</b> controls, only hide this 
+ when users do not need to search for records.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowMoveFirst</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility 
+ of the <b>Move to First Record in Database</b><img src="../../../../../image32.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowMoveFirstInPage</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility 
+ of the <b>Move to First Record in Page</b><img src="../../../../../image34.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowMoveLast</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility 
+ of the <b>Move to Last Record in Database</b><img src="../../../../../image33.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button.&#160;</p>
+                        <p class="Notices"><b>Tip:</b> Hide this 
+ button if it will cause a very lengthy delay in fetching a large number 
+ of records from a database over the Internet.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowMoveNext</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility 
+ of the <b>Move to Next Record</b> <img src="../../../../../image37.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowMovePrevious</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility 
+ of the <b>Move to Previous Record</b><img src="../../../../../image36.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowPosition</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility of the <b>Current 
+ Position</b> field.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ShowTableName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This Boolean property determines the visibility of the table name.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>ShowUpdateButton</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>This Boolean property determines the visibility of the <b>Update 
+ Changes</b> <img src="../../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button.</p>
+                        <p class="Notices"><b>Tip1:</b> Instead of 
+ determining this setting once for all users, it is possible to use graphic 
+ form security to only display this button for users that have the necessary 
+ security privileges to add records.</p>
+                        <p class="Notices"><b>Tip2:</b> Disable this 
+ setting for all Views, which cannot be edited.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Help" MadCap:PathToHelpSystem="" MadCap:HelpSystemFileName="Operator.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Searching the help for topics</title>
+        <link href="SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="SkinSupport/jquery.js">
+        </script>
+        <script src="SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor44"></a><a name="kanchor45"></a><a name="kanchor46"></a><a name="kanchor47"></a><a name="kanchor48"></a><a name="kanchor49"></a>Searching the Help for Topics</h1>
+        <p>The <b>Search</b> tab, on the left hand side of the help viewer, is 
+ a good way to find a topic title if you know it, as this looks through 
+ the online help to find topics that match the specified word(s) and/or 
+ phrase(s).</p>
+        <p class="Notices"><b>Tip:</b> Use this if you know the EXACT PHRASE 
+ you are looking for. Otherwise this may return a long list of irrelevant 
+ topics, in which case use the <b>Index</b> 
+ tab instead.</p>
+        <h2>To search the help for topics:</h2>
+        <ol>
+            <li class="Numbers" value="1">Click the <b>Search</b> <![CDATA[ 
+ ]]><a name="kanchor50"></a>tab.</li>
+            <li class="Numbers" value="2"><a name="kanchor51"></a><a name="kanchor52"></a>Type the search query that 
+ you want to locate in one or more help topics into the edit box or click 
+ the list <img src="Help%20-%20Search%20-%20List%20button.bmp" style="height: 17px;width: 15px;" width="15" height="17" border="0" /> button and select a previously entered search 
+ query from this list box.</li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Basic searches:</a> <![CDATA[ 
+ ]]><a name="kanchor53"></a>Guidelines or tips for creating the search query.</p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <ol>
+                <li class="NumbersSubLetters" value="1">Searches 
+ are not case-sensitive, so you can type your search in either uppercase 
+ or lowercase characters.</li>
+                <li class="NumbersSubLetters" value="2">You 
+ may search for any combination of letters (a-z) and/or numbers (0-9).</li>
+                <li class="NumbersSubLetters" value="3">Punctuation 
+ marks such as the period ("."), colon (":"), semicolon 
+ (";"), comma (","), and hyphen ("-") are 
+ ignored during a search.</li>
+                <li class="NumbersSubLetters" value="4">Group 
+ the elements of your search using double quotes or parentheses into phrases, 
+ where necessary e.g. (TermA TermB) or “TermA TermB”.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note1:</b>&#160;The 
+ default operation between terms is AND, so unless you specifically group 
+ terms into phrases then all instances of each individual word will be 
+ searched for.</p>
+            <p class="ListNoteSub"><b>Note2:</b>&#160;You 
+ cannot search for quotation marks.</p>
+            <p class="ListNoteSub"><b>Note3:</b>&#160;If 
+ you are searching for a file name with an extension, you should group 
+ the entire string in double quotes, ("file name.ext").</p>
+        </div>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Advanced searches:</a> <![CDATA[ 
+ ]]><a name="kanchor54"></a>Additional items that can be added to your search query to help you narrow 
+ your searches for more precise results.</p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Wildcard expressions:</a> 
+ These can be used as placeholders for one or more characters, within your 
+ search query.<div MadCap:targetName="t3" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Use 
+ a question mark (“?”) as a single-character placeholder e.g. 90?10, will 
+ return 90a10, 90610 etc.</li><li class="NumbersSubLetters" value="2">Use 
+ an asterisk (“*”) as a multiple character placeholder e.g. water*, will 
+ return "WATER", "waterfall", "waterproof" 
+ etc.</li></ol><p class="ListNoteSub"><b>Note:</b> These wildcard 
+ operators cannot be the only character in a term.</p></div></li>
+                <li class="ListBullets" value="2"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Boolean operators:</a> 
+ These can be used to create specific relationships between the phrases 
+ or words in your search query. <div MadCap:targetName="t2" style="display: none;"><ol><li class="NumbersSubLetters" value="1">TermA 
+ AND TermB: This will return topics that both contain TermA and TermB.</li><li class="NumbersSubLetters" value="2">TermA 
+ OR TermB: This will return topics that either contain TermA or TermB.</li><li class="NumbersSubLetters" value="3">TermA 
+ NOT TermB: This will return topics that contain TermA but not TermB.</li><li class="NumbersSubLetters" value="4">TermA 
+ NEAR TermB: This will return topics that contain TermA within eight words 
+ of TermB.</li></ol><p class="ListNoteSub"><b>Note1:</b> If 
+ no Boolean operator is specified, AND is used i.e. TermA TermB = TermA 
+ AND TermB.</p><p class="ListNoteSub"><b>Note2:</b> The 
+ |, &amp;, and ! characters do not work as Boolean operators (you must 
+ use OR, AND, and NOT).</p></div></li>
+                <li class="ListBullets" value="3"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Nested expressions:</a> 
+ These allow you to create complex search queries. <div MadCap:targetName="t1" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Use 
+ parentheses to nest expressions within a query. The expressions in parentheses 
+ are evaluated before the rest of the query.</li><li class="NumbersSubLetters" value="2">If 
+ a query does not contain a nested expression, it is evaluated from left 
+ to right.</li></ol><p class="ListDescSub">Examples:</p><p class="ListDescSub">TermA NOT TermB OR TermC will locate topics, which 
+ contain TermA without TermB or topics containing TermC.</p><p class="ListDescSub">TermA NOT (TermB OR TermC) will locate topics, which 
+ contain TermA without either TermB or TermC.</p><p class="ListNoteSub"><b>Note:</b> You cannot 
+ nest expressions more than five levels deep.</p></div></li>
+            </ul>
+        </div>
+        <p class="ListNotice"><b>Note:</b> If you 
+ are performing an advanced search and using one or more Boolean operators, 
+ click the <img src="Help%20-%20Search%20-%20Boolean%20Operator%20button.bmp" style="height: 20px;width: 15px;" width="15" height="20" border="0" /> button to select the required operators from 
+ the list.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">If necessary, ensure that 
+ the required search settings have been set before the search is performed:</li>
+        </ol>
+        <ul start="1">
+            <li class="ListBullets" value="1">To only search 
+ topic titles and not their contents, ensure the <b>Search titles only</b> 
+ checkbox at the bottom of the <b>Search</b> tab is ticked.</li>
+            <li class="ListBullets" value="2">To find words similar 
+ to your search term, ensure the <b>Match similar words</b> checkbox at 
+ the bottom of the <b>Search</b> tab is ticked.</li>
+            <li class="ListBullets" value="3">To narrow your 
+ search, ensure the <b>Search previous results</b> checkbox at the bottom 
+ of the <b>Search</b> tab is ticked.</li>
+            <li class="ListBullets" value="4">To highlight all 
+ instances of search terms that are found in topic files, click the <b>Options</b><img src="CHM_Options.bmp" /> toolbar button and select <b>Search Highlight On.</b></li>
+        </ul>
+        <p class="ListNoteSub"><b>Note:</b> To turn off this highlighting of words, 
+ select this menu item again and then perform the search again.</p>
+        <ol start="4">
+            <li class="Numbers" value="4">Click <b>List Topics</b>, 
+ select the topic you want, and then click <b>Display</b>.</li>
+            <li class="Numbers" value="5">To sort the list of topics, 
+ alphanumerically that have been found by this search, click the required 
+ column heading:</li>
+        </ol>
+        <ul start="1">
+            <li class="ListBullets" value="1"><b>Title:</b> 
+ The names of the located help topics.</li>
+            <li class="ListBullets" value="2"><b>Location:</b> 
+ The name of the help file in which these topics have been located.</li>
+            <li class="ListBullets" value="3">&#160;<b>Rank:</b> The 
+ lower the number, the greater the number of occurrences of the required 
+ words and/or phrases.</li>
+        </ul>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to create a Wizard that contains a Template pop up</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>How to create a Wizard that contains a Template pop-up</h1>
+        <h2>Introduction</h2>
+        <p>We have received many queries about how to create wizards that contain a pop-up that needs to “inherit” or use the tag data that is substituted when the user drops the wizard down on the form. This is a complex requirement but not an unusual one. </p>
+        <p>This requires knowledge of some more advanced concepts of using and understanding “Aliases” which are essentially variables that can be passed between forms. They are an extremely powerful aspect of the product and once understood will help to minimise configuration of complex projects where there are many of the same objects to monitor.</p>
+        <p>By way of example you may have many identical distributed pump stations in a water distribution system. You would like to have a single graphic that represents a pump station, which when you need to view the data and say click on a navigation button, at runtime, pops up a template mimic that is populated with the relevant real-time data from the selected pump station. In addition you might want to have some “template” trends and sub faceplates that would be launched by say clicking on a particular pump. This is all possible using the same ideas and technology.</p>
+        <p MadCap:conditions="VIP.Designer_VerMinorTwo" class="Notices"><b>Tip:</b> Wizards that display one or more SmartUI Templates can use their substitutions to drive the values of the aliases of these child SmartUI Templates. For details, see <a href="../10Cfg/30Des/30GF/40Wiz/Driving_aliases_with_wizard_substitutions.htm">Driving aliases with wizard substitutions</a>.</p>
+        <h2>Prerequisites</h2>
+        <p>Have <span class="AdroitAppName">Adroit</span> 8 (MAPS 3) or later installed.</p>
+        <p class="Notices"><b>Note:</b> If you are using a version later than this then this how to will probably also apply to your version too, although some dialogs and/or commands may have changed slightly.</p>
+        <h2>Our Example</h2>
+        <p>We will create a simple example in which we will build a simple wizard representing a tank level with a button that when clicked launches a graphic form that then substitutes the data for the previously configured wizard.</p>
+        <p>So we want a wizard that can be used several times to represent say a tank farm. Each one when dropped down will be configured to represent a particular tank (tags) as displayed below:</p>
+        <p>
+            <img src="WizardWithAPopup_Files/image.png" />
+        </p>
+        <br />
+        <p>When a user clicks on a button then it launches a pop-up trend showing the actual trend page.</p>
+        <p>
+            <img src="WizardWithAPopup_Files/image1.png" />
+        </p>
+        <h2><a name="Top"></a>Configuration Summary</h2>
+        <p>The following steps summarise what we will be doing:</p>
+        <p>&#160;</p>
+        <ol>
+            <li class="Numbers" value="1"><a href="#Create_and_Configure_the_Wizard_">Create and Configure the Wizard</a> <![CDATA[ ]]></li>
+            <li class="Numbers" value="2"><a href="#Test_the_Wizard">Test the Wizard</a>
+            </li>
+            <li class="Numbers" value="3"><a href="#Create_the_Pop-up_Graphic_Form_that_Contains_a_Line_Chart_Control">Create the Pop-up Graphic Form Containing a LineChart Control</a>
+            </li>
+            <li class="Numbers" value="4"><a href="#Add_an_Alias_to_this_Pop-up_Graphic_Form">Add an Alias to this Pop-up Graphic Form</a>
+            </li>
+            <li class="Numbers" value="5"><a href="#Connect_the_Alias_to_the_line_Series_of_the_LineChar">Connect the Alias to the line Series of the LineChart</a>
+            </li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1"><a href="#Add_and_Configure_the_Required_Spiders">Add and Configure the Required Spiders</a>
+            </li>
+            <li class="ListBullets" value="2"><a href="#Configure_the_Flow_of_Data_Between_these_Spider">Configure the Flow of Data Between these Spiders</a>
+            </li>
+        </ul>
+        <ol start="6">
+            <li class="Numbers" value="6"><a href="#Launch_the_Graphic_Form_from_the_Wizard">Launch the  Pop-up Graphic Form from the Wizard</a>
+            </li>
+            <li class="Numbers" value="7"><a href="#Update_your_Previously_Used_Instances_of_this_Wizard">Update your Previously Used Instances of this Wizard</a>
+            </li>
+            <li class="Numbers" value="8"><a href="#Test_the_Operation_of_this_Wizard">Test the Operation of this Wizard in the Operator</a>
+            </li>
+        </ol>
+        <p>&#160;</p>
+        <p>While this procedure may sound pretty complicated, you will see from the results that this is a very powerful mechanism.</p>
+        <p>&#160;</p>
+        <h2>Detailed Configuration Steps</h2>
+        <h3><a name="Create_and_Configure_the_Wizard_"></a>Create and Configure the Wizard </h3>
+        <p>Create a project called MyTankWizard in the Enterprise Manager</p>
+        <p>Right-click on the project and select <b>Create Wizard</b>.</p>
+        <p>Name your Wizard MyTank.</p>
+        <p>Add a Rectangle (vector) to represent the tank and a  button (control).</p>
+        <p>Click the <img src="../10Cfg/30Des/40FC/glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">glyph<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a glyph is a specific graphic symbol, for instance employed by form components, which when clicked launch alternate configuration dialogs.</span></span>, in 
+ the top left corner of the Rectangle vector, which lists its commonly-used properties and configuration tasks and from the Behaviours list add add a <b>Percentage Fill</b> behaviour to the tank.</p>
+        <p>Instead of browsing in a tag, for its <b>Input Data Element</b> name, type the following into the tag dialogue box – {TankLevel}.</p>
+        <p>
+            <img src="WizardWithAPopup_Files/image2.png" />
+        </p>
+        <p> This is the notation that tells the wizard that when you use the wizard later on to prompt you to browse in a tag from the SCADA.</p>
+        <p>Similarly add a <b>Display Value</b> behaviour to the button and specify the following for its <b>Input Data Element</b> name: {Tankname}.</p>
+        <p>In the graphic form toolbar menu, click the <span style="font-weight: bold;">Optimise Graphic Form size</span><![CDATA[  ]]><img src="../Resources/Images/16/Generic/GF_OptimizeSize.png" /> button, which resizes the wizard to the size of the added controls and vectors, so that there are no overlaps at the top, bottom, left or right sides, and then save the wizard.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="Test_the_Wizard"></a>Test the Wizard</h3>
+        <p>Firstly, create the necessary <span class="AdroitAppName">Adroit</span> agents, in this case two analogue tags from the Analog agent Type in the Adroit datasource tree view. Name them Tank1 and Tank2 and also add these names as their Agent Description. For the purposes of this exercise, we are not bothering about their scaling, scanning, logging etc.</p>
+        <p>Test this wizard out on a test form to make sure it works, as follows:</p>
+        <p>Creating a test graphic form in your project. Call it “test”. </p>
+        <p>Drag and drop your MyTank wizard onto the Test GF and it should prompt you to provide the relevant tags – do this by clicking the relevant browse button, as follows: browse Tag1.value into the {TankLevel} and Tag1.AgentDescription into the {Tankname}. The results turn green if you have done this correctly.</p>
+        <p>
+            <img src="WizardWithAPopup_Files/image3.png" />
+        </p>
+        <p>Click the <b>Finish</b> button and then Run your GF in the Designer and the Agent Description will appear on the button. </p>
+        <p>The tank level is not showing because the value is in fact zero (as this is a new unlinked agent). To test the display of the tank level, simply </p>
+        <p>double-click Tank1 in the <span class="AdroitAppName">Adroit</span> datasource tree view to display its edit dialog and set the RawValue slot to 65 and click the Update button to see that your tank level is now representative and working. Similarly, change the level of Tank2 to say 45.</p>
+        <p>Now that your wizard is working we can move on to the more complex aspects of creating and using Aliases to launch and populate a form containing a trend control also to show the individual Tank Level as an example.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="Create_the_Pop-up_Graphic_Form_that_Contains_a_Line_Chart_Control"></a>Create the Pop-up Graphic Form Containing a LineChart Control</h3>
+        <p>Create the graphic form that contains the line chart, call it MyTankTrend. </p>
+        <p class="Notices"><b>Note:</b> This is NOT a wizard but a normal graphic form. </p>
+        <p>From within the <b>Data</b> category of the <b>Toolbox</b> click on the line chart control and drag the size to be something reasonable. In the LineChart configuration wizard that is displayed, in the default <b>Series Setup</b> dialog, change the <b>Title</b> of the default series to say "Tank Level". This is done by double-clicking in the Title field  that says “line”. </p>
+        <p>Click the <b>Finish</b> button and then use your mouse to place the form in the top left of the form. Again just click the <span style="font-weight: bold;">Optimise Graphic Form size</span><![CDATA[  ]]><img src="../Resources/Images/16/Generic/GF_OptimizeSize.png" /> button to neaten it all up.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="Add_an_Alias_to_this_Pop-up_Graphic_Form"></a>Add an Alias to this Pop-up Graphic Form</h3>
+        <p>What we are doing here is creating form-based variables that can be driven externally from the button when we launch the trend to allow the runtime substitutions of the variables. </p>
+        <p>This is done from the Properties window, typically on the right hand side of the Designer.</p>
+        <p>Typically, expand the <b>Advanced</b> section to display a longer list of Properties.</p>
+        <p>Select the (Collection) field next to the <b>Aliases</b> property to display its browse button, which you click to display the Aliases configuration dialog.</p>
+        <p>Click the <b>Add</b> button and change the specified substitution name to “TankTrendAlias”.</p>
+        <p>This is a completely user-configurable text and it just needs to make sense to you as the user. Bear in mind that when doing complex configurations naming these correctly will help you avoid confusion at a later stage.</p>
+        <p>
+            <img src="WizardWithAPopup_Files/image4.png" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="Connect_the_Alias_to_the_line_Series_of_the_LineChar"></a>Connect the Alias to the line Series of the LineChart</h3>
+        <h4><a name="Add_and_Configure_the_Required_Spiders"></a>Add and Configure the Required Spiders</h4>
+        <p>Use the spider engine workspace to add a Variable Data Element Spider.</p>
+        <p>To achieve this we need to open the Spider Workspace Window. If this window is not currently displayed then click the spider window launcher on the view tab of the main ribbon (toolbar) of the Designer.</p>
+        <p>
+            <img src="WizardWithAPopup_Files/0300000B.png" />
+        </p>
+        <p>Give yourself some space to work in, if you have two monitors you can even undock the spider workspace and move it to the second screen.</p>
+        <p>&#160;</p>
+        <ol>
+            <li class="Numbers" value="1">In the graphic form click the <b>lineChart</b> LineChart control to display this control's properties on the right of the spider workspace.</li>
+            <li class="Numbers" value="2">In the <b>Objects</b> tree on the right of the spider workspace, expand the <b>Data</b> property group and right click the <b>Series</b> property and select <b>Show property spider</b>.</li>
+        </ol>
+        <p>&#160;</p>
+        <p>We will get all three spiders we need to work with onto the screen before configuring anything.</p>
+        <ul style="list-style-type: disc;margin-left: 36pt;">
+            <li style="list-style-type: disc;" value="1">Right click the spider workspace and select <b>Create New Spider</b> and select the <b>Variable Data Element</b> spider from the <b>Advanced</b> spider category and double click to expand it.</li>
+            <li style="list-style-type: disc;" value="2">In the graphic form, click the LineChart to display the properties of the line chart control in the <b>Object</b> tree (on the right of the spider workspace), expand the <b>Data</b> property group and right click the <b>Series</b> property and select <b>Show property spider</b> to add the LineChart.Series property spider to the work area. Again you can click on it to expand it. </li>
+            <li style="list-style-type: disc;" value="3">In the graphic form, click the background of the graphic form to select the <b>Form</b>  in the <b>Object</b> tree (on the right of the spider workspace) and then expand the <b>VIZNET Extended</b>  property group and right-click the <b>Aliases</b> property and select <b>Show Property Spider</b>.</li>
+        </ul>
+        <p>You should now have all three spiders that we require displayed in the spider workspace, as shown below:</p>
+        <p>
+            <img src="WizardWithAPopup_Files/0300000D_585x352.png" style="visibility: visible;mso-wrap-style: square;width: 585;height: 352;" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h4><a name="Configure_the_Flow_of_Data_Between_these_Spider"></a>Configure the Flow of Data Between these Spiders</h4>
+        <p>Configuring the flow of data between these spiders means that we need to connect the output of the Alias of the graphic form to the input of the VDE and the output from the VDE to the line Series we configured in the LineChart control.</p>
+        <p>Firstly create the necessary input and output of the <b>Variable Data Element</b> (VDE)&#160;spider, as follows: double-click the <b>+Variable DE</b> under the <b>New Output</b> section of its configuration dialog.</p>
+        <p>This adds two additional variables, namely vde0 [DE Name {Segment}] and vde0 [Return DE] to the <b>Inputs</b> section and vde0 to the <b>Outputs</b> section. </p>
+        <p>To briefly explain how the VDE spider works: whatever variable (value/text) is connected to the {0} input is used wherever the {0} is used in other words this acts like a value/text placeholder. </p>
+        <p>In this example we want the {0} placeholder to be  transferred out on the vde0 field output, therefore we need to add the {0} Input to the new vde0 [DE Name {Segment}] input. So double-click the cell next to vde0 [DE Name {Segment}] and type in: {0}  </p>
+        <p>
+            <img src="WizardWithAPopup_Files/0300000F.png" style="visibility: visible;mso-wrap-style: square;width: 269px;height: 289px;" />
+        </p>
+        <p>&#160;</p>
+        <p>We are need to create the data flow connections (silks) between these spiders to make this all work, as follows:</p>
+        <p>Click and drag the <b>TankTrendAlias</b> Output from the <b>Form.Aliases</b> Property spider to the  <b>{0}</b> Input of the <b>VDE</b> spider. A red line should appear to show this connection.</p>
+        <p>Similarly,  drag and drop the <b>vde0</b> Output of the <b>VDE</b> spider onto the <b>line [Value/DataSet]</b> Input of the <b>LineChart.Series</b> spider. </p>
+        <p>The configured spider engine window should look like this:</p>
+        <p>
+            <img src="WizardWithAPopup_Files/03000010_614x346.png" style="visibility: visible;mso-wrap-style: square;width: 614;height: 346;" />
+        </p>
+        <p>Save the configured MyTankTrend graphic form and you can even close it, if you want to.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="Launch_the_Graphic_Form_from_the_Wizard"></a>Launch the  Pop-up Graphic Form from the Wizard</h3>
+        <p>Add an Execute Command behaviour to the button to launch the trend graphic form and using the <b>Advanced</b> tab of this Behaviour tie the original tank level variable to the Form Alias we created, as follows:</p>
+        <p>Re-open or select the  MyTank wizard form.</p>
+        <p>Select the Button control </p>
+        <p>Click the <img src="../10Cfg/30Des/40FC/glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">glyph<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a glyph is a specific graphic symbol, for instance employed by form components, which when clicked launch alternate configuration dialogs.</span></span>, in 
+ the top left corner of the Button control, which lists its commonly-used properties and configuration tasks and from the Behaviours list add an “Execute Command” behaviour. </p>
+        <p>Since this Behaviour defaults to the <b>Open graphic form</b> command, simply browse in your MyTankTrend GF using the browse control that pops up.</p>
+        <p>
+            <img src="WizardWithAPopup_Files/03000011_392x356.png" style="visibility: visible;mso-wrap-style: square;width: 392;height: 356;" />
+        </p>
+        <p>Now we need to “pass” on the original wizard substitution to the MyTankTrend form Alias we created, as follows:click on the <b>Advanced View</b> button on the  Execute Command  Behaviour dialog.</p>
+        <p>This displays an additional tab called <b>Aliases</b>, select this tab and click the <b>Get Aliases</b> button. </p>
+        <p>Double-Click in the <b>Inputs</b> area and add the original {TankLevel} substitution you created for the wizard, which you will see maps to TankTrendAlias on the left hand side.</p>
+        <p>
+            <img src="WizardWithAPopup_Files/03000014.png" style="visibility: visible;mso-wrap-style: square;width: 596px;height: 710px;" />
+        </p>
+        <p>Click the <b>Finish</b> button and we are now ready to use our configured wizard and template trend.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="Update_your_Previously_Used_Instances_of_this_Wizard"></a>Update your Previously Used Instances of this Wizard</h3>
+        <p>We will now also demonstrate a powerful aspect of the SCADA, namely the ability to automatically update previously used instances of wizards used within projects. </p>
+        <p>Save the MyTank wizard and the following dialog will pop up:</p>
+        <p>&#160;</p>
+        <p>
+            <img src="WizardWithAPopup_Files/03000012.png" style="visibility: visible;mso-wrap-style: square;width: 406px;height: 172px;" />
+        </p>
+        <p>Click yes to display a configuration dialog, which allows you to select the required projects or graphic forms in which you may have used your wizard before. Since we previously used the MyTank wizard on the TestGF in our project - simply check your MyTankWizard project and click the <b>Search</b> button. </p>
+        <p>&#160;</p>
+        <p>The Test GF appears in the list, which you can select to display a preview of this graphic form to ensure that this is the correct graphic form, check the checkbox and click the <b>Update</b> button to update this previously used wizard instance.</p>
+        <p>&#160;</p>
+        <p>
+            <img src="WizardWithAPopup_Files/03000013.png" style="visibility: visible;mso-wrap-style: square;width: 566px;height: 563px;" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="Test_the_Operation_of_this_Wizard"></a>Test the Operation of this Wizard in the Operator</h3>
+        <p>Open the Operator to the form you created with your original wizard and click on one of the buttons and your trend will pop-up with the value of the Tank Level Analog agent.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

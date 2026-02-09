@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Logging Tags (Recording Values)" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Datalog backup and retrieval</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2249"></a><a name="kanchor2250"></a><a name="kanchor2251"></a><a name="kanchor2252"></a><a name="kanchor2253"></a>Datalog backup and retrieval</h1>
+        <p>Previously, when logging to the <span class="AdroitAppName">Adroit</span> proprietary datalog (.LGD) files, the <span class="AdroitAppName">Adroit</span> datalogging system only provided the historical logged data existing in the .LGD file and was unable to provide historical data from the SystemDatalog-created .CSV datalog backup files.</p>
+        <p>Now each Datalog agent can create their <a name="kanchor2254"></a><a name="kanchor2255"></a> own backup (.LGB) files, when their associated .LGD files wrap, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LGBFileCreation"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <ol MadCap:targetName="LGBFileCreation" style="display: none;">
+            <li class="Bullets" value="1">these .LGB&#160;backup files are created in a “backups” sub-folder that is automatically added to the folder containing the .LGD file; </li>
+            <li class="Bullets" value="2">these .LGB&#160;backup files are created on a per tag basis, so if you log 10 tags to the same .LGD file, then 10 backup files are created and maintained; </li>
+            <li class="Bullets" value="3">each .LGB backup file contains a month of data, so the current .LGB file is updated with new data (each time the .LGD file wraps) and a new .LGB file is only added once a month has passed and</li>
+            <li class="Bullets" value="4">each .LGB backup file adheres to the following naming convention: <b>log$agent$slot M-yyyy-mm</b>, where yyyy is the year and mm is the month of the year.</li>
+        </ol>
+        <p>In <span class="AdroitAppVerName">Adroit 10</span>, the naming convention of these backup files have improved compared to <span class="AdroitAppName">Adroit</span> <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">8.4</MadCap:conditionalText> to significantly reduce the number of files that are created. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LGBFileCreation"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+        <div MadCap:targetName="LGBFileNamingConvention">
+            <p>When creating monthly datalog backup files in <span class="AdroitAppName">Adroit</span> <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS">8.4</MadCap:conditionalText>, a separate file was created for each day of the month that had data logged, since the file name also included the day that the data was logged.</p>
+            <p>For instance:</p>
+            <p>1.	A data value with a timestamp of 2017-11-21 10:00:00 would go to a backup file called 2017-11-21-m-11</p>
+            <p>2.	A data value with a timestamp of 2017-11-22 10:00:00 would go to a backup file called 2017-11-22-m-11</p>
+            <p>In <span class="AdroitAppVerName">Adroit 10</span>, the name of the backup file only specifies the year and month so that now only one file is created for the month.</p>
+            <p>For instance:</p>
+            <p>1.	A data value with a timestamp of 2017-11-21 10:00:00 would go to a backup file called 2017-11</p>
+            <p>2.	A data value with a timestamp of 2017-11-22 10:00:00 would also go to a backup file called 2017-11</p>
+        </div>
+        <p>This feature can also extend the potential amount of logged data without creating larger log files, since larger log files have the side effect of causing the Agent Server to take longer to start up. In this case, while the active log (LGD) file can remain small, the log backup (.LDB) files can store historical data for much longer time periods. </p>
+        <p class="Notices"><b>Note:</b> By using this backup feature, you no longer need multiple proprietary sets with increasing periods and larger time deadbands.</p>
+        <p>Once created,  the  datalogging subsystem automatically retrieves the data from these .LGB files, if required by  trends (charts) or other requests for historical data.  This .LGB file-data retrieval process may slightly increase the time required to obtain and view this historical data. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LGBMoreInfo"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+        <div MadCap:targetName="LGBMoreInfo" style="display: none;">
+            <p>In addition to creating .LGB files for <span class="AdroitAppName">Adroit</span> to retrieve historical data, you can also create the associated .CSV files to enable third party applications to trend or report this data too.</p>
+            <p class="Notices"><b>IMPORTANT:</b> If .CSV files are being created, <span class="AdroitAppName">Adroit</span> ONLY&#160;only looks for and uses the data in the .LGB files. Therefore if you have deleted a .LGB file but still has the .CSV file for the same period, <span class="AdroitAppName">Adroit</span> is unable to retrieve the historical data for this time period. </p>
+            <p>Since multiple backup files are created, a housekeeping feature ensures that the files older than a specified number of days (default 90 days) are deleted from this backup folder.</p>
+            <p class="Notices"><b>Note:</b> If you want to keep data older than the specified housekeeping period, for future retrieval, then ensure that you have a MANUAL backup procedure in place that moves the old .LGB files are the required folder.</p>
+            <p>This new datalog feature makes the existing backup capability of the Systemdatalog agent redundant, which is configured in the <b>Options</b> section, when logging a tag, by checking the <b>Enable (system datalog) backups</b> checkbox. We recommend that this legacy method of backing up datalogs is no longer used as it may be deprecated in a future version of <span class="AdroitAppName">Adroit</span>.</p>
+        </div>
+        <p class="Notices"><b>Note:</b> To disable this new backup feature, select <b>Disabled</b> from the <b>Backup period</b> list, which is also configured in the <b>Options</b> section at the bottom, of the <b>Edit Datalog agent</b> dialog.</p>
+        <h2>To configure proprietary datalog (.LGD) file backups:</h2>
+        <ol>
+            <li class="Numbers" value="1">Log a value or edit an existing logged value, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LogOrEditLoggedValue"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></li>
+        </ol>
+        <div MadCap:targetName="LogOrEditLoggedValue" style="display: none;">
+            <p class="ListDesc">
+                <p>&#160;</p>
+                <p>Open the Agent Configuration dialog, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgentConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                <p class="Notices"><b>Tip:</b> This also opens the <span class="AdroitAppName">Adroit</span> Classic UI in the <span class="VIPAppName">SmartUI</span> Designer, which provides agent-specific menu functions,  such as importing and exporting agents.</p>
+                <div MadCap:targetName="AgentConfigurator" style="display: none;">
+                    <p>In the <span class="VIPAppName">SmartUI</span> Designer:</p>
+                    <p>Click the <b>Open Configurator</b> tool in the <b>Agent Server</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                    <p class="Notices"><b>Note:</b> When there is more than one <span class="AdroitAppName">Adroit</span> datasource available, a list is provided to select which  Agent Server to configure. </p>
+                    <p>The <b>Agent Configuration</b> 
+ dialog is displayed within the Classic UI.</p>
+                </div>
+                <p>Select the required agent in the Agent Configurator, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SlctAgtInConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+                <div MadCap:targetName="SlctAgtInConfigurator" style="display: none;">
+                    <ol>
+                        <li class="UpperLetters" MadCap:conditions="" value="1">Ensure that the <b>Basic</b>, 
+ <b>Advanced</b> and/or <b>System</b> 
+ checkbox is checked to display the required agent type in this list. These 
+ checkboxes use these default agent groups to help you select the required 
+ agent quickly.</li>
+                    </ol>
+                    <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> If no 
+ checkboxes are selected, then all the available agent types will be displayed 
+ in the <b>Type</b> list box. This is 
+ useful if the required agent type has not been categorised.</p>
+                    <ol start="2">
+                        <li class="UpperLetters" MadCap:conditions="" value="2">Click the down arrow in 
+ the <b>Type</b> drop down list</li>
+                        <li class="UpperLetters" MadCap:conditions="" value="3">Locate the required agent 
+ type, using the scroll bar and click on it.</li>
+                    </ol>
+                    <ol start="4">
+                        <li class="UpperLetters" MadCap:conditions="" value="4">In the <b>Agents</b> 
+ list, click on the name of the required agent (if necessary scroll down 
+ to locate this).</li>
+                    </ol>
+                    <p class="ListNotice" MadCap:conditions=""><b>Tip:</b> Right-click 
+ to display a menu of commands to perform upon the selected agent(s).</p>
+                </div>
+            </p>
+            <ol>
+                <li class="ListBullets" value="1">Click the <b>Log...</b> 
+ button to display the <b>Edit DataLog Agent 
+ for</b> dialog.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can 
+ also right-click the agent and select the <b>Log…</b> menu item.</p>
+            <p class="ListDesc">For more details on configuring the options of this dialog to log a value, see <a href="How_to_Log_a_Tag.htm">How to Log a Tag</a>.</p>
+        </div>
+        <p class="LineNote">Configure the backup portion of the <b>Options</b> section, at the bottom, of the <b>Edit Datalog agent</b> dialog, as follows:</p>
+        <ol start="2">
+            <li class="Numbers" value="2">The  <b>Backup period</b> is by default set to <b>Monthly</b>.  </li>
+        </ol>
+        <p class="ListDesc">So the naming convention of these .LGB&#160;(and .CSV) files will be: <b>log$agent$slot M-yyyy-mm</b>, where yyyy is the year and mm is the month of the year</p>
+        <p class="ListNotice"><b>Note:</b> The associated .CSV files, if created for  third party use, adhere to this same naming convention but have a .CSV extension instead of .LGB.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Since multiple backup files are created, use the <b>Delete backup files older than (days)</b>housekeeping feature to ensures that the  .LGB&#160;(and .CSV) files older than a specified number of days (default 90 days) are deleted from the backup folder.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If you want to keep data older than this specified housekeeping number of days, then ensure that you have a MANUAL backup procedure in place to ensure that you move these old .LGB files to the required folder.</p>
+        <ol start="4">
+            <li class="Numbers" value="4">If necessary, check the <b>Enable CSV backups</b> checkbox to also create associated .CSV files. This will allow third party applications to trend or report this historical data too, </li>
+        </ol>
+        <p class="ListNotice"><b>IMPORTANT:</b> If .CSV files are being created, <span class="AdroitAppName">Adroit</span> ONLY&#160;only looks for and use the data in the .LGB files. Therefore if you have deleted a .LGB file but still has the .CSV file for the same period, <span class="AdroitAppName">Adroit</span> is unable to retrieve the historical data for this time period. </p>
+        <p class="ListNotice"><b>Note:</b> Each .CSV file stores the logged data by using the following 3 column file structure: Date (yyyy/mm/dd HH:mm:ss), Value and Quality.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

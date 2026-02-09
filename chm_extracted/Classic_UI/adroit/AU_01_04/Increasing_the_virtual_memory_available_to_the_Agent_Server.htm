@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Configuring Agents and the Agent Server" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Increasing the virtual memory available to the Agent Server.doc" /><title>Increasing the virtual memory available to the Agent Server</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor617"></a>Increasing the virtual memory available to the Agent Server</h1>
+        <p>The Agent Server and Agent 
+ Server Service processes can use up to 3GB of virtual memory on 32 bit 
+ Windows XP and Server 2003 and up to 4GB on certain 64 bit operating systems.&#160; 
+ Previously, these processes were limited to only 2GB.</p>
+        <p>This feature allows users to extend their WGP file 
+ configuration and is particularly useful when your current Agent Server 
+ process is approaching the 1.6GB virtual memory limit, as measured by 
+ Performance Monitor (NOT Task Manager!).</p>
+        <h2>Implementation on a 32 bit operating system: </h2>
+        <p>32 bit operating systems have a maximum of 4GB of 
+ addressable memory space.&#160;</p>
+        <p>By default, Windows allows only 2GB per process 
+ and uses the other 2GB for Windows itself.</p>
+        <p>To change this default, you need to do the following:</p>
+        <ul>
+            <li class="Bullets" value="1">On 32 bit Windows Vista 
+ and later versions of Windows:</li>
+        </ul>
+        <p class="ListDesc">Use the <b><a name="kanchor618"></a>IncreaseUserVA</b> element in <b><a name="kanchor619"></a>BCDEdit</b>.</p>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click 
+ for more details:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p class="ListDesc">In other words specify the following command: <b>BCDEdit /set [{ID}] increaseuserva Megabytes</b>, where:</p>
+            <ul>
+                <li class="BulletSub" value="1">The 
+ <b>/set</b> command sets a boot entry option value in the boot configuration 
+ data store.</li>
+                <li class="BulletSub" value="2">The 
+ <b>{ID}</b> is the GUID that is associated with the boot entry. If you 
+ do not specify an {ID}, the command modifies the current operating system 
+ boot entry.</li>
+                <li class="BulletSub" value="3">The 
+ <b>increaseuserva Megabytes</b> specifies the 
+ amount of memory, in megabytes, that is available per proceess. This variable 
+ can have any value between 2048 (2 GB) and 3072 (3 GB) megabytes in decimal 
+ notation. Windows uses the remaining address space (4 GB minus the specified 
+ amount).</li>
+            </ul>
+            <p class="ListDesc">Using 
+ the full 3 GB for this option CAN potentially cause the Agent Server 
+ (and/or other Windows applications) not too work, if Windows requires 
+ MORE THAN 1GB for dealing with this process.</p>
+            <p class="ListDesc">For instance: if the configuration of the Agent Server 
+ is such that the size of network packets between <span class="AdroitAppName">Adroit</span> client and server 
+ components are too large, then Windows requires more memory for itself 
+ to handle the networking layers.</p>
+            <p class="ListDesc">In these cases, limit the amount of additional memory 
+ available to the process and hence increase the amount of memory available 
+ to Windows.</p>
+        </div>
+        <ul>
+            <li class="Bullets" value="1">On 32 bit Windows Server 
+ 2003 and Windows XP, use the <b><a name="kanchor620"></a>/3GB</b> and optionally <b><a name="kanchor621"></a>/USERVA</b> 
+ parameters in the <b><a name="kanchor622"></a>boot.ini</b> file, which are ONLY valid for 32-bit 
+ versions of Windows on computers with x86 or x64-based processors.&#160;</li>
+        </ul>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p class="ListDesc">A standard boot.ini file is shown below:</p>
+            <p class="ListDesc">
+                <img src="image002.jpg" style="height: 121px;width: 659px;" width="659" height="121" border="0" />
+            </p>
+            <p class="ListDesc"><b>We strongly recommend that you add a new profile for 3GB operation as opposed 
+ to amending the one and only default profile</b>.</p>
+            <p class="ListDesc">For instance, in the modified boot.ini file below, the 
+ last line allows the user to select "Microsoft Windows XP Professional 
+ /3GB" in addition to the default profile:</p>
+            <p class="ListDesc">
+                <img src="image004.jpg" style="height: 111px;width: 659px;" width="659" height="111" border="0" />
+            </p>
+            <p class="ListDesc">The <b>/3GB</b> profile allows individual processes to 
+ use up to 3072 MB of virtual memory.&#160; The remaining 1GB is reserved 
+ for Windows.</p>
+            <p class="ListNotice"><b>Note:</b> Should you wish this /3GB profile to be 
+ the default profile you need to make sure that it is the first entry under 
+ [operating systems]</p>
+            <p class="ListDesc">However, this <b>/3GB</b> profile above CAN potentially 
+ cause the Agent Server (and/or other Windows applications) not too work, 
+ if Windows requires MORE THAN 1GB for dealing with this process, for instance: 
+ if the configuration of the Agent Server is such that the size of network 
+ packets between <span class="AdroitAppName">Adroit</span> client and server components are too large, then 
+ Windows requires more memory for itself to handle the networking layers.</p>
+            <p class="ListDesc">In these cases, you need to add the <b>/USERVA</b> switch 
+ to the <b>/3GB</b> profile to limit the amount of additional memory available 
+ to the process and hence increase the amount of memory available to Windows. 
+ The usage of this switch is demonstrated in the following boot.ini file:</p>
+            <p class="ListDesc">
+                <img src="image006.jpg" style="height: 57px;width: 659px;" width="659" height="57" border="0" />
+            </p>
+            <p class="ListDesc">In this boot.ini file, the switch /USERVA=2560 has been 
+ added to further instruct Windows to limit the virtual memory per process 
+ to 2560 MB.&#160; The above leaves 1.5 GB for the Windows operating system 
+ to allow Windows to operate properly.</p>
+        </div>
+        <h2>Implementation on a 64 bit operating system</h2>
+        <ul>
+            <li class="Bullets" value="1">On 64-bit versions of Windows 
+ Server 2003/2008, the system automatically expands the virtual address 
+ space available to 32-bit user-mode programs as needed without the /3GB 
+ boot parameter.</li>
+            <li class="Bullets" value="2">On Windows Server 2003 
+ RTM (without Service Pack 1), these 32-bit programs can access up to 3 
+ GB of virtual address space.</li>
+            <li class="Bullets" value="3">On Windows Server 2003 
+ with Service Pack 1, they can access up to 4 GB of virtual address space.</li>
+        </ul>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

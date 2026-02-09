@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Common.Help" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:PathToHelpSystem="" MadCap:HelpSystemFileName="adrcusdes.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <link href="SkinSupport/Slideshow.css" rel="stylesheet" type="text/css" MadCap:generated="True" />
+        <link href="SkinSupport/MadCap.css" rel="stylesheet" type="text/css" MadCap:generated="True" /><title>How to Use the Online Help</title>
+        <link href="Resources/Stylesheets/AdTech.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="SkinSupport/jquery.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapGlobal.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapMerging.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapUtilities.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapEffects.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapBody.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapHighlighter.js">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <h1><a name="kanchor72"></a><a name="kanchor73"></a><a name="kanchor74"></a><a name="kanchor75"></a><a name="kanchor76"></a><a name="kanchor77"></a>How to Use the Online Help</h1>
+        <p>Comprehensive online help documentation is provided, 
+ in the Microsoft HTML Help (.CHM) format, which has the following 
+ functionality:</p>
+        <p class="Notices"><b>IMPORTANT:</b> Due to Microsoft 
+ security restrictions, CHM help files can ONLY be used on your local computer 
+ and cannot be launched over the network.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t11"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />How to launch the help:</a> 
+ ways in which the help can be displayed.</p>
+        <div MadCap:targetName="t11" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">Open the <b>Help</b> 
+ menu and click on the <b><a name="kanchor78"></a>Help Contents</b> 
+ menu item.</li>
+                <li class="Bullets" value="2">Press the F1 key, to display 
+ the context-specific <a name="kanchor79"></a>help topic.</li>
+                <li class="Bullets" value="3">Click the Help button of 
+ the relevant dialog.</li>
+            </ul>
+        </div>
+        <h2>Using help</h2>
+        <ol>
+            <li class="Numbers" value="1"><b>Help 
+ file topic links:</b> the following methods are provided to display 
+ additional or related information concerning the current help topic:</li>
+            <li class="ListBullets" value="2">
+                <p><b>Popup 
+ and topic links:</b> these links appear as <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Popup_Link.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">sampleText</a></span> in topics. Click on the following hyperlinks to see the differences 
+ between these types of links <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Popup_Link.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">popup</a></span> 
+ and <a href="Topic_Link.htm">topic</a> links (click on these).</p>
+                <p class="Notices"><b>Note:</b> If a 
+ popup link closes and you reopen it, it opens at the same place before 
+ it closed and/or with same selected text.</p>
+                <p class="Notices"><b>Tip:</b> If you 
+ click anywhere in a popup the popup closes, so use the provided scroll 
+ bar to navigate down.</p>
+            </li>
+        </ol>
+        <p class="ListDescSub"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t10"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />How to copy text from a popup link:</a>
+        </p>
+        <div MadCap:targetName="t10" style="display: none;">
+            <ul>
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Click on the popup 
+ link to display the popup window.</li>
+                    <li class="NumbersSubLetters" value="2">Select the required 
+ text manually or right click and select <b>Select All</b>.</li>
+                </ol>
+            </ul>
+            <ul type="1">
+                <ol start="3">
+                    <li class="NumbersSubLetters" value="3">
+                        <p>If the popup link closes, click on the popup 
+ link again.</p>
+                        <p class="Notices"><b>Tip:</b> 
+ You can also press the CTRL+C shortcut.</p>
+                    </li>
+                </ol>
+            </ul>
+            <p class="ListDescSubSub">The popup window appears again with the 
+ required text selected.</p>
+            <ul type="1">
+                <ol start="4">
+                    <li class="NumbersSubLetters" value="4">Right click and select 
+ the <b>Copy</b> menu item</li>
+                </ol>
+            </ul>
+            <p class="ListDescSubSub">Paste this text into the required application.</p>
+        </div>
+        <ul>
+            <li class="ListBullets" value="1">
+                <p><b>Drop 
+ down text:</b> these links appear as 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="TogglerExample"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />sampleText</a> in topics. If clicked this display its contents, and 
+ if clicked again will hide its contents. This can show or hide parts of 
+ a help topic. Click on these links in this topic below, to see how they 
+ work.</p>
+                <p MadCap:targetName="TogglerExample" style="display: none;">Contents displayed by the sample drop-down text link - if clicked again this content will again be hidden. Note the direction of the link icon has changed too!</p>
+                <p class="Notices"><b>Tip:</b> If a 
+ topic is printed ONLY those drop down text links that are expanded will 
+ be displayed.</p>
+            </li>
+        </ul>
+        <ol start="2">
+            <li value="2"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t9"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Navigation Pane:</a> <![CDATA[ ]]></li>
+        </ol>
+        <p class="ListDesc"> This contains a number of navigational tools to help you locate the required 
+ help topic.</p>
+        <div MadCap:targetName="t9" style="display: none;">
+            <p class="ListDesc">Access the following tools by clicking their named tab:</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1">The <b>Contents</b><a name="kanchor80"></a><a name="kanchor81"></a><a name="kanchor82"></a> 
+ tab, provides a hierarchical view of help topics, organized by subject, 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><ul><li class="Bullets" value="1">When you click a closed 
+ book, it opens to display its content (sub-books and pages).</li><li class="Bullets" value="2">When you click an open 
+ book, it closes.</li><li class="Bullets" value="3">When you click pages, you 
+ select topics to view in the right-hand pane of the HTML Help viewer.</li></ul><p class="Notices"><b>Tip:</b> Use this 
+ if you know the approximate location of the help topic they are looking 
+ for,&#160;but 
+ not its exact name.</p><p class="Notices"><b>Note:</b> The root of the Table of contents provides the <b>Glossary</b> or list of words that you may not understand, simply click on the required word to view its corresponding definition.</p></li>
+            </ol>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">The <b><a name="kanchor83"></a><a name="kanchor84"></a>Index</b> 
+ tab, provides a list of keywords each linked to one or more topic, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a> <![CDATA[ 
+   ]]><p>Select the keyword and then click <b>Display</b>.</p><p class="Notices"><b>Tip:</b> Its also 
+ possible to double-click the keyword.</p><p>If the keyword is used with more than one topic, a <b>Topics 
+ Found</b> dialog opens so you can select a specific topic to view.</p><p class="Notices"><b>Tip:</b> Once the 
+ topic is displayed you can click the <b>Locate</b><img src="CHM_Locate.bmp" /> toolbar button to find this topic in the <b>Contents</b> 
+ tab. This will also open the <b>Contents</b> 
+ tab.</p><p class="Notices"><b>Tip:</b> Use this 
+ if you know what they are looking for, but may not know its exact term 
+ and do not want to use the table of contents.</p></li>
+            </ol>
+            <ol start="3">
+                <li class="NumbersSubLetters" value="3">
+                    <p>The <b>Search</b> 
+ tab, to locate EVERY topic containing the EXACT word or phrase that you 
+ specify. To specify a phrase, put the words into double quotes ("). 
+ For further details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Searching_the_help_for_topics.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Searching the help for topics</a></span>.</p>
+                    <p class="Notices"><b>Tip:</b> Use this 
+ if you know the exact phrase you are looking for. Otherwise this may return 
+ a long list of irrelevant topics.</p>
+                    <p class="Notices"><b>Note:</b> The search 
+ options can also be used to limit the topics that are returned.</p>
+                </li>
+            </ol>
+            <ol start="4">
+                <li class="NumbersSubLetters" value="4">The <b><a name="kanchor85"></a><a name="kanchor86"></a><a name="kanchor87"></a>Favorites</b> 
+ tab, to create your own list of help topics that you frequently use, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t6" style="display: none;"><ul start="1"><li class="ListBullets" value="1">Select a help topic 
+ that you frequently use.</li><li class="ListBullets" value="2">Open the <b>Favorites</b> tab.</li><li class="ListBullets" value="3">If necessary, type 
+ in your own label for this help topic.</li><li class="ListBullets" value="4">Click the <b>Add</b> button.</li></ul><p class="ListDesc">Then when you next open the <b>Favorites</b> 
+ tab, use this label to open this help topic.</p></div><p class="Notices"><b>Tip:</b> Open or 
+ close this navigational pane, as needed, by using the <b>Show</b> <img src="CHM_Show.bmp" /> or <b>Hide</b> <img src="CHM_Hide.bmp" /> toggle button of the help toolbar.</p></li>
+            </ol>
+        </div>
+        <p class="listnotice">&#160;</p>
+        <ol start="3">
+            <li class="Numbers" value="3"><b>Viewed 
+ Topic Navigation:</b> Use the <b>Back</b><img src="CHM_Back.bmp" /> and <b>Forward</b> <img src="CHM_Forward.bmp" /> toolbar buttons to navigating between previously viewed topics.</li>
+            <li class="Numbers" value="4"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4" name="kanchor88"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Printing topics:</a> 
+ While using the online help system, you can print topics and information, 
+ by using the <b>Print</b> <img src="CHM_Print.bmp" /> toolbar button from within the help viewer. <div MadCap:targetName="t4" style="display: none;"><p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To print a single topic:</a></p><div MadCap:targetName="t3" style="display: none;"><ol start="1"><li class="NumbersSubLetters" value="1">Ensure 
+ the required topic is displayed in the help viewer.</li><li class="NumbersSubLetters" value="2"><p>Click 
+ the <b>Print</b> toolbar button.</p><p class="Notices"><b>Note:</b> If you 
+ are within the <b>Contents</b> tab, select 
+ the <b>Print the selected topic</b> 
+ option from the <b>Print Topics</b> dialog 
+ and click <b>OK</b>.</p></li></ol><p class="ListDescSub">The <b>Print</b> 
+ dialog is displayed.</p><ol start="3"><li class="NumbersSubLetters" value="3">Use 
+ the <b>General</b> page to select the 
+ required printer, the range of pages and number of copies.</li><li class="NumbersSubLetters" value="4">Use 
+ the <b>Options</b> page to specify the 
+ required printing options:</li><li class="ListSubBullet" value="5"><b>Print 
+ all linked documents:</b> This will also print all the topics that 
+ are linked to the currently displayed topic.</li><li class="ListSubBullet" value="6"><b>Print 
+ table of links:</b> This will print a table at the end of this topic, 
+ which lists all the links found within this topic.</li></ol><p>&#160;</p></div><p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To print all topics in a 
+ selected book:</a></p><div MadCap:targetName="t2" style="display: none;"><p class="Notices"><b>Note:</b> This 
+ can only be performed when the <b>Contents</b> 
+ tab is selected.</p><ol><li class="NumbersSubLetters" value="1">Ensure 
+ the required topic is displayed in the help viewer.</li><li class="NumbersSubLetters" value="2">Click the<b> 
+ Print</b> toolbar button.</li></ol><p class="ListDescSub">The <b>Print Topics</b> 
+ dialog is displayed</p><ol start="3"><li class="NumbersSubLetters" value="3">Select 
+ <b>Print the selected heading and all subtopics</b> 
+ and click <b>OK</b>.</li></ol><p class="ListDescSub">The <b>Print</b> 
+ dialog is displayed.</p><ol start="4"><li class="NumbersSubLetters" value="4">Use 
+ the <b>General</b> page to select the 
+ required printer, the range of pages and number of copies.</li><li class="NumbersSubLetters" value="5">Use 
+ the <b>Options</b> page to specify the 
+ required printing options:</li><li class="ListSubBullet" value="6"><b>Print 
+ all linked documents:</b> This will also print all the topics that 
+ are linked to the currently displayed topic.</li><li class="ListSubBullet" value="7"><b>Print 
+ table of links:</b> This will print a table at the end of this topic, 
+ which lists all the links found within this topic.</li></ol></div><p class="Notices"><b>Tip:</b> If topics 
+ include <b>Drop down text</b>, ONLY those 
+ that are currently expanded will be printed.</p></div></li>
+        </ol>
+        <ol start="5">
+            <li class="Numbers" value="5"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Options menu:</a> 
+ The <b>Options</b> <img src="CHM_Options.bmp" /> toolbar 
+ button opens a menu, which provides items that duplicate many of these 
+ functions and provide additional options too.<div MadCap:targetName="t1" style="display: none;"><p>This menu contains the following items:</p><ul><li class="Bullets" value="1"><b>Hide/Show 
+ Tabs</b><a name="kanchor90"></a><a name="kanchor91"></a>: To close or open the left hand help tabs.</li><li class="Bullets" value="2"><b>Locate:</b> 
+ To find out where a topic located within the <b>Index</b> 
+ occurs in the table of contents i.e. the <b>Contents</b> 
+ tab. This will also open the <b>Contents</b> 
+ tab.</li><li class="Bullets" value="3"><b>Back:</b> 
+ To display the previously viewed help topic.</li><li class="Bullets" value="4"><b>Forward:</b> 
+ To display the prior help topic.</li><li class="Bullets" value="5"><b>Home:</b> 
+ To display the home page of the <b>Designer</b>.</li><li class="Bullets" value="6"><b>Stop:</b> 
+ To stop a help topic or Web page from loading.</li><li class="Bullets" value="7"><b>Refresh:</b> 
+ To update the information displayed in the window.</li><li class="Bullets" value="8"><b>Internet 
+ Options...:</b> To display the <b>Internet 
+ Options</b> dialog.</li><li class="Bullets" value="9"><b>Print:</b> 
+ To print the selected topic.</li><li class="Bullets" value="10"><b>Search 
+ Highlight Off/On:</b> To turn search highlighting on or off. If search 
+ highlighting is on then the word(s) that are being searched for will be 
+ highlighted in the displayed topics.</li></ul></div></li>
+        </ol>
+        <script type="text/javascript" src="SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

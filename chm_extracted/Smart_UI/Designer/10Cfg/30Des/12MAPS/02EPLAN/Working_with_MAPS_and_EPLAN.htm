@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with MAPS" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.MAPS" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with MAPS and EPLAN</title>
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Working with MAPS and EPLAN</h1>
+        <p>MAPS 4 now integrates closely with <b>EPLAN Electric P8</b> from version 2.3 onward, which allows you to take advantage of the complete automation solution life-cycle management provided by MAPS.</p>
+        <h2>EPLAN-specific  configuration</h2>
+        <p style="font-weight: bold;">For ease of use, we recommend that you install the MAPS 4 Server on the same computer on which you have <b>EPLAN Electric P8</b> installed.</p>
+        <p class="Notices"><b>IMPORTANT:</b> Please ensure that you install the 32 bit EPLAN when using 32 bit MAPS (and install 32 bit Microsoft Excel) and likewise that you install the 64 bit EPLAN when using 64 bit MAPS  (and install 64 bit Microsoft Excel); since a 64 bit EPLAN cannot communicate to a 32 bit MAPS and/or 32 bit Excel and vice-versa.</p>
+        <p class="Notices"><b>Note:</b> You need to purchase the EPLAN Electric P8 and EPLAN API Runtime License in order to integrate the use of EPLAN into MAPS.</p>
+        <p>When the MAPS 4 Server is installed the EPLAN-specific files are installed into the C:\ProgramData\Adroit Technologies\MAPS\EPLAN\ folder by default.</p>
+        <p> However when EPLAN is not installed on the same computer as the MAPS Server, then you either need to share this folder so that it can be browsed over the network or MANUALLY copy this ENTIRE folder  to the EPLAN computer. Since EPLAN needs ALL of these files to integrate with MAPS 4.</p>
+        <p>You also need to add the MAPS add-on for EPLAN, which adds the <b>MAPS</b> menu in <b>EPLAN Electric P8</b>. </p>
+        <h3>To add the MAPS add-on for EPLAN:</h3>
+        <p>Launch <b>EPLAN Electric P8</b>.</p>
+        <p>Open the <b>Utilities</b> menu item in EPLAN Electric P8 and select <b>API add-ins...</b></p>
+        <p> Browse for the <b>Eplan.EplAddin.Addin.MAPS.dll</b>, in the folder containing the MAPS-specific EPLAN files described above.</p>
+        <p>Click the <b>Ok</b> button and wait for this process to finish (no progress bar is displayed).</p>
+        <p>The <b>MAPS</b> menu should now appear within EPLAN Electric P8. </p>
+        <h2>Typical usage procedure</h2>
+        <p>When creating your schematics in EPLAN, you can now add page macros for each item of electrical or instrumental equipment supported by MAPS and configure the applicable PLC names it belongs to and the addressing of each signal.</p>
+        <p>Once all your schematics and plant overviews have been created and configured as needed, you can now export the EPLAN project as a Microsoft Excel workbook from the <b>MAPS Project Export</b> option of the <b>MAPS</b> menu in EPLAN itself.</p>
+        <p>You then need to  organise the electrical and instrumentation equipment  according to the extended physical model of the hierarchical structure specified by the ISA S88 and S95 standards, required by the MAPS project, since EPLAN does not do this. </p>
+        <p>In other words this involves adding the necessary <b>Plant Areas</b> and then assigning the relevant PLCs to them and then creating the various programming <b>Units</b> within each PLC and assigning the relevant electrical and instrumentation equipment to each Unit. </p>
+        <p>You can also perform any other additional bulk configuration of your MAPS project in Microsoft Excel, at this stage, if needed.</p>
+        <p>Then in the MAPS Designer use the <b>Import from Excel</b> facility to import this pre-configured MAPS project.</p>
+        <p>After creating your MAPS project, you can export all the equipment drawings that you created in EPLAN into your MAPS project as PDFs from the <b>Generate EPLAN Drawings</b> item of the <b>MAPS</b> menu in EPLAN. </p>
+        <p>Your operators can then view these documents in the MAPS Operator and can add comments to the relevant drawings in the PDF viewer, so that the necessary changes can be made.</p>
+        <p>Since MAPS is always the MASTER it is recommended that any change to the MAPS project, affecting its schematic, is made in the MAPS Designer for instance changing I/O Addressing. Then right click the MAPS project and select the <b>Create or Update EPLAN Project</b> item to recreate the associated EPLAN project with the updated drawings. </p>
+        <p class="Notices"><b>IMPORTANT:</b> This will only work if EPLAN Electric P8 is actually installed on the same computer as the MAPS Designer is running on. </p>
+        <p>If this is not the case, then right click the MAPS project and select the <b>Export to Excel</b> option and then re-import this Excel sheet into EPLAN using the <b>MAPS</b> menu item in EPLAN and selecting the <b>MAPS Project Import</b> item.</p>
+        <p>Then you need to re-export these updated EPLAN documents so that they are made available to your MAPS Operators, by selecting the <b>Generate EPLAN Drawings</b> item of the <b>MAPS</b> menu in EPLAN, which allows you to publish the modified drawings to the MAPS document repository.</p>
+        <h2>Creating the EPLAN Electric P8 project&#160; </h2>
+        <p>Create a project in EPLAN Electric P8 (or open an existing project .ELK file), which creates a number of sub-folders on the left hand side tool window.</p>
+        <p>Draw your schematics as needed.</p>
+        <p>When a schematic is displayed e.g. &amp;EDB/1: In this case this schematic is in the <b>EDB (Plant Overview)</b> sub-folder and the schematic is named: 1 Overview.</p>
+        <p>Right click the <b>EPS (Schematic)</b> sub-folder and select the <b>Insert page macro…</b> option.</p>
+        <p>Then browse to where these MAPS-specific EPLAN Page Macros are located and select the page macro that corresponds to the required item of electrical or instrumental equipment and click the Open button.</p>
+        <p class="Notices"><b>Note:</b> These MAPS-specific EPLAN Page Macros are installed by the MAPS Server (into the C:\ProgramData\Adroit Technologies\MAPS\EPLAN folder by default) and so when EPLAN is not installed on the same computer as the MAPS Server, you need to make this folder available to this computer before they can be used. </p>
+        <p>In the <b>Adapt structure</b> dialog, click the * column under <b>Target</b> section and double click it to highlight its contents, since by default this has the name of the page macro representing the selected item of equipment.</p>
+        <p>
+            <img class="Border" src="03000001_340x236.png" style="width: 340;height: 236;" />
+        </p>
+        <p>Type in the actual name of this item of equipment in your plant and click the OK button.</p>
+        <p>In the <b>Insertion mode</b> dialog that is displayed, ensure that the default <b>Do not modify</b> option is selected and click the OK button.</p>
+        <p>This adds the specified item of equipment to the <b>EPS (Schematic)</b> sub-folder, expand this item and expand the initial item to display the name of the MAPS Template that this page macro represents, in this case:</p>
+        <p>
+            <img class="Border" src="03000002_123x93.png" style="width: 123;height: 93;" />
+        </p>
+        <div class="TextAndImage" style="page-break-before: always;">
+            <p>This changes the displayed graphic to the schematic for this item of equipment. </p>
+            <p>
+                <img class="Border" src="03000003_322x387.png" style="width: 322;height: 387;" />
+            </p>
+        </div>
+        <p>&#160;</p>
+        <p>Right click the name of the specified item of equipment in the <b>EPS (Schematic</b>) sub-folder and select <b>Properties…</b> to display the <b>Page properties</b> dialog in which the <b>Page description</b> is the name of the MAPS Template that this page macro represents.</p>
+        <p>
+            <img class="Border" src="03000004_320x242.png" style="width: 320;height: 242;" />
+        </p>
+        <div class="TextAndImage" style="page-break-before: always;">
+            <p>Scroll to the bottom of this page and in the last blank row, type in the name of the PLC that contains this item of equipment, in this case BAT_PLT_A and then click the OK button.</p>
+            <p>
+                <img class="Border" src="03000005_289x219.png" style="width: 289;height: 219;" />
+            </p>
+        </div>
+        <p>Since each Page Macro consist of 1 or more PLC connection points, select each PLC connection point individually on its schematic and right click and select the <b>Properties...</b> item.</p>
+        <p>
+            <img class="Border" src="03000006_237x118.png" style="width: 237;height: 118;" />
+        </p>
+        <p>This displays the <b>Properties (components)</b> dialog for this PLC connection point:</p>
+        <p>
+            <img class="Border" src="03000007_299x225.png" style="width: 299;height: 225;" />
+        </p>
+        <p>Type in the required <b>Address</b>, in this case D1024 and click the OK button.</p>
+        <p>The specified address will appear in the schematic:</p><span></span>
+        <img class="Border" src="03000008_137x66.png" style="width: 137;height: 66;" />
+        <p>After you have once you have finished configuring the plant equipment of all your drawings, then:</p>
+        <p>Select the <b>MAPS</b> menu and the <b>MAPS Project Export</b> option.</p>
+        <p class="Notices"><b>Note:</b> If this <b>MAPS</b> menu does not appear in EPLAN, then you need to add the MAPS add-on for EPLAN, see the <b>EPLAN-specific  configuration</b> section above for instructions on how to do this.</p>
+        <p>In the <b>New or Existing Workbook</b> dialog. click the <b>No</b> button to the following confirmation: <b>Do you want to UPDATE an existing MAPS project Excel workbook?</b> Since we are creating a new MAPS project.</p>
+        <p>This displays the <b>Creating MAPS Project Export</b> dialog which provides a progress dialog to indicate how long each of the specified steps take as each configured item of equipment is creating for this MAPS project export.</p>
+        <p>When this process is finished, the <b>Save as</b> Microsoft Excel dialog is displayed. </p>
+        <p>Specify the name and/or location of the <b>Excel Workbook (*.xlsx)</b> file that should contain this MAPS project export, which is called Book1 by default. Type in the name of your MAPS project, in this case ACME_MAPS_EPLAN_PROJECT.xlsx and click the <b>Save</b> button.</p>
+        <p>This opens this Excel Workbook in Microsoft Excel, which contains a number of different worksheets, which each provide their own column headings and are separately configured as needed.</p>
+        <p>At this point you need to add the S88 Structure required by the MAPS Project to this workbook because EPLAN does not implement nor adhere to the S88 structure, therefore: </p>
+        <p>In the <b>Plant Area Data</b> worksheet you need to add all your plant areas and specify “<b>Default</b>” in their <b>MAPS Server Name</b> field and “<b>Adroit</b>” in their <b>Adroit Data Source</b> field. </p>
+        <p>In the <b>PLC Data</b> worksheet all the PLCs will be added from the EPLAN project. However you need to specify the <b>Plant Area Name</b> (as specified in the <b>Plant Area Data</b> worksheet) in which each of these PLCs belong. </p>
+        <p>In the <b>Unit Data</b> sheet, specify the required programming unit names and in which <b>PLC Name</b> (as specified in the <b>PLC Data</b> worksheet) these units belong. </p>
+        <p>Lastly in the <b>Electrical Equip Detail</b> and <b>Instrumentation Equip Detail</b> worksheets, specify the <b>Unit Name</b> (as specified in the <b>Unit Data</b> worksheet) in which each item of equipment belongs. You can leave the <b>Graphic</b> field empty as this can be specified later during the importing process into MAPS.</p>
+        <p>In this case, the following shows how the BATCHING unit is being added to all the equipment in the <b>Electrical Equip Detail</b> worksheet tab:</p>
+        <p>
+            <img class="Border" src="0300000A_266x105.png" style="width: 266;height: 105;" />
+        </p>
+        <p>Save this Excel workbook during and after you have created the required S88 structure of your MAPS project.</p>
+        <h2>Creating the MAPS project</h2>
+        <p>Open the MAPS Designer.</p>
+        <p>Right click on the MAPS root node of the MAPS window and select the <b>Import from Excel</b> option.</p>
+        <p>Specify the Excel workbook that you have just saved, in this case ACME_MAPS_EPLAN_PROJECT.xlsx in the <b>Excel file path</b> field.</p>
+        <p>Then click the <b>Test Excel file configuration</b> button and ensure that this workbook has been correctly configured i.e. that the result is <b>Successful</b> before continuing.</p>
+        <p>If you did NOT specify the <b>Graphic</b> field of your equipment in your <b>Electrical Equip Detail</b> and <b>Instrumentation Equip Detail</b> worksheets need to, then click the <b>Change Template Graphics</b> button to specify their required graphics, you can also use this to change the name of one of your items of equipment and make any last-minute adjustments before creating your MAPS project from this Excel workbook.</p>
+        <p>Ensure the <b>Create New Project</b> radio button option is selected in the <b>Import from Excel</b> configuration dialog, which is selected by default.</p>
+        <p>Type in the <b>Name</b> of this MAPS project, in this case ACME and the required description of this MAPS project in the <b>Description</b> field.</p>
+        <p>If necessary, you can check the <b>Create Tags after the import is successful</b> checkbox. </p>
+        <p>If this is checked then the required Agent Server database is automatically created as part of the importing process, which can (depending upon the size of the project) significantly increase the time created to import the project. </p>
+        <p>If you leave this option unchecked then you can import the project and then at a later time, right click the MAPS project and select the <b>Sync Tags</b> option to create the Agent Server database later, which is what we will be doing in this case. </p>
+        <p class="Notices"><b>Tip:</b> Another reason for not checking this option is when you want to modify the I/O addresses before creating the Agent Server database, which does not apply in this case.</p>
+        <p>Click the <b>Finish</b> button.</p>
+        <p>A progress dialog is displayed during this MAPS project importing process, at the end of which the specified MAPS project is created and its various components can be viewed in the MAPS window:</p>
+        <p>
+            <img class="Border" src="0300000E_73x63.png" style="width: 73;height: 63;" />
+        </p>
+        <p>Right click the PLC, in this case BAT_PLT_A and select the <b>Build PLC Project</b> item.</p>
+        <p>If necessary, if you get a confirmation dialog that this PLC project already exists select Yes to overwrite it. Typically this will not happen as it will be the first time that this PLC project is created.</p>
+        <p>Wait for this process to finish.</p>
+        <p>At the end of this process, GX Works2 will be launched with this PLC project already loaded so that you can write (download) this PLC project to the PLC. In this case the GX Simulator2.</p>
+        <p>
+            <img class="Border" src="03000011_280x190.png" style="width: 280;height: 190;" />
+        </p>
+        <p>Then minimise this application and return to the MAPS Designer</p>
+        <p>If you did NOT check the <b>Create Tags after the import is successful</b> checkbox when importing the MAPS project, then do the following:</p>
+        <p>Right click the <b>Plant Area</b> in the MAPS window, in this case PLANT_A</p>
+        <p>
+            <img class="Border" src="03000012_88x98.png" style="width: 88;height: 98;" />
+        </p>
+        <p>And select the <b>Sync Tags</b> option, which ensures that all the Adroit SCADA tags required by this MAPS project are created. </p>
+        <p>Select <b>Yes</b> to sync these tags in <b>Silent mode</b> so that no messages or dialogs are displayed during the syncing process and it will continue uninterrupted until it is finished.</p>
+        <p>Wait for the progress dialog to close.</p>
+        <p>At the end of this process select <b>Yes</b> to the confirmation to save the Adroit agents database.</p>
+        <p>At this time you can also configure your preconfigured project graphic forms, which at this point only have the specified electrical and instrumentation equipment (using their specified graphical representations) added to them. </p>
+        <p>So you can from for instance you can add additional graphics to them from the provided <b>Static Graphics</b> library to them and then re-organise the equipment accordingly.</p>
+        <div class="TextAndImage" style="page-break-before: always;">
+            <p>Simply browse to and select the required graphic from the library and then right click the required graphic forms and select the <b>Paste Graphic Form contents</b> option. In this case BATCHING_GF looks like this:</p>
+            <p>
+                <img class="Border" src="03000017_207x136.png" style="width: 207;height: 136;" />
+            </p>
+        </div>
+        <p>Then drag the graphic to the required position. Do this repeatedly until you have added all the necessary graphical elements. </p>
+        <p>In this case, for the purposes of illustration, we are using a pre-assembled graphic that already contains a fully configured plant layout, but in practice you will probably need to add each item of equipment individually and link them up with pipe sections. </p>
+        <p>
+            <img class="Border" src="03000018_210x150.png" style="width: 210;height: 150;" />
+        </p>
+        <p>And reorganise the available equipment accordingly:</p>
+        <p>
+            <img class="Border" src="03000019_252x172.png" style="width: 252;height: 172;" />
+        </p>
+        <div class="TextAndImage" style="page-break-before: always;">
+            <h2>Monitoring and Control with Project Maintenance</h2>
+            <p>Typically the MAPS project will be run in the MAPS Operator so that this process can be monitored and/or controlled, as needed on as many operator terminals as needed.</p>
+            <p>
+                <img class="Border" src="0300001A_265x212.png" style="width: 265;height: 212;" />
+            </p>
+        </div>
+        <p>Now you can export all the equipment drawings that you created in EPLAN into your MAPS project as PDFs so that they are available to your operators, if they need to suggest changes to their configuration, which is typically required during maintenance or fault finding. In these cases it is easier for your operators to open the drawing from within the MAPS Operator and quickly view where a specific signal is wired too, especially if EPLAN is not on the same computer. </p>
+        <p>Furthermore a user can make comments on these drawing using a PDF viewer, for instance where an actual signal in the field is wired to a different terminal on the PLC. This PDF document then needs to be manually communicated to the draughtsman/MAPS Designer to ensure the change is made accordingly in MAPS to ensure that the associated EPLAN project and hence the drawing is updated correctly.</p>
+        <p>So in EPLAN, select the <b>MAPS</b> menu and select the <b>Generate EPLAN Drawings</b> item.</p>
+        <p>
+            <img class="Border" src="0300001B_101x38.png" style="width: 101;height: 38;" />
+        </p>
+        <p>Then select the folder of this MAPS project that will contains these EPLAN drawing in the <b>Browse For Folder</b> dialog. In this case ACME\Documents (C:\ProgramData\Adroit Technologies\MAPS\Configurations\Default\Files\ACME\Documents):</p>
+        <p>
+            <img class="Border" src="0300001C_112x107.png" style="width: 112;height: 107;" />
+        </p>
+        <p>Then click the OK button to display the <b>Export Equipment Drawings (PDF export)</b> dialog that provides a progress bar, which indicate how long this process will take:</p>
+        <p>
+            <img class="Border" src="0300001D_135x62.png" style="width: 135;height: 62;" />
+        </p>
+        <div class="TextAndImage" style="page-break-before: always;">
+            <p style="font-weight: bold;">To view these documents in the MAPS Operator:</p>
+            <p>Display the graphic form that contains the required electrical and/or instrumentation equipment.</p>
+            <p>Right click this graphic form and select the <b>Documents</b> item and its <b>Show Information</b> sub item.</p>
+            <p>
+                <img class="Border" src="0300001E_197x108.png" style="width: 197;height: 108;" />
+            </p>
+        </div>
+        <p>You should notice that orange D’s now appear to the left of all the equipment names in this graphic form. </p>
+        <p class="Notices"><b>Tip:</b> This uses the standard document library available for all MAPS projects which allow you to associate any number of different documents to your items of equipment, not just these EPLAN drawing PDFs.</p>
+        <p>
+            <img class="Border" src="0300001F_176x132.png" style="width: 176;height: 132;" />
+        </p>
+        <p>To display the drawing associated with an item of equipment, click the orange D and select the <b>Open Documents</b> item:</p>
+        <p>
+            <img class="Border" src="03000020_62x26.png" style="width: 62;height: 26;" />
+        </p>
+        <p>This displays the <b>Open Documents</b> dialog, which provides the selected <b>Equipment name</b> so that an operator can ensure that the required item of equipment has been selected and then a drop down list of all the available documents associated with this item of equipment. So select the required document and then click the <b>Open</b> button. </p>
+        <p>
+            <img class="Border" src="03000021_117x61.png" style="width: 117;height: 61;" />
+        </p>
+        <p>To display the specified document in your default PDF viewer:</p>
+        <p>
+            <img class="Border" src="03000022_319x165.png" style="width: 319;height: 165;" />
+        </p>
+        <p>But that is not all, an operator is then able (provided the PDF Viewer supports this functionality, such as the standard Adobe PDF reader) to add comments to this equipment drawing so that the necessary changes can be made:</p>
+        <p>
+            <img class="Border" src="03000023_245x67.png" style="width: 245;height: 67;" />
+        </p>
+        <p>When you close the PDF viewer it will ask you to save the changes that you have made, in which case save this document and then send this document to the relevant draughtsman/MAPS Designer to address the requested change, if applicable and make the necessary changes in the MAPS Designer.</p>
+        <p>For instance in this case to swap these addresses to right click this item of equipment, select its <b>IO Config</b> item in the MAPS project (in the MAPS window):</p>
+        <p>
+            <img class="Border" src="03000024_82x45.png" style="width: 82;height: 45;" />
+        </p>
+        <p>Then make the requested changes:</p>
+        <p>
+            <img class="Border" src="EPLAN_IO_changes_132x68.png" style="width: 132;height: 68;" />
+        </p>
+        <p>Then click the <b>Finish</b> button.</p>
+        <p>Then right click the MAPS project, in this case ACME and select the <b>Create or Update EPLAN Project</b> item.</p>
+        <p>Then wait for the progress dialog to close, which details all the changes that are made to the EPLAN project as its various pages are updated with any changes:</p>
+        <p class="Notices"><b>IMPORTANT:</b> This will only work if EPLAN Electric P8 is actually installed on the same computer as the MAPS Designer is running on. </p>
+        <p>If this is not the case, then right click the MAPS project and select the <b>Export to Excel</b> option and then re-import this Excel sheet into EPLAN using the <b>MAPS</b> menu item in EPLAN and selecting the <b>MAPS Project Import</b> item.</p>
+        <div class="TextAndImage" style="page-break-before: always;">
+            <p>When opening EPLAN, you will notice that these addressing changes have been made to the relevant schematic, so that now they are up to date:</p>
+            <p>
+                <img class="Border" src="03000028_330x167.png" style="width: 330;height: 167;" />
+            </p>
+            <p>&#160;</p>
+            <p>
+                <img class="Border" src="03000029_147x107.png" style="width: 147;height: 107;" />
+            </p>
+        </div>
+        <p>In this way you can easily ensure that your equipment schematics remain up to date and do not become outdated.</p>
+        <p>Now would be a good time to select the <b>MAPS</b> menu in EPLAN and select the <b>Generate EPLAN Drawings</b> item and redo this process to ensure that the equipment documents for this MAPS project are also updated.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

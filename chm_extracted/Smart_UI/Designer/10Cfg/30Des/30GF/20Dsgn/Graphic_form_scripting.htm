@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Graphic Forms|Designing Graphic Forms" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Graphic form scripting.doc" /><title>Graphic form scripting</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1605"></a>Graphic form scripting</h1>
+        <p>Graphic form scripting can programmatically 
+ achieve a more interactive user experience. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="Addinfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a></p>
+        <div MadCap:targetName="Addinfo" style="display: none;">
+            <p> This allows dynamic scripting 
+ code (for animations, algorithmic programming etc.) to be inserted at 
+ key events of the graphic form itself and for any controls and components 
+ that have been added to it.</p>
+            <p><a href="Example_graphic_form_scripts.htm">Example script</a>.</p>
+            <p class="Notices"><b>Note:</b> To prevent 
+ the graphic form script from ever being executed, disable the boolean 
+ <b>ScriptEnabled</b> property in the 
+ <b>VIZNET Extended</b> category of the 
+ graphic form. This property can also be configured by default within a 
+ <span class="VIPAppName">SmartUI</span> Designer and Operator. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../05Dply/50Cfg/Designer_scripting_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Designer 
+ scripting settings</a></span> or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../05Dply/50Cfg/Operator_scripting_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Operator 
+ scripting settings</a></span>.</p>
+            <p>This involves the creation of an <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">event handler<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">An event handler is a method that is inserted into your graphic form script, so that you can determine what actions will be performed when the event that it is managing occurs. See event.</span></span> 
+ for each <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">event<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">an incident (a significant occurrence) that does NOT require user action, unlike an 'alarm' which DOES require user interaction.</span></span> 
+ exposed by the graphic form and each of its added <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">control<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a visible form component used to display data or accept user input in the graphic form. See form component.</span></span> 
+ and <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">component<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a hidden form component that provides additional functionality to this graphic form and some or all of its form components. See form component.</span></span>. 
+ For details on controls and components, see <a href="../../40FC/Working_with_form_components.htm">Working 
+ with form components</a>.</p>
+            <p class="Notices"><b>Note:</b> Events are 
+ not generated by each <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">graphic element<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a form component that typically provides drawing functionality for the graphic form. See form component.</span></span> <![CDATA[ 
+ ]]>added to the graphic form.</p>
+            <p>The <b>Properties</b> tool window, exposes the events of the currently 
+ selected graphic form, control and/or component and enables the required 
+ event handler(s) to be automatically inserted into the graphic form's 
+ associated script. For details, see <a href="../../../20DesEnv/10TW/Properties_tool_window.htm">Properties 
+ tool window</a>.</p>
+            <p>This script is typically exposed within the <b>Graphic 
+ Form Script</b> tool window. This provides the same editing environment 
+ as is found in the <b>Script Editor</b> 
+ but, unlike the <b>Script Editor</b>, 
+ allows one to easily switch between the script and its graphic form in 
+ the <b>Design workspace</b>. For details, 
+ see <a href="../../../20DesEnv/10TW/Graphic_Form_Script_tool_window.htm">Graphic 
+ Form Script tool window</a> or <a href="../../90Scr/Working_with_scripts.htm">Working 
+ with scripts</a>.</p>
+            <p>However, it is also possible to open this script within the <b>Script 
+ Editor</b>, to make use of the additional scripting functionality that 
+ it provides, such as: managing references; changing script languages and/or debugging the script. For details, see <a href="Opening_graphic_form_scripts_in_the_Script_Editor.htm">Opening 
+ graphic form scripts in the Script Editor</a>.</p>
+            <p class="Notices"><b>WARNING!</b> The InitialiseVIZNETComponents() 
+ method, within each graphic form script, performs the event handling. 
+ It is therefore NOT recommended that the user modify this in any way or 
+ comment it out and does so at his/her own risk.&#160;</p>
+        </div>
+        <h2>Automatically adding event handlers to the graphic form script:</h2>
+        <ol>
+            <li class="Numbers" value="1">Open the required graphic 
+ form. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../10Opn/Opening_graphic_forms.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Opening 
+ graphic forms</a></span>.</li>
+            <li class="Numbers" value="2">In the <b>Design 
+ workspace</b>, <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">select<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span> 
+ the required control, component or the graphic form itself.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If more 
+ than one control, component and/or graphic form is currently selected, 
+ this will only expose the events of the last item selected, known as the 
+ <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">primary control<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">when a group of controls are selected, the sizing handles of this control are white and its attributes will be used if this group of controls are formatted. See control.</span></span>.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Open the <b>Properties</b> 
+ tool window. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../20DesEnv/10TW/Accessing_tool_windows.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Accessing 
+ tool windows</a></span>.</li>
+            <li class="Numbers" value="4">If necessary, select the 
+ <b>Events</b> <img src="../../../20DesEnv/10TW/Properties%20-%20Events%20button%20icon.bmp" style="border: none;width: 24px;height: 22px;float: none;border-style: none;border-style: none;" width="24" height="22" border="0" /> toolbar button, 
+ to display all the events exposed for the selected item.</li>
+            <li class="Numbers" value="5">Navigate to the required 
+ event, which can either be organised alphabetically or categorically.</li>
+            <li class="Numbers" value="6">Type in an appropriate 
+ name for the required event handler, in the value cell to the right of 
+ this name e.g. Button1Click.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> It is recommended 
+ to give this event handler a descriptive name, to make it easier to identify 
+ the item and its event that it will manage.</p>
+        <p class="ListDesc">This will automatically insert a method into the script, 
+ which is executed whenever this specified event is raised for this item. 
+ This also adds code to the InitialiseVIZNETComponents() method, to initialise 
+ this event handler.</p>
+        <p class="ListNotice"><b>Tip:</b> It is 
+ also possible to immediately add the most commonly used (default) event 
+ for a control, to the graphic form script, simply by double-clicking on 
+ it. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../40Mng/20Prf/10Cfg/Customizing_adding_graphic_form_script_events.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Customizing 
+ the adding of graphic form script events</a></span>.</p>
+        <ol start="7">
+            <li class="Numbers" value="7">Open the <b>Graphic 
+ Form Script</b> tool window and add the necessary code to this message 
+ handler.</li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> The most recently 
+ added event handler automatically has focus when the <b>Graphic 
+ Form Script</b> tool window is opened.</p>
+        <p class="ListNotice"><b>Note2:</b> You are also 
+ able to create more than one event handler with the same name, for the 
+ same event, that both perform different functions.</p>
+        <p class="ListNotice"><b>Note3:</b> Each event handler 
+ provides parameters that allow you to handle the event properly. Although 
+ every event handlers will contain the ‘sender’ parameter, which provides 
+ a reference to the item that raised the event.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

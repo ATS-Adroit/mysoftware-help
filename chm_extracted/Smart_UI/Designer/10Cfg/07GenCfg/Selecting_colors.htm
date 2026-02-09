@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Designing Environment|Generic Configuration" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.DesAndOp" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Selecting colors</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor916"></a>Selecting colors</h1>
+        <p>A color <a name="kanchor917"></a><a name="kanchor918"></a><a name="kanchor919"></a><a name="kanchor920"></a><a name="kanchor921"></a>edit box is used to configure a color, which displays the currently 
+ selected color in a color box on the left and on the right of the definition 
+ of this color.</p>
+        <p>This color definition is either a color name or a custom color represented 
+ by at least three comma-separated numbers from 0 to 255, which indicate 
+ the proportions of the red, green and blue primary colors respectively.</p>
+        <p class="Notices"><b>Note:</b> If 
+ the color edit box currently displays a known color name, then double-clicking 
+ on it will display the next known color name in alphabetical order.</p>
+        <p class="Notices">&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="colorFromLocation"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To select a color from a location on the screen:</a> this allows you to directly obtain the color from any location on the screen.</p>
+        <ol MadCap:targetName="colorFromLocation" style="display: none;">
+            <li class="Numbers" value="1">Right click the list box to the right of the required color edit box (square).</li>
+            <li class="Numbers" value="2">Hold down the right mouse button, so that the cursor changes to <img src="RightClickDragCursor.png" />.</li>
+            <li class="Numbers" value="3">Drag the mouse to the required location on the screen that has the color that you want</li>
+            <li class="Numbers" value="4">Release the right mouse button to select this color.</li>
+        </ol>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t10"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To select a color using the color edit box:</a> this allows you to select a pre-defined color from the color-selection dialog.</p>
+        <div MadCap:targetName="t10" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Click on the required color 
+ edit box.</li>
+            </ol>
+            <p class="ListDesc">This will display a drop-down list button <img src="../../00CmnUse/Generic%20-%20List%20box%20button.bmp" style="border: none;width: 17px;height: 18px;float: none;border-style: none;" width="17" height="18" border="0" /> at the far right of this edit box.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Click on this drop-down 
+ list button, to display the color-selection dialog.</li>
+            </ol>
+            <ol start="3">
+                <li class="Numbers" value="3">Click the required tab 
+ and select the required color.</li>
+                <li class="Numbers" value="4">The color-selection dialog 
+ consists of the following three tabs:</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1"><b>System:</b>&#160; This <a name="kanchor922"></a>displays the colors 
+ specified by the <b><a name="kanchor923"></a><a name="kanchor924"></a>Advanced Appearance</b> settings of your system.</li>
+            </ol>
+            <p class="ListDescSub"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To change your Advanced Appearance color settings:</a>
+            </p>
+            <div MadCap:targetName="t8" style="display: none;">
+                <ol>
+                    <ol>
+                        <li class="Numbers" value="1">Open the Desktop.</li>
+                        <li class="Numbers" value="2">Right-click and select 
+ <b>Properties</b></li>
+                        <li class="Numbers" value="3">The <b>Display Properties</b> 
+ dialog is displayed.</li>
+                        <li class="Numbers" value="4">Click the <b>Appearance</b> 
+ tab.</li>
+                        <li class="Numbers" value="5">Click the <b>Advanced</b> 
+ button.</li>
+                    </ol>
+                </ol>
+                <p class="ListDescSubSub">The <b>Advanced Appearance</b> dialog is 
+ displayed.</p>
+                <ol>
+                    <ol start="6">
+                        <li class="Numbers" value="6">Either click in the 
+ sample window or use the <b>Item</b> list box to select elements and change 
+ their colors.</li>
+                    </ol>
+                </ol>
+            </div>
+            <p class="ListNoteSub"><b>Note:</b> If you change 
+ your <b>Advanced Appearance</b> settings, the colors displayed in this 
+ <b>System</b> tab will change accordingly.</p>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2"><b>Web:</b> This<a name="kanchor925"></a> displays colors commonly used 
+ when designing web applications.</li>
+                <li class="NumbersSubLetters" value="3"><b>Custom:</b> 
+ This displays the custom palette, which contains 48 basic predefined colors.</li>
+            </ol>
+            <p class="ListDescSub"><a name="kanchor926"></a><a name="kanchor927"></a><a name="kanchor928"></a>This also allows you to define and use up to 16 additional 
+ custom colors and/or specify the required transparency of this color, 
+ if this is supported.</p>
+        </div>
+        <p>&#160;</p>
+        <p>If necessary, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />define your own Custom color:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Click on the required color 
+ edit box.</li>
+            </ol>
+            <p class="ListDesc">This will display a drop-down list button <img src="../../00CmnUse/Generic%20-%20List%20box%20button.bmp" style="border: none;width: 17px;height: 18px;float: none;border-style: none;" width="17" height="18" border="0" /> at the far right of this edit box.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Click on this drop-down 
+ list button, to display the color-selection dialog.</li>
+            </ol>
+            <ol start="3">
+                <li class="Numbers" value="3">Click the <b>Custom</b> 
+ tab.</li>
+            </ol>
+            <ol start="4">
+                <li class="Numbers" value="4">Right-click on one of the 
+ custom color cells in the lowest two rows of the palette to display the <b>Define color</b> 
+ dialog.</li>
+            </ol>
+            <ol start="5">
+                <li class="Numbers" value="5">Specify the hue, saturation 
+ and luminescence of the custom color– either by moving the mouse pointer 
+ across the color palette and clicking at the required position, or by 
+ typing in the required values, from 0 to 255, in the <b>Hue</b>, <b>Sat</b> 
+ and <b>Lum</b> edit boxes respectively.</li>
+                <li class="Numbers" value="6">Specify the relative proportions 
+ of the red, green and blue primary colors for the custom color – either 
+ by dragging the indicator up and down the scale on the right or by typing 
+ in the required values, also from 0 to 255, in the <b>Red</b>, <b>Green</b>, 
+ and <b>Blue</b> edit boxes respectively.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The <b>color|Solid</b> 
+ color box, displays the customised color.</p>
+            <ol start="7">
+                <li class="Numbers" value="7">Click the <b>Add color</b> 
+ button when finished.</li>
+            </ol>
+        </div>
+        <p>&#160;</p>
+        <p>Some Custom colors also support an optional <b>fourth parameter</b> that specifies the 
+ required transparency of this color.</p>
+        <p>The transparency determines how much of the background 
+ is visible “through” the specified color e.g. for the <b>Backcolor</b> 
+ property for a button.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1" name="kanchor929"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add transparency to a custom color:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Click on the color edit 
+ box that contains a custom color that is defined by comma-separated numbers 
+ from 0 to 255.</li>
+                <li class="Numbers" value="2">Type in the required transparency, 
+ as a number from 0 to 255, before the first of the three other numbers, 
+ which is also separated by a comma e.g. 0, 23, 255, 128.</li>
+            </ol>
+            <p class="Notices"><b>Note1:</b> A transparency 
+ value of 255 is not transparent at all and a transparency of 0 will be 
+ completely transparent so that only the background and not the specified 
+ color will be visible.</p>
+            <p class="Notices"><b>Note2:</b> Only the color 
+ edit boxes of certain properties accept this parameter e.g. the <b>Backcolor</b> 
+ property of buttons.</p>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

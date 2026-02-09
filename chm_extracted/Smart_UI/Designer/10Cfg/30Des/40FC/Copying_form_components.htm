@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Script Engine spiders.doc" /><title>Copying form components</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor117"></a><a name="kanchor118"></a><a name="kanchor119"></a>Copying form components</h1>
+        <p>You can copy added form components either within the same graphic form or to another graphic form. Once copied these form components can then be modified as normal. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a> <![CDATA[ ]]></p>
+        <p MadCap:targetName="AddInfo" style="display: none;">In addition to copying the selected form components themselves, you 
+ can ALSO copy any spiders that have been associated with the properties 
+ of these form components and/or any Behaviours that have been configured 
+ for this form component - which further reduces the amount of designing 
+ required.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To copy BOTH the form components and their associated spiders 
+ and/or Behaviours:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the graphic form containing 
+ the form components you want to duplicate. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../30GF/10Opn/Opening_graphic_forms.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Opening 
+ graphic forms</a></span>.&#160;</li>
+                <li class="Numbers" value="2"><a name="kanchor120"></a><a name="kanchor121"></a>Select the required controls or graphic elements. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="10CC/Selecting_multiple_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting 
+ multiple controls</a></span> or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="20GE/Selecting_graphic_elements.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting 
+ multiple graphic elements</a></span>.</li>
+                <li class="Numbers" value="3">Either right click and select the <b>Copy with Spiders</b><MadCap:conditionalText MadCap:conditions="VIP.Designer_VerMinorTwo"> or <b>Copy with Behaviours</b> <![CDATA[ ]]></MadCap:conditionalText>option or hold down the SHIFT key 
+ and then <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">select<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span> <b>Copy</b> from the <b>Clipboard</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</li>
+                <li class="Numbers" value="4">If necessary, open the 
+ graphic form in which these form components are required or if the graphic 
+ form is already open, then select its tab, so that it is currently displayed 
+ in the <b>Design workspace</b>.</li>
+                <li class="Numbers" value="5">Select  <b>Paste</b> from the <b>Clipboard</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</li>
+            </ol>
+            <p class="ListDesc">The pasted selected form components will be offset, so 
+ that they are placed to the right and below their original position, by 
+ a grid width and height in this graphic form.</p>
+            <p class="ListDesc">This ALSO does the following in the <b>Spider 
+ Configuration</b> tool window associated with this graphic form:</p>
+            <ul>
+                <li class="ListBullets" value="1">adds and renames 
+ the spiders, associated with these pasted form components.</li>
+                <li class="ListBullets" value="2">creates new Behaviours 
+ for the pasted form components, with new spiders and new Behaviour regions, 
+ which adhere to the following naming convention: ControlName.BehaviourName.</li>
+            </ul>
+        </div>
+        <p class="Notices"><b>Tip:</b> It is also 
+ possible to use the keyboard shortcuts of SHIFT+CTRL+C and CTRL+V, to 
+ copy and paste these form components too. Only ensure that the required 
+ graphic form is currently selected before using the CTRL+V shortcut.&#160;</p>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To ONLY copy form components without their associated spiders 
+ and/or Behaviours:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the graphic form containing 
+ the form components you want to duplicate. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../30GF/10Opn/Opening_graphic_forms.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Opening 
+ graphic forms</a></span>.&#160;</li>
+                <li class="Numbers" value="2">Select the required controls or graphic elements. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="10CC/Selecting_multiple_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting 
+ multiple controls</a></span> or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="20GE/Selecting_graphic_elements.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting 
+ multiple graphic elements</a></span>.</li>
+                <li class="Numbers" value="3">Either right click and select the <b>Copy</b> option or     <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">select<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span> <b>Copy</b> from the <b>Clipboard</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</li>
+            </ol>
+            <p class="ListDesc">This will ONLY copy the selected form components and 
+ not any spiders and/or Behaviours that have been connected to their properties.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">If necessary, open the 
+ graphic form in which these form components are required or if the graphic 
+ form is already open, then select its tab, so that it is currently displayed 
+ in the <b>Design workspace</b>.</li>
+                <li class="Numbers" value="5">Select  <b>Paste</b> from the <b>Clipboard</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</li>
+            </ol>
+            <p class="ListDesc">The pasted selected form components will be offset, so 
+ that they are placed to the right and below their original position, by 
+ a grid width and height in this graphic form.</p>
+        </div>
+        <p class="Notices"><b>Tip:</b> It is also 
+ possible to use the keyboard shortcuts of CTRL+C and CTRL+V, to copy and 
+ paste these form components too. Only ensure that the required graphic 
+ form is currently selected before using the CTRL+V shortcut.&#160;</p>
+        <p class="Notices">&#160;</p>
+        <p>These methods PASTE the object at the same location (co-ordinates) on the destination graphic form as the object was on the original graphic form.</p>
+        <p><b>To specify the location of the PASTED object:</b> right click where you want the object and select <b>Paste</b>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

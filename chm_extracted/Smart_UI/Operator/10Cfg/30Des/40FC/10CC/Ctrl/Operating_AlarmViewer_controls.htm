@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Adroit_Op" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Operator.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Operating AlarmViewer controls</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor182"></a>Operating AlarmViewer controls</h1>
+        <p>This topic briefly explains how end-users are able to interact with 
+ the AlarmViewer control and the alarms that it displays.</p>
+        <p class="Notices"><b>Note:</b> When the AlarmViewer control is opened in the <span class="VIPAppName">Smart UI</span> Operator all the 
+ alarms within its connected alarm list, that complies with the specified 
+ filtering (if any) are displayed. For details on filtering alarms, see 
+ Filtering datasets.</p>
+        <h2><a name="kanchor183"></a>End-user interaction:</h2>
+        <ol>
+            <li class="Numbers" value="1"><b>Sorting 
+ of columns:</b> Click the heading of the column that you want to sort 
+ the displayed data by. This will sort the column in ascending order icon: 
+ <img src="../../../../../00CmnUse/Wizard%20-%20AscendingOrderSort.bmp" style="border: none;width: 15px;height: 9px;border-style: none;border-style: none;" width="15" height="9" border="0" />, click the column heading again to sort the column in 
+ descending order icon: <img src="../../../../../00CmnUse/Wizard%20-%20DescendingOrderSort.bmp" style="border: none;width: 15px;height: 9px;border-style: none;border-style: none;" width="15" height="9" border="0" />.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Only 
+ the selected columns are displayed. 
+ For details, see Selecting alarm columns.</p>
+        <ol start="2">
+            <li class="Numbers" value="2"><b>Resizing 
+ of column widths:</b> Position the mouse pointer to the left of the column 
+ heading until the pointer changes to the following icon <img src="../../../../../00CmnUse/Generic%20-%20ResizeColumnPointer.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />. Either double-click to auto-size the column to fit the largest 
+ entry or click and drag to the required column size.</li>
+            <li class="Numbers" value="3"><b>Setting 
+ number of displayed alarms:</b> When the <b>Show 
+ All</b> checkbox is checked this control will only display the number 
+ of alarms currently specified by the <b>Maximum 
+ Alarms Visible</b> spin control. However, when the <b>Show 
+ All</b> checkbox is cleared then the number of displayed alarms can 
+ be selected using the <b>Maximum Alarms 
+ Visible</b> spin control.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The <b>ShowAllAlarms</b>  and <b>MaxAlarmsVisible</b>  properties determine the initial configuration of these controls. 
+ For details, see Important AlarmViewer 
+ properties.</p>
+        <p class="ListNotice"><b>Tip:</b> The specified 
+ number of displayed alarms will only be the most recent alarms, when the 
+ <b>Alarm Time</b> column is sorted in 
+ descending order.</p>
+        <ol start="4">
+            <li class="Numbers" value="4"><b>Acknowledging 
+ of alarms:</b> Select the required alarm and click the relevant button 
+ that is displayed beneath this AlarmViewer control, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AckAlarms"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> as follows:</a></li>
+        </ol>
+        <div MadCap:targetName="AckAlarms" style="display: none;">
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">
+                    <p><b>Global Acknowledge:</b> When an alarm is 
+ globally acknowledged, any remote stations that are also viewing this 
+ alarm, do not need to acknowledge this alarm, as they will see that it 
+ has been globally acknowledged elsewhere.</p>
+                    <p class="Notices"><b>Note:</b> If a 
+ globally acknowledged alarm is removed from the alarm list, then the alarm 
+ will no longer be visible to the remote alarm windows.</p>
+                    <p class="Notices"><b>Tip:</b> To globally acknowledge ALL the displayed alarms, click the <b>More options</b> link (in the bottom right corner of the  AlarmViewer control) and its <b>Global Acknowledge All </b>option.</p>
+                </li>
+                <li class="NumbersSubLetters" value="2">
+                    <p><b>Local Acknowledge:</b> When an alarm is 
+ locally acknowledged, any remote stations that are also viewing this alarm, 
+ will also need to acknowledge this alarm, even though they will see that 
+ it has been acknowledged elsewhere.</p>
+                    <p class="Notices"><b>Tip:</b> To locally acknowledge ALL the displayed alarms, click the <b>More options</b> link (in the bottom right corner of the  AlarmViewer control) and its <b>Local Acknowledge All </b>option.</p>
+                </li>
+            </ol>
+            <p class="ListDesc">The acknowledged alarm will then change to the required 
+ color combination. For details, see Customizing alarm colors.</p>
+            <p class="ListNotice"><b>Note:</b> The following   Boolean 
+ properties of the AlarmViewer determine which of these alarm acknowledgment options are available: <b>AlarmGlobalAcknowledgeButtonEnabled</b>, <b>AlarmGlobalAcknowledgeAllMenuItemVisible</b>, <b>AlarmLocalAcknowledgeButtonEnabled</b> 
+ and <b>AlarmLocalAcknowledgeAllMenuItemVisible</b>.</p>
+        </div>
+        <ol start="4">
+            <li class="Numbers" value="4"><b>Inhibiting (shelving) alarms:</b> you can both inhibit (<span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">shelve<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">alarm shelving is the process of removing an alarm from the entire alarm system for a specific time period. This also known as inhibiting an alarm.</span></span>) and uninhibit alarms via the <b>More options</b> link (in the bottom right corner of the  AlarmViewer control), <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="InhibitAlarms"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> as follows:</a></li>
+        </ol>
+        <div MadCap:targetName="InhibitAlarms" style="display: none;">
+            <p class="ListDesc"><b>To inhibit (shelve) alarms:</b>
+            </p>
+            <p class="ListNotice"><b>Note:</b> Once you inhibit an alarm it is both acknowledged and cleared so it is removed from the alarm list.</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1">Select the alarms that you want to inhibit (shelve) in the list.</li>
+                <li class="NumbersSubLetters" value="2">Click the <b>More options</b> link (in the bottom right corner) and its <b>Inhibit selected alarms</b> option.</li>
+            </ol>
+            <p class="ListNoteSub"><b>IMPORTANT:</b> This option is only enabled when one or more alarms are selected.</p>
+            <p class="ListDescSub">In the <b>Inhibit alarms with reason</b> dialog:</p>
+            <p class="ListNoteSub"><b>Tip:</b> The list of the currently selected alarms are provided to check if the required alarms are selected.</p>
+            <ol start="3">
+                <li class="NumbersSubLetters" value="3">Specify the required <b>Inhibit until</b> date and time, which by default is 24 hours from the current time. Either as a specific <b>Date and time</b> (which cannot be in the past) or <b>Forever</b>, which effectively deactivates this alarm.</li>
+                <li class="NumbersSubLetters" value="4">Specify the required <b>Reason</b> for shelving (inhibiting) these alarms.</li>
+            </ol>
+            <p class="ListDesc">The <b>Operator</b> (the currently logged in user) is also automatically added to this alarm inhibiting event.</p>
+            <ol start="5">
+                <li class="NumbersSubLetters" value="5">Click the <b>Inhibit</b> button.</li>
+            </ol>
+            <p class="ListDesc">&#160;</p>
+            <p class="ListDesc"><b>To uninhibit alarms:</b>
+            </p>
+            <p class="ListNotice"><b>Note:</b> After uninhibiting an alarm that was active, it is put back into an active state so that it reappears in the alarm list.</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1">Click the <b>More options</b> link (in the bottom right corner) and its <b>View inhibited alarms</b> option.</li>
+            </ol>
+            <p class="ListDescSub">In the <b>View inhibited alarms</b> dialog:</p>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">Select which of the alarms that have already been inhibited in this alarm list that you want to uninhibit, either using the Select All button or manually select the required ones.</li>
+            </ol>
+            <p class="ListDescSub">By default this list is sorted by the <b>Inhibit until</b> column in descending order, so that the alarms that are configured to be inhibited for the longest time are displayed at the top of the list.</p>
+            <p class="ListDesc">The <b>Operator</b> (the currently logged in user) is also automatically added to this alarm uninhibiting event.</p>
+            <ol start="3">
+                <li class="NumbersSubLetters" value="3">Click the <b>Uninhibit</b> button.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The following   Boolean 
+ properties of the AlarmViewer determine which of these alarm inhibiting options are available: <b>AlarmInhibitSelectedAlarmsMenuItemVisible</b>
+ and <b>AlarmViewInhibitedAlarmsMenuItemVisible</b>.</p>
+            <p class="ListNotice">&#160;</p>
+        </div>
+        <ol start="5">
+            <li class="Numbers" value="5"><b>Specifying 
+ Reasons and/or Notes:</b> This is ONLY possible if your <span class="AdroitAppName">Adroit</span> installation 
+ uses the AlarmManagement agent, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ReasonNotes"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></li>
+        </ol>
+        <div MadCap:targetName="ReasonNotes" style="display: none;">
+            <p class="ListNotice"><b>Note:</b> The <b>Reasons and Notes</b> button is ONLY displayed 
+ if the Boolean <b>AlarmReasonsAndNotesButtonVisible</b> 
+ property of this control is set to True, this is False by default.</p>
+            <ul start="5">
+                <li class="ListBullets" value="5">Either, select 
+ a current alarm and click the <b>Reasons 
+ and Notes</b> button to specify any reasons or notes for this alarm 
+ or to view ALL the instances of this specific alarm that currently require 
+ reasons and/or notes to be specified.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Tip:</b> Click 
+ the <b>View all</b> button in the dialog, 
+ if you want to see ALL the alarm instances that currently require reasons 
+ and/or notes to be specified</p>
+            <ul start="5">
+                <li class="ListBullets" value="5">Or simply click 
+ the <b>Reasons and Notes</b> button to 
+ view ALL the alarm instances that currently require reasons and/or notes 
+ to be specified.</li>
+            </ul>
+            <p class="ListDesc">This either displays the <b>Alarm 
+ Reasons and Notes</b> dialog or an error message if your <span class="AdroitAppName">Adroit</span> installation 
+ does NOT use an AlarmManagement agent.</p>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To specify a reason for an alarm:</a>
+            </p>
+            <div MadCap:targetName="t2" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">If 
+ necessary, select the required alarm instance from the <b>Current 
+ Incidents</b> grid.</li>
+                    <li class="NumbersSubLetters" value="2">Click 
+ the required reason from the <b>Reasons</b> 
+ list.</li>
+                </ol>
+                <p class="ListDescSub">This displays the list of configured sub-reasons for 
+ this reason in the <b>Sub-reasons</b> 
+ list.</p>
+                <ol start="3">
+                    <li class="NumbersSubLetters" value="3">Click 
+ the required sub-reason.</li>
+                    <li class="NumbersSubLetters" value="4">Click 
+ the <b>Commit</b> button to save this 
+ change to the database.</li>
+                </ol>
+            </div>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To specify a note for an alarm:</a>
+            </p>
+            <div MadCap:targetName="t1" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">If 
+ necessary, select the required alarm instance from the <b>Current 
+ Incidents</b> grid.</li>
+                    <li class="NumbersSubLetters" value="2">Type 
+ this note into the Notes text box.</li>
+                    <li class="NumbersSubLetters" value="3">Click 
+ the <b>Commit</b> button to save this 
+ change to the database.</li>
+                </ol>
+            </div>
+        </div>
+        <p>The AlarmViewer control, like the <span class="AdroitAppName">Adroit</span> Alarm Viewer 
+ window, displays the active alarms within the alarm list of an Alarm or 
+ AlarmList agent. For details, see AlarmViewer 
+ controls.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

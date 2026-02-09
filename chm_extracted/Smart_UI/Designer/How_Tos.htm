@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How Tos</title>
+        <link href="Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3576"></a>How Tos</h1>
+        <h2>How to topics:</h2>
+        <p>These are detailed, step-by-step descriptions that provide</p>
+        <ul>
+            <li class="Bullets" value="1">recommended methods for 
+ performing general-usage tasks that users frequently have difficulty with.</li>
+            <li class="Bullets" value="2">possible uses of the product 
+ that are powerful but not always immediately apparent.</li>
+        </ul>
+        <p class="Notices"><b>Note:</b> Look at the commands provided by the <b>Execute Command</b> Behaviour or Application spider, which contains a number of commands that previously could only be performed via code, such as switching users, logging on and printing graphic forms. For details, see <a href="10Cfg/30Des/40FC/30B/Execute_Command_Behaviours.htm">Execute Command Behaviours</a>.</p>
+        <h3><a name="kanchor3577"></a>Deployment how tos</h3>
+        <p><a href="HowTos/How_to_cluster_Servers.htm">How 
+ to cluster Servers</a>
+        </p>
+        <p><a href="HowTos/How_to_Connect_to_the_SmartUI_Server_over_the_Web.htm">How 
+ to connect to the Server over the Web</a>
+        </p>
+        <p><a href="05Dply/30Ins/Working_with_the_Click_Once_Operator_install.htm">How to Install and Run the Operator over the Internet</a>
+        </p>
+        <p><a href="05Dply/50Cfg/System_Backup_and_Restore.htm">How to backup and restore your system and your projects</a>
+        </p>
+        <p><a href="HowTos/How_to_configure_user_security.htm">How 
+ to configure user security</a>
+        </p>
+        <p><a href="HowTos/How_to_configure_graphic_form_security.htm">How 
+ to configure graphic form security</a>
+        </p>
+        <p><a href="HowTos/How_to_prevent_multiple_users_from_simultaneously_editing_the_same_graphic_form.htm">How 
+ to prevent multiple users from simultaneously editing the same 
+ graphic form</a>
+        </p>
+        <p><a href="HowTos/How_to_optimise_performance_for_remote_clients_over_slow_networks.htm">How 
+ to optimise performance for remote clients over slow networks</a>
+        </p>
+        <h3><a name="kanchor3578"></a>Database-related how tos</h3>
+        <p><a href="HowTos/How_to_chart_and_or_report_data_from_a_database.htm">How to chart and/or report data from a database</a>
+        </p>
+        <p class="LineIndented"><a href="HowTos/How_to_improve_performance_when_trending_of_large_amounts_of_data_with_a_LineChart.htm">How to improve performance when trending of large amounts of data with a LineChart</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Data"><a href="HowTos/How_to_write_and_or_read_database_data_from_a_control.htm">How to write and or read database data from a control</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Data"><a href="10Cfg/30Des/20DS/ODB/Accessing_data_within_DataBinders.htm">How to view, navigate 
+ and/or modify data within DataBinders on graphic forms</a>.</p>
+        <p><a href="HowTos/How_to_create_a_parameterised_database_query_and_view_it_in_a_DataGrid_control.htm">How 
+ to create a parameterised database query and view it in a DataGrid control</a>
+        </p>
+        <p><a href="HowTos/How_to_use_ComboBox_and_ListBox_controls_to_interact_with_databases.htm">How to use ComboBox (and ListBox) controls to interact with databases</a>
+        </p>
+        <p><a href="10Cfg/30Des/50S_S/10Spd/50Cat/Dbs/Performing_Custom_queries.htm">How 
+ to perform a Custom query</a>.</p>
+        <h3><a name="kanchor3579"></a>Graphic form designing how tos</h3>
+        <p MadCap:conditions="VIP.AdrFromClassic"><a href="10Cfg/30Des/10Prj/Converting_Classic_UI_projects_into_SmartUI_projects_2.htm">Converting Classic UI projects into SmartUI projects</a>
+        </p>
+        <p><a href="10Cfg/30Des/30GF/Importing_XAML_graphics_into_graphic_forms.htm">How to import a 
+ XAML document into a graphic form</a>
+        </p>
+        <p><a href="10Cfg/30Des/40FC/10CC/Ctrl/TemplateGO_controls.htm">How to display 
+ a graphic form in another graphic form</a>
+        </p>
+        <p MadCap:conditions="Common.VerMinorOne"><a href="HowTos/How_to_create_a_graphic_form_navigational_menu_from_a_TGONavToolbar_control.htm">How to create a graphic form navigational menu</a>
+        </p>
+        <p><a href="HowTos/How_to_reuse_graphical_components.htm">How to reuse graphical components</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Data"><a href="HowTos/How_to_write_and_or_read_database_data_from_a_control.htm">How to write and or read database data from a control</a>
+        </p>
+        <p><a href="10Cfg/30Des/40FC/10CC/Ctrl/TableLayoutPanel_controls.htm">How to add and arrange controls in a table</a>: so that these controls can change dynamically as the application environment changes.</p>
+        <p><a href="10Cfg/30Des/40FC/10CC/Ctrl/MenuStrip_components.htm">How to create 
+ a menu system on a graphic form</a>
+        </p>
+        <p><a href="10Cfg/30Des/40FC/10CC/Ctrl/ContextMenuStrip_components.htm">How 
+ to create a right click menu system on a graphic form</a>
+        </p>
+        <p><a href="10Cfg/30Des/40FC/10CC/Ctrl/WebBrowser_controls.htm">How to display 
+ a URL on a graphic form</a>
+        </p>
+        <p><a href="HowTos/How_to_set_spider_inputs_and_trigger_spiders_through_script.htm">How to set spider inputs and trigger spiders through script</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="10Cfg/30Des/40FC/10CC/Ctrl/How_to_chart_discreet_data.htm">How 
+ to chart discreet data</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="10Cfg/30Des/40FC/10CC/Ctrl/How_to_chart_dataset_data.htm">How 
+ to chart dataset data</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="HowTos/How_to_chart_and_or_report_data_from_a_database.htm">How to chart and/or report data from a database</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="10Cfg/30Des/40FC/10CC/Ctrl/How_to_chart_databinder_data.htm">How 
+ to chart databinder data</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="10Cfg/30Des/40FC/10CC/Ctrl/BarChart_Controls.htm">How to chart 
+ data within a bar chart</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="10Cfg/30Des/40FC/10CC/Ctrl/ColumnChart_controls.htm">How to chart 
+ data within a column chart</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="10Cfg/30Des/40FC/10CC/Ctrl/LineChart_controls.htm">How to chart 
+ data within a line chart</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="10Cfg/30Des/40FC/10CC/Ctrl/PieChart_controls.htm">How to chart 
+ data within a pie chart</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="10Cfg/30Des/40FC/10CC/Ctrl/XYPlotChart_controls.htm">How to chart 
+ data within a xyplot chart</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Charts"><a href="10Cfg/30Des/40FC/10CC/Ctrl/SurfaceChart_controls.htm">How to chart 
+ data within a surface chart</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_TrnCfg"><a href="HowTos/How_to_configure_a_TrendConfigurator_control_whose_tags_come_from_a_database.htm">How to configure a TrendConfigurator control whose tag structure comes from a database</a>
+        </p>
+        <p MadCap:conditions="VIP.Designer_VerMinorFour"><a href="10Cfg/30Des/40FC/10CC/Ctrl/AdroitHistoricalAlarmViewer_controls.htm">How to use the AdroitHistoricalAlarmViewer control</a>
+        </p>
+        <h2><a name="kanchor3580"></a>Code snippets:</h2>
+        <p>These are <b>incomplete pieces of code</b> that either demonstrate a general 
+ principle or perform a task. The goal or intent of these code snippets 
+ is to answer common "How do I...?" questions that relate to 
+ the general use of <span class="VIPAppName">SmartUI</span> and its graphic forms.</p>
+        <p class="Notices"><b>PLEASE NOTE:</b> These 
+ code snippets are typically written in the C# scripting language and are 
+ targeted at programmers who have experience in coding yet are new to <span class="VIPAppName">SmartUI</span>. Since prior knowledge of programming in general and 
+ in the .NET Framework, in particular, is required to modify these code 
+ snippets for your specific requirements.</p>
+        <p><a href="HowTos/Code_to_enable_ImageList_component_usage.htm">Code to implement the ImageList component</a>
+        </p>
+        <p><a href="HowTos/Code_to_enable_tooltips.htm">Code to implement tooltips in a graphic form</a>
+        </p>
+        <p><a href="HowTos/Code_to_execute_a_Script_on_the_Server.htm">Code to execute a Script on 
+ the Server</a>
+        </p>
+        <p><a href="HowTos/Code_to_open_a_graphic_form.htm">Code 
+ to open a graphic form</a>
+        </p>
+        <p><a href="HowTos/Code_to_read_and_update_a_data_element.htm">Code 
+ to read and update a data element</a>
+        </p>
+        <p><a href="HowTos/Code_to_set_the_active_tab_page_at_runtime_in_the_Operator.htm">Code 
+ to set the active tab page at runtime in the Operator</a>
+        </p>
+        <p><a href="10Cfg/30Des/90Scr/20INdInt/INeed_interfaces_object_reference.htm">INeed 
+ interfaces object reference</a>: INeed 
+ interfaces are made available to scripts to provide them access to the 
+ various components of the <span class="VIPAppName">SmartUI</span> Server and/or the <span class="VIPAppName">SmartUI</span> Client (Designer or Operator).</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

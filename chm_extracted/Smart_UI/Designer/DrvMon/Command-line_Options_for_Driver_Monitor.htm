@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Adroit Utilities|Protocol Driver Monitor Utility|Protocol Driver Monitor" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Command-line Options for Driver Monitor</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor405"></a>Command-line Options for the Driver Monitor</h1>
+        <p>The following options can typically be either entered into the <b>Command 
+ line options</b> edit box in the 
+ Options menu of the Driver Monitor Launcher and allows you to further customise this application for your specific requirements:</p>
+        <ol>
+            <li class="Numbers" value="1"><b>/A</b>&#160;This 
+ option toggles the output display of the Datascope screen between the 
+ default hexadecimal (binary) format and ASCII format</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> We recommend 
+ that you ALWAYS display the Datascope in ASCII format, even for known 
+ Binary(hex) type protocols, because the newer drivers provide extra information 
+ usually in a readable (English) format and also convert the hexadecimal 
+ display to ASCII to remain compatible. For further details, see <a href="Working_with_the_Datascope.htm">Datascope 
+ screen</a>.</p>
+        <ol start="2">
+            <li class="Numbers" value="2"><b>/L</b>&#160;This 
+ option will log the communication messages and errors as they occur between 
+ <span class="AdroitAppName">Adroit</span> and the specified front-end device. <br />	The logged information is typically stored in a .TXT file with the 
+ same name as the device name. The following additional options can be 
+ used in conjunction with this /L option:</li>
+        </ol>
+        <ol start="1">
+            <li class="ListBullets" value="1"><b>/F</b>&lt;filename&gt; 
+ This sub-option allows you to specify the name of the file that is used 
+ to log the Datascope screen e.g. /Ferrors.txt specifies a file called 
+ 'errors.txt'&#160;</li>
+            <li class="ListBullets" value="2"><b>/T</b> 
+ This sub-option adds timestamps to the logged data, so that time at which 
+ the data is logged to file will also be recorded.</li>
+            <li class="Numbers" value="3"><b>/H</b> 
+ This option logs the device-specific communication messages and errors 
+ to an HTML page to preserve the color of the datascope to make the troubleshooting 
+ process easier.<br />	The output file created by this option has the same name as the device 
+ name and a .HTM extension.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The log 
+ files created by the <b>/L</b> and <b>/H</b> options are located in the folder 
+ in which this utility is launched. This is usually the <span class="AdroitAppName">Adroit</span> system folder 
+ (typically <span class="AdroitInstallFolder">C:\Program Files\Adroit Technologies\Adroit</span>) otherwise open the properties of the shortcut used to launch this application 
+ to determine this folder.</p>
+        <p class="ListNotice"><b>WARNING!</b> Both 
+ the <b>/L</b> and <b>/H</b> 
+ options will append to an existing log file, which has no size limitation 
+ and so can consume all the free disk space, unless these log files are 
+ properly managed.</p>
+        <ol start="4">
+            <li class="Numbers" value="4"><b>/N</b> 
+ This will suppress the warning that usually appears when more than one 
+ Datascope window is opened on a computer.</li>
+            <li class="Numbers" value="5"><b>/G</b> 
+ This only applies to GST drivers and is used to open up a specialised 
+ diagnostics screen.</li>
+            <li class="Numbers" value="6"><b>/SCREENn</b> 
+ This will automatically open the 
+ specified screen.</li>
+        </ol>
+        <p class="ListDesc">Where:</p>
+        <ul>
+            <li class="ListBullets" value="1">/SCREEN1 = Datascope.</li>
+            <li class="ListBullets" value="2">/SCREEN2 = Diagnostic 
+ Counters.</li>
+            <li class="ListBullets" value="3">/SCREEN3 = Error 
+ Log.</li>
+            <li class="ListBullets" value="4">/SCREEN4 = GST 
+ FEP scope – this is only available when the /G option is used for GST 
+ drivers.</li>
+        </ul>
+        <h2>A usage example of these options </h2>
+        <p>/A /SCREEN1 /L /T /Ferrors.txt</p>
+        <p>This will automatically log the Datascope output in ACSII with times, 
+ to the file called errors.txt, without requiring any user interaction!</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

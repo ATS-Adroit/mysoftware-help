@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Vectors" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Vector tools for editing and designing vectors</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Vector tools for <a name="kanchor76"></a>editing and designing vectors</h1>
+        <p>The <b>Vectors</b> group of the <b>Design</b><a name="kanchor77"></a>tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon, provides the following tools for editing vectors (graphic elements) added to  the currently displayed graphic form:</p>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 11.648%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 18.182%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 70.17%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Function</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../../Resources/Images/32/Generic/DesignGroup.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Create <a name="kanchor78"></a>Vector Group</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>To group the selected vectors, so they are easier to manage and move.</p>
+                        <p class="Notices"><b>Tip:</b> Use the <b>Contents</b> window to assist you in displaying (and editing) each contained vector and/or control and their configured Behaviours in a vector group. For details, see <a href="../../20DesEnv/10TW/Contents_tool_window.htm">Contents tool window</a>.</p>
+                        <p class="Notices"><b>Note:</b> Once created the <b>Tasks</b> list of the vector group (accessed by clicking  its <img src="glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">glyph<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a glyph is a specific graphic symbol, for instance employed by form components, which when clicked launch alternate configuration dialogs.</span></span>, which is usually displayed in 
+ the top left corner of the selected control) provides the <b><a name="kanchor79"></a>Child Behaviours</b> list, to display all the Behaviours added to its component vectors, so that these can be edited <img src="30B/EditBehavBtn.jpg" /> or deleted <img src="30B/DelBehavBtn.jpg" /> <MadCap:conditionalText MadCap:conditions="VIP.Designer_VerMinorTwo">or added. For details, see <a href="30B/Child_Behaviours.htm">Child Behaviours</a></MadCap:conditionalText>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../../Resources/Images/32/Generic/Ungroup.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Break Vector Group</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>To break a group of vectors into their component vectors, so that these can be individually edited.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../../Resources/Images/32/Generic/ResetCenterPoint.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Reset Center</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>To reset the center point of the selected vector.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../../Resources/Images/32/Generic/RotateRight90.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Rotate Right 90</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Rotate the vector to the right by 90 degrees.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../../Resources/Images/32/Generic/RotateLeft90.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Rotate Left 90</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Rotate the vector to the left by 90 degrees.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../../Resources/Images/32/Generic/FlipVertical.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Flip Vertical</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Flip the vector vertically  (in the y dimension) around its configured center point.</p>
+                        <p class="Notices"><b>Note:</b> If the center point is at its center, then this command may not change the appearance of the vector, if the shape is vertically symmetrical.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../../Resources/Images/32/Generic/FlipHorizontal.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Flip Horizontal</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Flip the vector horizontally (in the x dimension) around its configured center point.</p>
+                        <p class="Notices"><b>Note:</b> If the center point is at its center, then this command may not change the appearance of the vector,  if the shape is horizontally symmetrical.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>
+                            <img src="../../../Resources/Images/32/Generic/Rotate.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                        <p>Rotate</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>To specify the required rotation of the selected vector around its configured center point, as follows:</p>
+                        <ul>
+                            <li class="Bullets" value="1">type in the required number of degrees in the edit box.</li>
+                            <li class="Bullets" value="2">click the left button and select one of the pre-defined rotation angles.</li>
+                        </ul>
+                        <p>If necessary, reapply the specified rotation angle, by clicking the right button.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>The <b>Workspace</b> group of the <b>Design</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon, provides the following groups of tools for  arranging and/or organizing ALL&#160;form 
+ components. For details, see <a href="Workspace_tools_for_arranging_form_components.htm">Workspace tools for arranging form components</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

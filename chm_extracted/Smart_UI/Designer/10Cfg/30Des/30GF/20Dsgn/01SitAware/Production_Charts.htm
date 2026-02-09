@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Graphic Forms|Designing Graphic Forms|Situational Awareness (or High Performance SCADA)" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer_VerMinorFour" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Production Charts</title>
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3875"></a>Production Charts</h1>
+        <p><b>Purpose:</b> when operators need to know how a production value is performing against a set target value: this charts the production value and a straight line graph of the set target value for the specific production period. </p>
+        <p><b>Description:</b> a line chart with a value axis on the left and a time axis on the bottom, with a straight line in blue drawn from 0 to the specified target value, representing the required production rate and the production value is indicated by means of a grey filled area, so that its actual production rate can be monitored relative to its required production rate.</p>
+        <p class="Notices"><b>Note:</b> This production value  is only displayed if its value is being logged or if it constantly changes over the specified time period.</p>
+        <p>
+            <img src="SitAwareness_ProdChartEx.png" />
+        </p>
+        <p><b>User interaction:</b> Click the clock glyph <img src="SitAwareness_ProdChart_glyph.png" /> in the top right corner of this wizard to configure the current <b>Production Parameters</b>, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1">Choose how the period of observing this production value  is determined, by specifying the <b>End Production Time</b>, by using one of the following methods:</li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1"><b>Current to End Time</b>: specify the future dated end time from the Current time (now), by typically typing 
+ in the required digits. </li>
+        </ul>
+        <p class="BullSubNote"><b>Tip:</b> The LEFT and RIGHT 
+ arrow keys can be used to navigate between the digits.</p>
+        <ul>
+            <li class="BulletSub" value="1"><b>Current + Timespan</b>: this calculates the required ending time (in the future) by adding the specified Timespan to the Current time (now). </li>
+        </ul>
+        <p class="BullSubDesc">If 
+ necessary, specify the required duration of time that is displayed, by selecting the required time dimension e.g. Hours, Days etc., from the list box to the right of the <b>Timespan</b> edit box and then specifying the required amount in this edit box.</p>
+        <ul>
+            <li class="BulletSub" value="1"><b>Start Time to End Time</b>: specify both the required starting and ending time, by typing 
+ in the required digits and/or using the calendar to specify the required date. </li>
+            <li class="Bullets" value="2">If necessary, change the <b>Target Value</b> that should be met by this production value  within the specified production time period.</li>
+            <li class="Bullets" value="3">If necessary, click the <b>Reset</b> button to restart the monitoring of this  production value, by recalculating the production time period.</li>
+            <li class="Bullets" value="4">Click <b>Finish</b> when done or <b>Cancel</b> to ignore any changes made.</li>
+        </ul>
+        <p>&#160;</p>
+        <p><b>wzdProductionChart_ShiftAgent_DynamicTarget_v01</b>: this monitors a production value, that is produced during the current shift, as specified by a Shift agent, relative to a production target value which can be externally modified. Therefore if an operator makes a process change, the required production target value can be automatically adjusted to change the required production rate as needed.</p>
+        <p class="Notices"><b>Tip:</b> Your operators can also change the target value manually at runtime using the <b>Production Parameters</b> dialog.</p>
+        <p style="font-weight: bold;">Required values:</p>
+        <p class="Notices"><b>Note: </b><span style="font-weight: normal;">When this wizard is added to a graphic form, all these values are MANDATORY and therefore must ALL be specified.</span>
+        </p>
+        <p class="Notices"><b>Tip: </b><span style="font-weight: normal;">These values are listed in the order they are specified in the wizard.</span>
+        </p>
+        <ol>
+            <li class="Numbers" value="1">Browse in the Analog agent name (although this can specify the <b>value</b> slot, but no other slot name) representing the  production value that is to be monitored e.g. ana001.value</li>
+            <li class="Numbers" value="2">Browse in the required Shift agent name that stores the various shift times during which the production value is being produced. This automatically selects the <b>shiftEndTime</b> slot of this agent which specifies the future time that the current shift ends.</li>
+            <li class="Numbers" value="3">Browse in the Analog agent name (although this can specify the <b>value</b> slot, but no other slot name) representing the production target value.</li>
+        </ol>
+        <p>&#160;</p>
+        <p><b>wzdProductionChart_StaticTime_DynamicTarget_v01</b>: this monitors a production value relative to a production target value which can be changed during a constant time period. Therefore if an operator makes a process change, the required production target value can be automatically adjusted to change the required production rate as needed.</p>
+        <p class="Notices"><b>Tip:</b> Your operators can also change the target value and/or the required production time manually at runtime using the <b>Production Parameters</b> dialog.</p>
+        <p style="font-weight: bold;">Required values:</p>
+        <p class="Notices"><b>Note: </b><span style="font-weight: normal;">When this wizard is added to a graphic form, all these values are MANDATORY and therefore must ALL be specified.</span>
+        </p>
+        <p class="Notices"><b>Tip: </b><span style="font-weight: normal;">These values are listed in the order they are specified in the wizard.</span>
+        </p>
+        <ol>
+            <li class="Numbers" value="1">Browse in the Analog agent name (although this can specify the <b>value</b> slot, but no other slot name) representing the  production value that is to be monitored e.g. ana001.value</li>
+            <li class="Numbers" value="2">Type in the required constant duration of the production time, in hours.</li>
+            <li class="Numbers" value="3">Browse in the Analog agent name (although this can specify the <b>value</b> slot, but no other slot name) representing the production target value.</li>
+        </ol>
+        <p>&#160;</p>
+        <p><b>wzdProductionChart_StaticTime_StaticTarget_v01</b>: this monitors a production value using a static time period and target value.</p>
+        <p class="Notices"><b>Tip:</b> Your operators can also change the target value and/or the required production time manually at runtime using the <b>Production Parameters</b> dialog.</p>
+        <p style="font-weight: bold;">Required values:</p>
+        <p class="Notices"><b>Note: </b><span style="font-weight: normal;">When this wizard is added to a graphic form, all these values are MANDATORY and therefore must ALL be specified.</span>
+        </p>
+        <p class="Notices"><b>Tip: </b><span style="font-weight: normal;">These values are listed in the order they are specified in the wizard.</span>
+        </p>
+        <ol>
+            <li class="Numbers" value="1">Browse in the Analog agent name (although this can specify the <b>value</b> slot, but no other slot name) representing the  production value that is to be monitored e.g. ana001.value</li>
+            <li class="Numbers" value="2">Type in the required constant duration of the production time, in hours.</li>
+            <li class="Numbers" value="3">Type in the required production target value.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

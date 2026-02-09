@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Alarming Agents|Alarm Management|Historical alam mode" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Adr_VerMinorFour" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Configuring Historical Alarm mode</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/Adroit10SingleCell-Important.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1252"></a>Configuring Historical Alarm mode</h1>
+        <p>Historical alarm mode allows an UNLICENSED AlarmManagement agent to log your historical alarms, instead of providing the fully fledged AlarmManagement system to be used for one hour.</p>
+        <ol>
+            <li class="Numbers" value="1">If 
+ necessary, add an AlarmManagement agent. </li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> Please ensure 
+ that this agent name is no more than 27 characters long. </p>
+        <p class="ListNotice"><b>Note2:</b> You 
+ can only add ONE AlarmManagement agent.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Edit 
+ all the Alarm agents that are required to send their alarms/events to 
+ this AlarmManagement agent, by adding the AlarmManagment agent to their 
+ required routes as an output agent, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">In the <b>Routes</b> dialog, of each 
+ of these Alarm agents, select the required route number and add this AlarmManagement 
+ agent to the <b>Output</b> agent list. 
+ Do this for each of the required routes.</span></span></li>
+            <li class="Numbers" value="3">Edit the AlarmManagement agent to display the <b>Edit AlarmManagement Agent</b> dialog.</li>
+            <li class="Numbers" value="4">
+                <p>Specify the location to the SQL database in the <b>Connection</b> field.</p>
+                <p class="Notices"><b>Note:</b> If you need to configure the Alarm Management agent from remote computers, it is safer to use SQL authentication (<b>Use a specific user name and password</b>) when creating this connection and NOT Windows authentication (<b>Use Windows NT Integrated Security</b>) unless you are sure that the logged on users at the remote computers have the necessary access rights to this SQL database. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="RemoteConfigDetails"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a> <![CDATA[
+]]></p>
+                <div MadCap:targetName="RemoteConfigDetails" style="display: none;">
+                    <p>If the SQL connection string configured in the Alarm Management agent has been configured using Windows authentication and you then try and connect from a remote UI to configure, it will more than likely not work (in other words the configured incidents will not appear). </p>
+                    <p>This would happen if  the Windows User on this remote computer has not been given access rights to the SQL database.
+</p>
+                </div>
+                <p>Use an existing (or create) a SQL database for your alarm 
+ management.</p>
+                <p class="Notices"><b>Note1:</b> If you do not have SQL installed then install at least SQL Server 2008 R2 or its Express version. </p>
+                <p class="Notices"><b>Note2:</b> If multiple 
+ AlarmManagement agents (possibly from different Agent Servers) connect 
+ to the SAME database, then ensure that each agent is UNIQUELY named since 
+ incidents are logged using the name of its assigned AlarmManagement agent. </p>
+                <p>Click the <b>...</b> browse button to 
+ the right of this field and use the <b>Data Link Properties</b> dialog 
+ to create the required connection string to your SQL Server database.</p>
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-Data-Link-Properties-OLE.png" MadCap:popupWidth="478" MadCap:popupHeight="569" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-Data-Link-Properties-OLE_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <div class="MCDropDown">
+                    <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3804368933_0" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Provider TAB</a>
+                    </div>
+                    <div class="MCDropDownBody_0" id="MCDropDownBody_3804368933_0" style="display: none;">
+                        <p>The <b>Data Link Properties</b> dialog specifies the location and the 
+ security credentials required to connect to this database.</p>
+                        <p><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-Data-Link-Properties-OLE.png" MadCap:popupWidth="478" MadCap:popupHeight="569" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-Data-Link-Properties-OLE_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                        </p>
+                        <p>Double-click the <b>Microsoft 
+ OLE DB Provider for SQL Server</b> item in the <b>Provider</b> tab of 
+ the <b>Data Link Properties</b> dialog.</p>
+                        <p class="A4-Note-SimpleImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>If the computer, on which SQL Server was installed, was renamed, then SQL Server may need to be re-installed.</p>
+                        <p>If the computer was renamed <i style="text-decoration: underline;">after</i> installing SQL Server, then SQL Server must be re-installed, to function correctly.</p>
+                        <p>Run the following check:</p>
+                        <ul>
+                            <li value="1">Execute the following T-SQL (Transact-SQL) script in SQL Server Management Studio: SELECT @@SERVERNAME</li>
+                            <li value="2">If the resulting server name is different to the actual name of the computer, then the name of the computer has been changed <i style="text-decoration: underline;">after</i> SQL Server was installed, so you need to reinstall SQL Server.</li>
+                        </ul>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>If you need to configure or view this database and its data from remote 
+ computers, then you should use a&#160;<span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">UNC<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Universal Naming Convention (UNC) is used to specify the location of servers, printers, files and other shared resources on a local area network (LAN). UNC  names begin with \\ (two backslashes) and take the form: \\Computer_name\Share_name</span></span>&#160;path
+ and not a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">local file path<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">this path, as opposed to a UNC path, can ONLY be accessed from the computer that it refers to, this path adopts the following general format: &lt;driveletter&gt;:\directories\filename.</span></span> to specify the location of this database.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown">
+                    <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3804368933_1" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Connection Tab</a>
+                    </div>
+                    <div class="MCDropDownBody_0" id="MCDropDownBody_3804368933_1" style="display: none;">
+                        <ol>
+                            <li value="1">Type in the 
+ computer name of the SQL Server that you want to connect to, in the <b>Select 
+ or enter a server name</b> field.<br /><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-Data-Link-Properties-ConnStr.png" MadCap:popupWidth="478" MadCap:popupHeight="569" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-Data-Link-Properties-ConnStr_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a><b><br /></b></li>
+                            <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span><span style="color: #000000;">This is the fastest method if you know 
+ the name of the SQL Server.</span>
+                            </li>
+                        </ol>
+                        <ul>
+                            <li class="ListBullets" value="1">Alternatively, click the drop-arrow button to 
+ the right of the <b>Select or enter a server name</b> box and select 
+ the name of the required SQL Server from the list.</li>
+                        </ul>
+                        <ol MadCap:continue="true">
+                            <li value="2">Specify the required security 
+ credentials to connect to the selected SQL Server:<table style="width: 95%;padding-right: 100px;margin-left: 0;margin-right: auto;mc-table-style: url('../Resources/TableStyles/Adroit10SingleCell-Important.css');" class="TableStyle-Adroit10SingleCell-Important" cellspacing="0"><col class="TableStyle-Adroit10SingleCell-Important-Column-Column1" /><tbody><tr class="TableStyle-Adroit10SingleCell-Important-Body-Body1"><td class="TableStyle-Adroit10SingleCell-Important-BodyA-Column1-Body1"><p style="font-weight: bold;color: #800080;">Important:</p><ul><li style="color: #000000;margin-right: 50px;" value="1">If you need to connect to 
+ a remote SQL Server database and want to run the Agent Server service using the 
+ <span>Local System account</span>, then use 
+ <span>SQL Server Authentication</span>.</li><li style="color: #000000;margin-right: 50px;" value="2"><span>If you need to connect to a remote SQL Server database and want to Use 
+ Windows NT Integrated security, then ensure that the user profile 
+ that the Agent Server service uses to log onto the computer has the necessary 
+ rights to browse the network and connect to the remote database. This 
+ should NOT be the default Local System account.</span></li></ul></td></tr></tbody></table><ul><li value="1"><b>Use Windows NT Integrated security:</b> this 
+ option uses the username and password of the currently signed in Windows 
+ user.</li><li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>We recommend 
+ that you configure your SQL Servers to use this option to avoid requiring 
+ additional database security.</li><li value="3"><b>SQL Server Authentication:</b> this option 
+ uses the <b>User name</b> and <b>Password</b> configured within the SQL 
+ Server you are attempting to connect to.</li><li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>In this case, it is recommended to select 
+ the <b>Allow saving password</b> checkbox.</li></ul></li>
+                        </ol>
+                        <ol MadCap:continue="true">
+                            <li value="3">Select the name of the 
+ required database from the <b>Select the database on the server</b> list 
+ box.</li>
+                            <li value="4">Click the <b>Test Connection</b> 
+ button to ensure that you are able to connect to this database using these 
+ details. Only proceed once 'Test connection succeeded' is displayed.</li>
+                            <li value="5">Click the <b>OK</b> button.</li>
+                        </ol>
+                        <ul>
+                            <li class="ListBullets" value="1">Your connection string will be created.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="MCDropDown">
+                    <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3804368933_2" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Advanced Tab</a>
+                    </div>
+                    <div class="MCDropDownBody_0" id="MCDropDownBody_3804368933_2" style="display: none;">
+                        <p>The <b>Advanced</b> tab of this dialog 
+ allows you to specify access permissions for this connection string. </p>
+                        <p><a href="javascript:void(0);" MadCap:popupSrc="../Resources/Images/ADT10-Data-Link-Properties-Adv.png" MadCap:popupWidth="478" MadCap:popupHeight="568" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../Resources/Images/ADT10-Data-Link-Properties-Adv_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                        </p>
+                        <ul>
+                            <li value="1">If 
+ you are unsure about these settings, then <i>never</i> set these permissions to <b>Read</b>, 
+ otherwise this connection string will fail.</li>
+                            <li value="2">These security credentials are database 
+ specific and should not be confused with application security.</li>
+                            <li value="3">if necessary, you can edit this string directly, once it has been created.</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ol>
+        <p class="ListNotice"><b>PLEASE NOTE</b>:You CANNOT connect to an MS Access database 
+ because of its known performance issues - please a MS SQL database instead. 
+ &#160;&#160;</p>
+        <p class="ListNotice"><b>Note:</b>Please use a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">UNC<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">Universal Naming Convention (UNC) is used to specify the location of servers, printers, files and other shared resources on a local area network (LAN). UNC  names begin with \\ (two backslashes) and take the form: \\Computer_name\Share_name</span></span> path when referring to this database 
+ instead of a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">local file path<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">this path, as opposed to a UNC path, can ONLY be accessed from the computer that it refers to, this path adopts the following general format: &lt;driveletter&gt;:\directories\filename.</span></span>, 
+ if you need to access the logged alarms from mimics on remote clients.</p>
+        <ol start="5">
+            <li class="Numbers" value="5"> Check the <b>Historical Alarm mode</b> check box.</li>
+        </ol>
+        <p class="ListNotice"><b>IMPORTANT:</b> You cannot run the AlarmManagement agent in both alarm management mode and this Historical Alarm mode at the same time and therefore after enabling Historical Alarm mode the AlarmManagement reports will not work!</p>
+        <p class="ListNotice"><b>Note1:</b> ONLY&#160;If your AlarmManagement agent agent is not licensed by your <span class="AdroitAppName">Adroit</span> license, is the <b>Historical Alarm mode</b> check box displayed.</p>
+        <p class="ListNotice"><b>Note2:</b> If you do not check this checkbox then you can freely use (demo) the fully fledged AlarmManagement system for one hour. However, after enabling this checkbox you no longer have access to the fully fledged AlarmManagement system, unless you uncheck the <b>Historical Alarm mode</b> check box and restart the Agent Server.</p>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="HistAlmMode"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:conditions="Common.Screenshots" MadCap:targetName="HistAlmMode" style="display: none;">
+            <img src="AM_CheckHistoricalMode.png" />
+        </p>
+        <p class="ListDesc">By default, this is disabled, which means that you need 
+ to perform the required <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">housekeeping<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">the removal of unnecessary records from a database</span></span>.</p>
+        <p class="ListNotice"><b>Note:</b> You cannot 
+ specify an number of days less than 30, since you need some historical 
+ records to determine your alarming trends.</p>
+        <ol start="6">
+            <li class="Numbers" value="6">Ensure that the <b>Start 
+ Alarm Management agent</b> checkbox (the <b>enable</b> slot) is checked, 
+ to start adding incidents to the selected database.</li>
+        </ol>
+        <ol start="7">
+            <li class="Numbers" value="7">Close this dialog, Save this configuration to the Agent Server and then restart the agent to create the <b>Adroit Historical Alarms</b> database that contains the necessary database tables, the most important of which being the Adr_AM_HistoricalIncidents table, which stores all the alarms that occur on the routes of the alarm agent/s you configured in step 2.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

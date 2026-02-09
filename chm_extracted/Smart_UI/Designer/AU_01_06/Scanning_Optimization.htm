@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Scanning Agents (Communicating Values)" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Scanning Optimization</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2295"></a><a name="kanchor2296"></a><a name="kanchor2297"></a>Scanning Optimization</h1>
+        <p>The optimization of <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">scanning<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">the process of communicating a value (slot), typically to and/or from a front-end device (FED).</span></span>  typically 
+ involves grouping data correctly within front-end devices, so as to prevent 
+ fragmentation of the data that usually creates a bottleneck for communication 
+ performance.</p>
+        <p>Usually I/Os acquired from the plant are not needed by the SCADA, but 
+ are intermingled with the SCADA I/O. Therefore, it is recommended to allocate 
+ separate memory space in the controller for SCADA tags and the internal 
+ I/O.</p>
+        <p>Although determining how much memory to reserve is never easy, it is 
+ recommended to plan correctly in this area. Certain front-end devices, 
+ such as Siemens controllers, make this process easier by using addressable 
+ data blocks or files that can grow in size.</p>
+        <p>By scanning tags, whose slots belong to the same data type, which has 
+ contiguous addresses in the front-end device, will ensure that this device 
+ will require the least number of transactions to communicate its tags. 
+ For details, see <a href="Scanning_Tags_Using_Contiguous_Addresses.htm">Contiguous 
+ Scanning</a>.</p>
+        <p class="Notices"><b>Note:</b> The reason 
+ for this is that a separate Scan agent is generally created by this device's 
+ Device agent, for a block of manageable contiguous addresses, the size 
+ of which is dependent upon the protocol being used to transfer this data 
+ to and from <span class="AdroitAppName">Adroit</span>.</p>
+        <p>When grouping data, ensure that the various data types are separated, 
+ such as Analogs and Digitals, examples of such groups are: Digital Inputs, 
+ Analog Inputs, Digital Outputs, Analog SPs etc.</p>
+        <p>It is also recommended to further differentiate data with respect to 
+ their required scan rate. <br />Typically Analog values for I/O, such as temperatures can be grouped together 
+ as these values generally change very slowly. <br />Although, Digital data must always be scanned quite fast, it is possible 
+ to differentiate between feedback and event digitals that must be polled 
+ very fast and digitals that indicate situations that need not be acted 
+ on right away, such as a high level indicator that takes 15 minutes to 
+ overflow.</p>
+        <p class="Notices"><b>Note:</b> When scanning 
+ tags, remember that it is the data type of the SLOT that is being scanned 
+ that determines which group it should be scanned to and not its AGENT 
+ name. For details of optimizing the scanning for an Analog agent, see 
+ <a href="Example_of_Scanning_Optimization_for_an_Analog_Agent.htm">Analog 
+ Scanning Optimization Example</a>.</p>
+        <p>The following examples illustrates how various types of data types could 
+ be grouped:</p>
+        <p class="Notices"><b>Note:</b> Scan times 
+ of less than 1000 ms should only be used if the driver can poll fast enough. 
+ Using faster scan times may adversely affect communications error recovery 
+ and the sending of controls to the front-end device.</p>
+        <p class="Notices">
+            <img src="06_120.gif" />
+        </p>
+        <p style="font-weight: bold;">A further tip to optimise scanning in Adroit:</p>
+        <p>Save the WGP and then restart the Agent Server to potentially reduce the number of required Scan agents.</p>
+        <p><b>Reason:</b> It is only when saving the Adroit agent database (.WGP) file that the Adroit scanning sub-system sorts the scan list into the optimal order, but this .WGP file is only read again when the Agent Server is restarted.</p>
+        <p><b>Example:</b> After successively importing and deleting scanned items a system required 69 Scan agents. By simply saving the WGP file and restarting the Agent Server, without doing anything else, Adroit only required 30 Scan agents!</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

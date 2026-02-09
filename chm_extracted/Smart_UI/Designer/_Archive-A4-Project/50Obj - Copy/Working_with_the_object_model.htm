@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer,Adroit.ExcludeFromProject" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with the object model</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1 MadCap:conditions="Common.ExFromPDF"><a name="kanchor3866"></a>Working with the object model</h1>
+        <p>The object model datasource enables you to enhance your existing wizards, by adding <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SCADA<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Supervisory Control And Data Acquisition, used to monitor and control an industrial plant or process and its related equipment.</span></span> configuration to them.</p>
+        <p>Its main function is to save you engineering time when bulk creating objects, such as items of equipment, which require similar SCADA configuration. </p>
+        <h2>What does the object model do for you?</h2>
+        <p>It saves you SCADA engineering time by allowing you to reliably duplicate objects that can have all or most of their SCADA configuration pre-configured, such as their scanning, logging and alarming.</p>
+        <p>The objects that you can create will typically  be items of equipment, like  pumps or motors and can be anything that you have already created a wizard to represent.</p>
+        <p>You can also use the <MadCap:conditionalText MadCap:conditions="Common.ExFromHTML"><img src="OMTemplExpImp/ObjMdlTempExpImp_16Icon.png" style="width: 16px;height: 16px;" /></MadCap:conditionalText><![CDATA[  ]]><b>Object Model Template Export and Import</b> utility  to export one or more of your existing Object Model Templates to a proprietary .TEF (Template Export File) file and also to import Object Model Templates from a .TEF file.</p>
+        <p>When creating an object template or an object instance, you are able to  add one or more attributes or searchable strings or identifiers to them that you can use to filter or group the objects that you deploy in the Context View window.</p>
+        <h2>What does the object model NOT do for you?</h2>
+        <p>It does not help you create the graphical representation of the object, it requires a working instance of a wizard to begin.</p>
+        <p>It does not help you create the SCADA configuration required by this object, it requires that all the necessary agents already exist for the wizard instance that you have selected and that these agents have already been configured.</p>
+        <h2>How does the object model work?</h2>
+        <p>Up to now wizards have allowed you to create animated graphical representations of your objects, such as pumps and motors - so that you can duplicate them as needed in your SCADA process and linking them to the required process values.</p>
+        <p>But any SCADA-related configuration, such as the required scanning, alarming and logging of this object was left up to you to manually implement for each instance of this wizard.</p>
+        <p>Now by using the object model datasource, you only need to implement the required SCADA-related configuration for one of your objects (a fully configured instance of a wizard) from which you can create a Template, in which you specify both the graphical representation/s and the required SCADA configuration for this object. </p>
+        <p class="Notices"><b>Tip:</b> If you have an object for which you have created identical wizards with different graphical representations, you can associate these other wizards to this object template. </p>
+        <p>Then you can implement instances of this template, which both creates and configures the necessary agents required by this object and provides the required graphical representation of it too, to reliably duplicate pre-configured objects. </p>
+        <p>In other words the salient idea about the object model datasource is the mass reuse of objects; where each object has a graphical component, much like the existing wizards and a SCADA component, which incorporates the scanning, alarming and logging of tags. It can therefore also be thought of as a bulk SCADA configuration tool, which also allows you to standardise the SCADA configuration of your equipment.</p>
+        <p>The template and object instances only reference the wizard they do not encapsulate it so when you drop an object instance on a graphic form - it is a wizard instance that provides SCADA configuration. So you can interact with this wizard instance as normal - therefore if you update the original wizard you can update this wizard instance if you want to.</p>
+        <p class="Notices"><b>Note:</b> It is also possible for an object template to  incorporate one or more existing object templates within this template, for instance by adding a faceplate to a pump etc. So you need to create your lower-level or commonly used object templates first.</p>
+        <p style="font-weight: bold;">Practical example:</p>
+        <p>Consider an industrial plant has a large number of similar pumps made by the same manufacturer, each of which had some characteristics  that differed such as their power calibration. </p>
+        <p>The engineer would initially create a wizard that provides the graphical representation of this pump.</p>
+        <p> Then the engineer would implement the wizard and create the necessary SCADA configuration for this pump, such as its required scanning, logging and alarming. </p>
+        <p>The engineer would then test that this SCADA configuration was working correctly. </p>
+        <p>Then the engineer would create a template from this working wizard, ensuring that the characteristics that differed between these pumps would be substitutable. </p>
+        <p>Using this template the engineer would then create multiple instances of the pump, changing each of their differing characteristics as needed. </p>
+        <p>So each instance of this pump would then have their  scanning, logging and alarming pre-configured.</p>
+        <h2>What do you need before you can create an object template?</h2>
+        <p>You need a fully configured working instance of a wizard. In other words an instance of a wizard that you have fully configured its required SCADA configuration, so that this can be duplicated for all your other objects.</p>
+        <p class="Notices"><b>Tip:</b> Take the necessary time that you need to test that this wizard has been fully configured and is working optimally and is being correctly scanned and/or logged and/or alarmed. Since any mistakes or omissions that you make will also be duplicated!</p>
+        <p>Take a wizard, ideally an instance of a wizard on a graphic form, that is working as required and create a template from it, which incorporates the graphical components of the wizard (and any substitutions that it uses) along with SCADA configuration, from which you can create numerous instances each of which will create their own unique tags, which will be scanned, logged and/or alarmed, as specified by the template.</p>
+        <p>For instance if you have created a wizard for a pump, you can create a template for this pump that not only displays the pump and its relevant values on a graphic form but which creates the tags that it requires and performs the necessary scanning, logging and alarming that you require.   </p>
+        <p class="Notices"><b>IMPORTANT:</b> Creating templates is a task for advanced users who are fully aware of how their SCADA system (Agent Server) is configured. However, creating their instances is a lot easier.</p>
+        <p class="Notices"><b>Note:</b> Since a template refers to an existing wizard, if the referenced wizard is deleted or modified, this does not affect the existing instances of this template that have already been added, it only affects the instances that you add after this. </p>
+        <h2>Managing your object model templates</h2>
+        <p>You also have the ability to create child templates so that you can create a template that uses an existing template. So these child templates form the basic or commonly used building blocks from which you can add to your other templates.</p>
+        <p>You can also use the <MadCap:conditionalText MadCap:conditions="Common.ExFromHTML"><img src="OMTemplExpImp/ObjMdlTempExpImp_16Icon.png" style="width: 16px;height: 16px;" /></MadCap:conditionalText><![CDATA[  ]]><b>Object Model Template Export and Import</b> utility  to export one or more of your existing Object Model Templates to a proprietary .TEF (Template Export File) file and also to import Object Model Templates from a .TEF file.</p>
+        <p>You do not have to create all the object model templates that you require, since the object model datasource can install global or system templates, which are immediately available after installation.</p>
+        <p>These global or system templates are added to the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /> <b>System</b> folder of the <img src="../../../../Resources/Images/16/DataSources/ObjectModel_TemplatesFolder.png" style="width: 16px;height: 16px;" /> <b>Templates</b> folder of the <img src="../../../../Resources/Images/16/DataSources/ObjectModel.png" style="width: 16px;height: 16px;" /> <b>Object Model</b>  datasource in the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b> Datasources</b> category of the Enterprise Manager. </p>
+        <p>Furthermore to assist you and your users in selecting the appropriate template, both the global templates and the templates that you create can be further classified into sub-folders, for ease of reference. </p>
+        <p>By default, all templates <img src="../../../../Resources/Images/16/DataSources/ObjectModel_Template.png" style="width: 16px;height: 16px;" />  created by users are added to the root <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /> <b>User</b> folder of the <img src="../../../../Resources/Images/16/DataSources/ObjectModel_TemplatesFolder.png" style="width: 16px;height: 16px;" /> <b>Templates</b> folder of the <img src="../../../../Resources/Images/16/DataSources/ObjectModel.png" style="width: 16px;height: 16px;" /> <b>Object Model</b>  datasource in the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b> Datasources</b> category of the Enterprise Manager. </p>(missing or bad snippet)<p>Furthermore, while you are unable to move or delete the global or system templates and their sub-folders in the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /> <b>System</b> folder  of the <img src="../../../../Resources/Images/16/DataSources/ObjectModel_TemplatesFolder.png" style="width: 16px;height: 16px;" /> <b>Templates</b> folder of the <img src="../../../../Resources/Images/16/DataSources/ObjectModel.png" style="width: 16px;height: 16px;" /> <b>Object Model</b>  datasource of the Enterprise Manager in the Designer. However, you can do this within Windows Explorer and then the next time that the <span class="VIPAppName">SmartUI</span> Server loads it will obtain the required templates and their folder structure. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OMGlobalTemplateLocation"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p><p MadCap:targetName="OMGlobalTemplateLocation" style="display: none;">These templates are stored in the following physical location on the <span class="VIPAppName">SmartUI</span> Server computer: <span class="VIPProgramDataProductFolder">C:\ProgramData\Adroit Technologies\Adroit\SmartUI</span>\ObjectModel\Templates</p><h2>Creating an object model template</h2><p>Use a wizard instance on a graphic form that you have already configured, which is working EXACTLY the way you want it to work and for which you have already configured the necessary SCADA configuration (the scanning logging and alarming etc.) and any other agents that this object needs configured. For details, see <a href="Creating_an_Object_Template.htm" class="MCXref_0">Creating or Editing an Object Template</a>.</p><p class="Notices"><b>IMPORTANT:</b> You need to ensure that the required SCADA configuration of this wizard instance is EXACTLY what you require, since this will be copied exactly; in other words: garbage in = garbage out!</p><p class="Notices"><b>Tip:</b> If you keep the SAME substitution names as those used in the wizard, this will make it easier to implement your instances, since you will only need to configure these substitutions ONCE, otherwise you will need to specify substitutions both during the SCADA Configuration and Graphical Substitution stages.</p><p>Then create a template from it, which incorporates the graphical components of the wizard (and any substitutions that it uses) along with SCADA configuration that you specify, from which you can create numerous instances each of which will create their own unique tags, which will be scanned, logged and/or alarmed, as specified by the template.</p><p class="Notices"><b>Note:</b> In order to create an object template you need to be fully aware about how your SCADA system (Agent Server) is configured. </p><p>Once you create an object template then any instance that you create of this template will provide the referenced wizard to provide the graphical components and uniquely configure the specified SCADA configuration for the process values that you specify for each object. For details, see <a href="Creating_an_Object_Instance.htm" class="MCXref_0">Creating an Object Instance</a>.</p><p>You can either deploy an instance immediately or you can partially or fully deploy this object later. For details, see <a href="Deploying_an_Object_Instance.htm" class="MCXref_0">Deploying an Object Instance</a>.</p><h3>Defining attributes for your templates and/or objects</h3><p>When creating an object template or an object instance, you are able to  add one or more attributes or searchable strings or identifiers to them that you can use to filter or group the objects that you deploy in the Context View window.</p><p>In other words these provide user-friendly terms that can be used to identify this object, such as equipment Type, whose value is motor or valve etc. or perhaps the power specification, such as 'kWh' and then specify the required value for each object.</p><p>Once an instance of an object template has been created, you can view both the template-specific and object-specific attributes have been defined and their configured values for this object. For details, see <a href="Viewing_the_defined_attributes_of_an_Object_Instance.htm" class="MCXref_0">Viewing the defined attributes of an Object Instance</a>.</p><h2>How the Context View window augments the object model</h2>(missing or bad snippet)<p>For more details, see <a href="../../../20DesEnv/10TW/10_20_10_0075_ContextView.htm" class="MCXref_0">Context View tool window</a>.</p>(missing or bad snippet)<p>Creating an object instance in a node of the  <b>Default</b> context can be particularly useful when its name and substitution/s use a predefined naming convention that specifies the context in which the instance is created. For details, see <a href="../../../20DesEnv/10TW/10_20_10_0075_MapDescriptor2Subs.htm" class="MCXref_0">Creating contextually sensitive object instances</a>.</p><p MadCap:conditions="Common.Screenshots"><img src="../../../../_WhatsNew/Images/ContextView_ObjectInstancesEx.png" /></p><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Installing and Setting Up [%=Adroit.AppName%]|[%=Adroit.AppName%] Configuration Setup (PSEXE)|Agent Server Configuration|Advanced Agent Server Configuration" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer,VIP.AdroitConfig" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Advanced Agent Server Configuration</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor267"></a>Advanced Agent Server Configuration</h1>
+        <p MadCap:conditions="Adroit.PSEXE">Using the <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><b> 
+ Configuration Setup</b>:</p>
+        <p MadCap:conditions="Adroit.PSEXE">Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Classic Setup</b>  and select it from the list.</p>
+        <p MadCap:conditions="Adroit.PSEXE">Click the <b>Agent 
+ Server</b> tab and click on the <b>Advanced…</b> 
+ button.</p>
+        <p MadCap:conditions="VIP.AdroitConfig">Using the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>:</p>
+        <p MadCap:conditions="VIP.AdroitConfig">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</p>
+        <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> in the right hand pane.</p>
+        <p MadCap:conditions="VIP.AdroitConfig">Click <b>Advanced Agent Server Configuration</b> in the right hand pane.</p>
+        <p>This displays a page of grouped advanced Agent Server settings.</p>
+        <ol>
+            <li class="Numbers" value="1"><a href="Agent_Server_Parameters.htm">Agent Server Parameters</a>: settings affecting the configuration and 
+ saving of the <span class="AdroitAppName">Adroit</span> database (.WGP) file and the location of the <span class="AdroitAppName">Adroit</span> 
+ system folder.</li>
+            <li class="Numbers" value="2"><b>Distributed 
+ Event Routing:</b> settings that allow you to route distributed error 
+ reports to a particular route number. For each event type: <b>Connected</b>, 
+ <b>Connection lost, Tag not found</b>, 
+ or <b>Duplicate tagname</b>, a route 
+ number may be specified. It is RECOMMENDED to NOT CONFIGURE these settings.</li>
+        </ol>
+        <ol start="3">
+            <li class="Numbers" value="3"><b>WGP 
+ Versioning:</b> settings that configure the automatic backup of WGP 
+ files and its versioning.</li>
+        </ol>
+        <ul start="1">
+            <li class="ListBullets" value="1">The <b>Delete 
+ WGP backup files older than</b> # <b>days</b> 
+ to <b>and a maximum limit of # files</b> 
+ edit boxes are used to configure the optional automatic backup of WGP 
+ files, for details, see <a href="Configuring_Automatic_WGP_File_Backups.htm">Configuring Automatic WGP File Backups</a>.</li>
+            <li class="ListBullets" value="2">
+                <p>The <b>Enable 
+ WGP version description entries</b> checkbox, is used to enable or 
+ disable the appearance of the <b>Save WGP 
+ file</b> pop-up dialog when the WGP file is manually saved - so that 
+ a description of the changes made to it since its previous save can be 
+ entered. </p>
+                <p>For details of this and the other versioning information saved 
+ to each WGP file, see <a href="Versioning_WGP_Files.htm">Versioning WGP Files</a>.</p>
+            </li>
+        </ul>
+        <ol start="4">
+            <li class="Numbers" value="4"><b>Server Auditing:</b> allows you to audit the Agent Server, in other words to log each  Agent Server <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">session<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">each time an application is started and stopped on a computer constitutes a single session of this program.</span></span> 
+ and selected activities performed during these sessions to an OLE DB database. 
+ For details, see <a href="Agent_Server_Auditing.htm">Agent Server 
+ Auditing</a>.</li>
+            <li class="Numbers" value="5"><b>Debug 
+ Flags:</b> settings used primarily by <span class="AdroitAppName">Adroit</span> support engineers, 
+ for diagnosing system problems.</li>
+        </ol>
+        <p class="ListNotice"><b>WARNING!</b> Turning 
+ these on <b>SLOWS the Agent Server down</b>. For details, see <a href="../AU_01_14/Adroit_Support_Debug_Flags.htm"><span class="AdroitAppName">Adroit</span> 
+ About Debug Flags</a>.</p>
+        <ol start="6">
+            <li class="Numbers" value="6"><b><a name="kanchor268"></a>Processor 
+ affinity:</b> allows you to select which processors the Agent Server 
+ runs on simultaneously, for computers that have more than one physical processor, by checking the required checkboxes. By 
+ default ONLY the first processor is selected.</li>
+        </ol>
+        <p MadCap:conditions="VIP.AdroitConfig">The following items are only provided by <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>:</p>
+        <ol start="6">
+            <li class="Numbers" MadCap:conditions="VIP.AdroitConfig" value="6"><b>Event Logging:</b> check the <b>Enable 
+ logging of Agent Server system events</b> checkbox, to enable the logging 
+ of such events as: when time-stamped data is rejected by a mimic for being 
+ to old etc.</li>
+            <li class="Numbers" MadCap:conditions="VIP.AdroitConfig" value="7"><b>Agent Server Connectivity:</b>  From <span class="AdroitAppVerName">Adroit 10</span> Agent Servers allow clients to connect to them by using sockets over and above the legacy named pipes.</li>
+            <li class="ListSubBullet" MadCap:conditions="VIP.AdroitConfig" value="8">Sockets  give you better performance when a remote client (running on another computer) connects to an Agent Server. </li>
+            <li class="ListSubBullet" MadCap:conditions="VIP.AdroitConfig" value="9"> Named pipes  gives you better performance when a local client (running on the same computer) connects to an Agent Server.</li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="VIP.AdroitConfig">Therefore <span class="AdroitAppName">Adroit</span> client software  need to specify which of the following mechanisms they want to use when connecting to local and remote Agent Servers:</p>
+        <ol>
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="1">Uncompressed Named Pipes (UNP) both locally and remotely: this is the legacy default.</li>
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="2">UNP locally, and Sockets (TCP) remotely: this provides the best performance for LAN/WAN applications and where network traffic needs to be controlled across switches etc.</li>
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="3">Compressed Named Pipes (CNP) both locally and remotely: this provides the best performance for LAN/WAN applications with restricted connectivity.</li>
+            <li class="ListBullets" MadCap:conditions="VIP.AdroitConfig" value="4">TCP both locally and remotely: TCP is slower for local connections when compared to UNP.</li>
+        </ol>
+        <p class="ListNotice" MadCap:conditions="VIP.AdroitConfig"><b>IMPORTANT:</b> Please ensure that all <span class="AdroitAppName">Adroit</span> computers across your enterprise are configured for either named pipes or sockets, but not a mixture thereof!</p>
+        <ol start="9">
+            <li class="Numbers" MadCap:conditions="VIP.AdroitConfig" value="9">
+                <p><b>Legacy UI Parameters:</b> When converting your existing Classic UI mimics and/or trends into SmartUI graphic forms, then check the <b>Enable Xaml Saving</b> checkbox.</p>
+                <p class="Notices"><b>Note:</b> You need to RESTART the Classic UI after changing this setting.</p>
+                <p>This enables the “secondary” xaml saving functionality in the Classic UI. So when saving a mimic (with this setting enabled) in the Classic UI, you will be prompted to save the mimic as a .xaml file as well as a .mim file. This .xaml file is used to import this mimic document into the SmartUI.</p>
+                <p>This also enables the “secondary” xml saving functionality in the Classic UI. So when saving a trend (with this setting enabled) in the Classic UI, you will be prompted to save the trend as a .xml file as well as a .trn file. This .xml file is used to import this trend document into the SmartUI.</p>
+            </li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

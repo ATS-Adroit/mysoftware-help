@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Troubleshooting importing of spiders and silks</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1322"></a><a name="kanchor1323"></a>Troubleshooting importing of spiders and silks</h1>
+        <p>The <b>Import Configuration</b> spider 
+ workspace menu item, can be used to import the configuration of spiders 
+ and/or silks from a Microsoft Excel XML file into the selected spider 
+ workspace. This will re-configure the spider workspace to the configuration 
+ specified in this file.</p>
+        <p class="Notices"><b>Note:</b> Importing 
+ can be used to re-configure and create spiders and silks and will not 
+ delete any spiders or silks that are not configured in the imported file.</p>
+        <p class="Notices"><b>Tip:</b> It is highly 
+ recommended that close attention be paid to the <b>Import 
+ Results</b> dialog of the <b>Import Wizard</b>.</p>
+        <p class="Notices">This is because it provides detailed information concerning the MANUAL configuration 
+ that still needs to be performed and all the spiders and/or silks that 
+ could not be imported.</p>
+        <h2>To troubleshoot the importing of spiders and silks:</h2>
+        <p>The troubleshooting of this wizard, is displayed per dialog, as follows:</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The Import Configuration 
+ dialog:</a>
+        </p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <p class="ListDesc">On clicking <b>Next</b> 
+ the specified XML file is opened, so that the spider and/or silk configuration 
+ contained within it can be imported into this spider workspace.</p>
+            <p class="ListNotice"><b>Note:</b> Microsoft 
+ Excel locks spreadsheet files that are currently open, which prevents 
+ them from being imported from.</p>
+            <p class="ListNotice">Therefore ensure that the specified file 
+ is closed in Microsoft Excel before importing the spider and/or silk 
+ configuration into this spider workspace.</p>
+            <p class="ListDesc">If the specified file could not be opened, any error(s) preventing this 
+ will be displayed in bold within this dialog, such as:</p>
+            <ul>
+                <li class="ListBullets" value="1">an invalid or nonexistent 
+ path or file</li>
+                <li class="ListBullets" value="2">the file is read-only</li>
+                <li class="ListBullets" value="3">the file has an incorrect 
+ format</li>
+                <li class="ListBullets" value="4">the file was locked by 
+ another application</li>
+                <li class="ListBullets" value="5">the file denied reading 
+ from to it&#160;</li>
+            </ul>
+            <p>&#160;</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The Map Worksheets 
+ dialog:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <p>On clicking <b>Next</b> the necessary 
+ spreadsheet name(s) are processed. Therefore:</p>
+            <ul>
+                <li class="Bullets" value="1">If the <b>Silk 
+ Linking</b> spreadsheet name is incorrectly specified the&#160;"Silk 
+ linking worksheet in incorrect format" error will be displayed in 
+ this dialog.</li>
+                <li class="Bullets" value="2">If the <b>Spider 
+ Definitions</b> spreadsheet name is incorrectly specified the&#160;"Spider 
+ Definitions worksheet in incorrect format" error will be displayed 
+ in this dialog.</li>
+            </ul>
+            <p class="Notices"><b>Note:</b> If ONLY 
+ importing silk or spider configuration, then ensure that the BLANK spreadsheet 
+ name is selected as the specified name for the OTHER spreadsheet, to prevent 
+ this incorrect format error.</p>
+            <p class="notices">&#160;</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The Spider Configuration 
+ dialog:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p>This displays the results of the comparison of the spiders referenced 
+ within the XML file with those present within this spider workspace, as 
+ follows:</p>
+            <p class="Notices"><b>Note:</b> This dialog 
+ will be displayed even if ONLY the SILK configuration is being imported, 
+ so that any referenced spiders that do not exist can be created.</p>
+            <ol start="1">
+                <li class="Numbers" value="1">The top list, displays 
+ the spiders that are ONLY referenced within the XML file and which need 
+ to be created. This list contains four columns, which provide important 
+ information concerning the success of importing these spiders, as follows:</li>
+            </ol>
+            <ol>
+                <li class="NumbersSubLetters" value="1"><b>Name:</b> Only spiders that have DIFFERENT 
+ names than the existing spiders in this spider workspace will appear in 
+ this list. Therefore any spider that has the same name as an existing 
+ spider will NOT be appear in this list EVEN if it is of a DIFFERENT type.</li>
+                <li class="NumbersSubLetters" value="2"><b>Type:</b> If spiders of <b>Type</b> 
+ 'property' are listed in this list, they will ONLY be created if the appropriately 
+ named control and its specified property exists in the graphic form associated 
+ with this spider workspace. For instance, textBox.text will only be imported 
+ if a control with the name of 'textBox', which has a property 'Text' exists.</li>
+            </ol>
+            <p class="ListNoteSub"><b>WARNING!</b> All 
+ names are case-sensitive, therefore ENSURE that the correct case is provided 
+ otherwise the specified items may NOT be recognised when they are imported. 
+ This includes the names of the spider types, data elements and controls, 
+ components and graphic elements and their property names.</p>
+            <ol start="3">
+                <li class="NumbersSubLetters" value="3"><b>Configured Inputs</b> and <b>Configured 
+ Outputs:</b> These columns give an indication of how many inputs and 
+ outputs have configurations that need to be imported from the spider configuration 
+ spreadsheet.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> Even 
+ if an input or output is specified as having been configured, this does 
+ not mean that it is actually connected to a silk.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">The middle list, contains 
+ any duplicate spiders or the spiders referenced in the XML file that ALREADY 
+ exist in this spider workspace, which can be selectively imported, as 
+ required.</li>
+            </ol>
+            <p class="ListNotice"><b>WARNING!</b> If 
+ any of these existing spiders are imported, they may MODIFY the existing 
+ configuration of these spiders, however they will not delete any existing 
+ inputs or outputs.</p>
+            <p class="ListNotice"><b>Note:</b> ALL spiders 
+ that have the SAME name as an existing spider in this spider workspace 
+ will appear in this list EVEN if it is of a DIFFERENT type.</p>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1"><b>Name:</b> Empty the checkbox of each spider 
+ that should NOT be imported i.e. for each spider whose existing configuration 
+ should not be lost. By default all the checkboxes are ticked.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> Double-clicking 
+ on the name will check or empty the checkbox.&#160;</p>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2"><b>Type:</b> This ONLY specifies the type of 
+ spider that is to be imported. However if an existing spider has the same 
+ name, but a different type, this spider will not be imported.&#160;</li>
+                <li class="NumbersSubLetters" value="3"><b>Configured Inputs</b> and <b>Configured 
+ Outputs:</b> These columns give an indication of how many inputs and 
+ outputs have configurations that need to be imported from the spider configuration 
+ spreadsheet.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> Even 
+ if an input or output is specified as having been configured, this does 
+ not mean that it is actually connected to a silk.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">The bottom list, displays 
+ any spider-specific errors that have been detected that will prevent them 
+ from being successfully imported into this spider workspace.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> If there 
+ is something missing from the importing spreadsheet, for instance, the 
+ spider type is not specified anywhere, then the spider and the reason 
+ for not being able to import is reported here.</p>
+            <p>&#160;</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The Silk Configuration dialog:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>This displays the results of the comparison of the silks referenced 
+ within the XML file with those present within this spider workspace, as 
+ follows:</p>
+            <ol start="1">
+                <li class="Numbers" value="1">The top list, displays 
+ the silks that are ONLY referenced within the XML file and which need 
+ to be created. This list consists of the following four columns, each 
+ of which can provide important information concerning the success of importing 
+ these silks, as follows:</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> If only 
+ the silk configuration is being imported, this will list every spider 
+ connected by a silk that does not currently exist in the spider workspace.</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1"><b>Source:</b> The name of the spider whose 
+ output provides the source of this silk i.e. the spider whose value is 
+ transferred by this silk to another spider.</li>
+                <li class="NumbersSubLetters" value="2"><b>Destination:</b> The name of the spider 
+ whose input provides the destination of this silk i.e. the spider which 
+ receives values from this silk.</li>
+                <li class="NumbersSubLetters" value="3"><b>Trigger Output:</b> This column specifies 
+ whether this silk is used to trigger the <b>Destination</b> 
+ spider once the value provided by the <b>Source</b> 
+ spider changes. If this is False then the spider can be triggered from 
+ an event or by means of a Triggering spider etc.</li>
+                <li class="NumbersSubLetters" value="4"><b>TemplateSet(s):</b> This specifies the name(s) 
+ of the template sets that this silk is associated with.</li>
+            </ol>
+            <ol start="2">
+                <li class="Numbers" value="2">The middle list, contains 
+ all the duplicate silks or the silks referenced in the XML file that ALREADY 
+ exist in this spider workspace, which can be selected imported, as required.</li>
+            </ol>
+            <p class="ListNotice"><b>WARNING!</b> If 
+ any of these existing silks are imported, they may MODIFY the existing 
+ configuration of these existing silks, such as their associated template 
+ set and their Trigger Output setting.</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1"><b>Source:</b> The name of the spider whose 
+ output provides the source of this silk. Empty the checkbox in this column, 
+ of each silk that should NOT be imported i.e. for each silk whose existing 
+ configuration should not be lost. By default all the checkboxes are ticked.&#160;</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> Double-clicking 
+ on the required <b>Source</b> name will 
+ check or empty the checkbox.&#160;</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1"><b>Destination:</b> The name of the spider 
+ whose input provides the destination of this silk.&#160;</li>
+                <li class="NumbersSubLetters" value="2"><b>Trigger Output:</b> This column specifies 
+ whether silk triggering has been enabled for this silk.</li>
+                <li class="NumbersSubLetters" value="3"><b>TemplateSet(s):</b> This specifies the name(s) 
+ of the template sets that this silk is associated with.</li>
+            </ol>
+            <ol start="3">
+                <li class="Numbers" value="3">The bottom list, displays 
+ any syntactic errors that have been detected in the silk import worksheet 
+ that will prevent them from being successfully imported into this spider 
+ workspace.</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

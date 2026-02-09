@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Setting row heights and column widths in the TableLayoutPanel</title>
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3313"></a>Setting row heights and column widths in the TableLayoutPanel</h1>
+        <p>All the rows and columns of controls in the TableLayoutPanel control have an associated style which sets its <b>sizeType</b> property or style that determines how the available space in the TableLayoutPanel control is allocated for each column and row. </p>
+        <p class="Notices"><b>Note:</b> This <b>sizeType</b> property is of particular importance when auto sizing this TableLayoutPanel control.</p>
+        <p>The <b>Column and Row Styles</b> editor is launched by the TableLayoutPanel control to edit this styles in one of the following ways:</p>
+        <ul>
+            <li class="Bullets" value="1">By selecting the <b>Edit rows and columns...</b> right click menu option or <b>Tasks</b> menu hyperlink.</li>
+            <li class="Bullets" value="2">Configure the <b>Columns</b> property of the TableLayoutPanel control.</li>
+            <li class="Bullets" value="3">Configure the <b>Rows</b> property of the TableLayoutPanel control.</li>
+        </ul>
+        <p>If necessary select <b>Columns</b> or <b>Rows</b> from the <b>Show</b> list box and then configure the <b>sizeType</b> property of each one, as follows:</p>
+        <p class="Notices"><b>Note</b>: If these styles are empty or there are more rows/columns than styles, the default style is "<b>Autosize</b>".</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Absolute</b>: The row or column is sized to an exact number of pixels (allocates the full space).</li>
+            <li class="Bullets" value="2"><b>Autosize</b>: The row or column is automatically sized to share space with its peers, so that it takes up the minimum size necessary to fully contain the largest control in the column/row (allocates as much as is needed to fit the controls in the column/row).</li>
+            <li class="Bullets" value="3"><b>Percent</b>: The row or column should be sized to a normalised percentage of <b>remaining space</b>  (allocates the distribution of the remaining space).</li>
+        </ul>
+        <p>The <b>Autosize</b> property of the TableLayoutPanel control affects the way in which the available space in the TableLayoutPanel control is allocated for each column and row when this TableLayoutPanel control is auto sized and hence affects how the configured <b>sizeType</b> property of each row and column style operates, as follows:</p>
+        <table style="width: 100%;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');border-left-style: solid;border-left-width: 1px;border-left-color: #000000;border-right-style: solid;border-right-width: 1px;border-right-color: #000000;border-top-style: solid;border-top-width: 1px;border-top-color: #000000;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #000000;" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" style="width: 38px;" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Autosize</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">How this affects the current row height or  column width sizeType setting</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">false</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The TableLayoutPanel control proceeds from left to right, and allocates space for the column or row or in the following order.</p>
+                        <ul>
+                            <li class="Bullets" value="1">If the <b>sizeType</b> property is set to <b>Absolute</b>, this allocates the number of pixels specified by the width or height of the TableLayoutPanel control.</li>
+                            <li class="Bullets" value="2">If the <b>sizeType</b> property is set to <b>Autosize</b>, this allocates the minimum number of pixels to fully contain the largest control in the column/row.</li>
+                            <li class="Bullets" value="3">After space for all <b>Absolute</b> and <b>Autosize</b> columns or rows is allocated, any columns or rows with <b>sizeType</b> set to <b>Percent</b> are used to proportionally allocate the remaining free space.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">true</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>Similar to the previous interaction, with the exception that the <b>Percent</b> columns or rows are treated as if they were <b>Autosize</b>.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Examples of configuring  column widths in the TableLayoutPanel control</h2>
+        <p><b>Example I:</b> Percentage styled columns attempt to fill the  <b>remaining space</b>, so you would configure a 200px wide table with 20px absolute, an auto sized column and a 100% column, as follows:</p>
+        <p>1.Column1 Absolute: 20 px</p>
+        <p>2.Column2 Autosize: whatever the preferred size is... say this measures to be 100px</p>
+        <p>3.Column3 Percent: 100%: 200 - 20 - 100 = 80px.</p>
+        <p><b>Example II:</b> If there are two percentage style columns, the 80 pixels would be divided up between the two columns in proportion to one another - so if we had 20% and 80% it would be:</p>
+        <p>1.Column1 Absolute: 20 px</p>
+        <p>2.Column2 Autosize: whatever the preferred size is... say this measures to be 100px</p>
+        <p>3.Column3 Percent: 20%: (200 - 20 – 100) = 80px remaining space.          80px * .20  = 16px.</p>
+        <p>4.Column4 Percent: 80%: (200 - 20 – 100) = 80px remaining space.          80px * .80  = 64px.</p>
+        <p><b>Example III:</b> Exactly the same as above but the two percentage style columns are both 75%, the 80 pixels would be split equally between the two normalised columns:</p>
+        <p>1.Column1 Absolute: 20 px</p>
+        <p>2.Column2 Autosize: whatever the preferred size is... say this measures to be 100px</p>
+        <p>3.Column3 Percent: 75% (normalises to 50%): (200 - 20 – 100) = 80px remaining space.     80px * .50  = 40px.</p>
+        <p>4.Column4 Percent: 75% (normalises to 50%): (200 - 20 – 100) = 80px remaining space.     80px * .50  = 40px.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Scripts|INeed Interfaces" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="INeed Interfaces.doc" /><title>INeed interfaces object reference</title>
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1656"></a>INeed interfaces object reference</h1>
+        <p>INeed interfaces are made available to scripts to provide them access 
+ to the various components of the <span class="VIPAppName">SmartUI</span>Server and/or the Client.</p>
+        <p>For this reason, 
+ the INeed interfaces required by a script will depend upon whether it 
+ is required to interact with either the <span class="VIPAppName">SmartUI</span> Server or the Client or both of 
+ them. For details, see <a href="Working_with_INeed_Interfaces.htm">Working 
+ with INeed Interfaces</a>.</p>
+        <p><span class="VIPAppName">SmartUI</span> Scripting provides the following objects exposed 
+ to the Engine through the <b>INeed</b> interfaces:</p>
+        <p class="Notices"><b>Note:</b> Clicking 
+ on the hyperlinks will move to the start of the object reference for the 
+ specified INeed interface.</p>
+        <h2>MyConnection</h2>
+        <p>Type: <a href="#VIZNET_Shared_Interfaces_IConnection">VIZNET.Shared.Interfaces.IConnection</a>.</p>
+        <h2>MyApplication</h2>
+        <p>Type: <a href="#VIZNET_Shared_Interfaces_UI_IObjectManager">VIZNET.Shared.Interfaces.UI.IObjectManager</a>.</p>
+        <p>Type: <b>VIZNET.Shared.Interfaces.UI.IMain</b>&#160;</p>
+        <h2>MyController</h2>
+        <p>Type: <a href="#VIZNET_Shared_Interfaces_INeedController">VIZNET.Shared.Interfaces.INeedController</a>.</p>
+        <h2>MyInputs</h2>
+        <p>Type: System.Collections.Hashtable&#160;*</p>
+        <h2>MyOutputs</h2>
+        <p>Type: System.Collections.Hashtable&#160;*</p>
+        <h2>MyGraphicObject</h2>
+        <p>Type: 
+ System.Windows.Forms.Control&#160;*</p>
+        <p>&#160;</p>
+        <p>* Documentation related to the System namespace 
+ can be found on msdn.microsoft.com</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p><b><a name="VIZNET_Shared_Interfaces_IConnection"></a>VIZNET.Shared.Interfaces.IConnection:</b>
+        </p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Event raised when a connection is established</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">event</span> 
+ EventHandler Connected;</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Event raised when disconnecting</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">event</span> 
+ EventHandler Disconnecting;</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Event raised when the connection is disconnected</p>
+        <p>&#160;&#160;&#160;&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">event</span> 
+ EventHandler Disconnected;</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Event raised when the connection has been lost</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">event</span> 
+ EventHandler ConnectionLost;</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Event which gets raised when a DataSourcePlugin 
+ is locked</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">event</span> 
+ DefaultEvent LockedDataSource;</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Event which gets raised when a DataSourcePlugin 
+ is unlocked</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">event</span> 
+ DefaultEvent UnlockedDataSource;</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>The Default Server to use if the service request, 
+ which do not specify a servername is used.</p>
+        <p>This does not apply to the DataElement requests 
+ in which the server is part of the DataElement Name property.</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">string</span> 
+ DefaultServerName</p>
+        <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">get</span>;</p>
+        <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">set</span>;</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Returns the User Name for an instance of the connection 
+ specified by serverName</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">ServerName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ severname for a relative username</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">string</span> 
+ GetUserName(<span style="color: #0000ff;">string</span> serverName);</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>The Default Seperator to use if the string[] DataElement 
+ requests are used</p>
+        <p>This does not apply to the DataElement requests 
+ in which the seperator is part of the DataElement Seperator property.</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">string</span> 
+ DefaultSeperator</p>
+        <p>&#160;&#160;&#160;&#160;&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">get</span>;</p>
+        <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">set</span>;</p>
+        <p>&#160;&#160;&#160;&#160;&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>This function will request that the DataSource at 
+ the specified server is locked for writing.</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">serverName -</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span>
+        </p>
+        <p>Returns:</p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ LockDataSource( String server, String dataSourceName );</p>
+        <p>&#160;&#160;&#160;&#160;&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>This function will request that the DataSource at 
+ the default server is locked for writing.</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span>
+        </p>
+        <p>Returns:</p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ LockDataSource( String dataSourceName );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>This function will request that the DataSource at 
+ the specified server is unlocked for writing (i.e.</p>
+        <p>can be written to)</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">serverName -</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span>
+        </p>
+        <p>Returns:</p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ UnlockDataSource( String server, String dataSourceName );</p>
+        <p>&#160;&#160;&#160;&#160;&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>This function will request that the DataSource at 
+ the default server is unlocked for writing (i.e.</p>
+        <p>can be written to)</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span>
+        </p>
+        <p>Returns:</p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ UnlockDataSource( String dataSourceName );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Return data elements from the server</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataElementNames -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Data Element Collection of Data Elements to read</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo contianing a NodeDataElementCollection</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ ReadDataElements( DataElementCollection dec );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Return historical (logged) data elements from the 
+ server for DataSources capable of this function</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dec -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Data 
+ Element Collection of Historical Data Elements to read</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">endTime -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ start time for the historical frame</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">sampleRate -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ end time for the historical frame</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">startTime -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ sample rate (in milliseconds)</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo containing a NodeDataElementCollection; 
+ NOTE: This</span>
+        </p>
+        <p>NodeDataElementCollection is of a specific format 
+ and the elements requested are</p>
+        <p>returned as DataElements containing a DataTable 
+ in the Value property of each</p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">DataElement</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">&lt;remarks&gt;</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The Data in the DataTable should also be returned 
+ in a specific format:</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">TimeStamp [DateTime]; 
+ Value [Object]; Quality [int]</span><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">&lt;/remarks&gt;</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ ReadHistoricalDataElements( DataElementCollection dec, DateTime startTime, 
+ DateTime endTime, <span style="color: #0000ff;">long</span> sampleRate 
+ );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Adds DataElements to the specific data source</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dec -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Dataelement 
+ collection of the Data Elements to send</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ AddDataElements( DataElementCollection dec );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Sends updated data elements to the server</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dec -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Data 
+ Element Collection of Data Elements to update</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ UpdateDataElements( DataElementCollection dec );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Remove/Delete a data element from a dataSource</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataElementNamesArray -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Data Element Collection of Data Elements to delete</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ RemoveDataElements( DataElementCollection dec );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Add a new instance of a datasource to the server</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server on which to create the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">sourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ opf the new Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">sourceType -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ Data Source type</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">connectionstring -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The connection string</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ AddDataSource( <span style="color: #0000ff;">string</span> server, <span style="color: #0000ff;">string</span> sourceName, <span style="color: #0000ff;">string</span> 
+ sourceType, <span style="color: #0000ff;">string</span> connectionstring);</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Remove an instance of a datasource from the VIZNET 
+ Server</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name of the instance of datasource to remove</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ RemoveDataSource( <span style="color: #0000ff;">string</span> server, 
+ <span style="color: #0000ff;">string</span> dataSourceName );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Rename the data element</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">oldName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">old 
+ Data Element</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">newName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">new 
+ Data Element</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ RenameDataElement( DataElement oldDE, DataElement newDE );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Retrieve a TreeNode that contains all of the data 
+ elements for a specific data source</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">name of the data source from which the list must be 
+ created</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo contining a TreeNode</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetDataElementList( <span style="color: #0000ff;">string</span> server, 
+ <span style="color: #0000ff;">string</span> dataSourceName );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Retrieve a TreeNode that contains all of the data 
+ elements for a specific data source</p>
+        <p>Starting at the top level element name, and going 
+ no further than specified in the depth variable</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">&#160;name of the data source from which the list 
+ must be created</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not and a TreeNode contianing the request DataElements</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetDataElementList( <span style="color: #0000ff;">string</span> server, 
+ <span style="color: #0000ff;">string</span> dataSourceName, <span style="color: #0000ff;">string</span> 
+ topLevelElementName, <span style="color: #0000ff;">long</span> depth );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Call a special function on a specific data source</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name of the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">functionXML -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">XmlFunction 
+ document that contains all the details of the function to execute</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Return MethodReturnInfo which will contain the 
+ result of the function</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160;MethodReturnInfo 
+ CallSpecialFunction( <span style="color: #0000ff;">string</span> server, 
+ <span style="color: #0000ff;">string</span> dataSourceName, VIZNET.Shared.XML.FunctionXMLDOM 
+ functionXML );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Call a STATIC special function on a specific data 
+ source; Here we pass the DataSourceType and not the name of the instance</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceType -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The Name of the Type of Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">functionXML -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">XmlFunction 
+ document that contains all the details of the function to execute</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Return MethodReturnInfo which will contain the 
+ result of the function</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ CallStaticSpecialFunction( <span style="color: #0000ff;">string</span> 
+ server, <span style="color: #0000ff;">string</span> dataSourceType, VIZNET.Shared.XML.FunctionXMLDOM 
+ functionXML );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Retrieve an ArrayList that contains all the data 
+ sources special functions</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name of the Data Source</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetSpecialFunctionList( <span style="color: #0000ff;">string</span> server, 
+ <span style="color: #0000ff;">string</span> dataSourceName );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Get a list of instances of datasources already created 
+ on the server;</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ server from which the Data Source list is collected</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The MethodReturnInfo.ReturnObject contains a NodeDataElementCollection.</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160;MethodReturnInfo 
+ GetDataSourceList( <span style="color: #0000ff;">string</span> server 
+ );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Get a list of instances of datasources already created 
+ on the server;</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ server from which the Data Source list is collected</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceType -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The type of data source which should be returned</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The MethodReturnInfo.ReturnObject contains a NodeDataElementCollection.</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetDataSourceList( <span style="color: #0000ff;">string</span> server, 
+ <span style="color: #0000ff;">string</span> dataSourceType );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Get a list of instances of datasources already created 
+ on the server;</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ server from which the Data Source list is collected</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">browsable -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Is 
+ the Data Source browsable&#160;&#160;&#160;&#160;</span>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">system -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Is 
+ the data source a system data source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The MethodReturnInfo.ReturnObject contains a NodeDataElementCollection.</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetDataSourceList( <span style="color: #0000ff;">string</span> server, 
+ <span style="color: #0000ff;">bool</span> browsable, <span style="color: #0000ff;">bool</span> 
+ system );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Subscribe to the data element array with your own 
+ callback;</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ Subscribe( DataElementCollection dec, DataElementUpdateEvent callback 
+ );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>desubscribe to the list of data elements</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataElementNames -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Data Element Collection of Data Elements to be desubscribe 
+ to</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">callback -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ call back method</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ Desubscribe( DataElementCollection dec, DataElementUpdateEvent callback 
+ );</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; <span style="color: #008000;">&#160;The 
+ following methods must use the default servername</span></p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Add a new instance of a datasource to the server</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server on which to create the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">sourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ opf the new Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">sourceType -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ Data Source type</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">connectionstring -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The connection string</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ AddDataSource( <span style="color: #0000ff;">string</span> sourceName, 
+ <span style="color: #0000ff;">string</span> sourceType, <span style="color: #0000ff;">string</span> 
+ connectionstring);</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Remove an instance of a datasource from the VIZNET 
+ Server</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name of the instance of datasource to remove</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ RemoveDataSource( <span style="color: #0000ff;">string</span> dataSourceName 
+ );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Retrieve a TreeNode that contains all of the data 
+ elements for a specific data source</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">name of the data source from which the list must be 
+ created</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo contining a TreeNode</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetDataElementList( <span style="color: #0000ff;">string</span> dataSourceName 
+ );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Retrieve a TreeNode that contains all of the data 
+ elements for a specific data source</p>
+        <p>Starting at the top level element name, and going 
+ no further than specified in the depth variable</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">&#160;name of the data source from which the list 
+ must be created</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo stating if the operation was 
+ a success or not and a TreeNode contianing the request DataElements</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetDataElementList( <span style="color: #0000ff;">string</span> dataSourceName, 
+ <span style="color: #0000ff;">string</span> topLevelElementName, <span style="color: #0000ff;">long</span> depth );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Call a special function on a specific data source</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name of the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">functionXML -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">XmlFunction 
+ document that contains all the details of the function to execute</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Return MethodReturnInfo which will contain the 
+ result of the function</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ CallSpecialFunction( <span style="color: #0000ff;">string</span> dataSourceName, 
+ VIZNET.Shared.XML.FunctionXMLDOM functionXML );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Call a STATIC special function on a specific data 
+ source; Here we pass the DataSourceType and not the name of the instance</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceType -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The Name of the Type of Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">functionXML -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">XmlFunction 
+ document that contains all the details of the function to execute</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Return MethodReturnInfo which will contain the 
+ result of the function</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ CallStaticSpecialFunction( <span style="color: #0000ff;">string</span> 
+ dataSourceType, VIZNET.Shared.XML.FunctionXMLDOM functionXML );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Retrieve an ArrayList that contains all the data 
+ sources special functions</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name 
+ of the server which contains the Data Source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceName -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Name of the Data Source</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetSpecialFunctionList( <span style="color: #0000ff;">string</span> dataSourceName 
+ );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Get a list of instances of datasources already created 
+ on the server;</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ server from which the Data Source list is collected</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The MethodReturnInfo.ReturnObject contains a NodeDataElementCollection.</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetDataSourceList();</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Get a list of instances of datasources already created 
+ on the server;</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ server from which the Data Source list is collected</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataSourceType -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The type of data source which should be returned</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The MethodReturnInfo.ReturnObject contains a NodeDataElementCollection.</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetDataSourceList( <span style="color: #0000ff;">string</span> dataSourceType, 
+ <span style="color: #0000ff;">params</span> <![CDATA[  ]]><span style="color: #0000ff;">object</span>[] 
+ args );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Get a list of instances of datasources already created 
+ on the server;</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">server -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ server from which the Data Source list is collected</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">browsable -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Is 
+ the Data Source browsable&#160;&#160;&#160;&#160;</span>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">system -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Is 
+ the data source a system data source</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The MethodReturnInfo.ReturnObject contains a NodeDataElementCollection.</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ GetDataSourceList( <span style="color: #0000ff;">bool</span> browsable, 
+ <span style="color: #0000ff;">bool</span> system );</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #0000ff;">&#160;&#160;&#160;&#160;&#160; 
+ #region</span><span style="font-size: 8.0pt;font-family: Verdana;"> Array 
+ Data Element requests</span>
+        </p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Return data elements from the server</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataElementNames -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">string array of dataelement names to retrieve</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo contianing a NodeDataElementCollection</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ ReadDataElements( <span style="color: #0000ff;">string</span>[] dataElementNames 
+ );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Return a specific data element from server</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ ReadDataElement( <span style="color: #0000ff;">string</span> dataElementName 
+ );&#160;&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Remove/Delete a data element from a dataSource</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataElementNamesArray -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">a string array of dataelements to remove</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">MethodReturnInfo contianing NodeDataElementCollection</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ RemoveDataElements( <span style="color: #0000ff;">string</span>[] dataElementNamesArray);&#160;&#160;&#160;&#160;</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Subscribe to the data element array with your own 
+ callback;</p>
+        <p>&#160;</p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ Subscribe( <span style="color: #0000ff;">string</span>[] dataElementNames, 
+ DataElementUpdateEvent callback );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>Subscribe to the data element with your own callback</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataElementName -</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">callback -</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ Subscribe( <span style="color: #0000ff;">string</span> dataElementName, 
+ DataElementUpdateEvent callback );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>desubscribe to the list of data elements</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataElementNames -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Array of Data Element names that are to be desubscribed</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">callback -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ call back method</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ Desubscribe( <span style="color: #0000ff;">string</span>[] dataElementNames, 
+ DataElementUpdateEvent callback );</p>
+        <p>&#160;</p>
+        <p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b>
+        </p>
+        <p>desubscribe to the data element</p>
+        <p>&#160;</p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">dataElementNames -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The name of the Data Element that is to be desubscribed</span>
+        </p>
+        <p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">callback -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">The 
+ call back method</span>
+        </p>
+        <p>&#160;&#160;&#160;&#160;&#160; MethodReturnInfo 
+ Desubscribe( <span style="color: #0000ff;">string</span> dataElementName, 
+ DataElementUpdateEvent callback );</p>&#160; 
+
+<p><a name="VIZNET_Shared_Interfaces_UI_IObjectManager">VIZNET.Shared.Interfaces.UI.IObjectManager</a>:<b>VIZNET.Shared.Interfaces.UI.IMain:</b></p><span style="font-size: 8.0pt;font-family: Verdana;"><br style="clear: all;" clear="all" /></span><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b><p>set a object value in the public hahstable</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">key -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">hashtable 
+ key</span></p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">objvalue -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">object</span></p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ SetObject(<span style="color: #0000ff;">object</span> key, <span style="color: #0000ff;">object</span> 
+ objvalue);</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>remove a object from the public hashtable</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">key -</span></p><p>Returns:</p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">object</span> 
+ RemoveObject(<span style="color: #0000ff;">object</span> key);</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>return the object by key as stored in the public 
+ hashtable</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">key -</span></p><p>Returns:</p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">object</span> 
+ GetObject(<span style="color: #0000ff;">object</span> key);</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Shut down the Main UI</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ Exit();</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ AddTreeToExplorer( IVIZNETTreeView tree, <span style="color: #0000ff;">bool</span> 
+ dragDropEnabled );&#160;</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ RemoveTreeFromExplorer( IVIZNETTreeView tree );</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Verdana;">&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">int</span> CurrentCultureID&#160;&#160; 
+ <span style="color: #0000ff;">get</span>;&#160; <br style="clear: all;" clear="all" /></span><b><u><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Used for GO Instance Form Manipulation</p><p>&#160;</p><p>&#160;&#160; <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">enum</span> GraphicObjectDialogType</p><p>&#160;&#160;</p><p>&#160;&#160;&#160;&#160;&#160; ModalForm,</p><p>&#160;&#160;&#160;&#160;&#160; ModelessForm,</p><p>&#160;&#160;&#160;&#160;&#160; TabPage,</p><p>&#160;&#160;&#160;&#160;&#160; Replace</p><p>&#160;&#160;</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Get the boolean value to indicate if the application 
+ is currently running the in VIZNET Designer, or VIZNET Operator</p><p>It will return True if it is in 'Design Mode' and 
+ false in 'Run Mode'</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">bool</span> 
+ DesignMode</p><p>&#160;&#160;&#160;&#160;&#160;</p><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">get</span>;</p><p>&#160;&#160;&#160;&#160;&#160;</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Create and show a detailed exception (and further 
+ information) in a configuration dialog</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">ex -</span></p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ ShowException(Exception ex);</p><p>&#160;</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>display an message in the configuration dialog for users 
+ to see</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">ex -</span></p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ ShowInformation(<span style="color: #0000ff;">string</span> caption, <span style="color: #0000ff;">string</span> message);</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Get the string representation of the currently logged 
+ on user (through UIConnection.CurrentConnection)</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">string</span> 
+ CurrentUser</p><p>&#160;&#160;&#160;&#160;&#160;</p><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">get</span>;</p><p>&#160;&#160;&#160;&#160;&#160;</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Set/Get The Main Application Window size</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; size size</p><p>&#160;&#160;&#160;&#160;&#160;</p><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">get</span>;</p><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">set</span>;</p><p>&#160;&#160;&#160;&#160;&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Current Main Application Window Position</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; Point Location</p><p>&#160;&#160;&#160;&#160;&#160;</p><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">get</span>;</p><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">set</span>;</p><p>&#160;&#160;&#160;&#160;&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Main Application WindowState</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; System.Windows.Forms.FormWindowState 
+ WindowState</p><p>&#160;&#160;&#160;&#160;&#160;</p><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">get</span>;</p><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+ <span style="color: #0000ff;">set</span>;</p><p>&#160;&#160;&#160;&#160;&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Open a Graphic Object</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">igo -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Pointer 
+ to Graphic Object</span></p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">godt -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">GO 
+ Startup Form style</span></p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ OpenGraphicObject(IGraphicObject igo, GraphicObjectDialogType godt);</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>replaces an already open GO</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">igo -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Previously 
+ opened GO</span></p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">inewgo -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">New 
+ GO</span></p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ ReplaceGraphicObject(IGraphicObject igo, IGraphicObject inewgo);</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Closes the Graphic Object</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">igo -</span></p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ CloseGraphicObject(IGraphicObject igo);</p><p>&#160;&#160;&#160;&#160;&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Print a grpahic object [not yet supported]</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">igo -</span></p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">ipo -</span></p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ PrintGraphicObject(IGraphicObject igo, IPrintOptions ipo);&#160;&#160;&#160;&#160;</p><p>&#160;&#160;&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Changes the windowstate of an previously opened 
+ Graphic Object</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">igo -</span></p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">fws -</span></p><p>&#160;&#160;&#160;&#160;&#160; <span style="color: #0000ff;">void</span> 
+ ChangeWindowStateGraphicObject(IGraphicObject igo, System.Windows.Forms.FormWindowState 
+ fws);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p><p>&#160;</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Create and show a configuration dialog form for user interaction</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; DialogResult ShowPluginWizard(IWizard 
+ wzrd, <span style="color: #0000ff;">string</span> caption);</p><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Create and show a configuration dialog form for user interaction, 
+ implementation includes size options</p><p>&#160;</p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">wzrd -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Object 
+ that implements the IWizard interface that is going to be displayed</span></p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">caption -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Caption 
+ of the wizard form</span></p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">size -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Initial 
+ size of the form</span></p><p><span style="font-size: 8.0pt;font-family: Tahoma;color: #000080;">Parameter:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">resizable -</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Boolean 
+ value to determine if the wizard is resizable or not</span></p><p><span style="font-size: 8.0pt;font-family: Verdana;color: #808080;">Returns:</span><span style="font-size: 8.0pt;font-family: Verdana;color: #008000;">Returns the wizards dialog result</span></p><p>&#160;&#160;&#160;&#160;&#160; DialogResult ShowPluginWizard(IWizard 
+ wzrd, <span style="color: #0000ff;">string</span> caption, System.Drawing.size 
+ size, <span style="color: #0000ff;">bool</span> resizable );</p><span style="font-size: 8.0pt;font-family: Verdana;"><br style="clear: all;" clear="all" /></span><br /><b><span style="font-size: 10.0pt;font-family: Verdana;"><a name="VIZNET_Shared_Interfaces_INeedController"></a>VIZNET.Shared.Interfaces.INeedController</span></b><span style="font-size: 10.0pt;font-family: Verdana;">:</span><p>&#160;</p><p><b><u style="text-decoration: underline;"><span style="font-size: 8.0pt;font-family: Tahoma;color: #808080;">Item Description:</span></u></b></p><p>Get or Set the Controller for access to Graphic 
+ Object Components/Controls by name [indexed] also returns an instance 
+ of a spider by name</p><p>&#160;</p><p>&#160;&#160;&#160;&#160;&#160; INeedController[<span style="color: #0000ff;">object</span> index]&#160; <span style="color: #0000ff;">get</span>;</p><p>&#160;</p><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

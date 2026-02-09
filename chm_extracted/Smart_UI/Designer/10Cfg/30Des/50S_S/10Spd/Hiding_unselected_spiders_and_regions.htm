@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Hiding unselected spiders and regions</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2277"></a>Hiding unselected spiders and regions</h1>
+        <p>Use<a name="kanchor2278"></a><a name="kanchor2279"></a> the <b>Hide Unselected Spiders/Regions</b> 
+ spider workspace display option to simplify an otherwise cluttered spider 
+ workspace.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t13"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click here for more information:</a>
+        </p>
+        <div MadCap:targetName="t13" style="display: none;">
+            <p>In addition to hiding ALL the unselected spiders and regions directly associated 
+ with the currently selected spider or region or form component, there are 3 other selective hiding filters.</p>
+            <p>For instance, consider a scenario when Alias spiders are in conjunction 
+ with Variable Data Element spiders to connect the required data elements, 
+ so most of the spiders would be connected.</p>
+            <p class="Notices"><b>Note1:</b> When a spider 
+ is located or manually selected in the spider workspace, with this option 
+ enabled, then only it and the spiders that it is connected to will be 
+ displayed, in accordance with the currently specified hiding filter. For 
+ details, see <a href="Finding_spiders.htm">Finding spiders</a>.</p>
+            <p class="Notices"><b>Note2:</b> If the graphic 
+ form itself, is selected, then all the spiders which are connected by 
+ silks to properties of this graphic form and its form components will 
+ be displayed. But any standalone spiders or spiders which are not connected 
+ to any form components will not be displayed, such as <b>Script 
+ Engine</b> spiders.</p>
+            <p class="Notices"><b>Note3:</b> This does NOT 
+ display spiders that are triggered by the events of the selected form 
+ components.</p>
+            <p class="Notices"><b>Note4:</b> All the selective 
+ hiding filters, add a watermark to the right hand bottom corner of the 
+ spider workspace indicating which selective hiding filter is being applied.</p>
+            <p class="Notices"><b>Tip:</b> Click the 
+ <b>Hide Unselected Spiders/Regions </b> <img src="../../../../Resources/Images/16/DataSources/SpdConfig_HideUnseln.png" /> toolbar button to apply the 
+ currently selected hiding filter to the spider workspace.</p>
+            <p class="Notices">&#160;</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t11"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To hide all spiders/regions not directly 
+ associated with the selected item:</a> 
+ In other words this shows all the upstream and downstream spiders/regions 
+ that are linked to the inputs and outputs of the currently selected control/spider/region.</p>
+        <div MadCap:targetName="t11" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">If necessary, open the 
+ required spider workspace.</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">If necessary, select the required 
+ form component, spider or region.</li>
+            </ol>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">Right-click the spider workspace 
+ and open the <b>Hide Unselected Spiders/Regions</b> menu and ensure that there is a tick mark <img src="../../../../00CmnUse/Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;" width="20" height="20" border="0" /> to the left of the <b>All</b> 
+ item.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t10"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Before / After Example:</a>
+        </p>
+        <div MadCap:targetName="t10" style="display: none;">
+            <table style="margin-left: auto;margin-right: auto;">
+                <col style="width: 52.299%;" />
+                <col style="width: 47.701%;" />
+                <tr>
+                    <td>
+                        <p><b>Before applying this setting:</b>
+                        </p>
+                    </td>
+                    <td>
+                        <p><b>After applying this setting:</b>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <img src="NoHiding_302x131.jpg" style="border: none;float: none;border-style: none;border-style: none;width: 302;height: 131;" border="0" />
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <img src="AllHide_304x130.jpg" style="border: none;float: none;border-style: none;border-style: none;width: 304;height: 130;" border="0" />
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <p>&#160;</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t9"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To also hide all spiders/regions 
+ connected to the outputs of the selected item:</a> 
+ In other <a name="kanchor2280"></a>words this shows all the spiders/regions that are linked to the 
+ inputs of the currently selected control/spider/region and all the spiders/regions 
+ that these spiders/regions are connected to (all the upstream spiders/regions).</p>
+        <div MadCap:targetName="t9" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">If necessary, open the 
+ required spider workspace.</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">If necessary, select the required 
+ form component, spider or region.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> If you 
+ want to select more than one spider or region, hold down the <b>CTRL</b> 
+ key to multi-select.</p>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">Right-click the spider workspace 
+ and open the <b>Hide Unselected Spiders/Regions</b> menu and ensure that there is a tick mark <img src="../../../../00CmnUse/Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;" width="20" height="20" border="0" /> to the left of the<a name="kanchor2281"></a> <b>Show 
+ Incoming</b> item.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> Hold 
+ down the <b>CTRL</b> key to select spiders 
+ or regions without applying this hiding filter.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Before / After Example:</a>
+        </p>
+        <div MadCap:targetName="t8" style="display: none;">
+            <table style="margin-left: auto;margin-right: auto;">
+                <col style="width: 52.299%;" />
+                <col style="width: 47.701%;" />
+                <tr>
+                    <td>
+                        <p><b>Before applying this setting:</b>
+                        </p>
+                    </td>
+                    <td>
+                        <p><b>After applying this setting:</b>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <img src="NoHiding_302x131.jpg" style="border: none;float: none;border-style: none;border-style: none;width: 302;height: 131;" border="0" />
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <img src="ShowIncoming_326x128.jpg" style="border: none;float: none;border-style: none;border-style: none;width: 326;height: 128;" border="0" />
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <p>&#160;</p>
+        </div>
+        <p>For instance, to show all the spiders/regions that connect to the spiders/regions 
+ that configure the properties of the currently selected form component.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To also hide all spiders/regions 
+ connected to the inputs of the selected item:</a> 
+ In other words this shows all the spiders/regions that are linked to the 
+ outputs of the currently selected control/spider/region and all the spiders/regions 
+ that these spiders/regions are connected to (all the downstream spiders/regions).</p>
+        <div MadCap:targetName="t7" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">If necessary, open the 
+ required spider workspace.</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">If necessary, select the required 
+ form component, spider or region.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> If you 
+ want to select more than one spider or region, hold down the <b>CTRL</b> 
+ key to multi-select.</p>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">Right-click the spider workspace 
+ and open the <b>Hide Unselected Spiders/Regions</b> menu and ensure that there is a tick mark <img src="../../../../00CmnUse/Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;" width="20" height="20" border="0" /> to the left of the<a name="kanchor2282"></a> <b>Show 
+ Outgoing</b> item.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> Hold 
+ down the <b>CTRL</b> key to select spiders 
+ or regions without applying this hiding filter.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Before / After Example:</a>
+        </p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <table style="margin-left: auto;margin-right: auto;">
+                <col style="width: 52.299%;" />
+                <col style="width: 47.701%;" />
+                <tr>
+                    <td>
+                        <p><b>Before applying this setting:</b>
+                        </p>
+                    </td>
+                    <td>
+                        <p><b>After applying this setting:</b>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <img src="NoHiding_302x131.jpg" style="border: none;float: none;border-style: none;border-style: none;width: 302;height: 131;" border="0" />
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <img src="ShowOutgoing_312x132.jpg" style="border: none;float: none;border-style: none;border-style: none;width: 312;height: 132;" border="0" />
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <p>&#160;</p>
+        </div>
+        <p>For instance, to show the spiders/regions that the currently selected 
+ form component configures and all the spiders/regions that these spiders/regions 
+ configure in turn.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To also hide all spiders/regions 
+ that are not direct inputs/outputs of the selected item:</a> 
+ In other words this only shows the spiders/regions that are linked to 
+ the inputs and outputs of the currently selected control/spider/region.</p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">If necessary, open the 
+ required spider workspace.</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">If necessary, select the required 
+ form component, spider or region.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> If you 
+ want to select more than one spider or region, hold down the <b>CTRL</b> 
+ key to multi-select.</p>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">Right-click the spider workspace 
+ and open the <b>Hide Unselected Spiders/Regions</b> menu and ensure that there is a tick mark <img src="../../../../00CmnUse/Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;" width="20" height="20" border="0" /> to the left of the<a name="kanchor2283"></a> <b>1 
+ Level In-Out</b> item.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> Hold 
+ down the <b>CTRL</b> key to select spiders 
+ or regions without applying this hiding filter.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Before / After Example:</a>
+        </p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <table style="margin-left: auto;margin-right: auto;">
+                <col style="width: 52.299%;" />
+                <col style="width: 47.701%;" />
+                <tr>
+                    <td>
+                        <p><b>Before applying this setting:</b>
+                        </p>
+                    </td>
+                    <td>
+                        <p><b>After applying this setting:</b>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <img src="NoHiding_302x131.jpg" style="border: none;float: none;border-style: none;border-style: none;width: 302;height: 131;" border="0" />
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <img src="1LevelInOut_309x135.jpg" style="border: none;float: none;border-style: none;border-style: none;width: 309;height: 135;" border="0" />
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <p>&#160;</p>
+        </div>
+        <p>For instance, to view all the spiders/regions that configure and that 
+ are configured by the selected form component.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To apply a hiding filter to more 
+ than one spider/region at a time:</a> 
+ This allows you to view the spiders/regions associated with more than 
+ one spider/region at a time.</p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Hold down the CTRL key 
+ and select the spiders/regions that you want to view.</li>
+                <li class="Numbers" value="2">Then apply the currently 
+ selected hiding filter (by clicking the <b>Hide 
+ Unselected Spiders/Regions </b><![CDATA[  ]]><img src="../../../../Resources/Images/16/DataSources/SpdConfig_HideUnseln.png" /> toolbar button).</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To select a spider/region without applying the currently 
+ configured hiding filter:</a> 
+ This allows you to configure one or more of the displayed spiders/regions 
+ without hiding the others.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Hold down the CTRL key 
+ and select the required spider/region.</li>
+            </ol>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To turn off the Hide Unselected Spiders/Regions filtering:</a> 
+ In other words this shows all the spiders/regions that are currently configured 
+ in this spider workspace.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">Either: click the 
+ <b>Hide Unselected Spiders/Regions </b><img src="../../../../Resources/Images/16/DataSources/SpdConfig_HideUnseln.png" /> toolbar button to disable this option.</li>
+            </ul>
+            <ul>
+                <li class="Bullets" value="1">Or: Right-click 
+ the spider workspace and open the <b>Hide 
+ Unselected Spiders/Regions</b> menu 
+ and ensure that there is a tick mark <img src="../../../../00CmnUse/Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;" width="20" height="20" border="0" /> to the 
+ left of the <b>None</b> item.</li>
+            </ul>
+        </div>
+        <p><a href="../Spider_workspace_toolbar.htm">Spider workspace toolbar</a>: describes 
+ the spider workspace that assists in the adding, arranging 
+ and configuring spiders and silks</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

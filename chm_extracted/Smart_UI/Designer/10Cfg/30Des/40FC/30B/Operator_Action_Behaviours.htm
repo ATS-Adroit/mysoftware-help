@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Behaviors" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Operator Action Behaviours</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1247"></a><a name="kanchor1248"></a>Operator Action Behaviours</h1>
+        <p>This Behaviour can be applied to controls and graphic elements (vectors) to typically allow users to change the value of a specific data element at runtime.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo_ControlAction;AddInfo_DESet;AddInfo1;AddInfo_DataEntry"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a>
+        </p>
+        <div MadCap:targetName="AddInfo1" style="display: none;">
+            <p>This change in value can be <a name="kanchor1249"></a>confirmed and/or logged to the event log, 
+ if necessary.</p>
+            <p class="Notices"><b>Note:</b> This change 
+ in value is only made if the specified data element can be written to 
+ (i.e. if it is NOT read-only).</p>
+        </div>
+        <p>This Behaviour provides the following three methods of changing values at runtime:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Control 
+ Action:</b> To <a name="kanchor1250"></a>increase or decrease a numerical value or to set (enable 
+ or disable) or invert a Boolean value.</li>
+        </ul>
+        <p class="ListNotice" MadCap:targetName="AddInfo_ControlAction" style="display: none;"><b>Note:</b> The selected 
+ value should be either Numeric or Boolean.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Data 
+ Entry:</b> To display a dialog <a name="kanchor1251"></a> so your end users can typically 
+ specify a numerical value, within a pre-defined range.</li>
+        </ul>
+        <div MadCap:targetName="AddInfo_DataEntry" style="display: none;">
+            <p class="ListNotice"><b>Note1:</b> If a String data element is specified the <b>Minimum</b> 
+ and <b>Maximum</b> fields are IGNORED 
+ (although are still displayed).</p>
+            <p class="ListNotice"><b>Note2:</b> Numerical values CANNOT be specified, at runtime, 
+that do not comply with the specified <b>Minimum</b> 
+ and <b>Maximum</b> limits - in this case the  <b>Minimum</b> and <b>Maximum</b> labels and their values become 
+ <span style="color: #ff0000;">red</span> until a valid numerical value 
+ is specified.</p>
+        </div>
+        <ul>
+            <li class="Bullets" value="1">
+                <p><b>Data 
+ Element Set:</b> To either specify another<a name="kanchor1252"></a> <a name="kanchor1253"></a>value (data element) or a static value to set this 
+ value. </p>
+                <p>Any subsequent change to the specified data element will change 
+ the input value.</p>
+            </li>
+        </ul>
+        <p class="ListNotice" MadCap:targetName="AddInfo_DESet" style="display: none;"><b>Note:</b> Ensure 
+ that the data of this value is compatible with the value you are configuring.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t23"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To use a Control Action to change a value:</a>
+        </p>
+        <div MadCap:targetName="t23" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Add or edit an <b>Operator 
+ Action</b> Behaviour  to display its configuration dialog.<a name="kanchor1254"></a></li>
+            </ol>
+            <ul start="2">
+                <li class="Numbers" value="2">Specify the value  in the <span style="font-weight: bold;">Input Data Element</span> field. </li>
+                <li class="Numbers" value="3">Specify the minimum value for this <span style="font-weight: bold;">Input Data Element</span> in the <span style="font-weight: bold;">Minimum Data Element/value</span> field.</li>
+            </ul>
+            <p class="ListNotice"><b>Note:</b> Any value lower than or equal to this value has no effect upon this Behaviour.</p>
+            <ul start="4">
+                <li class="Numbers" value="4">Specify the maximum value for this <span style="font-weight: bold;">Input Data Element</span> in the <span style="font-weight: bold;">Maximum Data Element/value</span> field.</li>
+            </ul>
+            <p class="ListNotice"><b>Note:</b> It is at this value that the full transformation of the object occurs.</p>
+            <p class="ListDesc">Click the browse button <img src="../../../../image68.gif" style="border: none;width: 20px;height: 20px;border-style: none;" width="20" height="20" border="0" /> to the right of these edit boxes to select the required data elements, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectDEUsingBrowser"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <p class="NumbersSubLetters">This dialog displays a tree view of all the datasources and their data 
+ elements that are contained within the connected Servers, like that displayed 
+ by the <b>Enterprise Manager</b>.</p>
+            <p class="NumbersSubLetters">The value selected initially by this browser is determined, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrowserSelection"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <div MadCap:targetName="DEBrowserSelection" style="display: none;">
+                <ul>
+                    <li class="ListSubBullet" value="1">If you have NOT selected a data element for the current field, then it displays the last data element, that you browsed in, using ANY DE browser.</li>
+                </ul>
+                <p class="ListNotSubSub"><b>Tip:</b> This is particularly helpful, when you are working with the SAME datasource, as it expands this datasource in the tree, highlighting the last browsed-in data element, which you can use as a reference.</p>
+                <ul>
+                    <li class="ListSubBullet" value="1">If you have browsed in a data element for the current field, then this then data element is automatically selected for you.</li>
+                </ul>
+            </div>
+            <ul start="1">
+                <li class="NumbersSubLetters" value="1">If necessary, expand 
+ the datasources in the tree, to expose the required data element, by clicking 
+ their plus boxes <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;" width="9" height="9" border="0" />.</li>
+            </ul>
+            <p class="ListDescSub">The name of the currently selected data 
+ element is displayed at the bottom of this configuration dialog.</p>
+            <ul start="2">
+                <li class="NumbersSubLetters" value="2">Double 
+ click the required data element.</li>
+            </ul>
+            <p>The <b>Data Element Browser</b> dialog provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrwsrFeatures"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following features to assist you in this task of selecting the required value:</a></p>
+            <div>
+                <ol>
+                    <li class="Bullets" value="1">The <b>Recently selected elements</b> list, which displays the last 10 selected data elements  - so that these data elements can be quickly selected again, whose display is controlled by the <img src="../../30GF/20Dsgn/DEBrowser_ShowButton.jpg" /> or <img src="../../30GF/20Dsgn/DEBrowser_HideButton.jpg" /> button in the top right hand corner.</li>
+                </ol>
+                <p class="ListDesc">If the data element, in this <b>Recently selected elements</b> list, does not have an associated icon, then either this data element does not exist or, in the case of the <span class="AdroitAppName">Adroit</span> datasource, that you have not opened the associated Agentgroup in the <span class="AdroitAppName">Adroit</span> datasource tree and so if this data element is selected it will not be found in the <b>Browser</b> window.</p>
+                <ol>
+                    <li class="Bullets" value="1">The ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../../../../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../../../../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../../../../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog. </li>
+                    <li class="Bullets" value="2">A data element searching capability to quickly locate similarly-named values without manually browsing for them: simply type the required search criteria into the <b>Search in browser for</b> edit box and all the data element names containing the specified search string are displayed in a list providing the name of the data element and its path. If necessary, click the <img src="../../30GF/20Dsgn/DEBrowser_BackButton.jpg" /> button to return to the tree view.</li>
+                </ol>
+                <p class="ListDesc">By default, to speed up searching on large <span class="AdroitAppName">Adroit</span> Agent Server projects, the searching stops at the agent and not the slot level.</p>
+                <ol>
+                    <li class="Bullets" value="1">The tree view provides the full Enterprise Manager context sensitive right click menu functionality. So in the case of using an <span class="AdroitAppName">Adroit</span> datasource you can create the required agent/s when configuring a Behaviour.</li>
+                    <li class="Bullets" value="2">When selecting tags from an <span class="AdroitAppName">Adroit</span> datasource, you can also create on-the-fly agents by editing the selected data element string to create another tag. In this case, when you click <b>Finish</b>, a message is displayed asking whether you want to create this new tag or not, if you select <b>Yes</b> then this tag is  created and selected.</li>
+                </ol>
+            </div>
+            <ol start="5">
+                <li class="Numbers" value="5">Select <b>Control 
+ Action</b> from the <b>Action Type</b> 
+ options.</li>
+                <li class="Numbers" value="6">Choose how you want this value to be changed, as follows:<p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t20"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To increase the value by a specific amount:</a></p><div MadCap:targetName="t20" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Select <b>Increment</b> from the <b>Control Action</b> list box.</li></ol><ol start="2"><li class="NumbersSubLetters" value="2">Specify 
+ the numeric value by which the value is to be increased, in the <b>Increment/Decrement by</b> edit box.</li></ol></div><p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t19"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To decrease the value by a specific amount:</a></p><div MadCap:targetName="t19" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Select <b>Decrement</b> from the <b>Control Action</b> list box.</li></ol><ol start="2"><li class="NumbersSubLetters" value="2">Specify 
+ the numeric value by which the value is to be decreased, in the <b>Increment/Decrement by</b> edit box.</li></ol></div><p><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To set the value to TRUE (non-zero):<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> select <b>Set Boolean True</b> from the <b>Control Action</b> list box.
+
+</span></span></p><p><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To set the value to FALSE (zero):<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> select <b>Set Boolean False</b> from the <b>Control Action</b> list box.
+</span></span></p><p><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To invert or toggle the Boolean state of the 
+ value:<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> select <b>Toggle Boolean</b> from the <b>Control Action</b> list box.
+
+</span></span></p></li>
+                <p>If necessary, click the <b>Advanced View</b> button to specify some or all of the following <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AdvExCmdOptions"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />additional configurable options:</a></p>
+                <div MadCap:targetName="AdvExCmdOptions" style="display: none;">
+                    <p><b>Confirmation:</b> provide pre and/or post confirmation for this command, by checking one or both of the following checkboxes: </p>
+                    <ul>
+                        <li class="Bullets" value="1">
+                            <p><span style="font-weight: bold;">Confirm Change</span>: pops up a yes/no confirmation message box before this change in value occurs. </p>
+                            <p>If necessary, change the <b>Message</b> that this message box displays.</p>
+                        </li>
+                        <li class="Bullets" value="2">
+                            <p><span style="font-weight: bold;">Log Change</span>: logs (records) this change in value in the <span class="VIPEventLogCategory">Application</span> event log for forensic or audit trail purposes.</p>
+                            <p>If necessary, change the <b>Eventlog Message</b> that this event  displays.</p>
+                            <p>Use the following placeholders to customise either of these messages: </p>
+                            <ul>
+                                <li class="BulletsClear" value="1">{0} or {oldvalue}: The previous value.</li>
+                                <li class="BulletsClear" value="2">{1} or {newvalue}: The newly 
+ entered value.</li>
+                            </ul>
+                            <ul start="3">
+                                <li class="BulletsClear" value="3">{2} or {username}: The user 
+ name, of the currently logged in user, when the value was changed.</li>
+                                <li class="BulletsClear" value="4">{3} or {dataelement}: The name 
+ of the data element, whose value has been changed.</li>
+                            </ul>
+                            <p class="Notices"><b>Tip:</b> The formatting 
+ of the {oldvalue} and {newvalue} values can be further customised to display decimals 
+ etc. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../50S_S/10Spd/50Cat/Adv/Working_with_value_formatting.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with value formatting</a></span>. 
+ </p>
+                            <p class="Notices"><b>Note:</b> By default 
+ these events are logged to the <span class="VIPEventLogCategory">Application</span> 
+ event log category on the default (login) <span class="VIPAppName">SmartUI</span> Server computer. If necessary, 
+ both the category name and/or computer on which these events are logged 
+ can be changed. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../05Dply/50Cfg/General_Server_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">General 
+ Server settings</a></span>.</p>
+                        </li>
+                    </ul>
+                    <p><b>Security:</b> ensure  this action is only performed when the designated user/s and/or group/s are logged on, as follows:</p>
+                    <ul start="2">
+                        <li class="Bullets" value="2">Either click the browse button to specify a String data element, which contains the  names of the required users and/or groups. </li>
+                    </ul>
+                    <p class="BullNotice"><b>Note:</b> The user and group names in this string must be delimited by semi colons “;”.</p>
+                    <ul>
+                        <li class="Bullets" value="1">Or click the <b>Security</b> button to open the <b>Security</b> configuration dialog to select the required users and/or groups.</li>
+                    </ul>
+                    <p class="BullNotice"><b>Tip:</b> Instead of using the buttons to move users and groups from the <b>Available</b> and <b>Selected</b> lists, you can simply double click them.</p>
+                    <p><span style="font-weight: bold;">Event Trigger</span>: specify which event of this control or graphic element (vector) triggers this Behaviour, as follows:</p>
+                    <ul>
+                        <li class="Bullets" value="1">Either select the required event from the list of common or frequently used events.</li>
+                        <li class="Bullets" value="2">Or click the browse button and use the <b>Event Selector</b> to select the required event.</li>
+                    </ul>
+                </div>
+                <p class="Notices"><b>Tip:</b> Click the <b>Simple View</b> button to hide these advanced options, if necessary.</p>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t15" name="kanchor1255"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To use a runtime Data Entry dialog to change a value:</a>
+        </p>
+        <div MadCap:targetName="t15" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Add or edit an Operator 
+ Action Behaviour   to display its configuration dialog.</li>
+            </ol>
+            <ul start="2">
+                <li class="Numbers" value="2">Specify the value  in the <span style="font-weight: bold;">Input Data Element</span> field. </li>
+                <li class="Numbers" value="3">Specify the minimum value for this <span style="font-weight: bold;">Input Data Element</span> in the <span style="font-weight: bold;">Minimum Data Element/value</span> field.</li>
+            </ul>
+            <p class="ListNotice"><b>Note:</b> Any value lower than or equal to this value has no effect upon this Behaviour.</p>
+            <ul start="4">
+                <li class="Numbers" value="4">Specify the maximum value for this <span style="font-weight: bold;">Input Data Element</span> in the <span style="font-weight: bold;">Maximum Data Element/value</span> field.</li>
+            </ul>
+            <p class="ListNotice"><b>Note:</b> It is at this value that the full transformation of the object occurs.</p>
+            <p class="ListDesc">Click the browse button <img src="../../../../image68.gif" style="border: none;width: 20px;height: 20px;border-style: none;" width="20" height="20" border="0" /> to the right of these edit boxes to select the required data elements, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectDEUsingBrowser"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <p class="NumbersSubLetters">This dialog displays a tree view of all the datasources and their data 
+ elements that are contained within the connected Servers, like that displayed 
+ by the <b>Enterprise Manager</b>.</p>
+            <p class="NumbersSubLetters">The value selected initially by this browser is determined, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrowserSelection"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <div MadCap:targetName="DEBrowserSelection" style="display: none;">
+                <ul>
+                    <li class="ListSubBullet" value="1">If you have NOT selected a data element for the current field, then it displays the last data element, that you browsed in, using ANY DE browser.</li>
+                </ul>
+                <p class="ListNotSubSub"><b>Tip:</b> This is particularly helpful, when you are working with the SAME datasource, as it expands this datasource in the tree, highlighting the last browsed-in data element, which you can use as a reference.</p>
+                <ul>
+                    <li class="ListSubBullet" value="1">If you have browsed in a data element for the current field, then this then data element is automatically selected for you.</li>
+                </ul>
+            </div>
+            <ul start="1">
+                <li class="NumbersSubLetters" value="1">If necessary, expand 
+ the datasources in the tree, to expose the required data element, by clicking 
+ their plus boxes <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;" width="9" height="9" border="0" />.</li>
+            </ul>
+            <p class="ListDescSub">The name of the currently selected data 
+ element is displayed at the bottom of this configuration dialog.</p>
+            <ul start="2">
+                <li class="NumbersSubLetters" value="2">Double 
+ click the required data element.</li>
+            </ul>
+            <p>The <b>Data Element Browser</b> dialog provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrwsrFeatures"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following features to assist you in this task of selecting the required value:</a></p>
+            <div>
+                <ol>
+                    <li class="Bullets" value="1">The <b>Recently selected elements</b> list, which displays the last 10 selected data elements  - so that these data elements can be quickly selected again, whose display is controlled by the <img src="../../30GF/20Dsgn/DEBrowser_ShowButton.jpg" /> or <img src="../../30GF/20Dsgn/DEBrowser_HideButton.jpg" /> button in the top right hand corner.</li>
+                </ol>
+                <p class="ListDesc">If the data element, in this <b>Recently selected elements</b> list, does not have an associated icon, then either this data element does not exist or, in the case of the <span class="AdroitAppName">Adroit</span> datasource, that you have not opened the associated Agentgroup in the <span class="AdroitAppName">Adroit</span> datasource tree and so if this data element is selected it will not be found in the <b>Browser</b> window.</p>
+                <ol>
+                    <li class="Bullets" value="1">The ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../../../../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../../../../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../../../../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog. </li>
+                    <li class="Bullets" value="2">A data element searching capability to quickly locate similarly-named values without manually browsing for them: simply type the required search criteria into the <b>Search in browser for</b> edit box and all the data element names containing the specified search string are displayed in a list providing the name of the data element and its path. If necessary, click the <img src="../../30GF/20Dsgn/DEBrowser_BackButton.jpg" /> button to return to the tree view.</li>
+                </ol>
+                <p class="ListDesc">By default, to speed up searching on large <span class="AdroitAppName">Adroit</span> Agent Server projects, the searching stops at the agent and not the slot level.</p>
+                <ol>
+                    <li class="Bullets" value="1">The tree view provides the full Enterprise Manager context sensitive right click menu functionality. So in the case of using an <span class="AdroitAppName">Adroit</span> datasource you can create the required agent/s when configuring a Behaviour.</li>
+                    <li class="Bullets" value="2">When selecting tags from an <span class="AdroitAppName">Adroit</span> datasource, you can also create on-the-fly agents by editing the selected data element string to create another tag. In this case, when you click <b>Finish</b>, a message is displayed asking whether you want to create this new tag or not, if you select <b>Yes</b> then this tag is  created and selected.</li>
+                </ol>
+            </div>
+            <ol start="5">
+                <li class="Numbers" value="5">Select <b>Data 
+ Entry</b> from the <b>Action Type</b> 
+ options.</li>
+                <li class="Numbers" value="6">If necessary, use the <b>Data Entry</b> section to customise the dialog that is displayed at runtime for your users to specify the required value, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t13"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t13" style="display: none;"><ol><li class="NumbersSubLetters" value="1">The <b>Caption</b> edit box can change the title of the runtime data entry dialog.</li></ol><p class="ListDescSub">The dialog title can use the following placeholders:</p><ul><li class="ListSubBullet" value="1">{oldvalue}: The current value of this data element.</li><li class="ListSubBullet" value="2">{username}: The user name, of the currently logged in user.</li></ul><ol start="2"><li class="NumbersSubLetters" value="2">The <b>Message</b> edit box can change the instruction displayed for the edit box of this  runtime data entry dialog. </li></ol><p class="ListNoteSub"><b>Note:</b> No placeholders can be used in this text.</p><ol start="3"><li class="NumbersSubLetters" value="3"><p>The <b>Format</b> field can align and/or format this value before it is displayed by this runtime data entry dialog, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DataEntryDlgValuFormat"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p><p MadCap:targetName="DataEntryDlgValuFormat" style="display: none;">The required formatting is defined as a string, which 
+ adheres to the following syntax: {0[,<b>alignment</b>][:<b>dataFormat</b>]}&#160;</p><ul MadCap:targetName="DataEntryDlgValuFormat" style="display: none;"><li class="Bullets" value="1"><p> either type in the required formatting string directly and/or </p><p>For further assistance on creating format strings, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../50S_S/10Spd/50Cat/Adv/Value_formatting_syntax.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">String formatting syntax</a></span>.</p></li><li class="Bullets" value="2">click the browse button and using the <b>Format String Editor</b> configuration dialog to specify and/or preview the specified formatting.</li></ul></li></ol></div></li>
+            </ol>
+            <p>If necessary, click the <b>Advanced View</b> button to specify some or all of the following <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AdvExCmdOptions"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />additional configurable options:</a></p>
+            <div MadCap:targetName="AdvExCmdOptions" style="display: none;">
+                <p><b>Confirmation:</b> provide pre and/or post confirmation for this command, by checking one or both of the following checkboxes: </p>
+                <ul>
+                    <li class="Bullets" value="1">
+                        <p><span style="font-weight: bold;">Confirm Change</span>: pops up a yes/no confirmation message box before this change in value occurs. </p>
+                        <p>If necessary, change the <b>Message</b> that this message box displays.</p>
+                    </li>
+                    <li class="Bullets" value="2">
+                        <p><span style="font-weight: bold;">Log Change</span>: logs (records) this change in value in the <span class="VIPEventLogCategory">Application</span> event log for forensic or audit trail purposes.</p>
+                        <p>If necessary, change the <b>Eventlog Message</b> that this event  displays.</p>
+                        <p>Use the following placeholders to customise either of these messages: </p>
+                        <ul>
+                            <li class="BulletsClear" value="1">{0} or {oldvalue}: The previous value.</li>
+                            <li class="BulletsClear" value="2">{1} or {newvalue}: The newly 
+ entered value.</li>
+                        </ul>
+                        <ul start="3">
+                            <li class="BulletsClear" value="3">{2} or {username}: The user 
+ name, of the currently logged in user, when the value was changed.</li>
+                            <li class="BulletsClear" value="4">{3} or {dataelement}: The name 
+ of the data element, whose value has been changed.</li>
+                        </ul>
+                        <p class="Notices"><b>Tip:</b> The formatting 
+ of the {oldvalue} and {newvalue} values can be further customised to display decimals 
+ etc. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../50S_S/10Spd/50Cat/Adv/Working_with_value_formatting.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with value formatting</a></span>. 
+ </p>
+                        <p class="Notices"><b>Note:</b> By default 
+ these events are logged to the <span class="VIPEventLogCategory">Application</span> 
+ event log category on the default (login) <span class="VIPAppName">SmartUI</span> Server computer. If necessary, 
+ both the category name and/or computer on which these events are logged 
+ can be changed. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../05Dply/50Cfg/General_Server_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">General 
+ Server settings</a></span>.</p>
+                    </li>
+                </ul>
+                <p><b>Security:</b> ensure  this action is only performed when the designated user/s and/or group/s are logged on, as follows:</p>
+                <ul start="2">
+                    <li class="Bullets" value="2">Either click the browse button to specify a String data element, which contains the  names of the required users and/or groups. </li>
+                </ul>
+                <p class="BullNotice"><b>Note:</b> The user and group names in this string must be delimited by semi colons “;”.</p>
+                <ul>
+                    <li class="Bullets" value="1">Or click the <b>Security</b> button to open the <b>Security</b> configuration dialog to select the required users and/or groups.</li>
+                </ul>
+                <p class="BullNotice"><b>Tip:</b> Instead of using the buttons to move users and groups from the <b>Available</b> and <b>Selected</b> lists, you can simply double click them.</p>
+                <p><span style="font-weight: bold;">Event Trigger</span>: specify which event of this control or graphic element (vector) triggers this Behaviour, as follows:</p>
+                <ul>
+                    <li class="Bullets" value="1">Either select the required event from the list of common or frequently used events.</li>
+                    <li class="Bullets" value="2">Or click the browse button and use the <b>Event Selector</b> to select the required event.</li>
+                </ul>
+            </div>
+            <p class="Notices"><b>Tip:</b> Click the <b>Simple View</b> button to hide these advanced options, if necessary.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t9"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To specify another Data Element or static value to Set a value:</a>
+        </p>
+        <div MadCap:targetName="t9" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Add or edit an Operator 
+ Action Behaviour    to display its configuration dialog.</li>
+            </ol>
+            <ul start="2">
+                <li class="Numbers" value="2">Specify the value  in the <span style="font-weight: bold;">Input Data Element</span> field. </li>
+                <li class="Numbers" value="3">Specify the minimum value for this <span style="font-weight: bold;">Input Data Element</span> in the <span style="font-weight: bold;">Minimum Data Element/value</span> field.</li>
+            </ul>
+            <p class="ListNotice"><b>Note:</b> Any value lower than or equal to this value has no effect upon this Behaviour.</p>
+            <ul start="4">
+                <li class="Numbers" value="4">Specify the maximum value for this <span style="font-weight: bold;">Input Data Element</span> in the <span style="font-weight: bold;">Maximum Data Element/value</span> field.</li>
+            </ul>
+            <p class="ListNotice"><b>Note:</b> It is at this value that the full transformation of the object occurs.</p>
+            <p class="ListDesc">Click the browse button <img src="../../../../image68.gif" style="border: none;width: 20px;height: 20px;border-style: none;" width="20" height="20" border="0" /> to the right of these edit boxes to select the required data elements, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectDEUsingBrowser"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <p class="NumbersSubLetters">This dialog displays a tree view of all the datasources and their data 
+ elements that are contained within the connected Servers, like that displayed 
+ by the <b>Enterprise Manager</b>.</p>
+            <p class="NumbersSubLetters">The value selected initially by this browser is determined, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrowserSelection"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <div MadCap:targetName="DEBrowserSelection" style="display: none;">
+                <ul>
+                    <li class="ListSubBullet" value="1">If you have NOT selected a data element for the current field, then it displays the last data element, that you browsed in, using ANY DE browser.</li>
+                </ul>
+                <p class="ListNotSubSub"><b>Tip:</b> This is particularly helpful, when you are working with the SAME datasource, as it expands this datasource in the tree, highlighting the last browsed-in data element, which you can use as a reference.</p>
+                <ul>
+                    <li class="ListSubBullet" value="1">If you have browsed in a data element for the current field, then this then data element is automatically selected for you.</li>
+                </ul>
+            </div>
+            <ul start="1">
+                <li class="NumbersSubLetters" value="1">If necessary, expand 
+ the datasources in the tree, to expose the required data element, by clicking 
+ their plus boxes <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;" width="9" height="9" border="0" />.</li>
+            </ul>
+            <p class="ListDescSub">The name of the currently selected data 
+ element is displayed at the bottom of this configuration dialog.</p>
+            <ul start="2">
+                <li class="NumbersSubLetters" value="2">Double 
+ click the required data element.</li>
+            </ul>
+            <p>The <b>Data Element Browser</b> dialog provides <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DEBrwsrFeatures"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following features to assist you in this task of selecting the required value:</a></p>
+            <div>
+                <ol>
+                    <li class="Bullets" value="1">The <b>Recently selected elements</b> list, which displays the last 10 selected data elements  - so that these data elements can be quickly selected again, whose display is controlled by the <img src="../../30GF/20Dsgn/DEBrowser_ShowButton.jpg" /> or <img src="../../30GF/20Dsgn/DEBrowser_HideButton.jpg" /> button in the top right hand corner.</li>
+                </ol>
+                <p class="ListDesc">If the data element, in this <b>Recently selected elements</b> list, does not have an associated icon, then either this data element does not exist or, in the case of the <span class="AdroitAppName">Adroit</span> datasource, that you have not opened the associated Agentgroup in the <span class="AdroitAppName">Adroit</span> datasource tree and so if this data element is selected it will not be found in the <b>Browser</b> window.</p>
+                <ol>
+                    <li class="Bullets" value="1">The ability to display the current value of the data elements you are currently or have previously selected, by clicking the <img src="../../../../Resources/Images/WatchesButton.png" /> button in the top right hand corner, which adds the <img src="../../../../Resources/Images/WatchesIcon.png" /> <b>Watches</b> column to the <b>Recently selected elements</b> list (when this is displayed) and the <img src="../../../../Resources/Images/WatchesIcon.png" /> icon and current value to the right of the currently selected data element at the bottom of this dialog. </li>
+                    <li class="Bullets" value="2">A data element searching capability to quickly locate similarly-named values without manually browsing for them: simply type the required search criteria into the <b>Search in browser for</b> edit box and all the data element names containing the specified search string are displayed in a list providing the name of the data element and its path. If necessary, click the <img src="../../30GF/20Dsgn/DEBrowser_BackButton.jpg" /> button to return to the tree view.</li>
+                </ol>
+                <p class="ListDesc">By default, to speed up searching on large <span class="AdroitAppName">Adroit</span> Agent Server projects, the searching stops at the agent and not the slot level.</p>
+                <ol>
+                    <li class="Bullets" value="1">The tree view provides the full Enterprise Manager context sensitive right click menu functionality. So in the case of using an <span class="AdroitAppName">Adroit</span> datasource you can create the required agent/s when configuring a Behaviour.</li>
+                    <li class="Bullets" value="2">When selecting tags from an <span class="AdroitAppName">Adroit</span> datasource, you can also create on-the-fly agents by editing the selected data element string to create another tag. In this case, when you click <b>Finish</b>, a message is displayed asking whether you want to create this new tag or not, if you select <b>Yes</b> then this tag is  created and selected.</li>
+                </ol>
+            </div>
+            <ol start="5">
+                <li class="Numbers" value="5">Select <b>Data 
+ Element Set</b> from the <b>Action Type</b> 
+ options.</li>
+                <li class="Numbers" value="6">Specify the <b>Set with this data element/value</b> accordingly.</li>
+            </ol>
+            <p>If necessary, click the <b>Advanced View</b> button to specify some or all of the following <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AdvExCmdOptions"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />additional configurable options:</a></p>
+            <div MadCap:targetName="AdvExCmdOptions" style="display: none;">
+                <p><b>Confirmation:</b> provide pre and/or post confirmation for this command, by checking one or both of the following checkboxes: </p>
+                <ul>
+                    <li class="Bullets" value="1">
+                        <p><span style="font-weight: bold;">Confirm Change</span>: pops up a yes/no confirmation message box before this change in value occurs. </p>
+                        <p>If necessary, change the <b>Message</b> that this message box displays.</p>
+                    </li>
+                    <li class="Bullets" value="2">
+                        <p><span style="font-weight: bold;">Log Change</span>: logs (records) this change in value in the <span class="VIPEventLogCategory">Application</span> event log for forensic or audit trail purposes.</p>
+                        <p>If necessary, change the <b>Eventlog Message</b> that this event  displays.</p>
+                        <p>Use the following placeholders to customise either of these messages: </p>
+                        <ul>
+                            <li class="BulletsClear" value="1">{0} or {oldvalue}: The previous value.</li>
+                            <li class="BulletsClear" value="2">{1} or {newvalue}: The newly 
+ entered value.</li>
+                        </ul>
+                        <ul start="3">
+                            <li class="BulletsClear" value="3">{2} or {username}: The user 
+ name, of the currently logged in user, when the value was changed.</li>
+                            <li class="BulletsClear" value="4">{3} or {dataelement}: The name 
+ of the data element, whose value has been changed.</li>
+                        </ul>
+                        <p class="Notices"><b>Tip:</b> The formatting 
+ of the {oldvalue} and {newvalue} values can be further customised to display decimals 
+ etc. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../50S_S/10Spd/50Cat/Adv/Working_with_value_formatting.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with value formatting</a></span>. 
+ </p>
+                        <p class="Notices"><b>Note:</b> By default 
+ these events are logged to the <span class="VIPEventLogCategory">Application</span> 
+ event log category on the default (login) <span class="VIPAppName">SmartUI</span> Server computer. If necessary, 
+ both the category name and/or computer on which these events are logged 
+ can be changed. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../05Dply/50Cfg/General_Server_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">General 
+ Server settings</a></span>.</p>
+                    </li>
+                </ul>
+                <p><b>Security:</b> ensure  this action is only performed when the designated user/s and/or group/s are logged on, as follows:</p>
+                <ul start="2">
+                    <li class="Bullets" value="2">Either click the browse button to specify a String data element, which contains the  names of the required users and/or groups. </li>
+                </ul>
+                <p class="BullNotice"><b>Note:</b> The user and group names in this string must be delimited by semi colons “;”.</p>
+                <ul>
+                    <li class="Bullets" value="1">Or click the <b>Security</b> button to open the <b>Security</b> configuration dialog to select the required users and/or groups.</li>
+                </ul>
+                <p class="BullNotice"><b>Tip:</b> Instead of using the buttons to move users and groups from the <b>Available</b> and <b>Selected</b> lists, you can simply double click them.</p>
+                <p><span style="font-weight: bold;">Event Trigger</span>: specify which event of this control or graphic element (vector) triggers this Behaviour, as follows:</p>
+                <ul>
+                    <li class="Bullets" value="1">Either select the required event from the list of common or frequently used events.</li>
+                    <li class="Bullets" value="2">Or click the browse button and use the <b>Event Selector</b> to select the required event.</li>
+                </ul>
+            </div>
+            <p class="Notices"><b>Tip:</b> Click the <b>Simple View</b> button to hide these advanced options, if necessary.</p>
+        </div>
+        <p>&#160;</p>
+        <p class="Notices"><b>Tip1:</b> When adding a Behaviour to a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SmartUI Template<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A graphic form that has one or more configured aliases and is therefore designed to be displayed within a TemplateGO control.</span></span> , you can use {} notation to automatically create an alias for any data element field. For more details, see <a href="../../30GF/30Als/Working_with_SmartUI_Templates.htm">Working with SmartUI Templates</a>.</p>
+        <p class="Notices"><b>Tip2:</b> When adding a Behaviour to a  <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">wizard<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A pre-drawn and/or pre-configured skeleton of graphical objects and their assigned Behaviours (if any), which has placeholders (substitutions) for data elements.</span></span>, you can use {} notation to automatically create a substitution for any data element field. For more details, see <a href="../../30GF/40Wiz/Working_with_wizards.htm">Working with wizards</a>.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3" name="kanchor1256"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a  Behaviour to a control or graphic element:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <p>Ensure that you have added the required control 
+ or graphic element to the graphic form.</p>
+            <ol>
+                <li class="Numbers" value="1">Select the required control 
+ or graphic element.</li>
+                <li class="Numbers" value="2">
+                    <p>If necessary, select the <b>Behaviours</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                    <p class="Notices"><b>Note:</b> Any Behaviour that cannot be applied to this control 
+ or graphic element will be greyed out.</p>
+                </li>
+                <li class="Numbers" value="3">Select the required Behaviour from the relevant group.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also select its  <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph to display its task menu and then select the required  Behaviour from the <b>New 
+ Behaviour</b> drop down list.</p>
+            <p class="ListDesc">This displays the configuration dialog of this Behaviour.</p>
+        </div>
+        <p class="Notices" MadCap:conditions="Common.VerMinorFour"><b>Tip:</b> When you add or edit a Behaviour you can name it, which makes it easier to identify the spiders and their regions associated with your Behaviours.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2" name="kanchor1257"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To edit a Behaviour of a control or graphic 
+ element:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Right click the required control 
+ or graphic element to the graphic form.</li>
+                <li class="Numbers" value="2">Select the required <b>BehaviourName#</b> menu item, where <b>BehaviourName</b> is the name of the added Behaviour and <b>#</b> usually only appears if more than one of same type of Behaviours have been  
+ added. For example: Execute Command1</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also select its <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph to display its task menu and then select the required  link beneath the <b>Behaviours</b> 
+ heading.</p>
+            <p class="ListDesc">This displays the  configuration dialog of this Behaviour.</p>
+        </div>
+        <p class="Notices"><b>Tip:</b> The <b>Behaviours</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon provides the <b>Edit Behaviour</b> list box that lists all the Behaviours  configured for the currently selected form component. Clicking its browse <img src="../../../../_WhatsNew/EditBehaviorListBoxBrowseButton.jpg" /> button displays the configuration dialog of the currently selected behaviour. </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1" name="kanchor1258"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove one or more added Behaviours from a control or graphic 
+ element:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Select the required control 
+ or graphic element.</li>
+                <li class="Numbers" value="2">
+                    <p>If necessary, select the <b>Behaviours</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                </li>
+                <li class="Numbers" value="3">Select the <b>Remove</b> command from the <b>Remove</b> group.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also select its  <img src="../../../../image16.gif" style="border: none;width: 10px;height: 10px;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph to display its task menu and then select the <b>Remove</b>link beneath the <b>Behaviours</b> 
+ heading.</p>
+            <p class="ListDesc">This displays the <b>Behaviour Removal</b> configuration dialog. </p>
+            <ol start="4">
+                <li class="Numbers" value="4">Select (check the checkboxes) 
+ of the Behaviour/s that you want to remove from this list in the <b>Behaviour Removal</b> configuration dialog.</li>
+            </ol>
+            <p class="ListNotice"><b>WARNING!</b> Ensure 
+ that ONLY the Behaviour/s you do not require is selected, since no deletion 
+ confirmation dialogs are displayed.</p>
+            <ol start="5">
+                <li class="Numbers" value="5">Click the <b>Finish</b> 
+ button to remove the selected Behaviour/s or <b>Cancel</b> to abort.</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

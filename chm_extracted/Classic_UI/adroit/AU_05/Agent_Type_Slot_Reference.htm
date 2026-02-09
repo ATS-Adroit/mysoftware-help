@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Reference|Agent Slots Reference" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Agent Type Slot Reference</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2109"></a><a name="kanchor2110"></a><a name="kanchor2111"></a><a name="kanchor2112"></a>Agent Type Slot Reference</h1>
+        <p>Most agents are designed to contain multiple items of data, most of 
+ which are accessible to clients of the Agent Server, each of which is known as a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">slot<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a value (attribute) or field within an agent that can be retrieved and/or set.</span></span> 
+ of the agent. A <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> is simply a de-referenced slot. For further details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_01/About_Agents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">About Agents</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_01/About_Agent_Data_Slots.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">About Agent Data (Slots)</a></span>.</p>
+        <p>This describes the slots that are available for each agent type, as 
+ follows:</p>
+        <ul>
+            <li class="Bullets" value="1">Slots that are COMMON to 
+ all agent types: <a href="Header_Slots.htm">Header Slots</a>.</li>
+            <li class="Bullets" value="2">Slots that are SPECIFIC 
+ to each defined agent type:</li>
+        </ul>
+        <p><a href="Accumulator_Agent_Slot_Details.htm">Accumulator Agent Slots</a> : this agent requires an input a value that accumulates over time to calculate the difference in value between successive events or periods.</p>
+        <p><a href="AgentGroup_Agent_Slot_Details.htm">AgentGroup Agent 
+ Slots</a> : this agent combines agents that have something in common into 
+ groups.</p>
+        <p><a href="Alarm_Agent_Slot_Details.htm">Alarm Agent Slots</a> 
+ : this agent manages how <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">incidents<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">signified by AgentName.AlarmType, which indicate that this agent has gone into the condition or state specified by this alarm type. Each incident can either be an alarm (requiring action) or an event (not requiring action).</span></span> 
+ are communicated to the necessary personnel and/or applications.</p>
+        <p><a href="AlarmList_Agent_Slot_Details.htm">AlarmList Agent Slots</a> 
+ : this agent lists current or unacknowledged incidents to display in an 
+ Alarm List Viewer window.</p>
+        <p><a href="AlarmManagement_Agent_Slot_Details.htm">AlarmManagement 
+ Agent Slots</a> : this agent configures and records your active incidents 
+ so you can improve your alarming configuration.</p>
+        <p><a href="Alias_Agent_Slot_Details.htm">Alias Agent Slots</a> 
+ : this agent creates a reference to an existing agent to adopt its Behaviour 
+ and state information.</p>
+        <p><a href="Analog_Agent_Slot_Details.htm">Analog Agent Slots</a> 
+ : this agent stores a real (floating point) value and provides engineering 
+ functionality such as scaling.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="ARec_Agent_Slot_Details.htm">ARec Agent Slots</a> : 
+ this agent configures up to 256 states using truth table type logic on 
+ up to 32 bits.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="Audit_Agent_Slot_Details.htm">Audit Agent Slots</a>: this agent supplements the auditing of the Agent Server by selecting 
+ tags to monitor for any change in value.</p>
+        <p><a href="Beeper_Agent_Slot_Details.htm">Beeper Agent Slots</a> 
+ : this agent provides simple audio output using the built-in PC loudspeaker.</p>
+        <p><a href="Boolean_Agent_Slot_Details.htm">Boolean Agent Slots</a> 
+ : this agent stores a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Boolean<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a value that only has two discrete states, 0 (FALSE) or 1 (TRUE).</span></span> 
+ value.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="Command_Agent_Slot_Details.htm">Command Agent Slots</a> 
+ : this agent sends and receives <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SMS<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">Short Message Service is a service (protocol) for sending short text messages to and from mobile phones.</span></span> 
+ messages to remotely configure or report on your process.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="../AU_01_05/Coordinate_Agent_Slot_Details.htm">Coordinate Agent Slots</a> : this agent stores the GPS coordinates of assets on the GIS&#160;platform.</p>
+        <p><a href="Counter_Agent_Slot_Details.htm">Counter Agent Slots</a> 
+ : this agent is a simple counter and averager.</p>
+        <p><a href="DataLog_Agent_Slot_Details.htm">DataLog Agent Slots</a> 
+ : this agent manages the historical logging of a process value (<span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span>).</p>
+        <p><a href="Date_Agent_Slot_Details.htm">Date Agent Slots</a> : 
+ this agent holds time and date information broken down into the date and 
+ time constituents.</p>
+        <p><a href="DbAccess_Agent_Slot_Details.htm">DBAccess Agent Slots</a> 
+ : this agent performs a transaction on a row in an OLE DB compatible database.</p>
+        <p><a href="DBLog_Agent_Slot_Details.htm">DBLog Agent Slots</a> : this agent  is a bulk OLE&#160;DB&#160;logging agent.</p>
+        <p><a href="../AU_01_13/DBQuery_Agent_Slot_Detail.htm">DBQuery Agent Slots</a> : this agent provides a  methodology  for  asynchronously executing  OLE  DB  transactions. </p>
+        <p><a href="Device_Agent_Slot_Details.htm">Device Agent Slots</a> 
+ : this agent transfers process values between <span class="AdroitAppName">Adroit</span> and <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">FED<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">front-end device, which is a device that is accessed directly by the user, such as a PLC or RTU.</span></span>.</p>
+        <p><a href="Digital_Agent_Slot_Details.htm">Digital Agent Slots</a> 
+ : this agent stores a Boolean value and provides engineering functionality 
+ such as value inversion.</p>
+        <p MadCap:conditions="Common.Ver9"><a href="DumpConfig_Agent_Slot_Details.htm">DumpConfig Agent Slots</a>: this agent simply stores the configuration of specific agents in an OLE&#160;DB database.</p>
+        <p><a href="EventLogging_Agent_Slot_Details.htm">EventLogging Agent 
+ Slots</a> : this agent manages the logging of events by <span class="AdroitAppName">Adroit</span> to Windows 
+ event logs and to a database.</p>
+        <p><a href="EventOutput_Agent_Slot_Details.htm">EventOutput Agent 
+ Slots</a> : this agent directs event log messages to output devices (printers, 
+ files, databases).</p>
+        <p><a href="Expression_Agent_Slot_Details.htm">Expression Agent 
+ Slots</a> : this agent performs user-defined calculations to calculate 
+ an output value.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="Frame_Agent_Slot_Details.htm">Frame Agent Slots</a> 
+ : this agent stores up to 32 indexed strings.</p>
+        <p MadCap:conditions="Common.Ver9"><a href="ICMP_Agent_Slot_Details.htm">ICMP Agent Slots</a> : this agent uses the Internet Control Message Protocol to determine the existence of  a remote device on the network.</p>
+        <p><a href="Integer_Agent_Slot_Details.htm">Integer Agent Slots</a> 
+ : this agent stores an integer number +/– 2147483647 (32 bits).</p>
+        <p><a href="IOT_Agent_Specific_Slots.htm">IOT Agent Slots</a> : this agent can represent any object containing multiple properties (or slots), which are defined AFTER adding the IOT agent.</p>
+        <p><a href="Marshal_Agent_Slot_Details.htm">Marshal Agent Slots</a> 
+ : this agent provides the functionality of 16 digital agents in a single 
+ agent.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="MaxDemand_Agent_Slot_Details.htm">MaxDemand Agent Slots</a> 
+ : this agent monitors your electricity usage so that you remain within 
+ your agreed usage limits.</p>
+        <p><a href="MultiMedia_Agent_Slot_Details.htm">MultiMedia Agent 
+ Slots</a> : this agent runs a variety of Windows compatible multi-media 
+ files such as .WAV, .AVI and .MID.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="MultiState_Agent_Slot_Details.htm">MultiState Agent 
+ Slots</a> : this agent defines up to 16 discrete states to create operating 
+ and/or control sequences.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="Notify_Agent_Slot_Details.htm">Notify Agent Slots</a> 
+ : this agent directs alarms to pagers and also to cellular phones via 
+ SMS.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="OEE_Agent_Slot_Details.htm">OEE&#160;Agent Slots</a>: this 
+ agent either calculates the <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">OEE<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">stands for Overall Equipment Effectiveness, which typically identifies the productivity or utiltization of a machine or an entire plant, as a percentage.</span></span>&#160;for the monitored equipment and/or plant or measures a specific <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">KPI<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Key Performance Indicator, a quantifiable measurement that measures how well something is accomplishing its goals and objectives.</span></span>.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="PerfMon_Agent_Slot_Details.htm">PerfMon Agent Slots</a> 
+ : this agent monitors up to 16 Windows Performance counters to detect 
+ performance bottlenecks.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="PID_Agent_Slot_Details.htm">PID Agent Slots</a> : this 
+ agent provides the 25 signals and tuning parameters associated with an 
+ external PID controller.</p>
+        <p><a href="Proxy_Agent_Slot_Details.htm">Proxy Agent Slots</a> 
+ : this agent provides continuous updates of the value of an agent referenced 
+ from a remote Agent Server.</p>
+        <p><a href="Real_Agent_Slot_Details.htm">Real Agent Slots</a> : 
+ this agent stores a real (floating point) value.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="Recipe_Agent_Slot_Details.htm">Recipe Agent Slots</a> 
+ : this agent provides basic sequencing and batching and reporting capabilities.</p>
+        <p><a href="Scan_Agent_Slot_Details.htm">Scan Agent Slots</a> : 
+ this agent communicates one or more tags to an FED, these agents are managed 
+ by Device agents.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="Scheduler_Agent_Slot_Details.htm">Scheduler Agent Slots</a> 
+ : this agent defines one or more time periods of time to enable or disable 
+ other agents.</p>
+        <p><a href="Script_Agent_Slot_Details.htm">Script Agent Slots</a> 
+ : this agent performs one or more Visual basic or Java scripts to do complicated 
+ tasks.</p>
+        <p><a href="Shift_Agent_Slot_Details.htm">Shift Agent Slots</a> : this agent determines the current shift number as defined by a  configurable shift pattern.</p>
+        <p MadCap:conditions="Common.Ver9"><a href="SNMPMgr_Agent_Slot_Details.htm">SNMPMgr Agent 
+ Slots</a> : this agent monitors and/or manages network devices using <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">Simple Network Management Protocol (SNMP) is used to monitor and manage a diverse range of devices on a computer network.</span></span>.</p>
+        <p><a href="Statistical_Agent_Slot_Details.htm">Statistical Agent 
+ Slots</a> : this agent provides the basic functionality to create a statistical 
+ process control strategy.</p>
+        <p><a href="String_Agent_Slot_Details.htm">String Agent Slots</a> 
+ : this agent stores a "string" of text characters, only the 
+ first 79 of which can be used for <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">scanning<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">the process of communicating a value (slot), typically to and/or from a front-end device (FED).</span></span>.</p>
+        <p><a href="StringList_Agent_Slot_Details.htm">StringList Agent 
+ Slots</a> : this agent stores an unlimited number of indexed ASCII character 
+ strings of variable length.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="SystemDataLog_Agent_Slot_Details.htm">SystemDataLog 
+ Agent Slots</a> : this agent administers the backing up of datalogs and 
+ synchronises datalogs in an <span class="AdroitAppName">Adroit</span> cluster.</p>
+        <p><a href="SystemInformation_Agent_Slot_Details.htm">SystemInformation 
+ Agent Slots</a> : this agent acts as an information center containing 
+ data that is global to the Agent Server.</p>
+        <p MadCap:conditions="Adroit.Ex4HMI"><a href="Text_Agent_Slot_Details.htm">Text Agent Slots</a> : 
+ this agent stores a 79-character text string (this length excludes the 
+ mandatory zero terminator character).</p>
+        <p><a href="Timer_Agent_Slot_Details.htm">Timer Agent Slots</a> 
+ : this agent performs several commonly used timing operations.</p>
+        <p>&#160;</p>
+        <p>For the slots that are saved to the <span class="AdroitAppName">Adroit</span> database (.WGP) file for 
+ each agent type and the format of these saved values, see: <a href="Agent_Type_Saved_Format_Reference.htm">Agent 
+ Type Saved Format Reference</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

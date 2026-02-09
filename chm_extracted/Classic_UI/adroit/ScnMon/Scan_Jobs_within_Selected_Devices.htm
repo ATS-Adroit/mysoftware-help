@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Utilities|Scanning Monitor Utility" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_ScanMon" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Scan Jobs within Selected Devices</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1220"></a>Scan Jobs within Selected Devices</h1>
+        <p>The <b>Scanning Monitor</b> utility 
+ provides information on the scanning (communications) configuration for 
+ a particular Agent Server, so this information can be used to manually 
+ fine-tune the scanning subsystem to achieve optimal performance. For details, 
+ see <a href="Monitoring_Scanning_in_Adroit.htm">Monitoring Scanning 
+ in <span class="AdroitAppName">Adroit</span></a>.</p>
+        <p>The list in the middle of this utility, displays the scan jobs for the 
+ selected device or devices within the devices list, directly above this 
+ list. For details, see <a href="Devices_within_Selected_Agent_Server_Database.htm">Devices 
+ within Selected Agent Server Database</a>.</p>
+        <p class="Notices"><b>Note1:</b> Any configured 
+ @scans will NOT appear in this utility because scan agents are NOT involved 
+ in @scanning functionality - these are simply internal slot-to-slot subscriptions 
+ that change in real time mode.</p>
+        <p class="Notices"><b>Note2:</b> Scan jobs 
+ are automatically created by <span class="AdroitAppName">Adroit</span> to group the scanned tags together 
+ in such a way as to minimise scanning load and to maximise throughput. 
+ For details on how to assist with this process, see <a href="../AU_01_06/Scanning_Optimization.htm">Scanning 
+ Optimization Tips</a>.</p>
+        <p>This list, consists of the following columns:</p>
+        <ol>
+            <li class="Numbers" value="1"><b>Scan 
+ job:</b> This identifies the name of scan job for the selected device(s) 
+ in the devices list. The other columns indicate the following attributes 
+ of this scan job:</li>
+            <li class="Numbers" value="2"><b>Started:</b> 
+ This is 1 when this scan job has started.</li>
+            <li class="Numbers" value="3"><b>Comms 
+ status:</b> This is one of three possible values:</li>
+        </ol>
+        <ol start="1">
+            <li class="ListBullets" value="1"><b>Unknown:</b> scanning has not yet started.</li>
+            <li class="ListBullets" value="2"><b>Bad:</b> scanning has started but there 
+ are some unsuccessful transactions or bad scan items, if this is the case, 
+ check your configuration and cabling.</li>
+            <li class="ListBullets" value="3"><b>Healthy:</b> scanning has started and is 
+ successful.</li>
+            <li class="Numbers" value="4"><b>Required 
+ rate:</b> This indicates the rate at which the scan job is expected 
+ to scan the front-end device.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> A value 
+ of zero means that this scan job is exception based and does not poll 
+ or request its front-end device for changes to its data.</p>
+        <ol start="5">
+            <li class="Numbers" value="5"><b>Effective 
+ rate:</b> This indicates the rate at which the scan job is actually 
+ scanning the front-end device. If this value is greater than the required 
+ rate then it implies a scanning backlog, which can be avoided by slowing 
+ down the current scanning speeds (rates).</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> This 
+ value should only be monitored when the device, to which this scan job 
+ belongs, is healthy.</p>
+        <ol start="6">
+            <li class="Numbers" value="6"><b>Successful 
+ rate:</b> This value should be equal to the <b>Effective 
+ rate</b>; otherwise intermittent transaction failures are occurring. 
+ If so, check the configuration and cabling.</li>
+            <li class="Numbers" value="7"><b>Driver 
+ transaction time:</b> This specifies the amount of time, in milliseconds, 
+ taken for the driver to execute the transaction.</li>
+            <li class="Numbers" value="8"><b>Server 
+ update time:</b> This specifies the amount of time, in milliseconds, 
+ taken for the Agent Server to be updated with the new values.</li>
+        </ol>
+        <h2>Supported commands:</h2>
+        <p>When a scan job is right-clicked in this list, the following commands 
+ may be enabled:</p>
+        <ol>
+            <li class="Numbers" value="1"><b>Start 
+ scan job:</b> to start the selected scan job.</li>
+            <li class="Numbers" value="2"><b>Stop 
+ scan job:</b> to slop the selected scan job.</li>
+        </ol>
+        <p class="ListDesc">The following options are also available for non-exception 
+ based (polled) scan jobs:</p>
+        <p class="ListNotice"><b>Note:</b> Do not 
+ use these options, unless all communications are healthy for the selected 
+ device.</p>
+        <ol start="1">
+            <li class="ListBullets" value="1"><b>Adjust scan rate:</b> to set the <b>Required 
+ rate</b> equal to the <b>Effective rate</b> for the selected scan job.</li>
+            <li class="ListBullets" value="2"><b>Manual scan rate:</b> to specify a new <b>Required rate</b> for the selected scan 
+ job.</li>
+            <li class="ListBullets" value="3"><b>Reset scan rate:</b> to reset the <b>Required rate</b> to the configured rate 
+ for the selected scan job.</li>
+        </ol>
+        <p class="Notices"><b>Note:</b> These commands 
+ that change the scan rates are not permanent i.e. saving the database 
+ will not save any online changes that are made. In order to make these 
+ changes permanent, see <a href="How_to_use_the_Scanning_Monitor_Utility.htm">How 
+ to use the Scan Monitor</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

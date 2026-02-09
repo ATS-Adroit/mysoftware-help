@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|OLE DB Datasources|Queries" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.DS_OLEDB" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Create Table queries</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1428"></a>Create Table queries</h1>
+        <p>Queries provide common tasks for managing your database that is connected 
+ to an <img src="../../../../Resources/Images/16/DataSources/OLEDB.png" /> OLE DB datasource.</p>
+        <p>The <img src="../../../../Resources/Images/16/DataSources/OLEDB_Queries_CreateTable.png" /><![CDATA[  ]]><b> Create Table Queries</b> 
+ can create tables in the database with specific structures. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddNote"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a></p>
+        <div MadCap:targetName="AddNote" style="display: none;">
+            <p>If necessary 
+ specify primary keys and lookup columns (foreign keys) for fields.</p>
+            <p>By parameterizing the table and/or field names you can create a library 
+ of common table configurations, in which you only perform the laborious 
+ configuration once for all.</p>
+            <p class="Notices"><b>Note1:</b> If necessary, 
+ parameterise the table and/or the field names to specify them before performing 
+ the query.</p>
+            <p class="Notices"><b>Note2:</b> This query 
+ is ONLY able to create a SINGLE table.</p>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t12" name="kanchor1429"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add and configure a Create Table query:</a>
+        </p>
+        <div MadCap:targetName="t12" style="display: none;">
+            <p><b>Add a Create 
+ Table Query:</b>
+            </p>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddNameCreationMethod"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for generic instructions on how to add, name and specify the creation method for a query:</a> <![CDATA[
+]]></p>
+            <div MadCap:targetName="AddNameCreationMethod" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Open the <b>Enterprise 
+ Manager</b>.</li>
+                    <li class="Numbers" value="2">If necessary, <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">expand <img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">click the plus (+) box&#160;to the left of the current icon or name</span></span><![CDATA[  ]]><img src="../../../../Resources/Images/16/Generic/VIPServers.png" /><![CDATA[  ]]><b>Servers</b>.</li>
+                    <li class="Numbers" value="3">If necessary, expand the 
+ name of the required <span class="VIPAppName">SmartUI</span> Server connection <img src="../../../../Resources/Images/16/Generic/VIPServer.png" />.</li>
+                </ol>
+                <p class="ListNotice"><b>Tip:</b> This connection 
+ name is prefaced by the <span class="VIPAppName">SmartUI</span> Server computer name.</p>
+                <ol start="4">
+                    <li class="Numbers" value="4">If necessary, expand the 
+ <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /> <b>Datasources</b>  category. </li>
+                    <li class="Numbers" value="5">If necessary, expand the 
+ required OLE DB datasource name or its icon <img src="../../../../Resources/Images/16/DataSources/OLEDB.png" />.</li>
+                    <li class="Numbers" value="6">Right-click <b>Queries</b> 
+ or its icon <img src="../../../../Resources/Images/16/DataSources/OLEDB_Queries.png" /> and select the <b>Add XXX Query</b> option, where <b>XXX</b> is the required query 
+ category.</li>
+                </ol>
+                <p class="ListNotice"><b>Tip:</b> Alternatively, 
+ simply double click the subfolder <img src="../../../../image52.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> of the required query category .</p>
+                <ol start="7">
+                    <li class="Numbers" value="7"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t17"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Specify the required 
+ Query Name in the Add XXX Query configuration dialog:</a>
+                        <div MadCap:targetName="t17" style="display: none;">
+                            <p class="Notices"><b>WARNING!</b> Once 
+ a query has been named, it is NOT possible to rename it later.</p>
+                            <p class="Notices"><b>Note:</b> The 
+ specified name cannot be the same as any other query that has been already 
+ been specified.&gt;</p>
+                            <p class="Notices"><b>Tip:</b> Give this 
+ query a meaningful and concise name so that its purpose can be clearly 
+ identified - try not to use all 55 characters.</p>
+                        </div>
+                    </li>
+                </ol>
+                <ol start="8">
+                    <li class="Numbers" value="8">If supported by this query category - choose how you 
+ want to create this query, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t15"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />by selecting one of the following options:</a><div MadCap:targetName="t15" style="display: none;"><ul start="8"><li class="Bullets" value="8"><b>XXX 
+ Query Wizard</b>:This default 
+ option uses a structured configuration dialog to create the query. This method is especially 
+ recommended for those who are not familiar with the SQL querying language. 
+ </li></ul><p class="ListNotice"><b>Tip:</b> Advanced 
+ users can use the configuration dialog to perform the basic configuration such as specifying 
+ the required tables and their fields and then customise the added commands 
+ using the final dialog, which is the SAME dialog provided by the <b>Custom Query</b> option.</p><p class="ListNotice"><b>Note:</b> This 
+ generates a generic SQL statement and will work with all types of OLE 
+ DB databases.</p><ul><li class="Bullets" value="1"><b>Custom 
+ Query</b>: This method is intended for those users who are already 
+ conversant with the SQL querying language and want to quickly create their 
+ query. For details, see <a href="Qry/Creating_customised_queries.htm" id="a6">Creating customised queries</a>.</li></ul></div></li>
+                    <li class="Numbers" value="9">Click <b>Next</b>, 
+ once the query is named and the required method 
+ of its creation is selected.</li>
+                </ol>
+            </div>
+        </div>
+        <div MadCap:targetName="t12" style="display: none;">
+            <p><b>Configure this Create Table query:</b>
+            </p>
+            <p class="Notices"><b>Note:</b> This configuration dialog 
+ does NOT provide a <b>Preview</b> button 
+ to prevent incorrect tables from being added to your database. Therefore 
+ please ensure that you configure the values for these fields correctly. 
+ </p>
+            <p class="ListDesc">The <b>Tables and Fields</b> 
+ dialog is displayed.</p>
+            <ol start="10">
+                <li class="Numbers" value="10">Specify the table name.</li>
+                <li class="ListBullets" value="11">To specify a fixed 
+ (unchangeable) name for this table, enter this name in the <b>Specify 
+ a New Table Name</b> edit box.</li>
+                <li class="ListBullets" value="12">To specify a parameter 
+ for this table, so that it can be changed before the query is performed, 
+ check the <b>Parameterised Table Name</b> 
+ checkbox. This is recommended if you need to create more than one table 
+ with the identical structure.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note1:</b> This ignores any 
+ name added to the <b>Specify a New Table 
+ Name</b> edit box.</p>
+            <p class="ListNoteSub"><b>Note2:</b> If necessary edit 
+ the parameter name for this table in the <b>Custom 
+ Query</b> dialog.</p>
+            <ol start="11">
+                <li class="Numbers" value="11">Specify the columns (fields) 
+ of this table, as follows:</li>
+            </ol>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a column (field) to this table:</a>
+            </p>
+            <div MadCap:targetName="t8" style="display: none;">
+                <ul start="10">
+                    <li class="ListBullets" value="10">To specify a fixed 
+ (unchangeable) name for this column (field), enter this name in the <b>Column Name</b> entry.</li>
+                    <li class="ListBullets" value="11">To specify a parameter 
+ for this column, so that it can be changed before the query is performed, 
+ check the <b>Parameterised</b> checkbox. 
+ This is only recommended if you have parameterised the Table name and 
+ different tables required identically configured fields with different 
+ names.</li>
+                </ul>
+                <p class="ListNoteSub"><b>Note1:</b> This ignores any 
+ name added to the <b>Column Name</b> entry.</p>
+                <p class="ListNoteSub"><b>Note2:</b> If necessary edit 
+ the parameter name for this column in the <b>Custom Query</b> dialog.</p>
+                <ol start="2">
+                    <li class="NumbersSubLetters" value="2">If 
+ necessary, select the required data type for the values of this column 
+ (field) from the <b>Type</b> list box.</li>
+                    <li class="NumbersSubLetters" value="3">If 
+ necessary, change the default width of the selected data type in the <b>size</b> entry.</li>
+                    <li class="NumbersSubLetters" value="4">If 
+ necessary, specify whether this column is able to have NULL values or 
+ not, by checking or clearing the <b>Allow 
+ Nulls</b> checkbox accordingly. Typically null values are NOT required 
+ in primary or foreign key columns.</li>
+                </ol>
+            </div>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove 
+ a column (field) from this table:</a>
+            </p>
+            <div MadCap:targetName="t7" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Select 
+ the row that defines this column and press the DELETE key.</li>
+                </ol>
+            </div>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To set or clear a column (field) 
+ as a primary key for this table:</a>Typically primary key columns have 
+ unique values, which are used to identify rows in this table.</p>
+            <div MadCap:targetName="t6" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Right-click 
+ the row that defines this column and select <b>Set 
+ Primary Key</b>.</li>
+                    <li class="NumbersSubLetters" value="2">This 
+ adds or removes the <b>PK</b> row identifier.</li>
+                </ol>
+            </div>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To assign a default value for 
+ a column (field):</a>
+            </p>
+            <div MadCap:targetName="t5" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Select 
+ the required row and enter it into the <b>Default 
+ Value</b> field.</li>
+                </ol>
+                <p class="ListNoteSub"><b>Note:</b> Please 
+ ensure that you specify the correct default values these fields, as there 
+ is no error checking. </p>
+            </div>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To automatically increment the 
+ value of a NUMERIC column (field):</a>Typically required for primary key 
+ fields containing ID numbers.</p>
+            <div MadCap:targetName="t4" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Select 
+ the row of that defines this column that has a numerical data <b>Type</b>.</li>
+                    <li class="NumbersSubLetters" value="2">If 
+ necessary, select the <b>Column</b> tab 
+ below the list of columns.</li>
+                    <li class="NumbersSubLetters" value="3">Select 
+ <b>Yes</b> from the <b>Identity</b> list box.</li>
+                </ol>
+                <p class="ListNoteSub"><b>Note:</b> Select 
+ <b>Yes(Not For Replication)</b> when 
+ you want the identity values of all the replicated rows to remain unchanged, 
+ while the identity values of rows native to this table will change as 
+ required.</p>
+                <ol start="4">
+                    <li class="NumbersSubLetters" value="4">Specify 
+ the number to start incrementing from, in the <b>Identity 
+ Seed</b> spin control (either by typing it in directly or using the 
+ arrows to select it).</li>
+                    <li class="NumbersSubLetters" value="5">Specify 
+ how many numbers to increment each value by in the <b>Identity 
+ Increment</b> spin control (either by typing it in directly or using 
+ the arrows to select it). For instance the default of 1 creates consecutive 
+ numbers.</li>
+                </ol>
+            </div>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure a column (field) 
+ to be a foreign key:</a>Typically, foreign keys are created 
+ to create a relationship with another table.</p>
+            <div MadCap:targetName="t3" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Select 
+ the row of that defines this column.</li>
+                    <li class="NumbersSubLetters" value="2">If 
+ necessary, select the <b>Column</b> tab 
+ below the list of columns.</li>
+                    <li class="NumbersSubLetters" value="3">Check 
+ the <b>Lookup Column</b> checkbox.</li>
+                </ol>
+                <p class="ListDescSub">This displays the <b>Lookup</b> 
+ tab.</p>
+                <ol start="4">
+                    <li class="NumbersSubLetters" value="4">Select 
+ the <b>Lookup</b> tab below the list 
+ of columns.</li>
+                </ol>
+                <p class="ListDescSub">The <b>Lookup Field</b> 
+ tree view displays all the tables and fields of the database connected 
+ to this OLE DB datasource.</p>
+                <ol start="5">
+                    <li class="NumbersSubLetters" value="5">Select 
+ the field (from another table) that this column should be linked to.</li>
+                    <li class="NumbersSubLetters" value="6">If 
+ necessary use one or both of the following rules to ensure that values 
+ in this column remain synchronised with the lookup field's values:</li>
+                </ol>
+                <p class="ListNoteSub"><b>Note:</b> The 
+ default NO ACTION rule does not attempt to keep the values of these fields 
+ synchronised.</p>
+                <p class="ListDescSub"><b>On Update Rule:</b> 
+ when the reference ID of the lookup table changes then CASCADE ensures 
+ that any changes made will cascade down to this table.</p>
+                <p class="ListDescSub"><b>On Delete Rule:</b> 
+ when the reference ID of the lookup table is deleted then CASCADE&#160;ensures 
+ that the changes made will cascade down to this table and this value will 
+ become NULL.</p>
+            </div>
+            <ol start="12">
+                <li class="Numbers" value="12">Click <b>Next</b>, 
+ once the required fields and their values have been defined, to end the 
+ query configuration dialog.</li>
+            </ol>
+            <p class="ListDesc">The <b>Custom Query</b> 
+ dialog is displayed, which allows you to manually configure this query, 
+ if necessary.</p>
+            <p class="ListNotice"><b>Note:</b> This 
+ dialog should be used to <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Qry/Adding_parameters.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">rename any parameters</a></span> 
+ that were specified for table and/or field names.&#160;&#160;</p>
+            <ol start="13">
+                <li class="Numbers" value="13">If necessary, type or modify 
+ the existing SQL querying commands in the <b>SQL 
+ Query</b> editor, which highlights keywords and makes it easier to 
+ customise your queries.</li>
+            </ol>
+            <ol start="14">
+                <li class="Numbers" value="14">Click <b>Finish</b>, 
+ once you are satisfied with this query.</li>
+            </ol>
+            <p class="ListDesc">This adds this query with its specified name beneath 
+ the   <b>Create Table Queries</b> 
+ subfolder of the   <b>Queries</b> 
+ folder of the applicable  OLE DB datasource, in the <b>Enterprise Manager</b>.&#160;</p>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2" name="kanchor1430"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To perform a Create Table query using a Query spider:</a> this  procedure 
+ describes how to perform a Create Table query 
+ by clicking a Button control and to display the result of this operation 
+ in a TextBox control on a graphic form.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p>This procedure assumes that the <b>Create 
+ Table</b> query has been added and configured.</p>
+            <p><b>Prepare the graphic form:</b>
+            </p>
+            <ol start="1">
+                <li class="Numbers" value="1">Open a new graphic form 
+ in the <b>Design workspace</b>. (If 
+ necessary, add a project and a graphic form first)</li>
+                <li class="Numbers" value="2">Add a <img src="../../../../image64.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> <b>Button</b> control to this 
+ graphic form from the <b>Toolbox</b> 
+ - this will be used to trigger the Query spider so that it will perform 
+ the query.</li>
+                <li class="Numbers" value="3">Add a <img src="../../../../image65.gif" style="border: none;width: 17px;height: 15px;border-style: none;" width="17" height="15" border="0" /> <b>TextBox</b> 
+ control to this graphic form from 
+ the <b>Toolbox</b> - this 
+ will be used to display the results of performing this query.</li>
+                <li class="Numbers" value="4">If necessary, <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">select<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span> 
+ the <b>TextBox</b> control in the graphic form. </li>
+            </ol>
+            <p><b>Add and configure the Query spider to run 
+ this query:</b>
+            </p>
+            <ol start="5">
+                <li class="Numbers" value="5">Open the <b>Spider Configuration</b> 
+ tool window. </li>
+                <li class="Numbers" value="6">Right-click 
+ the spider workspace itself and select the <b>Create 
+ New Spider</b> menu.</li>
+                <li class="Numbers" value="7">Click the <b>Databasing</b> 
+ sub-menu and its <b>Query</b> item to 
+ add a Query spider. &#160;</li>
+                <li class="Numbers" value="8">Double click the title 
+ bar of this spider to open its configuration view.     </li>
+                <li class="Numbers" value="9">Select 
+ the required query from the <b>Inputs</b> section of this spider, as follows:</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">Click the Server containing the required OLE DB datasource from the <b>Server</b> 
+ list box. </li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> Use the 
+ <b>Default Server</b> selection, when 
+ referring to the Server that you use to log in, instead of its actual 
+ name as this makes it easier to transfer this spider to another Client. 
+ &#160;</p>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">If 
+ necessary, <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">select<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span> the required <b>OLE DB 
+ datasource</b> from this list of available OLE DB datasources on this 
+ Server. </li>
+            </ol>
+            <p class="ListDescSub">The first OLE DB datasource created on this Server 
+ is selected by default.</p>
+            <ol start="3">
+                <li class="NumbersSubLetters" value="3">Click the required type in the <b>Query 
+ Type</b> list. </li>
+            </ol>
+            <p class="ListDescSub">The Select Query category is selected by default.</p>
+            <ol start="4">
+                <li class="NumbersSubLetters" value="4">From the <b>Query Name</b> list box, <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">select<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span> the name of the required query.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> It is 
+ important to name your queries clearly, so that it is easy to select the 
+ correct one.</p>
+            <ol start="5">
+                <li class="NumbersSubLetters" value="5"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />If this selected query contains parameters</a>, 
+ then the names of these parameters will be added as additional inputs to the 
+ <b>Inputs</b> section. <div MadCap:targetName="t1" style="display: none;"><p class="Notices"><b>Note1:</b> The value of each 
+ parameter input can either be provided by a  property or data 
+ element via a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">silk<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a line with an arrow at its end, which links the output of one spider to the input of another.</span></span> 
+ or can be typed in manually. <MadCap:conditionalText MadCap:conditions="Common.ExFromPDF">For details, see <a href="../../50S_S/30Silks/Creating_silks.htm">Creating 
+ silks</a>.</MadCap:conditionalText></p><p class="Notices"><b>Note2:</b> If using SQL, please 
+ ensure that all the date parameters for this query adhere to the universal 
+ date time standard for SQL, which is yyyy-mm-dd.</p><p class="Notices"><b>Tip:</b> When 
+ typing in a value manually, double-click the value column to the right 
+ of the parameter name in the <b>Inputs</b> section and type in the required 
+ value.</p></div></li>
+            </ol>
+            <ol start="6">
+                <li class="NumbersSubLetters" value="6">It 
+ is recommended to use the <b>Confirm Action</b> 
+ checkbox to display a confirmation dialog before this query inserts a 
+ record into your database. </li>
+            </ol>
+            <p class="ListDesc">This spider performs this query to insert a record, when 
+ it is triggered. </p>
+            <p class="ListNotice"><b>WARNING!</b> Please 
+ ensure that you have provided values for ANY parameters used by this query 
+ BEFORE triggering this spider otherwise an error will be displayed.</p>
+            <p class="ListNotice"><b>Note:</b> You will 
+ notice in the <b>Event Trigger</b> section 
+ of this spider that this Query spider is triggered by clicking the <b>Button</b> 
+ control.</p>
+            <p><b>Connect the Query spider to the TextBox control:</b>
+            </p>
+            <ol start="10">
+                <li class="Numbers" value="10">If necessary, open the 
+ property tree by using the pane 
+ display bar on the right border of the central spider 
+ workspace pane. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../20DesEnv/Working_with_pane_display_bars.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with pane display bars</a></span></li>
+                <li class="Numbers" value="11">In the <b>Outputs</b> section, 
+ drag the <b>Return Information</b> output 
+ onto the <b>Appearance</b> category beneath 
+ this <b>TextBox</b> control in the property tree and when this category expands, 
+ drop it onto the <b>Text</b> property. 
+ </li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The <b>Return Information</b> output either describes 
+ the reasons for NOT deleting a record or how many records were removed. 
+ &#160;</p>
+            <p><b>Test that the query is correctly displayed:</b>
+            </p>
+            <ol start="12">
+                <li class="Numbers" value="12">Click the <b>Preview</b> 
+ toolbar button of this graphic form.</li>
+                <li class="Numbers" value="13">Press the <b>Button</b> control, 
+ if you used <b>Confirm Action</b> the 
+ confirmation dialog should be displayed.</li>
+                <li class="Numbers" value="14">The <b>TextBox</b> control should 
+ either display an error message or how many records were deleted.</li>
+                <li class="Numbers" value="15">Save the graphic form by 
+ pressing its <b>Save </b> <img src="../../../../Resources/Images/16/Generic/Save.png" /> toolbar button to save these changes. </li>
+            </ol>
+        </div>
+        <p><a href="Qry/Editing_user_queries.htm">To edit this query</a>.</p>
+        <p class="Notices"><b>Tip:</b> Right-click the required   <b>Create Table</b> query 
+ and select <b>Edit Create Table Query</b>.</p>
+        <p><a href="Qry/Removing_user_queries.htm">To delete this query</a>.</p>
+        <p class="Notices"><b>Tip:</b> Right-click the required   <b>Create Table</b> query 
+ and select <b>Delete Create Table Query</b>.</p>
+        <p class="notices">&#160;</p>
+        <p>For details of parameterizing queries, see <a href="Qry/Adding_parameters.htm">Working 
+ with parameters</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

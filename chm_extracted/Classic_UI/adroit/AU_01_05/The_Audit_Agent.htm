@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>The Audit Agent</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2149"></a><a name="kanchor2150"></a>The Audit Agent</h1>
+        <p><a name="kanchor2151"></a><a name="kanchor2152"></a><a name="kanchor2153"></a><a name="kanchor2154"></a><a name="kanchor2155"></a><a name="kanchor2156"></a><a name="kanchor2157"></a>This agent supplements the auditing or logging of the Agent Server sessions 
+ and selected activities performed during these sessions to an OLE DB database.</p>
+        <p>Use the Audit agent to specify one or more tags that you want to monitor 
+ for ANY change in value. When a value changes, for any reason, the agent 
+ logs this change of value to the audit database. </p>
+        <p>In other words, EVERY value change for EVERY specified tag is logged, 
+ regardless of whether <span class="AdroitAppName">Adroit</span> or a PLC or something else causes this change 
+ in value.</p>
+        <p>For this reason, <b>it is essential that 
+ you ONLY specify the process tags whose EVERY change in value is important 
+ to the running of the process</b>. Typically you will audit set points 
+ or alarm levels, but not temperature or level values. </p>
+        <p>In other words, 
+ do not specify process tags whose values that are required to change frequently 
+ as part of the normal operation, as these will simply flood your database 
+ with unnecessary records.</p>
+        <p class="Notices"><b>Tip:</b> If you want to analyse your audited data then, we recommend that you  install the <span class="AdroitAppName">Adroit</span> Report Suite and specifically the Audit Reports report pack, which provides you with the necessary tools you need to analyse both your Agent Server auditing and tag auditing, where Agent Server auditing includes any activities on the Agent Server, while the tag auditing is concerned specifically with data logged by any Audit agents.</p>
+        <p>Each changed value is logged to the <b>Activity</b> 
+ table of the audit database, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />which records the following:</a></p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">The action i.e. Tag value 
+ change</li>
+                <li class="Bullets" value="2">The process tag that is 
+ changed i.e. agentName.slotName</li>
+                <li class="Bullets" value="3">The change in value i.e. 
+ oldValue to newValue</li>
+                <li class="Bullets" value="4">Information common to all 
+ the other records, such as the date and time of this action, the Agent 
+ Server computer and the currently logged on username.</li>
+            </ul>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To audit the changes of one or more process tags:</a>
+        </p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Ensure that the Agent Server 
+ is being audited.<MadCap:conditionalText MadCap:conditions="Common.ExFromPDF"> For details, see <a href="../AU_01_02/Configuring_Agent_Server_auditing.htm">Configuring Agent Server auditing</a>.</MadCap:conditionalText></li>
+                <li class="Numbers" value="2">Edit 
+				an agent of type: <b>Audit</b>. </li>
+            </ol>
+            <p class="ListDesc">
+                <p>If necessary, add an agent of the required type, as follows:</p>
+                <div MadCap:targetName="AddingAgents">
+                    <h2>In the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+                    <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+                    <ol>
+                        <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                        <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                        <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+                    </ol>
+                    <ol start="4">
+                        <li class="Numbers" value="4">If necessary, expand the <![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                        <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+                        <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup </b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+                        <li class="Numbers" value="7">Right click the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically, and select <b>Create Tag</b>.</li>
+                        <li class="Numbers" value="8">Specify the required <b>Tag Name</b> or agent name.</li>
+                    </ol>
+                    <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgtNmgConventns"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The following rules apply when naming agents:</a>
+                    </p>
+                    <div MadCap:targetName="AgtNmgConventns" style="display: none;">
+                        <ol>
+                            <li class="NumbersSubLetters" value="1">Agent names have a maximum 
+ of 27 characters.</li>
+                            <li class="NumbersSubLetters" value="2">Agent names cannot be the 
+ same as the names used for Agent Types or for Agent Groups.</li>
+                            <li class="NumbersSubLetters" value="3">Agent names cannot use 
+ the following characters:</li>
+                        </ol>
+                        <p class="ListDescSub">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p>Space</p>
+                                    </td>
+                                    <td>
+                                        <p>&#160;</p>
+                                    </td>
+                                    <td>
+                                        <p>Percent</p>
+                                    </td>
+                                    <td>
+                                        <p><b>%</b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>Comma</p>
+                                    </td>
+                                    <td>
+                                        <p><b>,</b>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>Period</p>
+                                    </td>
+                                    <td>
+                                        <p><b>.</b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>back slash</p>
+                                    </td>
+                                    <td>
+                                        <p><b>\</b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>Dollar</p>
+                                    </td>
+                                    <td>
+                                        <p><b>$</b>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p>
+                    </div>
+                    <ol start="9">
+                        <li class="Numbers" value="9">If necessary, provide an optional <b>Description</b> that describes the purpose or describes the value of this tag (agent) for ease of reference.</li>
+                        <li class="Numbers" value="10">Click the <b>Finish</b> button.</li>
+                    </ol>
+                    <p>&#160;</p>
+                </div>
+                <p> If necessary, locate the required agent, as follows:</p>
+                <h2>In <a name="kanchor2158"></a>the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+                <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+                <ol>
+                    <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                    <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+                </ol>
+                <ol start="4">
+                    <li class="Numbers" value="4">If necessary, expand the <![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                    <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+                    <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup</b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+                    <li class="Numbers" value="7">If necessary, expand the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically.</li>
+                    <li class="Numbers" value="8">Locate the required agent <img src="../Resources/Images/16/DataSources/Adroit_Agent.png" />, which is also listed alphabetically beneath their applicable agent 
+ type.</li>
+                </ol>
+                <p>&#160;</p>
+                <p>In the Enterprise Manager window: right click this agent and select <b>Configure</b>.</p>
+            </p>
+            <p>In the <b>Edit Audit Agent</b> dialog: </p>
+            <ol start="3">
+                <li class="Numbers" value="3">Check the <b>Enable</b> 
+ checkbox (the <b>enabled</b> slot).</li>
+                <li class="Numbers" value="4">Add the process tags that 
+ you want to audit, using one <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />of the following methods:</a><div MadCap:targetName="t4" style="display: none;"><ul><li class="ListBullets" value="1">Click the <b>Import…</b> 
+ button to add ALL your tags that have been output enabled i.e. so that 
+ they can be configured by your front-end devices. Since these tags are 
+ typically your alarm limits or set point values that you need to audit.</li></ul><p class="ListDescSub">This method can save you time when you have a large 
+ number of these tags and you want to audit all or most of these.</p><p class="ListNoteSub"><b>Note:</b> You need to ensure that 
+ all the added tags are necessary to be audited.</p><ul><li class="ListBullets" value="1">Click the <b>Browse 
+ a tag…</b> button to display the Classic UI tag browser dialog to specify 
+ the required agent and slot of this tag. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting a Tag Using the Agent Explorer</a></span>.</li></ul><p class="ListDescSub">This method ensures that both the agent and slot name 
+ are correctly spelt and is the standard method for selecting tags.</p><ul><li class="ListBullets" value="1">Click 
+ the <b>Manually add a tag…</b> button and type in the name of this tag 
+ in the <b>Add audit tag</b> dialog.</li></ul><p class="ListDescSub">This 
+ method is only recommended if 
+ you know the tag name and can type quicker than you can browse.&#160;</p><p class="ListNoteSub"><b>Note</b> : 
+ Please ensure that the name of both the agent and the slot of this tag 
+ are correctly specified, as these cannot be checked by the agent.</p></div></li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove a tag from the list of audited 
+ tags:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Edit 
+				an agent of type: <b>Audit</b>. </li>
+            </ol>
+            <p class="ListDesc">
+                <p>If necessary, add an agent of the required type, as follows:</p>
+                <div MadCap:targetName="AddingAgents">
+                    <h2>In the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+                    <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+                    <ol>
+                        <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                        <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                        <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+                    </ol>
+                    <ol start="4">
+                        <li class="Numbers" value="4">If necessary, expand the <![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                        <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+                        <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup </b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+                        <li class="Numbers" value="7">Right click the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically, and select <b>Create Tag</b>.</li>
+                        <li class="Numbers" value="8">Specify the required <b>Tag Name</b> or agent name.</li>
+                    </ol>
+                    <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgtNmgConventns"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The following rules apply when naming agents:</a>
+                    </p>
+                    <div MadCap:targetName="AgtNmgConventns" style="display: none;">
+                        <ol>
+                            <li class="NumbersSubLetters" value="1">Agent names have a maximum 
+ of 27 characters.</li>
+                            <li class="NumbersSubLetters" value="2">Agent names cannot be the 
+ same as the names used for Agent Types or for Agent Groups.</li>
+                            <li class="NumbersSubLetters" value="3">Agent names cannot use 
+ the following characters:</li>
+                        </ol>
+                        <p class="ListDescSub">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p>Space</p>
+                                    </td>
+                                    <td>
+                                        <p>&#160;</p>
+                                    </td>
+                                    <td>
+                                        <p>Percent</p>
+                                    </td>
+                                    <td>
+                                        <p><b>%</b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>Comma</p>
+                                    </td>
+                                    <td>
+                                        <p><b>,</b>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>Period</p>
+                                    </td>
+                                    <td>
+                                        <p><b>.</b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>back slash</p>
+                                    </td>
+                                    <td>
+                                        <p><b>\</b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>Dollar</p>
+                                    </td>
+                                    <td>
+                                        <p><b>$</b>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p>
+                    </div>
+                    <ol start="9">
+                        <li class="Numbers" value="9">If necessary, provide an optional <b>Description</b> that describes the purpose or describes the value of this tag (agent) for ease of reference.</li>
+                        <li class="Numbers" value="10">Click the <b>Finish</b> button.</li>
+                    </ol>
+                    <p>&#160;</p>
+                </div>
+                <p> If necessary, locate the required agent, as follows:</p>
+                <h2>In <a name="kanchor2159"></a>the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+                <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+                <ol>
+                    <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                    <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+                </ol>
+                <ol start="4">
+                    <li class="Numbers" value="4">If necessary, expand the <![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                    <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+                    <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup</b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+                    <li class="Numbers" value="7">If necessary, expand the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically.</li>
+                    <li class="Numbers" value="8">Locate the required agent <img src="../Resources/Images/16/DataSources/Adroit_Agent.png" />, which is also listed alphabetically beneath their applicable agent 
+ type.</li>
+                </ol>
+                <p>&#160;</p>
+                <p>In the Enterprise Manager window: right click this agent and select <b>Configure</b>.</p>
+            </p>
+            <p>In the <b>Edit Audit Agent</b> dialog: </p>
+            <ol start="2">
+                <li class="Numbers" value="2">Click the tag in the list 
+ that you do not want to audit.</li>
+                <li class="Numbers" value="3">Click the <b>Delete selected 
+ tag</b> button to delete this tag.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To allow an operator (user) to add a 
+ tag to be audited:</a> 
+ this allows an operator to simply click a button on a mimic and to type 
+ in the required <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> 
+ (agent.slot).</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Add a <b>Button</b> to the required  mimic.</li>
+                <li class="Numbers" value="2">Label this button, as required.</li>
+                <li class="Numbers" value="3">Add an <b>Operator 
+ Action</b> Behaviour to this <b>Button</b>.</li>
+                <li class="Numbers" value="4">Specify the required <b>Audit</b> agent and select its <b>addTag</b> 
+ slot in the <b>Tag</b> field of this 
+ Behaviour.</li>
+                <li class="Numbers" value="5">Select <b>Data Entry</b> 
+ as the required <b>Action</b>.</li>
+            </ol>
+        </div>
+        <p>&#160;</p>
+        <p MadCap:conditions="Common.ExFromPDF">For more details on auditing the Agent Server, see <a href="../AU_01_02/Agent_Server_Auditing.htm">Agent 
+ Server Auditing</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

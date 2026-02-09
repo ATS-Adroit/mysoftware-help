@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|Adroit Datasources" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.DS_Adroit" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Adroit datasource special functions</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor4184"></a>Special functions of <span class="AdroitAppName">Adroit</span> datasources</h1>
+        <p>The following is the list of special functions provided by the <span class="AdroitAppName">Adroit</span> 
+ datasouce, in alphabetical order, that can be used to configure the <span class="AdroitAppName">Adroit</span> 
+ datasource itself or its connected Agent Server:</p>
+        <p class="Notices"><b>Note1:</b> This topic 
+ is ONLY intended for advanced users only who already have advanced knowledge 
+ of <span class="AdroitAppName">Adroit</span> and as such ONLY the parameters and/or returned data of these 
+ special functions have been described.</p>
+        <p class="Notices"><b>Note2:</b> Access to these 
+ special functions can be controlled. For details, see <a href="../../../40Mng/10Sec/30SF/Working_with_special_function_security.htm">Working with 
+ special function security</a>.</p>
+        <table style="mc-table-style: url('../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 148px;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 123px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 106px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 33%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th rowspan="2" class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Special Function Name</th>
+                    <th colspan="3" class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1" style="border-right-style: solid;border-right-width: 1px;border-bottom-style: solid;border-bottom-width: 0px;border-bottom-color: #000000;">Parameter</th>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Name</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Data type</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Data type description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AcknowledgeAlarms</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">alarmsToAcknowledge</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">[AlarmAgentName, AlarmToAck]</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>A two dimensional String array, where:</p>
+                        <ul>
+                            <li class="Bullets" value="1">the first dimension represents the name of the Alarm agent and </li>
+                            <li class="Bullets" value="2">the second is the name of the alarm to acknowledge.
+</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td rowspan="5" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AddAlarmRoute</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">alarmAgent</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of the Alarm agent to contain this route.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">alarmLists</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of AlarmList agents for this route.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">audioDevices</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of audio agents for this route e.g. Beeper or Multimedia</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">outputs</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of output agents for this route e.g. AlarmManagement, Notify, EventOutput</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">eventLogs</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of EventLot destinations for this route e.g. LOCAL or the required remote computer name </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td rowspan="2" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AddToGroup</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">group</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of the agent group</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">agents</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of agents to be added to this agent group</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td rowspan="5" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AlarmTag</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">tagName</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> to alarm</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">alarmAgent</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of Alarm agent to manage this alarm</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">alarmType</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Integer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of the alarm type of this agent i.e. the alarming condition</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">alarmRoute</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Boolean</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The alarm route number to annunciate this alarm</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">alarmAck</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Whether acknowledgement of this alarm is required or not</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td rowspan="6" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">ChangeAlarmRoute</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">alarmAgent</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of the Alarm agent that contains this alarm route.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">route</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Integer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Alarm route to modify</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">alarmLists</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of AlarmList agents for this route.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">audioDevices</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of audio agents for this route e.g. Beeper or Multimedia</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">outputs</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of output agents for this route e.g. AlarmManagement, Notify, EventOutput</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">eventLogs</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of EventLot destinations for this route e.g. LOCAL or the required remote computer name </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td rowspan="3" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">CreateTag</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">tagName</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> to create</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">agentType</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Type of agent to create e.g. Analog, Digital, Counter</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">tagDescription</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">An optional description that describes the intended purpose of this tag.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">DeleteTag</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">tagName</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> to delete</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">EditDatasource</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">connectionString</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The connection string of the Agent Server, which is typically “ComputerName.AgentServerName”
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">GetCurrentServerConnection
+</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">NONE</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">&#160;</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Returns a String containing the current Agent Server connection string, which is either “ComputerName.AgentServerName” or “” if this connects to the local Agent Server </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">GetServerList
+</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">NONE</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">&#160;</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Returns a String array of the Agent Servers that are currently enumerated by way of broadcasts
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td rowspan="7" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">LogTag</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">tagName</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of agent (tag) to log
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">slotName</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of slot (variable) to log
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">logPeriod</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Integer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The logging period, in days
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">logSet</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Integer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The zero-based log set index (the index of the first log set being 0)
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">logRate</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Integer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Logging rate, in seconds
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">logCompression</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Integer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Logging compression method: 0 – Actual; 1 – Average; 2 – Maximum; 3 – Minimum
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">logFile</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>For the <span class="AdroitAppName">Adroit</span> proprietary logging: the path and file name of the .LGD log file.</p>
+                        <p>For SQL (OLE DB) logging, the SQL connection string.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">RemoveFromGroup</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">group</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The name of agent group from which to remove agents
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">&#160;</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">agents</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Comma separated list of agents to remove from this agent group
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">Save</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">NONE</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">&#160;</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Saves the currently opened <span class="AdroitAppName">Adroit</span> agent database (WGP file) of this Agent Server.
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td rowspan="7" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">ScanTag</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">tagName</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of agent (tag) to scan
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">slot</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of slot (variable) to scan
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">device</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Name of the Device agent to manage the scanning
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">scanAddress</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">String</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The required IO address of the front-end device e.g. PLC 
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">scanRate</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Integer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">If this is a polled protocol driver, then specify the required poll rate of this scanned point
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">scanDeadband</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Integer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The value deadband of this scanned point, above which the value is scanned.
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">scanOutputEnable</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Boolean</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Whether this scanned point should be output enabled or not 
+</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">ValidateOEMBitMask
+</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">mask</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">Integer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">An Integer bit mask to be validated against the OEM bitmask in the Licence agent of the Agent Server.
+
+This returns a True / False validation
+</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

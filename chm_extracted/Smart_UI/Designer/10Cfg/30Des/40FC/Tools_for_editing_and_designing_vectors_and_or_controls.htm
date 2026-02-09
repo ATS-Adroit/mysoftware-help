@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Tools for editing and designing vectors and/or controls</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Tools for <a name="kanchor3834"></a>arranging and designing <MadCap:conditionalText MadCap:conditions="VIP.Ctrl_Vectors">vectors and/or</MadCap:conditionalText> controls</h1>
+        <p>The <span class="VIPAppName">SmartUI</span> Designer provides a number of  tools to assist with arranging and designing        <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">form components<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a general term encompassing all the controls, components and / or graphic elements that can be added to graphic forms, to provide the required user interface for its end-users. See control; component; graphic element; graphic form.</span></span> on the currently displayed graphic form.</p>
+        <p>These tools are located within the <b>Design</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon, which is displayed by selecting the <b>Design</b> tab from the <span class="VIPAppName">SmartUI</span> Designer ribbon</p>
+        <p>The <b>Design</b> tab provides the following groups of tools:</p>
+        <ul>
+            <li class="Bullets" MadCap:conditions="VIP.Ctrl_Vectors" value="1"><b>Vectors</b>: tools for ONLY&#160;working with vectors (graphic elements). For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Vector_tools_for_editing_and_designing_vectors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Vector tools for editing and designing vectors</a></span>.</li>
+            <li class="Bullets" value="2"><b>Workspace</b>: tools for arranging<a name="kanchor3835"></a> and organizing ALL&#160;form 
+ components. For details, see <a href="Workspace_tools_for_arranging_form_components.htm">Workspace tools for arranging form components</a>.</li>
+            <li class="Bullets" value="3"><b>Font</b>: click a form component or a displayed text property, then use this to select or modify its font. </li>
+            <li class="Bullets" value="4"><b>color</b>: this section provides the following color-property specific tools:</li>
+            <li class="BulletSub" value="5">color selection control: click a form component or ANY of its color properties to change its color.</li>
+        </ul>
+        <p class="ListDesc" MadCap:conditions="Common.VerMinorOne"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click for more details on how to use this selection control:<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> either use the top two scroll buttons to move up and down the rows within this selection control or click the bottom button <img src="../../../00CmnUse/BottomButtonOfSelectionControl.jpg" /> to expand the selection control to display all the available selection options, which collapses once you have made your selection.</span></span>
+        </p>
+        <p class="ListDesc" MadCap:conditions="Common.VerMinorOne">The following tool ONLY applies to configuring graphical elements (vectors):</p>
+        <ul>
+            <li class="BulletSub" MadCap:conditions="Common.VerMinorOne" value="1"><b><a name="kanchor3836"></a>Gradient</b> selection control: click a vector or vector group and then either click <b>Gradient</b> to apply the currently selected gradient  or click the drop down list <img src="../../../00CmnUse/Generic%20-%20List%20box%20button.bmp" /> button to the right to change the current gradient by  selecting one of the pre-defined <b>Gradient Types</b> and/or changing the required gradient <b>color</b> and/or the <b>Intensity</b> or transparency of the gradient fill.</li>
+        </ul>
+        <p class="ListDesc" MadCap:conditions="Common.VerMinorOne">The following tool ONLY applies to configuring the <b>Backcolor</b> property of a form component:</p>
+        <ul>
+            <li class="BulletSub" MadCap:conditions="Common.VerMinorOne" value="1"><b><a name="kanchor3837"></a>Format Painter</b>: click the form component whose <b>Backcolor</b> you want to copy to another form component, then click the <b>Format Painter</b> option and then click the required form component whose <b>Backcolor</b> property you want to configure.</li>
+            <li class="Bullets" MadCap:conditions="Common.VerMinorOne" value="2"><b>Snapping</b>: tools that assist in aligning or positioning form components with respect to existing form components, when dragging them within the graphic form.</li>
+        </ul>
+        <p class="ListNotice" MadCap:conditions="Common.VerMinorOne"><b>Note:</b> Changing the current snapping method used for a graphic form, requires the graphic form to be saved and reloaded.</p>
+        <p class="ListDesc" MadCap:conditions="Common.VerMinorOne">Select the required snapping method that you want to use from the <b><a name="kanchor3838"></a>Snap Mode</b> list box, as follows: </p>
+        <p class="ListNotice" MadCap:conditions="Common.VerMinorOne"><b>Note:</b> Unless the <b>Enable Vector Snapping Check</b> checkbox is checked, the selected snapping method ONLY applies to the controls on the graphic form and not the vectors. </p>
+        <p class="ListNotice" MadCap:conditions="Common.VerMinorOne"><b>Tip:</b> This checkbox should typically only be unchecked when using the <b>SnapLines</b> option, which can be very irritating especially when there are a lot of vectors that are randomly placed on the graphic form. </p>
+        <ul>
+            <li class="BulletSub" MadCap:conditions="Common.VerMinorOne" value="1"><b>Off</b>: to turn off all snapping of form components - if you find this feature annoying and/or want to manually align your form components.</li>
+            <li class="BulletSub" MadCap:conditions="Common.VerMinorOne" value="2"><b><a name="kanchor3839"></a>SnapLines</b>: to use snap lines, which are typically blue, when dragging controls to the sides of the existing controls (and if the <b><a name="kanchor3840"></a>Enable Vector Snapping Check</b> checkbox is checked, these lines are also displayed when dragging vectors and this also allows controls and vectors to be snapped to the sides and/or centers of vectors).</li>
+        </ul>
+        <p class="ListNoteSub" MadCap:conditions="Common.VerMinorOne"><b>Note:</b> When dragging controls that contain text, pink snap lines appear to align the text with the text of other controls. These pink snap lines are not displayed for vectors that contain text.</p>
+        <ul>
+            <li class="BulletSub" MadCap:conditions="Common.VerMinorOne" value="1"><b><a name="kanchor3841"></a>Grid</b>: controls (and if the <b>Enable Vector Snapping</b> checkbox is checked then also vectors) align their top left corners to the nearest grid point when moved and resized (snapping to the nearest grid point in the direction of the resize). </li>
+        </ul>
+        <p class="ListNoteSub" MadCap:conditions="Common.VerMinorOne"><b>Note:</b> When this option is enabled, you can specify the distance, in pixels, between each grid point by using the <b>Grid size</b> spin control.</p>
+        <p class="ListNoteSub" MadCap:conditions="Common.VerMinorOne"><b>Tip:</b> When this option is enabled and you <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">nudge<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">to move a form component in typically 1 pixel increments, by using the arrow keys.</span></span> form components, they are nudged the distance, in pixels, specified by the <b>Grid size</b> spin control. Although nudging does not necessarily snap to the grid, it only moves the form components the specified distance.</p>
+        <ul>
+            <li class="Bullets" MadCap:conditions="Common.VerMinorOne" value="1"><b>Shapes</b>: add commonly-used pre-configured vector shapes to your graphic form instead of configuring them yourself via the <b>Vectors</b> group of the <b>Toolbox</b> window, which are classified into the following groups: <a name="kanchor3842"></a>Basic Shapes, <a name="kanchor3843"></a>Advanced Shapes and <a name="kanchor3844"></a>Pipework.</li>
+        </ul>
+        <p class="ListDesc" MadCap:conditions="Common.VerMinorOne"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click for more details on how to use this selection control:<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> either use the top two scroll buttons to move up and down the rows within this selection control or click the bottom button <img src="../../../00CmnUse/BottomButtonOfSelectionControl.jpg" /> to expand the selection control to display all the available selection options, which collapses once you have made your selection.</span></span>
+        </p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

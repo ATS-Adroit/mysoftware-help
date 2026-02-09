@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="How to Cluster VIP Servers.doc" /><title>How to cluster Servers</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>How to cluster <span class="VIPAppName">SmartUI</span> Servers</h1>
+        <p><span class="VIPAppName">SmartUI</span> Servers should be clustered to provide:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>redundancy</b> 
+ to ensure continued operation in the event that one or more fail. </li>
+            <li class="Bullets" value="2"><b>load 
+ balancing</b> to handle their combined workload evenly</li>
+        </ul>
+        <p><b>Redundancy</b> is achieved by ensuring 
+ that each of the <span class="VIPAppName">SmartUI</span> Servers in the cluster has exactly the same project data 
+ source files as well as configuration files. In other words, it is necessary 
+ to configure one Server within the cluster and then duplicate its settings 
+ to all the others.</p>
+        <p class="Notices"><b>Note</b>: Any number of 
+ Servers can belong to the same cluster.</p>
+        <p><b>Load balancing</b> is achieved by ensuring that each of the <span class="VIPAppName">SmartUI</span> Operators 
+ (that use the Servers in this cluster) provide the connection settings 
+ of all the Servers in the cluster. In other words, it is necessary to 
+ configure one Operator and duplicate its settings to all the others.</p>
+        <p>Each <span class="VIPAppName">SmartUI</span> Server uses UDP broadcasts to inform 
+ its cluster aware Operators of its availability and load. The load of 
+ each Server is determined by the number of <span class="VIPAppName">SmartUI</span> Clients that are currently 
+ connected to it. Each cluster aware Operator maintains a list of Servers 
+ for ALL the clusters that it connects to. The list is periodically updated 
+ by the <span class="VIPAppName">SmartUI</span> Operator, which obtains the availability and load of these Servers 
+ from their broadcasts. Cluster aware Operators automatically switch over 
+ to the Server with the lightest load. </p>
+        <p>Upon login, if the default Server (cluster 
+ partner) is NOT available then a cluster aware Operator will search for 
+ an available cluster partner.</p>
+        <p class="Notices"><b>Note</b>: Clustered Servers 
+ currently ONLY share the workload generated by their Operator clients.</p>
+        <p>&#160;</p>
+        <p><a name="Top"></a>The following procedure is recommended to cluster multiple Servers together: </p>
+        <p class="Notices"><b>IMPORTANT:</b> The <MadCap:conditionalText MadCap:conditions="Common.Screenshots">screenshots and </MadCap:conditionalText>specified configuration settings relate to an OLD version of the <span class="VIPAppName">SmartUI</span> product and so your specific settings and screens may differ.
+ </p>
+        <ol>
+            <li class="Numbers" value="1"><a href="#CfgClusterSvrs">Configure 
+ the <span class="VIPAppName">SmartUI</span> Server computers</a> that will be added to the cluster.</li>
+            <li class="Numbers" value="2"><a href="#CfgClusterOprts">Configure 
+ the <span class="VIPAppName">SmartUI</span> Operators</a> that will make use of the Servers in this cluster.</li>
+            <li class="Numbers" value="3">Perform <a href="#LoadBalncCfg">additional 
+ configuration of these <span class="VIPAppName">SmartUI</span> Operators when load balancing is required</a>.</li>
+        </ol>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="CfgClusterSvrs"></a>Configuring <span class="VIPAppName">SmartUI</span> Server Computers that Make up the 
+ Cluster</h2>
+        <ol>
+            <li class="Numbers" value="1">Select a <span class="VIPAppName">SmartUI</span> Server computer, 
+ which will be used to as the template for the cluster on which all the 
+ necessary configuration will be initially performed and then copied to 
+ <b>ALL </b>the other Server machines in the <b>cluster</b>.</li>
+            <li class="Numbers" value="2">Perform the following 
+ configuration on this computer:</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Run the <b><span class="VIPAppName">SmartUI</span> Config 
+ </b>application and open the <b><span class="VIPAppName">SmartUI</span></b> <![CDATA[  ]]><b>Server </b>or<b><span class="VIPAppName">SmartUI</span></b> <![CDATA[  ]]><b>Service</b> 
+ configuration under the <b>Advanced</b> section, depending upon whether 
+ this Server is being run as a service or not. Ensure that its <b>ServerName</b> 
+ property is set to the name of the <b>cluster</b>.</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ClusterServers_files/image002.jpg" style="width: 553px;height: 415px;border-style: none;border-style: none;" width="553" height="415" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 1: Locating the ServerName property for a <span class="VIPAppName">SmartUI</span> Server
+        </p>
+        <ol start="2">
+            <li class="NumbersSubLetters" value="2">Run the <span class="VIPAppName">SmartUI</span> Server and <span class="VIPAppName">SmartUI</span> Designer and ensure that <b>ALL</b> the projects and data sources have 
+ been set up and finalised. </li>
+            <li class="NumbersSubLetters" value="3">Close the Designer 
+ and Server.</li>
+        </ol>
+        <ol start="3">
+            <li class="Numbers" value="3">Now ensure that the 
+ following components are copied from this Server computer to all the Server 
+ computers in this <b>cluster</b>:</li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1">The <b>Data </b>and<b> 
+ Projects </b>folders.</li>
+            <li class="ListBullets" value="2">The VIPServer.exe.config 
+ and VIPService.exe.config files.</li>
+        </ul>
+        <ol start="4">
+            <li class="Numbers" value="4">If necessary, 
+ configure the following settings that configure the UDP broadcasts that 
+ inform cluster aware Operators of the availability and load of each cluster 
+ partner:</li>
+            <li class="ListBullets" value="5">The <b>BroadcastEnabled</b> 
+ Server setting enables (the default setting) or disables these UDP broadcasts.</li>
+            <li class="ListBullets" value="6">The <b>BroadcastTimePeriod</b> 
+ Server setting specifies the time, in milliseconds, between broadcasts, 
+ which is 2 seconds (2000 milliseconds) by default. Although decreasing 
+ this setting reduces the network traffic it also prevents the Operators 
+ from quickly responding to changes in Server load and/or availability.</li>
+            <li class="ListBullets" value="7">The <b>BroadcastPortRange</b> 
+ Server setting specifies the UDP port range which the Server uses for 
+ its broadcasts, by default this is 11000-11010. </li>
+        </ol>
+        <p class="ListNoteSub"><b>IMPORTANT</b>: 
+ If you CHANGE this setting for a Server then you need to change the <b>BroadcastPortRange</b> setting of each Client 
+ that you want to receive these broadcasts from this Server. </p>
+        <p>&#160;</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="CfgClusterOprts"></a>Configuring the <span class="VIPAppName">SmartUI</span> Operators that Use the Servers 
+ in this Cluster</h2>
+        <ol>
+            <li class="Numbers" value="1">Select an <span class="VIPAppName">SmartUI</span> Operator 
+ computer, which will be used as the template for all the Operator clients 
+ that are to connect to this cluster, on which all the necessary configuration 
+ will be initially performed and then will usually be copied to the other 
+ Operator clients.</li>
+            <li class="Numbers" value="2">Run the <b><span class="VIPAppName">SmartUI</span> Config 
+ </b>application on this Operator computer and open the <b><span class="VIPAppName">SmartUI</span> Operator</b> 
+ configuration page under the <b>Advanced</b> section. Ensure that the 
+ <b>Cluster Settings</b> group of properties are configured, as follows:</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ClusterServers_files/image004.jpg" style="width: 553px;height: 415px;border-style: none;border-style: none;" width="553" height="415" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 2 : Locating the Cluster Settings group of properties 
+ for a <span class="VIPAppName">SmartUI</span> Operator</p>
+        <ol>
+            <li class="NumbersSubLetters" value="1">The <b>ClusterEnabled</b> 
+ property must to be set to true      </li>
+            <li class="NumbersSubLetters" value="2">Since 
+ a <span class="VIPAppName">SmartUI</span> Operator can be configured to connect to more than one cluster, 
+ the <b>ClusterNames</b> property is a comma separated list, which specifies 
+ the names of each of the clusters that this <span class="VIPAppName">SmartUI</span> Operator can connect to. 
+ In this case as we only want to connect to one cluster, this should be 
+ set to Cluster1.
+            </li>
+            <li class="NumbersSubLetters" value="3">The last 
+ and most important setting is the <b>ClusterServers</b> setting, which 
+ contains a comma separated list of the Servers that form part of the cluster. 
+ This list is in the following format: “clustername~computername~port~connectionmechanism~ 
+ communicationmechanism;…”
+            </li>
+            <li class="NumbersSubLetters" value="4">Since it is possible 
+ for the Servers that make up a cluster to either be located on the LAN 
+ or hosted on the Internet, this determines how these Servers are described 
+ by this setting, as follows: </li>
+        </ol>
+        <ul>
+            <li class="ListSubBullet" value="1">An example of a Server 
+ connection string for a LAN cluster server is: Cluster1~Computer1~9000~MAINDATAPROVIDER~SUBSCRIBE&#160;</li>
+            <li class="ListSubBullet" value="2">An 
+ example of a Server connection string for an INTERNET cluster server is: 
+ Cluster1~http://201.201.201.1~80~WEBSERVICEDATAPROVIDER~SUBSCRIBE_POLL
+            </li>
+        </ul>
+        <ol start="5">
+            <li class="NumbersSubLetters" value="5">In our example, all 
+ the Servers that form part of the cluster exist on the LAN, and more specifically 
+ on three computers – Computer1, Computer2 and Computer3. For this reason 
+ this <b>ClusterServers </b>setting will appear as follows:</li>
+        </ol>
+        <p class="ListNoteSub"><b>Cluster1~Computer1~9000~MAINDATAPROVIDER~SUBSCRIBE;</b>
+        </p>
+        <p class="ListNoteSub"><b>Cluster1~Computer2~9000~MAINDATAPROVIDER~SUBSCRIBE; 
+ </b>
+        </p>
+        <p class="ListNoteSub"><b>Cluster1~Computer3~9000~MAINDATAPROVIDER~SUBSCRIBE</b>
+        </p>
+        <p class="ListNoteSub">However, if all the Servers that form part of this 
+ cluster existed on the Internet, and more specifically on three computers 
+ with the following IP addresses– 201.201.201.1, 201.201.201.2 and 201.201.201.3. 
+ Then this <b>ClusterServers</b> setting 
+ will appear as follows: </p>
+        <p class="ListNoteSub">Cluster1~http://201.201.201.1~80~WEBSERVICEDATAPROVIDER~SUBSCRIBE_POLL; 
+ Cluster1~http://201.201.201.2~80~WEBSERVICEDATAPROVIDER~SUBSCRIBE_POLL; 
+ Cluster1~http://201.201.201.3~80~WEBSERVICEDATAPROVIDER~SUBSCRIBE_POLL</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Ensure that this configuration 
+ file (<b>VIP Operator.exe.config</b>) is copied to and used by <b>ALL 
+ </b>the <span class="VIPAppName">SmartUI</span> Operator clients that will connect to this cluster. </li>
+        </ol>
+        <p class="ListNotice"><b>Note</b>: This is possible 
+ since these <span class="VIPAppName">SmartUI</span> Operator clients connect to a single cluster. However, 
+ if different Operators are required to connect to different clusters, 
+ it may be necessary to manually configure their configuration files individually, 
+ depending upon the complexity required.</p>
+        <p>&#160;</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="LoadBalncCfg"></a>Additional Configuration of Operators for Load 
+ Balancing</h2>
+        <p>When configuring load balancing, it is often useful to group the <span class="VIPAppName">SmartUI</span> 
+ Operators that connect to a cluster into more than one set. Then modify 
+ the <b>ClusterServers</b><b> <![CDATA[ ]]></b>setting for each of these sets, so that 
+ the order in which they connect to the Servers within the cluster differ. 
+ </p>
+        <p>For example, if we have three sets of <span class="VIPAppName">SmartUI</span> Operators that need to connect 
+ to this cluster, then each of their CONFIG  files could 
+ be configured with three different <b>ClusterServers</b> settings. 
+ In this way each <span class="VIPAppName">SmartUI</span> Operator in the three different sets connects to 
+ a different <span class="VIPAppName">SmartUI</span> Server on start up. For instance:</p>
+        <p><b>Set 1</b>
+        </p>
+        <p>Cluster1~Computer1~9000~MAINDATAPROVIDER~SUBSCRIBE; Cluster1~Computer2~9000~MAINDATAPROVIDER~SUBSCRIBE; 
+ Cluster1~Computer3~9000~MAINDATAPROVIDER~SUBSCRIBE</p>
+        <p><b>Set 2</b>
+        </p>
+        <p>Cluster1~Computer2~9000~MAINDATAPROVIDER~SUBSCRIBE; Cluster1~Computer3~9000~MAINDATAPROVIDER~SUBSCRIBE; 
+ Cluster1~Computer1~9000~MAINDATAPROVIDER~SUBSCRIBE</p>
+        <p><b>Set 3</b>
+        </p>
+        <p>Cluster1~Computer3~9000~MAINDATAPROVIDER~SUBSCRIBE; Cluster1~Computer1~9000~MAINDATAPROVIDER~SUBSCRIBE; 
+ Cluster1~Computer2~9000~MAINDATAPROVIDER~SUBSCRIBE</p>
+        <p>&#160;</p>
+        <h2><b>IMPORTANT NOTES</b>
+        </h2>
+        <p>The <b>INITIAL </b>connection for the <span class="VIPAppName">SmartUI</span> Operator <b>MUST</b> have 
+ a running <span class="VIPAppName">SmartUI</span> Server. In other words, if a <span class="VIPAppName">SmartUI</span> Operator is configured 
+ to connect to the <span class="VIPAppName">SmartUI</span> Server on Computer3, this <span class="VIPAppName">SmartUI</span> Server <b>MUST </b>be 
+ running, otherwise the initial log on of this <span class="VIPAppName">SmartUI</span> Operator will fail. 
+ From then on if this <span class="VIPAppName">SmartUI</span> Server fails, this <span class="VIPAppName">SmartUI</span> Operator will hunt until 
+ it finds an active connection.</p>
+        <p>The speed at which this occurs is determined by its switch-over time. 
+ This switch-over time is the time taken for a <span class="VIPAppName">SmartUI</span> Operator to become aware 
+ that its current connection has failed and to search for and connect to 
+ another <span class="VIPAppName">SmartUI</span> Server. This is configured by the <b>ClientPingInterval</b> setting of the <span class="VIPAppName">SmartUI</span> Operator, which is grouped under the <b>ConnectionSettings</b> 
+ in the <span class="VIPAppName">SmartUI</span> Operator.exe.config file.</p>
+        <p>The <b>ClientPingInterval</b><b> <![CDATA[ ]]></b>setting determines how often the 
+ <span class="VIPAppName">SmartUI</span> Operator will query the Server for an active connection and its configuration 
+ has the following effect upon the performance of the Operator: </p>
+        <ul>
+            <li class="Bullets" value="1">If this 
+ interval is too frequent interval, this will increase client-server chatter 
+ and use up bandwidth unnecessarily. </li>
+            <li class="Bullets" value="2">If this 
+ interval is too infrequent interval, then the <span class="VIPAppName">SmartUI</span> Operator will take a 
+ long time to realise that the Server it is currently connected to is no 
+ longer available. </li>
+        </ul>
+        <p>A ping interval between 5 and 10 seconds should suffice for most cluster 
+ configurations.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

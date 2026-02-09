@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Utilities|Protocol Driver Monitor Utility" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Protocol Driver Monitor Launcher</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2009"></a><a name="kanchor2010"></a> Working with the Driver Monitor</h1>
+        <p><a href="../HowTos/How_to_log_the_communication_of_a_driver.htm">How to log the communication of a driver</a>: when troubleshooting potential driver problems, it is essential to understand exactly how the specific device of an installed driver is communicating between <MadCap:conditionalText MadCap:conditions="Common.ExForMAPS"><span class="AdroitAppName">Adroit</span></MadCap:conditionalText> and the specified front-end device.</p>
+        <p><a href="../HowTos/How_to_view_the_diagnostic_counters_of_a_driver_s_device.htm">How to view the diagnostic counters of a driver's device</a>: each driver installs a number of counters that provide important diagnostic information.</p>
+        <p>&#160;</p>
+        <p>The Driver Monitor utility allows users to monitor the operation of all the devices of your installed 
+ protocol drivers and provides many diagnostic capabilities, such as the Datascope window, which displays the data that is being transmitted between the SCADA and the front-end device  (typically a PLC), as follows:</p>
+        <ol>
+            <li class="Numbers" value="1">The <b>Driver</b> 
+ list is filled with all your installed <span class="AdroitAppName">Adroit</span> 
+ Drivers. When a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">driver<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a DLL that interfaces Adroit to front end devices, these are the only Adroit components that are device specific.</span></span> is selected, its description is displayed below 
+ this list box, including the revision of the installed driver and the 
+ <b>Device name</b> list box is filled 
+ with all of its configured devices. For details on installing drivers, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_02/Installing_a_Protocol_Driver.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Installing a Protocol Driver</a></span>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The <b>Insert</b> and <b>Delete</b> 
+ keys can be used to add and remove devices for the selected <b>Driver</b>.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">The <b>Device 
+ name</b> list box contains a list of the currently selected driver’s 
+ devices. Each <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">device<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">added to an installed protocol driver to communicate using this protocol to a specific front-end device - in other words a logical connection to this FED.</span></span> has it's own icon which corresponds to the state 
+ of the device to enable the user to see the current operational state of the device. The following explains the meaning of the various icons:</li>
+        </ol>
+        <p class="ListDesc">
+            <img src="DeviceIconMeanings.png" />
+        </p>
+        <p class="ListNotice"><b>IMPORTANT:</b> Please ensure that you have selected a device of the required driver BEFORE performing one of the following commands:</p>
+        <ul>
+            <li class="ListBullets" value="1">
+                <p>Either double click the required device or click the <b>Monitor</b> 
+ button to display the <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Protocol_Driver_Monitor_Screens.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Monitoring Screens</a></span> for this device, most notably providing the Datascope screen.</p>
+                <p class="Notices"><b>Tip:</b> By launching the <b>Options...</b> and specifying <b>Command 
+ line options</b> you can automatically display and/or configure the screen that you always want to view by default, instead of always being presented with the option screen first.</p>
+                <p class="Notices"><b>Note:</b> You can also delete devices from this list by selecting the unwanted device 
+ driver and pressing the <b>DELETE</b> 
+ key </p>
+            </li>
+            <li class="ListBullets" value="2">Click the <b>Configure</b> 
+ button to configure this device by displaying its driver-specific Setup dialog.</li>
+            <li class="ListBullets" value="3">Click the <b>Refresh</b> 
+ button to update the statuses of this list of devices for the selected <b>Driver</b>. The icons have an "auto-refresh" 
+ feature which allow them to work almost like the modem lights applet.</li>
+            <li class="ListBullets" value="4">Click the <b>Options…</b> 
+ button to configure the speed at which the device icons update and other advanced options. For details, see configuring the <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Driver_monitor_launcher_options_dialog.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Driver 
+ monitor options</a></span> .</li>
+            <li class="ListBullets" value="5">Check the <b>Show 
+ all</b> checkbox to display any configured devices that are not currently 
+ loaded.</li>
+            <li class="ListBullets" value="6">Check the<b> 
+ ASCII</b> checkbox to force the Datascope screen to always display the output in ASCII instead of the default hexadecimal 
+ view, which is the recommended method of viewing this screen and this is the same as using the /A  command-line option in the <b>Options...</b> dialog.</li>
+        </ul>
+        <p class="ListNotice"><b>Tip:</b> You can  turn off the default <b>Always 
+ on top</b> setting for this window, by right clicking the titlebar and unchecking this option.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

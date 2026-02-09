@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Alarming Agents|Alarm Routes" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>About Alarm Routes</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1579"></a>About Alarm Routes</h1>
+        <p>An alarm route simply tells the Alarm agent how it 
+ must deal with active <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">incidents<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">signified by AgentName.AlarmType, which indicate that this agent has gone into the condition or state specified by this alarm type. Each incident can either be an alarm (requiring action) or an event (not requiring action).</span></span>. 
+ In other words it specifies which reporting mechanisms (output destinations) 
+ this incident must use to effectively notify the relevant plant personnel 
+ and/or applications of its occurrence.</p>
+        <p><a name="kanchor1580"></a>An Alarm agent can use one or more alarm routes to 
+ specify which alarm destinations to send the active incidents of the agents 
+ that it is monitoring. Where each route in an Alarm agent consists of 
+ two following elements:</p>
+        <p class="A4-Note-SimpleBestPracticeDarkGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Best Practice: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Best Practice: &#160;</b></span></span></span>Always alarm agents from route 2 onwards never use routes 0 and 1. These routes are used internally by <span class="AdroitAppName">Adroit</span> for reporting the system alarms and events.</p>
+        <ol start="1">
+            <li class="Bullets" value="1">A route number, starting 
+ from 0. For details about and the recommended usage of the 4 alarm routes 
+ provided by the defaultAlarmAgent, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="About_the_DefaultAlarmAgent.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">About the defaultAlarmAgent</a></span>.</li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a route to an Alarm agent:</a>
+        </p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <ul>
+                <ol>
+                    <li class="Numbers" value="1">Edit the required Alarm 
+ agent.</li>
+                    <li class="Numbers" value="2">Select the <b>Routes</b> 
+ tab from the <b>Edit Alarm Agent</b> dialog.</li>
+                    <li class="Numbers" value="3">Click the <b>Add Route</b> 
+ button to create a new route for this Alarm agent</li>
+                    <li class="Numbers" value="4">Specify the required 
+ destination/s for incidents that use this alarm route.</li>
+                </ol>
+            </ul>
+        </div>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To use an existing route of an Alarm agent:</a>
+        </p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ul>
+                <ol>
+                    <li class="Numbers" value="1">Edit the required Alarm 
+ agent.</li>
+                    <li class="Numbers" value="2">Select the <b>Routes</b> 
+ tab from the <b>Edit Alarm Agent</b> dialog.</li>
+                    <li class="Numbers" value="3">Select the existing 
+ route number, from the <b>Select route number</b> list box.</li>
+                    <li class="Numbers" value="4">Specify the required 
+ destination/s for incidents that use this alarm route.</li>
+                </ol>
+            </ul>
+        </div>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove a route from an Alarm agent:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ul>
+                <ol>
+                    <li class="Numbers" value="1">Edit the required Alarm 
+ agent.</li>
+                    <li class="Numbers" value="2">Select the <b>Routes</b> 
+ tab from the <b>Edit Alarm Agent</b> dialog.</li>
+                    <li class="Numbers" value="3">Select the required 
+ route number, from the <b>Select route number</b> list box.</li>
+                    <li class="Numbers" value="4">Click the <b>Remove 
+ Route</b> button.</li>
+                </ol>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> You can ONLY remove
+ a route if NO alarm types have selected this route number. Otherwise a 
+ “Couldn’t delete routing message box is displayed.</p>
+        </div>
+        <ol start="2">
+            <li class="Bullets" value="2">One or more route destinations 
+ (options) to report the incidents that are communicated via this route 
+ to the necessary personnel and/or applications. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for 
+ more details:</a><div MadCap:targetName="t2" style="display: none;"><p class="ListDesc">So if an alarm or event is assigned to a specific Route, 
+ it is automatically sent to ALL the destinations that are configured on 
+ this alarm Route.</p><p class="ListDesc">These alarm destinations are grouped into the following 
+ 4 main categories:</p><p class="ListNotice"><b>Note:</b> 
+ Each destination is typically managed by a specific agent type.</p><p class="ListDesc">The following two categories are specific to individual 
+ Alarm agents:</p><p class="ListDesc"><b>Alarm Lists:</b> 
+ The AlarmList agent, allows you to separate or combine your active <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">incidents<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">signified by AgentName.AlarmType, which indicate that this agent has gone into the condition or state specified by this alarm type. Each incident can either be an alarm (requiring action) or an event (not requiring action).</span></span> 
+ and/or to LOCALLY acknowledged them from one or more Alarm windows.</p><p class="ListNotice"><b>Note:</b> You CANNOT 
+ locally acknowledge the active alarms listed by an Alarm agent.</p><p class="ListDesc"><b>Audio Devices:</b></p><ul><li class="ListBullets" value="1">The Beeper agent, 
+ which provides simple audio output using the built-in computer loudspeaker.</li><li class="ListBullets" value="2">The MultiMedia 
+ agent launches a Windows compatible multimedia file, such as .WAV, .MID, 
+ .AVI or .RMI</li></ul><p class="ListDesc">The following two categories apply to ALL Alarm agents:</p><p class="ListDesc"><b>Outputs:</b></p><ul><li class="ListBullets" value="1">The AlarmManagement 
+ agent, which collects and if necessary, configure incidents from one or 
+ more alarm agents and sends them to an OLE DB compatible database, so 
+ they can be analysed to improve your alarm system.</li><li class="ListBullets" value="2">The EventOutput 
+ agent, which can print incidents locally or remotely; save them to a .CSV 
+ file and if necessary, log them to an OLE DB compatible database for reporting 
+ and/or analysis purposes.</li><li class="ListBullets" value="3">The Notify agent, 
+ which can transmit incidents via <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SMS<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">Short Message Service is a service (protocol) for sending short text messages to and from mobile phones.</span></span> 
+ or a paging service direct to a designated person. This can inform off 
+ site personal of unacknowledged alarms and if necessary of process values 
+ and operator messages.</li></ul><p class="ListDesc"><b>Event Logs:</b> The 
+ EventLogging agent, which can log incidents to the Windows Application 
+ event log on a specific computer and/or to an OLE DB database for reporting 
+ and/or analysis purposes.</p></div></li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> 
+ Each route can use different output devices or share the same output devices 
+ with other routes.</p>
+        <p class="ListNotice"><b>Note2:</b> 
+ You can specify a different alarm route for each alarm type of the monitored 
+ agent.</p>
+        <p class="ListDesc">These alarm destinations are classified according to 
+ their scope, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1">&#160;LOCAL 
+ destinations, which are specific to the Alarm agent that is being used 
+ and so apply to all the agents that are being alarmed by this agent or</li>
+                <li class="ListBullets" value="2">GLOBAL destinations, 
+ which common to ALL Alarm agents and so apply to ALL agents that being 
+ alarmed in this <span class="AdroitAppName">Adroit</span> installation.</li>
+            </ul>
+        </div>
+        <p class="ListDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Local_Incident_Destinations.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot" name="kanchor1581">Local Incident Destinations</a></span>: 
+ to select and manage incident reporting options SPECIFIC to each Alarm 
+ agents.</p>
+        <p class="ListDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Global_Incident_Destinations.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Global Incident Destinations</a></span>: 
+ to select and manage incident reporting options COMMON to all Alarm agents.</p>
+        <p class="ListDesc">Therefore, if your strategy involves using different 
+ Alarm agents to split other various sections of our plant up, these routes 
+ will be different but end in the same destinations e.g. same alarm list</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

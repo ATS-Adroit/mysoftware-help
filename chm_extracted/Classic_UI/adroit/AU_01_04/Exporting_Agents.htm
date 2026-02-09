@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Configuring Agents and the Agent Server|Classic UI File Menu - Additional Configurator Items" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Exporting Agents</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor734"></a><a name="kanchor735"></a>Exporting Agents</h1>
+        <p><a href="To_Export_an_Agent_Type.htm">To Export an Agent Type</a>.</p>
+        <p>Configuration data can be converted from Agent Server (.WGP) load files 
+ into comma separated variable (.CSV) files by:</p>
+        <p>&#160;</p>
+        <p>Open the Agent Configuration dialog, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgentConfigurator"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <p class="Notices"><b>Tip:</b> This also opens the <span class="AdroitAppName">Adroit</span> Classic UI in the <span class="VIPAppName">SmartUI</span> Designer, which provides agent-specific menu functions,  such as importing and exporting agents.</p>
+        <div MadCap:targetName="AgentConfigurator" style="display: none;">
+            <p>In the <span class="VIPAppName">SmartUI</span> Designer:</p>
+            <p>Click the <b>Open Configurator</b> tool in the <b>Agent Server</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+            <p class="Notices"><b>Note:</b> When there is more than one <span class="AdroitAppName">Adroit</span> datasource available, a list is provided to select which  Agent Server to configure. </p>
+            <p>The <b>Agent Configuration</b> 
+ dialog is displayed within the Classic UI.</p>
+        </div>
+        <p> Either select the <b>Export</b> command from the Classic UI <b>File</b> menu 
+ or from the Configurator <b>Edit</b> 
+ dialog (see table below).</p>
+        <p>Third party applications can then be used for off-line editing and modification 
+ prior to re-<b>Import</b> into an Agent 
+ Server load file.</p>
+        <p>All agent types (except the Scan, Hasp and Proxy agents, which do not 
+ save themselves, and therefore do not exist in a .WGP file) can be exported 
+ for documentation purposes, but not all the resulting .CSV files may be 
+ re-imported.</p>
+        <p class="Notices"><b>Note1:</b> The <span class="AdroitAppName">Adroit</span> 
+ agent exporting utility cannot export numeric values when they are the 
+ type STRING.</p>
+        <p class="Notices"><b>Note2:</b> Ensure 
+ that the path and file name of the exported CSV file is less than 65 characters, 
+ when exporting your agents, since <span class="AdroitAppName">Adroit</span> is unable to import agents from 
+ CSV files, which have paths in excess of 65 characters.</p>
+        <p>The following summary lists which agents can be exported and imported.</p>
+        <table style="margin-left: auto;margin-right: auto;caption-side: top;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Agent Group</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Agent Type</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1" style="text-align: center;">File Export</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1" style="text-align: center;">File Import</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1" style="text-align: center;">Edit Export</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1" style="text-align: center;">Edit Import</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1" style="background-color: #a9a9a9;border-right-style: solid;border-right-width: 1px;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #000000;">
+                        <p><b>Basic</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Analog</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Counter</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Digital</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Expression</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Frame</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Marshal</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>MultiState</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Statistical</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td colspan="6" class="TableStyle-AdTechBasicTableStyle-BodyD-Column1-Body1">
+                        <p width="18.46%" colspan="6" class="Notices"><b>PLEASE NOTE:</b> When exporting Statistical agents, ensure that the <b>Floating average enabled</b> checkbox is <b>UNCHECKED</b>,  then save the WGP file and export. After importing, re-enable this checkbox  for the applicable Statistical agents.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Stringlist</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Text</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Primitive types</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1" style="background-color: #a9a9a9;border-right-style: solid;border-right-width: 1px;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #000000;">
+                        <p><b>Advanced</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>AgentGroup</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Alarm</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>AlarmList</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Alias</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Beeper</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Date</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>DbAccess</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Event Logging</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Event Output</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Multi Media</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Notify</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Recipe</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Script</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1" style="background-color: #a9a9a9;border-right-style: solid;border-right-width: 1px;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #000000;">
+                        <p><b>System</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>DataLog</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column1-Body1" colspan="6">
+                        <p class="Notices"><b>IMPORTANT:</b> When modifying and/or creating Datalog agents via the exported CSV file, leave the <b>UID</b> column empty.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Device</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Hasp</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Proxy</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Scan (* See Device)</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes*</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>No</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>SystemDatalog</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                        <p>SystemInformation</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">Yes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1" style="text-align: center;">
+                        <p class="Centered">&#160;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

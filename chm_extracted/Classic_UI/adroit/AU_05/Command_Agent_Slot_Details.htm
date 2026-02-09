@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Reference|Agent Slots Reference|Agent Type Slot Reference" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Command Agent - Slot Details</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1909"></a>Command Agent - Slot Details</h1>
+        <p><a href="../AU_01_05/The_Command_Agent.htm">The 
+ Command agent</a> can both send SMS messages either manually or automatically 
+ and can escalate messages to another Command agent, if necessary. However, 
+ it is in receiving textual commands in SMS messages that it is able to 
+ remotely configure <span class="AdroitAppName">Adroit</span>.</p>
+        <p>This agent is located in the 
+ following file: T_COMMAND.DLL</p>
+        <h2>Slots:</h2>
+        <table style="margin-left: auto;margin-right: auto;caption-side: top;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 91px;" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 297px;" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Slot Name
+                    </th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Type
+                    </th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>allowAckCommand</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If enabled (set to TRUE) this allows this Command 
+ agent to perform ACK commands that it receives. For details, see <a href="../AU_01_05/Specifying_Permitted_Commands.htm">Specifying 
+ Permitted Commands</a> or <a href="../AU_01_05/ACK_Commands.htm">ACK 
+ Commands</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>allowAllCommands</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If enabled (set to TRUE) this allows this Command 
+ agent to perform textual commands that it receives, provided they have 
+ been enabled. For details, see <a href="../AU_01_05/Allowing_Commands_to_be_Performed.htm">Allowing 
+ Commands to be Performed</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>allowAnonymous</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If enabled (set to TRUE) this allows Command agent 
+ to receive messages and potential commands from any caller. For details, 
+ see <a href="../AU_01_05/Configuring_Anonymous_Caller_Access.htm">Configuring 
+ Anonymous Caller Access</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>allowGetCommand</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If enabled (set to TRUE) this allows Command agent 
+ to perform GET commands that it receives. For details, see <a href="../AU_01_05/GET_Commands.htm">GET 
+ Commands</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>allowRepCommand</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>NOT IN USE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>allowSetCommand</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If enabled (set to TRUE) this allows this Command 
+ agent to perform SET commands that it receives. For details, see <a href="../AU_01_05/SET_Commands.htm">SET 
+ Commands</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>allowSubCommand</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>NOT IN USE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>bitErrorRate</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>REAL</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This displays the bit error rate of the SMS GSM modem, 
+ measured in percent, which should not exceed 40% for effective data transmission. 
+ For details, see <a href="../AU_01_05/Diagnosing_the_GSM_SMS_Device.htm">Diagnosing 
+ the GSM_SMS Device</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>defaultAnalogueFormat</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This can specify the default format that is used 
+ to display any real or floating point numbers in messages that are sent 
+ from this Command agent. For details, see <a href="../AU_01_05/Default_Real_Number_Formatting.htm">Default 
+ Real Number Formatting</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>delReportTime</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Timeout period for monitoring network delivery reports, 
+ if this is exceeded then the SMS message can be sent via another Command 
+ agent to someone else. Although the <b>reqDelReport</b> 
+ slot must be enabled before this is used. For details, see <a href="../AU_01_05/Monitoring_Message_Receipt.htm">Monitoring 
+ Message Receipt</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>device</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The name of the GSM_SMS device used by this Command 
+ agent to send and, if necessary, receive SMS messages. This specified 
+ device must also be configured for sole use by Command agents and therefore 
+ cannot be used by the scanning subsystem for the scanning of other agents. 
+ For details on the necessary configuration, see <a href="../AU_01_06/About_the_GSM_SMS_driver.htm">Configuring 
+ GSM_SMS devices</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">disableSendingInStandby</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">BOOLEAN</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">When using this agent in a clustered Agent Server, set this slot to 1 to disable the sending of SMS’s when the Agent Server is in Standby mode to AVOID sending duplicate messages.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>emptyQueue</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Empty the queue of current messages to be sent, for 
+ instance, for testing purpose or when the message queue has been filled 
+ with unwanted or unnecessary messages. For details, see <a href="../AU_01_05/Managing_Message_Queues.htm">Managing 
+ Message Queues</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">enableCmdInStandby</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">BOOLEAN
+                </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">NOT IN USE</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>enableSmsSending</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>In order for the Command agent to send and/or receive 
+ SMS messages, it needs to specify a GSM_SMS protocol driver device that 
+ will be used to send and, if necessary, receive SMS messages. If true, 
+ this Command agent will attempt to connect to the GSM_SMS device, specified 
+ by the <b>device</b> slot. For details, 
+ see <a href="../AU_01_05/Specifying_the_GSM_SMS_Device.htm">Specifying 
+ the GSM_SMS Device</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>enforcePassword</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>NOT IN USE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>escalationTag</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TAGNAME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The name of another Command agent to which SMS messages 
+ are to be sent when the timeout specified by either the <b>delReportTime</b> 
+ or <b>recipResponseTime</b> slots have 
+ expired. Although, this will only be used if either the <b>reqDelReport</b> 
+ or <b>reqRecipResponse</b> slots is 
+ enabled (set to TRUE). For details, see <a href="../AU_01_05/Monitoring_Message_Receipt.htm">Monitoring 
+ Message Receipt</a> and <a href="../AU_01_05/Monitoring_Message_Response.htm">Monitoring 
+ Message Response</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>expandPsuedos</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>When enabled (set to TRUE), pseudonyms and macros 
+ specified in a received message will be correctly interpreted and any 
+ outgoing messages will have the pseudonyms replaced with the full tag. 
+ For details, see <a href="../AU_01_05/Enabling_Pseudonyms_and_Macros.htm">Enabling 
+ Pseudonyms and Macros</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="Adroit.Adr_VerMinorThree">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">globalAck</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">VARSTRING</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To globally acknowledge alarms via Putslot, use the following syntax: <p>tag[.alarm type]</p><p class="Notices"><b>Note:</b> This method does NOT use SMS to acknowledge alarms, nor are you limited to only using the Putslot utility, any method can be used that sets the value of this slot.</p><p>Where ‘<b>tag</b>’ is the name of the agent a user wants to acknowledge, ‘[.alarm type]’ is optional, this is used if a used wants to acknowledge a specific alarm for the specified agent. For instance “ANA_1.High” only acknowledges ANA_1.High, whereas “ANA_1” acknowledges ALL the alarms relating to the agent ANA_1.</p><p>To globally acknowledge more than one alarm at a time, use the following format in this globalAck slot: tag[.alarm type],…, tag[.alarm type]</p></td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ignoreTime</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If the Command agent is able to process SET commands, 
+ then it is possible to specify the period, in minutes, for which these 
+ commands are of valid for, which is calculated from the time the message 
+ is originally sent. For details, see <a href="../AU_01_05/Ignoring_Delayed_SET_Commands.htm">Ignoring 
+ Delayed SET Commands</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>lastMsgReceived</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Contains the last message that was received by this 
+ Command agent. For details, see <a href="../AU_01_05/Message_Sending_and_Processing_Slots.htm">Message 
+ Sending and Processing Slots</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="Adroit.Adr_VerMinorFour">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">lastMsgReceivedTime</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">TIME</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Displays the time of the last message received.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="Adroit.Adr_VerMinorFour">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">lastMsgReceivedTimeStr</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">VARSTRING</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Displays the time of the last message received, as a (var)string.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>lastMsgSent</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Contains the last message that was sent from this 
+ Command agent to the designated GSM_SMS driver. For details, see <a href="../AU_01_05/Message_Sending_and_Processing_Slots.htm">Message 
+ Sending and Processing Slots</a> or <a href="../AU_01_05/Specifying_the_GSM_SMS_Device.htm">Specifying 
+ the GSM_SMS Device</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="Adroit.Adr_VerMinorFour">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">lastMsgSentTime</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">TIME</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Displays the time of the last message sent.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">lastNumberReceived</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">STRING</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Stores the cellphone number of the last message received by this agent. </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>password</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>NOT IN USE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>phoneNumber</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The recipient phone number for sending of alarms, 
+ subscriptions, and commands. The Command agent has been designed to only 
+ send SMS messages to this phone number. For details, see <a href="../AU_01_05/Specifying_the_Recipient_Phone_Number.htm">Specifying 
+ the Recipient Phone Number</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>pseudoData</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Contains the list of configured pseudonyms and macros. 
+ For details, see <a href="../AU_01_05/Using_Pseudonyms_and_Macros.htm">Using 
+ Pseudonyms and Macros</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">queueCount</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">INTEGER
+                </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Number of messages currently in the queue, which  you can compare to the <b>queuesize</b> slot to determine how full the current queue is.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>queuesize</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The maximum queue size, once this maximum has been 
+ reached, any further messages that arrive will be discarded and will not 
+ be sent. For details, see <a href="../AU_01_05/Managing_Message_Queues.htm">Managing 
+ Message Queues</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>rawValue</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The most recent data received by this slot is sent 
+ by the Command agent to its associated GSM_SMS device. For details, see 
+ <a href="../AU_01_05/Sending_SMS_Messages.htm">Sending SMS Messages</a> 
+ or <a href="../AU_01_05/Message_Sending_and_Processing_Slots.htm">Message 
+ Sending and Processing Slots</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>recipientList</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The list of phone numbers allowed to issue commands 
+ to this Command agent. For details, see <a href="../AU_01_05/Configuring_Authorised_Caller_Access.htm">Configuring 
+ Authorised Caller Access</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>recipResponseTime</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Timeout period for monitoring recipient responses 
+ in which the SMS message must be returned to the Command agent, if this 
+ is exceeded then the SMS message can be sent via another Command agent 
+ to someone else. Although the <b>reqRecipResponse</b> 
+ slot must be enabled before this is used. For details, see <a href="../AU_01_05/Monitoring_Message_Response.htm">Monitoring 
+ Message Response</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>reportData</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>NOT IN USE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>reqDelReport</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If enabled (set to TRUE) this monitors when the recipient 
+ receives a sent SMS message by requiring a delivery report to be sent 
+ as soon as the SMS messages arrives, which is then logged to the event 
+ log for auditing purposes. For details, see <a href="../AU_01_05/Monitoring_Message_Receipt.htm">Monitoring 
+ Message Receipt</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>reqRecipResponse</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If enabled (set to TRUE) this monitors when the recipient 
+ acknowledges a sent SMS message by requiring each message to be sent back 
+ to the Command agent on arrival, in which case all incoming messages (to 
+ its configured GSM_SMS device) are logged to the event log for auditing 
+ purposes. For details, see <a href="../AU_01_05/Monitoring_Message_Response.htm">Monitoring 
+ Message Response</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>setByPseudos</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If enabled (set to TRUE) this forces the Command 
+ agent to only perform SET commands that use pseudonyms or macros. For 
+ details, see <a href="../AU_01_05/SET_Command_Usage_Restriction.htm">SET 
+ Command Usage Restriction</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>signalStrength</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This displays the signal strength of the SMS GSM 
+ modem, measured in percent, which should not be less than 29% for effective 
+ data transmission. For details, see <a href="../AU_01_05/Diagnosing_the_GSM_SMS_Device.htm">Diagnosing 
+ the GSM_SMS Device</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>subsData</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Contains a list of configured subscriptions or automatic 
+ SMS messages that contains the value of a tag (agent.slot), which 
+ makes it possible to remotely monitor the status of important process 
+ values. For details, see <a href="../AU_01_05/Automatic_Sending_of_Values.htm">Automatic 
+ Sending of Values</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>templateData</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>NOT IN USE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>value</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>The most recent data received by this slot 
+ will also be sent to the <b>rawValue</b> 
+ slot. Being a standard 80-character String slot, other agents can be @ 
+ scanned to it, so that their STRING slots can be sent by the Command agent 
+ instead. For details, see <a href="../AU_01_05/Message_Sending_and_Processing_Slots.htm">Message 
+ Sending and Processing Slots</a>.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Specific status bits:&#160; </h2>
+        <p class="Notices"><b>Note:</b> These are 
+ of type BOOLEAN.</p>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 97px;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 132px;" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 317px;" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Bit Number</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Name</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 16</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>MsgSendError</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On if the last message could not be sent due to cell 
+ phone network-specific problems, such as signal problems etc.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 17</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>AllCommands</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when Command agent is able to perform commands 
+ that it receives. For details, see <a href="../AU_01_05/Allowing_Commands_to_be_Performed.htm">Allowing 
+ Commands to be Performed</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 18</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>SetCommands</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when Command agent is able to perform SET commands 
+ that it receives. For details, see <a href="../AU_01_05/Specifying_Permitted_Commands.htm">Specifying 
+ Permitted Commands</a> or <a href="../AU_01_05/SET_Commands.htm">SET 
+ Commands</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 19</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>GetCommands</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when Command agent is able to perform GET commands 
+ that it receives. For details, see <a href="../AU_01_05/GET_Commands.htm">GET 
+ Commands</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 20</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>AckCommands</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when Command agent is able to to perform ACK and 
+ LACK commands that it receives. For details, see <a href="../AU_01_05/ACK_Commands.htm">ACK 
+ Commands</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 21</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>RepCommands</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Currently not in use.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 22</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>SubCommands</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Currently not in use.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 23</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>ExpandPseudos</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when pseudonyms and macros specified in an incoming 
+ message received by this Command agent will be correctly interpreted and 
+ any outgoing messages will have the pseudonyms replaced with the full 
+ tag. For details, see <a href="../AU_01_05/Using_Pseudonyms_and_Macros.htm">Using 
+ Pseudonyms and Macros</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 24</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>SignalError</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On if either the <b>signalStrength</b> 
+ slot is less than 29 % or the <b>bitErrorRate</b> 
+ slot is greater than 40 %. For details, see <a href="../AU_01_05/Diagnosing_the_GSM_SMS_Device.htm">Diagnosing 
+ the GSM_SMS Device</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 25</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>SetByPseudos</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when SET commands can ONLY use pseudonyms and 
+ macros. For details, see <a href="../AU_01_05/Additional_SET_Command_Restrictions.htm">Additional 
+ SET Command Restrictions</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 26</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>AllowAnonymous</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when the Command agent is able to receive messages and potential 
+ commands from any caller. For details, see <a href="../AU_01_05/Configuring_Anonymous_Caller_Access.htm">Configuring 
+ Anonymous Caller Access</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">status bit 27</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>RawValueChanged</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">NOT IN USE</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">status bit 28</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">MsgReceived</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">NOT IN USE</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Methods of creation:</h2>
+        <p>Manual</p>
+        <h2>Agents created by default: </h2>
+        <p>None</p>
+        <p>&#160;</p>
+        <p>For a description of which of these slots are saved to the <span class="AdroitAppName">Adroit</span> database 
+ file (.WGP), see:</p>
+        <p><a href="Command_Agent_Database_File_Format.htm">Command Agent 
+ - Database File Format</a>.</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

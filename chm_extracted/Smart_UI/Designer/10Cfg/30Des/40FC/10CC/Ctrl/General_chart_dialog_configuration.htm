@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Specialized Controls|Charting controls|Configuration options" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Charts" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>General chart dialog configuration</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3311"></a><a name="kanchor3312"></a>Chart configuration dialog</h1>
+        <p>This describes the most important configuration provided by the following 
+ sections of the chart configuration dialog:</p>
+        <p><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To launch the configuration dialog:<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">right click the charting control and select the <b>Edit 
+ Chart...</b> menu option.
+
+</span></span>
+        </p>
+        <p class="Notices"><b>Tip:</b> To display the advanced configuration options, click the <b>Advanced View &gt;</b> button at the bottom of this configuration dialog.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Series 
+ setup:</b> To select the type of series and the data that you want 
+ to chart and to configure the appearance of each series. </li>
+        </ul>
+        <p class="ListDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="How_to_chart_discreet_data.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">How to chart single valued or discreet data</a></span>.</p>
+        <p class="ListDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="How_to_chart_dataset_data.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">How to chart dataset data</a></span>.</p>
+        <p class="ListDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="How_to_chart_databinder_data.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">How to chart databinder data</a></span>.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Axis 
+ Setup:</b> To configure the axes of this chart and most importantly 
+ how they are scaled and labelled. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_axes_for_a_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring 
+ axes for a series</a></span>.</li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1">
+                <p><b>Titles 
+ Setup:</b> To configure the display of the chart titles and, if necessary, 
+ to add additional chart titles.</p>
+                <p class="Notices"><b>Tip:</b> You can 
+ also specify the chart title by using the tasks menu of the charting control.</p>
+            </li>
+            <li class="Bullets" value="2"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Legends Setup:</a> 
+ To display the chart legend and specify and what the elements of each 
+ series are displayed in the legend and the format of these elements.<div MadCap:targetName="t4" style="display: none;"><p class="ListDesc">Specify which elements of each series are displayed in 
+ the legend (names or values) from the <b>Legend 
+ Style</b> list.</p><p class="ListDesc">If the legend displays values, then use the <b>Text 
+ Style</b> to specify their required value/s and format.</p><p class="ListNotice"><b>Note:</b> Typically 
+ you display series values for Pie, Bar and Column charts and series names 
+ for Line and XYPlot charts, which are the default selections.</p><p class="ListDesc"><b>Other noteworthy options:</b></p><p class="ListDesc">To allow your users to select which series they want 
+ charted, ensure that the <b>Checkbox</b> 
+ option if checked.</p><p class="ListDesc">To display a legend for this chart, ensure the <b>Visible</b> option is checked.</p></div></li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />3D Settings:</a> 
+ To display the chart in three dimensions to add depth to your chart and 
+ rotate, zoom and/or move the plotting area of the chart.
+				<div MadCap:targetName="t3" style="display: none;"><ul><li class="BulletsClear" value="1">To enable these settings ensure the <b>3 
+ Dimensions</b> checkbox is checked.</li><li class="BulletsClear" value="2">The <b>3D %</b> spin 
+ control specifies the required depth or third dimension of this chart.</li></ul><p class="ListNotice"><b>Tip:</b> The <b>Default Settings</b> button always brings 
+ the chart back into the viewing area.</p><ul><li class="BulletsClear" value="1"><p>Use the <b>Quality</b> 
+ list box to specify how the chart should be plotted. </p><p>This is a tradeoff 
+ between speed and the level of detail, with the lower options in this 
+ list becoming progressively more detailed and therefore slower.</p></li></ul></div></li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Fill Effects Settings:</a> 
+ To configure how the chart and/or plot area or graph is colored and/or 
+ shaded.<div MadCap:targetName="t2" style="display: none;"><p class="ListNotice"><b>Note:</b> The ‘Walls’ 
+ of the Plot Area appear when the chart is in 3D mode.</p></div></li>
+            <li class="Bullets" value="2"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Themes:</a> 
+ To select a predefined chart style that quickly formats the look and feel 
+ of your chart. <div MadCap:targetName="t1" style="display: none;"><p class="ListDesc">You need to click the <b>Apply</b> 
+ button after selecting a chart style from the <b>Themes</b> 
+ list box.</p><p class="ListDesc">Use the preview pane to see whether this Theme is suitable 
+ for your chart - if necessary you can further customise the chart settings 
+ manually after applying a style.</p><p class="ListNotice"><b>WARNING!</b> Applying 
+ a Theme to your chart will OVERWRITE certain display properties that you 
+ may have manually configured.</p><p class="ListDesc">As you apply different themes to your chart, it can happen 
+ that the background color of the chart provided by the selected theme 
+ makes it difficult to see the series colors.</p><p class="ListDesc">In this case, change the <b>color 
+ Palette</b>, which provides different variations of assigning random 
+ colors to series.</p></div></li>
+        </ul>
+        <p class="Notices"><b>Note1:</b> Since most 
+ of these settings alter the display of the chart, use the preview pane 
+ (at the bottom of this configuration dialog) when customizing these settings to ensure 
+ that the changed settings meet your needs.</p>
+        <p class="Notices"><b>Note2:</b> The preview 
+ pane uses RANDOM data, NOT the actual data that you are charting.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

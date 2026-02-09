@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|OLE DB Datasources|DataBinders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Data" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Utilizing data with VIZNETBindingNavigator controls</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor811"></a>Utilizing data with VIZNETBindingNavigator controls</h1>
+        <p>If you selected the <b>Create Controls</b> 
+ option, when linking a VIZNETDataBinder component to the required DataBinder, 
+ then each displayed table or View has a VIZNETBindingNavigator control 
+ and other controls that display the values of the selected fields.</p>
+        <p>The VIZNETBindingNavigator control provides a toolbar of commands<a name="kanchor812"></a><a name="kanchor813"></a> that 
+ allow users to interact with its associated table or View. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t15"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a></p>
+        <div MadCap:targetName="t15" style="display: none;">
+            <p class="Notices"><b>Note:</b> By default 
+ the VIZNETBindingNavigator control displays all the available commands, 
+ although unnecessary commands can be hidden, if required.</p>
+            <p class="Notices"><b>Note:</b> If you did 
+ not select the <b>Create Controls</b> 
+ option, then you need to create controls that provide this functionality 
+ for your users.</p>
+            <p class="Notices"><b>PLEASE NOTE:</b> All 
+ changes made to a table (records that are added, edited or deleted) can 
+ ONLY be reversed by pressing the <b>Undo 
+ All Changes</b> <img src="../../../../image40.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button BEFORE the <b>Update 
+ Changes</b> <img src="../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button is pressed. This is because you do 
+ not working directly on the database itself, but on records that are retrieved 
+ from the database. Therefore, It is only when the <b>Update 
+ Changes</b> <img src="../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button is pressed that the actual data in 
+ the database is updated</p>
+        </div>
+        <h2>This toolbar allows you to do the following:</h2>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t14"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To initially obtain the records from the table or View to 
+ populate the associated controls:</a>
+        </p>
+        <div MadCap:targetName="t14" style="display: none;">
+            <p>Typically when the graphic form opens all the controls associated with 
+ a specific table or view are empty, such as the TextBoxes and DataGridViews. 
+ In this case, press the <b>Load Data</b><img src="../../../../image31.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button to retrieve the first page of records from the 
+ associated table or View.</p>
+            <p>This will also cause the count to specify the number of records that 
+ are retrieved.</p>
+            <p class="Notices"><b>Note1:</b> The <b>MaxRecords</b> 
+ property of the associated VIZNETDataBinder component, determines how 
+ many records are retrieved.</p>
+            <p class="Notices"><b>Note2:</b> If the <b>AutoLoad</b> property of the associated 
+ VIZNETDataBinder component is set to True, then this button is not required, 
+ as the data is automatically fetched when the graphic form is displayed.</p>
+            <p class="Notices"><b>PLEASE NOTE:</b> If 
+ a relationship exists between two tables, so that another table’s column 
+ also appears in the DataGridView control associated with the current table, 
+ then you need to load the data of the related table first. </p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t13"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To navigate the required record of 
+ this table or View:</a>
+        </p>
+        <div MadCap:targetName="t13" style="display: none;">
+            <p class="Notices"><b>Note:</b> This requires 
+ the data for the associated table or View to be initially retrieved (<b>Load Data</b> <img src="../../../../image31.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button).</p>
+            <p>This toolbar allows you to move to the records on the boundaries of 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t12"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following three ranges:</a></p>
+            <div MadCap:targetName="t12" style="display: none;">
+                <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t11"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The currently displayed Record:</a>
+                </p>
+                <div MadCap:targetName="t11" style="display: none;">
+                    <p class="Notices"><b>Note:</b> The <b>Current Position</b> field specifies the 
+ number of this record, if this field is displayed. </p>
+                    <p>The <b>Move to Previous Record</b><img src="../../../../image36.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button displays the record before the current record, 
+ if possible.</p>
+                    <p>The <b>Move to Next Record</b> <img src="../../../../image37.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button displays the record after the current record, if possible.</p>
+                    <p class="Notices"><b>Note1:</b> If the current 
+ record is the last record in the page, then a delay may occur as the next 
+ page of records are retrieved from the database.</p>
+                    <p class="Notices"><b>Note2:</b> The number 
+ of records that are fetched at a time are specified by the MaxRecords 
+ property of the associated VIZNETDataBinder component.</p>
+                </div>
+                <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t10"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The Page, which is all the retrieved records 
+ of the table or View:</a>
+                </p>
+                <div MadCap:targetName="t10" style="display: none;">
+                    <p class="Notices"><b>Note:</b> The “page” 
+ that is referred to are ALL the retrieved records and NOT the individual 
+ pages of records that are retrieved when a user specifies a record that 
+ exceeds the MaxRecords property of the associated VIZNETDataBinder component.&#160;</p>
+                    <p>The <b>Move to First Record in Page</b><img src="../../../../image34.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button displays the first record retrieved from the database.</p>
+                    <p>The <b>Move to Last Record in Page</b><img src="../../../../image35.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button displays the last record retrieved from the database.</p>
+                    <p class="Notices"><b>Tip:</b> When used 
+ in conjunction with the <b>Move to Next 
+ Record</b> <img src="../../../../image37.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button, this will obtain the next page of 
+ records.</p>
+                </div>
+                <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t9"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The Database, which is all the records within 
+ this table or View:</a>
+                </p>
+                <div MadCap:targetName="t9" style="display: none;">
+                    <p>The <b>Move to First Record in Database</b><img src="../../../../image32.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button displays the first record retrieved from the database.</p>
+                    <p class="Notices"><b>Tip:</b> This will 
+ always display the same record as the Move to First Record in Page XXX 
+ button.</p>
+                    <p>The <b>Move to Last Record in Database</b><img src="../../../../image33.gif" style="border: none;width: 16px;height: 16px;border-style: none;" width="16" height="16" border="0" /> button displays the last record retrieved from the database.</p>
+                    <p class="Notices"><b>Note1:</b> The Total Number 
+ of Items (Records) XXX field specifies the number of this record, if this 
+ field is displayed. </p>
+                    <p class="Notices"><b>Note2:</b> You may experience 
+ a lengthy delay when using this method, especially if there are a large 
+ number of records in the database and the database is accessed over the 
+ Internet.</p>
+                </div>
+                <p>&#160;</p>
+            </div>
+            <p class="Notices"><b>Note:</b> These are 
+ listed in order of increasing scope.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To locate a specific record within 
+ this table or View:</a>
+        </p>
+        <div MadCap:targetName="t8" style="display: none;">
+            <p class="Notices"><b>Note:</b> This requires 
+ the data for the associated table or View to be initially retrieved (<b>Load Data</b> <img src="../../../../image31.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button).</p>
+            <ol>
+                <li class="Numbers" value="1">Specify the column that 
+ contains the data that you want to find in the <b>Lookup</b> 
+ drop-down list box.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The <b>Lookup</b> drop-down list box lists all 
+ the column names of the associated table or View.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">If necessary, specify what 
+ the required record/s should contain in the <b>Filter</b> 
+ edit box.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> By default 
+ the <b>Filter</b> is a <b>LIKE</b> 
+ filter for STRING data - returning all the records containing the specified 
+ string. Use the <b>Custom Filter</b><img src="../../../../image42.gif" style="border: none;width: 16px;height: 15px;border-style: none;border-style: none;" width="16" height="15" border="0" /> button to create your own filtering criteria.</p>
+            <p class="ListNotice"><b>Tip:</b> If <b>Filter</b> is blank then all the records 
+ in this column are returned.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Locate the required record 
+ in the <b>Find</b> drop-down list, which 
+ contains all the records of the column specified by the <b>Lookup</b> 
+ that match the specified <b>Filter</b> 
+ criterion, if one was specified.</li>
+                <li class="Numbers" value="4">The <b>Find 
+ Next</b> <img src="FindNext.jpg" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" /> button finds successive records that match 
+ the predefined <b>Filter</b> in the <b>Lookup</b> column.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To specify a custom Filter:</a>
+        </p>
+        <div MadCap:targetName="t7" style="display: none;">
+            <p>Filters help you to refine your results by only displaying the records 
+ that match specific criteria.</p>
+            <p>By default the <b>Filter</b> provided 
+ by the toolbar, is a <b>LIKE</b> filter 
+ for STRING data that returns all records containing the specified string.</p>
+            <h2>To specify another filter:</h2>
+            <ol>
+                <li class="Numbers" value="1">Click the <b>Custom 
+ Filter</b> <img src="../../../../image42.gif" style="border: none;width: 16px;height: 15px;border-style: none;" width="16" height="15" border="0" /> button.</li>
+            </ol>
+            <p class="ListDesc">This launches the <b>Custom 
+ Filter</b> configuration dialog, so that you can define the required filtering constraints, 
+ as follows:</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Check the <b>Use 
+ Custom Filter</b> checkbox.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> Unchecking 
+ the <b>Use Custom Filter</b> checkbox 
+ uses the default (LIKE) filtering.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Click the <b>Add 
+ Filter</b> button.</li>
+                <li class="Numbers" value="4">If this filtering constraint 
+ is NOT the first, specify how to relate this constraint to the previous 
+ constraints, as follows:</li>
+            </ol>
+            <ul>
+                <li class="ListSubBullet" value="1">AND: This is 
+ the default option, which makes this constraint mandatory. For instance, 
+ if there are two constraints with an AND between them, then the data will 
+ be restricted by BOTH constraints.</li>
+                <li class="ListSubBullet" value="2">OR: Use this 
+ option, to make the specified constraint optional. For instance, if there 
+ are two constraints with an OR between them then the data can be restricted 
+ with EITHER of these constraints.</li>
+                <li class="ListSubBullet" value="3">AND NOT: This 
+ makes the INVERSE of this constraint mandatory</li>
+                <li class="ListSubBullet" value="4">OR NOT: This 
+ makes the INVERSE of this constraint optional.</li>
+            </ul>
+            <ol start="5">
+                <li class="Numbers" value="5">Select the field, whose 
+ values you want to limit, from the <b>Field</b> 
+ drop-down list box.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> This 
+ list only displays the fields displayed by the VIZNETBindingNavigator 
+ control.</p>
+            <ol start="6">
+                <li class="Numbers" value="6">Select the method by which 
+ the values of this field are to be constrained or limited from the <b>Constraint</b> drop-down list box.&#160;For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Qry/Available_comparison_operators.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Available constraint operators</a></span>.</li>
+                <li class="Numbers" value="7">Specify the constraining 
+ value in the <b>Value/Expression</b> 
+ field.</li>
+            </ol>
+            <p class="ListNotice"><b>Note1:</b> Ensure that the 
+ specified <b>Value</b> has the same data 
+ type as the specified <b>Field</b>.</p>
+            <p class="ListNotice"><b>Note2:</b> You can also type 
+ in the SQL expressions (SQL functions and operators and fields), such 
+ as GETDATE().</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To add a record to the associated 
+ table:</a>
+        </p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <p class="Notices"><b>Note:</b> This requires 
+ the data for the associated table or View to be initially retrieved (<b>Load Data</b> <img src="../../../../image31.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button).</p>
+            <p class="Notices"><b>Note:</b> This can only 
+ be performed on a table and not a View.</p>
+            <p class="Notices"><b>Note:</b> The DataBinder 
+ MUST contain all the primary key column/s for this table, before your 
+ users can add records from this table. These primary key column/s, however, 
+ do not need to be displayed on the graphic form.</p>
+            <ol>
+                <li class="Numbers" value="1">Click the <b>Add 
+ New Record</b> <img src="../../../../image38.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</li>
+                <li class="Numbers" value="2">If a DataGridView control 
+ is associated with this table, then a new row is added to the bottom of 
+ this control.</li>
+                <li class="Numbers" value="3">If selected fields of this 
+ table are displayed in separate controls, then these become blank so that 
+ new data can be entered into them.</li>
+            </ol>
+            <p class="Notices"><b>WARNING!</b> You can 
+ only undo (remove) added records if you have not pressed the <b>Update 
+ Changes</b> <img src="../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</p>
+            <p class="Notices"><b>Note1:</b> Any fields 
+ that are not displayed on this graphic form will NOT have values specified 
+ for them unless they are auto-numbered?</p>
+            <p class="Notices"><b>Note2:</b> If you make 
+ a mistake when adding a field, press the <b>Undo 
+ All Changes</b> <img src="../../../../image40.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button to undo all changes made since 
+ the <b>Update Changes</b> <img src="../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button was pressed.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To edit a record of the associated 
+ table:</a>
+        </p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <p class="Notices"><b>Note1:</b> This requires 
+ the data for the associated table or View to be initially retrieved (<b>Load Data</b> <img src="../../../../image31.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button).</p>
+            <p class="Notices"><b>Note2:</b> This can only 
+ be performed on a table and not a View.</p>
+            <p class="Notices"><b>Note3:</b> The DataBinder MUST contain all 
+ the primary key column/s for this table, before your users can edit records 
+ from this table. These primary key column/s, however, do not need to be 
+ displayed on the graphic form.</p>
+            <ol>
+                <li class="Numbers" value="1">If necessary, navigate 
+ to or locate the required record first.</li>
+                <li class="Numbers" value="2">If a DataGrid control is 
+ associated with this table, then change the edit the fields in the required 
+ columns for this record in this control.</li>
+                <li class="Numbers" value="3">If selected fields of this 
+ table are displayed in separate controls, then edit the required controls.</li>
+            </ol>
+            <p class="Notices"><b>WARNING!</b> You can 
+ only undo editing changes to records if you have not pressed the <b>Update Changes</b> <img src="../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove a record from the associated 
+ table:</a>
+        </p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <p class="Notices"><b>Note1:</b> This requires 
+ the data for the associated table or View to be initially retrieved (<b>Load Data</b> <img src="../../../../image31.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button).</p>
+            <p class="Notices"><b>Note2:</b> This can only 
+ be performed on a table and not a View.</p>
+            <p class="Notices"><b>Note3:</b> The DataBinder 
+ MUST contain all the primary key column/s for this table, before your 
+ users can remove records from this table. These primary key column/s, 
+ however, do not need to be displayed on the graphic form.</p>
+            <ol>
+                <li class="Numbers" value="1">If necessary, navigate 
+ to or locate the required record first.</li>
+                <li class="Numbers" value="2">Click the <b>Delete 
+ Record</b> <img src="../../../../image39.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</li>
+                <li class="Numbers" value="3">If a DataGrid control is 
+ associated with this table, then a new row is added to the bottom of this 
+ control.</li>
+                <li class="Numbers" value="4">If selected fields of this 
+ table are displayed in separate controls, then these become blank so that 
+ new data can be entered into them.</li>
+            </ol>
+            <p class="Notices"><b>WARNING!</b> You can 
+ only restore deleted records if you have not pressed the <b>Update 
+ Changes</b> <img src="../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</p>
+            <p class="Notices">&#160;</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To undo all the changes that have 
+ been made to the associated table:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Click the <b>Undo 
+ All Changes</b> <img src="../../../../image40.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</li>
+            </ol>
+            <p class="Notices"><b>PLEASE NOTE:</b> All 
+ changes made to a table (records that are added, edited or deleted) can 
+ ONLY be reversed by pressing the <b>Undo 
+ All Changes</b> <img src="../../../../image40.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button BEFORE the <b>Update 
+ Changes</b> <img src="../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button is pressed. This is because you do 
+ not working directly on the database itself, but on records that are retrieved 
+ from the database. Therefore, It is only when the <b>Update 
+ Changes</b> <img src="../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button is pressed that the actual data in 
+ the database is updated.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To save all the changes that have 
+ been made to the associated table:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p class="Notices"><b>Note:</b> The DataBinder 
+ MUST contain all the primary key column/s for this table, before your 
+ users can save changes made to this table. These primary key column/s, 
+ however, do not need to be displayed on the graphic form.</p>
+            <ol>
+                <li class="Numbers" value="1">Click the <b>Update 
+ Changes</b> <img src="../../../../image41.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" /> button.</li>
+            </ol>
+            <p class="Notices"><b>WARNING!</b> Changes 
+ to this table CANNOT be reversed AFTER pressing this button.</p>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Miscellaneous features:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">The <b>Current 
+ Position</b> field indicates the number of the currently selected record 
+ in the associated table or View.</li>
+            </ul>
+            <ul>
+                <li class="Bullets" value="1">The <b>Total 
+ Number of Items (Records)</b> field indicates the total number of records 
+ within the associated table or View. </li>
+            </ul>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

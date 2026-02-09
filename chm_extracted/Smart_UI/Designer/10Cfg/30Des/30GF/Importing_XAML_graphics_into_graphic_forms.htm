@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Importing XAML graphics into graphic forms</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor692"></a><a name="kanchor693"></a>Importing XAML graphics into graphic forms</h1>
+        <p>You are not restricted to using the SmartUI Designer to design and create the graphics that you want to use in your graphic forms, since the SmartUI allows you to import graphics that have been saved in the <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">XAML <img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; "></span></span> document format. </p>
+        <p MadCap:conditions="Common.VerMinorFour">The <span class="VIPAppName">SmartUI</span> has been optimised to import <a name="kanchor694"></a>.XAML documents that are created when saving Microsoft <a name="kanchor695"></a><a name="kanchor696"></a> Visio 2010 AND <a name="kanchor697"></a> <a name="kanchor698"></a> 2013 images as .HTML documents. Since in this case one of the documents created during this process is a .XAML document. Therefore the SmartUI is able to import any Microsoft Visio 2010 or 2013 stencil or image.
+</p>
+        <p>Most graphics saved and/or converted to a .XAML document can be imported, there is an 80-90% conversion rate. In particular XAML files containing multiple translated/rotated groups usually are not able to be imported. </p>
+        <p>You can also convert images saved in .SVG format to .XAML. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="otherGrafix"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:
+</a></p>
+        <div MadCap:targetName="otherGrafix" style="display: none;">
+            <p><a name="kanchor699"></a>Only a few graphics software packages directly export their images into this XAML document format, such as the open source InkScape or Microsoft Blend. However other graphics software packages, while not supporting the .XAML format do provide support for saving images in the .<span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SVG<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Scalable Vector Graphics (SVG) is an XML-based vector image format for two-dimensional graphics. SVG images and their Behaviours are defined in XML text files. This means that they can be searched, indexed, scripted, and compressed. As XML files, SVG images can be created and edited with any text editor, but are more often created with drawing software.</span></span> document format. In fact these <a name="kanchor700"></a>SVG images can be produced by any vector graphics editor, such as Adobe Illustrator, Adobe Flash Professional, CorelDRAW to name a few. </p>
+            <p>In this case you can download and use a command line utility called <a href="http://adroittech.co.za/download/svg2xaml-utility/">SVG2XAML</a> from the Adroit website to convert your <a name="kanchor701"></a>.SVG files into .XAML files and then import these created <a name="kanchor702"></a>.XAML files into the required graphic forms.</p>
+            <p class="Notices"><b>IMPORTANT:</b> When generating these .XAML files from other applications, please ensure that the source files are made as simple as possible, by stripping out unnecessary layers and detail, since complex .XAML files (even though they may be small in size) will increase the required importing time and graphic form size and may even crash the Designer, if it runs out of memory. </p>
+        </div>
+        <h2>To import XAML graphics into a graphic form:</h2>
+        <p class="Notices"><b>Note:</b> This procedure 
+ assumes that you have already exported a graphical image into XAML using 
+ your preferred graphical program and that you know where this .XAML document 
+ is located.</p>
+        <ol>
+            <li class="Numbers" value="1">If necessary, create the required project in the Enterprise manager. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../10Prj/Creating_new_projects.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Creating new projects</a></span>.</li>
+            <li class="Numbers" value="2">If necessary, add the 
+ graphic form that you want to insert the graphical image, as follows: right-click on the project 
+ name or its icon <img src="../../../Resources/Images/16/DataSources/Project_DS.png" />&#160;and <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">select<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span>&#160;<b> <img src="../../../Resources/Images/16/DataSources/Project_NewGF.png" /> Create Graphic Form</b>.</li>
+            <li class="ListBullets" value="3">Either: right click the graphic 
+ form and click the <b>Import XAML Graphics</b> 
+ option.</li>
+            <li class="ListBullets" value="4">Or: from the Designer ribbon, select the <b>Import</b> tab and click the <b>Import XAML Graphics</b> tool. </li>
+        </ol>
+        <p class="ListDesc">This displays the <b>Import XAML Graphics</b> dialog.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Click the browse <img src="../../../00CmnUse/PropertyBrowseButton.bmp" /> button to the right of the <b>Browse in a XAML file to import</b> field and select the required .XAML 
+ document.</li>
+        </ol>
+        <p class="ListDesc">The <b>Base Url i.e. for images</b> field specifies the folder in which any additional images referenced by this XAML document need to located so that they can be included on import.</p>
+        <ol start="4">
+            <li class="Numbers" value="4"><b>IGNORE</b> the <b>Advanced View</b> button, as this ONLY contains information relevant when importing legacy Adroit mimics.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> The <b>Preview</b> button, allows you to view the selected XAML document before it is imported.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">Click the <b>Finish</b> 
+ button.</li>
+        </ol>
+        <p class="ListDesc">This converts the XAML document into vector graphic elements on the current graphic form.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

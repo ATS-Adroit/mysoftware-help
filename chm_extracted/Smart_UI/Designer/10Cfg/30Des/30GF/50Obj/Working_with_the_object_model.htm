@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Object Model" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with the object model</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1 MadCap:conditions="Common.ExFromPDF"><a name="kanchor3269"></a>the object model</h1>
+        <p>The object model  enables you to enhance your existing wizards by adding <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SCADA<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Supervisory Control And Data Acquisition, used to monitor and control an industrial plant or process and its related equipment.</span></span> configuration to them. Its primary function is to help save engineering time when you are creating bulk objects, such as items of equipment, which require similar SCADA configuration. </p>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_901927215_0" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />What the object model does for you?</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_901927215_0" style="display: none;">
+                <p>It saves you SCADA engineering time when creating object templates or instances:</p>
+                <ul>
+                    <li value="1">It lets you reliably duplicate objects that have all or most of their SCADA configuration pre-configured, such as scanning, logging and alarming.</li>
+                    <li value="2">The typical objects you create will  be items of equipment, like  pumps or motors, including anything that you have already created to represent in a wizard.</li>
+                    <li value="3">You can&#160;add one or more attributes, searchable strings or identifiers that you can use to filter or group the objects, that you deploy, in the <i>Context View</i> window.</li>
+                    <li value="4">You may also use the  <img src="OMTemplExpImp/ObjMdlTempExpImp_16Icon.png" style="width: 16px;height: 16px;" /><![CDATA[  ]]><b><b><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="OMTemplExpImp/The_Object_Model_Template_Export_Import_Utility.htm" onclick="FMCPopup( event, this ); return false;" MadCap:width="auto" MadCap:height="auto" class="MCPopupSpot"><b>Object Model Template Export and Import</b></a></span></b></b> utility  to import or export one or more of your existing Object Model Templates in a proprietary TEF <i>(Template Export File)</i> file format.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_901927215_1" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />What the object model does NOT do for you?</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_901927215_1" style="display: none;">
+                <p>The object model will not help you to:</p>
+                <ul>
+                    <li value="1">Create a graphical representation of the object, because it requires a working instance of a wizard.</li>
+                    <li value="2">Create the SCADA configuration required by this object, as it requires that all the necessary agents are already assigned in the selected wizard instance and that these agents are correctly configured.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_901927215_2" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />How does the object model work?</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_901927215_2" style="display: none;">
+                <p>Up to now, wizards have let you create animated graphical representations of your objects, such as pumps and motors, which you can duplicate as needed in your SCADA process and then link them to the required process values.</p>
+                <ul>
+                    <li value="1">The primary function of the object model datasource is the mass reuse of objects, where each object has a graphical component, much like the existing wizards, and a SCADA component which incorporates the scanning, alarming and logging of tags. </li>
+                    <li value="2">Essentially, it is a bulk SCADA configuration tool, which lets you standardise the configuration of your equipment.</li>
+                    <li value="3">It was mostly left up to you to manually implement for each object wizard instance of the SCADA configuration, such as the required scanning, alarming and logging. </li>
+                    <li value="4">You can use the object model datasource to implement the required SCADA configuration for each of your objects <i>(i.e. a fully configured instance of a wizard)</i> and create a template, which specifies both the graphical representation and the required SCADA configuration for this object. </li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="5"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>If you have an object with identical wizards and different graphical representations, you can associate other wizards to this object template. </li>
+                    <li value="6">To reliably duplicate pre-configured objects, you can implement instances of this template,<ul><li value="1">which creates and configures the necessary agents required by this object,</li><li value="2">and also provides the required graphical representation.</li></ul></li>
+                    <li value="7">The template and object instances only reference the wizard and do not encapsulate it. <ul><li value="1">When you drop an object instance on a graphic form, it is the wizard instance that provides the SCADA configuration. </li><li value="2">You can interact with this wizard instance as usual. </li><li value="3">If you update the original wizard, you can update this wizard instance if you want to.</li></ul></li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="8"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>It is also possible for an object template to  incorporate one or more existing object templates within this template, for instance by adding a faceplate to a pump. So you need to create your lower-level or commonly used object templates first.</li>
+                </ul>
+                <table style="margin-left: 50px;margin-right: auto;width: 95%;" class="Table-Note-Example">
+                    <col />
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p><b> An example of a practical scenario:</b>
+                                </p>
+                                <p>Consider an industrial plant having a large number of similar pumps made by the same manufacturer and each pump has some characteristics  that differ, such as the pump’s power calibration. The engineer creates a wizard that provides a graphical representation of each pump, using the following steps: </p>
+                                <ol>
+                                    <li value="1">Implement a wizard and create the necessary SCADA configuration for each pump, such as its required scanning, logging and alarming. </li>
+                                    <li value="2">Test that the SCADA configuration is working correctly. </li>
+                                    <li value="3">Now, create a template from this working wizard, ensuring that the characteristics that are different between the pumps are substitutable. </li>
+                                    <li value="4">Using this template, the engineer creates multiple instances of the pump, changing each of their different characteristics as needed. </li>
+                                    <li value="5">As a result, each instance of the pump would have their individual scanning, logging and alarming pre-configured.</li>
+                                </ol>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_901927215_3" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />What do you need before you can create an object template?</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_901927215_3" style="display: none;">
+                <p>You need a configured working instance of a wizard where you have fully configured the required SCADA configuration. The instance is then available for duplication to all your other objects.</p>
+                <p class="A4-Note-SimpleImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>Take the necessary time to test that the wizard has been correctly configured and is working optimally. Ensure that it can be scanned, logged and alarmed correctly. Be aware that any mistakes or omissions will be duplicated. <br />So, take care!</p>
+                <p>Take a wizard on a graphic form, one that is working as required and use it to create a new template. </p>
+                <ul>
+                    <li value="1">The template must  incorporate the graphical components of the wizard, along with any substitutions that it uses, and including the SCADA configuration.</li>
+                    <li value="2">You can now create numerous instances of each that will create their own unique tags and can be scanned, logged and alarmed, as specified by the template.</li>
+                    <li value="3">For example, if you have created a wizard for a pump, you can create a template for the pump that displays the pump, all its relevant values on a graphic form and also creates the required tags and performs the necessary scanning, logging and alarming.   </li>
+                </ul>
+                <p class="A4-Note-SimpleImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>Creating templates is a task for advanced users who are fully aware of how their SCADA system <i>(Agent Server)</i> is configured. However, creating the template instances is a lot easier.</p>
+                <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>A template always refers to an existing wizard. However, if the referenced wizard is deleted or modified, it does not affect the existing template instances that have already been added, it will only affect the instances that you add later. </p>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_901927215_4" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Managing your object model templates</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_901927215_4" style="display: none;">
+                <p>You can also create child templates so that you can create a template that uses an existing template. </p>
+                <ul>
+                    <li value="1">These child templates form the basic, or commonly used, building blocks from which you can add to your other templates.</li>
+                    <li value="2">You may also use the  <img src="OMTemplExpImp/ObjMdlTempExpImp_16Icon.png" style="width: 16px;height: 16px;" /><![CDATA[  ]]><b><b><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="OMTemplExpImp/The_Object_Model_Template_Export_Import_Utility.htm" onclick="FMCPopup( event, this ); return false;" MadCap:width="auto" MadCap:height="auto" class="MCPopupSpot"><b>Object Model Template Export and Import</b></a></span></b></b> utility  to import or export one or more of your existing Object Model Templates in a proprietary TEF <i>(Template Export File)</i> file format.</li>
+                    <li value="3">You do not have to create all the object model templates that you require since the object model datasource can install global or system templates, which are available immediately after installation.</li>
+                    <li value="4">These global or system templates are added to the <b>Enterprise Manager</b> category folders <b>Datasources &gt; Object Model &gt; Templates &gt; System</b>.</li>
+                    <li value="5">To assist you and your users in selecting the appropriate template, both the global templates and the templates that you create can be further classified into sub-folders, for ease of reference. </li>
+                    <li value="6">By default, all templates <img src="../../../../Resources/Images/16/DataSources/ObjectModel_Template.png" style="width: 16px;height: 16px;" />  created by users are added to the <b>Enterprise Manager</b> category folders <b>Datasources &gt; Object Model &gt; Templates &gt; User</b>. </li>
+                </ul>
+                <p>You can add specialised sub-folders and move your templates into these folders. </p>
+                <ul>
+                    <li value="1"> You can do this within the <b>Enterprise Manager</b>, or you can use <b>Windows Explorer</b>.</li>
+                    <li value="2">When next the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> loads it acquires the folder structure as you have created it. You can, therefore, create a workflow that suits your project best. </li>
+                    <li value="3">If you do choose to use Windows Explorer, these templates are stored in the following physical location on the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer: <span class="VIPDefaultConfigPath">C:\ProgramData\Adroit Technologies\Adroit\SmartUI\Configurations\Default</span>\ObjectModel\Templates </li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>This path assumes that you are using the Default configuration, otherwise replace "Default" with the name of your currently active Configuration, which you can retrieve from the Configurations page of the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Config Editor</b>.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-SmartUI-Config-Editor.png" MadCap:popupWidth="1918" MadCap:popupHeight="1049" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-SmartUI-Config-Editor_thumb_0_200.png" style="width: 366px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                </ul>
+                <p>&#160;</p>
+                <ul>
+                    <li value="1">While you are not permitted to move or delete the global or system templates and their sub-folders in the <b>Enterprise Manager</b> category folders <b>Datasources &gt; Object Model &gt; Templates &gt; System</b> in the Designer, you can do so in Windows Explorer. The next time the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> loads, it updates the template  folder structure.</li>
+                    <li value="2">
+These templates are stored in the following physical location on the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer: <span class="VIPProgramDataProductFolder">C:\ProgramData\Adroit Technologies\Adroit\SmartUI</span>\ObjectModel\Templates</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_901927215_5" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Creating an object model template</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_901927215_5" style="display: none;">
+                <p>To start, use a wizard instance on a graphic form that you have already configured, which is working as required and is already configured with the necessary SCADA configuration <i>(i.e. the scanning, logging, and alarming)</i> plus any other agents that the object needs. </p>
+                <ol>
+                    <li value="1">For detailed steps to create a template, see <a href="Creating_an_Object_Template.htm" class="MCXref_0">Creating or Editing an Object Template</a>.</li>
+                </ol>
+                <ul>
+                    <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>You need to ensure that the required SCADA configuration of this wizard instance is exactly what you require, because it will be copied verbatim and will include all errors or mistakes if any.</li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>If you keep the identical substitution names as those you have used in the wizard, this makes it easier to implement your instances, as you will only need to configure these substitutions once. If you don’t use the same substitutions, you should specify unique substitutions during both the SCADA and Graphical Substitution stages.</li>
+                </ul>
+                <ol MadCap:continue="true">
+                    <li value="2">Next, create a template from the wizard, which incorporates the graphical components of the wizard <i>(and any substitutions that it uses), </i>along with the SCADA configuration that you specify. Now, you can create  numerous instances of each that will create unique tags and can be scanned, logged and alarmed, as specified by the template.</li>
+                </ol>
+                <ul>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>To create an object template, you need to be fully aware of how your SCADA system <i>(Agent Server)</i> is configured. </li>
+                </ul>
+                <ol>
+                    <li value="3">Once you have created an object template, and any other instances that you create using this template, the referenced wizard will provide the graphical components and uniquely configure the SCADA configuration for the process values that you have specified for each object. <ul><li value="1">For detailed steps to create an instance, see <a href="Creating_an_Object_Instance.htm" class="MCXref_0">Creating an Object Instance</a>.</li></ul></li>
+                </ol>
+                <ol>
+                    <li value="4">When complete, you can either deploy an instance immediately or you can partially, or fully, deploy this object later. <ul><li value="1">For detailed steps to deploy an instance later, see <a href="Deploying_an_Object_Instance.htm" class="MCXref_0">Deploying an Object Instance</a>.</li></ul></li>
+                </ol>
+                <h2>Defining attributes for your templates and objects</h2>
+                <ul>
+                    <li value="1">When creating an object template or an object instance, you can  add one or more attributes, searchable strings, or identifiers that you can use to filter or group the objects that you deploy in the <b>Context View</b> window.</li>
+                    <li value="2">These provide user-friendly terms that you can use to identify the object, such as equipment <i>Type</i>, whose value may be <i>‘motor’</i> or <i>‘valve’</i> or some other type or perhaps the power specification, such as <i>'kWh'</i> and then specify the required value for each <i>Type</i> object.</li>
+                    <li value="3">Once you have created the object instance, you can view both the template- and object-specific attributes and values that have been defined and configured for this object. </li>
+                    <li value="4">For detailed steps to view the instance attributes, see <a href="View_the_defined_attributes_of_an_Object_Instance.htm" class="MCXref_0">Viewing the defined attributes of an Object Instance</a>.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_901927215_6" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />How the Context View window augments the object model</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_901927215_6" style="display: none;">
+                <p>The Context View <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tool window<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">tool windows are dockable windows, which provide several arrangement options to increase the size of the Design workspace window used for designing graphic forms.</span></span>, logically groups or organises the deployed objects according to their defined attributes, so that they can be easily located and searched. </p>
+                <ul>
+                    <li value="1">All the objects that have identical attributes are added as separate groups or 'contexts'. </li>
+                    <li value="2">The grouping created is hierarchical, and objects are further classified or grouped according to their specified values of this attribute. This lets you identify which objects have the same values and those which have been assigned a particular attribute. <ul><li value="1">If, for example, an attribute defines the power rating for equipment:<ul><li value="1">You would see all your equipment that has the same power rating.</li><li value="2">If an attribute assigns the manufacturer, you could see all the equipment made by each manufacturer.</li></ul></li></ul></li>
+                    <li value="3">By defining common attributes for your deployed objects, the <i>Context View</i> window can become a handy tool in managing not just your deployed objects, but also your entire process.</li>
+                    <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>These  contexts are automatically generated and cannot be edited, indicated by the red key <img src="../../../../Resources/Images/16/DataSources/ContextView_LockContext.png" /> icon in the context list at the bottom of this window.</li>
+                </ul>
+                <p>For more information, see <a href="../../../20DesEnv/10TW/Context_View_tool_window.htm" class="MCXref_0">Context View tool window</a>.</p>
+                <h2>Organising your objects </h2>
+                <p>You can edit the <b>Default</b> context to create your own logical organisation of your objects and other data, by either:</p>
+                <ul>
+                    <li class="Bullets" value="1"> Adding the necessary hierarchy of nodes <img src="../../../../Resources/Images/16/DataSources/ContextView_Node.png" />, or</li>
+                    <li class="Bullets" value="2">if you have implemented Alarm Management, you can import your existing hierarchy of categories as nodes <img src="../../../../Resources/Images/16/DataSources/ContextView_Node.png" />, with or without the agents that are associated with their configured incidents.</li>
+                    <li class="Bullets" value="3">For detailed steps to editing the default context, see <a href="../../../20DesEnv/10TW/Editing_the_Default_context.htm" class="MCXref_0">Editing the Default context</a>.</li>
+                </ul>
+                <ul>
+                    <li value="1">Creating an object instance in a node of the  <b>Default</b> context can be particularly useful when its name and substitutions use a predefined naming convention that specifies the context in which the instance is created. </li>
+                    <li value="2">For detailed steps to creating context-sensitive instances, see <a href="../../../20DesEnv/10TW/Creating_contextually_sensitive_object_instances.htm" class="MCXref_0">Creating contextually sensitive object instances</a>.</li>
+                </ul>
+                <ul>
+                    <li MadCap:conditions="Common.Screenshots" class="A4_Bullet_NormalNoDot" value="1">
+                        <img src="../../../../_WhatsNew/Images/ContextView_ObjectInstancesEx.png" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

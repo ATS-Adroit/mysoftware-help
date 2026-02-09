@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents|The OEE Agent" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>The OEE Agent</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1 MadCap:conditions="Common.ExFromPDF"><a name="kanchor2015"></a><a name="kanchor2016"></a>The OEE Agent</h1>
+        <h1>What is OEE?</h1>
+        <p>Overall Equipment Effectiveness (OEE) is a measurement of how effectively a single piece of equipment, or a group of equipment, and even how an entire factory is being utilised.&#160; </p>
+        <p>OEE is  percentage  determined by the cumulative impact of <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="oeeFactors"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following three factors:</a> <![CDATA[ ]]></p>
+        <ul MadCap:targetName="oeeFactors" style="display: none;">
+            <li class="Bullets" value="1"><b>Availability</b>: is the percentage of the actual running time of  the monitored equipment and/or factory. So this factor is decreased by the activities that cause unplanned downtime.</li>
+            <li class="Bullets" value="2"><b>Performance</b>: is the percentage of how often the monitored equipment and/or factory performs at optimum speed. So this factor is decreased by the all the factors preventing the equipment and/or factory from running at optimal speed.</li>
+            <li class="Bullets" value="3"><b>Quality</b>:&#160;is the percentage of good quality items produced by the monitored equipment and/or factory. So this factor is decreased by the amount of produced waste or bad quality and scrapped items.</li>
+        </ul>
+        <p> <b>OEE% = Availability% x Performance% x Quality%</b></p>
+        <p>This OEE percentage takes into account all losses in downtime, speed and quality and can therefore be used for  analysis and benchmarking.</p>
+        <h2>Why use the OEE&#160;agent?</h2>
+        <p>The OEE&#160;agent can :</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>EITHER  calculate the OEE&#160;for the monitored equipment and/or plant. Since targeting the three key OEE&#160;factors  simultaneously, can effect significant improvements in production.</p>
+                <p MadCap:conditions="Common.ExFromPDF"><a href="How_to_configure_the_OEE_agent_to_calculate_OEE.htm">How to configure the OEE agent to calculate OEE</a>
+                </p>
+            </li>
+            <li class="Bullets" value="2">OR  measure a specific <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">KPI<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Key Performance Indicator, a quantifiable measurement that measures how well something is accomplishing its goals and objectives.</span></span>. In other words, individual OEE agents can be applied to any component or part of a process for which a variable denoting a measurement of output is available, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="kpiAddInfo"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a> <![CDATA[  ]]></li>
+        </ul>
+        <p class="Notices"><b>Note:</b> The number of OEE&#160;agents that you can add to your Agent Server is determined by the <b>OEE Count</b> parameter of your <span class="AdroitAppName">Adroit</span> license.</p>
+        <div MadCap:targetName="kpiAddInfo" style="display: none;">
+            <p class="ListDesc">KPIs are typically the measurement of some production value over time OR one production value against (divided by) another production value.&#160;Therefore the OEE agent can measure TWO variables:</p>
+            <ul>
+                <li class="ListSubBullet" value="1">the FIRST variable (the REAL <b>input1</b> slot)</li>
+                <li class="ListSubBullet" value="2">the SECOND variable (the REAL <b>input2</b> slot), used as a DIVISOR of the first (input1/input2). </li>
+            </ul>
+            <p class="ListNotice"><b>Note:</b> If the SECOND variable is not specified, then the FIRST variable is simply divided by time. </p>
+            <p class="ListDesc">In this way it is possible to measure production figures, such as ton/hr, kWh/ton, total produced, actual run-hours, etc.  </p>
+            <p class="ListDesc">The measured KPI can either compare actual performance with benchmark figures or compare shift performances or today’s performance with the previous day or the previous day's shifts.</p>
+        </div>
+        <p class="ListDesc" MadCap:conditions="Common.ExFromPDF"><a href="How_to_configure_the_OEE_agent_to_calculate_a_KPI.htm">How to configure the OEE agent to calculate a KPI</a>
+        </p>
+        <p>&#160;</p>
+        <p>This agent supports real-time catch-up on a standby clustered Agent Server from a master server and Agent Server session persistence via a work file in the project work folder, typically <span class="AdroitAdrPrjFolder">C:\ProgramData\Adroit Technologies\Adroit\Configurations\Default</span>\Work.</p>
+        <ul MadCap:conditions="Common.ExFromPDF">
+            <li class="Bullets" value="1"><a href="Factors_affecting_OEE_or_KPI_calculations.htm">OEE Agent Calculations</a> : describes important factors that affect if and how the OEE agent calculates the OEE or KPI, such as whether this calculation is done on a per-shift or per-batch basis.</li>
+            <li class="Bullets" value="2"><a href="Advanced_OEE_agent_configuration_options.htm">Advanced OEE agent configuration options</a> : details the configuration of the options provided by the <b>Advanced OEE options</b> dialog, such as database (SQL) logging.</li>
+            <li class="Bullets" value="3"><a href="Specific_Status_Bits_of_the_OEE_Agent.htm">OEE Agent - Specific Status Bits</a> : to indicate  various quality and other alarm conditions, the status of the agent, OLE DB connection and the current shift.</li>
+        </ul>
+        <p MadCap:conditions="Common.ExFromPDF">&#160;</p>
+        <p MadCap:conditions="Common.ExFromPDF"><a href="../AU_05/OEE_Agent_Slot_Details.htm">OEE&#160;Agent - Slot Details</a>.</p>
+        <p MadCap:conditions="Common.ExFromPDF"><a href="../AU_05/OEE_Agent_Database_File_Format.htm">OEE&#160; Agent - Database File Format</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

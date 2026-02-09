@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|Adroit Datasources" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Charts" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to chart discreet data</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>How to chart single valued or discreet data</h1>
+        <p>Charting controls allow you to report both live and historical single 
+ valued (discreet) <a name="kanchor4099"></a><a name="kanchor4100"></a>data.</p>
+        <p>An example of single valued (discreet) data is time-stamped data from 
+ a SCADA application, such as a tank value.</p>
+        <h2>To chart discreet data:</h2>
+        <ol>
+            <li class="Bullets" value="1">Ensure that you have added 
+ a datasource that exposes this data.</li>
+        </ol>
+        <ol>
+            <li class="Numbers" value="1">Add the necessary charting 
+ control to this graphic form. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_Charting_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding Charting 
+ controls</a></span>.</li>
+        </ol>
+        <p class="ListDesc">The chart configuration dialog is launched, which provides 
+ a number of sections of chart configuration. <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="General_chart_dialog_configuration.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">This topic describes 
+ these sections and their most important configuration items</a></span>.</p>
+        <p class="ListNotice"><b>Tip:</b> For advanced configuration options, click the <b>Advanced View &gt;</b> button at the bottom of this configuration dialog.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Click the <b>Series 
+ Setup</b> heading (section) in the left pane of the configuration dialog 
+ to display the <b>Series Setup</b> dialog.</li>
+            <li class="Numbers" value="3">Click the <b>Add 
+ Series</b> button below the series grid to add a new series to this 
+ chart.</li>
+        </ol>
+        <p class="ListNotice"><b>WARNING!</b> Do 
+ not rename these series, since this name corresponds to a separate component 
+ on the graphic form that provides advanced series settings. </p>
+        <ol start="4">
+            <li class="Numbers" value="4">If necessary, choose and 
+ configure the required <b>Type</b> of 
+ series to display your data in this charting control. </li>
+        </ol>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The following types of series are available:</a>
+        </p>
+        <p class="ListNotice"><b>Note:</b> The available 
+ series types are dependant upon the selected charting control.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1"><b>Bar</b>: 
+ a series of horizontal bars representing values. If selected this provides: 
+ the <b>Bar Style</b> tab to specify how 
+ to display the series and a <b>Series Marks</b> 
+ tab to optionally specify additional labels for each or some of the values 
+ for this series. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Displaying_a_bar_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Displaying a Bar series</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_marks_for_the_values_of_a_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring value labels</a></span>.</li>
+                <li class="ListBullets" value="2"><b>Column</b>: a series of vertical columns representing 
+ values. If selected this provides: the <b>Column Style</b> 
+ tab to specify how to display the series and a <b>Series Marks</b> tab to optionally specify additional labels 
+ for each or some of the values for this series. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Displaying_a_column_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Displaying a Column series</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_marks_for_the_values_of_a_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring value labels</a></span>.</li>
+                <li class="ListBullets" value="3"><b>FastLine</b>: 
+ a series of points that are usually connected to form lines. If selected 
+ this provides: the <b>FastLine Style</b> 
+ tab to specify how to display the series and a <b>Series 
+ Marks</b> tab to optionally specify additional labels for each or some 
+ of the values for this series. For details, see <a href="Displaying_a_FastLine_series.htm">Displaying 
+ a FastLine series</a> or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_marks_for_the_values_of_a_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring value labels</a></span>.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note:</b> A <b>FastLine</b> series provides less configuration 
+ options than a <b>Line</b> series so that it is drawn faster and is recommended for trending real-time data.</p>
+            <ul>
+                <li class="ListBullets" value="1"><b>Line</b>: 
+ a series of points that are usually connected to form lines. If selected 
+ this provides: the <b>Line Style</b> 
+ tab to specify how to display the series and a <b>Series 
+ Marks</b> tab to optionally specify additional labels for each or some 
+ of the values for this series. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Displaying_a_Line_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Displaying a 
+ Line series</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_marks_for_the_values_of_a_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring value labels</a></span>.</li>
+                <li class="ListBullets" value="2"><b>Pie</b>: a series of slices or segments to form a 
+ complete pie or circle. Typically you only use one series per chart. If 
+ selected this provides: the <b>Pie Style</b> 
+ tab to specify how to display the series and a <b>Series Marks</b> tab to optionally specify additional labels 
+ for each or some of the values for this series. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Displaying_a_pie_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Displaying a Pie series</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_marks_for_the_values_of_a_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring value labels</a></span>.</li>
+                <li class="ListBullets" value="3"><b>Surface:</b> a surface or three dimensional shape that 
+ is plotted from three sets of values, one set provides the X or horizontal 
+ coordinate and the other provides the Y or vertical coordinate of each 
+ point and the third set provides the Z or height dimension. If selected 
+ this provides: the <b>Surface Style</b> 
+ tab to specify how to display the series and a <b>Series Marks</b> tab to optionally specify additional labels 
+ for each or some of the values for this series. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Displaying_a_XYPlot_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Displaying a Surface series</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_marks_for_the_values_of_a_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring value labels</a></span>. 
+ &#160;</li>
+                <li class="ListBullets" value="4"><b>XYPlot</b>: 
+ a series of points that are plotted from two sets of values, one providing 
+ the X or horizontal coordinate and the other providing the Y or vertical 
+ coordinate of each point. If selected this provides: the <b>XYPlot 
+ Style</b> tab to specify how to display the series and a <b>Series 
+ Marks</b> tab to optionally specify additional labels for each or some 
+ of the values for this series. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Displaying_a_XYPlot_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Displaying a 
+ XYPlot series</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Configuring_marks_for_the_values_of_a_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Configuring value labels</a></span>. 
+ </li>
+            </ul>
+        </div>
+        <p class="ListNotice"><b>Tip:</b> You can connect several data elements to a single series to independently drive its following attributes: color, description, maximum and/or minimum values, engineering unit, value and/or its visibility. For details, see 
+ <a href="Dragging_data_to_charting_controls_to_configure_series.htm">Dragging data to charting controls to configure series</a>.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">If necessary, change the 
+ assigned color of this series by double clicking the <b>color</b> 
+ field to display the color edit box to select the required color. For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting colors</a></span>. 
+ </li>
+        </ol>
+        <p class="ListDesc">The <b>Visible</b> checkbox 
+ determines whether the series is initially displayed or hidden when this 
+ chart is displayed. However, a user may configure this at runtime by using 
+ the checkboxes in the legend of the chart (if these are displayed, which 
+ is the default setting).</p>
+        <ol start="6">
+            <li class="Numbers" value="6">Select <b>Values</b> 
+ as the type (source) of data 
+ that for the values of this series in the <b>Datasource</b> 
+ field.</li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1">If you have selected a <b>FastLine</b>, 
+ <b>Line</b>, <b>Surface</b> 
+ and <b>XYPlot</b> series, then use the 
+ <b>Values</b> tab <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Selecting_value_s_to_plot_a_line.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">to specify this data</a></span>.</li>
+            <li class="ListBullets" value="2">If you have selected a <b>Bar</b>, 
+ <b>Column</b> and <b>Pie</b> 
+ series, then use the <b>Values List</b> tab 
+ <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Selecting_values_for_a_series.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">to specify this data</a></span>.</li>
+        </ul>&#160;<!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

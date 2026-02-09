@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|Adroit Datasources" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.AdrFromClassic" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Changing from using the Classic Adroit UI.doc" /><title>Changing from using the Classic UI</title>
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2627"></a><a name="kanchor2628"></a>Changing from using the <a name="kanchor2629"></a>Classic UI</h1>
+        <p>What you should know when using the <span class="VIPAppName">SmartUI</span> Designer as a user interface to 
+ the <span class="AdroitAppName">Adroit</span> Agent Server:</p>
+        <p>Although the <span class="VIPAppName">SmartUI</span> provides similar functionality, the means by which this functionality 
+ is implemented has changed somewhat from the Classic UI.</p>
+        <p>For details on how to import your existing Classic UI projects into the <span class="VIPAppName">SmartUI</span>, see <a href="../30Des/10Prj/Converting_Classic_UI_projects_into_SmartUI_projects_2.htm">Converting Classic UI projects into <span class="VIPAppName">SmartUI</span> projects</a>.</p>
+        <ol>
+            <li class="Bullets" value="1">To familiarise 
+ yourself with this new designing environment, see&#160;<a href="../20DesEnv/Working_with_the_Designer.htm">Working 
+ with the Designer</a><![CDATA[  ]]></li>
+            <li class="Bullets" value="2">For a quick start guide to using this new designing 
+ environment,&#160;see <a href="10BascDes/Quick_designing_guide.htm">Quick 
+ designing guide</a>.</li>
+        </ol>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 28.29%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 71.71%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Classic UI Feature</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1"><span class="VIPAppName">SmartUI</span> UI Equivalent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Accessing agent data</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Add an <span class="AdroitAppName">Adroit</span> datasource and connect it to the required Agent Server. 
+ For details, see <a href="../30Des/20DS/Adr/Adroit_datasources.htm"><span class="AdroitAppName">Adroit</span> 
+ datasources</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Agent server configuration</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Once an <span class="AdroitAppName">Adroit</span> datasource has been added, its associated agent server 
+ can be configured. For details, see <a href="../30Des/20DS/Adr/Configuring_the_Agent_Server.htm">Configuring the Agent Server</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>User Interface security</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>In addition to customizing the user interface display, profile settings 
+ can also be used to limit the access users have within them. For details, 
+ see <a href="../40Mng/20Prf/Working_with_profiles.htm">Working with profiles</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p><a name="kanchor2630"></a>Mimics</p>
+                        <p><a name="kanchor2631"></a>(Picture windows)</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Mimics are now known as graphic forms. For details, see <a href="../30Des/30GF/Working_with_graphic_forms.htm">Working 
+ with graphic forms</a>.</p>
+                        <p class="Notices"><b>Note:</b> When displaying <span class="AdroitAppName">Adroit</span> tags you can display bad-tag status indicators on relevant controls and/or vectors. For details, see <a href="../30Des/20DS/Adr/Bad_tag_status_indicators.htm">Bad tag status indicators</a>.</p>
+                        <p class="Notices"><b>Tip:</b> You can import your existing Classic UI mimcs directly into the SmartUI, see <a href="../30Des/30GF/Converting_Adroit_Classic_UI_mimics_into_SmartUI_graphic_forms.htm">Converting Adroit Classic UI mimics into SmartUI graphic forms</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Vector graphics</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Vector graphics are collectively known as graphic elements, which can 
+ be added to graphic forms (mimics). For details, see <a href="../30Des/40FC/20GE/Working_with_graphic_elements.htm">Working 
+ with vectors (graphic elements)</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p><a name="kanchor2632"></a>Behaviours</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Behaviours are provided to graphically display your values. For details, 
+ see <a href="../30Des/40FC/30B/About_Behaviors.htm">About Behaviours</a>.</p>
+                        <p>You can also use spiders, which in addition to animating controls on 
+ graphic forms (mimics) also provide a visual programming language that 
+ is able to manipulate data, by means of drag and drop. For details, see 
+ <a href="../30Des/50S_S/Introduction_to_spiders_and_silks.htm">Introduction to spiders 
+ and silks</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Trend windows</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This is now performed by a charting controls that can be added to a graphic 
+ form (mimic). For details, see <a href="../30Des/40FC/10CC/Ctrl/Charting_controls.htm">Charting controls</a> or specifically <a href="../30Des/40FC/10CC/Ctrl/LineChart_controls.htm">LineChart controls</a>.</p>
+                        <p class="Notices"><b>Tip:</b> You can import your existing Classic UI trends directly into the SmartUI, see <a href="../30Des/30GF/Converting_Adroit_Classic_UI_trends_into_SmartUI_graphic_forms.htm">Converting Adroit Classic UI mimics into SmartUI graphic forms</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p><a name="kanchor2633"></a>Alarm Viewer windows</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This is now performed by a custom control that can be added to a graphic 
+ form (mimic). For details, see <a href="../30Des/40FC/10CC/Ctrl/AlarmViewer_controls.htm">AlarmViewer 
+ controls</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p><a name="kanchor2634"></a>Event Log windows</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;Events 
+ within event logs can now be exposed by using the Event log datasource. 
+ Once this datasource has been added, event logs can be displayed within 
+ a EventViewer control on any graphic form (mimic). For details, see <a href="../30Des/20DS/EvL/Event_Log_datasources.htm">Event 
+ Log datasources</a> or <a href="../30Des/40FC/10CC/Ctrl/EventViewer_controls.htm">EventViewer controls</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p><a name="kanchor2635"></a>Wizards</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Wizards or the ability to create re-usable controls from graphic forms, 
+ that can be inserted in other graphic forms is  provided by TemplateGO 
+ controls and through the creation of Wizards. For details, see&#160;<a href="../30Des/40FC/10CC/Ctrl/TemplateGO_controls.htm">TemplateGO 
+ controls</a> and <a href="../30Des/30GF/40Wiz/Working_with_wizards.htm">Working with wizards</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p><a name="kanchor2636"></a>Recipe windows</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Since a native recipe control, does not exist in this UI, it will need 
+ to be manually created as a graphic form, if necessary. </p>
+                        <p class="Notices"><b>Tip:</b> This recipe graphic 
+ form can also be re-used, by using TemplateGO controls.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>Template</p>
+                        <p>mimics and trends</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>SmartUI Templates are reusable graphic forms that can be used at run-time, like template mimics. For details, see <a href="../30Des/30GF/30Als/Working_with_SmartUI_Templates.htm">Working with SmartUI Templates</a>.</p>
+                        <p>Template sets can now be used to create sets of data, which can be selectively 
+ displayed by a graphic form.</p>
+                        <p><a name="kanchor2637"></a>Therefore, once the required controls within a graphic form, have been 
+ suitably configured, this graphic form will behave as template mimics 
+ did in the past. For details, see <a href="../30Des/50S_S/40TemSet/Working_with_template_sets.htm">Working 
+ with template sets</a>.</p>
+                        <p class="Notices"><b>Note</b><a name="kanchor2638"></a>: Since Trend windows 
+ have been replaced by trend controls, these controls can also be configured 
+ to behave as template trends did in the past.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

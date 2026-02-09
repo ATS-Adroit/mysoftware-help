@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Behaviors" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Database Behaviour</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../Resources/TableStyles/Adroit10BasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1735"></a>Database Behaviour</h1>
+        <p>The Database Behaviour functionality provides you with an easy method of accessing data that has been returned after running a database query and the result displayed on a control or vector placed on a graphic form. </p>
+        <p>The database query can be processed in two ways:</p>
+        <ol>
+            <li style="font-weight: bold;" value="1">A Database Query in the Spider Configuration</li>
+        </ol>
+        <ul>
+            <li value="1">Although you can currently use queries on a graphic form, the setup is normally done in the Spider Configuration.</li>
+            <li class="A4-BulletWarningPinkBack" MadCap:autonum="&lt;span style=&quot;color: #6b0000;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Warning: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #6b0000;" class="mcFormatColor"><b>Warning: &#160;</b></span></span></span>This setup is sometimes quite complex.</li>
+            <li value="3">Requires you to be a relatively advanced or experienced user to successfully set up a query to link it to a control or vector to achieve the desired result.</li>
+        </ul>
+        <ol MadCap:continue="true">
+            <li value="2" style="font-weight: bold;">A Database Query using the Database Behaviour provides the following advantage</li>
+        </ol>
+        <ul>
+            <li value="1">It removes the complexity you would encounter in the spiders and silks to create and successfully execute queries in an OLEDB Data Source.</li>
+            <li value="2">It automatically determines the spider configuration required for a selected query and query type, and also its target control or vector.</li>
+            <li value="3">It creates the relevant spiders and silks in the background that are required to execute a query successfully.</li>
+            <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>Previously, you were required to go to the Spider Configuration workspace to manipulate spiders and silks manually.</li>
+            <li value="5">It also lets you easily edit a current spider configuration which is related to executing a query. </li>
+            <li value="6">Includes deleting the entire configuration, not leaving any spiders or silks behind that might have to be managed manually.</li>
+        </ul>
+        <h2>Configuring a database query</h2>
+        <p>Current behaviours work on the principle that you must first select a control or vector, which displays the relevant behaviour types available for the selected control or vector. You can select and configure a behaviour required for the control or vector.</p>
+        <p>The above process is not suitable for all Database Behaviour action scenarios and requires modification to allow for a slightly different flow for the following reason:</p>
+        <blockquote class="blockquote40-leftborder">It is possible that without a <i>Database Behaviour</i> action, you may use the current configuration options available with spiders and silks, to successfully execute a query without interacting with a control or vector at all. <br />For example, an <i>Update</i>, <i>Delete</i> or <i>Insert</i> query can be triggered through the following methods, <b style="font-style: italic;">Propagate at Startup</b> or <b>Trigger from event</b> <i>(for example, the Form.Click event)</i>.</blockquote>
+        <p>The Database Behaviour is always selectable regardless of whether a control <i>(or vector)</i> is used or not.</p>
+        <p>Let’s go through each step required to configure a new Database Behaviour.</p>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_0" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 1: Launching a Database Behaviour</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_0" style="display: none;">
+                <p>The Database icon is always available for selection, regardless of whether a control or vector is selected. One of the following two scenarios can be used to create a new Database Behaviour:</p>
+                <ol>
+                    <li value="1">As with other behaviours, you may select the relevant control or vector to display the resultant dataset from a query.<ul><li value="1">Click the <b>Behaviours</b> toolbar menu item then select the <i>Database</i> icon in the <b>Behaviours</b> ribbon of the SmartUI Designer.</li><li value="2">Alternatively, click the <b>Smart Tag</b> <img src="../../../../Resources/Images/ADT10-Control-Smart-Tag.png" alt="" style="margin-left: 0px;margin-right: 0px;margin-top: 0px;margin-bottom: 0px;" /> on the selected control or vector, then select the <i>Database Behaviour</i> option from the selection list of available behaviours.</li></ul></li>
+                    <li value="2">If control or vector is not selected in the graphic form itself, you can still select the <b>Database</b> icon in the <b>Behaviours</b> ribbon.<ul><li value="1">You use this option to execute a query type that does not return a resultant dataset to a control or vector on a graphic form. </li><li value="2">For example, an <b>Insert</b> query only does database-side processing and does not return a dataset to the DataGridView control.</li></ul></li>
+                </ol>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_1" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 2 (Optional): Select the appropriate <b style="font-style: normal; text-decoration: underline; font-weight: normal;">Apply to property</b> option to apply to the query dataset</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_1" style="display: none;">
+                <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>If no control or vector is selected before opening the Database Behaviour dialog, the property list won’t be available, and this step becomes irrelevant, then <a href="#STEP3">proceed to step 3</a>. </p>
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Step2.png" MadCap:popupWidth="535" MadCap:popupHeight="570" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Step2_thumb_0_200.png" style="width: 188px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>The following default properties are available, depending on the type of properties contained in the selected control or vector. You can change the selected property, if necessary:</p>
+                <ol>
+                    <li value="1">For a control with a <b>DataSource</b> property, such as the <i>DataGridView</i> control, this property is selected by default. <ul><li value="1">The <b>DataSource</b> property can consume an entire data table but is only appropriate for <i>SelectQuery</i> types. </li><li value="2">All other properties using simple types, such as <i>int</i>, <i>string</i> or <i>bool</i>, are also included in the property list. </li><li value="3">Complex property types are excluded.</li></ul></li>
+                    <li value="2">For a control with both a <b>DataSource</b> and a <b>DisplayMember</b> property, such as a <i>Listbox</i> or <i>Combobox</i> control.<ul><li value="1">The <b>DataSource</b> property is selected by default. </li><li value="2">All other properties using simple types, such as <i>int</i>, <i>string</i> or <i>bool</i>, are also included in the property list.</li></ul></li>
+                    <li value="3">For a control that does not contain a <b>DataSource</b> property.<ul><li value="1">All properties using simple types, such as int, string or bool, are included in the property list. </li><li value="2">An appropriate default property is selected depending on the selected control and its property list.</li><li value="3">For example, the <b>Text</b> property is selected by default for a <i>Label</i> or <i>Button</i> control.</li></ul></li>
+                    <li value="4">If a control has no <b>DataSource</b> property and no properties using simple types.<ul><li value="1">The <b>Apply to property</b> option is hidden. </li><li value="2">You can still trigger the selected query from an event on a control.</li></ul></li>
+                </ol>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_2" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 3: Select the <u>Server</u> to retrieve your   resultant query dataset</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_2" style="display: none;">
+                <p><a name="STEP3"></a>Similar to the Query Spider in the Spider Configuration:</p>
+                <ul>
+                    <li value="1">The Default Server placeholder name and all available servers are listed for selection in the Enterprise Manager of the SmartUI.</li>
+                    <li value="2">The Default Server is selected as the default option.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_3" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 4: Select the <u>OLEDB Data Source</u> to retrieve your  resultant query dataset</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_3" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Step4.png" MadCap:popupWidth="535" MadCap:popupHeight="570" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Step4_thumb_0_200.png" style="width: 188px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>Similar to the Query Spider in the Spider Configuration:</p>
+                <ul>
+                    <li value="1">All the configured data sources of type <b>OLEDB</b> for the server, selected in the previous step, are listed for selection. </li>
+                    <li value="2">You will encounter one of the following scenarios, when:<br /></li>
+                </ul>
+                <blockquote class="blockquote40">
+                    <table style="margin-left: 0;margin-right: auto;width: 95%;mc-table-style: url('../../../../Resources/TableStyles/Adroit10BasicTableStyle.css');" class="TableStyle-Adroit10BasicTableStyle" cellspacing="2">
+                        <col class="TableStyle-Adroit10BasicTableStyle-Column-Column1" style="width: 274px;" />
+                        <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" />
+                        <tbody>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1" style="font-weight: bold;">No OLEDB data sources are configured for the selected server.</td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                                    <ul>
+                                        <li value="1"> A <b>New Data Source</b> button is available.</li>
+                                        <li value="2">Click the button to create a connection to the required source of data. </li>
+                                        <li value="3">You can create a new <b>OLEDB</b> data source without closing the behaviour dialog and then reopening it to continue.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2" style="font-weight: bold;">One or multiple OLEDB data sources are configured for the selected server. </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                                    <ul>
+                                        <li value="1">The list of data sources available for connection are listed alphabetically, but none are selected by default. </li>
+                                        <li value="2">You may still click the <b>New Data Source</b> button to create a connection to a required source of data. </li>
+                                        <li value="3">A <b>Connection Details</b> button is available to view the details of the currently selected <b>OLEDB</b> data source.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column1-Body1" style="font-weight: bold;">When a valid data source has been selected.</td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyA-Column2-Body1">
+                                    <ul>
+                                        <li value="1">The <b>Query Type</b> option becomes visible.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </blockquote>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_4" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 5: Select the <u>Query Type</u> you want to use to retrieve your  resultant query dataset</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_4" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Step5.png" MadCap:popupWidth="668" MadCap:popupHeight="615" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Step5_thumb_0_200.png" style="width: 217px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>Similar to the Query Spider in the Spider Configuration:</p>
+                <ul>
+                    <li value="1">All available query types are listed in the Query Type selection list for the selected <b>OLEDB Data Source</b>. </li>
+                    <li value="2"> No query type is selected by default.</li>
+                    <li value="3">In the selection list, each query type displays the number of currently configured queries for that specific type, in brackets, after the query type name, e.g. SelectQuery (3). </li>
+                    <li value="4">You will encounter one of the following scenarios, where:<br /></li>
+                </ul>
+                <blockquote class="blockquote40">
+                    <table style="margin-left: 0;margin-right: auto;width: 95%;mc-table-style: url('../../../../Resources/TableStyles/Adroit10BasicTableStyle.css');" class="TableStyle-Adroit10BasicTableStyle" cellspacing="2">
+                        <col class="TableStyle-Adroit10BasicTableStyle-Column-Column1" style="width: 443px;" />
+                        <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" />
+                        <tbody>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1" style="font-weight: bold;"><b>None of the available query types have any queries configured for them for the selected OLEDB data source. </b>
+                                </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                                    <ul>
+                                        <li value="1">After selecting a query type, a <b>New query</b> button is available that you may click to create a new query for the selected query type.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2" style="font-weight: bold;"><b>One or more of the available query types has one or more queries configured for them for the selected OLEDB data source.</b>
+                                </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                                    <ul>
+                                        <li value="1"> Each query type that has queries configured for it displays the number of configured queries, in brackets, after the query type name, <i>e.g. SelectQuery (3)</i>. </li>
+                                        <li value="2">
+                                            <p>After selecting a query type that has one or more queries configured for it, a <b>New query</b> button becomes available.</p>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column1-Body1" style="font-weight: bold;" colspan="2"><i>Two additional things will occur:</i>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2" style="font-weight: bold;">When a valid query type has been selected.</td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                                    <ul>
+                                        <li value="1">The Query Name option becomes visible.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column1-Body1" style="font-weight: bold;">For all query types other than the SelectQuery type.</td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyA-Column2-Body1">
+                                    <ul>
+                                        <li value="1">The <b>Apply to property</b> option at the top of the <i>Database Behaviour</i> dialog is hidden because this option is irrelevant for non-SelectQuery types. </li>
+                                        <li value="2">All other query types only do database-side processing, with no resultant dataset to display.</li>
+                                        <li value="3">The reason is that only a SelectQuery returns viewable data <i>(i.e. a dataset)</i>, that can be used to display database records on a control or vector. </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </blockquote>
+                <p>&#160;</p>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_5" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 6: Select the <u>Query Name</u> you want to execute</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_5" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Step6.png" MadCap:popupWidth="535" MadCap:popupHeight="570" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Step6_thumb_0_200.png" style="width: 188px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>After you’ve selected the query you want to run from the available list of queries, or a new query you have created, you will have access to a <i>View query</i> button that may be used to view the actual SQL query statement associated with the query. </p>
+                <p>Related to the selected query, you will encounter one of the following scenarios:</p>
+                <blockquote class="blockquote40">
+                    <table style="width: 95%;mc-table-style: url('../../../../Resources/TableStyles/Adroit10BasicTableStyle.css');margin-left: 0;margin-right: auto;" class="TableStyle-Adroit10BasicTableStyle" cellspacing="2">
+                        <col class="TableStyle-Adroit10BasicTableStyle-Column-Column1" style="width: 270px;" />
+                        <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" style="width: 500px;" />
+                        <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" />
+                        <thead>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Head-Header1">
+                                <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column1-Header1">Query Type</th>
+                                <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column2-Header1">Selection</th>
+                                <th class="TableStyle-Adroit10BasicTableStyle-HeadD-Column2-Header1">Effect</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1" style="font-weight: bold;">Query type <i>SelectQuery</i> selected.</td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">
+                                    <ul>
+                                        <li value="1">The selected property is <i>DataSource</i>.</li>
+                                        <li value="2">The selected control or vector has a <i>DisplayMember</i> property.</li>
+                                    </ul>
+                                </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                                    <ul>
+                                        <li value="1"><i>Field Name</i> option is made visible. </li>
+                                        <li value="2">For example, with a <i>Listbox</i> or <i>Combobox</i> control, only one data field record can be displayed.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2" style="font-weight: bold;">Query type <i>SelectQuery</i> selected.</td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">
+                                    <ul>
+                                        <li value="1">The selected property is <i>DataSource</i>.</li>
+                                        <li value="2">The selected control or vector does not have a <i>DisplayMember</i> property.</li>
+                                    </ul>
+                                </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                                    <ul>
+                                        <li value="1"> Field Name option is hidden. </li>
+                                        <li value="2">For example, with a <i>DataGridView</i> control, all the data field records are displayed.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1" style="font-weight: bold;">Query type <i>SelectQuery</i> selected.</td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">
+                                    <ul>
+                                        <li value="1">The selected property is a <i>Simple data type</i>.</li>
+                                        <li value="2">For example, an <i>int</i>, <i>a string</i> or <i>bool.</i></li>
+                                    </ul>
+                                </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                                    <ul>
+                                        <li value="1">Field Name option is visible. </li>
+                                        <li value="2">For example, with a <i>Label</i> or <i>Button</i> control, only one record from one field is displayed using the <i>Text</i> property.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2" style="font-weight: bold;">
+                                    <li value="1">SelectQuery type is not available for selection.</li>
+                                </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">
+                                    <ul>
+                                        <li value="1">The selected control or vector does not have any valid properties.</li>
+                                    </ul>
+                                </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                                    <ul>
+                                        <li value="1">A resultant dataset for a query type <i>SelectQuery</i> cannot be displayed.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1" style="font-weight: bold;">For all other query types selected.</td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">
+                                    <ul>
+                                        <li value="1">These are not of type <i>SelectQuery.</i></li>
+                                    </ul>
+                                </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                                    <ul>
+                                        <li value="1">The <i>Apply to property</i> option is hidden.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column1-Body2" style="font-weight: bold;">Query selected contains parameters.</td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column2-Body2">
+                                    <ul>
+                                        <li value="1">The <i>Parameters</i> tab is visible.</li>
+                                        <li value="2"> Lets you select the source inputs of each parameter.</li>
+                                    </ul>
+                                </td>
+                                <td class="TableStyle-Adroit10BasicTableStyle-BodyA-Column2-Body2">
+                                    <ul>
+                                        <li value="1"> <b>Configuring Parameters</b> is discussed in the <a href="#Configuring_parameters">next section</a>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </blockquote>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_6" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 7 (Optional): Select the <u>Field Name</u> you want to display</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_6" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Step7.png" MadCap:popupWidth="535" MadCap:popupHeight="570" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Step7_thumb_0_200.png" style="width: 188px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>For one of the scenarios in the previous step where the <b>Field Name</b> option is made visible.</p>
+                <ul>
+                    <li value="1">When selecting a field name, <i>Database Behaviour</i> only displays records from that field in the selected control or vector. </li>
+                    <li value="2">Only relevant to queries of type <i>SelectQuery</i>.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_7" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 8 (Optional): Do you want to be prompted for confirmation before the query is executed?</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_7" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Step8.png" MadCap:popupWidth="535" MadCap:popupHeight="570" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Step8_thumb_0_200.png" style="width: 188px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>The <b><b>Confirm Action</b></b> option only applies to queries that are not of type <i>SelectQuery</i>. </p>
+                <ul>
+                    <li value="1">By default, the non-compulsory <b>Confirm Action</b> option is not selected.</li>
+                    <li value="2">If <b>Confirm Action</b> is selected, the <i>Database Behaviour</i> prompts you to confirm that the query must be executed.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_8" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 9 (Optional): Do you want the execution of the query be triggered from an event?</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_8" style="display: none;">
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Step9.png" MadCap:popupWidth="535" MadCap:popupHeight="570" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Step9_thumb_0_200.png" style="width: 188px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>The <b>Trigger from event</b> option applies to all query types.</p>
+                <ul>
+                    <li value="1">By default, this non-compulsory<b> Trigger from event</b> option is not selected.</li>
+                    <li value="2">If not selected, the <i>Database Behaviour</i> is triggered through <b>Propagate at Startup</b>. </li>
+                    <li value="3">If selected, you can choose from the available selection list of <i>Event Objects</i> and <i>Event Names</i>, to trigger the behaviour. </li>
+                </ul>
+            </div>
+        </div>
+        <h2><a name="Configuring_parameters"></a>Configuring query parameters</h2>
+        <p>It is possible to create queries where not all the parts of the query are known at the time of creating it. It is especially true that you might want to generate dynamic query results by supplying or inserting different values into the WHERE clause of the query just before the query is executed.</p>
+        <ul>
+            <li value="1">To help facilitate this process, the Query Spider currently provides inputs for parameters that can be driven either by a default value or from the output silk of another spider, such as a Property Spider of the Text property of a <i>Textbox</i> or <i>Label</i> control.</li>
+            <li class="A4-BulletWarningPinkBack" MadCap:autonum="&lt;span style=&quot;color: #6b0000;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Warning: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #6b0000;" class="mcFormatColor"><b>Warning: &#160;</b></span></span></span>This type of configuration is currently a manual process and requires an advanced understanding of spiders to correctly and successfully achieve this.</li>
+            <li value="3">The Database Behaviour solves this by giving all types of users, from beginners to advanced, access to this level of configuration without having to know and understand how to do it manually.</li>
+        </ul>
+        <p>The following steps guides you through a simple process to follow and shows you how to configure the source inputs for each parameter in the query:</p>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_9" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 1: Selecting a query that contains parameters</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_9" style="display: none;">
+                <p>Access to the setup of parameters for a query starts with the selection of a query that contains parameters. </p>
+                <ul>
+                    <li value="1">When a valid query  is selected, the <b>Parameters</b> tab becomes visible.</li>
+                    <li value="2">By default, an error <img src="../../../../Resources/Images/ADT10-Query-Parameters-Error-Icon_13x13.png" alt="" style="margin-left: 0px;margin-right: 0px;margin-top: 0px;margin-bottom: 0px;width: 13;height: 13;" /> icon indicates that errors exist, implying that values must be provided for the parameters present in the query. <br /><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Parameters-Step1.png" MadCap:popupWidth="535" MadCap:popupHeight="570" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Parameters-Step1_thumb_0_200.png" style="width: 188px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                </ul>
+                <p>The values that must be provided should consist of the following types:</p>
+                <ol>
+                    <li value="1">The source of the input for the parameter. <ul><li value="1"><i>Component Property</i> is selected by default.</li></ul></li>
+                    <li value="2">The value of the input for the parameter. <ul><li value="1">The parameter is blank by default.</li></ul></li>
+                    <li value="3">The Default value of the parameter. <ul><li value="1">The parameter is blank by default and only applies when the <b>Propagate at startup</b> option is selected.</li></ul></li>
+                </ol>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_10" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 2: Opening the parameter setup dialog</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_10" style="display: none;">
+                <p>To set up parameters for a query, you begin with the selection of a query that contains parameters and then select the <b>Parameters</b> tab. </p>
+                <ul>
+                    <li value="1">You click either the <i>Value</i> or <i>Default</i> cell of the parameter you want to edit.</li>
+                    <li value="2">The <b>Parameter Setup</b> dialog will open.</li>
+                </ul>
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Parameters-Step2a.png" MadCap:popupWidth="508" MadCap:popupHeight="262" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-shadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Parameters-Step2a_thumb_0_200.png" style="width: 388px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Parameters-Step2b.png" MadCap:popupWidth="508" MadCap:popupHeight="262" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-shadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Parameters-Step2b_thumb_0_200.png" style="width: 388px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>Starting with the first dialog, the following options are available:</p>
+                <ol>
+                    <li value="1"><b>Previous</b> and <b>Next</b> arrow buttons can be used to browse through all the available parameters, without having to close the dialog and select another parameter.</li>
+                    <li value="2">The name of the current parameter is displayed.</li>
+                    <li value="3">The <b style="font-style: italic; text-decoration: none; font-weight: normal;">Source</b> selection box provides you with the following three options to select from:<ol style="list-style-type: lower-alpha;"><li value="1"><b style="font-style: italic; font-weight: normal;">Component Property</b> – if selected, you can choose the property of a control or vector for the parameter.</li><li value="2"><i>Constant</i> – if selected, you can enter any alphanumeric value for the parameter.</li><li value="3"><i>Data Element</i> – if selected, you can browse for, or type in, any Data Element value for the parameter.</li></ol></li>
+                    <li value="4">The <b style="font-style: italic; font-weight: normal;">Value</b> of the current parameter being configured and is relevant to the <b style="font-style: italic; font-weight: normal;">Source</b> selected.</li>
+                    <li value="5">The <b style="font-style: italic; font-weight: normal;">Default</b> value used for the parameter and only applies when the <b>Propagate at startup</b> option is selected.</li>
+                    <li value="6">The <b style="font-weight: bold; font-style: normal;">Close</b> button will close the dialog and apply the last parameter configuration to the <i>Database Behaviour</i>.</li>
+                </ol>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3920850658_11" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />STEP 3: After all parameters have been configured</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_3920850658_11" style="display: none;">
+                <p>If you have configured all the parameters correctly and no errors are displayed on the <b>Parameters</b> tab, you click <b>Finish</b> to save the behaviour.</p>
+                <p><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Database-Behaviour-Parameters-Step3.png" MadCap:popupWidth="535" MadCap:popupHeight="570" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Database-Behaviour-Parameters-Step3_thumb_0_200.png" style="width: 188px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                </p>
+                <p>To edit a parameter that has already been configured.</p>
+                <ul>
+                    <li value="1"> Simply click on the <i>Value</i> or <i>Default</i> selection lists of the parameter you wish to edit.</li>
+                    <li value="2">This will launch the <i>Parameter Setup</i> dialog again.</li>
+                </ul>
+            </div>
+        </div>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

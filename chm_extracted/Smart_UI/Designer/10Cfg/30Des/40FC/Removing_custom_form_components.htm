@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Removing custom form components</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor762"></a>Removing custom form components</h1>
+        <p>If necessary, you can remove any custom  form component from the <b>Toolbox</b> 
+ tool window, when it is no longer needed. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a></p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p class="Notices"><b>Note1:</b> This will only 
+ remove these form components from being displayed within the <b>Toolbox</b>, 
+ so that can no longer be selected when designing graphic forms.</p>
+            <p class="Notices"><b>Note2:</b> To completely 
+ remove these form components from your computer, it is necessary to navigate 
+ to the folder specified by the <b>CustomControlsRelativePath</b> setting of the Designer and remove the required files manually. 
+ For details on accessing this setting, see 
+ <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../05Dply/50Cfg/Advanced_Designer_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Advanced Designer 
+ settings</a></span>.</p>
+            <p class="Notices"><b>WARNING!</b> It is 
+ your responsibility to ensure that you only remove the files associated 
+ with the custom form components that you want to remove.</p>
+        </div>
+        <h2>To remove custom form components from the Toolbox:</h2>
+        <div>
+            <ol>
+                <li class="Numbers" value="1">If necessary, open  the <b>Toolbox</b> 
+ tool window in the <span class="VIPAppName">SmartUI</span> Designer. </li>
+                <li class="Numbers" value="2">Right-click an existing 
+ category heading and select <b>Add Controls</b>.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The category, 
+ in which a form component is added, is dependent upon which form component 
+ is selected and NOT upon the category that is right-clicked.</p>
+            <p class="ListDesc">This displays the <b>Custom Controls</b> dialog, which 
+ alphabetically lists all the form components located within the 
+ specified custom controls folder (and its sub-folders).</p>
+            <p class="ListNotice"><b>Tip1:</b> Use the <b>Name</b>, <b>Namespace</b>, 
+ <b>Assembly</b> and/or <b>Directory</b> columns within this dialog to locate the required form components, as 
+ needed.</p>
+            <p class="ListNotice"><b>Tip2:</b> Select the column 
+ heading of a column to sort the list using this column and to change the 
+ sorting order between ascending <img src="../../../00CmnUse/Wizard%20-%20AscendingOrderSort.bmp" style="border: none;width: 15px;height: 9px;border-style: none;" width="15" height="9" border="0" />&#160;and descending <img src="../../../00CmnUse/Wizard%20-%20DescendingOrderSort.bmp" style="border: none;width: 15px;height: 9px;border-style: none;" width="15" height="9" border="0" /> order.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">If you cannot see a checkbox for the required control, click the <b>Browse .NET&#160;Control</b> button and browse to the file location, typically within the <b>plugins</b> folder and select the DLL of this control  and click <b>Open</b>. This adds a checkbox for this control  to the <b>Custom Controls</b> dialog.</li>
+            </ol>
+        </div>
+        <ol start="4">
+            <li class="Numbers" value="4">Uncheck the checkbox(es) 
+ of all the custom form component(s) that you no longer want to appear 
+ in the <b>Toolbox</b> tool window and 
+ click <b>Finish</b>.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> Double-clicking 
+ on a row, within this dialog, will check or empty its checkbox.&#160;</p>
+        <ol start="5">
+            <li class="Numbers" value="5">The form component(s), 
+ whose checkboxes were cleared will be removed from the <b>Toolbox</b> 
+ tool window.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If all the 
+ custom form components within a custom category were removed, the custom 
+ category will also no longer appear in the <b>Toolbox</b> 
+ tool window either.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

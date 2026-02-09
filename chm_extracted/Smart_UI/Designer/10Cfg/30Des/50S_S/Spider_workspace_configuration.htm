@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Spider workspace configuration</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor352"></a><a name="kanchor353"></a>Spider workspace configuration</h1>
+        <p><a name="kanchor354"></a>The  spider workspace provides a visual or 
+ drag and drop view that is recommended for all users to create the initial 
+ spiders, silks and template sets.</p>
+        <p>This appears as a separate <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">pane<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">an entirely separate working area of a window, often separated by a pane display bar. See pane display bar.</span></span> 
+ in a window covered by a grid, which provides the following methods to 
+ assist in the adding, arranging and configuring spiders and silks:</p>
+        <ul>
+            <li class="Bullets" value="1">The <a href="Spider_workspace_toolbar.htm">spider 
+ workspace toolbar</a>, which is displayed at the top of the spider workspace, 
+ by default.</li>
+            <li class="Bullets" value="2">A <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />right-click menu</a>, 
+ which is displayed when a user right-clicks the spider workspace grid.<div MadCap:targetName="t2" style="display: none;"><p class="LineNote">This provides the following items from top to bottom:</p><p class="Notices"><b>Note:</b> Menu items 
+ that are enabled will have a tick mark <img src="../../../00CmnUse/Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;" width="20" height="20" border="0" /> to the left of them.</p><ol start="1"><li class="Numbers" value="1"><b>Create 
+ New Spider:</b> This menu can be selected to add a spider to the spider 
+ workspace. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="10Spd/Adding_spiders.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding 
+ spiders</a></span>. This displays a menu listing the available categories and 
+ their spiders. For details, see <a href="10Spd/Available_spiders.htm">Available 
+ spiders</a>.</li><li class="Numbers" value="2"><b>New 
+ Region:</b> This adds a new region to the spider workspace which can 
+ contain one or more spiders. For details, see <a href="10Spd/Spider_regions.htm">Spider 
+ regions</a>.</li><li class="Numbers" value="3"><b>Template 
+ Sets:</b> This menu can be selected to add a template set to the spider 
+ workspace or to manually activate an existing template set. For details, 
+ see <a href="40TemSet/Adding_template_sets.htm">Adding template sets</a> 
+ or <a href="40TemSet/Activating_template_sets.htm">Activating template 
+ sets</a>.&#160;spider 
+ workspace</li></ol><ol start="4"><li class="Numbers" value="4"><b>Rearrange 
+ All Spiders/Regions:</b> This neatly and logically arranges the spiders, 
+ regions and silks to illustrate the flow of data. For details, see <a href="10Spd/Rearranging_spiders.htm">Rearranging spiders and regions</a>.</li><li class="Numbers" value="5"><b>Hide 
+ Unselected Spiders/Regions:</b> This menu allows you to specify (and 
+ apply) the hiding filter that you require to the spider workspace. For 
+ details, see <a href="10Spd/Hiding_unselected_spiders_and_regions.htm">Hiding unselected 
+ spiders and regions</a>.</li><li class="Numbers" value="6"><b>Collapse 
+ All Spiders</b><a name="kanchor355"></a>: This hides the configuration views of all the spiders 
+ that have been added to the spider workspace, usually to add additional 
+ spiders or to neatly rearrange them. For details, see <a href="10Spd/20Cfg/Hiding_spider_configuration_views.htm">Hiding 
+ spider configuration views</a>.</li><li class="Numbers" value="7"><b>Link 
+ To New Server...:</b> This can be used to specify the required naming 
+ of the Server(s)&#160;containing 
+ the data elements used within this spider workspace. This can be used 
+ to specify different Servers or the default Server to make it easier to 
+ import graphic forms into projects on other Servers. For details, see 
+ <a href="10Spd/50Cat/Changing_data_element_referencing.htm">Changing data element referencing</a>.&#160;&#160;&#160;</li><li class="Numbers" value="8"><b>Paste:</b> 
+ This adds a copy of a spider that was copied where the mouse pointer is 
+ currently situated. For details, see <a href="10Spd/Copying_and_pasting_spiders.htm">Copying and pasting spiders</a>.</li><li class="Numbers" value="9"><b>Delete 
+ All Silks...:</b> This will remove all the silks from this spider workspace. 
+ For details, see <a href="30Silks/Removing_silks.htm">Removing 
+ silks</a>. This does however provide a confirmation dialog first.</li><li class="Numbers" value="10"><b>Delete 
+ All Spiders...:</b> This will remove all the spiders and their silks 
+ from this spider workspace<MadCap:conditionalText MadCap:conditions="Common.VerMinorOne">, including any behaviours and regions</MadCap:conditionalText>. For details, see <a href="10Spd/Removing_spiders.htm">Removing 
+ spiders</a>. This does however provide a confirmation dialog first.</li><li class="Numbers" value="11"><b>Delete 
+ All Unused Regions:</b> This removes all regions that are empty.</li><li class="Numbers" value="12"><b>Import 
+ Configuration:</b> This will import spider and/or silk configuration 
+ to a Microsoft Excel XML file. For details, see <a href="Importing_spiders_and_silks.htm">Importing 
+ spiders and silks</a>.</li><li class="Numbers" value="13"><b>Export 
+ Configuration:</b> This will export spider and/or silk configuration 
+ from a Microsoft Excel XML file. For details, see <a href="Exporting_spiders_and_silks.htm">Exporting 
+ spiders and silks</a>.</li></ol><p class="ListNotice"><b>Tip:</b> This exported 
+ Microsoft Excel XML file can be used to quickly add a large number of 
+ silks on different template sets to different spiders and to quickly view 
+ and edit all the spiders’ configurations in a single spreadsheet.</p></div></li>
+        </ul>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>This is an example of the spider workspace that appears when animating 
+ a graphic form, indicating the two methods by which it can be configured, 
+ namely the toolbar or right-click menu.</p>
+            <p>
+                <img src="DesignSpdWkspc.jpg" style="border: none;width: 254px;height: 175px;float: none;border-style: none;border-style: none;" width="254" height="175" border="0" />
+            </p>
+            <p>&#160;</p>
+        </div>
+        <p class="Notices"><b>Note:</b> This view provides a number of indicators that visually display 
+ the status of common spider and silk properties. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Visual_property_indicators.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Visual property indicators</a></span>.</p>
+        <h2>Typical functions to perform:</h2>
+        <ol>
+            <li class="Bullets" value="1"><a href="10Spd/Adding_spiders.htm">Add a spider</a> : to perform 
+ additional manipulation or formatting of data</li>
+            <li class="Bullets" value="2"><a href="10Spd/Right_click_spider_menu.htm">Configure a spider</a> : 
+ to configure inputs and/or outputs or change how the spider is triggered.</li>
+            <li class="Bullets" value="3"><a href="30Silks/Creating_silks.htm">Create a silk</a> : to 
+ join two spiders together or connect a spider to a property of a form 
+ component</li>
+            <li class="Bullets" value="4"><a href="40TemSet/Adding_template_sets.htm">Add a template set</a> 
+ : to control the transfer of data between spiders</li>
+            <li class="Bullets" value="5"><a href="40TemSet/Activating_template_sets.htm">Activate a template set</a> 
+ : to specify which set of silks are currently active and able to transfer 
+ data</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The name 
+ of the currently active template set is specified in the top left corner 
+ of the spider workspace.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

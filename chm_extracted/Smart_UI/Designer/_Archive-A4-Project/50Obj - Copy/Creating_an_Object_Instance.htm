@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer,Adroit.ExcludeFromProject" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Creating an Object Instance</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Creating an Object Instance</h1>
+        <p>Once a Template has been created for an object, then you can create any number of Instances of this object, which simply allows you to name it and then specify the process values that uniquely configure it, using the predefined value substitutions.</p>
+        <p>Then you can choose whether you want to deploy it fully or partially immediately or to deploy it at a later time.</p>(missing or bad snippet)<h2>To create an object instance:</h2><p>Display the <b>Create New Instance</b> configuration dialog for the required object instance:</p><p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="EntMan_ObjectModel"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />From the Object Model datasource in the Enterprise Manager:</a></p><div MadCap:targetName="EntMan_ObjectModel" style="display: none;">(missing or bad snippet)<ol start="1"><li class="Numbers" value="1">If necessary, expand the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b>Datasources</b> category.</li><li class="Numbers" value="2">If necessary, expand the <img src="../../../../Resources/Images/16/DataSources/ObjectModel.png" style="width: 16px;height: 16px;" /> <b>Object Model</b>  datasource (by using the arrow or double clicking it).</li><li class="Numbers" value="3">If necessary, expand the <img src="../../../../Resources/Images/16/DataSources/ObjectModel_TemplatesFolder.png" style="width: 16px;height: 16px;" /> <b>Templates</b> folder.</li><li class="Numbers" value="4">Right click the required template <img src="../../../../Resources/Images/16/DataSources/ObjectModel_Template.png" style="width: 16px;height: 16px;" /> and select <b>Create new instance of this template</b>.</li></ol><p class="ListDesc">This displays the <b>Create New Instance</b> configuration dialog.</p></div><p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ContextView"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />From the Context View window:</a></p><div MadCap:targetName="ContextView" style="display: none;"><ol start="1"><li class="Numbers" value="1">If necessary, select the <b>Default</b> context from the list of contexts to the left of the bottom tool bar of this window and click the <b>Edit</b> <img src="../../../../Resources/Images/16/DataSources/ContextView_EditDefaultContext.png" /> button. </li><li class="Numbers" value="2">If necessary, <b>Add new user node</b> <img src="../../../../Resources/Images/16/DataSources/ContextView_AddNode.png" /> and/or expand the necessary node <img src="../../../../Resources/Images/16/DataSources/ContextView_Node.png" />.</li><li class="Numbers" value="3"><p>Right click the node and select <img src="../../../../Resources/Images/16/DataSources/ContextView_CreateInstance.png" /><b>Create new instance</b>.</p><p>Use the modified Data Element browser dialog to select the required template.</p><p class="Notices"><b>Tip:</b> You could also drag an existing Object Model template from the Enterprise Manager onto this node directly to skip the step where you need to specify the required template.</p></li></ol><p class="ListDesc">This displays the <b>Deployment Options</b> configuration dialog.</p><p class="ListDesc">For more details about the Default context of the Context View window, see <a href="../../../20DesEnv/10TW/10_20_10_0075_EditDefaultContext.htm" class="MCXref_0">Editing the Default context</a>.</p></div><p>&#160;</p><h3>Name the instance and specify any instance-specific attributes:</h3><p>By default the <b>New instance name</b> is the name of the template, prefaced by "INST_" instead of "TPL_", which you can edit as needed. Typically you will need to edit this name to provide the unique, detailed name for this object.</p><p>To ensure that the specified <b>Template</b> is the template that you want to create an instance of, hover  the mouse over this template <img src="../../../../Resources/Images/16/DataSources/ObjectModel_Template.png" /> and any child templates that have been specified in the <b>Template hierarchy</b> tree, which displays a preview of what each template looks like.</p><p class="Notices"><b>Note:</b> Only the parent template has the specified instance name, whereas any child templates retain their template names.</p><p>The <b>Attributes for:</b> table  displays any attributes specified by the selected template along with their default values that you can change as needed, such as its power rating. Furthermore you can also add additional instance-specific attributes (in other words attributes that only apply or further describe this instance).</p>(missing or bad snippet)<p class="Notices"><b>Tip:</b> Typing in the first letter of an existing attribute immediately inserts the full text of this attribute name.</p>(missing or bad snippet)<p class="Notices"><b>Note:</b> You can only delete the  additional instance-specific attributes that you add.</p><p>Click <b>Next</b>, once you are happy with this instance name and its specified attributes.</p><p>Click <b>Cancel</b>, if you selected the incorrect template.</p><h3>SCADA&#160;Configuration:</h3><p>In this step you need to specify and configure the agents that each template referenced by this object instance requires. </p><p>Firstly, this page displays a table containing a separate group of agents required for each template that this object references. These group names use dot notation to represent the template names specified in the <b>Template hierarchy</b> tree of the previous page.</p><p>Clicking a group, displays more details concerning this template in the <b>Instance</b> tab of the <b>Configuration</b> pane below this table.</p><p class="Notices"><b>Note:</b> The <b>Datasource</b> property indicates the name of the <span class="AdroitAppName">Adroit</span> datasource (Agent Server) that is used to validate, create and configure these agents.<br /></p><p>Any template containing a substitution is prefixed with the <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon that indicates that values need to be inserted for these substitutions.</p><p class="Notices"><b>Note:</b> You cannot leave this page until every <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon has been removed by providing the required substitution values.</p><p>If necessary, click the required group heading to expand it (or click the <b>Expand All</b> button to expand all the groups at once).</p><p>Then click either the <b>Substitution Names</b> or <b>Substitution Values</b> cell in the row where a <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon is displayed to open the <b>Substitution Values</b> dialog, in which you need to type in the required <b>Value</b> for each substitution.</p><p>Use the <b>&lt;-</b> and <b>-&gt;</b> buttons to quickly navigate to the previous or next substituted value. </p><p class="Notices"><b>Note:</b> Multiple substitutions and their values are separated by commas in their cells. </p><p class="Notices"><b>Tip:</b> Use the <b>Name</b> cell to determine the eventual format of the entire substituted name.</p><p> The background color of the <b>Name</b> cell indicates whether the resultant agent name already exists or is new, as follows: <img src="NewOrExistingColors.png" /></p><p>Typically you will specify new tags that does not already exist. However, you can also specify an existing tag, which you need to reuse, such as an AlarmManagement agent.</p><p>Once an agent name has been specified, then use the <b>Configuration</b> pane below this table, to configure its available <b>Slots</b>, <b>Scanning</b>, <b>Logging</b> and/or <b>Alarming</b> as predefined by the template/s, by clicking the relevant tabs.</p><p>However,  instead of having to query each agent individually for their scan addresses, click  the <b>Bulk scan address editing</b> button in the top right corner to view to configure all the scan addresses associated with this object in a single list view.</p><p>The <b>Bulk scan address editing</b> dialog displays the list of all the scan addresses that are classified by the <b>Device</b>, <b>Tag</b> and <b>Address</b> columns. </p><p>Either change each <b>Address</b> manually, by typing the required entry into each cell in this list.</p><p>Or use a text file editor of your choice change these addresses, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="BulkConfigAddresses"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p><div MadCap:targetName="BulkConfigAddresses" style="display: none;"><ol><li class="Numbers" value="1">Click the <b>Copy addresses to clipboard</b> button.</li></ol><p class="ListNotice"><b>Tip:</b> You can also select all or deselect all rows by clicking the top left cell in the list (and use the CTRL+C shortcut to copy these to the clipboard).</p><ol start="2"><li class="Numbers" value="2">Open MS Excel or the text file editor of your choice.</li><li class="Numbers" value="3">Paste these fields into it.</li><li class="Numbers" value="4">Bulk configure the <b>Address</b> column as needed.</li><li class="Numbers" value="5">Select ALL of these columns and copy them.</li><li class="Numbers" value="6">Click the <b>Paste addresses from clipboard</b> button.</li></ol></div><p>Click <b>Next</b>, once you have replaced all the <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icons with valid values and have configured each of the agents appropriately.</p><h3>Device Setup:</h3><p>In this step you need to specify and configure the devices that each template will use to scan their values, which are listed in the <b>Devices</b> list. </p><p>The background color of the <b>Device</b> cell indicates whether the current device already exists or is new, as follows: <img src="NewOrExistingColors.png" /></p><p class="Notices"><b>IMPORTANT:</b> When the background color is red (<img src="SetupReqdColor.png" />) for the device then <b>Setup required</b> means that you need to manually add this device name via the Config Editor first before you can continue. For more details, see <a href="../../../../AU_01_02/02_180_AddDvc.htm" class="MCXref_0">Adding a Device to an installed Protocol Driver</a>. This typically only occurs when a template uses a protocol driver that is not natively supported by the Object Model. </p><p class="Notices"><b>Note:</b> If the device already exists then any specified properties are NOT applied to it during the deployment of this object.</p><p>If the specified new or existing device is natively supported by the Object Model, then you can configure their Primary and/or Secondary device-specific <b>Properties</b>.</p><p class="Notices"><b>IMPORTANT:</b> The onus rests on the user adding this instance to possess the technical know-how to determine which of these device-specific values need to be specified!</p><p class="Notices"><b>Note:</b> If the device already exists then any specified properties are NOT applied to it during the deployment of this object.</p><p>Click <b>Next</b>, once all the required devices have been added and have had their required properties specified.</p><h3>DBLogs:</h3><p>This step only applies if one or more DBLog agent was selected for this template, in which case you can configure each of the selected DBLog agents in the <b>DBLogs</b> list and view which of the slots of the other agents in this object that have been allocated to each DBLog agent in the <b>Tags</b> table below and allows you to configure their <b>Deadband</b>.</p><p>Click <b>Next</b>, once all the deadbands of the values in the DBLog agents have been correctly specified.</p><h3>Graphic Substitutions:</h3><p>This step is typically only required when you have changed the substitution names when creating the instance, so that the name of the substitution used in the <b>SCADA Configuration</b> step differs from the name of the substitution used in the referenced wizard.</p><p class="Notices"><b>Note:</b> You cannot leave this page until every <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon has been removed by providing the required substitution values.</p><p>In this case, select the required row in the <b>Graphic Form</b> list that contains a <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icon and the click the <b>Value</b> cell in the <b>Substitutions</b> table below and type in the required value. </p><p class="Notices"><b>Note:</b> The background color of the Result cell shows whether the specified value is <img src="Valid_Invalid_Static.png" />.</p><p class="Notices"><b>Tip:</b> If you keep the SAME substitution names as those used in the wizard, this will make it easier to implement your instances, since you will only need to configure these substitutions ONCE, otherwise you will need to specify substitutions both during the SCADA Configuration and Graphical Substitution stages.</p><p>Click <b>Next</b>, once you have replaced all the <img src="../../../../Resources/Images/16/Generic/RedCross.png" /> icons with their required substitution values.</p><h3>Deployment Options:</h3><p>This is the final step, which can create the instance of this object using the settings that you have specified. </p><p class="Notices"><b>IMPORTANT:</b> When deploying a template the following rule is applied, if a referenced agent exists then NONE&#160;of its properties will be changed. Since if the template is being deployed on a running plant it is important that it does not affect any existing values for safety reasons.</p><p>The following two options are provided:</p><p><b>Deploy now</b>: After creating and saving the instance(s), the instance(s) will also be deployed to the relevant Agent Server</p><p><b>Deploy later</b> (the default option): Only create and save the instance(s), but deploy later by right-clicking on the saved instance. For instance when you create an instance of an object off site.</p><p>If you select the <b>Deploy now</b> option then the <b>On deployment</b> group is displayed. </p>(missing or bad snippet)<p>Click the <b>Finish</b> button.</p><p>In the case of a partially or non-deployed instance, you can deploy it fully or partially later. For more details, see <a href="Deploying_an_Object_Instance.htm" class="MCXref_0">Deploying an Object Instance</a>.</p><p>If you checked any of the deployment checkboxes, then the <b>Object Model Deployment Status</b> progress dialog appears. For details, see <a href="Working_with_the_Object_Model_Deployment_Status_dialog.htm" class="MCXref_0">Working with the Object Model Deployment Status dialog</a>.</p><p>Once an instance of an object template has been created, you can view both the template-specific and object-specific attributes have been defined and their configured values for this object. For details, see <a href="Viewing_the_defined_attributes_of_an_Object_Instance.htm" class="MCXref_0">Viewing the defined attributes of an Object Instance</a>.</p><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

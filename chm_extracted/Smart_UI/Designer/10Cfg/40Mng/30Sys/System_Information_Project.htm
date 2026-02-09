@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Server|Diagnosing the Server" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Deployment,VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>System Information Project</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>System Information Project</h1>
+        <p>The sample project ‘System Information’ provides a number of sample graphic forms, which demonstrates various generic functionality </p>
+        <p class="Notices"><b>Note:</b> This project does not exist if you unchecked the <b>Include default projects i.e. Navigation Templates, Shapes Wizards and Examples, and System Information etc.</b> checkbox when creating a new Configuration in <span class="VIPConfigEditorName">Adroit Config Editor</span>. </p>
+        <p class="Notices"><b>Tip:</b> Examine the spider 
+ configuration of this project to determine how to use the functions and 
+ obtain the information provided by this datasource.</p>
+        <p><b>System Management</b> graphic form: this is the main graphic form of the ‘System Information’ 
+ project, which demonstrates how to use the System datasource to obtain the troubleshooting data that you require from each <span class="VIPAppName">SmartUI</span> Server 
+ and/or <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span>.and provides 
+ the following tabs:</p>
+        <ul>
+            <li class="Bullets" value="1"><b><a name="kanchor2377"></a>General 
+ System Information:</b>  this tab provides the commonly used <span class="VIPAppName">SmartUI</span> Server and/or Client 
+ information and functions that are of interest to most users, as follows:</li>
+            <li class="BulletSub" value="2"><b>General System</b>: this default vertical tab provides the following tables and their associated buttons: </li>
+            <li class="ListSubSubBullet" value="3">The <b>Server Information</b> 
+ table provides the <span class="VIPAppName">SmartUI</span> Server-specific information. See <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Server_Information.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Server Information</a></span>.</li>
+            <li class="ListSubSubBullet" value="4">The <b>buttons</b> 
+ below this 
+ table provides the <span class="VIPAppName">SmartUI</span> Server-specific functions (performable actions). See 
+ <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Server_Actions.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Server Actions</a></span>.</li>
+            <li class="ListSubSubBullet" value="5">The <b>Client Information</b> table provides the <span class="VIPAppName">SmartUI</span> Client-specific information. See <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Client_Information.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Client 
+ Information</a></span>.</li>
+            <li class="ListSubSubBullet" value="6">The <b>buttons</b> 
+ below this 
+ table provides the <span class="VIPAppName">SmartUI</span> Client-specific functions (performable actions). See 
+ <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Client_Actions.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Client Actions</a></span>.</li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1"><b>Advanced</b> 
+ : this vertical tab provides <b>ADVANCED</b> troubleshooting information and functions, 
+ which should ONLY be used by TECHNICAL personnel, since <b>the misuse 
+ of the functions provided by this tab can cause the <span class="VIPAppName">SmartUI</span> Server and its Clients 
+ to stop working!</b></li>
+        </ul>
+        <p class="ListDescSub">For this reason, this tab is NOT documented as it should 
+ ONLY be used by those “in the know” – <b>if you are unsure as to what this 
+ tab does – then DO NOT USE IT!</b></p>
+        <p class="Notices"><b>IMPORTANT</b>: The following tabs (in part or in full) rely on an <span class="AdroitAppName">Adroit</span> datasource called "Adroit" to function.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>System Alarms:</b> this tab, only applies when you have <span class="AdroitAppName">Adroit</span> installed, in which case this displays the alarms logged to the <span class="AdroitAppName">Adroit</span> system alarm routes (0 and 1).</li>
+            <li class="Bullets" value="2"><b>PC&#160;Performance Monitor:</b> this tab displays the current CPU and memory using statistics and, if you have you have <span class="AdroitAppName">Adroit</span> installed, this displays the Agent Server applicable statistics.</li>
+            <li class="Bullets" value="3"><b><a name="kanchor2378"></a><a name="kanchor2379"></a>Active Cluster Control:</b>  this tab, only applies when you have <span class="AdroitAppName">Adroit</span> installed and in particular if you are using a clustered Agent Server, in which case it can be used to manage your clustered Agent Servers.</li>
+            <li class="Bullets" value="4"><b>Datalog catch-up Management:</b>  this tab, also only applies when you have <span class="AdroitAppName">Adroit</span> installed and in particular if you are using a clustered Agent Server, in which case it can be used to synchronise, unsynchronised sections of logged data 
+ between the two Agent Server partners in the cluster.</li>
+        </ul>
+        <p><b><a name="kanchor2380"></a>Global Alarms and Events</b> graphic form: this graphic form provides an AlarmViewer control that lists the <span class="AdroitAppName">Adroit</span> alarms and events of the defaultAlarmAgent, so that they can be viewed and/or acknowledged. For more details on using this control, see <a href="../../30Des/40FC/10CC/Ctrl/Operating_AlarmViewer_controls.htm">Operating AlarmViewer controls</a>.</p>
+        <p MadCap:conditions="VIP.Designer_VerMinorThree">The <b>Auditing</b> folder contains the following sample graphic forms that pertain to auditing operations.</p>
+        <p MadCap:conditions="VIP.Designer_VerMinorThree">The following graphic forms show you how to use different methods for reporting the audited entries logged to the audit database:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Audit Report Example (Script)</b>: this graphic form uses a graphic form script to filter the available audit entries according to a specific (initiating) user and a specific date/time range, which are then displayed in a standard DataGridView control.</li>
+            <li class="Bullets" value="2"><b>Audit Report Example (Spiders)</b>: this graphic form uses spiders (the visual programming language) to filter the available audit entries according to a specific date/time range, which are then displayed in a DevExpress Grid control.</li>
+        </ul>
+        <p MadCap:conditions="VIP.Designer_VerMinorThree">The sample <b>Authorise Deferred Writes</b> graphic form (in the <b>Data Element Authorization</b> folder), to obtain a list of the currently deferred changes made to data elements, so that these can be authorised by the applicable user, as follows:</p>
+        <p>The  authorizing user:</p>
+        <ul>
+            <li class="Bullets" value="1">needs to be an allowed user (or a member of an allowed user group) of the <span class="VIPAppName">SmartUI</span> Server</li>
+            <li class="Bullets" value="2">requires write access to a data element to authorise its change in value.</li>
+            <li class="Bullets" value="3">CANNOT be the initiating user (the user who made the change)</li>
+        </ul>
+        <p>If necessary, click the <b>Refresh </b><img src="../10Sec/DeferredWritesRefreshListButton_26x24.png" style="width: 26;height: 24;" /> button to populate the list with all the currently deferred data element writes (changes to values). </p>
+        <p>Select which value change/s you want to authorise in the list.</p>
+        <p>Specify the <b>User Name</b> and <b>Password</b> and, if required a <b>Comment </b>, typically the justification for granting the requested change/s.</p>
+        <p>Click the <b>Authorise</b> button.</p>
+        <p class="Notices"><b>Note1:</b> Only the last change made to the value is authorised, when more than one deferred change is made or requested for the same value (data element),        <![CDATA[  ]]></p>
+        <p class="Notices"><b>Note2:</b> Any data elements that the  authorizing user does NOT have write access to will remain in this list.</p>
+        <p>Repeat this as often as needed.</p>
+        <p MadCap:conditions="VIP.Designer_VerMinorThree">For more details about specifying which data elements can be audited and/or have their value changes authenticated, see <a href="../10Sec/Configuring_the_auditing_and_or_authorizing_of_value_changes.htm">Configuring the auditing and/or authorizing of value changes</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

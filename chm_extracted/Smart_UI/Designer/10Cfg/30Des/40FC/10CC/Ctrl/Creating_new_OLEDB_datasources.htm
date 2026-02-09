@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Specialized Controls|AdroitHistoricalAlarmViewer controls" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer_VerMinorFour,VIP.Operator_VerMinorFour" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Script Engine spiders.doc" /><title>Creating new OLEDB datasources</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor322"></a>Creating new OLEDB datasources</h1>
+        <p>When connecting an <img src="AdrHistAlmVuewr.png" /> AdroitHistoricalAlarmViewer control to an <span class="AdroitAppName">Adroit</span> AlarmManagement agent SQL Server database, you can create the required OLEDB datasource on the fly.</p>
+        <h2>To create a new OLEDB datasource to connect to an AdroitHistoricalAlarmViewer control:</h2>
+        <p>Typically in the <b>DataSource</b> tab of the of the <b>Initial Configuration</b> dialog and/or <b>General Configuration Settings</b> or the dedicated <b>Configure DataSource Connection</b> configuration dialogs:</p>
+        <p>Click the <b>New</b> button to the right of the <b>OLEDB&#160;Datasource</b> field.</p>
+        <p>Specify the name of this datasource in the <b>OLEDB&#160;Datasource Name</b> field.</p>
+        <p>Typically if your Adroit Agent Server is offline and you know the connection details of the AlarmManagement agent SQL Server database, then click the <b>New Connection Settings</b> option.</p>
+        <p>Click the browse button <img src="../../../../../COMMON/image9.gif" style="height: 18px;width: 21px;" width="21" height="18" border="0" /> to 
+ the right of this field and use the <b>Connection Properties</b> dialog 
+ to create the required connection string to your SQL Server database, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SUISQLCoxnStrCreation"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <p class="A4-Note-SimpleImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>If the computer, on which SQL Server was installed, was renamed, then SQL Server may need to be re-installed.</p>
+        <p>If the computer was renamed <i style="text-decoration: underline;">after</i> installing SQL Server, then SQL Server must be re-installed, to function correctly.</p>
+        <p>Run the following check:</p>
+        <ul>
+            <li value="1">Execute the following T-SQL (Transact-SQL) script in SQL Server Management Studio: SELECT @@SERVERNAME</li>
+            <li value="2">If the resulting server name is different to the actual name of the computer, then the name of the computer has been changed <i style="text-decoration: underline;">after</i> SQL Server was installed, so you need to reinstall SQL Server.</li>
+        </ul>
+        <div MadCap:targetName="SUISQLCoxnStrCreation" style="display: none;">
+            <p>This <b>Connection Properties</b> dialog specifies the location and the 
+ security credentials required to connect to this database.</p>
+            <p class="Notices"><b>Note:</b> 
+ If you need to configure or view this database and its data from other 
+ computers, like remote User Interfaces, then use a&#160;<span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">UNC<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Universal Naming Convention (UNC) is used to specify the location of servers, printers, files and other shared resources on a local area network (LAN). UNC  names begin with \\ (two backslashes) and take the form: \\Computer_name\Share_name</span></span>&#160;path
+ and not a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">local file path<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">this path, as opposed to a UNC path, can ONLY be accessed from the computer that it refers to, this path adopts the following general format: &lt;driveletter&gt;:\directories\filename.</span></span>to specify the location of this database.</p>
+            <ol>
+                <li class="UpperLetters" value="1">Typically do NOT  change the <b>Data source</b> from the default of <b>.NET Framework Data Provider for OLE&#160;DB</b>, unless you are connecting to a SQL Compact database. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">More details:<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> in which case, click the <b>Change...</b> button and choose the datasource that corresponds to the correct version of SQL Compact and then the dialog will change so that you only need to browse in the required database file and specify the required password, if any.</span></span></li>
+                <li class="UpperLetters" value="2">Select the required OLE&#160;DB Provider from the list, for instance to connect to SQL Server, select the <b>Microsoft 
+ OLE DB Provider for SQL Server</b></li>
+                <li class="UpperLetters" value="3">Type in the name of the computer name of the SQL Server that you want to connect to, in the <b>Select 
+ or file name</b> field.</li>
+                <li class="UpperLetters" value="4">Specify the required security 
+ credentials to connect to this SQL Server, as follows:</li>
+            </ol>
+            <ul>
+                <li class="ListBullets" value="1"><b>Use Windows NT Integrated security:</b> this 
+ option uses the username and password of the currently logged on Windows 
+ user.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Tip:</b> We recommend 
+ that you configure your SQL Servers to use this option to avoid requiring 
+ additional database security.</p>
+            <ul>
+                <li class="ListBullets" value="1"><b>Use a specific user name and password:</b> this option 
+ uses the <b>User name</b> and <b>Password</b> configured within the SQL 
+ Server you are attempting to connect to.</li>
+            </ul>
+            <p class="ListNoteSub"><b>Note</b>: In this case it is recommended to check 
+ the <b>Allow saving password</b> checkbox.</p>
+            <ol start="5">
+                <li class="UpperLetters" value="5">Select the name of the 
+ required database from the <b>Initial catalog </b> list 
+ box.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> This list box is only populated with the available databases, if you have been able to successfully connect to the database, so there is no need to click this <b>Test Connection</b> 
+ button.</p>
+            <ol start="6">
+                <li class="UpperLetters" value="6">Click the <b>OK</b> button.</li>
+            </ol>
+            <p class="ListDesc">This should create your connection string, although click the <b>Test Connection</b> 
+ button provided by this dialog to check.</p>
+            <p class="Notices"><b>Note1</b>: The <b>Advanced...</b> button of this dialog 
+ allows you to configure Advanced Properties, which should ONLY&#160;be modified if you know what you are doing.</p>
+            <p class="Notices"><b>Note2</b>: The <b>Data Links...</b> button of this dialog, opens the Data Link Properties dialog, which allows you to configure both these advanced properties via the All tab and may allows you to specify access permissions for this connection string via the Advanced tab. Once again ONLY modify these settings if you know what you are doing.</p>
+            <p class="Notices"><b>Note3</b>: These security credentials are database 
+ specific and should not be confused with application security.</p>
+            <p class="Notices"><b>Note4:</b> 
+ You can also edit this connection string directly, once it has been created, if necessary.</p>
+        </div>
+        <p>If you have an <span class="AdroitAppName">Adroit</span> datasource that connects to an Agent Server containing this AlarmManagement agent and this Agent Server is running, then  click the <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><b> Alarm Management Agent Connection Settings</b> option and specify the required <span class="AdroitAppName">Adroit</span> datasource and the name of the AlarmManagement agent.</p>
+        <p>Click the <b>Test Connection</b> button to ensure that the specified SQL Server database can be accessed by this control and then click the <b>Finish</b> button.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

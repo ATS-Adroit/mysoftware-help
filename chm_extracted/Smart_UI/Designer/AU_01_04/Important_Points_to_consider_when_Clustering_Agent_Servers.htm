@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Clustering Agent Servers (Hot Standby)" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Important Points to consider when Clustering Agent Servers</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3268"></a>Important Points to consider when Clustering Agent Servers</h1>
+        <p>Clustering in <span class="AdroitAppName">Adroit</span>, previously known as hot standby, consists of a pair of Agent Servers (known as the master and standby) running a replicated agent database (WGP file) on the same project. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p>The master server services all 
+ the I/O and client tasks, while the standby server replicates the master 
+ server. If the master server or computer fails, the standby server takes over 
+ as master and its clients and scanning tasks take appropriate action. </p>
+            <p>
+                <img src="../Images/ebx_2074861901.gif" NOalt="Images\ebx_2074861901.gif" style="height: 217px;width: 163px;" width="163" height="217" border="0" />
+            </p>
+        </div>
+        <p>The following issues are important when implementing an <span class="AdroitAppName">Adroit</span> cluster:</p>
+        <ol>
+            <li class="Bullets" value="1">Ensure that both Agent Server computers (and their clients) have their system time synchronised, for clustering to work effectively. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Time_Synchronization_of_an_Adroit_Cluster.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Time Synchronization of an Adroit Cluster</a></span>.</li>
+            <li class="Bullets" value="2">Ideally both Agent Servers, in the cluster, should be in the same Windows domain. If your Agent Server has a cluster partner that is on a DIFFERENT domain or on DIFFERENT sides of a router/switch, then ensure that you are using an explicit connection to connect to this remote Agent Server. See <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_02/Agent_Server_Connection_Methods.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Agent Server Connection Methods</a></span>.</li>
+            <li class="Bullets" value="3">When naming the two Agent Servers that you want to be a clustered pair, if you have a preference for a specific Agent Server to act as master, then ensure that the name of this Agent Server is alphanumerically lower than the name of the Agent Server that will be the standby partner e.g. if the preferred master Agent Server is called AS1 then the standby  Agent Server should be called AS2.</li>
+            <li class="Bullets" value="4">Ensure that you configure both Agent Server processes, in an Adroit cluster, to have the same (identical) Windows security permissions.</li>
+            <li class="Bullets" value="5">If using the Agent Server Service on one of both of your clustered Agent Servers, ensure that the user account under which the Agent Server Service is running has network access to the partner machine.   </li>
+        </ol>
+        <p class="BullNotice"><b>IMPORTANT:</b> It is NOT sufficient that a user logged in on the  Agent Server can access the remote machine through explorer since this applies to his / her user account.</p>
+        <ol>
+            <li class="Bullets" value="1">Ensure that you DISABLE  simplified file sharing on your clustered Agent Server computer, because this interferes with the inter-communication of clustered Agent Servers. For details, see <a href="../AU_01_02/Disabling_Simplified_File_Sharing.htm">Disabling Simplified File Sharing</a>.</li>
+            <li class="Bullets" value="2">Ensure that your chosen method of providing communication from Adroit to/from your PLCs or RTUs can support your desired clustering-scanning method. For details, see the following chart:  <a href="../AU_01_02/Communication_Hardware_and_Cluster_Server_I_O_Modes.htm">Communication Hardware and Cluster Server I/O Modes</a>.</li>
+            <li class="Bullets" value="3"><span class="AdroitAppName">Adroit</span> Clustering does not support the run-time creation of agents on both Agent Servers.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Certain 
+ agent types on a cluster server require synchronization of internal data 
+ structures with their master partner. For details, see <a href="Real-time_Catch-up.htm">Real-time 
+ Catch-up</a>.</p>
+        <ol>
+            <li class="Bullets" value="1">It is recommended that identical copies of the agent database (.WGP) files are manually replicated on both clustered Agent Server computers. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ClusterWGP"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a></li>
+        </ol>
+        <div MadCap:targetName="ClusterWGP" style="display: none;">
+            <p class="ListDesc">Typically Agent Server configuration is not shadowed across to the Standby computer, unless the agent database (.WGP) file used by both Agent Servers in the cluster is browsed in using the UNC file notation i.e. \\ComputerName\Drive\pathName. In this case this shared WGP file should not reside on either of the clustered Agent Server computers.</p>
+            <p class="ListDesc">But we do NOT RECOMMEND the use of a SHARED WGP file as this creates a potential single point of failure if the computer containing this WGP file fails OR if the network connection to this computer fails. </p>
+            <p class="ListDesc">Therefore we recommend that identical copies of the WGP files are manually copied between the clustered Agent Server computers and that <b>Auto-Load Filename</b> field of the <span class="AdroitAppName">Adroit</span> Configuration Setup utility (PSEXE) is configured to point to the local copy of this WGP file.  </p>
+            <p class="ListNotice"><b>Tip:</b> This provides the added benefit of being able to use the standby server for extending the WGP configuration, then once the user is happy that the extended configuration is working correctly, the standby WGP file can then be deployed on the master Agent Server computer.</p>
+        </div>
+        <ol>
+            <li class="Bullets" value="1">Ensure that you configure the following fundamental Agent Server settings for both of your clustered Agent Server partners, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ClusterPSEXEConfig"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></li>
+        </ol>
+        <div MadCap:targetName="ClusterPSEXEConfig" style="display: none;">
+            <p class="LineNote">
+                <p MadCap:conditions="VIP.AdroitConfig">Using the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>:</p>
+                <p MadCap:conditions="VIP.AdroitConfig">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</p>
+                <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> in the right hand pane.</p>
+                <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> again in the right hand pane.</p>
+            </p>
+            <ol>
+                <li class="Numbers" value="1">In the <b>WGP&#160;(Auto-Load) 
+ File</b> field, typically specify the local copy of the manually replicated agent database (.WGP) file [OTHERWISE specify the SHARED WGP file, specified using the UNC file notation i.e. \\ComputerName\Drive\pathName - which is NOT&#160;RECOMMENDED - see the relevant point above for details).</li>
+                <li class="Numbers" value="2">In the <b>Project Name</b> field, specify the SAME name.</li>
+                <li class="Numbers" value="3">In the <b>Agent Server Name</b> field, specify a DIFFERENT name.</li>
+                <li class="Numbers" value="4">In the <b>Agent Server Type</b> field, select ‘Cluster Server’.</li>
+                <li class="Numbers" value="5">Click the <b>Options…</b> button to the left of the <b>Agent Server Type</b> field (that is now selectable) to display the clustering-specific settings.</li>
+                <li class="Numbers" value="6">In the <b>Cluster Name</b> field, specify the SAME cluster name</li>
+                <li class="Numbers" value="7">Configure the desired <b>Server master mode assignment strategy</b> that is, either manual or automatic. If an automatic assignment strategy is selected, then optionally configure the post startup period after which the server will attempt to set it as master.</li>
+                <li class="Numbers" value="8">If necessary, configure the other settings. For details, see <a href="../AU_01_02/Cluster_Server_Configuration_Options.htm">Adroit Cluster Configuration Settings</a>.</li>
+            </ol>
+        </div>
+        <h2 MadCap:conditions="Common.ExFromPDF">Related topics:</h2>
+        <p MadCap:conditions="Common.ExFromPDF">For more details on detecting and solving issues that most frequently prevent clustered <span class="AdroitAppName">Adroit</span> Agent Servers from working, see <a href="Troubleshooting_Clustered_Agent_Servers.htm">Troubleshooting Clustered Agent Servers</a>.</p>
+        <p MadCap:conditions="Common.ExFromPDF">For more details on clustering <span class="AdroitAppName">Adroit</span> Agent Servers, see <a href="Active_Clusters_Foundation.htm">Active Clusters Foundation</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

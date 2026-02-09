@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:timeEstimate="0" MadCap:priority="0" MadCap:lastBlockDepth="7" MadCap:lastHeight="814" MadCap:lastWidth="1192" MadCap:conditions="Common.Help" MadCap:disableMasterStylesheet="true" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:PathToHelpSystem="" MadCap:HelpSystemFileName="VIPVersion.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <link href="SkinSupport/MadCap.css" rel="stylesheet" type="text/css" />
+        <link href="Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>Help File Conventions</title>
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="C:\Docs\VIZNET Help\Designer\Document Conventions.doc" />
+        <link href="Resources/Stylesheets/AdTech.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="SkinSupport/MadCapMerging.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapUtilities.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapEffects.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapBody.js">
+        </script>
+        <script type="text/javascript" src="SkinSupport/MadCapHighlighter.js">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <h1><a name="kanchor2"></a>Help File Conventions</h1>
+        <p>The following table explains and demonstrates the conventions and types of links used to display content in this help file:</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo;BoldAdditional;TogglerNotes;TopicLinkAddition;ExpandTextAdditionals;GlossaryAdditionals;HotKeyAddiitional"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" class="MCTogglerIcon" />Click for more detailed descriptions:</a>
+        </p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p>Standards used throughout the Help make 
+ it easy for you to recognize references and text used for emphasis or 
+ functionality.</p>
+            <p>The way in which information appears in 
+ the text can indicate something about the information itself. The style 
+ of the text and the font used lets you know the type of information being 
+ displayed.</p>
+        </div>
+        <table style="mc-table-style: url('Resources/TableStyles/AdTechBasicTableStyle.css');caption-side: top;" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 21.433%;" class="Column-Column1" />
+            <col style="width: 78.567%;" class="Column-Column2" />
+            <thead>
+                <tr class="Head-Header1">
+                    <th class="HeadE-Column1-Header1">Convention</th>
+                    <th class="HeadD-Column2-Header1">How it is Used in the Help</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ToggleExample"><img style="border: none;margin-right: 5px;" src="SkinSupport/DropDownClosed.gif" MadCap:altsrc="SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/DropDownOpen.gif' ); }" class="MCTogglerIcon" />content to hide or display:</a>
+                        </p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Links that display and hide images or text within the same 
+ help topic. </p>
+                        <div MadCap:targetName="TogglerNotes" style="display: none;">
+                            <p>Click the example text to test this link out.</p>
+                            <p class="Notices"><b>Note1:</b> The arrow icon is displayed BEFORE this link. </p>
+                            <p class="Notices"><b>Note2:</b> The direction of this arrow icon  changes depending on whether the content is displayed (<img src="FlareLinkArrowDisplayingContent.jpg" />) or hidden (<img src="FlareLinkArrowHidingContent.jpg" />). </p>
+                        </div>
+                        <div MadCap:targetName="ToggleExample" style="display: none;">
+                            <p>This is an example of some text that can be hidden or displayed by clicking on displayed link</p>
+                            <p class="Notices"> <![CDATA[ ]]><b>Note:</b> This content can be ANYWHERE in the help topic.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Popup_Link.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">help topic links</a></span>
+                        </p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Links to other help topics (in this or another help file) or Internet URLs.</p>
+                        <div MadCap:targetName="TopicLinkAddition" style="display: none;">
+                            <p>Click the example text  to test this link out.</p>
+                            <p>These can either be topics that pop up in the current topic window (click link for an example) or that replace the current topic.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1"><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">expanding text:<img style="border: none;margin-left: 5px;" src="SkinSupport/ExpandingClosed.gif" MadCap:altsrc="SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( 'SkinSupport/ExpandingOpen.gif' ); }" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> displays or hides text in same paragraph.</span></span>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Links that display and hide images or text within the same paragraph of a help topic. </p>
+                        <div MadCap:targetName="ExpandTextAdditionals" style="display: none;">
+                            <p>Click the example text  to test this link out.</p>
+                            <p class="Notices"><b>Note1:</b> The arrow icon is displayed AFTER this link.</p>
+                            <p class="Notices"><b>Note2:</b> The direction of this arrow icon  changes depending on whether the content is displayed (<img src="FlareLinkArrowDisplayingContent.jpg" />) or hidden (<img src="FlareLinkArrowHidingContent.jpg" />).    <![CDATA[ ]]></p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>
+                            <MadCap:glossaryTerm>glossary term</MadCap:glossaryTerm>
+                        </p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Links that display definitions of glossary terms in a separate pop-up box.</p>
+                        <div MadCap:targetName="GlossaryAdditionals" style="display: none;">
+                            <p>Click the example text to test this link out.</p>
+                            <p class="Notices"><b>Note1:</b> The arrow icon is also displayed AFTER this link.</p>
+                            <p class="Notices"><b>Note2:</b> The direction of this arrow icon  changes depending on whether the content is displayed (<img src="FlareLinkArrowDisplayingContent.jpg" />) or hidden (<img src="FlareLinkArrowHidingContent.jpg" />).    <![CDATA[ ]]></p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p><b>bold text</b>
+                        </p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Indicates any named item in the user interface and may also be used to add emphasis to important words within a sentence.</p>
+                        <p>For instance the names 
+ of dialog boxes and their controls (edit fields, buttons and list 
+ boxes and their items); menus and their options etc.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>CAPITALIZED TEXT</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Indicates the 
+ names of keys and is also used to add emphasis to important words within a sentence.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>Press CTRL + Z to undo the last action</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Indicates hotkeys and combinations of keys you press at the same 
+ time. </p>
+                        <p>This example tells you to hold down 
+ the CTRL key and press Z.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p>C:\MyPath\MyFile.ext</p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>Indicates paths and file names.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p class="Notices"><b>Note:</b>
+                        </p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>A note draws attention to pieces of information 
+ that should stand out.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p class="Notices"><b>Tip:</b>
+                        </p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>A tip provides useful,  additional information—such as a time-saving 
+ suggestion.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyE-Column1-Body1">
+                        <p class="Notices"><b>WARNING!</b>
+                        </p>
+                    </td>
+                    <td class="BodyD-Column2-Body1">
+                        <p>A warning provides information that might 
+ help you avoid problems, such as loss of data.</p>
+                    </td>
+                </tr>
+                <tr class="Body-Body1">
+                    <td class="BodyB-Column1-Body1">
+                        <p class="Notices">maroon text</p>
+                    </td>
+                    <td class="BodyA-Column2-Body1">
+                        <p>Indicates and calls attention to the text 
+ of notes, tips and warnings.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>For details on using the help, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="How_to_Use_the_Online_Help.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with the online help</a></span>.</p>
+        <script type="text/javascript" src="SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1105 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Agent Slot Reference|Agent Type Slot Reference" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>SystemInformation Agent - Slot Details</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor263"></a>SystemInformation Agent - Slot Details</h1>
+        <p><a href="../AU_01_04/The_SystemInformation_Agent.htm">The SystemInformation 
+ Agent</a> is a central repository containing various items of information 
+ global to the Agent Server. </p>
+        <p>Every Agent Server always contains one 
+ and only one SystemInformation agent, which is  called systemInfo.</p>
+        <p>This agent is located in the following file: Compiled into POOL.DLL</p>
+        <h2>Slots:</h2>
+        <table style="margin-left: auto;margin-right: auto;caption-side: top;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 89px;" />
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" style="width: 354px;" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Slot Name
+                    </th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Type
+                    </th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>activeAgents</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Number of active agents.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>agentQuery</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Places agent location information (Remote/Local) 
+ in Agent Server window</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">auditEntry</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">VARSTRING</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">For internal use only.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">auditUserName</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">STRING</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">For internal use only.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>badMask</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Gray mask for Classic UI pictures. This doesn’t apply 
+ for version 3.5, where the agentBad bit suffices.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>beginTime</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TIME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Start time of current Agent Server.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>channels</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Number of current client/server channels. This can 
+ grow up to maxChannels.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>clusterName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The name of this cluster</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>clusterPartner</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Cluster partner server name</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>computerLst</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>LIST</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>List of computers with <span class="AdroitAppName">Adroit</span>. This list may be untrue 
+ if more than one Agent Server is running on a computer, and connections are lost.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">computerName</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">STRING</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Displays the network name of the Agent Server computer for reference purposes.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>connectionLst</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>LIST</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>List of network connections.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>connections</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Number of network connections - always at least one 
+ (to itself)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>connectionStr</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Buffer of network connections.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>crashFlag</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Previous Agent Server aborted.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>currentTime</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TIME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Current UTC time.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>day</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Local day.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>dayOfWeek</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Day number of the week, 0 to 6</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>debugBufSz</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Maximum number of debug messages kept.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>debugLevel</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Working debug level. This is equal to startDebug 
+ on startup. It may be set in real time. Set to 0 to turn all debug messages 
+ off.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>debugLst</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>LIST</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>List of debug messages.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>debugMsg</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Last debug message.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>debugStr</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Buffer of debug messages.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>deviceagents</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>For MAPS use only.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>endTime</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>TIME</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Stop time of previous Agent Server</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>getSlotAverage</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>REAL</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Getslots per minute (if startGranularity was set 
+ to 60 on startup. Otherwise it is the average per that period). Since the 
+ number of performed getslots are stored in a long integer, if this number exceeds the length of the long integer and therefore wraps (begins from 1 again), this number will be 
+ inaccurate. (Therefore use the Windows Performance Monitor counters for more accuracy).</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>getSlots</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Total getslots done.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>hour</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Local hour.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>internalState</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The internal state of the server</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>internalStateStr</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The internal state as a string</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>lastHbTime</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Time taken for last heartbeat (mS) to cluster partner</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">logcompressionfactor</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">INTEGER</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">For internal use only, displays the current proprietary logging compression factor setting, which is either 1 (default value) or 5 (for legacy systems).</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>maxAgents</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Maximum agents.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>minute</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Local minute.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>month</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Local month.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>numAgentTypes</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Number of agent types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>proxiesCreated</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Number of proxies.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>putSlotAverage</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>REAL</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Putslots per minute. (IF startGranularity was set 
+ to 60 on startup. Otherwise it is the average per that period). Since the 
+ number of performed putslots are stored in a long integer, if this number exceeds the length of the long integer and therefore wraps (begins from 1 again), this number will be 
+ inaccurate. (Therefore use the Windows Performance Monitor counters for more accuracy)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>putSlots</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Total putslots done.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>recentGetSlots</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Getslots done recently.(Since the last getSlot to 
+ this slot)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>recentPutSlots</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Putslots done recently. (Since the last getSlot to 
+ this slot)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>redundancy</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Tag Redundancy Allowed (Hot Standby)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>saveAsName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The path and agent load file name (.WGP) to be saved 
+ as.</p>
+                        <p>This slot is always cleared at the start of an Agent 
+ Server session. Specify (putslot a valid filename into this slot), which 
+ is used by the saveNow slot.</p>
+                        <p>If this saveAsName slot is empty, then the saveNow 
+ slot uses the original load file name.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>saveNow</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>If set to 1, immediately saves the agents to the 
+ specified .WGP loadfile</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>saveOnExit</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Current Save on Exit state</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>saveShutdown</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Saves and then cleanly shutdowns Agent Server when 
+ set</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>second</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Local seconds.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>serverMode</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Master = 0, Standby = 1, Normal = 2</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>serverModeStr</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Master/Standby/Normal</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>serverState</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Unhealthy (0), Healthy (1)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>serverType</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Server type as configured: Cluster (0), Cluster aware 
+ (1), Standalone/Distributed (2)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>shutdown</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Cleanly shutdowns Agent Server when set</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>startDebug</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Registry debug level. This is set at startup.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>startGranularity</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Registry update frequency in seconds. This is set 
+ at startup.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>startLoadFile</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>VARSTRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Registry load file. This is set at startup.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>startMaxChannels</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Registry maximum channels. This is set at startup.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>startName</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Registry Agent Server name. This is set at startup.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>startPoolId</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The Agent Server number on this node.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>startProject</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Registry project name. This is set at startup.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>startRedundancy</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Startup Tag Redundancy Allowed</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>startSaveOnExit</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>BOOLEAN</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Default save on exit state. This is set at startup.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>subscriptions</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Total active subscriptions.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>systemAgents</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Number of system related agents.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>typeLst</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>LIST</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>List of agent types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>updateFrequency</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Update frequency in seconds.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>userAgents</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Number of user agents.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">version</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">INTEGER</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">For internal use only.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>WGPDescription</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>STRING</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The version description of the WGP file, typically 
+ used when it is being automatically saved. For details, see <a href="../AU_01_02/Versioning_WGP_Files.htm">Versioning 
+ WGP Files</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>year</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                        <p>INTEGER</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>Local year.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Specific status bits:&#160; </h2>
+        <p class="Notices"><b>Note1:</b> These are 
+ of type BOOLEAN.</p>
+        <p class="Notices"><b>Note2:</b> These statuses usually change when a master/standby switch is occurring or has just completed.</p>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 97px;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 168px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 327px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Bit Number</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Name</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 16</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>In Master mode</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when the Agent Server is clustered and in Master mode.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 17</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>In Standby mode</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when the Agent Server is clustered and in Standby mode.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 18</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Searching for partner</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when the Agent Server is clustered and is searching for its partner.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 19</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Waiting for master load</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when the Agent Server is clustered and is waiting for master load.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 20</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Going to standby</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when the Agent Server is clustered and is going to standby.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 21</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Going to master</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when the Agent Server is clustered and is going to master.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 22</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Not joined cluster</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when the Agent Server is not joined to a cluster.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 23</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p>Lost cluster partner</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>On when the Agent Server is clustered and has lost its cluster partner.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>status bit 24</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                        <p>Gained cluster partner</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>On when the Agent Server is clustered and has gained a cluster partner.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Methods of creation:</h2>
+        <p>Automatic - do not add new instances manually.</p>
+        <h2>Agents created by default: </h2>
+        <p>systemInfo</p>
+        <p>&#160;</p>
+        <p>For a description of which of these slots are saved to the <span class="AdroitAppName">Adroit</span> database 
+ file (.WGP), see:</p>
+        <p><a href="SystemInformation_Agent_Database_File_Format.htm">SystemInformation 
+ Agent - Database File Format</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

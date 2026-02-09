@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Glossary" MadCap:TargetType="HtmlHelp" MadCap:PathToHelpSystem="" MadCap:HelpSystemFileName="Adroit10.xml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <link href="SkinSupport/Slideshow.css" rel="stylesheet" type="text/css" MadCap:generated="True" />
+        <link href="SkinSupport/MadCap.css" rel="stylesheet" type="text/css" MadCap:generated="True" />
+        <title>Glossary</title>
+        <link href="Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" type="text/css" />
+        <script src="SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapEffects.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapEffectsMenu.js" type="text/javascript">
+        </script>
+        <script src="SkinSupport/MadCapGlossary.js" type="text/javascript">
+        </script>
+    </head>
+    <body style="background-color: #fafafa;">
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <h1>
+            <span class="SystemGlossaryTitle">Glossary</span>
+        </h1>
+        <div id="GlossaryBody">
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_0" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">@scan</a>
+                    <a name="3253842377_anchor1">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_0" style="display: none;">(pronounced at-scan), which is a method of linking the value of one tag to another, by scanning the required tag value directly.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_1" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">active</a>
+                    <a name="3253842377_anchor2">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_1" style="display: none;">the monitored condition of this incident (alarm/event) is still in effect and has not yet returned to its normal operating state.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_2" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">agent</a>
+                    <a name="3253842377_anchor3">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_2" style="display: none;">an instance of an agent type, that stores data and typically provides the ability to operate or act on this data.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_3" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">agent group</a>
+                    <a name="3253842377_anchor4">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_3" style="display: none;">an agent that facilitates the logical grouping 
+ of other agents. For example, an AgentGroup agent could contain all agents 
+ related to a specific section of a plant, or all agents required for a specific report.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_4" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">alarm</a>
+                    <a name="3253842377_anchor5">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_4" style="display: none;">the process of monitoring an agent for the occurrence of a specific abnormal condition or state (alarm type).</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_5" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">alarm type</a>
+                    <a name="3253842377_anchor6">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_5" style="display: none;">a named (abnormal) condition or state of an agent that is defined by which of its status bits are simultaneously ON or OFF, which can also list the slots of this agent to report when this condition occurs.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_6" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">alarming strategy</a>
+                    <a name="3253842377_anchor7">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_6" style="display: none;">a set of guidelines or a plan to optimise the configuration of the alarming of agents. Once created it can easily be transferred and adapted for other projects, as required.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_7" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">aspect ratio</a>
+                    <a name="3253842377_anchor8">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_7" style="display: none;">a ratio or comparison of its width to its height. The screen resolution determines the aspect ratio of a monitor. More than one screen resolution can have the SAME aspect ratio e.g. the following screen resolutions 800×600, 1024×768 and 1280×960 all share the SAME aspect ratio of 4:3.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_8" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">Behaviours</a>
+                    <a name="3253842377_anchor9">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_8" style="display: none;">can be assigned to picture elements to display process values either actually or graphically to provide a dynamic visual indication of events taking place in the process.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_9" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">block period</a>
+                    <a name="3253842377_anchor10">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_9" style="display: none;">the interval over which your electricity provider monitors your maximum demand, which  is typically 30 minutes.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_10" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">Boolean</a>
+                    <a name="3253842377_anchor11">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_10" style="display: none;">a value that only has two discrete states, 0 (FALSE) or 1 (TRUE).</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_11" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">cleared</a>
+                    <a name="3253842377_anchor12">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_11" style="display: none;">the monitored condition of this incident (alarm/event) has returned to its normal operating state.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_12" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">CSV</a>
+                    <a name="3253842377_anchor13">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_12" style="display: none;">Comma Separated Value file containing data, which consists of a number of fields in one or more rows, in which the different fields (values) are typically separated by commas.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_13" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">data logging</a>
+                    <a name="3253842377_anchor14">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_13" style="display: none;">the process of recording changes in agent slot values over time for the purpose of analysis.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_14" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">Datalog catchup</a>
+                    <a name="3253842377_anchor15">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_14" style="display: none;">only applies to clustered Agent Servers and refers to the 
+ process of synchronizing, unsynchronised sections of logged data between 
+ the two Agent Server partners in the cluster.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_15" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">device</a>
+                    <a name="3253842377_anchor16">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_15" style="display: none;">added to an installed protocol driver to communicate using this protocol to a specific front-end device - in other words a logical connection to this FED.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_16" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">dialog</a>
+                    <a name="3253842377_anchor17">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_16" style="display: none;">a window that appears when an application requires further information from the user, also known as a wizard.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_17" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">DLL</a>
+                    <a name="3253842377_anchor18">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_17" style="display: none;">a dynamically linked library file</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_18" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">DNS</a>
+                    <a name="3253842377_anchor19">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_18" style="display: none;">stands for Domain Name System and is one of the industry-standard suite of protocols that comprise TCP/IP, which is used to translates domain (computer) names to and from their IP addresses.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_19" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">driver</a>
+                    <a name="3253842377_anchor20">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_19" style="display: none;">a DLL that interfaces Adroit to front end devices, these are the only Adroit components that are device specific.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_20" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">EEMUA</a>
+                    <a name="3253842377_anchor21">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_20" style="display: none;">the Engineering Equipment &amp; Materials Users' Association</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_21" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">EEMUA 191 guidelines</a>
+                    <a name="3253842377_anchor22">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_21" style="display: none;">a document created by the Engineering Equipment &amp; Materials Users' Association ( EEMUA) of alarm management guidelines, developed by the users of alarm systems, and is the globally accepted and leading guide to good practice for alarm management.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_22" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">event</a>
+                    <a name="3253842377_anchor23">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_22" style="display: none;">an incident (a significant occurrence) that does NOT require user action, unlike an 'alarm' which DOES require user interaction.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_23" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">event logging</a>
+                    <a name="3253842377_anchor24">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_23" style="display: none;">the process of recording significant system and process events. For example, a process event such as changing a PID setpoint, or a system event, such as a printer fault.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_24" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">FED</a>
+                    <a name="3253842377_anchor25">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_24" style="display: none;">front-end device, which is a device that is accessed directly by the user, such as a PLC or RTU.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_25" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">glossary term</a>
+                    <a name="3253842377_anchor26">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_25" style="display: none;">This glossary term is for illustrative purposes only to demonstrate how glossary terms are displayed in this help system.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_26" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">HMI</a>
+                    <a name="3253842377_anchor27">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_26" style="display: none;">An acronym for Human Machine Interface. An HMI is a software application that presents information to an operator or user about the state of a process, and to accept and implement the operators control instructions.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_27" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">housekeeping</a>
+                    <a name="3253842377_anchor28">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_27" style="display: none;">the removal of unnecessary records from a database</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_28" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">ICMP</a>
+                    <a name="3253842377_anchor29">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_28" style="display: none;">The Internet Control Message Protocol is used to determine the existence of a remote device on the network. Any IP network device is able to send, receive and process ICMP messages. These messages are only used for troubleshooting network problems and not to transfer data. The most common use of the ICMP protocol is by the PING diagnostic utility.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_29" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">IIS</a>
+                    <a name="3253842377_anchor30">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_29" style="display: none;">Internet Information Services</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_30" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">incidents</a>
+                    <a name="3253842377_anchor31">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_30" style="display: none;">signified by AgentName.AlarmType, which indicate that this agent has gone into the condition or state specified by this alarm type. Each incident can either be an alarm (requiring action) or an event (not requiring action).</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_31" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">IoT</a>
+                    <a name="3253842377_anchor32">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_31" style="display: none;">The Internet of Things (IoT)  is the concept of connecting any device with an on and off switch to the Internet (and/or to each other).</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_32" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">jotting</a>
+                    <a name="3253842377_anchor33">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_32" style="display: none;">text entered manually by an operator in the Execute Command Behaviour.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_33" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">KPI</a>
+                    <a name="3253842377_anchor34">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_33" style="display: none;">Key Performance Indicator, a quantifiable measurement that measures how well something is accomplishing its goals and objectives.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_34" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">KPIs</a>
+                    <a name="3253842377_anchor35">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_34" style="display: none;">Key Performance Indicators, quantifiable measurements that measure how well an organization or individual is accomplishing its goals and objectives.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_35" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">local file path</a>
+                    <a name="3253842377_anchor36">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_35" style="display: none;">this path, as opposed to a UNC path, can ONLY be accessed from the computer that it refers to, this path adopts the following general format: &lt;driveletter&gt;:\directories\filename.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_36" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">log</a>
+                    <a name="3253842377_anchor37">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_36" style="display: none;">also known as data log, the process of recording the changes in a value over time to a log  file or OLE DB compatible database.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_37" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">log set</a>
+                    <a name="3253842377_anchor38">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_37" style="display: none;">this provides the ability to log the same slot (value) to a different destination and/or use a different logging rate and/or use a different logging period.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_38" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">MIB</a>
+                    <a name="3253842377_anchor39">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_38" style="display: none;">SNMP Management Information Base, this is a database that lists uniquely described and organises SNMP managed objects hierarchically.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_39" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">NASA</a>
+                    <a name="3253842377_anchor40">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_39" style="display: none;">This stands for New Adroit Scanning Architecture and describes a sub-class of protocol drivers that are specifically written to take advantage of the scanning improvements and enhancements provided by NASA, such as demand scanning and highly optimised scan tasks.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_40" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">NTFS</a>
+                    <a name="3253842377_anchor41">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_40" style="display: none;">this stands for NT File System, the secure and robust file system for Windows NT operating systems. It allows you to set permissions for groups or individual users to access files.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_41" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">OEE</a>
+                    <a name="3253842377_anchor42">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_41" style="display: none;">stands for Overall Equipment Effectiveness, which typically identifies the productivity or utiltization of a machine or an entire plant, as a percentage.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_42" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">OEM</a>
+                    <a name="3253842377_anchor43">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_42" style="display: none;">a component in Adroit that requires a SEPARATE license BEFORE it can be used, which is added to the Agent Server license by means of an appropriate textual description of this component.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_43" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">OID</a>
+                    <a name="3253842377_anchor44">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_43" style="display: none;">SNMP managed Object IDentifier, which describes the exact location of this value in the SNMP structure for its device.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_44" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">OLE</a>
+                    <a name="3253842377_anchor45">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_44" style="display: none;">stands for Object Lnking and Embedding, which is a software technology designed to allow different applications to exchange data.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_45" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">OLE DB</a>
+                    <a name="3253842377_anchor46">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_45" style="display: none;">The open standard for accessing data from a variety of sources. An OLE DB data provider is required, before a database can become OLE DB compliant.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_46" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">OPC</a>
+                    <a name="3253842377_anchor47">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_46" style="display: none;">stands for OLE  for Process Control, which is  designed to alllow an I/O server developed by a 3rd party to communicate to any SCADA.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_47" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">OPC client</a>
+                    <a name="3253842377_anchor48">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_47" style="display: none;">an application that uses the data provided by an OPC server.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_48" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">OPC HDA</a>
+                    <a name="3253842377_anchor49">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_48" style="display: none;">OPC Historical Data Access (OPC HDA) is used to retrieve and analyse historical process data.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_49" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">OPC item</a>
+                    <a name="3253842377_anchor50">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_49" style="display: none;">a string, uniquely describing an individual 
+ data element residing in an OPC server. It may be up to 80 characters long, and structured hierarchically typically using a period "." to separate each level.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_50" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">picture</a>
+                    <a name="3253842377_anchor51">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_50" style="display: none;">a collection of one or more picture elements representing a process or a specific plant item, when a picture is toggled into Operate mode then it is known as a mimic.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_51" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">picture elements</a>
+                    <a name="3253842377_anchor52">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_51" style="display: none;">primitive graphical objects such as a Rectangle or Ellipse used to construct pictures, which can have one or more associated Behaviours to enhance its display.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_52" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">PLC</a>
+                    <a name="3253842377_anchor53">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_52" style="display: none;">a Programmable Logic Controller or programmable controller is a digital computer used for the automation of industrial processes.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_53" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">precedence</a>
+                    <a name="3253842377_anchor54">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_53" style="display: none;">rules that state which mathematical operators should be executed first in an expression.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_54" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">protocol</a>
+                    <a name="3253842377_anchor55">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_54" style="display: none;">a set of rules or conventions governing the exchange of information between a computer and a front-end device.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_55" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">putslot</a>
+                    <a name="3253842377_anchor56">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_55" style="display: none;">the process of writing (or the utility that writes) a specific value to a slot of a specific agent.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_56" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">Real-time Catchup</a>
+                    <a name="3253842377_anchor57">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_56" style="display: none;">The Real-time catchup is a process that applies to clustered Agent servers only and not to stand-alone servers.  The process occurs during the start up of a standby agent server, if a master agent server is already running.  If this is the case, then every agent that is loaded from the WGP file and also supports real-time catchup will request  the current state of the agent from the master server and then synchronise itself.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_57" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">round trip time</a>
+                    <a name="3253842377_anchor58">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_57" style="display: none;">The time to send an ICMP message to the network device and receive a reply.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_58" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">RTU</a>
+                    <a name="3253842377_anchor59">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_58" style="display: none;">an Remote Terminal Unit is a device installed at a remote location that collects data and transmits this data back to a central station, or master.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_59" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">SCADA</a>
+                    <a name="3253842377_anchor60">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_59" style="display: none;">Supervisory Control And Data Acquisition, used to monitor and control an industrial plant or process and its related equipment.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_60" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">scan point</a>
+                    <a name="3253842377_anchor61">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_60" style="display: none;">a scan point licence that is consumed from your Adroit license when information is being manipulated.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_61" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">scanning</a>
+                    <a name="3253842377_anchor62">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_61" style="display: none;">the process of communicating a value (slot), typically to and/or from a front-end device (FED).</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_62" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">scanning overrun</a>
+                    <a name="3253842377_anchor63">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_62" style="display: none;">this occurs when the scan task takes longer than the required scan  rate&#160;due to an overloaded or defective scanning subsystem.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_63" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">select</a>
+                    <a name="3253842377_anchor64">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_63" style="display: none;">position the mouse pointer over the item and press the left mouse button; also known as clicking.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_64" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">session</a>
+                    <a name="3253842377_anchor65">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_64" style="display: none;">each time an application is started and stopped on a computer constitutes a single session of this program.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_65" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">shelve</a>
+                    <a name="3253842377_anchor66">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_65" style="display: none;">alarm shelving is the process of removing an alarm from the entire alarm system for a specific time period. This also known as inhibiting an alarm.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_66" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">slot</a>
+                    <a name="3253842377_anchor67">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_66" style="display: none;">a value (attribute) or field within an agent that can be retrieved and/or set.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_67" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">SMS</a>
+                    <a name="3253842377_anchor68">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_67" style="display: none;">Short Message Service is a service (protocol) for sending short text messages to and from mobile phones.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_68" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">SNMP</a>
+                    <a name="3253842377_anchor69">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_68" style="display: none;">Simple Network Management Protocol (SNMP) is used to monitor and manage a diverse range of devices on a computer network.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_69" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">SNMP agent</a>
+                    <a name="3253842377_anchor70">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_69" style="display: none;">DO NOT confuse this with an Adroit agent, this is simply software running on a device that allows it to be managed by SNMP.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_70" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">SNMP managed objects</a>
+                    <a name="3253842377_anchor71">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_70" style="display: none;">management data exposed by SNMP managed devices that might be hardware, configuration parameters, performance statistics, and any other data that directly relates to the operation of this device.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_71" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">SNMP manager</a>
+                    <a name="3253842377_anchor72">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_71" style="display: none;">a program that is responsible for managing and monitoring SNMP devices, such as the Adroit SNMPManager agent.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_72" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">SNMP traps</a>
+                    <a name="3253842377_anchor73">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_72" style="display: none;">unsolicited SNMP messages sent by a device to notify an SNMP manager of significant events.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_73" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">Sparkline</a>
+                    <a name="3253842377_anchor74">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_73" style="display: none;">A sparkline is a very small line chart, typically drawn without axes or coordinates. It presents the general shape of the variation in some measurement, such as temperature or stock market price, in a simple and highly condensed way.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_74" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">subscription</a>
+                    <a name="3253842377_anchor75">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_74" style="display: none;">an economical method of accessing the data within agents whereby an agent subscribes to a specific slot (value) of another agent; then when this value changes the agent that has subscribed to this slot is notified of this change in value.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_75" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">tag</a>
+                    <a name="3253842377_anchor76">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_75" style="display: none;">A fully qualified named value in Adroit (agentName.slotName).</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_76" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">telemetry</a>
+                    <a name="3253842377_anchor77">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_76" style="display: none;">an automated communications process by which measurements and other data are collected at remote or inaccessible points and transmitted to receiving equipment for monitoring.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_77" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">UNC</a>
+                    <a name="3253842377_anchor78">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_77" style="display: none;">Universal Naming Convention (UNC) is used to specify the location of servers, printers, files and other shared resources on a local area network (LAN). UNC  names begin with \\ (two backslashes) and take the form: \\Computer_name\Share_name</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_78" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">URI</a>
+                    <a name="3253842377_anchor79">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_78" style="display: none;">stands for Uniform Resource Identifier, which simply identifies the name and location of a file or any resource in a uniform format to provide a standard way for resources to be accessed by other computers across a network or over the Internet (or a private intranet or extranet). While a URL is the most common type of URI, the Uniform Resource Name (URN) is the historical name for the URI.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_79" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">URL</a>
+                    <a name="3253842377_anchor80">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_79" style="display: none;">stands for Uniform Resource Locator and is a reference (an address) to a resource, typically a document, on some computer on the local network or the World Wide Web(Internet).</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_80" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">UTC</a>
+                    <a name="3253842377_anchor81">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_80" style="display: none;">stands for Coordinated Universal Time, which is a time standard that couples Greenwich Mean Time (GMT), which is based solely on the Earth's inconsistent rotation rate, with the highly accurate International Atomic Time (TAI).</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_81" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">WINS</a>
+                    <a name="3253842377_anchor82">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_81" style="display: none;">stands for Windows Internet Name Service, which predates DNS as the method used to resolve (translate) computer names and their IP addresses in a network. Unlike DNS which uses a hierarchical namespace, WINS uses a flat namespace.</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_82" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">WYSIWYG</a>
+                    <a name="3253842377_anchor83">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_82" style="display: none;">What you see is what you get</div>
+            </div>
+            <div class="GlossaryPageEntry">
+                <div class="GlossaryPageTerm">
+                    <a href="javascript:void(0);" class="GlossaryPageTerm" id="MCDropDownHotSpot_3253842377_83" onclick="FMCDropDown( this ); FMCScrollToVisible( window, this.parentNode.parentNode ); return false;">XML</a>
+                    <a name="3253842377_anchor84">
+                    </a>
+                </div>
+                <div class="GlossaryPageDefinition" id="MCDropDownBody_3253842377_83" style="display: none;">stands for Extensible Markup Language, which defines a set of rules for encoding documents in a format that is both human-readable and machine-readable.</div>
+            </div>
+        </div>
+        <p>&#160;</p>
+        <script type="text/javascript" src="SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

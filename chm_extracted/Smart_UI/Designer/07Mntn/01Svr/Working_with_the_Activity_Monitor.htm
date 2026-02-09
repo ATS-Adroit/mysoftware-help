@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Server|Activity Monitor" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Server" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Working with the Server.doc" /><title>Working with the Activity Monitor</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3125"></a><a name="kanchor3126"></a><a name="kanchor3127"></a>The Activity Monitor</h1>
+        <p>The Activity Monitor is used to display the operational status of the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> and several
+other specific features. </p>
+        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The Activity Monitor is available only when the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> runs as an application.</p>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_0" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />To use the 
+ Activity Monitor, start the Server</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_0" style="display: none;">
+                    <ul>
+                        <li value="1">During the initial <b>SmartUI</b> design phase, you should run the <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> as an application.<ul><li value="1"><p>Click <b>Start</b> then <b>All Apps &gt; <span style="font-weight: bold;" class="VIPAppGroupName">Adroit 10</span> &gt; <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><span style="font-weight: bold;" class="VIPAppName">SmartUI</span> Server</b>.</p></li></ul></li>
+                        <li value="2">When you conclude the design configuration phase, you should run the <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b><a name="Server_as_a_service"></a>Server</b> as a service.<ul><li value="1"><p>Click <b>Start</b> then <b>All Apps &gt; <span style="font-weight: bold;" class="VIPAppGroupName">Adroit 10</span> &gt; Adroit Technologies Service Manager </b>then start the service.</p><p><li value="1">When running as a service, the Activity Monitor does not shut down when you sign out.</li></p></li></ul></li>
+                    </ul>
+                    <p class="A4-Note-SimpleTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The <b>System Information</b> datasource of the <span class="VIPAppName">SmartUI</span> Server extends the troubleshooting functionality provided by the Activity monitor. For more information, see <a href="../../10Cfg/40Mng/30Sys/System_Information.htm">System Information</a>.</p>
+                    <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>For more detailed information on starting the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> as an application or service, see 
+ <a href="Launching_the_Server.htm">Launching the Server</a>.</p>
+                </div>
+            </div>
+        </blockquote>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_1" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Open the Activity Monitor</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_1" style="display: none;">
+                    <ol>
+                        <li value="1">Launch the 
+ Server as an application by clicking the <b>Start</b> menu, <b>Programs</b>, <b><span class="VIPAppGroupName">Adroit 10</span></b>, and the <b><span class="VIPAppName">SmartUI</span> Server</b> item. <br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server.png" MadCap:popupWidth="263" MadCap:popupHeight="259" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-SmartuI-Server_thumb_0_150.png" style="width: 152px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a><ul><li value="1">Click the <b>Launch  Activity Monitor</b> to open the Activity Monitor.</li></ul></li>
+                    </ol>
+                    <ol>
+                        <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The Activity 
+ Monitor is only displayed if the <b>ActivityMonitorFormEnabled </b>setting 
+ for this Server is enabled. For more information on this 
+ setting, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../05Dply/50Cfg/Advanced_Server_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Advanced 
+ Server settings</a></span>. <br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartUI-Editor-Server-ActMon.png" MadCap:popupWidth="1000" MadCap:popupHeight="562" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartUI-Editor-Server-ActMon_thumb_0_200.png" style="width: 356px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a> <br /> The <b>ActivityMonitorFormTitle</b> 
+ setting specifies the title of this application. 
+ &#160;</li>
+                    </ol>
+                    <ol>
+                        <li class="A4-BulletWarningPinkBack" MadCap:autonum="&lt;span style=&quot;color: #6b0000;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Warning: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #6b0000;" class="mcFormatColor"><b>Warning: &#160;</b></span></span></span>The <b>Server </b>window is not displayed if the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> is <a href="#Server_as_a_service">running as a service</a>. </li>
+                    </ol>
+                    <ol>
+                        <li value="2">If the server is already running, then right-click the <i>Service Manager</i> icon <img src="../../Resources/Images/ADT10-Service-Manager-Icon_22x22.png" alt="" style="mc-thumbnail-max-height: 22px;mc-thumbnail-max-width: auto;width: 22;height: 22;" /> in the Taskbar tray to open the Service Manager dialog, then select <b>Launch Activity Monitor</b>.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Tray-Service-Manager.png" MadCap:popupWidth="717" MadCap:popupHeight="323" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-Tray-Service-Manager_thumb_0_150.png" style="width: 333px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                    </ol>
+                    <ul>
+                        <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>When the <i><span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b></i> is running as an application, you may also press the ALT+TAB KEYS repeatedly until the task switcher displays the <i>Server</i> window, then select <b>Launch Activity Monitor</b>.</li>
+                    </ul>
+                    <ol>
+                        <li value="3">If the server is already running as a service, then right-click the <i>Service Manager</i> icon <img src="../../Resources/Images/ADT10-Service-Manager-Icon_22x22.png" alt="" style="mc-thumbnail-max-height: 22px;mc-thumbnail-max-width: auto;width: 22;height: 22;" /> in the Taskbar tray to open the Service Manager dialog, then select <b>Launch Activity Monitor</b>.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Tray-Service-Manager-Running.png" MadCap:popupWidth="715" MadCap:popupHeight="320" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-Tray-Service-Manager-Running_thumb_0_150.png" style="width: 335px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                        <li value="4">The Activity Monitor opens and displays information on the <b>Local Machine</b> tab.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor.png" MadCap:popupWidth="1203" MadCap:popupHeight="847" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor_thumb_0_200.png" style="width: 284px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                    </ol>
+                    <p>&#160;</p>
+                </div>
+            </div>
+        </blockquote>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_2" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" /><span class="AdroitAppName">Adroit</span> <span style="font-weight: normal;" class="VIPAppName">SmartUI</span><b> </b>Server features</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_2" style="display: none;">
+                    <p>The <b>Server</b> window offers the following options:</p>
+                    <p><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server.png" MadCap:popupWidth="263" MadCap:popupHeight="259" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-SmartuI-Server_thumb_0_150.png" style="width: 152px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                    </p>
+                    <ol>
+                        <li value="1"><b>Launch Activity Monitor</b>
+                            <ul>
+                                <li value="1">The Activity Monitor displays a <a href="#Server_operational_status">range of information options</a> that assist you in assessing the status of the SmartUI&#160;Server.</li>
+                            </ul>
+                        </li>
+                        <li value="2"><b>Shutdown Server</b>
+                            <ol>
+                                <li class="A4_Bullet_NormalNoDot" value="1"><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Shutdown.png" MadCap:popupWidth="509" MadCap:popupHeight="192" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Shutdown_thumb_0_150.png" style="width: 398px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                                </li>
+                                <li class="Bullets" value="2">This option is identical to clicking the close 
+ button in the title bar and then displays a confirmation dialog to terminate the Server.</li>
+                            </ol>
+                        </li>
+                        <li value="3"><b>Restart Server</b>
+                            <ol>
+                                <li class="A4_Bullet_NormalNoDot" value="1"><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Restart.png" MadCap:popupWidth="364" MadCap:popupHeight="192" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Restart_thumb_0_150.png" style="width: 284px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                                </li>
+                            </ol>
+                            <ul>
+                                <li value="1">This option shuts the Server down and then restarts it again.</li>
+                            </ul>
+                        </li>
+                        <li value="4"><b>Restart With Rollback</b>
+                        </li>
+                        <li class="A4_Bullet_NormalNoDot" value="5"><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Server-Activity-Monitor-Restert-Rollback.png" MadCap:popupWidth="626" MadCap:popupHeight="505" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-Server-Activity-Monitor-Restert-Rollback_thumb_0_150.png" style="width: 186px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                        </li>
+                        <ul>
+                            <li value="1">This option shuts the Server down and restarts it again using a  saved state<i> </i>you can select<i> (i.e., the previous backup data file)</i>.</li>
+                            <li value="2">For more information on how to save the Server, see <a href="Saving_the_Server.htm">Saving the Server</a>.</li>
+                            <li class="A4-BulletWarningPinkBack" MadCap:autonum="&lt;span style=&quot;color: #6b0000;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Warning: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #6b0000;" class="mcFormatColor"><b>Warning: &#160;</b></span></span></span>There is no guarantee of the stability of  a previously saved state.</li>
+                        </ul>
+                    </ol>
+                </div>
+            </div>
+        </blockquote>
+        <h2><a name="Server_operational_status"></a>Server operational status and other information</h2>
+        <p>Click on each feature below to view more information:</p>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_3" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Performance data</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_3" style="display: none;">
+                    <h2>The performance data shows current CPU and RAM usage:</h2>
+                    <ol>
+                        <li value="1">Circular charts reflect the current load on the CPU and Memory on each of the connected servers.<br /></li>
+                        <li value="2">A <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Sparkline<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A sparkline is a very small line chart, typically drawn without axes or coordinates. It presents the general shape of the variation in some measurement, such as temperature or stock market price, in a simple and highly condensed way.</span></span> chart gives an indication of performance over the previous hour for each of the connected servers.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Server-Activity-Monitor-CPU-RAM-Use.png" MadCap:popupWidth="842" MadCap:popupHeight="650" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-Server-Activity-Monitor-CPU-RAM-Use_thumb_0_200.png" style="width: 259px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                    </ol>
+                    <p>&#160;</p>
+                </div>
+            </div>
+        </blockquote>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_4" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Server Messages</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_4" style="display: none;">
+                    <p>The Activity Monitor also displays a list of messages, showing the date, time, and activity, for each activity performed by the servers.</p>
+                    <p><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Server-Activity-Monitor-Server-Messages.png" MadCap:popupWidth="819" MadCap:popupHeight="409" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-Server-Activity-Monitor-Server-Messages_thumb_0_200.png" style="width: 400px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                    </p>
+                    <p>&#160;</p>
+                </div>
+            </div>
+        </blockquote>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_5" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Client Connections</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_5" style="display: none;">
+                    <h2>The Clients currently connected to this 
+ Server are displayed as follows:</h2>
+                    <ol>
+                        <li class="Numbers" value="1">Clients 
+ are identified by a labelled tile, for example, <i>Designer, Operator, or a Web Client.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Server-Activity-Monitor-ClientTile.png" MadCap:popupWidth="700" MadCap:popupHeight="666" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-Server-Activity-Monitor-ClientTile_thumb_0_200.png" style="width: 210px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a><br /></i></li>
+                        <li class="Numbers" value="2">Each tile displays information in the following format:<ul><li value="1"><b>Title:</b> [Client Name]</li><li value="2"><p><b>Client Type</b>: Operator, Designer, Web Client.</p></li><li value="3"><p><b>Username</b>: Name of the user currently signed in.</p></li><li value="4"><p><b>Login date</b>: The date the user signed into the Server.</p></li><li value="5"><p><b>Login period</b>: The length of time the user has been connected.</p></li><li value="6"><p><b>IP Address</b>: The IP address of the user.</p></li></ul></li>
+                    </ol>
+                    <p>&#160;</p>
+                </div>
+            </div>
+        </blockquote>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_6" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Licensing Information</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_6" style="display: none;">
+                    <h2>Display the Licence information on the Activity Monitor</h2>
+                    <blockquote class="blockquote15">
+                        <p><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Options.png" MadCap:popupWidth="763" MadCap:popupHeight="368" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Options_thumb_0_200.png" style="width: 415px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                        </p>
+                        <p>Click the drop-down arrow then select the <b>Licence Information</b> option.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Server-Activity-Monitor-LicInfo.png" MadCap:popupWidth="1203" MadCap:popupHeight="847" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-Server-Activity-Monitor-LicInfo_thumb_0_150.png" style="width: 213px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a><br /><b style="color: #ff0000;">SME: Should there not be licence information in this white box? Could you provide a similar image that contains valid data?</b><br /></p>
+                    </blockquote>
+                    <h2>Display the Licence Information dialog from the Service Manager
+</h2>
+                    <ol>
+                        <li value="1">To start the Server, click <b>Start</b> then <b>All Apps &gt; <span style="font-weight: bold;" class="VIPAppGroupName">Adroit 10</span> &gt; Adroit Technologies Service Manager</b>.</li>
+                        <li value="2">If the Server is already running, a tray icon <img src="../../Resources/Images/ADT10-Service-Manager-Icon_22x22.png" alt="" style="mc-thumbnail-max-height: 22px;mc-thumbnail-max-width: auto;width: 22;height: 22;" /> is visible in the Windows Taskbar.</li>
+                        <li value="3">Right-click the&#160;tray 
+ icon then select the<b> Open /Close Service Manager</b> option.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Tray-Service-Manager.png" MadCap:popupWidth="717" MadCap:popupHeight="323" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-Tray-Service-Manager_thumb_0_150.png" style="width: 333px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a></li>
+                        <li value="4">On the Service Manager dialog, select the <b><b>Licence Information</b></b> option.</li>
+                        <li value="5">The <b>Licence Information</b> dialog is displayed and provides a summary of the licence details.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Server-Activity-Monitor-Tray-LicInfo.png" MadCap:popupWidth="731" MadCap:popupHeight="572" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../Resources/Images/ADT10-Server-Activity-Monitor-Tray-LicInfo_thumb_0_150.png" style="width: 192px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a><br /><span style="color: #ff0000; font-weight: bold;">SME: can you provide genuine active licence detail?</span></li>
+                        <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="6"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>This <b>Licence Information</b> window remains open and on top of other windows until you click the Close at the upper-right-side of this dialog.</li>
+                    </ol>
+                </div>
+            </div>
+        </blockquote>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_7" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Additional Server information</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_7" style="display: none;">
+                    <h2>Select Licence Information tab to display some Additional Information:</h2>
+                    <p><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Options.png" MadCap:popupWidth="763" MadCap:popupHeight="368" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Options_thumb_0_200.png" style="width: 415px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                    </p>
+                    <p>Click the drop-down arrow then select the <b>Licence Information</b> option.</p>
+                    <p><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-Server-Activity-Monitor-Additional-Info.png" MadCap:popupWidth="503" MadCap:popupHeight="476" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-Server-Activity-Monitor-Additional-Info_thumb_0_200.png" style="width: 211px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                    </p>
+                    <ul>
+                        <li value="1"><b>Version</b> - The currently Adroit version.</li>
+                        <li value="2"><b>Server Mode</b> - Master/Standby/Normal.</li>
+                        <li value="3"><b>HMI Mode</b> - The <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">HMI<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">An acronym for Human Machine Interface. An HMI is a software application that presents information to an operator or user about the state of a process, and to accept and implement the operators control instructions.</span></span> mode presents information to an operator or user about the state of a process and lets operators perform control instructions.</li>
+                        <li value="4"><b>Active/Max Agents</b> - Agents assigned to the project.</li>
+                        <li value="5"><b>Used/Licensed Scanpoints</b> - Scan points used for the project.</li>
+                        <li value="6"><b>Used/Licensed Nodes</b> - Clients connected.</li>
+                        <li value="7"><b>Used/Licensed Web Nodes</b> - Available <i>PerformanceAnywhere</i> Clients.</li>
+                    </ul>
+                    <p><b style="color: #ff0000;">SME: Is there any more information that should be said about the server messages?</b>
+                    </p>
+                </div>
+            </div>
+        </blockquote>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_8" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Adroit Debug Information</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_8" style="display: none;">
+                    <h2>Display the Debug Information on the Activity Monitor</h2>
+                    <blockquote class="blockquote15">
+                        <p><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Options.png" MadCap:popupWidth="763" MadCap:popupHeight="368" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Options_thumb_0_200.png" style="width: 415px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                        </p>
+                        <p>Click the drop-down arrow then select the <b>Adroit Debug</b> option.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Debug-Tmp.png" MadCap:popupWidth="883" MadCap:popupHeight="445" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Debug-Tmp_thumb_0_200.png" style="width: 397px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a><br /><b style="color: #ff0000;">SME: Is there any more information associated with each clickable green tile? Could you provide a similar dark image that contains valid data?</b><br /></p>
+                    </blockquote>
+                </div>
+            </div>
+        </blockquote>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_9" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Driver Monitor</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_9" style="display: none;">
+                    <h2>Display the Driver information on the Activity Monitor</h2>
+                    <p>The Driver Monitor lets you view all the devices configured on the <i style="text-decoration: underline;">remote</i> Adroit Server. The options available are:</p>
+                    <ul>
+                        <li value="1"> You can configure a Refresh Rate and a Filter. </li>
+                        <li value="2">The filter is a regular expression that lets you potentially filter messages to only display, for example, messages regarding specific agents.<ul><li value="1"><b>Example Expression:</b> Agent[2-4], Random – filters messages containing either “Random” or “Agent2”, “Agent3” and “Agent4”, other messages are hidden.</li></ul></li>
+                        <li value="3">Additional Options include exporting the data in the window to various file types.</li>
+                        <li value="4"><b style="color: #ff0000;">SME: Is there any more information associated with each driver?</b>
+                        </li>
+                    </ul>
+                    <blockquote class="blockquote15">
+                        <p><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Options.png" MadCap:popupWidth="763" MadCap:popupHeight="368" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Options_thumb_0_200.png" style="width: 415px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                        </p>
+                        <p>Click the drop-down arrow then select the <b>Driver Monitor</b> option.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Drivers.png" MadCap:popupWidth="584" MadCap:popupHeight="442" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Drivers_thumb_0_200.png" style="width: 264px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a><br /><b style="color: #ff0000;">SME: Can you provide a similar dark image which contains valid driver data?</b><br /></p>
+                    </blockquote>
+                </div>
+            </div>
+        </blockquote>
+        <blockquote class="blockquote15">
+            <div class="MCDropDown">
+                <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_3815206564_10" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />View multiple Remote Servers</a>
+                </div>
+                <div class="MCDropDownBody_0" id="MCDropDownBody_3815206564_10" style="display: none;">
+                    <h2>Display the Remote Servers on the Activity Monitor</h2>
+                    <p><a href="javascript:void(0);" MadCap:popupSrc="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Remote-Server-Tmp.png" MadCap:popupWidth="602" MadCap:popupHeight="312" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../Resources/Images/ADT10-SmartuI-Server-Activity-Monitor-Remote-Server-Tmp_thumb_0_200.png" style="width: 386px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a>
+                    </p>
+                    <p style="font-weight: bold;color: #ff0000;">SME: Can you provide a similar dark image and XML file which contains valid Remote Server data?</p>
+                    <p>You should always see the Local Machine or Server <i>(if one is present)</i>. </p>
+                    <ul>
+                        <li value="1">Any additional Remote Servers  added or configured are visible on this window.</li>
+                        <li value="2">All listed servers have clickable options at the upper-right-side of the window.</li>
+                        <li value="3"> All listed servers are also visible and scrollable left and right in the window.</li>
+                        <li value="4">Clicking on the tiles navigate to the respective pages, for example, licensing and performance data.</li>
+                        <li value="5">Configuration of additional server will reside in a XML configuration file.</li>
+                    </ul>
+                    <p>
+                        <img src="../../Resources/Images/ADT10-Server-Activity-Monitor-Server-XML.png" alt="" />
+                    </p>
+                    <blockquote class="blockquote15">
+                        <p>
+                            <br /><b style="color: #ff0000;">SME: Is there any more information associated with the respective pages of each remote server? </b>
+                            <br />
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </blockquote>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Specialized Controls|Menu components" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>ContextMenuStrip components</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2833"></a>
+            <img src="ContextMenuStrip.jpg" style="border: none;width: 16px;height: 16px;float: none;border-style: none;" width="16" height="16" border="0" /> ContextMenuStrip components</h1>
+        <p>This <a name="kanchor2834"></a><a name="kanchor2835"></a><a name="kanchor2836"></a><a name="kanchor2837"></a>component provides a right-click or shortcut menu for the graphic 
+ form.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <div MadCap:targetName="t7" style="display: none;">
+            <p class="LineNote">This shows a right click menu created for a graphic form 
+ by a ContextMenuStrip component (containing three main menus, one with 
+ an image, another with a shortcut key and other with a check. The sub 
+ menu shows how a separator line can separate menu items and this sub menu 
+ also allows a user to select a value from a combo box:</p>
+            <p class="LineNote">
+                <img src="ContextMenuStrip_EX.jpg" style="border: none;width: 570px;height: 128px;float: none;border-style: none;border-style: none;" width="570" height="128" border="0" />
+            </p>
+        </div>
+        <p>Apart from menus and menu items you can also add text boxes, combo boxes 
+ and separator lines to this menu, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <p class="Notices"><b>Note:</b> Each item 
+ that you add to the menu is actually a separate control, so that you can 
+ drive or assign their properties via spiders like any other control.</p>
+            <ul>
+                <li class="Bullets" value="1"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ToolStripMenuItem_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ToolStripMenuItem 
+ control</a></span>: 
+ a selectable option, which can be a menu, sub menu and/or menu item.</li>
+                <li class="Bullets" value="2"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ToolStripTextBox_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ToolStripTextBox 
+ control</a></span>: 
+ either displays a value or allows the user to enter text in an application.</li>
+                <li class="Bullets" value="3"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ToolStripComboBox_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ToolStripComboBox 
+ control</a></span>: 
+ displays an editing field combined with a ListBox, allowing the user to 
+ select from the list or to enter new text.</li>
+                <li class="Bullets" value="4">ToolStripSeparator control: 
+ typically displays a line that divides a menu into logical groupings of 
+ controls.</li>
+            </ul>
+            <p class="Notices"><b>Note:</b> Separator 
+ lines do not have associated controls.</p>
+        </div>
+        <p>&#160;</p>
+        <p>In addition to navigation, you can use this menu to:</p>
+        <ul>
+            <li class="Bullets" value="1">raise events to trigger 
+ spiders or scripts and/or</li>
+            <li class="Bullets" value="2">display or provide a means 
+ of specifying important values.</li>
+        </ul>
+        <p class="Important"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />How to create a right click menu system 
+ on a graphic form:</a> 
+ this describes the recommended procedure for creating a right click or 
+ shortcut menu for a graphic form.</p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Add this component to the 
+ required graphic form. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_menu_components.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding menu controls</a></span>.</li>
+                <li class="Numbers" value="2">Use the on-screen menu 
+ designer to define the required menu system. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Designing_menus_on-screen.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Designing menus on-screen</a></span>.&#160;</li>
+            </ol>
+            <ol start="3">
+                <li class="Numbers" value="3">If you want to add images 
+ for your menu items and/or sub menus, right click each item and select 
+ the <b>Set image...</b> option and browse 
+ in the required image.</li>
+            </ol>
+            <p class="ListDesc">Any images that are added are saved as part of the graphic 
+ form and so will be opened in the Operator</p>
+            <ol start="4">
+                <li class="Numbers" value="4">If you want certain menu 
+ items to have a check mark, by default, right click each item and select 
+ the <b>Checked</b> option.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> If any 
+ item is required to have BOTH an image AND a check mark then you need 
+ click the <img src="../../glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;" width="10" height="10" border="0" /> glyph of this component and check the <b>ShowCheckMargin</b> 
+ checkbox.</p>
+            <ol start="5">
+                <li class="Numbers" value="5">If you want to provide 
+ your users with a shortcut key combination that they can use as an alternative 
+ to launching a specific command, then click on the required menu item 
+ and edit its <b>ShortcutKeys</b> property 
+ in the <b>Properties</b> window.</li>
+            </ol>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+            </p>
+            <div MadCap:targetName="t4" style="display: none;">
+                <p class="ListDesc">The following control is provided to define the necessary 
+ key combination:</p>
+                <p class="ListDesc">
+                    <img src="ContextMenuStrip_ShortcutKey.jpg" style="border: none;width: 292px;height: 149px;float: none;border-style: none;" width="292" height="149" border="0" />
+                </p>
+            </div>
+            <ol start="6">
+                <li class="Numbers" value="6">Right click the menu and 
+ select the <b>Select</b> menu and its 
+ <b>Form</b> menu item.</li>
+            </ol>
+            <p class="ListDesc">This displays all the added menu items and/or controls 
+ in the property pane of the Spider Configuration window.</p>
+            <ol start="7">
+                <li class="Numbers" value="7">Assign the properties of 
+ these menu items and/or controls to/from their necessary sources, which 
+ could be data elements, spiders, other controls etc.</li>
+                <li class="Numbers" value="8">Save the changes you have 
+ made to this graphic form.</li>
+                <li class="Numbers" value="9">Test that the shortcut 
+ menu for this graphic form works as desired in <b>Run</b> 
+ mode.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> To edit 
+ an existing menu item or control, then you need to edit the <b>Items</b> 
+ property of this component. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Editing_menus.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Editing menus</a></span>.</p>
+            <p class="ListNotice"><b>Tip:</b> To edit 
+ the sub menu of any item, right click it and select the <b>Edit 
+ DropDownItems...</b> menu item, select. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Editing_menus.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Editing menus</a></span>.</p>
+        </div>
+        <p class="ListNotice">&#160;</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_menu_components.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To add this component to a graphic 
+ form</a></span>: 
+ A component needs to be added to a graphic form before it can be used 
+ and configured.</p>
+        <h2>Configuration options:</h2>
+        <ul>
+            <li class="Bullets" value="1"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />A Tasks menu:</a> 
+ this is displayed by clicking the <img src="../../glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph of this component, 
+ which allows you to specify the docking options for this menu and/or its 
+ painting method and/or to edit its menu items. <div MadCap:targetName="t3" style="display: none;"><ul><li class="BulletSub" value="1"><b>RenderMode:</b> 
+ To change the painting style of the menu provided by this component, by 
+ specifying who has the responsibility for rendering (painting) the menu.</li><li class="BulletSub" value="2"><b>ShowImageMargin:</b> 
+ if set to True (the default setting) this provides a column to the right 
+ of each menu item that displays either the image or checked symbol of 
+ the associated menu item.</li><li class="BulletSub" value="3"><b>ShowCheckedMargin:</b> 
+ if set to True (this is False by default) this provides a column to the 
+ right of each menu item that ONLY displays the checked symbol of the associated 
+ menu item.</li></ul><p class="ListNoteSub"><b>Note:</b> If both 
+ properties are enabled (set to True) then two separate columns are used 
+ one for the checks and the other for the image to the right of each menu 
+ item.</p><ul><li class="BulletSub" value="1"><b>Edit 
+ Items…</b> : To edit the existing menu items that you have added. For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Editing_menus.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Editing menus</a></span>.</li></ul></div></li>
+            <li class="Bullets" value="2"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Designing_menus_on-screen.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">On-screen menu 
+ designer</a></span>: 
+ this is an easy way to create new menus and new menu items to define the 
+ required (hierarchical) menu system.</li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Important properties:</a> 
+ this describes the important properties used to configure this menu.<div MadCap:targetName="t2" style="display: none;"><ul><li class="BulletSub" value="1"><b>GripStyle:</b> 
+ This specifies the ‘drag’ region of the toolbar (you can click and drag 
+ the toolbar from the Grip area – often shown as four vertically aligned 
+ dots on the leftmost side of the toolbar).</li><li class="BulletSub" value="2"><b>Items:</b> 
+ To add and/or edit menu items for this menu system. For details. see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Editing_menus.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Editing menus</a></span>.</li><li class="BulletSub" value="3"><b>RenderMode:</b> 
+ To change the painting style of the menu provided by this component, by 
+ specifying who has the responsibility for rendering (painting) the menu.</li><li class="BulletSub" value="4"><b>ShowImageMargin:</b> 
+ if set to True (the default setting) this provides a column to the right 
+ of each menu item that displays either the image or checked symbol of 
+ the associated menu item.</li><li class="BulletSub" value="5"><p><b>ShowCheckedMargin:</b> 
+ if set to True (this is False by default) this provides a column to the 
+ right of each menu item that ONLY displays the checked symbol of the associated 
+ menu item.</p><p class="Notices"><b>Note:</b> 
+ If both properties are enabled (set to True) then two separate columns 
+ are used one for the checks and the other for the image to the right of 
+ each menu item.</p></li></ul><ul><li class="BulletSub" value="1"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ToolStripMenuItem_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ToolStripMenuItem 
+ control</a></span>: 
+ this lists the important properties of the menu items and sub menus of 
+ this menu, in the case notably their <b>ShortcutKeys</b> 
+ and/or <b>Checked</b> properties.</li><li class="BulletSub" value="2"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ToolStripTextBox_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ToolStripTextBox 
+ control</a></span>: 
+ either displays a value or allows the user to enter text in an application.</li><li class="BulletSub" value="3"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="ToolStripComboBox_controls.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">ToolStripComboBox 
+ control</a></span>: 
+ displays an editing field combined with a ListBox, allowing the user to 
+ select from the list or to enter new text.</li></ul></div></li>
+            <li class="Bullets" value="2"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Right click 
+ menu:</a> 
+ right click the menu or menu item to display a number of configuration 
+ options.<div MadCap:targetName="t1" style="display: none;"><p class="ListDesc"><b>Common right click menu 
+ options for all controls:</b> these apply to all menu items, sub-menus, 
+ textboxes, comboboxes and separator lines.</p><ul><li class="BulletSub" value="1"><b>Convert 
+ To:</b> If you have mistakenly added the incorrect control, you can 
+ simply convert it to the required control by selecting the required control 
+ from the list displayed by this sub menu instead of removing it and adding 
+ the required control.</li><li class="BulletSub" value="2"><b>Insert:</b> 
+ Insert another menu item, text box, separator line or combo box.</li><li class="BulletSub" value="3"><b>Select:</b> 
+ This can be used to either select the graphic form itself (Form) or this 
+ component.</li><li class="BulletSub" value="4"><b>Cut</b>, 
+ <b>Copy</b>, <b>Paste</b>, 
+ <b>Delete:</b> the selected menu item.</li></ul><p class="ListDesc">&#160;</p><p class="ListDesc"><b>ToolStripMenuItem control-specific 
+ right click menu options:</b> these apply to any selectable menu item 
+ or sub-menu.</p><ul><li class="BulletSub" value="1"><b>Set 
+ Image…</b> : Provide an image for this item.</li><li class="BulletSub" value="2"><b>Enabled:</b> 
+ To enable or disable this item</li><li class="BulletSub" value="3"><b>Checked:</b> 
+ To add a checked symbol for this item</li><li class="BulletSub" value="4"><b>ShowShortcutKeys:</b> 
+ To display the shortcut key combinations configured for this item.</li><li class="BulletSub" value="5"><b>Edit 
+ DropDownItems…</b> : To display the Item Collection Editor to add, 
+ edit or remove sub-menu items.</li></ul></div></li>
+        </ul>&#160;<h2>End-user interaction: </h2><p>Users right click the form to display the defined menu system:</p><ul><li class="Bullets" value="1">By hovering over the menu 
+ items, any sub menus are displayed.</li><li class="Bullets" value="2">Click on the required menu 
+ item.</li><li class="Bullets" value="3">Alternatively if shortcut 
+ keys are defined the user can specify the required shortcut key sequence 
+ to perform the menu command.</li><li class="Bullets" value="4">If necessary, users can 
+ view values and/or specify them using the added text and/or combo boxes.</li></ul><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

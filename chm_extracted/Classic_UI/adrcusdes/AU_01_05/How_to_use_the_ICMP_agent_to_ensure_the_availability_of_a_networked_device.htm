@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Common.Ver9" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="adrcusdes.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" type="text/css" MadCap:generated="True" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" type="text/css" MadCap:generated="True" /><title>How to use the ICMP agent to ensure the availability of a networked device</title>
+        <link href="../Resources/Stylesheets/AdTech.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../SkinSupport/jquery.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapBody.js">
+        </script>
+        <script type="text/javascript" src="../SkinSupport/MadCapHighlighter.js">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <h1><a name="kanchor118"></a><a name="kanchor119"></a><a name="kanchor120"></a>How to use the ICMP agent to  ensure the availability of a networked device</h1>
+        <p>The ICMP or PING agent uses the Internet Control Message Protocol to determine the existence of  a remote device on the network. </p>
+        <p>By continuously polling the specified remote IP address, this agent is therefore able to identify potential network problems as they occur by generating alarms when errors are obtained when attempting to contact the specified remote IP address and/or when the <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">round trip time<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">The time to send an ICMP message to the network device and receive a reply.</span></span> exceeds specified High and High-high times. </p>
+        <p>  <![CDATA[ ]]></p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Things you need to know or do before you can assess the availability of a networked device:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">Ensure that the network supports the   Internet Control Message Protocol.                </li>
+            </ul>
+            <ul>
+                <li class="Bullets" value="1">Ensure that you know the IP address of the required device and that this IP address does not change.</li>
+                <li class="Bullets" value="2">ONLY IP addresses can be specified, so if you need to contact a web address, you need to resolve this to an IP&#160;address first.      </li>
+            </ul>
+        </div>
+        <h2>To ensure the availability of a device on a network:</h2>
+        <p class="Numbers">Edit 
+ an agent of type: <b>ICMP</b>.</p>
+        <p>If necessary, add an agent of the required type, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddingAgents"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="AddingAgents" style="display: none;">
+            <p>In the <span class="VIPAppName">Smart UI</span> Designer:</p>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="EntManSvrSeln"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Select the required <span class="VIPAppName">Smart UI</span> Server in the <b>Enterprise Manager</b>, as follows:</a> <![CDATA[
+]]></p>
+            <div MadCap:targetName="EntManSvrSeln" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                    <li class="NumbersSubLetters" value="2">If necessary, expand <![CDATA[  ]]><img src="../Resources/Images/16/Generic/VIPServers.png" /><![CDATA[  ]]><b>Servers</b>.</li>
+                    <li class="NumbersSubLetters" value="3">If necessary, expand the 
+ name of the required Server connection <img src="../Resources/Images/16/Generic/VIPServer.png" />. </li>
+                </ol>
+                <p class="ListNoteSub"><b>Tip:</b> The connection 
+ name is prefaced by the <span class="VIPAppName">Smart UI</span> Server computer name.</p>
+            </div>
+            <ol start="4">
+                <li class="Numbers" value="4">If necessary, expand the <![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon .</li>
+                <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup </b>  tree.</li>
+                <li class="Numbers" value="7">Right click the required agent type , which are listed alphabetically, and select <b>Create Tag</b>.</li>
+                <li class="Numbers" value="8">Specify the required <b>Tag Name</b> or agent name.</li>
+            </ol>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgtNmgConventns"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The following rules apply when naming agents:</a>
+            </p>
+            <div MadCap:targetName="AgtNmgConventns" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Agent names have a maximum 
+ of 27 characters.</li>
+                    <li class="NumbersSubLetters" value="2">Agent names cannot be the 
+ same as the names used for Agent Types or for Agent Groups.</li>
+                    <li class="NumbersSubLetters" value="3">Agent names cannot use 
+ the following characters:</li>
+                </ol>
+                <p class="ListDescSub">
+                    <table>
+                        <tr>
+                            <td>
+                                <p>Space</p>
+                            </td>
+                            <td>
+                                <p>&#160;</p>
+                            </td>
+                            <td>
+                                <p>Percent</p>
+                            </td>
+                            <td>
+                                <p><b>%</b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>Comma</p>
+                            </td>
+                            <td>
+                                <p><b>,</b>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Period</p>
+                            </td>
+                            <td>
+                                <p><b>.</b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>back slash</p>
+                            </td>
+                            <td>
+                                <p><b>\</b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>Dollar</p>
+                            </td>
+                            <td>
+                                <p><b>$</b>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </p>
+            </div>
+            <ol start="9">
+                <li class="Numbers" value="9">If necessary, provide an optional <b>Description</b> that describes the purpose or describes the value of this tag (agent) for ease of reference.</li>
+                <li class="Numbers" value="10">Click the <b>Finish</b> button.</li>
+            </ol>
+            <p>&#160;</p>
+        </div>
+        <p> If necessary, locate the required agent, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectingAgents"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <p>&#160;</p>
+        <p>In the Enterprise Manager window: right click this agent and select <b>Configure</b>.</p>
+        <p class="LineNote">In the <b>Edit ICMP agent</b> dialog:</p>
+        <ol>
+            <li class="Numbers" value="1">Specify the IP address 
+ of the network device, in the <b>Remote IP address</b> edit box (STRING <b>ipAddress</b> slot).</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> ONLY IP addresses can be specified, so if you need to contact a web address, you need to resolve this to an IP&#160;address first.</p>
+        <p class="ListNotice"><b>Tip:</b> Ideally copy and paste this address into the edit box to ensure that it is correct.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Specify how often you want to check the availability of this device on the network, in seconds, in the <b>Poll rate (secs)</b> edit box (INTEGER <b>interval</b> slot).</li>
+            <li class="Numbers" value="3">
+                <p>Specify how long you want to wait, in milliseconds, to receive a response from the device before you determine that this device is unavailable  in the <b>Timeout (ms)</b> edit box (INTEGER <b>timeout</b> slot).</p>
+                <p class="Notices"><b>Note:</b> If the specified timeout is too short then you will never get a "host unreachable" error because the network will not have the necessary time to respond.</p>
+            </li>
+            <li class="Numbers" value="4">Specify how many times you want to query the availability of the network device before determining that it is unavailable in the <b>Retry count</b> edit box (INTEGER <b>retries</b> slot).</li>
+            <li class="Numbers" value="5">Specify the time, in milliseconds, that indicates that the time to send a message to the network device and receive a reply has moved outside its 
+ acceptable range and therefore implies that corrective action must be taken as 
+ soon as possible in the <b>Round trip time: high alarm value (ms)</b> edit box (INTEGER <b>hi</b> slot).</li>
+            <li class="Numbers" value="6">Specify the time, in milliseconds, that indicates that the time to send and receive a message and from the network device has moved 
+ further from its acceptable range and reached the second alarm limit. 
+ This implies that the first warning has been ignored and that urgent and immediate 
+ corrective action is now required  in the <b>Round trip time: high-high alarm value (ms)</b> edit box (INTEGER <b>hiHi</b> slot).</li>
+            <li class="Numbers" value="7">Check the <b>Enabled</b> checkbox to start sending ICMP&#160;messages to the specified <b>Remote IP address</b>.</li>
+            <li class="Numbers" value="8">The dialog provides the following information concerning the attempts to contact the device:</li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1">The <b>Round trip time (ms)</b> edit box  (INTEGER <b>roundTripTime</b> slot), displays the time taken, in milliseconds, to send the last ICMP&#160;message to the network device and receive a reply.</li>
+            <li class="ListBullets" value="2">
+                <p>The <b>Failure count</b> edit box  (INTEGER <b>failure_Count</b> slot), indicates the number of attempts to contact the device that failed, in other words those attempts that timed out before a response from the device was received for the specified number of retries.</p>
+                <p class="Notices"><b>Tip:</b> If you need to reset the failures to 0, then type in a value of 0 into this edit box.</p>
+            </li>
+            <li class="ListBullets" value="3">The <b>Last execution time</b> edit box  (TIME <b> last_Execution_Time</b> slot), specifies when the last attempt to contact the device occurred.</li>
+        </ul>
+        <ol start="9">
+            <li class="Numbers" value="9">Further mechanisms that you can use to obtain diagnostic information from this agent :</li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1">The status bits and their alarm types can be alarmed to alert you when the device cannot be contacted or when the round trip time exceeds the specified High and high-High times. For details, see <a href="Specific_Status_Bits_of_the_ICMP_Agent.htm">Specific Status Bits of the ICMP Agent</a>.</li>
+            <li class="ListBullets" value="2"> The STRING <b>pingStatus</b> slot provides a textual description of the status of the last ICMP&#160;message used to  contact the device, as follows:  <b>OK from [IP Address]</b> if it succeeded; <b>Retries exhausted</b> when retrying to contact the device (a timeout failure) and <b>Host unreachable from [IP Address]</b> if it is not possible to contact the device.</li>
+            <li class="ListBullets" value="3">The BOOLEAN <b>pingNow</b> slot performs an immediate ping.</li>
+        </ul>
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

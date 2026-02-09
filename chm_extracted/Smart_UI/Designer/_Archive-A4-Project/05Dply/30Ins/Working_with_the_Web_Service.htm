@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.WebService" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with the Web Service</title>
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Working with the <span class="VIPAppName">SmartUI</span> Web Service<a name="Top"></a></h1>
+        <p>The <span class="VIPAppName">SmartUI</span> Web Service  
+ provides an internet gateway between the <span class="VIPAppName">SmartUI</span> Server and its various client applications.</p>
+        <p>Practically this means that the <span class="VIPAppName">SmartUI</span> Web Service is typically used to do the following:</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p><a href="#To_typically_connect_an_Operator_to_a__Server_over_the_web:">To typically allow a <span class="VIPAppName">SmartUI</span>  Operator client to connect to the <span class="VIPAppName">SmartUI</span> Server over the internet or intranet</a>. </p>
+                <p>This method uses the <span class="VIPDistributorService">VIP Distributor</span>  service that is installed by the  <span class="VIPAppName">SmartUI</span> Server install and the <span class="VIPAppName">SmartUI</span> Launcher that needs to be installed on the user's computer. These two are then linked by the <span class="VIPAppName">SmartUI</span> Web Service, so that the necessary files are downloaded via the web.</p>
+            </li>
+            <li class="Bullets" value="2">
+                <p>To allow a Performance Anywhere client to connect to the <span class="VIPAppName">SmartUI</span> Server over the internet or intranet.</p>
+                <p>In this case, you ALSO need to install the SEPARATE <span class="VIPAppName">SmartUI</span> Performance Anywhere  component, typically on this web server. </p>
+                <p>Then users can use the provided URL to launch the Performance Anywhere dashboard in their Internet browser, as explained by the installed document. </p>
+            </li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> To this end you need to pair the version of <span class="VIPAppName">SmartUI</span> Performance Anywhere to the same product version  of this <span class="VIPAppName">SmartUI</span> Web Service, otherwise your users will not be able to log in.</p>
+        <p class="ListNotice"><b>IMPORTANT:</b> Performance Anywhere is NOT a replacement for a fully-fledged Operator but does allow for the limited viewing and configuration of typically SCADA data over the web.</p>
+        <p>However, you can also install the SEPARATE <span class="VIPAppName">SmartUI</span> Click Once  component on this web server, via the <b>Custom</b> installation option.</p>
+        <p>This component allows users to  use a fully fledged <span class="VIPAppName">SmartUI</span> Operator, which is downloaded via  Internet Explorer and runs normally, as a separate application, which essentially performs a “one-click deployment” of the <span class="VIPAppName">SmartUI</span> Operator.</p>
+        <h2>Troubleshooting the Web Service</h2>
+        <ul>
+            <li class="Bullets" value="1"><a href="#Tweaking_the_Web_Service_Config_file_settings:">Tweaking the default Web Service configuration settings</a>: The Web Service Config file contains a number of settings that pertain to the operation of the <span class="VIPAppName">SmartUI</span> Web Service.</li>
+        </ul>
+        <p MadCap:conditions="" class="ListDesc">Typically these default settings are adequate, although you may need to adjust some of these settings, by editing this file yourself, to resolve connection and performance issues that arise.</p>
+        <ul>
+            <li class="Bullets" value="1"><a href="#How_to_Reset_ASP.Net_with_Internet_Information_Services_(IIS)">Resetting ASP.Net with Internet Information Services (IIS)</a>: Sometimes the Microsoft .NET Framework will require a reset in order to update its files so that they are recognised by the web server and run the client side scripts. </li>
+        </ul>
+        <p class="ListDesc">In such cases, exceptions can be encountered when using the <span class="VIPAppName">SmartUI</span> Web Service, which can be resolved by manually re-registering ASP.NET</p>
+        <p><a href="#Top">Back to top</a><a name="To_typically_connect_an_Operator_to_a__Server_over_the_web:"></a>
+        </p>
+        <h3>To typically connect an Operator to a  Server over the web</h3>
+        <p>This method uses the <span style="font-weight: bold;" class="VIPDistributorService">VIP Distributor</span><![CDATA[  ]]><b> service</b> that is installed by the  <span class="VIPAppName">SmartUI</span> Server install and the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Launcher</b> that needs to be installed on the user's computer. These two are then linked by the <span class="VIPAppName">SmartUI</span> Web Service, so that the necessary files are be downloaded via the web.</p>
+        <ul>
+            <li class="Bullets" value="1">The <span style="font-weight: bold;" class="VIPDistributorService">VIP Distributor</span><![CDATA[  ]]><b> service</b> identifies a "distribution" folder on the <span class="VIPAppName">SmartUI</span> Server computer, which is typically the \Distribution sub folder of the <span class="VIPAppName">SmartUI</span> Server installation folder: <span class="VIPInstallFolder">C:\Program Files\Adroit Technologies\Adroit\SmartUI</span>, which by default contains the files required by the <span class="VIPAppName">SmartUI</span> Operator.</li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> The  <span class="VIPAppName">SmartUI</span> Server install ensures that this service automatically starts.</p>
+        <ul>
+            <li class="Bullets" value="1">The <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Launcher</b> 
+ connects to the computer  running the <span class="VIPDistributorService">VIP Distributor</span> service, via the <span class="VIPAppName">SmartUI</span> Web Service
+ and downloads all files and folders that have been placed in 
+ the "distribution" folder and allows any downloaded executables 
+ to be launched.</li>
+        </ul>
+        <p class="ListNotice"><b>Note</b>: The <span class="VIPAppName">SmartUI</span> Launcher 
+ also ensures that these downloaded files are kept up-to-date with the 
+ files located in the “distribution” folder on the computer that it connects 
+ to.</p>
+        <ol>
+            <li class="Numbers" value="1">Launch 
+ your web browsing application.</li>
+            <li class="Numbers" value="2">
+                <p>Type in the required 
+ URL for the Web Server, as follows: http://WebSiteName/VirtualDirectoryName, such as  <a href="http://213.49.35.19/VIP/">http://213.49.35.19/<span class="VIPWebSrvcVirtDirName">VIP</span>/</a></p>
+                <p>This should immediately 
+ display this default web page.</p>
+            </li>
+            <li class="Numbers" value="3">Click on the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Launcher 
+ Setup Download</b> link to download and install the <span class="VIPAppName">SmartUI</span> Launcher on your computer.</li>
+        </ol>
+        <p class="ListNotice"><b>Note</b>: 
+ In order for this installation to succeed, the .NET framework MUST be 
+ installed on this computer first.</p>
+        <ol start="4">
+            <li class="Numbers" value="4">
+                <p>Once the download has 
+ completed, click the <b>Launcher</b> shortcut that is installed on your Desktop.</p>
+                <p>This will display 
+ its <b>Connection</b> dialog, which should be completed as follows:</p>
+            </li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Ensure that the <b>Internet</b> 
+ radio button is selected.</li>
+            <li class="NumbersSubLetters" value="2">If a proxy server is 
+ required for this Internet connection, check the <b>Enable Proxy </b>checkbox 
+ and click the <b>Proxy Settings</b> button. Specify the <b>Machine Name or IP</b>&#160;address of the proxy server and its designated <b>Port</b> number. </li>
+            <li class="NumbersSubLetters" value="3">In the <b>Computer/URL</b> field, specify 
+ the Internet address of the WebService, which makes this Internet connection 
+ possible, which is typically: http://ComputerName/VirtualDirectory. 
+ Where:</li>
+            <li class="ListSubBullet" value="4"><b>ComputerName 
+ </b>is the IP address of the web server (IIS computer) on which the <span class="VIPAppName">SmartUI</span> 
+ Web Service has been installed. </li>
+            <li class="ListSubBullet" value="5"><b>VirtualDirectory</b> 
+ is the name of the virtual directory specified  when installing the <b><span class="VIPAppName">SmartUI</span> Web Service</b>, such as  http://213.49.35.19/<span class="VIPWebSrvcVirtDirName">VIP</span></li>
+        </ol>
+        <p class="ListNoteSub"><b>Tip</b>: The 'http://' 
+ prefix  will be added to this URL on connection, 
+		if it is not been specified.</p>
+        <ol start="4">
+            <li class="NumbersSubLetters" value="4">In the <b>Authentication 
+			Details</b>, specify the required <b>User</b> and <b>Password</b>, which 
+		are required when connecting to this computer that is running the <span class="VIPDistributorService">VIP Distributor</span>, which is typically the <span class="VIPAppName">SmartUI</span> Server computer.</li>
+        </ol>
+        <ol start="6" MadCap:continue="true">
+            <li class="Numbers" value="5">Click the <b>Connect</b> button.</li>
+        </ol>
+        <p class="ListDesc">If everything has been correctly specified, the <b>Download</b> 
+ dialog should be displayed.</p>
+        <ol start="7" MadCap:continue="true">
+            <li class="Numbers" value="6">Click the <b>Download</b> 
+ button to download the files specified by the <span style="font-weight: normal;" class="VIPDistributorService">VIP Distributor</span> service  into the <b><span class="VIPAppName">SmartUI</span> Launcher</b> installation 
+ folder.</li>
+        </ol>
+        <p class="ListDesc">Once all the required files have been downloaded the 
+ <b><span class="VIPAppName">SmartUI</span> Launcher</b> will display all the executable programs that have 
+ been downloaded. Typically the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Config Editor</b> and  <b>Operator</b>. 
+ </p>
+        <ol start="8">
+            <li class="Numbers" value="8">Double-click on the 
+ <b><span class="VIPAppName">SmartUI</span> Operator</b> to launch it. </li>
+        </ol>
+        <ol start="9">
+            <li class="Numbers" value="9">The next time you run 
+ the <b><span class="VIPAppName">SmartUI</span> Launcher</b> program it should automatically display these 
+ executables.</li>
+        </ol>
+        <p class="ListDesc">If however, any of the file(s) and folder(s) are newer 
+ on this remote computer or which do not exist on the local computer, they 
+ will be displayed for downloading. </p>
+        <p class="ListDesc">In this way the <span class="VIPAppName">SmartUI</span> Launcher ensures that the files 
+ within its installation folder are kept up-to-date with the files located 
+ in the distribution folder on the computer that the <span class="VIPAppName">SmartUI</span> Launcher connects 
+ to.</p>
+        <p class="ListNotice"><b>Note</b>: 
+ If you want to specify other connection settings instead, then simply 
+ open the <b>File</b> menu and select the 
+ <b>Connection</b> item, which will display 
+ the <b>Connection</b> dialog instead. </p>
+        <p class="ListNotice"><b>Tip</b>: 
+ To automatically execute a downloaded executable after the <span class="VIPAppName">SmartUI</span> launcher 
+ has finished processing, simply edit the shortcut used to launch the <span class="VIPAppName">SmartUI</span> 
+ launcher and add the name of this executable (its extension is not required) 
+ as its command-line parameter to the <b>Target</b> 
+ field.</p>
+        <p><a href="#Top">Back to top</a><a name="Tweaking_the_Web_Service_Config_file_settings:"></a>
+        </p>
+        <h3 MadCap:conditions="">Tweaking the Web Service Config file settings</h3>
+        <p MadCap:conditions="">The Web Service Config file contains a number of settings that pertain to the operation of the Web Service.</p>
+        <p MadCap:conditions="">Typically the default values of these settings should be adequate, although you may need to adjust the following settings by editing this file yourself to resolve the following connection and performance issues:</p>
+        <p MadCap:conditions="" class="Notices"><b>Note:</b> Be VERY careful when editing this file; since if you corrupt the file structure nothing will work. Please ask support for help if you need it and BACKUP the existing file before you start editing it.</p>
+        <p MadCap:conditions=""><b>File location:</b> This file is called <b>Web.config</b> and is located in the root folder of the  <span class="VIPAppName">SmartUI</span> Web Service component, which is typically: <span class="VIPWebServiceInstallPath">C:\Program Files\Adroit Technologies\Adroit\SmartUI\Webservice</span></p>
+        <p class="Notices"><b>IMPORTANT:</b> After editing the Web.config file, you need to restart IIS, which you can do by opening the Command Prompt (Admin) and entering the following command: iisreset</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>If the <span class="VIPAppName">SmartUI</span> Server is on another computer than the <span class="VIPAppName">SmartUI</span> Web Service. </p>
+                <p>Then edit the <b>&lt;add key="server" value="localhost"/&gt;</b> to specify the computer  name or IP address of the <span class="VIPAppName">SmartUI</span> Server computer.  </p>
+            </li>
+            <li class="Bullets" value="2">
+                <p>If the <span class="VIPAppName">SmartUI</span> Server is running on a port other than 9010. </p>
+                <p>Then  uncomment the <b>&lt;add key="serverPort" value="9500"/&gt;</b> and change the port value to the port value that the <span class="VIPAppName">SmartUI</span> Server is running on.</p>
+            </li>
+            <li class="Bullets" value="3">
+                <p>If the Performance Anywhere clients are experiencing problems where the Charting widgets are taking too long update or do not have any data; or images take too long to load or the Data Element Browser either does not display any tags or takes to long to load etc. </p>
+                <p>Then edit the <b>&lt;add key="ServiceRequestTimeout" value="60"/&gt;</b> and increase this timeout which specifies the timeout in seconds for any requests made by the Web Service or Performance Anywhere to  the <span class="VIPAppName">SmartUI</span> Server. </p>
+            </li>
+        </ul>
+        <p><a href="#Top">Back to top</a><a name="How_to_Reset_ASP.Net_with_Internet_Information_Services_(IIS)"></a>
+        </p>
+        <h3>How to Reset ASP.Net with Internet Information Services (IIS)</h3>
+        <p>Sometimes the Microsoft .NET Framework will require a reset in order to update its files so that they are recognised by the web server and run the client side scripts. In such cases, exceptions can be encountered when using the <span class="VIPAppName">SmartUI</span> Web Service or logging in to the Performance Anywhere Dashboard.
+</p>
+        <p>These issues can be solved by re-registering ASP.NET, running the IIS Registration tool – aspnet_regiis.exe, which is  installed in the Microsoft.NET Framework directory.
+</p>
+        <p>For 64-bit operating systems:
+</p>
+        <ol>
+            <li class="Numbers" value="1">Open the command prompt as Administrator
+</li>
+            <li class="Numbers" value="2">Enter  the following command
+(provided the system directory is C:\Windows) to open your Microsoft .NET Framework folder: 
+CD C:\Windows\Microsoft.NET\Framework64\v4.0.30319 
+1.	</li>
+            <li class="Numbers" value="3">Enter this command to reset ASP.NET:  aspnet_regiis –i
+</li>
+            <li class="Numbers" value="4">Close the command prompt window.</li>
+        </ol>
+        <p>For 32-bit operating systems:
+</p>
+        <ol>
+            <li class="Numbers" value="1">Open the command prompt as Administrator
+</li>
+            <li class="Numbers" value="2">Enter the following command
+(provided the system directory is C:\Windows) to open your Microsoft .NET Framework folder: 
+CD C:\Windows\Microsoft.NET\Framework\v4.0.30319 
+1.	</li>
+            <li class="Numbers" value="3">Enter this command to reset ASP.NET:  aspnet_regiis –i
+</li>
+            <li class="Numbers" value="4">Close the command prompt window.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

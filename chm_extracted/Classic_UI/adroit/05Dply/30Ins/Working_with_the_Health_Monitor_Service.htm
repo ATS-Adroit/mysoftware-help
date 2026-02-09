@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Installing and Setting Up [%=Adroit.AppName%]" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.VerMinorFour" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with the Health Monitor Service</title>
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1000"></a>Working with the Health Monitor Service</h1>
+        <p>The common Health Monitor Service <a name="kanchor1001"></a>(HealthMonitorService.exe) is installed by all Adroit Technologies applications and it runs in the background and cannot be interacted with directly. </p>
+        <p>Its function is to monitor various significant values of the system (computer) on which these Adroit Technologies applications are running, since these both directly and indirectly affect their performance (their health), such as the CPU load monitoring.</p>
+        <p>This Health Monitor Service creates a Windows EventLog called “HealthMonitorService”, where it logs any related messages.</p>
+        <p>
+            <img src="HealthMonitorSvc_EventLog_481x132.png" style="visibility: visible;mso-wrap-style: square;width: 481;height: 132;" />
+        </p>
+        <h2>What does it do?</h2>
+        <ul>
+            <li class="Bullets" value="1">At start-up the service attempts to determine which network cards have Power Saving Enabled.</li>
+            <li class="Bullets" value="2">At start-up the service will attempt to determine the UAC status of the currently logged on user.</li>
+            <li class="Bullets" value="3">The Service will periodically attempt to check the following computer information (every 10 minutes):</li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1">Total instantaneous CPU Usage as a %</li>
+            <li class="BulletSub" value="2">Total and available Memory (Physical &amp; Virtual)</li>
+            <li class="BulletSub" value="3">Drive Information for all drives (Total size and available space)</li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>The Service will periodically check specific processes (every 30 seconds)</p>
+                <p>The default processes are "as.exe", "VIP Designer.exe", "VIP Operator.exe", "VIPServer.exe", "VIPService.exe". However you can add additional processes too - see below for details.</p>
+                <p>The following CPU usages are checked for each process:</p>
+            </li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1">If the CPU % is higher than 50% of 1 CPU Core it gets flagged for higher resolution monitoring.</li>
+            <li class="BulletSub" value="2">
+                <p>If the Memory (Private Bytes) is more than 80% of 1146880000 bytes it gets flagged for higher resolution monitoring.</p>
+                <p>When a Process has been flagged for higher resolution monitoring, then it is checked every 10 seconds:</p>
+            </li>
+        </ul>
+        <ul>
+            <li class="ListSubSubBullet" value="1">If the process is still above the thresholds, an event entry is written to the Eventlog indicating the Process ID, Name, Description, Running Time, CPU Usage, Private Bytes &amp; Virtual Bytes.</li>
+            <li class="ListSubSubBullet" value="2">If/when the process has dropped below the thresholds, it will be removed from the higher resolution monitoring.</li>
+        </ul>
+        <h2>How to add additional processes to be monitored</h2>
+        <p>If necessary, you can add additional Processes to be monitored by the Health Monitor Service. </p>
+        <p>The configuration file resides in installation folder of the Health Monitor Service (typically found - C:\ProgramData\Adroit Technologies\Common\Health Monitor). The configuration file is called HealthMonitorConfig.xml</p>
+        <p>Example Configuration Entry to add the Notepad.exe process to the list of monitored processes, add the following to the end of this file, above the &lt;/NewDataSet&gt; line:</p>
+        <p class="Code">&#160; &lt;Executables&gt;</p>
+        <p class="Code">&#160;&#160;&#160; &lt;Executable&gt;Notepad.exe&lt;/Executable&gt;</p>
+        <p class="Code">&#160;&#160;&#160; &lt;CPUCoreThresholdPercent&gt;2&lt;/CPUCoreThresholdPercent&gt;</p>
+        <p class="Code">&#160;&#160;&#160; &lt;PrivateBytesLimit&gt;1146880000&lt;/PrivateBytesLimit&gt;</p>
+        <p class="Code">&#160;&#160;&#160; &lt;PrivateBytesThresholdPercent&gt;80&lt;/PrivateBytesThresholdPercent&gt;</p>
+        <p class="Code">&#160; &lt;/Executables&gt;</p>
+        <h2>How to adjust the default thresholds of the monitored processes</h2>
+        <p>If necessary, you can adjust the default thresholds of the monitored processes to customise them for your typical system performance. </p>
+        <p>The configuration file resides in installation folder of the Health Monitor Service (typically found - C:\ProgramData\Adroit Technologies\Common\Health Monitor). The configuration file is called HealthMonitorConfig.xml</p>
+        <p>In this file, each specified executable allows you to specify the following thresholds, which specify the normal usage values, which if they are consistently exceeded indicates that there may be a problem and hence the Health Monitor Service will log messages in these instances:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>CPUCoreThresholdPercent</b>: This specifies the maximum percentage of the CPU that this process executable should consistently use in normal operation,  above which the Health Monitor Service will provide alerts. </li>
+            <li class="Bullets" value="2"><b>PrivateBytesLimit</b>: Private Bytes refer to the amount of memory that the process executable has asked for and is a reasonable approximation of the amount of memory the executable is using. This specifies the maximum amount of memory that this executable should normally use.</li>
+            <li class="Bullets" value="3"><b>PrivateBytesThresholdPercent</b>: This specifies the percentage of the specified PrivateBytesLimit that this application executable should normally use above which the Health Monitor Service will provide alerts.</li>
+        </ul>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

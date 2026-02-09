@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders|Categories|Property spiders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Property spiders</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3739"></a><a name="kanchor3740"></a><a name="kanchor3741"></a>Property spiders</h1>
+        <table style="margin-left: auto;margin-right: auto;">
+            <col style="width: 33.4pt;" />
+            <col style="width: 392.9pt;" />
+            <tr>
+                <td>
+                    <p>
+                        <img src="Spiders%20-%20Data%20-%20Property%20Icon_34x48.bmp" style="border: none;float: none;border-style: none;border-style: none;width: 34;height: 48;" border="0" />
+                    </p>
+                </td>
+                <td>
+                    <p>The <b>Property</b> spider is a Data 
+ spider, which is responsible for communicating data between its inputs 
+ and outputs and the property that it is linked to, so that the value of 
+ this property can be determined by its connected data element(s).</p>
+                </td>
+            </tr>
+        </table>
+        <p>In other words, this spider allows you to connect a data element or 
+ another property to the required property of the selected <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">graphic form<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a document that belongs to a project, which can be designed to graphically display data to the user and to accept input from the user when it is being operated.</span></span> 
+ or <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">form components<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a general term encompassing all the controls, components and / or graphic elements that can be added to graphic forms, to provide the required user interface for its end-users. See control; component; graphic element; graphic form.</span></span>.</p>
+        <p><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Adding:<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">For details, see <a href="../../../30GF/20Dsgn/Quick_linking.htm">Quick 
+ linking</a> or <a href="../../../30GF/20Dsgn/Methods_of_linking_data_to_properties_within_a_graphic_form.htm">Methods 
+ of linking data to properties within a graphic form</a>. 
+
+</span></span> 
+ This spider is added automatically when a data element is connected to 
+ property of a graphic form or one of its form component or vice verse 
+ or when the <b>Show Property Spider</b> 
+ menu item is selected.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t12"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Naming:</a> 
+ The <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">namespace<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">one or more names separated by periods (or dots), where each name represents an individual item and the entire namespace indicates the relationship or lineage of the leftmost term i.e. grandparent.parent.child.</span></span> 
+ of this spider is typically the name of its associated property i.e. controlName.propertyName.</p>
+        <div MadCap:targetName="t12" style="display: none;">
+            <p class="Notices"><b>Note:</b> This name 
+ cannot be changed.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t11"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Triggering:</a> 
+ When a Property spider is <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">triggering<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">the process by which spiders perform their specific operation, which usually involves  communicating and / or manipulating data from their set of inputs to their set of outputs. See spider.</span></span>, 
+ its input value is written to the property 
+ of the control that this spider is connected to, so that this control 
+ is updated accordingly.</p>
+        <div MadCap:targetName="t11" style="display: none;">
+            <p>By default, 
+ this spider is triggered by means of silks. Triggering methods can be 
+ configured via its spider menu, see <b>Configuration</b> 
+ below.</p>
+            <p class="Notices"><b>Note:</b> Triggering 
+ only occurs when the spider workspace is running i.e. this only occurs 
+ for graphic forms when they are loaded in Run mode or opened in the 
+ Operator. For details, see <a href="../../Working_with_spider_workspaces.htm">Working 
+ with spider workspaces</a>.</p>
+        </div>
+        <p class="Notices"><b>WARNING!</b> If the 
+ event triggering method is used <b>this 
+ spider is NOT triggered</b>, instead it is forced the read the value 
+ of its property and update its output.</p>
+        <h2>Configuration</h2>
+        <p>This depends upon the data being connected and the property type, as 
+ follows:</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t10"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />General configuration:</a> 
+ The following GENERAL menu options and inputs and outputs, are ALWAYS&#160;provided 
+ by this spider, for instance when connecting a property to a data element 
+ that contains a single value.</p>
+        <div MadCap:targetName="t10" style="display: none;">
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t9"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Spider menu:</a> 
+ This describes the generally available menu items and their default settings 
+ for this spider.&#160;</p>
+            <div MadCap:targetName="t9" style="display: none;">
+                <p class="Notices"><b>Note1:</b> This menu can 
+ be accessed by selecting the spider and right-clicking its title bar. 
+ For details, see <a href="../Selecting_spiders.htm">Selecting spiders</a>.</p>
+                <p class="Notices"><b>Note2:</b> Menu items 
+ that are enabled will have a tick mark <img src="../../../../../00CmnUse/Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;" width="20" height="20" border="0" /> to the left of them.</p>
+                <ol start="1">
+                    <li class="Numbers" value="1"><b>Detail 
+ View:</b> This can be used to display the configuration view of this spider, 
+ so its name, description, inputs and outputs can be configured. For details, 
+ see <a href="../20Cfg/Working_with_spider_configuration_views.htm">Working with spider 
+ configuration views</a>.</li>
+                </ol>
+                <p class="ListNotice"><b>Tip:</b> Double-click 
+ the title bar of the spider to display or hide the configuration view 
+ of the spider.</p>
+                <ol start="2">
+                    <li class="Numbers" value="2"><b>Delete 
+ Spider:</b> This can be used to remove this spider from the spider workspace. 
+ For details, see <a href="../Removing_spiders.htm">Removing spiders</a>.</li>
+                    <li class="Numbers" value="3"><b>Trigger 
+ Spider From Event:</b> When this triggering method is enabled, <b>this 
+ spider is NOT triggered</b>, instead it is forced the read the value 
+ of its property and update its output. <br />	Any silks that are attached to the output of this Property spider transmit 
+ this value to their associated spider(s). For details, see <a href="../30Trigr/Triggering_a_spider_from_an_event.htm">Triggering 
+ a spider from an event</a>. This is disabled by default.</li>
+                    <li class="Numbers" value="4"><b>Enable 
+ Silk Triggering:</b> When this triggering method is enabled, a silk triggers 
+ this spider, after it has set this spider’s input value. For details, 
+ see <a href="../30Trigr/Triggering_spiders.htm">Triggering spiders</a>. 
+ This is enabled by default.</li>
+                </ol>
+                <p class="ListNotice"><b>Note:</b> A silk 
+ is only able to trigger this spider in this way, if its <b>Trigger 
+ Output Spider</b> setting is enabled. For details, see <a href="../30Trigr/Disabling_silk_triggering_of_spiders.htm">Disabling 
+ silk triggering of spiders</a>.</p>
+                <ol start="5">
+                    <li class="Numbers" value="5"><b>Propagate 
+ Outputs At Startup:</b> This enables the spider to supply the silks connected 
+ to its outputs with values as soon as its spider workspace enters into 
+ running mode. For details, see <a href="../../Working_with_spider_workspaces.htm">Working 
+ with spider workspaces</a> or <a href="../20Cfg/Sending_spider_outputs_at_startup.htm">Sending 
+ spider outputs at startup</a>. This is disabled by default.</li>
+                    <li class="Numbers" value="6"><b>Trigger 
+ Now!:</b> This will cause this spider to be triggered immediately.</li>
+                </ol>
+                <p class="ListNotice"><b>Note:</b> Triggering
+ only occurs when the spider workspace is running. For details, see <a href="../../Working_with_spider_workspaces.htm">Working with spider workspaces</a>.</p>
+                <ol start="7">
+                    <li class="Numbers" value="7"><b>Add 
+ Properties:</b> This displays the <b>Properties</b> 
+ configuration dialog, which exposes one or more of the sub-properties of this property 
+ as additional inputs and/or outputs for this spider. For details, see 
+ <a href="Adding_properties.htm">Adding properties</a>.</li>
+                </ol>
+                <p>&#160;</p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Inputs and outputs:</a> 
+ This describes the generally available inputs and outputs displayed by 
+ the default configuration view of this spider.</p>
+            <div MadCap:targetName="t8" style="display: none;">
+                <p class="Notices"><b>Note1:</b> Before the 
+ spider can be configured, its configuration view needs to be displayed. 
+ For details see <a href="../20Cfg/Displaying_spider_configuration_views.htm">Displaying 
+ spider configuration views</a>.</p>
+                <p class="Notices"><b>Note2:</b> For details 
+ on using the general fields and sections of the configuration view, see <a href="../20Cfg/Working_with_spider_configuration_views.htm">Working with spider 
+ configuration views</a>.</p>
+                <p>This default configuration view of this spider, contains the following 
+ sections:</p>
+                <p class="Notices"><b>Note:</b> 
+ The name of this input and output is dependant upon the property that 
+ is being connected to.</p>
+                <ol>
+                    <li class="Numbers" value="1"><b>Inputs</b>, 
+ this section contains the inputs to this spider.</li>
+                </ol>
+                <p class="ListNotice"><b>Note:</b> These inputs 
+ can either be configured within the spider itself and/or may require their 
+ values to be supplied by other spiders or Data spiders (e.g. properties 
+ or data elements). For details, see <a href="../../30Silks/Creating_silks.htm">Creating 
+ silks</a>.</p>
+                <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                    <col style="width: 8.359%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                    <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <col style="width: 72%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <thead>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Input</th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Data</th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>PropertyName</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>DE</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Enables a data element or another property to connect to this property.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                                <p>Format</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                                <p>String</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                                <p>Allows the String property value to be 
+ formatted, without needing to use a <b>String 
+ Format</b> spider. For details on the required formatting syntax, see 
+ <a href="Adv/Working_with_value_formatting.htm">Working with value formatting</a>.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ol start="2">
+                    <li class="Numbers" value="2"><b>Outputs</b>, 
+ this section contains the outputs from this spider.</li>
+                </ol>
+                <p class="ListNotice"><b>Note:</b> Some or all 
+ of these outputs can be used to supply the inputs of other spiders or 
+ Data spiders (e.g. properties or data elements).</p>
+                <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                    <col style="width: 8.359%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                    <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <col style="width: 72%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <thead>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Output</th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Data</th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                                <p>PropertyName</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                                <p>DE</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                                <p>Contains the value of this property, including any modifications made 
+ to this property on the graphic form, when triggered, for instance, by 
+ an event specified in the event object and event source inputs.</p>
+                                <p>If this property is connected to a data element, then it is also possible 
+ to connect this output back to this data element to update it with any 
+ changes made to its value(s) by the user. For details, see <a href="../../30Silks/Creating_silks.htm">Creating 
+ silks</a>.</p>
+                                <p class="Notices"><b>Note:</b> This assumes 
+ that this data element can be written to. Also if this data element contains 
+ more than one value, then it needs to be able to be updated by means of 
+ a dataset. For details, see <a href="Updating_datasources_with_datasets.htm" name="kanchor3742">Updating datasources 
+ with datasets</a>.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>&#160; 
+
+</div>&#160;</div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Data containing more than one value:</a> 
+ The following ADDITIONAL menu options and inputs and outputs, are provided 
+ when a property has been connected to a data element that contains more 
+ than one value i.e. of type <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">dataset<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">tabular data or data that is contained within one or more tables; each table contains one or more columns and each column consists of one or more rows.</span></span>.</p>
+        <div MadCap:targetName="t7" style="display: none;">
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Spider menu:</a> 
+ This describes the additional menu item that is displayed.</p>
+            <div MadCap:targetName="t6" style="display: none;">
+                <p class="Notices"><b>Note:</b> This can 
+ be accessed by selecting the spider and right-clicking its title bar. 
+ For details, see <a href="../Selecting_spiders.htm">Selecting spiders</a>.</p>
+                <ol start="1">
+                    <li class="Numbers" value="1"><b>Filter 
+ DataSet:</b> This can be used to display the <b>Filter 
+ Dataset</b> configuration dialog to specify the required columns and tables, constraints 
+ and/or sorting. For details, see <a href="Filtering_datasets.htm">Filtering 
+ datasets</a>.</li>
+                    <li class="Numbers" value="2"><b>Apply 
+ Table Style Formatting:</b> When enabled, this displays the <b>Table 
+ Style Date Time Format</b> input, which can be used to customise the 
+ display of all the date time fields in this dataset. This is enabled by 
+ default.</li>
+                </ol>
+                <p>&#160;</p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Inputs and outputs:</a> 
+ This describes the additional available inputs displayed in the default 
+ configuration view of this spider.</p>
+            <div MadCap:targetName="t5" style="display: none;">
+                <p class="Notices"><b>Note:</b> Before the spider can be configured, 
+ its configuration view needs to be displayed. For details see <a href="../20Cfg/Displaying_spider_configuration_views.htm">Displaying spider configuration views</a>.</p>
+                <ol>
+                    <li class="Numbers" value="1"><b>Inputs</b>, 
+ this section contains the inputs to this spider.</li>
+                </ol>
+                <p class="ListNotice"><b>Note:</b> These inputs 
+ can either be configured within the spider itself and/or may require their 
+ values to be supplied by other spiders or Data spiders (e.g. properties 
+ or data elements). For details, see <a href="../../30Silks/Creating_silks.htm">Creating 
+ silks</a>.</p>
+                <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                    <col style="width: 20.191%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                    <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <col style="width: 66.476%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <thead>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Input</th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Data</th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>Filter String</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>String</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>This can be used to specify a string that is used to filter a data table’s 
+ rows and apply sorting.</p>
+                                <p class="Notices"><b>Note:</b> It is also 
+ possible to specify the required filtering and sorting using the <b>Filter DataSet</b> configuration dialog. For details, 
+ see <a href="Filtering_datasets.htm">Filtering datasets</a>.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>Table Style Date Time Format</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>String</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>This input can customise the display of all the date time 
+ fields. For details on specifying the required formatting string, see 
+ <a href="Date_and_Time_formatting_syntax.htm">Date and Time formatting syntax</a>.</p>
+                                <p class="Notices"><b>Note:</b> This input 
+ is only displayed when the <b>Apply Table 
+ Style Formatting</b> menu item is enabled.&#160;</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>Append Data Updates</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>Boolean</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>By default, when this checkbox is cleared, all the existing data is 
+ read initially and thereafter only the newly added or changed data will 
+ be displayed.</p>
+                                <p>Check this checkbox, if the data updates from the Server needs to be 
+ merged with the data from previous updates. For details, see <a href="Displaying_both_existing_and_updated_dataset_data.htm">Displaying 
+ both existing and updated dataset data</a>.<br />For instance, typically data updates from the <a href="../../../20DS/EvL/Event_Log_datasources.htm">Event 
+ Log datasources</a> only send changed data after each poll period. If 
+ you need to show all the historical data as well as any new events that 
+ come through, then tick this checkbox.</p>
+                                <p class="Notices"><b>Note:</b> This input 
+ is NOT configured within the <b>Filter DataSet</b> 
+ configuration dialog.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p>Column</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                                <p>List</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>This displays a list of available columns and can be used to specify 
+ which column of the specified data table is to be communicated to its 
+ connected property.</p>
+                                <p class="Notices"><b>Note:</b> It is also 
+ possible to specify the required column using the <b>Filter 
+ DataSet</b> configuration dialog.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                                <p>Table</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                                <p>List</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                                <p>This displays a list of available tables and can be used to specify 
+ which table is to be communicated 
+ to its connected property.</p>
+                                <p class="Notices"><b>Note1:</b> It is also 
+ possible to specify the required column using the <b>Filter 
+ DataSet</b> configuration dialog.</p>
+                                <p class="Notices"><b>Note2:</b> If there is 
+ only one table in the dataset then it is not necessary to specify this 
+ input.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="Notices"><b>Note1:</b> Dataset data 
+ should typically only be connected to properties that are able display 
+ and/or communicate more than one value, such as, the DataSource property 
+ of the DataGrid control and any Windows Forms control, which has an 'Items' 
+ property of type (Collection), such as: ComboBox, ListBox, CheckedListBox, 
+ ListView and DomainUpDown.</p>
+            <p class="Notices"><b>Note2:</b> The <b>Filter 
+ Dataset</b> configuration dialog is also displayed to select which of the table(s), 
+ column(s) and row(s) provided by this data element are to be assigned 
+ to this property. For details, see <a href="Filtering_datasets.htm">Filtering 
+ datasets</a>.</p>
+            <p class="Notices"><b>Note3:</b> Although the 
+ <b>Filter Dataset</b> configuration dialog configures 
+ most of these additional inputs, it does not configure the <b>Append 
+ Data Updates</b> setting.</p>
+            <p class="Notices"><b>Tip:</b> For a detailed 
+ step-by-step procedure of using ListBox and ComboBox controls to display 
+ and interact with databases (data elements of type <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">dataset<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">tabular data or data that is contained within one or more tables; each table contains one or more columns and each column consists of one or more rows.</span></span>), 
+ see <a href="../../../../../HowTos/How_to_use_ComboBox_and_ListBox_controls_to_interact_with_databases.htm">How to use ComboBox (and ListBox) controls to interact with databases</a>.</p>
+            <p>&#160;</p>
+        </div>
+        <p><b>String Properties:</b> When connecting 
+ to a property of type String:</p>
+        <ul>
+            <li class="Bullets" value="1">This spider also provides 
+ the <b>Format</b> input, so that this 
+ value can be formatted before it is displayed. For details on the required 
+ formatting syntax, see <a href="Adv/Working_with_value_formatting.htm">Working 
+ with value formatting</a>.</li>
+            <li class="Bullets" value="2">This spider also provides 
+ a right click option for its value input called <b>Maintain 
+ Type</b>, which when enabled forces the value to be displayed as a 
+ string value regardless of its actual data type. In other words it maintains 
+ the type of data that the input expects, which is a string.</li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> When 
+ the <b>Maintain Type</b> option is enabled, 
+ the input value can only be formatted as a string, as any non-string formatting 
+ will be ignored.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To display the configuration view of 
+ a particular Property spider:</a>
+        </p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the required spider 
+ workspace. For details, see <a href="../../Working_with_spider_workspaces.htm">Working 
+ with spider workspaces</a>.</li>
+                <li class="Numbers" value="2">In the spider workspace, 
+ locate the silk that is connected to the required property and navigate 
+ along the silk until you reach its associated node in the property tree 
+ pane at the left edge of the spider workspace. For details, see <a href="../../Working_with_spider_workspaces.htm">Working 
+ with spider workspaces</a>.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip1:</b> If necessary, 
+ display the required pane by using the required pane display bar. For 
+ details, see <a href="../../../../20DesEnv/Working_with_pane_display_bars.htm">Working 
+ with pane display bars</a>.</p>
+            <p class="ListNotice"><b>Tip2:</b> If the required 
+ silk is currently grouped with other silk(s), select this silk first to 
+ assist you in located its connected Data spider. For details, see <a href="../../30Silks/Selecting_silks.htm">Selecting 
+ silks</a>.</p>
+            <p class="ListDesc">If a dotted line is displayed, next to the silk in the 
+ property tree pane, this indicates that the associated node is currently 
+ hidden within this node of the tree.</p>
+            <p class="ListExample"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+            </p>
+            <div MadCap:targetName="t3" style="display: none;">
+                <p class="ListDesc">
+                    <img src="../20Cfg/Spider%20-%20DisplayingDataSpdCFGView1.gif" style="border: none;width: 194px;height: 113px;float: none;border-style: none;" width="194" height="113" border="0" />
+                </p>
+            </div>
+            <ol start="3">
+                <li class="Numbers" value="3">If necessary, expand the 
+ tree node(s) until a solid line is displayed, next to the silk in the 
+ property tree pane, indicating that this is the required property.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> Whenever a 
+ branch is expanded the associated silk(s) will also move down to and either 
+ indicate where the required tree node is hidden or displayed.</p>
+            <p class="ListExample"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+            </p>
+            <div MadCap:targetName="t2" style="display: none;">
+                <p class="ListDesc">
+                    <img src="../20Cfg/Spider%20-%20DisplayingDataSpdCFGView2.gif" style="border: none;width: 222px;height: 227px;float: none;border-style: none;" width="222" height="227" border="0" />
+                </p>
+            </div>
+            <ol start="4">
+                <li class="Numbers" value="4">Right-click this property 
+ (tree node) adjacent to this solid line and select <b>Show 
+ property spider</b>.</li>
+            </ol>
+            <p class="ListDesc">The associated configuration view is displayed in the 
+ spider workspace, which can be located by following the light purple ray, 
+ which expands from the position of the property tree node to the right 
+ side of the configuration view.</p>
+            <p class="ListExample"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+            </p>
+            <div MadCap:targetName="t1" style="display: none;">
+                <p class="ListDesc">
+                    <img src="../20Cfg/Spider%20-%20DisplayingDataSpdCFGView3.gif" style="border: none;width: 435px;height: 232px;float: none;border-style: none;" width="435" height="232" border="0" />
+                </p>
+            </div>
+            <p>&#160;</p>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

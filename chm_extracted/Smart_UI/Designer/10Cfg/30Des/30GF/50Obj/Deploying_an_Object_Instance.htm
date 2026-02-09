@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Object Model" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Deploying an Object Instance</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Deploying an Object Instance</h1>
+        <p>If you chose not to deploy an instance of an object once it was defined or you performed a partial deployment by selecting only some of the available operations, then you can perform a full or partial deployment of an instance at any later time.</p>
+        <ul>
+            <li value="1">Currently, the Object Model supports the following commonly-used drivers <i>(devices)</i>: <i>Modbus Ethernet, Mitsubishi Q, QnA, L, R and iQF Series Ethernet (3E Frames)</i><i>, OPC Client and Siemens Ethernet.</i></li>
+            <li value="2">If you need to use other drivers, then you simply create the necessary devices yourself before deploying an instance of this object model template.</li>
+        </ul>
+        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>Your Agent Server Type must be set to <b style="text-decoration: underline;">"Stand-alone / Distributed Server"</b> mode in the <b>Config Editor</b> <i>(Restart your Agent Server to change this setting)</i> before you can deploy object instances. </p>
+        <h2>To fully or partially deploy a created object instance:</h2>
+        <p>Display the <b>Deployment Options</b> configuration dialog for the required object instance:<br /><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Deploy-Tpl-Instance.png" MadCap:popupWidth="546" MadCap:popupHeight="649" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Deploy-Tpl-Instance_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a></p>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_1094836430_0" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />From the Object Model datasource in the Enterprise Manager</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_1094836430_0" style="display: none;">
+                <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+                <ol>
+                    <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                    <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+                </ol>
+                <ol>
+                    <li value="3">Go to the <b>Enterprise Manager</b> category folders <b>Datasources &gt; Object Model &gt; Instances</b></li>
+                    <li value="4">Right-click the required instance <img src="../../../../Resources/Images/16/DataSources/ObjectModel_Instance.png" /> and select <b>Deploy</b>.</li>
+                    <li value="5">The <b>Deployment Options</b> configuration dialog opens.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Deploy-Tpl-Instance.png" MadCap:popupWidth="546" MadCap:popupHeight="649" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Deploy-Tpl-Instance_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a><br /></li>
+                </ol>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_1094836430_1" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />From the Context View window</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_1094836430_1" style="display: none;">
+                <ol start="1">
+                    <li value="1">Select the Context tab at the bottom of the <b>SmartUI Designer</b> window.</li>
+                    <li value="2">Select the required context from the list, which is typically the Default context. </li>
+                    <li value="3">Expand the necessary node <img src="../../../../Resources/Images/16/DataSources/ContextView_Node.png" />.</li>
+                    <li value="4">Right-click the node and select <img src="../../../../Resources/Images/16/DataSources/ContrextView_DeployInstance.png" /> <b>Deploy instance(s)</b>.</li>
+                    <li value="5">The <b>Deployment Options</b> configuration dialog opens.<br /><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Deploy-Tpl-Instance.png" MadCap:popupWidth="546" MadCap:popupHeight="649" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow200pop_0" src="../../../../Resources/Images/ADT10-Designer-Deploy-Tpl-Instance_thumb_0_200.png" style="width: 168px;height: 200px;" alt="" title="Click to enlarge image" tabindex="" /></a><br />For more information about the Context View window, see the <a href="../../../20DesEnv/10TW/Context_View_tool_window.htm" class="MCXref_0">Context View tool window</a>.<br /></li>
+                </ol>
+            </div>
+        </div>
+        <div class="MCDropDown">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_1094836430_2" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Deploying the object instance</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_1094836430_2" style="display: none;">
+                <p>By default, most of the <b>On deployment</b> checkboxes of the <b>Deployment Options</b> configuration dialog are selected:</p>
+                <ul>
+                    <li value="1">When deployed, this object and all of its configuration are created immediately, such as:</li>
+                    <ul>
+                        <li value="1">Any new agents.</li>
+                        <li value="2">Any  new devices and their scanning.</li>
+                        <li value="3">The specified alarming, logging and DBLog agents.</li>
+                        <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>When the global destinations <i>(i.e. the </i><b style="font-style: italic;">Output</b><i> / </i><b style="font-style: italic;">Event Logs</b><i> categories)</i> of the specified alarm routes contain agents that do <i>not</i> exist in the Agent Server then the deployment is <i>not</i> created as these agents could cause potential issues.</li>
+                        <li value="5">The <b>Save Agent Server </b>checkbox is also selected by default which saves this configuration to the Agent Database file of the Agent Server of the specified <span style="font-weight: bold;" class="AdroitAppName">Adroit</span><b>  <![CDATA[ ]]></b>datasource<b>.</b></li>
+                    </ul>
+                    <li value="2">To run the script defined for this object, select the <b>Run Script</b> checkbox as this is not selected, by default. </li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>If the <b>Run Script</b> checkbox is disabled <i>(greyed out)</i>, then the script was not defined or   did not compile successfully.</li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>Currently only the script defined for this object may be run. Any scripts defined for  child objects are ignored, even when no script is defined for the parent object.</li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="5"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>Use the <b>View</b> button to display the associated script action before it is run.</li>
+                    <li value="6">Perform a <b>partial deployment</b>  at this time, by clearing some of the following checkboxes: </li>
+                    <ul>
+                        <li value="1">Create agents</li>
+                        <li value="2">Create devices and scanning<ul><li value="1">Start devices</li></ul></li>
+                        <li value="3">Create alarming</li>
+                        <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="4"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>When the global destinations <i>(i.e. the </i><b style="font-style: italic;">Output</b><i> / </i><b style="font-style: italic;">Event Logs</b><i> categories)</i> of the specified alarm routes contain agents that do <i>not</i> exist in the Agent Server then the deployment is <i>not</i> created as these agents could cause potential issues.</li>
+                        <li value="5">Create data logging</li>
+                        <li value="6">Create DB logging</li>
+                    </ul>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="7"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>This configuration is <i>only</i>&#160;saved to the Agent Database file of the Agent Server of the <span class="AdroitAppName">Adroit</span> datasource when you select  the <b>Save Agent Server on deployment completion</b> checkbox. </li>
+                </ul>
+                <p class="A4-Note-SimpleTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>In the case of partial deployment,  only the steps that have not yet been deployed are processed.</p>
+                <p>In addition to these checkboxes, the dialog provides a list of agents both new and existing that the object references and  a <b>Remove current deployment</b> button.</p>
+                <ul>
+                    <li class="A4-BulletImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;" value="1"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>Only the agents that are not being used by <i>(subscribed to)</i> other agents will be removed.</li>
+                    <li class="A4-BulletNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;" value="2"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The <b>Remove current deployment</b> button is only enabled if one or more of the referenced agents exist<i> (i.e. they have a green background, and the instance has already been partially or completely deployed). </i></li>
+                </ul>
+                <p>Finally, click <b>Deploy</b> to perform the currently selected deployment operations or <b>Cancel</b> to quit.</p>
+                <ul>
+                    <li value="1">If you selected any of the deployment checkboxes, then the <b>Object Model Deployment Status</b> progress dialog appears. <br /><a href="javascript:void(0);" MadCap:popupSrc="../../../../Resources/Images/ADT10-Designer-Deploy-Tpl-Instance-Status.png" MadCap:popupWidth="665" MadCap:popupHeight="304" MadCap:popupAlt="" onclick="FMCPopupThumbnail_Onclick( event, this ); return false;"><img class="MCPopupThumbnail_A4-noshadow150pop_0" src="../../../../Resources/Images/ADT10-Designer-Deploy-Tpl-Instance-Status_thumb_0_150.png" style="width: 328px;height: 150px;" alt="" title="Click to enlarge image" tabindex="" /></a><br /></li>
+                    <li value="2">For more information, see <a href="The_Object_Model_Deployment_Status_dialog.htm" class="MCXref_0">the Object Model Deployment Status dialog</a>.</li>
+                </ul>
+                <p>&#160;</p>
+            </div>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="CfgUsrSecurty.doc" /><title>How to configure user security</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="Top"></a>How to configure user security
+        </h1>
+        <p>The <span class="VIPAppName">SmartUI</span> security system is user-centric and operates on top of the traditional 
+ Windows operating system security, using a configurable sub-set of the 
+ existing users and groups on each Server computer, known as the "allowed" 
+ users and groups. </p>
+        <p>&#160;</p>
+        <p>This process requires the following steps:</p>
+        <ol>
+            <li class="Numbers" value="1"><a href="#Creating_user_accounts_on_the__Server_computer">Create 
+ the necessary user accounts on the <span class="VIPAppName">SmartUI</span> Server computer</a>.
+            </li>
+            <li class="Numbers" value="2"><a href="#Adding_users_to_the_allowed_users_of_this__Server">Add 
+ the users to the list of allowed users of the <span class="VIPAppName">SmartUI</span> Server computer</a>.
+            </li>
+            <li class="Numbers" value="3"><a href="#Configuring_access_to_the_added_datasources">Configure 
+ access to the added datasources, where necessary</a>.
+            </li>
+        </ol>
+        <p>For the purposes of this example only two users are required to be allowed 
+ to log into this <span class="VIPAppName">SmartUI</span> Server, namely the Operator (which should belong 
+ to the group “Users”) and the Administrator (which should belong to the 
+ group “Administrators”).</p>
+        <p class="Notices"><b>IMPORTANT:</b> The screenshots and specified configuration settings relate to an OLD version of the VIP product and use Windows XP - so your specific settings and screens may differ.
+ </p>
+        <h2><a name="Creating_user_accounts_on_the__Server_computer"></a>Creating user accounts on the <span class="VIPAppName">SmartUI</span> Server computer
+        </h2>
+        <ol>
+            <li class="Numbers" value="1">Log 
+ onto the computer on which the <span class="VIPAppName">SmartUI</span> Server is installed with a user that 
+ has administrative rights.
+            </li>
+            <li class="Numbers" value="2">Right-click 
+ the <b>Start</b> button and select the <b>Computer Management</b> 
+ item.
+            </li>
+        </ol>
+        <ol start="3">
+            <li class="Numbers" value="3">Navigate 
+ to the <b>Users</b> folder, in the left pane of the <b>Computer Management</b> 
+ dialog. In the right pane, right-click below the configured users and 
+ select <b>New User…</b></li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image004.jpg" style="width: 470px;height: 233px;border-style: none;border-style: none;" width="470" height="233" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 1 : How to add a new user account
+        </p>
+        <ol start="4">
+            <li class="Numbers" value="4">Provide 
+ the required usernames and passwords for each of the Operator and Administrator 
+ users. 
+            </li>
+        </ol>
+        <p class="ListNotice"><b>Note</b>: Since all users 
+ created in this manner are assigned to the <b>Users</b> group on the computer, 
+ by default, the Operator user has been appropriately configured. </p>
+        <ol start="5">
+            <li class="Numbers" value="5">However, 
+ the Administrator user must removed from the Users group and assigned 
+ to the Administrators group, as follows:
+            </li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Right click the Administrator 
+ user and select the <b>Properties</b> item, as follows:</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image006.jpg" style="width: 223px;height: 179px;border-style: none;border-style: none;" width="223" height="179" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 2 : Displaying the Properties dialog for this user
+        </p>
+        <ol start="2">
+            <li class="NumbersSubLetters" value="2">Select the <b>Member 
+ of</b> tab in the <b>Administrator Properties </b>dialog, select the <b>Users</b> 
+ group and press the <b>Remove</b> button, as follows:</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image008.jpg" style="width: 360px;height: 211px;border-style: none;border-style: none;" width="360" height="211" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 3 : Removing the Users group assigned to this user by default
+        </p>
+        <ol start="6">
+            <li class="Numbers" value="6">Then 
+ press the <b>Add…</b> button and then the <b>Advanced…</b> button in the 
+ <b>Select Groups</b> dialog, as follows:
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image010.jpg" style="width: 466px;height: 296px;border-style: none;border-style: none;" width="466" height="296" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 4 : Opening the advanced pane of this dialog
+        </p>
+        <ol start="7">
+            <li class="Numbers" value="7">Then 
+ press the <b>Find Now…</b> button to locate all the local groups on this 
+ computer and <b>OK</b> all the open dialogs, since the Administrators 
+ group is selected by default:
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image012.jpg" style="width: 521px;height: 254px;border-style: none;border-style: none;" width="521" height="254" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 5 : Selecting the required group for this user
+        </p>
+        <p>Having created the necessary user accounts on the <span class="VIPAppName">SmartUI</span> 
+ Server computer, it is now necessary to add them 
+ to the list of allowed users for this <span class="VIPAppName">SmartUI</span> Server, so that they are able 
+ to log into the Server and therefore use the <span class="VIPAppName">SmartUI</span> Designer or <span class="VIPAppName">SmartUI</span> Operator.
+        </p>
+        <p><a href="#Top">Back to top</a><a name="Adding_users_to_the_allowed_users_of_this__Server"></a>
+        </p>
+        <h2>Adding users to the allowed users of this <span class="VIPAppName">SmartUI</span> Server
+        </h2>
+        <p>The Administrator user is usually assigned global access to the <span class="VIPAppName">SmartUI</span> 
+ Server as this user will administer the <span class="VIPAppName">SmartUI</span> Server and its security and 
+ thereby manage the other users that will access this Server. </p>
+        <p>Assign global access privileges to the Administrator user as follows:</p>
+        <ol>
+            <li class="Numbers" value="1">Launch the <span class="VIPAppName">SmartUI</span> Config 
+ utility and display the <b>Server Settings</b> page of this <span class="VIPAppName">SmartUI</span> Server.</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image014.jpg" style="width: 576px;height: 290px;border-style: none;border-style: none;" width="576" height="290" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 6 : Displaying the security settings for the <span class="VIPAppName">SmartUI</span> Server
+        </p>
+        <ol start="2">
+            <li class="Numbers" value="2">Simply 
+ double-click the ‘administrator’ user in the <b>Available Users</b> list 
+ of the <b>Choose Users</b> section in the middle of this page, which will 
+ add it to the <b>Selected Users</b> list, as follows:
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image015.jpg" style="width: 557px;height: 168px;border-style: none;border-style: none;" width="557" height="168" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 7 : Assigning global access privileges to the Administrator 
+ user
+        </p>
+        <p class="ListDesc">It is not recommended to provide the Operator user 
+ with global access since this user should typically only be allowed access 
+ to certain projects and datasources etc. (not all). </p>
+        <p class="ListDesc">Although it is recommended to ensure that the group 
+ to which the Operator belongs is able to initially perform all services 
+ provided by this <span class="VIPAppName">SmartUI</span> Server. As this saves configuration time, since instead 
+ of adding this user to all the services it needs to be part of, it is 
+ ONLY necessary to remove this user from those that the user should not 
+ be part of.</p>
+        <p class="ListDesc">This is configured via the following setting on this 
+ <b>Security Settings</b> page.</p>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image017.jpg" style="width: 537px;height: 166px;border-style: none;border-style: none;" width="537" height="166" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 8 :&#160; Time-saving setting for the Operator user group
+        </p>
+        <p class="ListDesc">However, in this case, nothing needs to be done since 
+ the Users group is automatically added by default.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">The 
+ Administrator user must now add the Operator user to the Allowed users 
+ of this <span class="VIPAppName">SmartUI</span> Server from within the <span class="VIPAppName">SmartUI</span> Designer, as follows: 
+            </li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Launch the <span class="VIPAppName">SmartUI</span> Designer 
+ and log into the <span class="VIPAppName">SmartUI</span> Server using the user name and password of the Administrator 
+ user.</li>
+            <li class="NumbersSubLetters" value="2">In the <b>Enterprise 
+ Manager</b> window of the <span class="VIPAppName">SmartUI</span> Designer, expand the <b>All Users</b> item, 
+ as follows: </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image018.jpg" style="width: 265px;height: 343px;border-style: none;border-style: none;" width="265" height="343" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 9 : Locating the Operator user in the Enterprise Manager window
+        </p>
+        <ol start="3">
+            <li class="NumbersSubLetters" value="3">Then drag the ‘operator’ 
+ user onto the <b>Allowed Users</b> item to add it to the users that are 
+ allowed to log into this <span class="VIPAppName">SmartUI</span> Server via a <span class="VIPAppName">SmartUI</span> Designer or <span class="VIPAppName">SmartUI</span> Operator, 
+ as follows: </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image019.jpg" style="width: 170px;height: 92px;border-style: none;border-style: none;" width="170" height="92" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 10 : Operator user is added to the Allowed users for this <span class="VIPAppName">SmartUI</span> 
+ Server
+        </p>
+        <p>Therefore, the Administrator user is able to log onto and access EVERY 
+ datasource and policy provided by this <span class="VIPAppName">SmartUI</span> Server, by default. Likewise, 
+ the Operator user is also able to log onto the <span class="VIPAppName">SmartUI</span> Server, but can ONLY 
+ access the datasources that this user has been explicitly granted access 
+ to. </p>
+        <p><a href="#Top">Back to top</a><a name="Configuring_access_to_the_added_datasources"></a>
+        </p>
+        <h2>Configuring access to the added datasources
+        </h2>
+        <p>For instance, let us assume that a certain project called <b>Common 
+ Project</b> is required to be accessed by both the Administrator and the 
+ Operator users. This can be configured as follows:</p>
+        <ol>
+            <li class="Numbers" value="1">Locate 
+ this project in the <b>Enterprise Manager</b>, right click and select 
+ the <b>Security</b> item, as follows:
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image020.jpg" style="width: 263px;height: 190px;border-style: none;border-style: none;" width="263" height="190" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 11 : Displaying the Security configuration dialog for this datasource
+        </p>
+        <ol start="2">
+            <li class="Numbers" value="2">When 
+ the <b>Security</b> configuration dialog is displayed, you will notice that the <b>Administator</b> 
+ user has been automatically added to the list of <b>Selected Users</b> 
+ for this datasource, while the Operator user has not. 
+            </li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="CfgUsrSecurty_files/image021.jpg" style="width: 472px;height: 291px;border-style: none;border-style: none;" width="472" height="291" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 12 : Selecting the Operator user in the Security configuration dialog
+        </p>
+        <ol start="3">
+            <li class="Numbers" value="3">Double 
+ click on the <b>Operator</b> user in the <b>Available Users</b> list, 
+ which will add this to the <b>Selected Users</b> list and then click <b>Finish</b>.
+            </li>
+        </ol>
+        <p class="ListNotice"><b>Note1</b>: Although a 
+ project was used in this example, this procedure can be used for any datasource 
+ that has been added.</p>
+        <p class="ListNotice"><b>Note2</b>: There are 
+ other options that can be configured in this dialog, but they and the 
+ other aspects of user security are beyond the scope of this how to document, 
+ please consult the help file for more information.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Adroit Utilities|Classic Setup (PSEXE)|Agent Server Configuration|Backing Up Adroit Database (.WGP) Files" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer,VIP.AdroitConfig" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Configuring Automatic WGP File Backups</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1432"></a>Configuring Automatic WGP File Backups</h1>
+        <p><span class="AdroitAppName">Adroit</span> WGP files can be automatically backed up when they are saved 
+ to ensure that at most only the changes made since the last save will 
+ be lost. </p>
+        <p class="Notices"><b>WARNING!</b> This 
+ feature is merely intended to AUGMENT the existing backup system and NOT 
+ to REPLACE it i.e. it is still imperative that an efficient backup system 
+ is in place! For details, see <a href="../AU_01_14/About_Backup_Procedures.htm">Creating 
+ Backup Procedures</a>.</p>
+        <p class="Notices"><b>Note:</b> These backup 
+ files will be created in the folder in which the WGP file resides, EACH 
+ time it is saved, regardless as to whether its contents have been changed 
+ or not.</p>
+        <h2>To configure automatic WGP file backups</h2>
+        <p MadCap:conditions="VIP.AdroitConfig">Using the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>:</p>
+        <p MadCap:conditions="VIP.AdroitConfig">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</p>
+        <p MadCap:conditions="VIP.AdroitConfig">Click <b>Agent Server Configuration</b> in the right hand pane.</p>
+        <p MadCap:conditions="VIP.AdroitConfig">Click <b>Advanced Agent Server Configuration</b> in the right hand pane.</p>
+        <p>This displays a page of grouped advanced Agent Server settings.</p>
+        <p>The following settings are contained within the <b>WGP 
+ Versioning</b> group:</p>
+        <ol>
+            <li class="Numbers" value="1">These files are created 
+ when the WGP file is saved for the period of time specified by the <b>Delete WGP backup files older than</b> # 
+ <b>days</b> edit box, where # is the 
+ required number of days. <br />	The default period is 90 days and any backup WGP file older than this 
+ time will be deleted every time the WGP file is saved.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> It is 
+ recommended to set this value to the period of your existing <span class="AdroitAppName">Adroit</span> backups, 
+ so as to avoid backup duplication.</p>
+        <p class="ListNotice"><b>Note:</b> A value 
+ of 0 will disable this feature and remove all the backup files on the 
+ next save.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">The minimum number of backup 
+ files that will always remain can be specified using the <b>… 
+ but keep a minimum of # backup files</b> edit box, where # is the required 
+ number of files. <br />	This should be used as a failsafe to prevent ALL the previous backups 
+ from being deleted if the WGP file is saved after the period specified 
+ by the <b>Delete WGP backup files older 
+ than</b> # <b>days</b> edit box has 
+ elapsed. <br />	The default minimum number of files is 3, which ensures that the folder 
+ will always contain the 3 most recent backups.</li>
+            <li class="Numbers" value="3">The total number of backup 
+ file that are created can be limited, by specifying the required number 
+ in the <b>… and a maximum limit of # files</b> 
+ edit box, where # is the required number of files. <br />	In this way it is possible to regulate the amount of disk space that 
+ is used for these backups. The default number of files is 10, after which 
+ the oldest backup file will be deleted each time the WGP file is saved.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> A value 
+ of 0 will remove this limitation, so that a separate backup file will 
+ be created each time the WGP file is saved for the specified number of 
+ days.</p>
+        <p>&#160;</p>
+        <p>For further details, such as the naming format of these automatically created backup copies, see <a href="Automatic_WGP_File_Backups.htm">Automatic 
+ WGP File Backups</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

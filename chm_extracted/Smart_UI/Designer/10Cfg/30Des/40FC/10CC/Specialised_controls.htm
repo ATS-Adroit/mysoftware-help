@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Controls and Components" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Specialised controls</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3778"></a>Specialised controls</h1>
+        <p>Apart from the general WYSIWYG Window Form controls, the following is a selection of controls that provide additional or specialised functions:</p>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 18.667%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 78px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 71.238%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Name</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Icon</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Ctrl_Adroit">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>AlarmViewer</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="Ctrl/Form%20components%20-%20Controls%20-%20AlarmViewer%20Icon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Performs the same functionality 
+ as an <span class="AdroitAppName">Adroit</span> Alarm Viewer window. For details, see <a href="Ctrl/AlarmViewer_controls.htm" MadCap:conditions="VIP.Adroit">AlarmViewer 
+ controls</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Designer_VerMinorFour">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AdroitHistoricalAlarmViewer</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <img src="Ctrl/AdrHistAlmVuewr.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Allow users to view and/or locate and/or filter and/or print and/or export their historical <span class="AdroitAppName">Adroit</span> alarms, that are stored in the AlarmManagement agent SQL Server database. For details, see <a href="Ctrl/AdroitHistoricalAlarmViewer_controls.htm">AdroitHistoricalAlarmViewer controls</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Ctrl_Charts">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Charts</p>
+                        <p>(Bar, Column, Line, Pie,&#160;XYPlot 
+ or Surface)</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="Ctrl/Chart_Column.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                        <p>
+                            <img src="Ctrl/Chart_Line.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                        <p>
+                            <img src="Ctrl/Chart_Pie.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Charting controls that report both live and historical data, 
+ using a (horizontal) bar, (vertical) column, line, pie, XY plot or surface 
+ chart. For details, see <a href="Ctrl/Charting_controls.htm">Charting 
+ controls</a>.</p>
+                        <p><a href="Ctrl/How_to_chart_discreet_data.htm">How to chart discreet data</a>.</p>
+                        <p><a href="Ctrl/How_to_chart_dataset_data.htm">How to chart dataset data</a>.</p>
+                        <p><a href="Ctrl/How_to_chart_databinder_data.htm">How to chart databinder data</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ContextMenuStrip</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="Ctrl/ContextMenuStrip.jpg" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Provides a right-click or shortcut menu for the graphic 
+ form. For details, see <a href="Ctrl/ContextMenuStrip_components.htm">ContextMenuStrip 
+ components</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">DataGrid</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <img src="Ctrl/Form%20components%20-%20Controls%20-%20DataGrid%20Icon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Displays the data provides a spreadsheet-type user interface for 
+ data elements of type <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">dataset<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">tabular data or data that is contained within one or more tables; each table contains one or more columns and each column consists of one or more rows.</span></span>. 
+ For details, see <a href="Ctrl/DataGrid_controls.htm">DataGrid controls</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Ctrl_Adroit">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>EventViewer</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="Ctrl/EventViewerCtrlIcon.bmp" style="border: none;width: 14px;height: 15px;float: none;border-style: none;" width="14" height="15" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Exposes the events recorded in an event log file, so that these 
+ events can be monitored. For details, see <a href="Ctrl/EventViewer_controls.htm">EventViewer 
+ controls</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">FileBrowser </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <img src="Ctrl/FileBrowserIcon.jpg" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Allows <span class="VIPAppName">SmartUI</span> users to display  to view, edit, upload and/or delete documents  pertaining to ALL the ISA S88 / S95 hierarchical levels of your <span class="VIPAppName">SmartUI</span> project or to simply view the documents within a specific folder on the <span class="VIPAppName">SmartUI</span> Server computer. For details, see <a href="Ctrl/FileBrowser_controls.htm">FileBrowser controls</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Designer_VerMinorThree">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">Gauges</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <img src="Ctrl/GaugesCategoryIcon.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Numerous customizable gauges, which all use the same properties and behave uniformly, so they can be easily interchanged. For details, see <a href="Ctrl/Gauge_controls.htm">Gauge controls</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>MenuStrip</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="Ctrl/MenuStrip.jpg" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Provides a dockable menu that is displayed on the graphic 
+ form. For details, see <a href="Ctrl/MenuStrip_components.htm">MenuStrip 
+ components</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Ctrl_SecMan">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">SecurityManager</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <img src="Ctrl/SecurityManagerIcon.bmp" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"> Configures and and manages user security in the <span class="VIPAppName">SmartUI</span> Operator to configure, which previously could only be performed using the <span class="VIPAppName">SmartUI</span> Designer. For details, see <a href="Ctrl/SecurityManager_controls.htm">SecurityManager controls</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">TableLayoutPanel</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <img src="Ctrl/TableLayoutPanel_Icon_16x16.png" style="border: none;float: none;border-style: none;width: 16;height: 16;" border="0" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Adds and arranges controls in a table, so that these controls can change dynamically as the application environment changes. For details, see <a href="Ctrl/TableLayoutPanel_controls.htm">TableLayoutPanel controls</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Ctrl_Templates">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>TemplateGO</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="Ctrl/Form%20components%20-%20Controls%20-%20TemplateGO%20Icon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Displays an existing graphic form within another 
+ graphic form. For details, see <a href="Ctrl/TemplateGO_controls.htm">TemplateGO 
+ controls</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">TemplateGOContextNav </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <img src="Ctrl/TemplateGOContextNavIcon.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To typically view the <b>Default</b> context of the Context View in the Operator, to display the graphic forms associated to the nodes of this context. For details, see <a href="Ctrl/TemplateGOContextNav_controls.htm" class="MCXref_0">TemplateGOContextNav controls</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Ctrl_Templates">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>TemplateGONavToolbar</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="Ctrl/TGONavTlb_icon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Creates an entire graphic 
+ form navigational system. For details, see <a href="Ctrl/TemplateGONavToolbar_controls.htm">TemplateGONavToolbar 
+ controls</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Designer_VerMinorThree">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">TimePicker</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <img src="Ctrl/TimePicker_Icon_16x16.png" style="border: none;float: none;border-style: none;width: 16;height: 16;" border="0" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Specifies  (or displays) a time (day, hour, minute and second) by using spin controls, which is stored in milliseconds. For details, see <a href="Ctrl/TimePicker_controls.htm">TimePicker controls</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Ctrl_TrnCfg">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">TrendConfigurator</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <img src="TrendConfiguratorControl.jpg" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Customises the values trended by an associated LineChart control, according to their requirements, which they can then reload when they next logon. For details, see <a href="Ctrl/TrendConfigurator_controls.htm">TrendConfigurator controls</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Ctrl_Data">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>VIZNETBindingNavigator</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="../../../../image83.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Provides a toolbar of commands that 
+ allows a user to interact with the data a table or View of a DataBinder. 
+ For details, see <a href="Ctrl/VIZNETBindingNavigator_controls.htm">VIZNETBindingNavigator 
+ controls</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Ctrl_Data">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>VIZNETDataBinder</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="../../../../image43.gif" style="border: none;width: 16px;height: 16px;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Exposes the data of a DataBinder to other controls 
+ and components on a graphic form. For details, see <a href="Ctrl/VIZNETDataBinder_components.htm">VIZNETDataBinder 
+ components</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>WebBrowser</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1" style="text-align: center;">
+                        <p>
+                            <img src="Ctrl/WebBrowser_Icon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>Displays a web page (a URL) in a graphic form. 
+ For details, see <a href="Ctrl/WebBrowser_controls.htm">WebBrowser 
+ controls</a>.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>For more information about using controls and components in graphic 
+ forms, see <a href="Working_with_controls_and_components.htm">Working with controls 
+ and components</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

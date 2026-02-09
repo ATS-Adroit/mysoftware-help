@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.ConfigEditor" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Customizing Server settings.doc" /><title>Working with the Config editor</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor710"></a>Working with the <span class="VIPConfigEditorName">Adroit Config Editor</span><a name="kanchor711"></a><a name="kanchor712"></a><a name="kanchor713"></a><a name="kanchor714"></a><a name="kanchor715"></a><a name="kanchor716"></a> <![CDATA[  ]]><a name="kanchor717"></a><a name="kanchor718"></a><a name="kanchor719"></a><a name="kanchor720"></a><a name="kanchor721"></a><a name="kanchor722"></a><a name="kanchor723"></a><a name="kanchor724"></a><a name="kanchor725"></a></h1>
+        <p><a name="kanchor726"></a><a name="kanchor727"></a><a name="kanchor728"></a>
+        </p>
+        <p>The <span class="VIPConfigEditorName">Adroit Config Editor</span> can customise the installed applications and/or services by modifying 
+ their default settings, some of which are contained in each <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;" name="kanchor729">.CONFIG file<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">This .NET file is similar to an .INI file, in a single .CONFIG file is used per application to contain its user-configurable settings. This text file is located in the installation folder and has the same name as its application.</span></span>. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a></p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p>These files are named according to their application or service and located 
+ in the installation folder (typically: <span class="VIPInstallFolder">C:\Program Files\Adroit Technologies\Adroit\SmartUI</span>). Although these text files can be manually 
+ edited, it is recommended to use this application for the following reasons:</p>
+            <ul>
+                <li class="Bullets" value="1">It makes it easier to view, 
+ identify and configure these settings and prevents one from mistakenly 
+ modifying anything except their values.</li>
+                <li class="Bullets" value="2">It exposes the settings 
+ of all the .CONFIG files located within the installation folder, so that 
+ it is possible to configure one or more of these applications at a time. 
+ Instead of manually navigating to the installation folder and opening 
+ each file individually.</li>
+                <li class="Bullets" value="3">It also provides a concise 
+ description of each setting and can provide comprehensive help too, if 
+ necessary.</li>
+            </ul>
+            <p class="Notices"><b>WARNING!</b> Users who do not use this editor and 
+ who modify these .CONFIG files directly, do so at their own risk, since renaming or removing a setting may 
+ render an application inoperable and/or cause its functioning to be impaired.</p>
+        </div>
+        <p class="ListDesc">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</p>
+        <p>The configurable settings provided by the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span> are arranged as follows:</p>
+        <p>The following settings that affect all <span class="VIPAppName">SmartUI</span> applications are displayed in the lower left hand corner of the application  alongside the version and the various buttons:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Language being used in applications</b>: Select the required language from the list of available languages and click the <b>Update</b> button.</li>
+            <li class="Bullets" value="2"><b>Theme</b>: Select the theme from this list box, which determines how the user interfaces of all the <span class="VIPAppName">SmartUI</span> applications are displayed.</li>
+        </ul>
+        <p>The other settings are classified into the following pages of related settings:</p>
+        <p class="Notices"><b>Note:</b> Since this 
+ is a configuration dialog it provides the standard navigation and layout features 
+ common to all configuration dialogs. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../10Cfg/20DesEnv/Working_with_configuration_dialogs.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with configuration dialogs</a></span>.</p>
+        <ol>
+            <li class="Numbers" value="1">
+                <p>The <b>Configuration</b> page, which can specify the currently active configuration that all the application settings pertain to. For details, see <a href="Working_with_Configurations.htm">Working with Configurations</a>. </p>
+                <p>This contains the    <b>Welcome</b> section, 
+ which simplifies the essential configuration of the main <span class="VIPAppName">SmartUI</span> components, 
+ namely the  Server, Designer and/or Operator, depending on which 
+ components are installed. For details, see the <a href="Welcome_Config_Editor_section.htm">Welcome section</a>.</p>
+                <ol>
+                    <li class="Bullets" MadCap:conditions="VIP.AdroitConfig" value="1">
+                        <p><a href="Agent_Server_Configuration.htm">Agent Server Configuration</a>: this section configures the fundamental and advanced settings of the <span class="AdroitAppName">Adroit</span> Agent Server and/or its protocol drivers.</p>
+                        <p class="Notices"><b>Note:</b> This option 
+ ONLY appears when  <span class="AdroitAppName">Adroit</span> is installed.</p>
+                    </li>
+                    <li class="Bullets" MadCap:conditions="VIP.ServerConfig" value="2"><a href="Setting_up_the_Server.htm">Setting up the Server</a>: 
+ this section configures the fundamental general, directory, 
+ backup and security settings of the <span class="VIPAppName">SmartUI</span> Server.</li>
+                    <li class="Bullets" MadCap:conditions="VIP.DesignerConfig" value="3"><a href="Setting_up_the_Designer.htm">Setting up the Designer</a>: 
+ this section configures the fundamental login, 
+ connections, user interface and scripting settings of the <span class="VIPAppName">SmartUI</span> Designer.</li>
+                    <li class="Bullets" MadCap:conditions="VIP.OperatorConfig" value="4"><a href="Setting_up_the_Operator.htm">Setting up the Operator</a>: 
+ this section configures the fundamental login, 
+ connections, user interface and scripting settings of the <span class="VIPAppName">SmartUI</span> Operator.</li>
+                    <li class="Bullets" MadCap:conditions="VIP.Launcher" value="5"><a href="Setting_up_the_Launcher.htm">Setting up the Launcher</a>: 
+ this section creates a custom  <span class="VIPAppName">SmartUI</span> Launcher installation that is pre-configured to connect to your <span class="VIPAppName">SmartUI</span> Web service and <span class="VIPAppName">SmartUI</span> Distribution service.</li>
+                    <li class="Bullets" MadCap:conditions="VIP.ClickOnce" value="6"><a href="Setting_up_ClickOnce.htm">Setting up ClickOnce</a>: this section creates a custom  <span class="VIPAppName">SmartUI</span> ClickOnce installation (deployment) of  your <span class="VIPAppName">SmartUI</span> Operator.</li>
+                    <li class="Bullets" value="7">
+                        <p><a href="System_Backup_and_Restore.htm">System Backup and Restore</a>: this section configures the settings required to backup and restore your <span class="VIPAppName">SmartUI</span> and/or <span class="AdroitAppName">Adroit</span> user-configuration.</p>
+                        <p class="Notices"><b>WARNING:</b> This should NOT be used to transfer project files to and from an engineering workstation.</p>
+                    </li>
+                </ol>
+            </li>
+            <li class="Numbers" value="2">The                   <b>Advanced</b> section, in contrast, allows the more advanced user to configure all the 
+ settings of all the installed  applications and/or services 
+ and so limited assistance is provided. For details, see the <a href="Advanced_Config_Editor_section.htm">Advanced section</a>.</li>
+        </ol>
+        <p>The <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span> also provides a number of command line settings, when launching this utility manually. For more details, see <a href="Config_Editor_command_line_settings.htm">Config editor command line settings</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

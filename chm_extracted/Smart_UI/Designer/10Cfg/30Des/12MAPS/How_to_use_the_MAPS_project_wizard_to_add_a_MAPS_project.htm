@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with MAPS" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.MAPS" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to use the MAPS project wizard to add a MAPS project</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1511"></a><a name="kanchor1512"></a><a name="kanchor1513"></a><a name="kanchor1514"></a><a name="kanchor1515"></a><a name="kanchor1516"></a>How to use the <span class="VIPMAPSProductName">MAPS</span> project wizard to add a <span class="VIPMAPSProductName">MAPS</span> project</h1>
+        <p class="Notices" MadCap:conditions="Common.MAPSinAdr"><b>Note:</b> In <span class="AdroitAppName">Adroit</span> all <span class="VIPMAPSProductName">MAPS</span>-related PLC functionality is disabled.</p>
+        <p>As mentioned in the overview, <span class="VIPMAPSProductName">MAPS</span> provides a more structured approach 
+ to automation projects, such as the adherence to an extended physical 
+ model of the S88/S95 hierarchical structure and the need for the engineers 
+ to PLAN the following BEFORE creating a <span class="VIPMAPSProductName">MAPS</span> project:</p>
+        <ul>
+            <li class="Bullets" value="1">Create a complete schedule 
+ of all the electrical and instrumentation equipment required in the plant, 
+ which is organised according an extended physical model of the hierarchical 
+ structure specified by the ISA S88 and S95 standards. For more details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="How_MAPS_implements_the_S88_S95_hierarchy.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">How <span class="VIPAppName">SmartUI</span> implements the S88 / S95 hierarchy</a></span>.</li>
+        </ul>
+        <p>
+            <MadCap:conditionalText MadCap:conditions="Common.MAPSinAdr">The </MadCap:conditionalText><span class="VIPMAPSProductName">MAPS</span> project wizard in the <span class="VIPAppName">SmartUI</span> Designer provides a “first 
+ principal” approach of using the <span class="VIPMAPSProductName">MAPS</span> Project Wizard, showing how <span class="VIPMAPSProductName">MAPS</span> uses the S88/S95 extended physical model hierarchy to organise 
+ equipment.</p>
+        <p class="Notices"><b>IMPORTANT:</b> This does NOT link the link 
+ the <span class="VIPMAPSProductName">MAPS</span> project (and database) to the EPLAN&#160;database, so you cannot take advantage of the complete automation solution life-cycle management provided by MAPS.</p>
+        <p class="Notices"> <b>Tip:</b> Although you can bulk-configure this project using MS Excel, by exporting the project to Microsoft Excel, we recommend that you first use the <span class="VIPMAPSProductName">MAPS</span> Project wizard to create at least one Plant Area, PLC, Unit and Equipment – to understand the required syntax and requirements for these items. For details, see <a href="Exporting_MAPS_projects_to_and_importing_them_from_Excel.htm">Bulk configuring <span class="VIPMAPSProductName">MAPS</span> projects</a> .</p>
+        <h2>Using the <span class="VIPMAPSProductName">MAPS</span> project wizard to configure a new <span class="VIPMAPSProductName">MAPS</span> project:</h2>
+        <p><b>Pre-requisites</b>
+        </p>
+        <ul>
+            <li class="Bullets" value="1">Ensure that you have installed 
+ the <span class="VIPAppName">SmartUI</span> Server and  or GX Works2.</li>
+            <li class="Bullets" value="2">Ensure that you can log 
+ into the <span class="VIPAppName">SmartUI</span> Designer to configure <span class="VIPMAPSProductName">MAPS</span> projects.</li>
+            <li class="Bullets" value="3">Create a list of ALL the 
+ items of electrical and instrumentation equipment required in each plant 
+ site that is organised according to an extended physical model of the 
+ S88/S95 hierarchical structure. For more details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="How_MAPS_implements_the_S88_S95_hierarchy.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">How 
+ <span class="VIPMAPSProductName">MAPS</span> implements the S88 / S95 hierarchy</a></span>.</li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> You need 
+ to create a <span class="VIPAppName">SmartUI</span> project for EACH of your process Sites.</p>
+        <ul>
+            <li class="Bullets" value="1">Specify the IO types in 
+ each PLC and group the virtual IO cards to ensure efficient scanning.</li>
+            <li class="Bullets" value="2">Configure the settings 
+ of each Agent Server - do not rely on the default settings. For details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Setting_up_the_Adroit_Agent_Server.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Setting up the <span class="AdroitAppName">Adroit</span> Agent Server</a></span>.</li>
+            <li class="Bullets" value="3">Create and configure the 
+ necessary  PLC devices (instances) in <span class="AdroitAppName">Adroit</span> for each PLC. </li>
+        </ul>
+        <ol start="1">
+            <li class="Numbers" value="1">If necessary, start the 
+ <span class="VIPAppName">SmartUI</span> Server.</li>
+            <li class="Numbers" value="2">Log into the <span class="VIPAppName">SmartUI</span> Designer 
+ application and ensure that the <span class="VIPMAPSProductName">MAPS</span> window is displayed.</li>
+            <li class="Numbers" value="3">In the <span class="VIPMAPSProductName">MAPS</span> window, right-click the initial entry
+  and select <b>Add project</b>.</li>
+        </ol>
+        <p class="ListDesc">The <b>Project Name</b> 
+ page of the <span class="VIPMAPSProductName">MAPS</span> project wizard opens, so that you can configure the <span class="VIPMAPSProductName">MAPS</span> 
+ project-specific settings.</p>
+        <ol start="4">
+            <li class="Numbers" value="4">Specify the MANDATORY <b>Project Name</b> and <b>Description</b>, 
+ which identify the associated process Site.</li>
+        </ol>
+        <p class="ListNotice"><b>WARNING!</b> You 
+ CANNOT rename this <span class="VIPAppName">SmartUI</span> Project name.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">Specify the following <b>Project Settings:</b></li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Use the 
+ <b>Properties</b> right click option 
+ to change these settings after creating a <span class="VIPAppName">SmartUI</span> project.</p>
+        <ul>
+            <li class="ListBullets" value="1"><b>Project Path</b>: specifies where the following items are saved:</li>
+            <li class="ListSubBullet" value="2"> the generated project  reports, in the Reports sub-folder, </li>
+            <li class="ListSubBullet" value="3"> the generated project  reports, in the Documents sub-folder, </li>
+        </ul>
+        <ul>
+            <li class="ListBullets" value="1"><b>Default 
+ Project Report:</b> specifies the path and name of the report template 
+ used for the project reports. If this is BLANK, the default setting, then 
+ the GENERIC project report template is used.</li>
+        </ul>
+        <p class="ListBullDesc">The GENERIC project report template provides the 
+ S88/S95 hierarchy, which includes <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following separate lists of each hierarchy level:</a></p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ul>
+                <li class="ListSubBullet" value="1">A list of the configured 
+ Plant Areas and their settings.</li>
+                <li class="ListSubBullet" value="2">A list of the configured 
+ PLCs (Process Cells) and their settings.</li>
+                <li class="ListSubBullet" value="3">A list of the configured 
+ Units and their settings.</li>
+                <li class="ListSubBullet" value="4">A list of each configured 
+ item of equipment and their signals.</li>
+            </ul>
+        </div>
+        <p class="ListBullNote"><b>Tip:</b> You 
+ can customise this GENERIC project report template, for example, by adding 
+ your company logo to its title. For details, see <a href="Customizing_report_templates.htm">Customizing 
+ report templates</a>. &#160;&#160;</p>
+        <ul>
+            <li class="ListBullets" value="1"><b>MAPS Reporting Database SQL Connection String</b>: if you want to use some or all of the <span class="AdroitAppName">Adroit</span> Reporting Suite reports to analyse your <span class="AdroitAppName">Adroit</span> alarming data to improve your alarming configuration and/or record any value that an operator manually changes for auditing purposes, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="CfgPrjReportDBforAdroitAnalysis"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />then do the following:</a> <![CDATA[ ]]></li>
+        </ul>
+        <div MadCap:targetName="CfgPrjReportDBforAdroitAnalysis" style="display: none;">
+            <ul>
+                <li class="ListSubBullet" value="1">manually create an empty SQL (SQL&#160;2008 R2 with Advanced Services) database, typically via the SQL Server Management utility (which is installed by the SQL&#160;2008 R2 with Advanced Services installation) and </li>
+                <li class="ListSubBullet" value="2">
+                    <p>specify the connection string to this database here, typically by clicking the browse button to the right of the <b>MAPS Reporting Database SQL Connection String</b> field and then use the displayed  <b>Connection Properties</b> dialog to connect to this  SQL database. </p>
+                    <p>Typically do NOT  change the <b>Data source</b> from the default of <b>.NET Framework Data Provider for OLE&#160;DB</b>, unless you are connecting to a SQL Compact database. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">More details:<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> in which case, click the <b>Change...</b> button and choose the datasource that corresponds to the correct version of SQL Compact and then the dialog will change so that you only need to browse in the required database file and specify the required password, if any.</span></span></p>
+                </li>
+            </ul>
+            <p class="ListDescSub">Once this database is specified, then <MadCap:conditionalText MadCap:conditions="Common.VerMinorFour">you can right click the MAPS Project in the <b>Enterprise Manager</b> and select the <b>Create Adroit Report Suite</b> right click command, which creates</MadCap:conditionalText> the following agents for this <span class="VIPMAPSProductName">MAPS</span> project: an AlarmManagement, an Audit agent and a DBLog agent, which are configured as follows:</p>
+            <ul>
+                <li class="ListSubBullet" value="1"> The AlarmManagement agent re-creates the S88 MAPS structure of your project for all the alarmed tags.</li>
+            </ul>
+            <p class="ListNoteSub"><b>IMPORTANT:</b> You need to purchase a separate license for the <span class="AdroitAppName">Adroit</span> AlarmManagement agent before you can use this agent to log your alarming data, which you can analyse using the Alarm Management reports.</p>
+            <ul>
+                <li class="ListSubBullet" value="1">The Audit agent adds all the tags that are output enabled, so that any Operator change in value is audited (logged to this database) for later analysis. </li>
+                <li class="ListSubBullet" value="2">The DBLog agent is enabled to start logging and all the agent values logged by the <span class="VIPMAPSProductName">MAPS</span> Templates of this project are also logged to this SQL database.</li>
+            </ul>
+            <p class="ListDescSub">The names of these created agents use the specified <span class="VIPMAPSProductName">MAPS</span> project name and the specific agent type name. For instance, if the <span class="VIPMAPSProductName">MAPS</span> project name is MYPROJ then the following three agents are created: MYPROJ_AMA, MYPROJ_AUDIT and MYPROJ_DBLOG.</p>
+            <p class="ListDescSub">Then after installing the required reports of the <span class="AdroitAppName">Adroit</span> Report Suite you can  use them to analyse your alarms and/or audited items and/or the agent values logged by the DBLog agent.</p>
+        </div>
+        <li style="margin-left: 55px;" class="ListBullets" value="26">
+            <p><b>Default Screen size:</b> Specify the required screen resolution of ALL the graphic forms of your <span class="VIPMAPSProductName">MAPS</span> project, by  selecting the required screen dimensions,  in pixels, from the list.</p>
+            <p><span class="VIPMAPSProductName">MAPS</span> then automatically adjusts the size of ALL your graphic forms in this project to fit onto the selected screen resolution.</p>
+        </li>
+        <p>Since one of the purposes of the Operator View, which is generated by each <span class="VIPMAPSProductName">MAPS</span> project, is to provide navigation through the defined   plant 
+ areas, PLCs, units and equipment, <span class="VIPMAPSProductName">MAPS</span> projects allow you to <b>Select Operator View Layout</b>, as follows:</p>
+        <ol>
+            <li class="Bullets" value="1">
+                <p><b>Advanced</b>: this view provides a 
+  navigational structure of different panes, which each provide buttons that display the available  plant 
+ areas, PLCs, units and equipment defined in your <span class="VIPMAPSProductName">MAPS</span> project. </p>
+                <p class="Notices"><b>Note:</b> This view is more visually appealing and allows your operators to customise this view by hiding or showing the different panes, as needed.</p>
+            </li>
+            <li class="Bullets" value="2">
+                <p><b>Simple</b>: this view  uses menus and sub menus to navigate through the available  plant 
+ areas, PLCs, units and equipment defined in your <span class="VIPMAPSProductName">MAPS</span> project.</p>
+                <p class="Notices"><b>Note:</b> This view provides the same functionality as the Advanced view only in a simpler navigational format.</p>
+            </li>
+        </ol>
+        <li style="margin-left: 55px;" class="ListBullets" value="27"><b>Show Equipment Title:</b> specify whether you want to display or hide the names of your equipment on the graphic forms, by  checking or unchecking the <b>Show Equipment Title</b> checkbox, which is checked (displayed) by default. Typically you will hide these equipment names to unclutter their graphic forms or when these names only serve to confuse your operators.  </li>
+        <p class="ListNotice"><b>IMPORTANT:</b> 
+ Only check the <b>Empty Project</b> checkbox 
+ to MANUALLY add plant areas, PLCs, Units and equipment to this site (<span class="VIPAppName">SmartUI</span> 
+ project) - in this case, clicking <b>Next</b> 
+ ends this wizard.</p>
+        <ol start="6">
+            <li class="Numbers" value="6">Click <b>Next</b> 
+ and define the required Plant Areas.</li>
+        </ol>
+        <p class="ListDesc">The <b>Plant Area Data</b> 
+ page opens so that you can define the various areas within this process 
+ site (<span class="VIPAppName">SmartUI</span> project). Add a row to the <b>Plant 
+ Area Data</b> table for each plant area and complete the following 
+ fields:</p>
+        <p class="ListNotice"><b>Note:</b> To delete 
+ a row, select it and press the DELETE key and click Yes in the deletion 
+ confirmation dialog.</p>
+        <ul>
+            <li class="ListBullets" value="1">The MANDATORY <b>Name</b> and <b>Description</b> 
+ of the plant area.</li>
+        </ul>
+        <p class="ListBullNote"><b>WARNING!</b> 
+ You CANNOT rename this plant area name.</p>
+        <p class="ListBullNote"><b>Note:</b> Ensure 
+ that each plant area name is unique.</p>
+        <ul>
+            <li class="ListBullets" value="1">The MANDATORY <b><span class="VIPAppName">SmartUI</span> 
+ Server Name</b> that typically specifies the local <span class="VIPAppName">SmartUI</span> Server, which 
+ is the <b>Default</b> setting.</li>
+        </ul>
+        <p class="ListBullDesc">If necessary, you can specify a remote <span class="VIPAppName">SmartUI</span> Server, 
+ <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> if you have more than one <span class="VIPAppName">SmartUI</span> Servers on your network (and their BroadcastEnabled 
+ setting is TRUE), then their <span class="VIPAppName">SmartUI</span> Server names will also appear in this 
+ list (in the following format: [ComputerName] Literal Server Name) - simply 
+ select the name of the required remote <span class="VIPAppName">SmartUI</span> Server from the list. 
+
+</span></span></p>
+        <p class="ListBullDesc">Typically this <span class="VIPAppName">SmartUI</span> Server provides a connection 
+ to a single Agent Server that contains the SCADA tags for this plant area.</p>
+        <p class="ListBullDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click here if you have more than one Agent Server connected to a <span class="VIPAppName">SmartUI</span> server:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <p class="ListBullDesc">Check the <b>Advanced</b> 
+ checkbox to display the <b>Agent Server</b> column and use this column 
+ to specify which Agent Server this plant Area should use.</p>
+            <ul>
+                <li class="BulletSub" value="1"><b>Offline:</b> 
+ When the Agent Server does not exist or is not available - in this case 
+ you are unable to create or synchronise tags.</li>
+            </ul>
+            <p class="BullSubNote"><b>Note:</b> If the 
+ Agent Server is specified as being <b>Offline</b> 
+ then you need to type in an appropriate <b>Adroit 
+ Device</b> name when configuring the PLCs.</p>
+            <ul>
+                <li class="BulletSub" value="1"><b>Agent 
+ Server connection name:</b> The name of the <span class="AdroitAppName">Adroit</span> datasource - the 
+ connection that is made to an Agent Server from the specified <span class="VIPAppName">SmartUI</span> Server.</li>
+            </ul>
+            <p class="BullSubNote"><b>Note:</b> This 
+ is the name of the connection to the Agent Server as specified in the 
+ <span class="VIPAppName">SmartUI</span> Server and is NOT necessarily the name of the Agent Server as it is specified in <span class="AdroitAppName">Adroit</span>.</p>
+        </div>
+        <ul start="7">
+            <li class="ListBullets" value="7">
+                <p>The OPTIONAL <b>Plant 
+ Area Code</b> if specified, this (unique 5-character alphanumeric) code 
+ becomes the prefix that is used for all the equipment items defined within 
+ this plant area. </p>
+                <p>This is recommended as it helps to ensure unique and 
+ identifiable tag names in the project, that allow you to easily differentiate 
+ your plant equipment.</p>
+            </li>
+        </ul>
+        <ol start="7">
+            <li class="Numbers" value="7">Click <b>Next</b> to define 
+ the required <b>PLCs</b> and, if necessary, the IO address ranges for 
+ each PLC.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>PLC Data</b> page 
+ once all the MANDATORY fields are correctly completed for all the added 
+ plant areas.</p>
+        <p class="ListDesc">The <b>PLC Data</b> 
+ page opens so that you can specify the PLCs containing the tags within 
+ each plant area. Add a row to the top <b>PLC 
+ Data</b> table for each PLC and complete the following fields:</p>
+        <ul>
+            <li class="ListBullets" value="1">The MANDATORY <b>Name</b> and <b>Description</b> 
+ of the PLC.</li>
+        </ul>
+        <p class="ListBullNote"><b>WARNING!</b> 
+ You CANNOT rename this PLC name.</p>
+        <p class="ListBullNote"><b>Note:</b> Ensure 
+ that each PLC name is unique.</p>
+        <ul>
+            <li class="ListBullets" value="1">Select the MANDATORY 
+ plant area whose tags are contained in this PLC from the <b>Plant Area 
+ Name</b> list.</li>
+        </ul>
+        <p class="ListBullDesc">This list specifies all the previously defined plant 
+ areas.</p>
+        <ul>
+            <li class="ListBullets" value="1">Select the MANDATORY 
+ device that <span class="AdroitAppName">Adroit</span> uses to communicate to this PLC in the field from the 
+ <b>Adroit Device</b> list.</li>
+        </ul>
+        <p class="ListBullNote"><b>Note:</b> If 
+ the Agent Server specified for a plant area is <b>Offline</b> 
+ then type in an appropriate <b>Adroit Device</b> 
+ name, since you CANNOT continue to the next page until a device is specified 
+ for EACH PLC!</p>
+        <ol start="8">
+            <li class="Numbers" value="8">Use the bottom list to 
+ define the MANDATORY address ranges (the <b>Start</b> 
+ and <b>End</b> addresses) for each type 
+ of IO within each defined PLC.</li>
+        </ol>
+        <p class="ListDesc">Select the required PLC (row of the top <b>PLC 
+ Data</b> table) and define its IO address ranges accordingly.</p>
+        <p class="ListNotice"><b>Note:</b> You are unable 
+ to continue to the next page of this wizard until you have specified a 
+ start and end value for ALL the specified IO of EACH PLC.</p>
+        <ol start="9">
+            <li class="Numbers" value="9">Click <b>Next</b> and define 
+ the required <b>Units</b> within each <b>PLC</b>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Unit Data</b> 
+ page once all the MANDATORY fields are correctly completed for all the 
+ added PLCs.</p>
+        <p class="ListDesc">The <b>Unit Data</b> 
+ page opens so that you can specify the unit/s (tag groupings) within each 
+ PLC of this process site (<span class="VIPMAPSProductName">MAPS</span> project). Add a row to the <b>Unit 
+ Data</b> table for each unit and complete the following fields:</p>
+        <ul>
+            <li class="ListBullets" value="1">The MANDATORY <b>Name</b> and <b>Description</b> 
+ of the Unit.</li>
+        </ul>
+        <p class="ListBullNote"><b>WARNING!</b> 
+ You CANNOT rename this unit name.</p>
+        <p class="ListBullNote"><b>Note:</b> Ensure 
+ that each Unit name is unique.</p>
+        <ul>
+            <li class="ListBullets" value="1">Select the MANDATORY 
+ PLC that contains the tags within this unit from the <b>PLC Name</b> list.</li>
+        </ul>
+        <p class="ListBullDesc">This list specifies all the previously defined PLCs.</p>
+        <ol start="10">
+            <li class="Numbers" value="10">Click <b>Next</b> and specify 
+ ALL the types of electrical equipment and their quantities as required 
+ for this site (<span class="VIPMAPSProductName">MAPS</span> project) in the <b>Electrical Data</b> page.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Electrical Data</b> 
+ page once all the MANDATORY fields are correctly completed for all the 
+ added units.</p>
+        <p class="ListDesc">In <span class="VIPMAPSProductName">MAPS</span>, each type of electrical equipment requires an 
+ associated <span class="VIPMAPSProductName">MAPS</span> template. For more details, see <a href="Electrical_equipment_templates.htm">Electrical 
+ equipment templates</a>.</p>
+        <p class="ListDesc">In the case of complex items of equipment that consist 
+ of more than one piece of electrical and/or instrumentation equipment, 
+ like conveyors - create a Unit for this item of equipment and associate 
+ all the component electrical equipment to <span class="VIPMAPSProductName">MAPS</span> templates.</p>
+        <p class="ListDesc">The <b>Electrical Data</b> 
+ page opens so that you can specify the required quantities of <span class="VIPMAPSProductName">MAPS</span> templates 
+ to represent your electrical equipment within this process site (<span class="VIPMAPSProductName">MAPS</span> 
+ project). </p>
+        <p class="ListDesc">Add a row to <span class="VIPMAPSProductName">MAPS</span>the <b>Electrical 
+ Data</b> table for each type of <span class="VIPAppName">SmartUI</span> template that you need and complete 
+ the following fields:&#160;&#160;</p>
+        <ul>
+            <li class="ListBullets" value="1">Select the MANDATORY 
+ <b>Template Name</b> for this type of 
+ electrical equipment from the list.</li>
+        </ul>
+        <p class="ListBullDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Electrical_equipment_templates_2.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Default 
+			Electrical equipment templates</a></span>: the electrical equipment templates</p>
+        <p class="ListBullDesc">Once a template is selected, click the <b>Template 
+ Description</b> field to display a description of exactly which type 
+ of electrical equipment this <span class="VIPMAPSProductName">MAPS</span> template represents.</p>
+        <ul>
+            <li class="ListBullets" value="1">Specify the MANDATORY 
+ <b>Quantity</b> of this type of electrical 
+ equipment.</li>
+        </ul>
+        <p class="ListBullDesc">This should specify the TOTAL number of this type 
+ of electrical equipment with the entire process site (<span class="VIPMAPSProductName">MAPS</span> project).</p>
+        <p class="ListNotice"><b>WARNING!</b> 
+ Once you click the <b>Next</b> button, 
+ you are UNABLE to return to this page again, so ensure that this is correctly 
+ specified.</p>
+        <p class="ListNotice"><b>Tip:</b> If your estimation 
+ is NOT exact, you can always add other <span class="VIPMAPSProductName">MAPS</span> templates manually.&#160;</p>
+        <ol start="11">
+            <li class="Numbers" value="11">Click <b>Next</b> to configure 
+ each item of electrical equipment in the <b>Electrical Detail Data</b> 
+ page.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Electrical Detail 
+ Data</b> page when quantities are specified for all the added electrical 
+ equipment templates.</p>
+        <p class="ListDesc">The <b>Electrical Detail 
+ Data</b> page opens so that you can configure the individual items 
+ of electrical equipment of this process site (<span class="VIPMAPSProductName">MAPS</span> project). </p>
+        <p class="ListDesc">Each row 
+ of the <b>Electrical Equipment Detail Data</b> table represents an item of electrical equipment that is associated 
+ to a <span class="VIPMAPSProductName">MAPS</span> template, which requires the configuration of the following 
+ fields:</p>
+        <p class="ListDesc">By default, the quantities of each <span class="VIPMAPSProductName">MAPS</span> electrical equipment 
+ template, as specified in the <b>Electrical 
+ Data</b> page, are added as individual rows.</p>
+        <p class="ListNotice"><b>Note:</b> Rows 
+ can be manually added and configured from scratch, if you need additional 
+ items of electrical equipment.</p>
+        <ul>
+            <li class="ListBullets" value="1">The MANDATORY <b>Template Name</b> is the <span class="VIPMAPSProductName">MAPS</span> template that 
+ represents this item of electrical equipment (or one of its electrical 
+ equipment sub-components in the case of complex equipment).</li>
+            <li class="ListBullets" value="2">Specify the MANDATORY 
+   <b>Unit Name</b> (logical grouping) 
+ to which this electrical item of equipment belongs.</li>
+            <li class="ListBullets" value="3">Specify the MANDATORY 
+ <b>Name</b> of this item of electrical 
+ equipment, which is used to identify this item of equipment in the SCADA 
+ and PLC. By default, the following suggested naming format is provided: 
+ a name that is prefixed by the specified plant area code (if any) and 
+ an incrementing counter as a suffix.</li>
+        </ul>
+        <p class="ListBullNote"><b>WARNING!</b> 
+ You CANNOT rename this equipment name.</p>
+        <p class="ListBullNote"><b>Note:</b> 
+ Do not rely on the uniqueness of the specified suffix, if you manually 
+ add rows this suffix resets itself to 0001.</p>
+        <p class="ListBullNote"><b>Tip:</b> If you specify 
+ any duplicate equipment names, these are flagged (one-by-one) when you 
+ click the <b>Next</b> button, so that 
+ you can correct these.</p>
+        <ul>
+            <li class="ListBullets" value="1">Specify a MANDATORY 
+ <b>Description</b> for this item of electrical equipment, which describes 
+ its function or purpose.</li>
+            <li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Graphic</b> that represents this item of electrical equipment in the 
+ SCADA representation of this unit. The available graphical representations 
+ depend upon the selected template. For details, see <a href="Electrical_equipment_templates.htm">Electrical 
+ equipment templates</a>.</li>
+        </ul>
+        <p class="ListBullDesc">Typically the provided template graphics will always 
+ list one or more ISO representations (of the associated ISO 14617 symbol, 
+ if one exists for this item of equipment) at the top of the list, which 
+ may be followed by one or more physical representations of this item of 
+ equipment.</p>
+        <p class="ListBullDesc">Ensure that you select the graphical representation, 
+ which provides the required orientation of this item of equipment.</p>
+        <ul>
+            <li class="ListBullets" value="1">If necessary, check 
+ the <b>Create tags</b> checkbox to create the necessary SCADA tags in 
+ <span class="AdroitAppName">Adroit</span> for this item of equipment and to perform any other necessary SCADA 
+ configuration required by this template, such as scanning, logging, alarming 
+ and/or trending.</li>
+        </ul>
+        <p class="ListBullNote"><b>Note:</b> If 
+ you check the <b>Create tags</b> checkbox, this will increase the time 
+ required to create the <span class="VIPAppName">SmartUI</span> project.</p>
+        <p class="ListBullDesc">If you do NOT check the <b>Create tags</b> checkbox 
+ for this item of equipment, then AFTER finishing this wizard, select the 
+ <b>Sync tags</b> right click option for this <span class="VIPMAPSProductName">MAPS</span> project in the <span class="VIPMAPSProductName">MAPS</span> 
+ window.&#160;</p>
+        <ol start="12">
+            <li class="Numbers" value="12">Click <b>Next</b> and specify 
+ ALL the types of instrumentation equipment and their quantities as required 
+ for this site (<span class="VIPMAPSProductName">MAPS</span> project) in the <b>Instrumentation Data</b> page.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> 
+ You will only advance to the <b>Instrumentation Data</b> page once all 
+ the MANDATORY fields are correctly completed for your electrical equipment 
+ and all of their names are unique.</p>
+        <p class="ListDesc">In <span class="VIPMAPSProductName">MAPS</span>, each type of instrumentation equipment requires 
+ an associated <span class="VIPMAPSProductName">MAPS</span> template. For more details, see <a href="Instrumentation_equipment_templates.htm">Instrumentation 
+ equipment templates</a>.</p>
+        <p class="ListDesc">In the case of complex items of equipment that consist 
+ of more than one piece of instrumentation and/or electrical equipment, 
+ like conveyors - create a Unit for this item of equipment and associate 
+ all the component instrumentation equipment to <span class="VIPMAPSProductName">MAPS</span> templates.</p>
+        <p class="ListDesc">The <b>Instrumentation Data</b> page opens so 
+ that you can specify the required quantities of <span class="VIPMAPSProductName">MAPS</span> templates to represent 
+ your electrical equipment within this process site (<span class="VIPMAPSProductName">MAPS</span> project). </p>
+        <p class="ListDesc">Add 
+ a row to the <b>Instrumentation Data</b> table for each type of <span class="VIPMAPSProductName">MAPS</span> template 
+ that you need and complete the following fields:&#160;&#160;</p>
+        <ul>
+            <li class="ListBullets" value="1">Select the MANDATORY 
+ <b>Template Name</b> for this type of 
+ instrumentation equipment from the list.</li>
+        </ul>
+        <p class="ListBullDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Instrumentation_equipment_templates_2.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Default Instrumentation 
+ equipment templates</a></span>: the instrumentation equipment templates</p>
+        <p class="ListBullDesc">Once a template is selected, click the <b>Template 
+ Description</b> field to display a description of exactly which type 
+ of instrumentation equipment this <span class="VIPMAPSProductName">MAPS</span> template represents.</p>
+        <ul>
+            <li class="ListBullets" value="1">Specify the MANDATORY 
+ <b>Quantity</b> of this type of instrumentation 
+ equipment.</li>
+        </ul>
+        <p class="ListBullDesc">This should specify the TOTAL number of this type 
+ of instrumentation equipment with the entire process site (<span class="VIPMAPSProductName">MAPS</span> project).</p>
+        <p class="ListNotice"><b>WARNING!</b> 
+ Once you click the <b>Next</b> button, 
+ you are UNABLE to return to this page again, so ensure that this is correctly 
+ specified.</p>
+        <p class="ListNotice"><b>Tip:</b> If your estimation 
+ is NOT exact, you can always add other <span class="VIPMAPSProductName">MAPS</span> templates manually.&#160;</p>
+        <ol start="13">
+            <li class="Numbers" value="13">Click <b>Next</b> to configure 
+ each item of instrumentation equipment in the <b>Instrumentation Detail Data</b> page.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> You will 
+ only advance to the <b>Instrumentation Detail Data</b> page when quantities are specified for all the added instrumentation equipment 
+ templates.</p>
+        <p class="ListDesc">The <b>Instrumentation Detail Data</b> 
+ page opens so that you can configure the individual items of instrumentation 
+ equipment of this process site (<span class="VIPMAPSProductName">MAPS</span> project). </p>
+        <p class="ListDesc">Each row of the <b>Instrumentation Equipment Detail Data</b> table 
+ represents an item of instrumentation equipment that is associated to 
+ a <span class="VIPMAPSProductName">MAPS</span> template, which requires the configuration of the following fields:</p>
+        <p class="ListDesc">By default, the quantities of each <span class="VIPMAPSProductName">MAPS</span> instrumentation 
+ equipment template, as specified in the <b>Instrumentation Data</b> page, are added 
+ as individual rows.</p>
+        <p class="ListNotice"><b>Note:</b> Rows 
+ can be manually added and configured from scratch, if you need additional 
+ items of instrumentation equipment.</p>
+        <ul>
+            <li class="ListBullets" value="1">The MANDATORY <b>Template Name</b> is the <span class="VIPMAPSProductName">MAPS</span> template that 
+ represents this item of instrumentation equipment (or one of its instrumentation 
+ equipment sub-components in the case of complex equipment).</li>
+            <li class="ListBullets" value="2">Specify the MANDATORY 
+ <b>Unit Name</b> (logical grouping) 
+ to which this instrumentation item of equipment belongs.</li>
+            <li class="ListBullets" value="3">Specify the MANDATORY 
+ <b>Name</b> of this item of instrumentation 
+ equipment, which is used to identify this item of equipment in the SCADA 
+ and PLC. By default, the following suggested naming format is provided: 
+ a name that is prefixed by the specified plant area code (if any) and 
+ an incrementing counter as a suffix.</li>
+        </ul>
+        <p class="ListBullNote"><b>WARNING!</b> 
+ You CANNOT rename this equipment name.</p>
+        <p class="ListBullNote"><b>Note:</b> 
+ Do not rely on the uniqueness of the specified suffix, if you manually 
+ add rows this suffix resets itself to 0001.</p>
+        <p class="ListBullNote"><b>Tip:</b> If you specify 
+ any duplicate equipment names, these are flagged (one-by-one) when you 
+ click the <b>Next</b> button, so that 
+ you can correct these.</p>
+        <ul>
+            <li class="ListBullets" value="1">Specify a MANDATORY 
+ <b>Description</b> for this item of instrumentation equipment, which describes 
+ its function or purpose.</li>
+            <li class="ListBullets" value="2">
+                <p>Specify the MANDATORY 
+ <b>Graphic</b> that represents this item of instrumentation equipment 
+ in the SCADA representation of this unit - therefore ensure that you select 
+ the graphic that provides the required orientation of this graphic. </p>
+                <p>The 
+ available graphical representations depend upon the selected template. 
+ For details, see <a href="Electrical_equipment_templates.htm">Electrical 
+ equipment templates</a>.</p>
+            </li>
+        </ul>
+        <p class="ListBullDesc">Typically the provided template graphics will always 
+ list one or more ISO representations (of the associated ISO 14617 symbol, 
+ if one exists for this item of equipment) at the top of the list, which 
+ may be followed by one or more physical representations of this item of 
+ equipment with different orientations.</p>
+        <ul>
+            <li class="ListBullets" value="1">If necessary, check 
+ the <b>Create tags</b> checkbox to create the necessary SCADA tags in 
+ <span class="AdroitAppName">Adroit</span> for this item of equipment and to perform any other necessary SCADA 
+ configuration required by this template, such as scanning, logging, alarming 
+ and/or trending.</li>
+        </ul>
+        <p class="ListBullNote"><b>Note:</b> If 
+ you check the <b>Create tags</b> checkbox, this will increase the time 
+ required to create the <span class="VIPAppName">SmartUI</span> project.</p>
+        <p class="ListBullDesc">If you do NOT check the <b>Create tags</b> checkbox 
+ for this item of equipment, then AFTER finishing this wizard, select the 
+ <b>Sync tags</b> right click option for this <span class="VIPMAPSProductName">MAPS</span> project in the <span class="VIPMAPSProductName">MAPS</span> 
+ window.&#160;</p>
+        <ol start="14">
+            <li class="Numbers" value="14">Click <b>Finish</b> to 
+ create this new <span class="VIPMAPSProductName">MAPS</span> project.</li>
+        </ol>
+        <p class="ListNotice"><b>IMPORTANT:</b> If you selected the <b>Create 
+ tags</b> checkbox for any electrical or instrumentation equipment, 
+ <b>then you need to START the relevant</b> <span class="AdroitAppName">Adroit</span> AGENT SERVER applications BEFORE you CLICK the<b>Finish</b> button so that this process can 
+ occur.</p>
+        <p class="ListDesc">If you selected the<b> Create tags</b> checkbox for any 
+ electrical or instrumentation equipment, then their associated SCADA tags 
+ are created and any other necessary SCADA configuration is performed - 
+ provided the relevant Agent Servers have been started.</p>
+        <ol start="15">
+            <li class="Numbers" value="15">If you chose NOT to check 
+ the <b>Create tags</b> checkbox for any item of equipment, then:</li>
+            <li class="ListBullets" value="16">start the relevant 
+ <span class="AdroitAppName">Adroit</span> Agent Server applications</li>
+            <li class="ListBullets" value="17">right click each Plant Area  <img src="MAPSPlantAreaIcon.bmp" /> and select <b>Sync Tags</b> and when the <b>Tag Data</b> dialog is displayed click <b>Finish.</b></li>
+        </ol>
+        <p class="ListDesc">This creates the SCADA tags in <span class="AdroitAppName">Adroit</span> for each 
+ item of equipment and performs any other necessary SCADA configuration 
+ required by each <span class="VIPMAPSProductName">MAPS</span> template, such as scanning, logging, alarming and/or 
+ trending.</p>
+        <ol start="16">
+            <li class="Numbers" value="16">If necessary, you can rearrange 
+ the associated function blocks of the equipment, so they are easier to 
+ locate in the generated PLC program, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> right click the required Unit/s <img src="MAPSUnitIcon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" /> in the <span class="VIPMAPSProductName">MAPS</span> window and 
+ select their<b> PLC Project Order</b> option 
+ to group the related items of (electrical and instrumentation) equipment 
+ together.
+
+</span></span></li>
+        </ol>
+        <ol start="18">
+            <li class="Numbers" value="18">
+                <p>Right click the <span class="VIPMAPSProductName">MAPS</span> project 
+ <img src="MAPSPrjIcon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" /> and select <b>Build Project</b> and ensure that ONLY the following two options are checked in the resultant dialog and then click the <b>Finish</b> button:</p>
+                <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="BuildPrjDlgOptions"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Build Project dialog options:</a>
+                </p>
+                <p MadCap:targetName="BuildPrjDlgOptions" style="display: none;">
+                    <img src="BuildProjDlg_Trunc.jpg" />
+                </p>
+                <ul>
+                    <li class="ListBullets" value="1">
+                        <p><b>Build Operator View</b>: to ensure 
+ that the Operator view graphic form is aware of the default (and custom) 
+ SCADA views – so that it can automatically provide the necessary navigation 
+ between them. For more details of working with and using the Operator 
+ view graphic form, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Working_with_the_OperatorView.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with the OperatorView</a></span>.</p>
+                        <p class="Notices"><b>Tip:</b> You can use the <b>Manage Operator View</b> right click menu option of the <span class="VIPMAPSProductName">MAPS</span> Project to specify which graphic forms to display in the Operator view. </p>
+                    </li>
+                    <li class="ListBullets" value="2"><b>Rebuild All Graphics</b>: to create 
+ the applicable SCADA views. For more details on how to re-arrange the 
+ generated graphics to finish off your SCADA views, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Building_the_SCADA_views.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Building 
+ the SCADA views</a></span>.</li>
+                </ul>
+            </li>
+        </ol>
+        <ol start="19">
+            <li class="Numbers" value="19"> Click <b>Finish</b> to close the <b>Build Project</b> dialog.</li>
+        </ol>
+        <p class="Notices"><b>Tip:</b> Each right 
+ click option in the <span class="VIPMAPSProductName">MAPS</span> window provides a tool-tip explaining the function 
+ of the menu item - just hold your mouse pointer over it for quick reference.</p>
+        <p class="Notices"><b>Note:</b> Each project component 
+ in the <span class="VIPMAPSProductName">MAPS</span> window provides its own right click <b>Properties</b> item 
+ to configure its settings EXCEPT its name. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Properties_of_each_hierarchy_level_component_of_a_MAPS_project.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Properties of each hierarchy level (component) 
+ of a <span class="VIPMAPSProductName">MAPS</span> project</a></span>.</p>
+        <p class="ListDesc">&#160;</p>
+        <p>If you corrupt or make a mistake when configuring the standard graphic 
+ forms and need to reset them to their default configurations, then right 
+ click the <span class="VIPMAPSProductName">MAPS</span> Project <img src="MAPSPrjIcon.bmp" style="border: none;width: 16px;height: 16px;float: none;border-style: none;border-style: none;" width="16" height="16" border="0" /> in the <span class="VIPMAPSProductName">MAPS</span> window, select the <b>Build Project</b> option and ensure that ONLY the <b> Rebuild All Graphics</b> option is checked in the resultant dialog and click <b>Finish</b>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

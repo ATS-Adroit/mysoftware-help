@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders|Categories|Property spiders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Date and Time formatting syntax</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Date and Time formatting syntax</h1>
+        <p>The following format specifiers can be used when formatting date and/or time data:</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Commonly used date and time format 
+ specifiers:</a> 
+ These produce standard date and time formats.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p>These date and time format strings, consist of a single format specifier 
+ character from the following table.</p>
+            <p class="Notices"><b>Note:</b> If the format 
+ string is longer than a single character (even if the extra characters 
+ are white spaces), the format string is interpreted as a custom format 
+ string.</p>
+            <p>The following table describes these standard date and time format strings.</p>
+            <p class="Notices"><b>Note1:</b> The output 
+ produced by some of these format specifiers is influenced by the current 
+ <b>Regional Options</b> settings. Computers 
+ using different settings will generate different results.</p>
+            <p class="Notices"><b>Note2:</b> The example 
+ outputs specified in this table assume that a DateTime value of 8/20/2004 
+ 11:12:45 AM is being formatted.</p>
+            <p>&#160;</p>
+            <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                <col style="width: 13.554%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                <col style="width: 20.334%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <col style="width: 35.796%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <col style="width: 30.314%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <thead>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Format Specifier</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Name</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Description</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Format string = Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>d</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Short date pattern</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>This formatting may vary.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>d = 8/20/2004</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>D</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Long date pattern</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>This formatting may vary.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>D = Friday, August 20, 2004</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>t</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Short time pattern</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>This formatting may vary.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>t = 11:12 AM</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>T</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Long time pattern</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>This formatting may vary.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>T = 11:12:45 AM</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>f</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Full date/time pattern (short time)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays a combination of the long date and short time patterns, separated 
+ by a space.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>f = Friday, August 20, 2004 11:12 AM</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>F</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Full date/time pattern (long time)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>This formatting may vary.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>F = Friday, August 20, 2004 11:12:45 AM</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>g</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>General date/time pattern (short time)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays a combination of the short date and short time patterns, separated 
+ by a space.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>g = 8/20/2004 11:12 AM</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>G</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>General date/time pattern (long time)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays a combination of the short date and long time patterns, separated 
+ by a space.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>G = 8/20/2004 11:12:45 AM</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>M or m</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Month day pattern</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>This formatting may vary.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>M = August 20</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>R or r</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>RFC1123 pattern</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>This formatting always adheres to the following defined standard pattern: 
+ "ddd, dd MMM yyyy HH:mm:ss G\MT".</p>
+                            <p class="Notices"><b>Note:</b> The time 
+ displayed is for local, rather than universal (GMT) time.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>r = Fri, 20 Aug 2004 11:12:45 GMT</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>s</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Sortable date/time pattern; conforms to ISO 8601</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>This formatting always adheres to the following custom pattern "yyyy-MM-ddTHH:mm:ss".</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>s = 2004-08-20T11:12:45</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>u</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Universal sortable local date/time pattern</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>This formatting always adheres to the following defined standard pattern: 
+ "yyyy-MM-dd HH:mm:ssZ".</p>
+                            <p class="Notices"><b>Note:</b> The time 
+ displayed is for local, rather than universal (GMT) time.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>u = 2004-08-20 11:12:45Z</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>U</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Universal sortable GMT date/time pattern</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p class="Notices"><b>Note:</b> The time 
+ displayed is for the universal (GMT), rather than local time.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>U = Friday, August 20, 2004 9:12:45 AM</p>
+                            <p class="Notices"><b>Note:</b> This currently 
+ non-sortable format is caused by .NET.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                            <p>Y or y</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                            <p>Year month pattern</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                            <p>This formatting may vary.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                            <p>y = August, 2004</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>&#160;</p>
+        <p>If these commonly used date and time format 
+ specifiers do not provide the type of formatting you require, you can 
+ use the following custom format strings to further enhance your output:</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Custom date and time format specifiers:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>Combine one or more of the following custom format specifiers to construct 
+ a format that yields the output you prefer.</p>
+            <p>&#160;</p>
+            <p>The following table describes the custom format specifiers and the results 
+ they produce.</p>
+            <p class="Notices"><b>Note1:</b> The output 
+ produced by some of these format specifiers is influenced by the current 
+ <b>Regional Options</b> settings. Computers 
+ using different settings will generate different results.</p>
+            <p class="Notices"><b>Note2:</b> The example 
+ outputs specified in this table assume that a DateTime value of 8/20/2004 
+ 1:14:48 PM is being formatted.</p>
+            <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                <col style="width: 13.554%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                <col style="width: 20.334%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <col style="width: 35.796%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <col style="width: 30.314%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <thead>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Format Specifier</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Name</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Description</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Format string = Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>d</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Single or double digit day</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the current day of the month, as a number between 1 and 31, 
+ inclusive. If the day is a single digit only (1-9), then it is displayed 
+ as a single digit.</p>
+                            <p class="Notices"><b>Note:</b> If this 
+ single 'd' format specifier is used alone, without other custom format 
+ strings, it will be interpreted as the standard short date pattern format 
+ specifier.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>%d = 20</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>dd</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Double digit day</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the current day of the month, as a number between 1 and 31, 
+ inclusive. If the day is a single digit only (1-9), it is formatted with 
+ a preceding 0 (01-09).</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>dd = 20</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ddd</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Abbreviated day name</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the abbreviated name of the day.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>ddd = Fri</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>dddd (or more d's)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Full day name</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the full name of the day.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>ddddd = Friday</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>f, ff, fff, ffff, fffff, ffffff, fffffff</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Second fractions</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays seconds fractions represented by a number of digits, which 
+ are determined by the number of f's that are used (up to 7 digits).</p>
+                            <p class="Notices"><b>Note:</b> If this 
+ single 'f' format specifier is used alone, without other custom format 
+ strings, it will be interpreted as the full (long date + short time) format 
+ specifier.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>%f = 7</p>
+                            <p>ffff = 7724</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>g (or more g's)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Era</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the era (A.D. for example) .</p>
+                            <p class="Notices"><b>Note:</b> If this 
+ single 'g' format specifier is used alone, without other custom format 
+ strings, it will be interpreted as the standard general format specifier.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>gg = A.D.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>h</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Single or double digit hour</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays hours in the range 1-12, representing whole hours passed since 
+ either midnight (12)&#160;or 
+ noon (12). If this format is used alone, then the same hour before or 
+ after noon is indistinguishable. If the hour is a single digit (1-9), 
+ it is displayed as a single digit.</p>
+                            <p class="Notices"><b>Note:</b> No rounding 
+ occurs when displaying the hour. For example, a time of 5:43 returns 5.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>h = 1</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>&#160;hh 
+ (or more h's)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Double digit hour</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays hours in the range 1-12, representing whole hours passed since 
+ either midnight (12) or noon (12). If this format is used alone, then 
+ the same hour before or after noon is indistinguishable. If the hour is 
+ a single digit (1-9), it is formatted with a preceding 0 (01-09).</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>hhh = 01</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>H</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Single or double digit hour, 24hr format</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays hours in the range 0-23, representing whole hours passed since 
+ midnight (0). If the hour is a single digit (0-9), it is displayed as 
+ a single digit.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>H = 13</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>HH (or more H's)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Double digit hour, 24hr format</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays hours in the range 0-23, representing whole hours passed since 
+ midnight (0). If the hour is a single digit (0-9), it is formatted with 
+ a preceding 0 (01-09).</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>HHHHH = 13</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>m</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Single or double digit minute</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays minutes in the range 0-59, representing whole minutes passed 
+ since the last hour. If the minute is a single digit (0-9), it is displayed 
+ as a single digit.</p>
+                            <p class="Notices"><b>Note:</b> If this 
+ single 'm' format specifier is used alone, without other custom format 
+ strings, it will be interpreted as the standard month day pattern format 
+ specifier.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>%m = 14</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>mm (or more m's)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Double digit minute</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays minutes in the range 0-59, representing whole minutes passed 
+ since the last hour. If the minute is a single digit (0-9), it is formatted 
+ with a preceding 0 (01-09).</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>mmmm = 14</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>M</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Single or double digit month</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the month, as a number between 1 and 12, inclusive. If the 
+ month is a single digit (1-9), it is displayed as a single digit.</p>
+                            <p class="Notices"><b>Note:</b> If this 
+ single 'M' format specifier is used alone, without other custom format 
+ strings, it will be interpreted as the standard month day pattern format 
+ specifier.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>%M = 8</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>MM</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Double digit month</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the month, as a number between 1 and 12, inclusive. If the 
+ month is a single digit (0-9), it is formatted with a preceding 0 (01-09).</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>MM = 08</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>MMM</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Abbreviated month name</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the abbreviated name of the month.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>MMM = Aug</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>MMMM (or more M's)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Full month name</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the full name of the month.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>MMMM = August</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>s</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Single or double digit second</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays seconds in the range 0-59, representing whole seconds passed 
+ since the last minute. If the second is a single digit (0-9), it is displayed 
+ as a single digit only.</p>
+                            <p class="Notices"><b>Note:</b> If this 
+ single 's' format specifier is used alone, without other custom format 
+ strings, it will be interpreted as the standard sortable date/time pattern 
+ format specifier.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>%s = 48</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>ss (or more s's)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Double digit second</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays seconds in the range 0-59, representing whole seconds passed 
+ since the last minute. If the second is a single digit (0-9), it is formatted 
+ with a preceding 0 (01-09).</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>sss = 48</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>t</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Abbreviated A.M./P.M. designator</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the first character of the A.M./P.M. designator. If the total 
+ number of whole hours passed is less than 12, then the A.M. designator 
+ is used. Otherwise, the P.M. designator is used.</p>
+                            <p class="Notices"><b>Note:</b> If this 
+ single 't' format specifier is used alone, without other custom format 
+ strings, it will be interpreted as the standard long time pattern format 
+ specifier.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>%t = P</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>tt (or more t's)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Full A.M./P.M. designator</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the full A.M./P.M. designator. If the total number of whole 
+ hours passed is less than 12, then the A.M. designator is used. Otherwise, 
+ the P.M. designator is used.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>ttttt = PM</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>y</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Single or double digit year</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays years, by omitting the first two digits of the year. If the 
+ year is a single digit (1-9), it is displayed as a single digit.</p>
+                            <p class="Notices"><b>Note:</b> If this 
+ single 'y' format specifier is used alone, without other custom format 
+ strings, it will be interpreted as the standard short date pattern format 
+ specifier.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>%y = 4</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>yy</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Double digit year</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays years, by omitting the first two digits of the year. If the 
+ year is a single digit (1-9), it is formatted with a preceding 0 (01-09).</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>yy = 04</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>yyyy</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Four digit year</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays years, including the century. If the year is less than four 
+ digits in length, then preceding zeros are appended as necessary to make 
+ the displayed year four digits long.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>yyyy = 2004</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>z</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Single or double digit time zone offset in hours.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the time zone offset for the system's current time zone in 
+ whole hours only. <br />The offset is always displayed with a leading or trailing sign (zero is 
+ displayed as "+00"), indicating hours ahead of Greenwich mean 
+ time (+) or hours behind Greenwich mean time (-). The range of values 
+ is –12 to +13. <br />If the offset is a single digit (0-9), it is displayed as a single digit 
+ with the appropriate leading sign. <br />The displayed offset is affected by daylight savings time.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>z = +2</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>zz</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Double digit&#160;time 
+ zone offset in hours.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the time zone offset for the system's current time zone in 
+ whole hours only. <br />The offset is always displayed with a leading or trailing sign (zero is 
+ displayed as "+00"), indicating hours ahead of Greenwich mean 
+ time (+) or hours behind Greenwich mean time (-). The range of values 
+ is –12 to +13. <br />If the offset is a single digit (0-9), it is formatted with a preceding 
+ 0 (01-09) with the appropriate leading sign. <br />The displayed offset is affected by daylight savings time.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>zz = +02</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>zzz (or more z's)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Full time zone offset (hours and minutes)</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Displays the full time zone offset for the system's current time zone 
+ in hours and minutes. <br />The offset is always displayed with a leading or trailing sign (zero is 
+ displayed as "+00:00"), indicating hours ahead of Greenwich 
+ mean time (+) or hours behind Greenwich mean time (-). The range of values 
+ is –12:00 to +13:00. <br />If the offset is a single digit (0-9), it is formatted with a preceding 
+ 0 (01-09) with the appropriate leading sign. <br />The displayed offset is affected by daylight savings time.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>zzzz = +02:00</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>:</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Time separator</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Separates the components within a displayed time.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>hh:mm:ss = 01:14:48</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>/</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Date separator</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Separates the components within a displayed date.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>dd/mm/yyyy = 20/14/2004</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                            <p>%c</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                            <p>Standard format specifier usage override for identical custom format 
+ specifier characters.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                            <p>Where 'c' is both a standard format specifier and a custom format specifier, 
+ this will display the custom format pattern associated with the format 
+ specifier. Otherwise 'c' would be interpreted as a standard format specifier.</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                            <p>%d = 20</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

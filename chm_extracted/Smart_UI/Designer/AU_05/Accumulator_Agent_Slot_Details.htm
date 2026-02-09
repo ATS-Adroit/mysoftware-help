@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Accumulator Agent - Slot Details</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/Adroit10BasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor4132"></a>Accumulator Agent - Slot Details</h1>
+        <p>The <a href="../AU_01_05/The_Accumulator_Agent.htm">Accumulator agent</a> requires an input value that accumulates over time. The  Accumulator agent uses this value to calculate the difference between successive events or over a specific time period (interval).</p>
+        <h2>Slot List for the Agent</h2>
+        <ul>
+            <li class="Bullets" value="1"><b style="color: #ff0000;">Red</b> slot names indicate configuration slots. </li>
+            <li class="Bullets" value="2"><b style="color: #0000ff;">Blue</b> slot names indicate operator/process driven slots.  </li>
+            <li class="Bullets" value="3">All other slots are driven/controlled by the agent.</li>
+        </ul>
+        <table style="mc-table-style: url('../Resources/TableStyles/Adroit10BasicTableStyle.css');width: 95%;margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-Adroit10BasicTableStyle" cellspacing="2">
+            <col class="TableStyle-Adroit10BasicTableStyle-Column-Column1" style="width: 103px;" />
+            <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" style="width: 84px;" />
+            <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" style="width: 393px;" />
+            <thead>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Head-Header1">
+                    <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column1-Header1">Slot Name
+                    </th>
+                    <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column2-Header1">Type
+                    </th>
+                    <th class="TableStyle-Adroit10BasicTableStyle-HeadD-Column2-Header1">Function
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1" style="color: #ff0000;">connection</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">VARSTRING</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>This slot contains an optional connection string to the SQL Server database that is required for this  agent to maintain a history of the differential values for each period.</p>
+                        <table style="margin-left: 0;margin-right: auto;width: 95%;" class="A4-Table-NoteGrayBack">
+                            <col />
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p><b>Note:</b>
+                                        </p>
+                                        <p>If you specify <b>global</b>, the <b>Global OLE DB connection</b> string of the Agent Server is used, which is specified  in the <b><span class="AdroitAppName">Adroit</span> Config Editor</b>.</p>
+                                        <ul>
+                                            <li value="1">Typically, you can launch this tool from the Desktop shortcut. </li>
+                                            <li value="2">Select the <b>Agent Server Configuration </b><i>Welcome</i> menu item.</li>
+                                            <li value="3">Select the <b>Advanced Agent Server Configuration</b> option.</li>
+                                            <li value="4">At the bottom of the dialog, the <b>Global OLE DB connection</b> field is available for you to specify this connection string.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">deadband</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>The <b>deadband</b> slot is used to desensitise the <b>value</b> alarm limits to prevent  unnecessary alarms if the <b>value</b> is oscillating. </p>
+                        <ul>
+                            <li value="1"> This slot is optional and specifies the ‘band’ <i>(size of)</i> the ‘dead’ area outside  these alarm limits.</li>
+                            <li value="2">The deadband<b> value</b> must reduce before the alarm becomes 
+ inactive and is cleared.</li>
+                        </ul>
+                        <p class="A4-Note-SimpleImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>This <b>deadband</b> slot ONLY applies to the alarm limits for the differential <b>value</b>  and <b>NOT</b> for the <b>rate</b> of change alarm limits!</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1"><span style="color: #ff0000;">disableOnStandby	</span>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">BOOLEAN	</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Set this slot on [1] to disable SQL Query transactions on the standby clustered partner to prevent the standby Agent Server from logging duplicate records.</p>
+                        <ul>
+                            <li value="1">By default this slot is set to on [1].</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">elapsedTime</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">This slot captures the amount of time, in minutes, that has passed from the start of the current period. </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1"><span style="color: #ff0000;">enable</span>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">BOOLEAN	</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Set this slot on [1] to enable this agent.</p>
+                        <ul>
+                            <li value="1">You must enable this agent before it can start analysing the accumulating process value and calculating its differential value for each period and its rate of change.</li>
+                            <li value="2">If necessary, log the values of each period to the specified history table in the specified SQL Server database.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2"><span style="color: #ff0000;">housekeepDays</span>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">INTEGER	</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>Set this slot value, if you want to provide automatic management of the database history table.</p>
+                        <ul>
+                            <li value="1">If this agent is logging records, then use this slot to specify how many days of data you want this table to retain, to ensure that only the most  recent records are  kept. </li>
+                        </ul>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The default value of 0 disables this functionality.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1"><span style="color: #ff0000;">inputTag</span>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">TAGNAME </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">This is an optional tag that defines the accumulating process value.  If used, the value of this tag will be transferred to the <b>inputValue</b> slot.</td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2"><span style="color: #0000ff;">inputValue</span>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>This slot contains the ever increasing process value.  </p>
+                        <ul>
+                            <li value="1">If an <b>inputTag</b> is not used,  then you need to drive the <b>inputValue</b> slot.</li>
+                            <li value="2">You do this by  scanning this slot value to the required accumulating process variable stored on the front end device or by means of a script or expression.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">interval</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">INTEGER</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>The  number of minutes that define the duration of each period.</p>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>This slot is ONLY applicable if you are using an <b>intervalMode</b> of 3 or 4.</p>
+                        <p class="A4-Note-SimpleImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>ONLY when you use <b>intervalMode</b> <b>3</b> must you ensure that the specified <b>interval</b>  is divisible into 60 or is a multiple of 60, if not, period timing errors will occur.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2"><span style="color: #ff0000;">intervalMode</span>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">INTEGER</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>Use this slot to determine how you want to specify the  constant interval of time over which the differential increases in value will be calculated.</p>
+                        <p>The selected mode determines which additional slots are used to determine this period.</p>
+                        <p>The first three <i>intervalMode</i> options make use of the <b>intervalTag</b>, which is a tag that you can monitor to determine when the end of an interval has occurred, as follows:</p>
+                        <ul>
+                            <li value="1"><b>0</b>=Interval tag value goes to zero.<br /><ul><li value="1">In this case the end of the interval occurs when the value of the <b>intervalTag </b>changes from any non-zero value to a value of zero [0].</li></ul></li>
+                            <li value="2"><b>1</b>=Interval value goes (from zero) to non-zero.<br /><ul><li value="1">In this case the end of the interval occurs when the value of the <b>intervalTag</b> changes from zero [0] to any non-zero value.  </li></ul></li>
+                            <li value="3"><b>2</b>=Any interval tag value change.<br /><ul><li value="1">In this case the end of the interval occurs when the value of the <b>intervalTag</b> changes in value to any other value (a different value from its current value).</li></ul></li>
+                        </ul>
+                        <p>The next option allows you to define the required interval duration using the system time <i>(the time of the Agent Server computer)</i> and the <b>interval</b> slot, which specifies the number of minutes for the duration of each period:</p>
+                        <ul>
+                            <li value="1"><b>4</b>= Not synchronised (to clock) <ul><li value="1">In this case the agent sets the starting time of the periods to the exact time that this agent is enabled and calculates all the successive periods by adding the specified <b>interval</b> number of minutes to this starting time.</li><li value="2">For example, if the agent is configured to use this <b>intervalMode 4</b> with an <b>interval</b> of 10 minutes and this agent is  enabled at 10:02, then the first period will end at 10:12 for this mode (a full <b>interval</b> from the starting time) and the next period will end at 10:22 etc.</li></ul></li>
+                        </ul>
+                        <p>For the final option, you typically need to devise a method of driving the <b>triggerNow</b> slot via a script or an expression. or alternatively, this agent can calculate the differential value  whenever you choose to.</p>
+                        <ul>
+                            <li value="1"><b>5</b>=Manual trigger</li>
+                        </ul>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The <b>rate</b>  of change and its alarm limits only applies when using periods that have regular intervals.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1"><span style="color: #ff0000;">intervalTag	</span>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">TAGNAME	</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>A tag that defines the value that will indicate the end of an interval.</p>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>This slot is ONLY applicable if you are using an <b>intervalMode</b> of 0, 1 or 2.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">lastValue</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">The differential <b>value</b> of the previous period.</td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">periodCount </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">                INTEGER</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">            Number of elapsed periods for the current agent server session.</td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">rate</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">The rate of change of the differential <b>value</b> for the last period, specified as a value per hour.</td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">rateHiHi</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>The optional second alarm limit for a high <b>rate</b>, which if reached should typically 
+						require urgent and immediate corrective action. </p>
+                        <ul>
+                            <li value="1">When the <b>rate</b> reaches or exceeds this alarm limit, the <b>RHighHigh</b> 
+								status bit is set to 1 <i>(enabled)</i>.</li>
+                            <li value="2">This slot can be alarmed using the <b>RHighHigh</b> 
+								default alarm type.
+					</li>
+                        </ul>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The <b>deadband</b> slot does NOT apply to these <b>rate</b>  alarm limits. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">rateHi</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>The optional first alarm limit for a high <b>rate</b>, which if reached should require corrective 
+						action as soon as possible. </p>
+                        <ul>
+                            <li value="1">When the <b>rate</b> reaches or exceeds this alarm limit, the <b>RHigh</b> status 
+								bit is set to 1 <i>(enabled)</i>.</li>
+                            <li value="2">This slot can be alarmed using the <b>RHigh</b> 
+								default alarm type.
+					</li>
+                        </ul>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The <b>deadband</b> slot does NOT apply to these <b>rate</b>  alarm limits. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">rateLo</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>The optional first alarm limit for a low  
+						<b>rate</b>, which if reached should require corrective 
+						action as soon as possible. </p>
+                        <ul>
+                            <li value="1">When the <b>rate</b> lower or equal to this alarm limit is reached, the <b>RLow</b> 
+								status bit is set to 1 <i>(enabled)</i>.</li>
+                            <li value="2"> This slot can be alarmed using the <b>RLow</b> 
+								default alarm type.
+					</li>
+                        </ul>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The <b>deadband</b> slot does NOT apply to these <b>rate</b>  alarm limits. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">rateLoLo</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>The optional second alarm limit for a low 
+						<b>rate</b>, which if reached should typically 
+						require urgent and immediate corrective action. </p>
+                        <ul>
+                            <li value="1">When the <b>rate</b> lower or equal to this alarm limit is reached, the <b>RLowLow</b> 
+								status bit is set to 1 <i>(enabled)</i>.</li>
+                            <li value="2"> This slot can be alarmed using the <b>RLowLow</b> 
+								default alarm type.
+					</li>
+                        </ul>
+                        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>The <b>deadband</b> slot does NOT apply to these <b>rate</b>  alarm limits. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">startTime</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">TIME</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">The start time of the current period.</td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">startValue</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">The <b>inputValue</b> as recorded at the start of the current period.</td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1"><span style="color: #ff0000;">tableName</span>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">STRING</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>The  table name of the database that will store these records, if one has been specified via the <b>connection</b> slot. </p>
+                        <ul>
+                            <li value="1">By default, this table name is set to the name of this Accumulator agent.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">triggerNow</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">BOOLEAN</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>Performs a manual end of period, which is effective in any mode selected by the <b>intervalMode</b> slot.</p>
+                        <ul>
+                            <li value="1">The differential value for the current period, i.e. inputValue minus startValue. </li>
+                            <li value="2">This value would obviously be equal to 0 at the beginning of each period.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">value</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>The differential value for the current period, which is <b>inputValue</b> minus <b>startValue</b>. </p>
+                        <ul>
+                            <li value="1">This value is always equal to 0 at the beginning of each period, since <b>startValue</b> = <b>inputValue</b>.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">valueHi</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>The optional first alarm limit for a high <b>value</b>, which if reached should require corrective 
+						action as soon as possible. </p>
+                        <ul>
+                            <li value="1">When the <b>value</b> reaches or exceeds this alarm limit, the <b>VHigh</b> status 
+								bit is set to 1 <i>(enabled).</i></li>
+                            <li value="2">This slot can be alarmed using the <b>VHigh</b> 
+								default alarm type.
+					</li>
+                        </ul>
+                        <p class="A4-Note-SimpleTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The <b>deadband</b> slot,  can be used to desensitise this alarm limit to prevent  unnecessary alarms if the <b>value</b> is oscillating. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">valueHiHi</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>The optional second alarm limit for a high <b>value</b>, which if reached should typically 
+						require urgent and immediate corrective action. </p>
+                        <ul>
+                            <li value="1">When the <b>value</b> reaches or exceeds this alarm limit, the <b>VHighHigh</b> 
+								status bit is set to 1 <i>(enabled)</i>.</li>
+                            <li value="2"> This slot can be alarmed using the <b>VHighHigh</b> 
+								default alarm type.
+					</li>
+                        </ul>
+                        <p class="A4-Note-SimpleTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The <b>deadband</b> slot,  can be used to desensitise this alarm limit to prevent  unnecessary alarms if the <b>value</b> is oscillating. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">valueLo</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">REAL</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>The optional first alarm limit for a low  
+						<b>value</b>, which if reached should require corrective 
+						action as soon as possible. </p>
+                        <ul>
+                            <li value="1">When the <b>value</b> lower or equal to this alarm limit is reached, the <b>VLow</b> 
+								status bit is set to 1 <i>(enabled)</i>.</li>
+                            <li value="2">This slot can be alarmed using the <b>VLow</b> 
+								default alarm type.
+					</li>
+                        </ul>
+                        <p class="A4-Note-SimpleTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The <b>deadband</b> slot,  can be used to desensitise this alarm limit to prevent  unnecessary alarms if the <b>value</b> is oscillating. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column1-Body1">valueLoLo</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column2-Body1">
+                        <p>REAL</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyA-Column2-Body1">
+                        <p>The optional second alarm limit for a low 
+						<b>value</b>, which if reached should typically 
+						require urgent and immediate corrective action. </p>
+                        <ul>
+                            <li value="1">When the <b>value</b> lower or equal to this alarm limit is reached, the <b>VLowLow</b> 
+								status bit is set to 1 <i>(enabled).</i></li>
+                            <li value="2">This slot can be alarmed using the <b>VLowLow</b> 
+								default alarm type.
+					</li>
+                        </ul>
+                        <p class="A4-Note-SimpleTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The <b>deadband</b> slot,  can be used to desensitise this alarm limit to prevent  unnecessary alarms if the <b>value</b> is oscillating. </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Specific status bits list&#160; </h2>
+        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>These are 
+ of type BOOLEAN.</p>
+        <table style="mc-table-style: url('../Resources/TableStyles/Adroit10BasicTableStyle.css');margin-left: 0;margin-right: auto;width: 95%;" class="TableStyle-Adroit10BasicTableStyle" cellspacing="2">
+            <col style="width: 150px;" class="TableStyle-Adroit10BasicTableStyle-Column-Column1" />
+            <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" style="width: 120px;" />
+            <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Head-Header1">
+                    <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column1-Header1">Bit Number</th>
+                    <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column2-Header1">Name</th>
+                    <th class="TableStyle-Adroit10BasicTableStyle-HeadD-Column2-Header1">Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 16</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">
+                        <p>endofperiod</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Pulsed (set to ON [1] momentarily and then set back to OFF [0]) at the end of each period.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>status bit 17</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">
+                        <p>sqlerror</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>ON if there is a problem 
+ connecting to the database, when the <b>connection</b> to this SQL&#160;database has been specified.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 18</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">
+                        <p>VHighHigh</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>ON when the differential <b>value</b> is GREATER THAN OR EQUAL to the <b>valueHiHi</b> alarm limit.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>status bit 19</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">
+                        <p>VHigh</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>ON when the differential <b>value</b> is GREATER THAN OR EQUAL to the <b>valueHi</b> alarm limit.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 20</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">
+                        <p>VLow</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>ON when the differential <b>value</b> is LESS 
+ THAN OR EQUAL to the <b>valueLo</b> alarm limit.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>status bit 21</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">
+                        <p>VLowLow</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>ON when the differential <b>value</b> is LESS THAN OR EQUAL to the <b>valueLoLo</b> alarm limit.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 22</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">
+                        <p>RHighHigh</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>ON when the differential <b>rate</b> of change is GREATER THAN OR EQUAL to the <b>rateHiHi</b> alarm limit. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>status bit 23</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body2">
+                        <p>RHigh</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>ON when the differential <b>rate</b> of change is GREATER THAN OR EQUAL to the <b>rateHi</b> alarm limit.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>status bit 24</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column2-Body1">
+                        <p>RLow</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>ON when the differential <b>rate</b> of change is LESS 
+ THAN OR EQUAL to the <b>rateLo</b> alarm limit.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column1-Body2">
+                        <p>status bit 25</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column2-Body2">
+                        <p>RLowLow</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyA-Column2-Body2">
+                        <p>ON when the differential <b>rate</b> of change is LESS THAN OR EQUAL to the <b>rateLoLo</b> alarm limit.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Methods of creation:</h2>
+        <p>Manual</p>
+        <h2>Agents created by default </h2>
+        <p>None</p>
+        <h2>Further Information</h2>
+        <p>For further details, read the following topics:</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

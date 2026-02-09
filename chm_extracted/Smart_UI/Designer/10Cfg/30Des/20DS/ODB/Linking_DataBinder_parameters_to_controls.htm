@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|OLE DB Datasources|DataBinders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Data" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Linking DataBinder parameters to controls</title>
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3880"></a>Linking DataBinder parameters to controls</h1>
+        <p>If your <a name="kanchor3881"></a>DataBinder has parameterised constraints, then you need to do 
+ the following:</p>
+        <ol>
+            <li class="Numbers" value="1">Add a VIZNETDataBinder 
+ component to a graphic form and link it to this DataBinder.</li>
+            <li class="Numbers" value="2">Add controls to this graphic 
+ form to allow users to specify the values of each parameter.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> You can 
+ also use the controls added by VIZNETDataBinder component for this.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Link the parameter to the 
+ required controls, by configuring the VIZNETDataBinder component to specify 
+ which control’s property will supply the value of each parameter.</li>
+            <li class="Numbers" value="4">Test that your DataBinder 
+ allows your users to make use of the required data. <MadCap:conditionalText MadCap:conditions="Common.ExFromPDF">For details, see <a href="Utilizing_data_with_VIZNETBindingNavigator_controls.htm">Utilizing data 
+ with VIZNETBindingNavigator controls</a>.</MadCap:conditionalText></li>
+        </ol>
+        <h2>To link controls to parameters in a DataBinder:</h2>
+        <p class="Notices"><b>Note:</b> This procedure 
+ assumes that a graphic form already has a VIZNETDataBinder component that 
+ is associated with the required DataBinder. <MadCap:conditionalText MadCap:conditions="Common.ExFromPDF">For details, see <a href="Accessing_data_within_DataBinders.htm">Accessing data within DataBinders</a>.</MadCap:conditionalText></p>
+        <ol>
+            <li class="Numbers" value="1">If necessary, add the controls 
+ required to specify the value/s of the configured parameter/s to this 
+ graphic form.</li>
+        </ol>
+        <p class="ListDesc">Typically these controls are either TextBox controls, 
+ which allow users to type in their own values or ComboBox controls, which 
+ allow users to select values from an pre-existing range of options.</p>
+        <p class="ListDesc">For instance, you can use the Text property of 
+ a TextBox control to supply the value of a parameter. </p>
+        <ol start="2">
+            <li class="Numbers" value="2">Ensure that your graphic 
+ form is in Design mode, if not press the <b>Design</b> 
+ toolbar button at the top of the graphic form.</li>
+            <li class="Numbers" value="3">Select the required VIZNETDataBinder 
+ component.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> Components 
+ are beneath the actual form of the graphic form.</p>
+        <p class="ListDesc">If necessary, display the <b>Properties</b> 
+ tool window.</p>
+        <ol start="4">
+            <li class="Numbers" value="4">Select the ParameterSourceList 
+ property of this VIZNETDataBinder component in the <b>Properties</b> 
+ tool window.</li>
+            <li class="Numbers" value="5">Click the downward arrow 
+ to the right of (Collection).</li>
+        </ol>
+        <p class="ListDesc">The left pane lists the names of the tables selected 
+ in this DataBinder and the View, which adheres to the following naming 
+ convention *[DataBinderName]View.</p>
+        <p class="ListNotice"><b>Note:</b> If a 
+ table or View has one or more parameters, a plus box will appear to the 
+ right of its name, in the left pane.</p>
+        <ol start="6">
+            <li class="Numbers" value="6">Double click the required 
+ table or View first item in the right pane that has a plus box to expand 
+ it.</li>
+        </ol>
+        <p class="ListDesc">This displays the names of all the configured parameters.</p>
+        <p class="ListNotice"><b>Tip:</b> Giving 
+ your parameters descriptive names, makes it easier to pair parameters 
+ with controls.&#160;&#160;</p>
+        <ol start="7">
+            <li class="Numbers" value="7">Select the name of the 
+ required parameter.</li>
+            <li class="Numbers" value="8">Specify the name of the 
+ control that will provide the value of this parameter in the <b>Control</b> 
+ (top) list box in the right pane.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> This is 
+ why you need to add the required controls first.</p>
+        <ol start="9">
+            <li class="Numbers" value="9">Select the property of 
+ this control that will contain the value for this parameter in the <b>Property</b> (bottom) list box on the right 
+ pane.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

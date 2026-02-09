@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Setting up the Server" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.ServerConfig" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Config.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Setting up the Server settings.doc" /><title>Server security settings</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor124"></a>Server security settings
+        </h1>
+        <div MadCap:targetName="MoreInfo" style="display: none;">
+            <p>The <span class="VIPAppName">Smart UI</span> security system is user-centric and operates on top of the 
+ traditional Windows operating system security.</p>
+            <p>This uses a configurable sub-set 
+ of the existing users and groups that are "allowed" on each <span class="VIPAppName">Smart UI</span> Server computer and are hence known as the Allowed users and groups.</p>
+            <p MadCap:conditions="Common.ExFromPDF">For details, see Working with security.</p>
+        </div>
+        <p>This page  of the  <b>Setting 
+ up the Server</b> component of the <span class="VIPConfigEditorName">Adroit SmartUI Config</span> configuration dialog, provides the following settings that configure which Windows users and groups are given default access to the <span class="VIPAppName">Smart UI</span> Server and the services it provides: </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="MoreInfo;MainNotes"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a>
+        </p>
+        <div MadCap:targetName="MainNotes" style="display: none;">
+            <p class="Notices"><b>WARNING!</b> Careful consideration should be given to which users and groups are specified. 
+ For further details, see Assigning 
+ global security to groups and users.&#160;</p>
+            <p class="Notices"><b>Note:</b> When the 
+ Server is deployed on a domain with a large number of users and/or groups, 
+ this page will take a long time to be displayed while the user and group 
+ lists are populated. For details on reducing or eliminating this delay, 
+ see Specifying user and group subsets.</p>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To display this page of settings:</a>
+        </p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Launch the <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit SmartUI Config</span>.</li>
+            </ol>
+            <p class="ListDesc">The <b>Welcome</b> 
+ section is displayed by default, unless multiple configurations have been created, in which case the <b>Configuration</b> page is displayed by default, which needs to be expanded to display the <b>Welcome</b> 
+ section. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Working_with_Configurations.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with Configurations</a></span>.</p>
+            <ol start="2">
+                <li class="Numbers" value="2"><span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Select<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">position the mouse pointer over the item and press the left mouse button; also known as clicking.</span></span> 
+ the 
+                   <b>Setting up the 
+ Server</b> option.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> If this option 
+ does not appear then the <span class="VIPAppName">Smart UI</span> Server may not be installed.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Select the <b>Security Settings</b> option.</li>
+            </ol>
+            <p class="Notices"><b>Tip1:</b> You can navigate directly to this page using the left pane of the <span class="VIPConfigEditorName">Adroit SmartUI Config</span> configuration dialog. For details, see   <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../10Cfg/20DesEnv/Working_with_configuration_dialogs.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with configuration dialogs</a></span>.</p>
+            <p class="Notices"><b>Tip2:</b> Press the <b>Next</b> or <b>Previous</b> buttons to display the other pages of  
+ settings.  </p>
+        </div>
+        <p MadCap:conditions="VIP.ConfigEditor_VerMinorThree"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="CFR21Mode"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To enable 21 CFR 11 mode:</a>
+        </p>
+        <p>When engineering and commissioning a system, the system is not required to comply with 21 CFR 11, it is only once the system is deployed that 21 CFR 11 compliance is required. </p>
+        <p>Therefore, you should ideally engineer your project, with 21 CFR 11 mode disabled, due to the design-restrictions that it imposes and then just before you start commissioning the project you can enable and configure the 21 CFR 11 mode. For more details of the controls and requirements required by 21 CFR 11, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../10Cfg/40Mng/10Sec/Title_21_CFR_Part_11_Compliance.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">21 CFR 11 controls and requirements</a></span>.</p>
+        <p MadCap:targetName="CFR21Mode" style="display: none;">Select the <b>Yes</b> option for the <b>Title 21 CFR Part 11 Compliance</b> option at the top of this page and provide the required password.</p>
+        <p MadCap:targetName="CFR21Mode" style="display: none;">This password secures the connection to the <span class="AdroitAppName">Adroit</span> Agent Server and  also prevents the unauthorized disabling of this 21 CFR 11 setting itself.</p>
+        <p class="Notices" MadCap:targetName="CFR21Mode" style="display: none;"><b>IMPORTANT:</b> If you forget your password then you MUST DELETE ALL your config files and project files  and start again from scratch.</p>
+        <p class="Notices" MadCap:targetName="CFR21Mode" style="display: none;"><b>Note:</b> When running an <span class="AdroitAppName">Adroit</span> Agent Server and a <span class="VIPAppName">Smart UI</span> Server on two separate computers, BOTH computers must be configured for 21 CFR 11 mode using the SAME password.</p>
+        <p MadCap:targetName="CFR21Mode" style="display: none;">This password is encrypted and stored in the configuration (.config) files on the <span class="VIPAppName">Smart UI</span> Server computer. </p>
+        <p MadCap:targetName="CFR21Mode" style="display: none;">Since 21 CFR 11 requires that system access be limited to authorized individuals, access to these configuration files need to be limited through the use of directory and file level security.</p>
+        <p class="Notices" MadCap:targetName="CFR21Mode" style="display: none;"><b>Note:</b> You can only change or disable this setting by providing the specified password.</p>
+        <p MadCap:conditions="VIP.ConfigEditor_VerMinorThree"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SQLServerAuditDB"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To use an optional SQL Server database to store the audited entries:</a> you can specify a (remote) database in addition to the mandatory, local SQL Server Compact database that stores the auditing locally on the relevant <span class="VIPAppName">Smart UI</span> Server computer.</p>
+        <p class="ListDesc" MadCap:targetName="SQLServerAuditDB" style="display: none;">Select the <b>Yes</b> option for the <b>Auditing</b> question at the top of the Server Security Settings page of <span class="VIPConfigEditorName">Adroit SmartUI Config</span>.</p>
+        <p class="ListDesc" MadCap:targetName="SQLServerAuditDB" style="display: none;">This displays the <b>Connection String</b> field in which you specify the connection string to this optional SQL Server database. </p>
+        <p class="ListDesc" MadCap:targetName="SQLServerAuditDB" style="display: none;">Either type/paste this in directly or by click the browse button to the right of this field and use the <b>Connection Properties</b> dialog to  specify the required connection string to the SQL Server database. </p>
+        <p class="ListDesc" MadCap:targetName="SQLServerAuditDB" style="display: none;">Typically do NOT  change the <b>Data source</b> from the default of <b>.NET Framework Data Provider for OLE&#160;DB</b>, unless you are connecting to a SQL Compact database. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">More details:<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> in which case, click the <b>Change...</b> button and choose the datasource that corresponds to the correct version of SQL Compact and then the dialog will change so that you only need to browse in the required database file and specify the required password, if any.</span></span></p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Network location of users and groups:</a> if the <span class="VIPAppName">Smart UI</span> Server computer is part of a domain then this setting 
+ must specify the name of this network domain. </p>
+        <p class="Notices"><b>Note:</b> When a <b>domain</b> is specified - all users logging into this <span class="VIPAppName">Smart UI</span> Server must use their domain passwords and not their local user names 
+ and passwords (if these exist).</p>
+        <p>However, if the Server computer 
+ is a member of a Workgroup, then this setting must be left empty.</p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <p><b>To specify the network 
+ location of the users and groups for the Server computer:</b> Type in 
+ the required domain name or leave this empty if the Server is not part 
+ of a domain.</p>
+            <p>This setting determines which users and groups are displayed by the 
+ user and group selectors for the other settings, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="NetworkLocation"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <ul MadCap:targetName="NetworkLocation" style="display: none;">
+                <li class="Bullets" value="1">If this setting is empty 
+ then the selector will display the local groups or users that have been 
+ created on this Server computer.</li>
+                <li class="Bullets" value="2">If this setting specifies 
+ a domain, then the selector will display the groups or users that are 
+ available in this domain.</li>
+            </ul>
+            <p class="Notices"><b>Note:</b> Click 
+ the <b>Refresh</b> button after changing this 
+ setting, so that the correct users and groups will be displayed in these 
+ selectors.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Groups with global Server access:</a> 
+ select which groups automatically become allowed groups for this <span class="VIPAppName">Smart UI</span> Server, 
+ which means<span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;"> the following:<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> that their users can always  log in and have unrestricted 
+ access to this <span class="VIPAppName">Smart UI</span> Server and its data.</span></span></p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <p><b>To add global security groups:</b>
+            </p>
+            <ol>
+                <li class="Numbers" value="1">Select the name of the 
+ required group from the <b>Available Groups</b> list.</li>
+                <li class="Numbers" value="2">Click the &lt;&lt; button 
+ to add this group to the <b>Selected Groups</b> list.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also 
+ add groups by double-clicking the required entry in the <b>Available Groups</b> 
+ list to immediately add it to the <b>Selected Groups</b> list.</p>
+            <p class="ListNotice"><b>Note:</b> Only the groups 
+ listed in the <b>Selected Groups</b> list have global Server access.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Repeat this for all the 
+ groups that you want to add.</li>
+            </ol>
+            <p><b>To remove global security groups:</b>
+            </p>
+            <ol>
+                <li class="Numbers" value="1">Select the name of the 
+ required group from the <b>Selected Groups</b> list.</li>
+                <li class="Numbers" value="2">Click the &gt;&gt; button 
+ to add this group to the <b>Available Groups</b> list.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can also 
+ remove groups by double-clicking the required entry in the <b>Selected 
+ Groups</b> list to immediately add it to the <b>Available Groups</b> list.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Repeat this for all the 
+ groups that you want to remove.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Users with global Server access:</a> select which users automatically become allowed users for this <span class="VIPAppName">Smart UI</span> Server, 
+ which means <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">the following:<img style="border: none;margin-left: 5px;" src="../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> that they can always log in and have unrestricted access to this 
+ Server and its data. </span></span></p>&#160;<div MadCap:targetName="t2" style="display: none;"><p><b>To add global security users:</b></p><ol><li class="Numbers" value="1">Select the name of the 
+ required user from the <b>Available Users</b> list.</li><li class="Numbers" value="2">Click the &lt;&lt; button 
+ to add this user to the <b>Selected Users</b> list.</li></ol><p class="ListNotice"><b>Tip:</b> You can also 
+ add users by double-clicking the required entry in the <b>Available Users</b> 
+ list to immediately add it to the <b>Selected Users</b> list.</p><p class="ListNotice"><b>Note:</b> Only the users 
+ listed in the <b>Selected Users</b> list, will have global Server access.</p><ol start="3"><li class="Numbers" value="3">Repeat this for all the 
+ users that you want to add.</li></ol><p><b>To remove global security users:</b></p><ol><li class="Numbers" value="1">Select the name of the 
+ required user from the <b>Selected Users</b> list.</li><li class="Numbers" value="2">Click the &gt;&gt; button 
+ to add this user to the <b>Available Users</b> list.</li></ol><p class="ListNotice"><b>Tip:</b> You can also 
+ remove users by double-clicking the required entry in the <b>Selected 
+ Users</b> list to immediately add it to the <b>Available Users</b> list.</p><ol start="3"><li class="Numbers" value="3">Repeat this for all the 
+ users that you want to remove.</li></ol></div> <![CDATA[ 
+
+]]><p>One aspect of <span class="VIPAppName">Smart UI</span> Server security are policies, which provide high-level  control 
+ to safeguard the services and data that the <span class="VIPAppName">Smart UI</span> Server provides.</p><p>Only the users and groups associated with a specific 
+ policy or <span class="VIPAppName">Smart UI</span> Server service can use this service. For further details, see 
+ Working 
+ with policies.</p><p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Groups initially able to use Server services:</a> 
+ if necessary specify one or more ADDITIONAL groups that can use every policy (service) of this <span class="VIPAppName">Smart UI</span> Server, by default.</p><p class="Notices"><b>Note</b> The groups 
+ and users that have GLOBAL Server access are ALREADY able to 
+ use all the Server services (policies) and should NOT be specified again.</p><div MadCap:targetName="t1" style="display: none;"><p><b>To add initial service usage groups:</b></p><ol><li class="Numbers" value="1">Select the name of the 
+ required group from the <b>Available Groups</b> list.</li><li class="Numbers" value="2">Click the &lt;&lt; button 
+ to add this group to the <b>Selected Groups</b> list.</li></ol><p class="ListNotice"><b>Tip:</b> You can also 
+ add groups by double-clicking the required entry in the <b>Available Groups</b> 
+ list to immediately add it to the <b>Selected Groups</b> list.</p><p class="ListNotice"><b>Note:</b> Only the groups 
+ listed in the <b>Selected Groups</b> list, will have global Server access.</p><ol start="3"><li class="Numbers" value="3">Repeat this for all the 
+ groups that you want to add.</li></ol><p><b>To remove initial service usage groups:</b></p><ol><li class="Numbers" value="1">Select the name of the 
+ required group from the <b>Selected Groups</b> list.</li><li class="Numbers" value="2">Click the &gt;&gt; button 
+ to add this group to the <b>Available Groups</b> list.</li></ol><p class="ListNotice"><b>Tip:</b> You can also 
+ remove groups by double-clicking the required entry in the <b>Selected 
+ Groups</b> list to immediately add it to the <b>Available Groups</b> list.</p><ol start="3"><li class="Numbers" value="3">Repeat this for all the 
+ groups that you want to remove.</li></ol></div><p>&#160;</p><p>This page only configures the part of the essential <span class="VIPAppName">Smart UI</span> Server settings. For details, see <a href="Setting_up_the_Server.htm">Setting up the Server</a>.</p><p>For 
+ details on displaying all the related <span class="VIPAppName">Smart UI</span> Server settings, see the <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Advanced_Server_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Advanced Server settings page</a></span>.</p><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

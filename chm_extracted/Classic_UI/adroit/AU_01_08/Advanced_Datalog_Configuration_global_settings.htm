@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Logging Tags (Recording Values)" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Advanced Datalog Configuration.doc" /><title>Advanced Datalog Configuration (global settings)</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor668"></a>Advanced Datalog Configuration (global settings)</h1>
+        <p>This dialog provides global 
+ settings that affect the operation of the data logging sub system.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t7"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To display 
+ this dialog:</a>
+        </p>
+        <div MadCap:targetName="t7" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">If necessary, launch the Classic 
+ User Interface, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">click the Start menu, Programs, <span class="AdroitAppGroupName">Adroit 10</span> and select the Classic User 
+ Interface item).
+
+</span></span></li>
+                <li class="Numbers" value="2">Click on the <b>Configurator</b>&#160; 
+ toolbar button to display the Agent Configuration dialog box.</li>
+            </ol>
+            <p class="ListDesc">Ensure that the <b>System</b> checkbox is checked to 
+ display the Datalog agent type in this list.</p>
+            <ol start="3">
+                <li class="Numbers" value="3">Click the down arrow in 
+ the <b>Type</b> drop down list</li>
+                <li class="Numbers" value="4">Click the <b>Datalog</b> 
+ agent type.</li>
+                <li class="Numbers" value="5">Click any of the agents 
+ in the Agents list.</li>
+                <li class="Numbers" value="6">Click the <b>Edit</b> button.</li>
+                <li class="Numbers" value="7">Click the <b>Advanced…</b> 
+ button in the <b>Edit Datalog Agent</b> dialog.</li>
+            </ol>
+        </div>
+        <p class="Notices"><b>Note:</b> This dialog can 
+ only be displayed, once you have logged an agent and have thereby created 
+ a Datalog agent.</p>
+        <p>&#160;</p>
+        <p>These settings are divided 
+ into the following three main sections:</p>
+        <p class="Notices"><b>Note:</b> The settings in 
+ the <b>General</b> and <b>SQL logging</b> sections require the Agent Server 
+ to be RESTARTED before applying the configured setting/s.</p>
+        <p class="Notices"><b>Tip:</b> Click the 
+ section headings to show or hide their settings.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />General:</a>
+        </p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <p><b>Datalog system buffer size (Kb)</b>
+            </p>
+            <p>This setting specifies the 
+ size of the global "datalog change queue", which is 500 Kb, 
+ by default. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a></p>
+            <div MadCap:targetName="t5" style="display: none;">
+                <p>All changes 
+ arriving at the data logging subsystem are added to a "datalog change 
+ queue". This ensures that these historical updates do not affect 
+ the throughput of any real-time updates. These changes are stored in this 
+ queue until <span class="AdroitAppName">Adroit</span> reads them off.</p>
+                <p>Therefore, the size of the 
+ queue must be able to handle the maximum spike of changed values that 
+ a plant can expect. This maximum number of changes is generally proportional 
+ to the number of tags logged.</p>
+                <p>The default size of 500Kb, 
+ allows for approximately a spike of 11000 changes.</p>
+                <p>It is possible that the sustained 
+ (not the instantaneous) rate of plant changes will exceed the rate at 
+ which the data logging subsystem is able to operate. In this case, the 
+ Agent Server is simply not capable of handling the data logging requirement 
+ and the computer will require upgrading or the data logging task musts 
+ be split over separate Agent Servers OR less tags need to be logged.</p>
+                <p>For this reason we recommend 
+ that you use the PerfMon agent to monitor "SubManQueueLen" performance 
+ counter of the Agent Server to ensure that it always tends towards 100%, 
+ as this counter indicates the free datalog buffer queue. If this value 
+ is steadily decreasing, then the rate of datalogging is exceeding the 
+ rate at which the values can be committed to disk and the <b>Flush lazily</b> 
+ global logging setting should be turned ON.</p>
+            </div>
+            <p class="Notices"><b>Note:</b> The default value 
+ is big enough to handle short term spikes in putslot rates and should 
+ not need to be changed.</p>
+            <p class="Notices"><b>Tip:</b> When specifying 
+ the required buffer queue size, use the provided buttons to increase/decrease 
+ this value in 64 KB increments/decrements.</p>
+            <p>&#160;</p>
+            <p><b>Disable 
+ legacy file compression of 5:1</b> (LogCompressionFactor =1)</p>
+            <p>This setting removes the 
+ legacy default 20% datalog compression setting when using the proprietary 
+ logging of <span class="AdroitAppName">Adroit</span> and is ON (checked) by default for new installations. 
+ This setting is removed as it unnecessarily misleads users when configuring 
+ logging periods and has been outmoded by the newer hardware. <u><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adroit_Logging_Factor.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Click for more details</a></span></u>.</p>
+            <p>&#160;</p>
+            <p><b>Flush 
+ lazily</b> (LazyFlushing = 1)</p>
+            <p>This setting determines how 
+ <span class="AdroitAppName">Adroit</span> writes logged values to disk, which is ON (checked) by default, 
+ so that <span class="AdroitAppName">Adroit</span> logs its values to the file cache of the Windows operating 
+ system. If you uncheck this option (turn it OFF) then logged data is immediately 
+ written to disk. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for 
+ more details:</a></p>
+            <div MadCap:targetName="t4" style="display: none;">
+                <ul>
+                    <li class="Bullets" value="1">If checked (the default 
+ option), this results in a DELAY before this cache saves the data, due 
+ to the amount of file I/O activity on the computer. Therefore, if the 
+ computer is not on a UPS and there is a power failure, ALL datalog values 
+ that have not been committed to disk by Windows will be LOST.</li>
+                    <li class="Bullets" value="2">If unchecked, all logged 
+ values are IMMEDIATELY written to disk but this increases the CPU load 
+ and slows the Agent Server down.&#160;</li>
+                </ul>
+                <p class="LineNote">Therefore we recommend that you use the PerfMon agent 
+ to monitor the CPU load for very high values and also monitor the "SubManQueueLen" 
+ performance counter of the Agent Server, which indicates the free datalog 
+ buffer queue and should remain around 100%.</p>
+                <p class="LineNote">If this value is steadily decreasing, then the rate of 
+ datalogging is exceeding the rate at which the values can be committed 
+ to disk and flush lazily should be turned ON. In this case a UPS is highly 
+ recommended to allow operators to effect a controlled shutdown of the 
+ Agent Server computer, thereby preserving all datalogged values.</p>
+            </div>
+            <p>&#160;</p>
+            <p><b>Disable 
+ first datalog entries on startup of agent server</b> (SuppressLogAtStartup 
+ = 1)</p>
+            <p>This setting determines whether 
+ a value is logged at startup for each value that you have logged (the 
+ <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Post_Startup_Value<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">For every session (the period between the startup and shutdown of the 
+ Agent Server), <span class="AdroitAppName">Adroit</span> will always denotes the first and last entries in 
+ the log as the Post_Startup_Value and Last_Known_Value. All intermediate 
+ values will be marked as normal or bad.
+
+</span></span>:), 
+ which is OFF (unchecked) by default, so that this ‘Post_Startup_Value’ 
+ is logged by the Agent Server. However, if you have logged a large number 
+ of values (this amount is site-dependant) to SQL, then the logging of 
+ these Post_Startup_Values can significantly increase the time the Agent 
+ Server takes to startup.</p>
+            <p class="Notices"><b>Note:</b> ONLY suppress 
+ the logging at startup IF there IS a real issue with startup times when 
+ logging to SQL.</p>
+            <p>In this case, you can check 
+ this setting (turn it ON), which stops the Agent Server from retrieving 
+ any logged values to reduce the time taken by the Agent Server to startup.</p>
+            <p class="Notices"><b>Note:</b> When this setting 
+ is ON, then you are unable to determine from the logged data, where an 
+ Agent Server was restarted.&#160;</p>
+            <p>&#160;</p>
+            <p><b>Support 
+ compression algorithm on demand logging</b> (SupportCompressionOnDemand 
+ = 1)</p>
+            <p>This setting enables the 
+ use of Datalog compression algorithms when using the Demand Mode of datalogging, 
+ by default, this setting is OFF (unchecked) so you are unable to use compression 
+ algorithms when Demand logging. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details about Demand logging:</a></p>
+            <div MadCap:targetName="t3" style="display: none;">
+                <p>The Demand mode of data-logging, 
+ unlike the default Continuous mode, only logs a data value when the LogNow 
+ or Trigger slots of the Datalog agent are activated. This allows you to 
+ decrease the size of your log files by using a script (or some other external 
+ intelligence) to drive the logging of a datalog.</p>
+                <p>For instance, by only 
+ triggering the log when the value is between certain limits or at particular 
+ times of the batch, instead of logging every change in value. For further 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Demand_Logging.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Demand Logging</a></span>.</p>
+            </div>
+            <p>To further reduce the size 
+ of your datalogs, you can check this setting (turn it ON), so that you 
+ can specify a <b>Time deadband</b> and 
+ employ one of the datalog Compression Methods. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Data_Logging_Compression_Methods.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Data Logging Compression Methods</a></span>.</p>
+        </div>
+        <p>Settings that affect the operation of the data logging system that are 
+ typically applied irrespective of the selected Datasource (the <span class="AdroitAppName">Adroit</span> proprietary 
+ log files or SQL logging)</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />SQL logging:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p><b>Check 
+ for existence of database tables on startup</b> (CreateTablesOnStartup 
+ =1)</p>
+            <p>This setting causes the Agent 
+ Server to attempt to create the necessary tables in SQL at startup, for 
+ each value that is being logged to a SQL database, which is ON (checked) 
+ by default. This can increase the time the Agent Server takes to startup, 
+ especially if you have a large number of values that are being logged 
+ to SQL.</p>
+            <p>If 
+ this option is UNCHECKED (turned OFF):</p>
+            <ul>
+                <li class="Bullets" value="1"><span class="AdroitAppName">Adroit</span> creates the necessary 
+ tables when creating NEW datalogs (from the Configurator).</li>
+                <li class="Bullets" value="2"><span class="AdroitAppName">Adroit</span> does NOT check for 
+ the existence of these tables when the Agent Server starts up. This means 
+ that datalogs will NOT write if their tables do not exist.</li>
+            </ul>
+            <p>Therefore, if you have a large 
+ number of values that are being logged to SQL and you have ensured that 
+ the datalogs for these EXISTING values have their necessary tables, then 
+ UNCHECK this option (turn it OFF) to reduce the time taken by the Agent 
+ Server to startup.&#160;</p>
+            <p class="Notices">&#160;</p>
+            <p><b>Disable 
+ database table name prefixes</b> (DisableADOTableNamePrefix = 1)</p>
+            <p>This setting causes the Agent 
+ Server to create tables for each value that is being logged to a SQL database, 
+ by using the following table name format AdroitRawLog_[tablename], which 
+ is OFF (unchecked) by default.</p>
+            <p>If you prefer <span class="AdroitAppName">Adroit</span> to ONLY 
+ specify the table name and hence create shorter table names, then check 
+ this setting (turn it ON). This removes this "AdroitRawLog_" 
+ table name prefix, so that <span class="AdroitAppName">Adroit</span> only uses the specified table name.</p>
+            <p>&#160;</p>
+            <p><b>Add 
+ normal timestamp fields to database tables</b> (LogADODataTimes = 1)</p>
+            <p>This setting causes the Agent 
+ Server NOT to log readable timestamps for values that are logged to SQL 
+ databases, which is OFF (unchecked) by default. So that ONLY the <span class="AdroitAppName">Adroit</span> 
+ timestamp of the change in value is provided, this is not ‘readable’ in 
+ SQL as this does not conform to the DateTime value type.</p>
+            <p>If you want <span class="AdroitAppName">Adroit</span> to provide 
+ an additional column containing readable timestamps to the database table, 
+ then you can check this setting (turn it ON). However, then you must DELETE 
+ all your existing database tables and allow <span class="AdroitAppName">Adroit</span> to re-create them with 
+ an added timestamp column.</p>
+            <p class="Notices"><b>Tip:</b> We recommend that 
+ you check this setting (turn it ON) before logging values to the SQL database.</p>
+            <p>&#160;</p>
+            <p><b>Use 
+ only proprietary logged data for trends</b> (ProprietarySetPreference 
+ =1)</p>
+            <p>This setting prevents <span class="AdroitAppName">Adroit</span> 
+ from using data from SQL for trending, regardless of the circumstances, 
+ this is OFF (unchecked) by default.</p>
+            <p>Typically you would turn 
+ this setting ON if you use at least 2 log sets to log ALL your values, 
+ one that logs to <span class="AdroitAppName">Adroit</span>’s proprietary log files and another that logs 
+ to SQL. In this case, by enabling this setting <span class="AdroitAppName">Adroit</span> will ONLY trend 
+ data from the log set that logs values to <span class="AdroitAppName">Adroit</span>’s proprietary log files 
+ and NEVER trend data from a log set that logs values to SQL. This ensures 
+ that your trends quickly retrieve and display their historical data.</p>
+        </div>
+        <p>Settings that ONLY apply when using OLEDB Data Logging or the SQL Datasource.</p>
+        <p class="Notices"><b>IMPORTANT:</b> Although 
+ reference is only made to SQL in these settings, they apply to any OLEDB 
+ compatible database.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />UI settings (no restart required):</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p><b>Create datalog agents automatically</b> (AutoCreate 
+ = 1)</p>
+            <p>This setting causes the Agent 
+ Server to immediately create a Datalog agent when you log an agent from 
+ the Configurator, which is ON (checked) by default.</p>
+            <p>Since each agent has a default 
+ logging slot that is automatically selected, you can uncheck this option 
+ (turn it OFF) if you usually need to log another slot. In this case, a 
+ confirmation dialog is launched, asking the user whether a new Datalog 
+ agent should be created, before a slot of an agent can be logged.</p>
+        </div>
+        <p>Settings that ONLY apply to the Configurator dialog 
+ within the Classic User Interface.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

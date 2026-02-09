@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Reference|Agent Slots Reference|Agent Type Saved Format Reference" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>OEE Agent - Database File Format</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1145"></a>OEE Agent - Database File Format</h1>
+        <p>For a detailed description of any of its slots, see <a href="OEE_Agent_Slot_Details.htm"><a href="OEE_Agent_Slot_Details.htm"><a href="OEE_Agent_Slot_Details.htm">Slot 
+ Details</a></a></a>.</p>
+        <p>See the <a href="Agent_Header_Information.htm">agent header slots</a> for the information  that is common to all agent 
+ types.</p>
+        <table style="margin-left: auto;margin-right: auto;caption-side: top;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 454px;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">.WGP 
+ File Line</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AUR</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>autoReset</b> Boolean slot that determines whether this agent automatically resets the calculated OEE and KPI data at the end of every shift.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">TP1</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Defines what type of signal is attached to <b>input1</b>, as follows:</p>
+                        <p>1=Accumulator: The <b>input1</b> slot is interpreted as an accumulated production count over time e.g. 123 bags. </p>
+                        <p>This input1 type must be reset to 0 at the end of every shift using the agent’s <b>ShiftEnd</b> status bit  as a trigger.</p>
+                        <p>2=Totaliser: The <b>input1</b> slot is interpreted as an accumulated production count over time e.g. 123 bags. </p>
+                        <p>This input1 type is never reset to 0.</p>
+                        <p>3=Rate per hour: The <b>input1</b> slot is interpreted as a per hour production rate which will be integrated by the agent over time to produce a totalised value.</p>
+                        <p>4=Rate per min: The <b>input1</b> slot is interpreted as a per minute production rate which will be integrated by the agent over time to produce a totalised value.</p>
+                        <p>5=Rate per sec: The <b>input1</b> slot is interpreted as a per second production rate which will be integrated by the agent over time to produce a totalised value.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">TP2</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Defines what type of signal is attached to <b>input2</b>, as follows:</p>
+                        <p>0=Unused: This means that <b>input2</b> is not used.&#160; The KPI is calculated using <b>input1</b> against time.</p>
+                        <p>1=Accumulator: The <b>input2</b> slot is interpreted as an accumulated production count over time e.g. 123 bags. </p>
+                        <p>This input2 type must be reset to 0 at the end of every shift using the agent’s <b>ShiftEnd</b> status bit  as a trigger.</p>
+                        <p>2=Totaliser: The <b>input2</b> slot is interpreted as an accumulated production count over time e.g. 123 bags. </p>
+                        <p>This input2 is never reset to 0.</p>
+                        <p>3=Rate per hour: The <b>input2</b> slot is interpreted as a per hour production rate which will be integrated by the agent over time to produce a totalised value</p>
+                        <p>4=Rate per min: The <b>input2</b> slot is interpreted as a per minute production rate which will be integrated by the agent over time to produce a totalised value.</p>
+                        <p>5=Rate per sec: The <b>input2</b> slot is interpreted as a per second production rate which will be integrated by the agent over time to produce a totalised value.</p>
+                        <p>If <b>type2</b> is not set to 0 (Unused), then the OEE agent is said to be in complex mode.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">UN1</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Specifies the units for the <b>input1</b> slot e.g. tons/hr</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">UN2</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Specifies the units for the <b>input2</b> slot</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AVA</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The <b>available</b> Boolean slot that determines whether the machine/process is currently available for production. </p>
+                        <p> The state of this slot affects the accumulation of <b>availableCurrShift</b> time. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">RUN</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>running</b> Boolean slot that determines whether the machine/process is currently running.&#160;<p>The state of this input affects the accumulation of <b>runtimeCurrShift</b> and <b>downtimeCurrShift</b> times.&#160;</p> <![CDATA[ ]]></td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">ENA</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>enable</b> Boolean slot that determines whether this agent is enabled for operation or not.&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">CAP</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>designCapacity</b> Real slot which is the designed rate/capacity of the process/machine, as a per hour value for use in OEE calculations.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">INA</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The <b>inactivityPeriod</b> Integer slot which is the period defined in seconds that determines an inactive input signal.&#160; </p>
+                        <p>If the measurement variable (<b>input1</b> slot) remains static for this configurable time, the agent will interpret the process/machine as not running.&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">QUA</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>qualityFactor</b> Real slot, which is an external quality percentage factor used against the internally calculated quality component for OEE calculations.&#160;&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">SHF</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The <b>shiftAgent</b> Tagname slot, which is the Shift agent that specifies  the current shift information.&#160; </p>
+                        <p>If no Shift agent is specified, then it is assumed that the agent is running in a “batch mode” where the onus remains on the user to trigger an OEE data snapshot followed by a reset at the end of every batch.&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AVATAG</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>availableTag</b> Tagname slot, which is the optional tag reference for the <b>available</b> slot.&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">RUNTAG</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>runningTag</b> Tagname slot, which is the optional tag reference for the <b>running</b> slot.&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">IN1TAG</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>input1Tag</b> Tagname slot, which is the optional tag reference for the <b>input1</b> slot.&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">IN2TAG</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>input2Tag</b> Tagname slot, which is the optional tag reference for the <b>input2</b> slot.&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">REJTAG</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>rejectCountTag</b> Tagname slot, which is the optional tag reference for the <b>rejectCount</b> slot.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">PROTAG</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>productTag</b> Tagname slot,which is the optional tag reference for the <b>product</b> slot.&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">BADTAG</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>batchIDTag</b> Tagname slot, which is the optional tag reference for the <b>batchID</b> slot.&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">KPIT</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>kpiTarget</b> Real slot, which is the  target KPI value.&#160; This value is used simply used for calculation of the <b>kpiPercent</b> slot value as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">KPILO</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>kpiLo</b> Real slot, which is the Low alarm value for the KPI value as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">KPILL</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>kpiLoLo</b> Real slot, which is the Low-Low alarm value for the KPI value as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">QUAT</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>qualityFactor</b> Real slot, which is the  external quality percentage factor used against the internally calculated quality component for OEE calculations.       </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">QUAL</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>qualityLo</b> Real slot, which is the Low alarm value for the quality component of OEE as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">QUALL</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>qualityLoLo</b> Real slot, which is the Low-Low alarm value for the quality component of OEE as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">PERT</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>performanceTarget</b> Real slot, which is the  target for the Performance component of OEE as a percentage. </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">PERL</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>performanceLo</b> Real slot, which is the Low alarm value for the performance&#160;component of OEE as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">PERLL</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>performanceLoLo</b> Real slot, which is the Low-Low alarm value for the performance&#160;component of OEE as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AVAT</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>availabilityTarget</b> Real slot, which is the  target for the value for the Availability component of OEE as a percentage.       </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AVAL</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>availabilityLo</b> Real slot, which is the Low alarm value for the Availability component of OEE as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">AVALL</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>availabilityLoLo</b> Real slot, which is the Low-Low alarm value for the Availability component of OEE as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">OEET</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>oeeTarget</b> Real slot, which is the  target for the OEE value for the <b>oeeCurrShift</b> slot.       </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">OEEL</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>oeeLo</b> Real slot, which is the Low alarm value for the OEE value as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">OEELL</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>oeeLoLo</b> Real slot, which is the Low-Low alarm value for the OEE value as a percentage.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">CONN</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>connection</b> Varstring slot, which is the optional OLE DB connection string for logging of KPI and OEE data.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">SRAT</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>sampleRate</b> Integer slot, which is the rate at which samples are sent to the database, in minutes (1-60) or 0 to disable this. </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">SBY</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">Disable on standby – this disables writing to SQL on the standby server to avoid double entries.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">PROD</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>product</b> String slot, which is an optional product name that is recorded with database entries.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">BID</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">The <b>batchID</b> String slot, which is an optional batch ID that is recorded with database entries.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">LST0=</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1" rowspan="4">The <b>historicalData</b> List slot, which is a list of historical OEE and KPI shift values for up to 30 days.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">...</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">LSTn-1=</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">LSTn=&lt;EOL&gt;</td>
+                </tr>
+            </tbody>
+        </table>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

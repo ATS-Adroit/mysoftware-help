@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Server" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Server" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Locating saved data</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1384"></a><a name="kanchor1385"></a><a name="kanchor1386"></a><a name="kanchor1387"></a>Locating saved data</h1>
+        <p>The following topic describes how to locate all the data that is saved 
+ to disk:</p>
+        <p class="Notices"><b>Note:</b> Each Configuration is completely separate or insular, containing its own files, application settings and/or registry keys. For details, see <a href="../05Dply/50Cfg/Working_with_Configurations.htm">Working with Configurations</a>.</p>
+        <p class="Notices"><b>Tip:</b> The <span class="VIPConfigEditorName">Adroit Config Editor</span> provides a <b>System Backup and Restore</b> feature that can  backup and restore your <span class="VIPAppName">SmartUI</span> and/or <span class="AdroitAppName">Adroit</span> user-configuration. For details, see <a href="../05Dply/50Cfg/System_Backup_and_Restore.htm">System Backup and Restore</a>.</p>
+        <h2>Server <a name="kanchor1388"></a><a name="kanchor1389"></a>data files: </h2>
+        <p class="Notices"><b>Note:</b> It is necessary 
+ to backup all of this data to completely backup the Server. For details, 
+ see <a href="Backing_up_Server_data.htm">Backing up Server data</a>.</p>
+        <ol>
+            <li class="Numbers" value="1"><b>Server-specific 
+ configuration:</b> This contains all the <span class="VIPAppName">SmartUI</span> Server configuration that 
+ only has meaning for this Server, such as its security configuration and 
+ the added datasources and their configuration.</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">This 
+ data is saved to the ‘ServerData’ files. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Saving_data_files.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Saving data files</a></span>.</li>
+            <li class="NumbersSubLetters" value="2">By default, these 
+ files are located in the <b>Data</b> subfolder of the Default configuration 
+ folder (typically <span class="VIPDefaultConfigPath">C:\ProgramData\Adroit Technologies\Adroit\SmartUI\Configurations\Default</span>\Data), although this location can be customised. 
+ For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../05Dply/50Cfg/Server_directory_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Server 
+ directory settings</a></span>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If these 
+ files are removed then all the security configuration and added datasources 
+ will be removed for this Server. However the profiles and projects may 
+ still exist.</p>
+        <ol start="2">
+            <li class="Numbers" value="2"><b>Profiles:</b> 
+ This contains all the profiles created for this Server and their configuration, 
+ which is saved separately so that these profiles can be easily replicated 
+ to other Servers, if necessary. For details, see <a href="Locating_saved_profiles.htm">Locating 
+ saved profiles</a>.</li>
+        </ol>
+        <ol start="3">
+            <li class="Numbers" value="3"><b>Projects:</b> 
+ Each project that is created is saved in separate folders, with the exact 
+ structure of the project being maintained, to easily locate your graphic 
+ forms, so that they can be backed up, copied and/or moved. For details, 
+ see <a href="Locating_saved_projects.htm">Locating saved projects</a>.&#160;&#160;</li>
+        </ol>
+        <h2>&#160;Client <a name="kanchor1390"></a>data files:</h2>
+        <ol>
+            <li class="Numbers" value="1">Each <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span> 
+ is also able to save or cache data that it requests from the <span class="VIPAppName">SmartUI</span> Server, however 
+ unlike the <span class="VIPAppName">SmartUI</span> Server this data does not need to be saved and is saved voluntarily 
+ to improve its response time from the Server.</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">This 
+ data is saved to the ‘CACHE’ and 'CACHEINDEX' files.</li>
+            <li class="NumbersSubLetters" value="2">These 
+ files will always be located in the <b>Caching</b> 
+ sub-folder of the <span class="VIPAppName">SmartUI</span> ProgramData  folder  (typically <span class="VIPProgramDataProductFolder">C:\ProgramData\Adroit Technologies\Adroit\SmartUI</span>\Caching), if the (Caching) <b>DataElementCachingEnable</b> 
+ setting is enabled (set to True) for the Client. For details on accessing 
+ this setting, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../05Dply/50Cfg/Advanced_Designer_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Advanced 
+ Designer settings</a></span> or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../05Dply/50Cfg/Advanced_Operator_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Advanced 
+ Operator settings</a></span> as applicable.&#160;</li>
+            <li class="NumbersSubLetters" value="3">Currently 
+ this only applies to graphic forms for <span class="VIPAppName">SmartUI</span> Operators. By default, if a graphic form that 
+ has already been requested from the <span class="VIPAppName">SmartUI</span> Server remains unchanged when it is 
+ opened again, then this graphic form is opened locally on the <span class="VIPAppName">SmartUI</span> Operator, 
+ which greatly improves the response time.</li>
+        </ol>
+        <p class="ListDescSub">If you enable (set to ‘true’) the (Caching) <b>DataElementCachingRetrieveRegardless</b> 
+ setting, then the <span class="VIPAppName">SmartUI</span> Operator will ALWAYS load a cached graphic form from the 
+ local cache REGARDLESS of the subsequent changes that have been made to 
+ it, since the cache was last updated.</p>
+        <p class="ListDescSub">This greatly improves the user experience but requires 
+ the additional administrative overhead of ensuring that the local cache 
+ is updated to include any changes made to the graphic forms of the project/s 
+ that it displays. For details, see <a href="../10Cfg/30Des/10Prj/Updating_cached_graphic_forms.htm">Updating 
+ cached graphic forms</a>.</p>
+        <p class="ListNotice"><b>Note:</b> This 
+ data cannot be used for backing up purposes.</p>
+        <h2><a name="kanchor1391"></a><a name="kanchor1392"></a>Exported files: </h2>
+        <ol>
+            <li class="Numbers" value="1"><b>Graphic 
+ forms:</b> In addition to being saved within a project, graphic forms 
+ can also be manually saved to disk for reuse in other projects. For details, 
+ see <a href="../10Cfg/30Des/10Prj/20GF/Exporting_graphic_forms.htm">Exporting 
+ graphic forms</a> and <a href="../10Cfg/30Des/10Prj/20GF/Importing_graphic_forms.htm">Importing 
+ graphic forms</a>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Each 
+ saved graphic form, is entirely self-sufficient, containing all the data 
+ that it requires, such as spiders, levels and layers and translations.</p>
+        <p class="ListDesc">When a graphic form is saved to disk, it adheres to the 
+ following file format:</p>
+        <p class="ListDesc">ServerName.ProjectName.[Folder(s)Name(s)].GraphicFormName.VizData</p>
+        <p class="ListDesc">For instance, [IAN] Server.MyProject.MyFolder.GFNO2.VizData</p>
+        <ol start="2">
+            <li class="Numbers" value="2"><b>Graphic 
+ elements:</b> To speed up the process of creating a graphic form, it 
+ is possible to export graphical objects that have been created from one 
+ or more configured graphic elements for reuse in other graphic forms. 
+ For details, see <a href="../10Cfg/30Des/40FC/20GE/Exporting_and_Importing_graphic_elements.htm">Exporting 
+ and Importing graphic elements</a>.</li>
+        </ol>
+        <p class="ListDesc">When one or more graphic elements are saved to disk, 
+ the file can have any file extension although typically a .XML file extension 
+ is used.</p>
+        <ol start="3">
+            <li class="Numbers" value="3"><b>Datasources:</b> 
+ It is also possible to export the datasource and its configuration to 
+ a file to facilitate the replication of datasources from one Server to 
+ another. For details, see <a href="../10Cfg/30Des/20DS/Exporting_datasources.htm">Exporting 
+ datasources</a> and <a href="../10Cfg/30Des/20DS/Importing_datasources.htm">Importing 
+ datasources</a>.</li>
+        </ol>
+        <p class="ListDesc">Each datasource that is saved to disk consists of two 
+ files, which have the same name as the selected datasource and the following 
+ extensions: .DSINFO and .DSINFOINDEX.</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Available Agents|The MaxDemand Agent" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="MaxDemand.doc" /><title>Maximum Demand Quick Start</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1 MadCap:conditions="Common.ExFromPDF"><a name="kanchor1545"></a><a name="kanchor1546"></a><a name="kanchor1547"></a>Maximum Demand Quick Start </h1>
+        <p>This explains the recommended method of configuring your <span class="AdroitAppName">Adroit</span> system 
+ to monitor your maximum demand. <a name="kanchor1548"></a><a name="kanchor1549"></a><a name="kanchor1550"></a></p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Before you can monitor your maximum demand, you need the 
+ following:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">To know when your electricity 
+ provider monitors your maximum demand.</li>
+                <li class="Bullets" value="2">To know the maximum kVA 
+ demand limit imposed by your electricity provider, above which you are 
+ required to pay penalties.</li>
+                <li class="Bullets" value="3">To know the block period 
+ duration used by your electricity provider to monitor your maximum demand.</li>
+                <li class="Bullets" value="4">A front-end device (PLC) 
+ that monitors the pulse sent from your electricity provider to signal 
+ the start of each block period. [Otherwise, you can disable block pulses 
+ and allow to agent to determine block periods automatically based on current 
+ time instead.]</li>
+                <li class="Bullets" value="5">A front-end device (PLC) 
+ that monitors the total kVA that your process uses.</li>
+            </ul>
+        </div>
+        <p><a name="kanchor1551"></a><a name="kanchor1552"></a><a name="kanchor1553"></a><a name="kanchor1554"></a><a name="kanchor1555"></a><a name="kanchor1556"></a><a name="kanchor1557"></a>
+        </p>
+        <h2>To monitor your maximum demand:</h2>
+        <h3>Only enable this agent when maximum demand is being monitored</h3>
+        <ol>
+            <li class="Bullets" value="1">Create a <b>Scheduler</b> 
+ agent, for instance called MDPERIODS, to specify the periods of 
+ high power use during which your electricity provider monitors your maximum demand. 
+ Contact your electricity provider for this information. For details, see <a href="Configuring_the_Scheduler_agent.htm">Configuring the Scheduler agent</a>.</li>
+            <li class="Bullets" value="2">Edit 
+ an agent of type:  <b>MaxDemand</b>.</li>
+        </ol>
+        <p class="ListDesc">
+            <p>If necessary, add an agent of the required type, as follows:</p>
+            <div MadCap:targetName="AddingAgents">
+                <h2>In the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+                <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+                <ol>
+                    <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                    <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                    <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+                </ol>
+                <ol start="4">
+                    <li class="Numbers" value="4">If necessary, expand the <img src="../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                    <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+                    <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup </b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+                    <li class="Numbers" value="7">Right click the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically, and select <b>Create Tag</b>.</li>
+                    <li class="Numbers" value="8">Specify the required <b>Tag Name</b> or agent name.</li>
+                </ol>
+                <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgtNmgConventns"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The following rules apply when naming agents:</a>
+                </p>
+                <div MadCap:targetName="AgtNmgConventns" style="display: none;">
+                    <ol>
+                        <li class="NumbersSubLetters" value="1">Agent names have a maximum 
+ of 27 characters.</li>
+                        <li class="NumbersSubLetters" value="2">Agent names cannot be the 
+ same as the names used for Agent Types or for Agent Groups.</li>
+                        <li class="NumbersSubLetters" value="3">Agent names cannot use 
+ the following characters:</li>
+                    </ol>
+                    <p class="ListDescSub">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p>Space</p>
+                                </td>
+                                <td>
+                                    <p>&#160;</p>
+                                </td>
+                                <td>
+                                    <p>Percent</p>
+                                </td>
+                                <td>
+                                    <p><b>%</b>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>Comma</p>
+                                </td>
+                                <td>
+                                    <p><b>,</b>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Period</p>
+                                </td>
+                                <td>
+                                    <p><b>.</b>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>back slash</p>
+                                </td>
+                                <td>
+                                    <p><b>\</b>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>Dollar</p>
+                                </td>
+                                <td>
+                                    <p><b>$</b>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </p>
+                </div>
+                <ol start="9">
+                    <li class="Numbers" value="9">If necessary, provide an optional <b>Description</b> that describes the purpose or describes the value of this tag (agent) for ease of reference.</li>
+                    <li class="Numbers" value="10">Click the <b>Finish</b> button.</li>
+                </ol>
+                <p>&#160;</p>
+            </div>
+            <p> If necessary, locate the required agent, as follows:</p>
+            <h2>In <a name="kanchor1558"></a>the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+            <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+            <ol>
+                <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+            </ol>
+            <ol start="4">
+                <li class="Numbers" value="4">If necessary, expand the <img src="../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+                <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup</b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+                <li class="Numbers" value="7">If necessary, expand the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically.</li>
+                <li class="Numbers" value="8">Locate the required agent <img src="../Resources/Images/16/DataSources/Adroit_Agent.png" />, which is also listed alphabetically beneath their applicable agent 
+ type.</li>
+            </ol>
+            <p>&#160;</p>
+            <p>In the Enterprise Manager window: right click this agent and select <b>Configure</b>.</p>
+        </p>
+        <p>In the <b>Edit MaxDemand Agent</b> dialog: </p>
+        <ol>
+            <li class="Numbers" value="1">Check the <b>Enable OR 
+ use tag</b> checkbox (the <b>enable</b> slot)</li>
+            <li class="Numbers" value="2">Click the browse <img src="../COMMON/BrowseTag.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" /> button to the left of the <b>Enable OR use tag</b> checkbox 
+ and select the <b>Scheduler</b> agent 
+ you created and its value slot (MDPERIODS.value) to only enable this agent 
+ when your electricity provider monitors your maximum demand. For details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting a tag from the Agent Explorer</a></span>.</li>
+        </ol>
+        <h3>Configure the other maximum demand-specific settings</h3>
+        <ol start="3">
+            <li class="Numbers" value="3">Specify the duration of 
+ the block period that your electrical provider uses, in minutes, in the 
+ <b>Block period (mins)</b> edit box (the <b>blockPeriod</b> slot). For 
+ instance, 30 minutes.</li>
+            <li class="Numbers" value="4">Check the <b>Enable block 
+ pulses</b> checkbox (the <b>blockPulseEnable</b> slot)</li>
+            <li class="Numbers" value="5">Specify the maximum kVA 
+ demand limit for this agent, in the <b>Max demand limit</b> (the <b>mdLimit</b> 
+ slot) edit box.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> If may be useful 
+ to specify a value slightly LESS THAN the actual maximum demand limit 
+ imposed by your electricity provider, so that there is time for counteractive 
+ measures to be taken when this is exceeded.</p>
+        <ol start="6">
+            <li class="Numbers" value="6">Check the <b>Enable max 
+ demand alarm</b> checkbox (the <b>enableMDAlarm</b> slot) to enable the 
+ <b>MaxDemand</b> status bit when the predicted maximum demand exceeds 
+ this specified maximum demand limit.</li>
+            <li class="Numbers" value="7">Leave the default <b>Reset</b> 
+ configuration, unless you do NOT want to reset the current month’s calculations 
+ at midnight on the last day of the month.</li>
+            <li class="Numbers" value="8">Click <b>OK</b> and close 
+ the configuration dialog of the MaxDemand agent.</li>
+        </ol>
+        <h3>Configure the maximum demand-specific alarms for this agent</h3>
+        <ol start="9">
+            <li class="Numbers" value="9">Alarm the ‘PulseError’ 
+ alarm type for this agent, so that you will know if the timing of these 
+ external block pulses are compromised i.e. as soon as a pulse does not 
+ occur at the period specified by the <b>Block period (mins)</b> value.</li>
+            <li class="Numbers" value="10">Alarm the ‘MaxDemand’ alarm 
+ type for this agent, so that you will know when the maximum demand limit 
+ is exceeded.</li>
+        </ol>
+        <h3>Scan the relevant values of this agent to the appropriate front-end device</h3>
+        <ol start="11">
+            <li class="Numbers" value="11">Scan the BOOLEAN <b>blockPulse</b> 
+ slot of this agent to a value in a PLC that monitors the pulse sent from 
+ your electricity provider to signal the start of each block period.</li>
+            <li class="Numbers" value="12">Scan the REAL <b>kVA</b> 
+ slot of this agent to a value in a PLC that measures the total instantaneous 
+ kVA usage.</li>
+            <li class="Numbers" value="13">If you ALSO want to calculate 
+ the instantaneous power factor and reactive power component then also 
+ scan the REAL <b>kW</b> slot of this agent to a PLC that measures the 
+ total instantaneous kW usage.</li>
+        </ol>
+        <h3>Display important values</h3>
+        <ol start="14">
+            <li class="Numbers" value="14">
+                <p>You could display  some or all of  <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="maxDemandSlots"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> the following  MaxDemand agent slots:</a> <![CDATA[ ]]></p>
+                <div MadCap:targetName="maxDemandSlots" style="display: none;">
+                    <p><b>mdLimit</b>: the maximum kVA demand limit for this agent. </p>
+                    <p><b>mdActual</b>: the highest recorded maximum demand 
+ for any block period of the current month.</p>
+                    <p><b>demand</b>: the actual power that has been used (kVA demand) for this block 
+ period.</p>
+                    <p><b>mdPredict</b> : estimates the total power use (kVA demand) for this block 
+ period, by using the <b>demand</b> 
+ slot against the remaining time 
+ for this block period.</p>
+                    <p> <b>mdOverUnder</b> 
+: displays the difference between the <b>Predicted max demand</b> (the <b>mdPredict</b> 
+ slot) and the <b>Max demand limit</b>(the <b>mdLimit</b> slot) for this 
+ block period.</p>
+                    <p><b>timeToMD</b> : indicates how long, in minutes, before the <b>Max demand limit</b>(the <b>mdLimit</b> slot) will be reached before the end of the block metered period, at the current demand. </p>
+                    <p valign="top" width="320.1pt" class="Notices"><b>Note:</b> If you are running safely, this will ALWAYS indicate the end of the current block period.</p>
+                    <p> <b>kVAOptimal</b> 
+ : the recommended kVA consumption to meet (and NOT EXCEED) the <b>Max demand limit</b>(the <b>mdLimit</b> slot) for this 
+ block period.</p>
+                    <p> <b>kVASpare</b> 
+ : the spare kVA capacity for current period, which is the difference between the <b>Current demand</b>(the <b>demand</b> 
+ slot) and the <b>Optimal KVA</b>(the <b>kVAOptimal</b> 
+ slot).</p>
+                    <p>This specifies a positive or negative amount of kVA that needs to be removed or added to meet (and NOT EXCEED) the <b>Max demand limit</b>(the <b>mdLimit</b> slot) for this 
+ block period.</p>
+                </div>
+                <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="mimicExample"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+                </p>
+                <div MadCap:targetName="mimicExample" style="display: none;">
+                    <p>For instance, you can create a mimic that allows a manager to know that at the current consumption (<b>demand </b>slot) that:</p>
+                    <ul>
+                        <li class="ListBullets" value="1">the configured maximum demand (the <b>mdLimit</b> slot) will be reached in 12 minutes (<b>timeToMD</b> slot) which is  3 minutes before the end of the period (the <b>blockTimeLeft</b> 
+ slot - <b>timeToMD</b> slot) and</li>
+                        <li class="ListBullets" value="2">30kW of load needs to shed (the <b>kVASpare</b> slot is a negative number) to not exceed the maximum demand OR if the process is running safely that 45kW of load can be added  (the <b>kVASpare</b> slot is a positive number) to meet the maximum demand) for this block.</li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+        <h3>If necessary, use this agent to control your maximum demand</h3>
+        <ol start="15">
+            <li class="Numbers" value="15">If you want to control 
+ the maximum demand by using this agent, then use the <b>MaxDemand</b> 
+ status bit of this agent to turn off non-essential equipment via a script. 
+ Since this status bit is ONLY set when the <b>Enable max demand alarm</b> 
+ checkbox is enabled and the predicted maximum demand exceeds this specified 
+ maximum demand limit.</li>
+        </ol>
+        <p>&#160;</p>
+        <p>Related Links:</p>
+        <p><a href="Configuring_MaxDemand_Agents.htm">Configuring 
+ the MaxDemand agent</a>: A comprehensive description of all the 
+ configuration options provided by the MaxDemand agent.</p>
+        <p><a href="How_Maximum_Demand_is_Calculated.htm">How 
+ Maximum Demand is Calculated</a>: To better understand this value 
+ and see how it is calculated.</p>
+        <p><a href="About_Power_Factor.htm">About 
+ Power Factor</a>: To describe the cost implications of this value.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

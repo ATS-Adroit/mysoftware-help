@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Alarming Agents|Alarm Management|Querying Recorded Incidents" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="AlmMngAgt.doc" /><title>Adding your own Queries</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1867"></a><a name="kanchor1868"></a><a name="kanchor1869"></a><a name="kanchor1870"></a><a name="kanchor1871"></a>Adding your own Queries</h1>
+        <p class="Notices"><b>PLEASE NOTE:</b> This help 
+ topic assumes that you are familiar with working with databases and creating 
+ SQL queries.</p>
+        <p>Instead of only using the 
+ default queries to analyse your logged incidents, you can add your own 
+ queries to the <b>Adr_AM_UserQueries</b> 
+ table of the AlarmManagement database. Then these queries will also appear 
+ in the View Data and View Graph dialogs of this AlarmManagement agent.</p>
+        <p class="Notices"><b>WARNING!</b> It is recommended that you do NOT edit any table in this database, apart 
+ from <b>Adr_AM_UserKPIs</b> and <b>Adr_AM_UserQueries</b>; otherwise you WILL lose data.</p>
+        <p class="Notices"><b>Note:</b> If you want to 
+ remove the queries you have created, simply delete the <b>Adr_AM_UserQueries</b> 
+ table and they will be re-created  when the Agent 
+ Server starts up.</p>
+        <p><a name="kanchor1872"></a>First you need to create the SELECT SQL statement for your query. In 
+ this example, we will add a custom downtime reporting query that:</p>
+        <ul>
+            <li class="Bullets" value="1">Displays the actual reason 
+ and sub reasons (not just their IDs)</li>
+            <li class="Bullets" value="2">Displays the downtime in 
+ the hh:mm:ss time format</li>
+            <li class="Bullets" value="3">Displays the category name 
+ instead of the category ID</li>
+            <li class="Bullets" value="4">Displays the incident name 
+ instead of simply the incident ID</li>
+            <li class="Bullets" value="5">Displays the unacknowledged 
+ time in the hh:mm:ss time format</li>
+        </ul>
+        <p class="LineNote"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example entries returned by this custom query:</a>
+        </p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <p>
+                <img src="image32.jpg" style="height: 42px;width: 705px;" width="705" height="42" border="0" />
+            </p>
+            <p class="Notices"><b>Note:</b> the <b>Category</b> name (instead of CategoryId) 
+ column, the display format of the <b>UnacknowledgedTime</b> 
+ and <b>Downtime</b> columns and the textual 
+ descriptions provided in the <b>Reason</b> 
+ and <b>Subreason</b> columns.</p>
+        </div>
+        <p class="linenote">&#160;</p>
+        <p>The SQL syntax for this query is, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <p><a name="kanchor1873"></a><a name="kanchor1874"></a>SELECT TOP %t Adr_AM_HistoricalIncidents.Idx,DT,Process,Adr_AM_Categories.Category 
+ AS Category,Incident,Data,Description,Filter,Priority,Shift,Operator,Acknowledged_dt,Acknowledged_by,Cleared_dt,convert(varchar,convert(datetime,1.0*UnacknowledgedTime 
+ / (60*24*24)),8) as UnacknowledgedTime,convert(varchar,convert(datetime,1.0*ActiveTime 
+ / (60*24*24)),8) as ActiveTime,Adr_AM_Reasons.Reason as Reason,Adr_AM_SubReasons.SubReason 
+ as Subreason,Notes FROM Adr_AM_HistoricalIncidents INNER JOIN Adr_AM_Categories 
+ ON Adr_AM_HistoricalIncidents.CategoryId = Adr_AM_Categories.CategoryId 
+ INNER JOIN Adr_AM_Reasons ON Adr_AM_HistoricalIncidents.ReasonId = Adr_AM_Reasons.Idx 
+ INNER JOIN Adr_AM_SubReasons ON Adr_AM_HistoricalIncidents.ReasonId = 
+ Adr_AM_SubReasons.ReasonIdx AND Adr_AM_HistoricalIncidents.SubReasonId 
+ = Adr_AM_SubReasons.Idx WHERE dt &gt; '%b' AND dt &lt; '%e' ORDER BY dt 
+ DESC</p>
+        </div>
+        <p>&#160;</p>
+        <h2>To add your own query:</h2>
+        <ol>
+            <li class="Numbers" value="1">Open SQL Server Management 
+ Studio and connect to the SQL Server that contains the database that the 
+ required AlarmManagement agent is connected to.</li>
+            <li class="Numbers" value="2">Display the <b>db.Adr_AM_UserQueries</b> 
+ table.</li>
+            <li class="Numbers" value="3">Right click this table 
+ and select <b>Edit top 200 rows</b>.&#160;</li>
+        </ol>
+        <p class="ListDesc">This displays an editable grid of the queries.</p>
+        <ol start="4">
+            <li class="Numbers" value="4">Select the bottom new (NULL) 
+ record and type in the name of this custom query into the <b>Name</b> 
+ field e.g. “Custom downtime”.</li>
+        </ol>
+        <p class="ListDesc">This is name that is displayed in the <b>Query</b> 
+ list box when selecting the query.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">If necessary, provide the 
+ necessary <b>Description</b> to help your operators and other users to 
+ know what this query will return e.g. “Provides the actual reasons and 
+ the downtime in hh:mm:ss time format...”.</li>
+            <li class="Numbers" value="6">Either type in the required 
+ SELECT SQL statement into the <b>Query</b> field or, in this case, paste 
+ it.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> When 
+ pasting in a query, ensure that this SELECT SQL statement copies as a 
+ SINGLE line without any carriage returns!</p>
+        <ol start="7">
+            <li class="Numbers" value="7">Select the next NULL record 
+ to commit (save) this query (newly edited record).</li>
+            <li class="Numbers" value="8">Restart the Classic User 
+ Interface and open the <b>View 
+ Data</b> dialog of 
+ this AlarmManagement agent to use this new query.</li>
+        </ol>
+        <p class="ListDesc">You will now find a new query called “Custom downtime” 
+ in the <b>Query</b> list.</p>
+        <p>&#160;</p>
+        <h2>Other things you can do:</h2>
+        <ul>
+            <li class="Bullets" value="1">If necessary your query 
+ can support:</li>
+        </ul>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />One or more of the following constraints:</a> 
+ these constrains are provided by the <b>View 
+ data</b> dialog so that your users can choose which incidents they 
+ need to analyse.</p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1"><b>Top</b><a name="kanchor1875"></a>(%t): This allows your users to specify the number of topmost (most 
+ recent) incidents that are to be returned by the query.</li>
+            </ul>
+            <p class="ListDescSub">For instance, this %t constraint is used by the "Most 
+ frequent alarms (count by type)" query, as follows: SELECT TOP(%t) 
+ Incident, Count(Idx) AS [Count] FROM Adr_AM_HistoricalIncidents WHERE 
+ dt &gt; ''%b'' AND dt &lt; ''%e'' GROUP BY Incident ORDER BY Count DESC</p>
+            <ul>
+                <li class="ListBullets" value="1"><b>From</b><a name="kanchor1876"></a>(%b) and/or <b>To</b><a name="kanchor1877"></a>(%e): These constraints 
+ allow your users to specify the time period during which the required 
+ incidents occur.</li>
+            </ul>
+            <p class="ListDescSub">For instance: WHERE dt &gt; #%b# AND dt &lt; #%e#</p>
+            <p class="ListDescSub">If necessary, you can provide ONLY one of these constraints, 
+ without the other. For instance: WHERE dt &gt; #%b#</p>
+            <ul>
+                <li class="ListBullets" value="1"><b>Now</b><a name="kanchor1878"></a> 
+ (%now). This allows users to specify the current date and time.&#160;&#160;</li>
+            </ul>
+            <p class="ListDescSub">For instance you can obtain the last 8 hours in SQL 
+ by using the following expression: WHERE dt &gt; DATEADD(Hour, -8, '%now') 
+ AND dt &lt; GetDate()</p>
+            <ul>
+                <li class="ListBullets" value="1"><b>Shift 
+ times:</b> This constraint is enabled when you specify the <b>From</b> 
+ (%b) and/or <b>To</b> (%e) constraints 
+ (see above), which allows your users to specify the shift during which 
+ the required incidents occur.</li>
+                <li class="ListBullets" value="2"><b>Operator</b> (<a name="kanchor1879"></a>%o). This allows your users 
+ to display all the incidents that are logged against a specific operator.</li>
+            </ul>
+            <p class="ListDescSub">For instance: WHERE Operator='%o'</p>
+            <ul>
+                <li class="ListBullets" value="1"><b>Category</b> (<a name="kanchor1880"></a>%c). This allows your users 
+ to display all the incidents that are logged for a specific category.</li>
+            </ul>
+            <p class="ListDescSub">For instance: WHERE CategoryId='%c'</p>
+        </div>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />One or more of the following KPI target values:</a> 
+ these are the ideal values that you want to achieve.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ul>
+                <li class="ListBullets" value="1"><b>Average 
+ alarm rate</b> (%AAR). This per hourly count is 6 by default.</li>
+            </ul>
+            <p class="ListDescSub">For instance, this %AAR KPI target value is used by 
+ the "Most frequent alarms (count by type)" query, as follows: 
+ SELECT TOP(%t) Incident, Count(Idx) AS [Count] FROM Adr_AM_HistoricalIncidents 
+ WHERE dt &gt; ''%b'' AND dt &lt; ''%e'' GROUP BY Incident ORDER BY Count 
+ DESC</p>
+            <ul>
+                <li class="ListBullets" value="1"><b>Burst 
+ rate</b> (%BR). This per hourly count is 60 by default.</li>
+            </ul>
+            <ul>
+                <li class="ListBullets" value="1"><b>Percent 
+ upset count</b> (%PUC). This number is 30 by default.</li>
+            </ul>
+            <ul>
+                <li class="ListBullets" value="1"><b>Percent 
+ upset</b> (%PU). This percentage is 2 by default.</li>
+            </ul>
+            <ul>
+                <li class="ListBullets" value="1"><b>Intermittent 
+ alarm period</b> (%IAP). This time period in seconds is 10 by default.</li>
+            </ul>
+            <ul>
+                <li class="ListBullets" value="1"><b>Bulk 
+ acknowledgement period</b> (%BAP). This time period in seconds is 1 
+ by default.</li>
+            </ul>
+            <ul>
+                <li class="ListBullets" value="1"><b>Average 
+ alarm duration</b> (%ALD). This time period in seconds is 60 by default.</li>
+            </ul>
+            <ul>
+                <li class="ListBullets" value="1"><b>Average 
+ acknowledgement duration</b> (%AKD). This time period in seconds is 10 by default.</li>
+            </ul>
+            <p>If necessary, you can customise these default KPI target values and/or add 
+ your own and reference them in your queries by using the % prefix. For 
+ details, see <a href="Customizing_KPI_target_values.htm">Customizing 
+ KPI target values</a>.</p>
+        </div>
+        <p class="ListDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_your_own_KPI_target_values.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Add your own KPI target values</a></span><a name="kanchor1881"></a> 
+ : once added, your custom queries can ALSO use these KPI target values!</p>
+        <ul>
+            <li class="Bullets" value="1">If you want the data returned 
+ by this query to be viewed as a chart, then specify which chart you want 
+ to use by configuring the <b>ChartType</b> field, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t1" style="display: none;"><ul><li class="ListBullets" value="1">1 = Bar chart</li><li class="ListBullets" value="2">5 = Pie chart</li><li class="ListBullets" value="3">6 = Line chart</li></ul></div></li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> By default 
+ the <b>ChartType</b> field is -1, which indicates that you do not want 
+ this query to appear in the <b>View Graph</b> 
+ dialog.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

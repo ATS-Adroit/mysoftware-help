@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_AdrSupport" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to Use this Adroit Support Program</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1895"></a>How to Use the Support Program</h1>
+        <p>This application ensures that the correct and pertinent troubleshooting-related information 
+ is automatically supplied to the <span class="AdroitAppName">Adroit</span> Support Desk so that your problems can be speedily resolved. </p>
+        <p>When a possible problem is detected in the operation of the <span class="AdroitAppName">Adroit</span> application, 
+ use this Support program to gather together and compress the necessary 
+ <span class="AdroitAppName">Adroit</span> files and ALSO provide a <b>detailed 
+ description of the problem</b> for the Support department, as follows:</p>
+        <p class="Notices"><b>Note:</b> If possible, 
+ ensure that the  Agent Server is running. </p>
+        <ol>
+            <li class="Numbers" value="1">
+                <p>Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in the  required application name  and select it from the list, in this case: </p>
+                <p> <b>Support 
+ Program</b></p>
+            </li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2">Now complete this <a href="To_Configure_the_Main_Support_dialog.htm">Support 
+ dialog</a>, giving as complete a description of the problem as possible. 
+ </li>
+            <li class="Numbers" value="3">ONLY complete the <a href="To_Configure_the_Contact_Details_dialog.htm">Contact 
+ Details</a> dialog, if this is the FIRST TIME that you are using the Support 
+ Program or details have changed, such as <span class="AdroitAppName">Adroit</span> training that has recently 
+ been completed. </li>
+        </ol>
+        <ol start="4">
+            <li class="Numbers" value="4">Click the <b>Create 
+ Report</b> button to display a progress bar for this process.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The <b>More info required</b> warning indicates 
+ that you have NOT specified a contact name and email address in the <b>Contact Details</b> dialog.</p>
+        <ol start="5">
+            <li class="Numbers" value="5">If the Agent Server is 
+ NOT running, then specify the Serial Number of its HASP license in the 
+ displayed dialog.</li>
+            <li class="Numbers" value="6">The <b>Successfully 
+ created report</b> dialog indicates that no problems occurred when 
+ creating this report.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If an 
+ existing file has the same date and time, then the report file will not 
+ be created.</p>
+        <ol start="7">
+            <li class="Numbers" value="7"><a name="EmailReport2SupportDept"></a>Email 
+ this report file to the support department, as follows:</li>
+        </ol>
+        <p class="ListDesc">If you CAN send emails from this computer, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t8"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />then do the following:</a></p>
+        <div MadCap:targetName="t8" style="display: none;">
+            <ol>
+                <li class="NumbersSubLetters" value="1">Click 
+ on the link provided by the <b>Successfully 
+ created report</b> dialog to automatically open and create the required 
+ email. </li>
+            </ol>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">Attach 
+ the specified .ZIP file in the specified folder (using the <b>Insert 
+ File</b> <img src="image/ebx_1881463329.gif" NOalt="image\ebx_1881463329.gif" style="width: 23px;height: 22px;border-style: none;" width="23" height="22" border="0" /> toolbar button).</li>
+            </ol>
+            <ol start="3">
+                <li class="NumbersSubLetters" value="3">Send 
+ this email to specified email address.</li>
+            </ol>
+        </div>
+        <p class="ListDesc">If you CANNOT send emails from this computer, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />then do the following:</a></p>
+        <div MadCap:targetName="t5" style="display: none;">
+            <ol>
+                <li class="NumbersSubLetters" value="1">Open 
+ the <b>Start Menu</b> and click on the 
+ <b>Run…</b> command.</li>
+            </ol>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">In 
+ the <b>Run</b> dialog type in the path 
+ to the required ZIP file, as specified in <span class="AdroitInstallFolder">C:\Program Files\Adroit Technologies\Adroit</span>\support</li>
+            </ol>
+            <ol start="3">
+                <li class="NumbersSubLetters" value="3">Click 
+ the <b>OK</b> button to display this 
+ folder.</li>
+            </ol>
+            <ol start="4">
+                <li class="NumbersSubLetters" value="4">In 
+ this folder, locate the .ZIP file, which has the following format support(day-month-year)Hour-minute.zip, 
+ select the .ZIP file with the current date and the most recent time.</li>
+                <li class="NumbersSubLetters" value="5">Copy 
+ this ZIP file to a computer that has email and manually open an email 
+ message, attach this ZIP file and add an appropriate Subject Line.</li>
+                <li class="NumbersSubLetters" value="6">Type 
+ the <span class="AdroitAppName">Adroit</span> Support email address 
+ into the <b>Address</b> edit box. </li>
+            </ol>
+            <ol start="7">
+                <li class="NumbersSubLetters" value="7">Send 
+ this email to specified email address.</li>
+            </ol>
+        </div>
+        <p>The <span class="AdroitAppName">Adroit</span> support department will contact you as soon as they receive 
+ this file and will keep you informed regarding the progress of your <span class="AdroitAppName">Adroit</span> 
+ query.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

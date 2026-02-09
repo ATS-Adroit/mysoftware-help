@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer,VIP.Deployment" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Generic Designer tools</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Generic Designer tools</h1>
+        <p>The <span class="VIPAppName">SmartUI</span> Designer toolbar appears at the top, which provides the following tools:</p>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 11.648%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 18.182%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 70.17%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Function</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/16/Generic/Undo.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><a name="kanchor822"></a>Undo&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Undoes the last operation that was performed.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/16/Generic/Redo.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                        <p><a name="kanchor823"></a>Redo</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>Repeats the last operation that was performed.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>&#160;</p>
+        <p>The <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon, also provides the following commonly used tools, which are classified for ease of use into the following groups:</p>
+        <h2><b>Connection:</b>
+        </h2>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 11.648%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 18.182%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 70.17%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1" style="text-align: center;">Function</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/Connect.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">Connect</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To connect to or log onto the required <span class="VIPAppName">SmartUI</span> Server computer.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/Disconnect.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">Disconnect</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To disconnect from the current <span class="VIPAppName">SmartUI</span> Server computer.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/Refresh.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">Refresh</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>To update the current connections, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="UpdateReasons"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />for the following reasons:</a></p>
+                        <ul MadCap:targetName="UpdateReasons" style="display: none;">
+                            <li class="Bullets" value="1">To display any recent changes 
+ made to the data exposed by these <span class="VIPAppName">SmartUI</span> Servers i.e. the changes that have been 
+ made to their datasources. </li>
+                            <li class="Bullets" value="2">To determine if a disconnected 
+ connection is now available. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../30Des/05Cxn/Disconnected_connections.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Disconnected connections</a></span>.&#160;</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/SaveServerData.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1" style="text-align: center;">Save Server Data</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">To save all configuration changes made to the default (login) Server. For more details and how to save the configuration changes of other connected Servers, see <a href="../30Des/05Cxn/Saving_changes_made_to_connected_Servers.htm">Saving changes made to connected Servers</a>.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>For more details about using connections, see <a href="../30Des/05Cxn/Working_with_connections.htm">Working with connections</a>.</p>
+        <h2>Clipboard:</h2>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 11.648%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 18.182%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 70.17%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Function</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/32/Generic/Cut.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><a name="kanchor824"></a>Cut</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Removes the selected item and places 
+ it into the clipboard, so that it can be pasted one or more times.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/32/Generic/Copy.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                        <p><a name="kanchor825"></a>Copy</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Copies the selected item and places it into the clipboard, 
+ so that it can be pasted one or more times.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/32/Generic/Paste.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                        <p><a name="kanchor826"></a>Paste&#160;</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>Inserts the last item that was placed into the clipboard at the specified location.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Project:</h2>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 11.648%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 18.182%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 70.17%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1" style="text-align: center;">Function</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/DataSources/Project_NewFolder.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">New Folder</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To 
+ add a new folder to the currently selected project to organise its  graphic forms.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/DataSources/Project_NewGF.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">New Graphic Form</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p> To 
+ add a new graphic form to the currently selected project.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1" MadCap:conditions="VIP.Designer_VerMinorTwo">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/DataSources/Project_NewStyledGF.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">New Graphic Form (Styled)</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p> To 
+ add a new graphic form to the currently selected project that using the style of this project to configure its default appearance, only if one has been specified. For details, see <a href="../30Des/10Prj/Working_with_Project_Styles.htm">Working with Project Styles</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/DataSources/Project_NewProject.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">New Project</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To add a new project to contain graphic forms and/or folders.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/DataSources/Project_NewWizard.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">New Wizard</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"> To 
+ add a new wizard  to the currently selected project. See <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../30Des/30GF/40Wiz/Working_with_wizards.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with wizards</a></span>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/Delete.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">Delete</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To delete the currently selected project, folder or graphic form.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <img src="../../Resources/Images/32/DataSources/Project_TagReference.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1" style="text-align: center;">Find</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>To find where a tag (agent name) has been referenced and used throughout a project. See <a href="Working_with_Find_and_and_partial_Replace.htm" class="MCXref_0">Working with Find and partial Replace</a>.</p>
+                        <p class="Notices"><b>Note:</b> This utility only appears when the <b>Spider Configuration Mode</b> section of <b>View</b> tab of the Designer ribbon is set to <b>Advanced</b>, since it is intended for advanced users only. </p>
+                        <p class="Notices"><b>Tip:</b> To replace this text you can use the <b>Find and Replace</b> utility in the graphic form toolbar.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>For more details about using projects, see <a href="../30Des/10Prj/Working_with_projects.htm">Working with projects</a>.</p>
+        <h2>Graphic Form:</h2>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 11.648%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 18.182%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 70.17%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1" style="text-align: center;">Function</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/Save.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">Save</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To 
+ save any changes that have been made to the currently displayed  graphic form.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/SaveAs.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">Save As</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p> To 
+ save the currently selected graphic form to another graphic form name within the same project.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/SaveAll.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">Save All</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To 
+ save any changes that have been made to all the currently opened  graphic forms.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/Close.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1" style="text-align: center;">Close Graphic Form</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">To close the currently selected graphic form.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <img src="../../Resources/Images/32/Generic/CloseAll.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1" style="text-align: center;">Close All Graphic Forms</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">To close all the currently opened  graphic forms.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Agent Server</h2>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 11.648%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 18.182%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <col style="width: 70.17%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Tool</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1" style="text-align: center;">Function</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <img src="../../Resources/Images/32/DataSources/Adroit_OpenConfigurator.png" />
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1" style="text-align: center;">Open Configurator</td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>To edit or configure the agents within an <span class="AdroitAppName">Adroit</span> Agent Server. See <a href="../../AU_01_04/Working_with_the_Agent_Configurator.htm">Working with the Agent Configurator</a>.</p>
+                        <p class="Notices"><b>Note:</b> When there is more than one <span class="AdroitAppName">Adroit</span> datasource available, a list is provided to select which  Agent Server to configure. </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Reference|Agent Slots Reference|Agent Type Saved Format Reference" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Agent Header Information</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/Adroit10BasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1993"></a>Agent Header Information</h1>
+        <p>Just like certain slots are header slots that are common to all agent 
+ types and instances, the first batch of .WGP file lines for each agent 
+ contain header information, as described in the following table:</p>
+        <p>For a detailed description of any of its slots, see <a href="Header_Slots.htm">Slot 
+ Details</a>.</p>
+        <table style="mc-table-style: url('../Resources/TableStyles/Adroit10BasicTableStyle.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-Adroit10BasicTableStyle" cellspacing="2">
+            <col class="TableStyle-Adroit10BasicTableStyle-Column-Column1" />
+            <col class="TableStyle-Adroit10BasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Head-Header1">
+                    <th class="TableStyle-Adroit10BasicTableStyle-HeadE-Column1-Header1">.WGP 
+ File Line</th>
+                    <th class="TableStyle-Adroit10BasicTableStyle-HeadD-Column2-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>[name]</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Name of agent, e.g. "AN-01"</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>DSC=description</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>description of agent, e.g. Analog No. 1</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>TYP=type</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>type of agent, e.g. "Analog"</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>VER=nnnnn</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>Major and Minor agent type version no.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>DBG=n</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Debug flag value</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>STS=nnnnn</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>Agent status word value</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>PRY=n</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Agent priority value</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>FIL=n</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>Agent event filter group (Integer). For 
+ details, see <b>Filter Group</b> edit 
+ box in the <a href="../AU_01_04/Editing_the_Header_of_an_Agent.htm">Agent Header 
+ Dialog</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>MSH=n</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Agent membership count (i.e. no. of groups 
+ joined)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>MEM=agent-1 name</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>name of group 1</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>MEM=agent-2 name</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>name of group 2</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>...</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>...</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>MEM=agent-n name</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>name of group n</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>PIC=name</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>[Path] and/or name of mimic currently 
+ associated with this agent. For details, see Associating 
+ Mimics with Agents.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>ICO=</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Not currently used, but can be used to record 
+ user-defined information or messages. For details on configuring this, 
+ see <a href="../AU_01_04/Editing_the_Header_of_an_Agent.htm">Editing the Header</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>SST=n</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>Slot status word count</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>SST0=nnnn,nnnn</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Slot 1 status word (raw and derived)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>SST1=nnnn,nnnn</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>Slot 2 status word (raw and derived)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>...</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>...</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">
+                        <p>SSTn=nnnn,nnnn</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">
+                        <p>Slot n status word (raw and derived)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">
+                        <p>EXT=0</p>
+                    </td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">
+                        <p>Not used. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">UID=</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">Not used.</td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body1">SVN=0</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body1">Not used.</td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body2">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyE-Column1-Body2">AVN=0</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyD-Column2-Body2">Not used.</td>
+                </tr>
+                <tr class="TableStyle-Adroit10BasicTableStyle-Body-Body1">
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyB-Column1-Body1">LVN=0</td>
+                    <td class="TableStyle-Adroit10BasicTableStyle-BodyA-Column2-Body1">Not used.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>&#160;</p>
+        <p>The syntax and semantics of the remaining 
+ .WGP file lines for each agent are specific to the agent type. For details, 
+ see <a href="Agent_Type_Saved_Format_Reference.htm">Database File Reference</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Managing Users|Security|Users and Groups|Adding allowed users and groups" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Deployment,VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Security.doc" /><title>Adding allowed users and groups</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2970"></a>Adding allowed users and groups</h1>
+        <p><a name="kanchor2971"></a><a name="kanchor2972"></a><a name="kanchor2973"></a><a name="kanchor2974"></a>Typically, add each user or group that uses a <span class="VIPAppName">SmartUI</span> <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span> <![CDATA[ 
+ ]]> to the lists of allowed users or groups maintained by each <span class="VIPAppName">SmartUI</span>Server.</p>
+        <p class="Notices"><b>IMPORTANT:</b> Ensure that each user is assigned 
+ a password, which is MANDATORY when logging onto the <span class="VIPAppName">SmartUI</span> Server.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a>
+        </p>
+        <ul MadCap:targetName="AddInfo" style="display: none;">
+            <li class="Bullets" value="1">Using groups 
+ makes it easier for you to manage large numbers of users. For details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Working_with_user_accounts_and_groups.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working 
+ with user accounts and groups</a></span>.</li>
+            <li class="Bullets" value="2">It is not necessary 
+ to create user accounts for all users since it is also possible to impersonate 
+ an allowed user. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Impersonating_users.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Impersonating 
+ users</a></span>.</li>
+            <li class="Bullets" value="3">It is also 
+ possible to remove user(s) or group(s) from these lists, if necessary.</li>
+            <li class="Bullets" value="4">When the <span class="VIPAppName">SmartUI</span> Server 
+ is deployed on a domain with a large number of users and/or groups, there is long delay before the 
+ user and group lists are displayed. For details on reducing or eliminating this 
+ delay, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Specifying_user_and_group_subsets.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Specifying user and group 
+ subsets</a></span>.</li>
+            <li class="Bullets" value="5">One or more 
+ high-level groups and/or users can have unrestricted access to each <span class="VIPAppName">SmartUI</span> Server. For more information, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Assigning_global_security_to_groups_and_users.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Global security groups and users</a></span>.</li>
+        </ul>
+        <p>Allowed users and groups are configured for each <span class="VIPAppName">SmartUI</span> Server in the 
+ <b>Enterprise Manager</b>, by using the <img src="../../../../Resources/Images/16/DataSources/Security_DS.png" /><b>Security</b> 
+ component within the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /> <b>Management</b> category.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddAlowedUser"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To 
+ add a user to the allowed users list:</a>
+        </p>
+        <div MadCap:targetName="AddAlowedUser" style="display: none;">
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="EntManSvrSeln"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Expand the <b>Security</b> component of the required <span class="VIPAppName">SmartUI</span> Server, as follows:</a> <![CDATA[
+]]></p>
+            <div MadCap:targetName="EntManSvrSeln" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Open the <b>Enterprise 
+ Manager</b>. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../20DesEnv/10TW/Accessing_tool_windows.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Accessing 
+ tool windows</a></span>.</li>
+                    <li class="Numbers" value="2">If necessary, <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">expand <img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">click the plus (+) box&#160;to the left of the current icon or name</span></span> <img src="../../../../Resources/Images/16/Generic/VIPServers.png" /> <b> Servers</b>.</li>
+                    <li class="Numbers" value="3">If necessary, expand the 
+ name of the required Server connection <img src="../../../../Resources/Images/16/Generic/VIPServer.png" />. </li>
+                </ol>
+                <p class="ListNotice"><b>Tip:</b> The connection 
+ name is prefaced by the <span class="VIPAppName">SmartUI</span> Server computer name.</p>
+                <ol start="4">
+                    <li class="Numbers" value="4">If necessary, expand the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b>Management</b> category. </li>
+                    <li class="Numbers" value="5">Click the plus box <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;border-style: none;" width="9" height="9" border="0" />&#160;to the left of the <b>Security</b> icon <img src="../../../../Resources/Images/16/DataSources/Security_DS.png" />.</li>
+                </ol>
+                <p class="ListNotice"><b>Tip:</b> It is also possible 
+ to display the security components by double-clicking on this name or 
+ icon.&#160; </p>
+            </div>
+            <ol start="6">
+                <li class="Numbers" value="6">Expand the <b>Users and 
+ Groups</b> icon <img src="../../../../Resources/Images/16/Generic/User.png" />.</li>
+                <li class="Numbers" value="7">Expand the <b>Users</b> 
+ icon <img src="../../../../Resources/Images/16/Generic/User.png" />.</li>
+                <li class="Numbers" value="8">Right-click the <b>Allowed 
+ Users</b> icon <img src="../../../../Resources/Images/16/Generic/User_Allowed.png" /> or its name and select <b>Set Allowed Users</b>.</li>
+            </ol>
+            <p class="ListDesc">The <b>Set Allowed Users</b> configuration dialog is launched.</p>
+            <p class="ListNotice" MadCap:targetName="SetAllowed" style="display: none;"><b>Note:</b> If the Server is deployed on a domain 
+ with a large number of users, its list of <b>Available Users</b> will 
+ take a long time to be populated. For details on reducing or eliminating 
+ this delay, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Specifying_user_and_group_subsets.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Specifying user 
+ subsets</a></span>.</p>
+            <ol start="9">
+                <li class="Numbers" value="9">Select the name of the 
+ required user from the <b>Available Users</b> list.</li>
+            </ol>
+            <p class="ListNotice" MadCap:targetName="AvailUsers" style="display: none;"><b>Note:</b> The <b>Available 
+ Users</b> list may include both local and global users, where applicable.</p>
+            <ol start="10">
+                <li class="Numbers" value="10">Click the <b>&lt;&lt;</b> 
+ button to add this user to the <b>Selected Users</b> list</li>
+            </ol>
+            <div MadCap:targetName="SelectUsers" style="display: none;">
+                <p class="ListNotice"><b>Tip:</b> You can also 
+ add users by double-clicking the required entry in the <b>Available</b> <b>Users</b> list to immediately add it to the <b>Selected</b> <![CDATA[  ]]><b>Users</b> 
+ list.</p>
+                <p class="ListNotice"><b>Note:</b> Only the users 
+ listed in the <b>Selected Users</b> list, will be used when configuring 
+ access to the Server, the configured datasources and their data elements 
+ and/or special functions, if necessary.</p>
+            </div>
+            <ol start="11">
+                <li class="Numbers" value="11">Repeat this for all the 
+ users that you want to add.</li>
+            </ol>
+            <div MadCap:targetName="GenNotes" style="display: none;">
+                <p class="Notices"><b>Tip:</b> It is also possible 
+ to add users to the <b>Allowed Users</b> 
+ list by expanding the <b>All Users</b> icon <img src="../../../../Resources/Images/16/Generic/User_Available.png" /> and dragging 
+ the relevant users onto the <b>Allowed Users</b> icon <img src="../../../../Resources/Images/16/Generic/User_Allowed.png" />.</p>
+                <p class="Notices"><b>Note:</b> If necessary, 
+ allowed user(s) can be removed. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Removing_allowed_users.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Removing 
+ allowed users</a></span>.</p>
+            </div>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddAllowedgroup"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To 
+ add a group to the allowed groups list:</a>
+        </p>
+        <div MadCap:targetName="AddAllowedgroup" style="display: none;">
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="EntManSvrSeln"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Expand the <b>Security</b> component of the required <span class="VIPAppName">SmartUI</span> Server, as follows:</a> <![CDATA[
+]]></p>
+            <div MadCap:targetName="EntManSvrSeln" style="display: none;">
+                <ol>
+                    <li class="Numbers" value="1">Open the <b>Enterprise 
+ Manager</b>. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../20DesEnv/10TW/Accessing_tool_windows.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Accessing 
+ tool windows</a></span>.</li>
+                    <li class="Numbers" value="2">If necessary, <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">expand <img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">click the plus (+) box&#160;to the left of the current icon or name</span></span> <img src="../../../../Resources/Images/16/Generic/VIPServers.png" /> <b> Servers</b>.</li>
+                    <li class="Numbers" value="3">If necessary, expand the 
+ name of the required Server connection <img src="../../../../Resources/Images/16/Generic/VIPServer.png" />. </li>
+                </ol>
+                <p class="ListNotice"><b>Tip:</b> The connection 
+ name is prefaced by the <span class="VIPAppName">SmartUI</span> Server computer name.</p>
+                <ol start="4">
+                    <li class="Numbers" value="4">If necessary, expand the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b>Management</b> category. </li>
+                    <li class="Numbers" value="5">Click the plus box <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;border-style: none;" width="9" height="9" border="0" />&#160;to the left of the <b>Security</b> icon <img src="../../../../Resources/Images/16/DataSources/Security_DS.png" />.</li>
+                </ol>
+                <p class="ListNotice"><b>Tip:</b> It is also possible 
+ to display the security components by double-clicking on this name or 
+ icon.&#160; </p>
+            </div>
+            <ol start="6">
+                <li class="Numbers" value="6">Expand the <b>Users and 
+ Groups</b> icon <img src="../../../../Resources/Images/16/Generic/User.png" />.</li>
+                <li class="Numbers" value="7">Expand the <b>Groups</b> 
+ icon <img src="../../../../Resources/Images/16/Generic/Group.png" />.</li>
+                <li class="Numbers" value="8">Right-click the <b>Allowed 
+ Groups</b> icon <img src="../../../../Resources/Images/16/Generic/Group_Allowed.png" /> or its name and select <b>Set Allowed 
+ Groups</b>.</li>
+            </ol>
+            <p class="ListDesc">The <b>Set Allowed Groups</b> configuration dialog is launched.</p>
+            <p class="ListNotice" MadCap:targetName="SetAllowedGroups" style="display: none;"><b>Note:</b> If the Server is deployed on a domain 
+ with a large number of groups, its list of <b>Available Groups</b> will 
+ take a long time to be populated. For details on reducing or eliminating 
+ this delay, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Specifying_user_and_group_subsets.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Specifying group 
+ subsets</a></span>.</p>
+            <ol start="9">
+                <li class="Numbers" value="9">Select the name of the 
+ required group from the <b>Available Groups</b> list.</li>
+            </ol>
+            <p class="ListNotice" MadCap:targetName="AvailGroups" style="display: none;"><b>Note:</b> The <b>Available 
+ Groups</b> list may include both local and global groups, where applicable.</p>
+            <ol start="10">
+                <li class="Numbers" value="10">Click the <b>&lt;&lt;</b> 
+ button to add this group to the <b>Selected Groups</b> list.</li>
+            </ol>
+            <div MadCap:targetName="SelectedGroups" style="display: none;">
+                <p class="ListNotice"><b>Tip:</b> You can also 
+ add groups by double-clicking the required entry in the <b>Available</b> <b>Groups</b> list to immediately add it to the <b>Selected</b> <![CDATA[  ]]><b>Groups</b> 
+ list.</p>
+                <p class="ListNotice"><b>Note:</b> Only the groups 
+ listed in the <b>Selected Groups</b> list, will be used when configuring 
+ access to the Server, the configured datasources and their data elements 
+ and/or special functions, if necessary.</p>
+            </div>
+            <ol start="11">
+                <li class="Numbers" value="11">Repeat this for all the 
+ groups that you want to add.</li>
+            </ol>
+            <div MadCap:targetName="GenGrpNotes" style="display: none;">
+                <p class="Notices"><b>Tip:</b> It is also possible 
+ to add groups to the <b>Allowed Groups</b> 
+ list by expanding the <b>All Groups</b> icon <img src="../../../../Resources/Images/16/Generic/Group_Available.png" /> and dragging 
+ the relevant groups onto the <b>Allowed Groups</b> icon <img src="../../../../Resources/Images/16/Generic/Group_Allowed.png" />.</p>
+                <p class="Notices"><b>Note:</b> If necessary, 
+ allowed group(s) can be removed. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Removing_allowed_groups.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Removing 
+ allowed groups</a></span>.</p>
+            </div>
+        </div>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SetAllowed;AvailUsers;SelectUsers;GenNotes;SetAllowedGroups;AvailGroups;SelectedGroups;GenGrpNotes"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more detailed instructions:</a>
+        </p>
+        <p>&#160;</p>
+        <p>For details on removing allowed user(s) and  group(s), see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Removing_allowed_users.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Removing 
+ allowed users</a></span> or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Removing_allowed_groups.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Removing 
+ allowed groups</a></span>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

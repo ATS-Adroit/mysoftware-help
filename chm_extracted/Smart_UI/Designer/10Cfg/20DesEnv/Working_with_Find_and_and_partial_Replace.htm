@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Graphic Forms" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Deployment,VIP.Designer" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with Find and and partial Replace</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Working with <a name="kanchor1590"></a>Find and partial Replace</h1>
+        <p>The primary purpose of a graphic form is to display data elements (tags). Over the years a number of separate mechanisms have been created to make this process as easy as possible and/or to facilitate their duplication to save on their engineering time. This means that:</p>
+        <ul>
+            <li class="Bullets" value="1">locating all the references of a tag on a graphic form is a non-trivial task and so this tool is essential and</li>
+            <li class="Bullets" value="2">
+                <p>not all of these mechanisms allow the tag to be externally replaced by this tool, without breaking the mechanisms themselves.</p>
+                <p>Since these mechanisms fall into two main categories: </p>
+                <p>
+                    <ul>
+                        <li class="BulletsClear" value="1">
+                            <p>those that directly link a tag to an component on a graphic form. More details: </p>
+                            <ul>
+                                <li class="Bullets" value="1">properties of controls or vectors. See <a href="../30Des/30GF/20Dsgn/Quickly_linking_properties_to_data_elements.htm" class="MCXref_0">Quickly linking properties to data elements</a>.</li>
+                                <li class="Bullets" value="2">inputs of appropriate spiders. See <a href="../30Des/50S_S/10Spd/Working_with_spiders.htm" class="MCXref_0">Working with spiders</a>.</li>
+                                <li class="Bullets" value="3"> Behaviours. See <a href="../30Des/40FC/30B/About_Behaviors.htm" class="MCXref_0">About Behaviours</a>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    <ul>
+                        <li class="BulletsClear" value="1">
+                            <p>those that use some sort of intermediary mechanism to indirectly link the tag to a graphic form. More details:</p>
+                            <ul>
+                                <li class="Bullets" value="1">Graphic form aliases. See <a href="../30Des/30GF/30Als/Working_with_aliases.htm" class="MCXref_0">Working with aliases</a>.</li>
+                                <li class="Bullets" value="2">Graphic form scripts. See <a href="../30Des/30GF/20Dsgn/Graphic_form_scripting.htm" class="MCXref_0">Graphic form scripting</a>.</li>
+                                <li class="Bullets" value="3"> Behaviours that belong to wizard instances. See <a href="../30Des/30GF/40Wiz/Working_with_wizards.htm" class="MCXref_0">Working with wizards</a>.</li>
+                                <li class="Bullets" value="4">Data elements that belong to wizard instances</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </p>
+                <p>and it is these indirect mechanisms that prevent the direct replacing of the tag with another.</p>
+            </li>
+        </ul>
+        <p>To work around this limitation, the following two utilities have been created which have different capabilities or uses: </p>
+        <p class="Notices"><b>Note</b>: These searches are not case-sensitive.</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>The GLOBAL <b>Find</b> <img src="../../Resources/Images/16/DataSources/Project_TagReference.png" /> utility in the <b>Project</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon, enables you to select one or more graphic forms of one or more projects to find where text, typically a tag (agent name),  has been referenced and used, you can then export the list of located references  to Excel.</p>
+                <p class="Notices"><b>Note:</b> This utility only appears when the <b>Spider Configuration Mode</b> section of <b>View</b> tab of the Designer ribbon is set to <b>Advanced</b>, since it is intended for advanced users only. </p>
+                <p>This utility can save much time when redesigning large projects and when creating and maintaining multiple SCADA systems in keeping track of your agents or other graphic form components.</p>
+                <p class="Notices"><b>Note:</b> You need to close all open graphic forms before you can use this tool and you cannot perform any other action in the Designer while this utility is open.</p>
+            </li>
+            <li class="Bullets" value="2">
+                <p>The LOCAL <b>Find and Replace</b> utility in the graphic form toolbar, searches for the specified text, typically a tag (agent name), in the currently selected graphic form and unlike the other utility provides:</p>
+                <p>
+                    <ul>
+                        <li class="BulletsClear" value="1">an <b>Edit</b> column in the <b>Find Results</b> tab that allows you to edit the indirect mechanisms so that you can change these references to the required replacement one at a time;</li>
+                    </ul>
+                </p>
+                <p>
+                    <ul>
+                        <li class="BulletsClear" value="1">the <b>Replace</b> tab to replace the direct references to the searched for text with the specified replacement and</li>
+                        <li class="BulletsClear" value="2">a moveable dialog, so that you can carry on working on others things or can find and replace text  in more than one currently open graphic form.</li>
+                    </ul>
+                </p>
+                <p>This utility also allows you to export the list of references to the searched for text  to Excel, if needed.</p>
+            </li>
+        </ul>
+        <p><a href="#To_find__text_in_the_graphic_form/s">To find  text in the graphic form/s</a>
+        </p>
+        <p><a href="#To_replace_DIRECT_text_references_in_a_graphic_form">To replace DIRECT text references in a graphic form</a>
+        </p>
+        <h2><a name="To_find__text_in_the_graphic_form/s"></a>To find  text in the graphic form/s:</h2>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>If you need to search one or more graphic forms of one or more projects, then click the GLOBAL <b>Find</b> <img src="../../Resources/Images/16/DataSources/Project_TagReference.png" /> utility in the <b>Project</b> group of the <b>Home</b> tab of the <span class="VIPAppName">SmartUI</span> Designer ribbon.</p>
+                <p class="Notices"><b>Note:</b> This utility only appears when the <b>Spider Configuration Mode</b> section of <b>View</b> tab of the Designer ribbon is set to <b>Advanced</b>, since it is intended for advanced users only. </p>
+            </li>
+            <li class="Bullets" value="2">If you need to search one or more of the currently open graphic forms for a full or partial tag name and replace the direct references and/or edit their indirect tag referencing mechanisms to manually change this tag, then click the LOCAL <b>Find and Replace</b> utility in the graphic form toolbar.</li>
+        </ul>
+        <p>The <b>Find</b> tab is displayed by default, which allows you to specify the text, typically this would be the full or partial agent (tag) name, that you want to locate in the  <b>Text to find</b> field. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="TagToFind"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+        <div MadCap:targetName="TagToFind" style="display: none;">
+            <p>You can click the browse button to the left of this field and use the data element browser to select the required tag that you are looking for. </p>
+            <p class="Notices"><b>Tip:</b> This search does not need to support wildcard characters, since any reference to the specified text is located.</p>
+        </div>
+        <ul>
+            <li class="Bullets" value="1">For the GLOBAL <b>Find</b> utility, select the required project/s and/or the graphic form/s from the <b>Look in</b> tree. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LookIn"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></li>
+        </ul>
+        <div MadCap:targetName="LookIn" style="display: none;">
+            <p class="ListDesc">This lists all the available projects on the default <span class="VIPAppName">SmartUI</span> Server.</p>
+            <p class="ListDesc">When a project is selected it will load all the graphic forms in this project, which may take some time for large projects.</p>
+            <p class="ListDesc">By default all the graphic forms are selected to be searched in this project. If you only want to search specific graphic forms and EXCLUDE others, then clear the checkboxes of the graphic forms you do not want searched.</p>
+        </div>
+        <ul>
+            <li class="Bullets" value="1">For the LOCAL <b>Find and Replace</b> utility, <b>Look in</b> specifies the full path of the currently open graphic form that will be searched for the specified text.</li>
+        </ul>
+        <p>Click the <b>Find</b> button, which displays  the located references to the specified text in the selected graphic form/s of the selected project/s in the <b>Find results</b> tab of the <b>Results</b> section. </p>
+        <p>The  references to the specified <b>Text to find</b> are classified in each graphic form into the following two groups, for ease of reference:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Replaceable:</b> These are the references that can be  directly replaced, whose <b>Replaceable</b> column is Yes.</li>
+        </ul>
+        <p class="ListBullNote"><b>IMPORTANT:</b> If the <b>Text to find</b> refers to a tag (or a portion of a tag name) this does NOT display ALL these  direct (replaceable) tag references!</p>
+        <p class="ListBullNote">This ONLY lists  the Behaviours that currently contain this tag, ignoring all references of the spiders and/or controls that are directly linked to this tag. When the tag is not used by a Behaviour then a SINGLE reference to its DataElement spider is added to the list, regardless of how many spiders and/or controls are directly linked to this tag. </p>
+        <p class="ListBullNote"><b>Note:</b> When replacing this text ALL the direct (replaceable) tag references ARE replaced. </p>
+        <ul>
+            <li class="Bullets" value="1"><b>Unreplaceable: Manually Editable in Local Find:</b> These are the greyed out references that cannot be  directly replaced, whose <b>Replaceable</b> column is No.</li>
+        </ul>
+        <p>The references, in both lists, are further classified by their <b>Type</b>, which is one of the following:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Behaviours</b>: this <b>Type</b> typically include any of the following Behaviours containing the complete or partial tag name: Bind, color, Display value, Execute Command, Location, Operator Action, Percentage fill, Rotation, size, Tooltip  and  Visibility.</li>
+            <li class="Bullets" value="2"><b>Properties</b>: this <b>Type</b> contains:</li>
+            <li class="BulletSub" value="3">any TEXT Property of a control containing the complete or partial tag name and the Results  indicate the name of the control and then the name of the Property OR</li>
+            <li class="BulletSub" value="4"> the Graphic Form Script, that contains the complete or partial tag name and the Results indicate the line in this script in which it was located OR</li>
+            <li class="BulletSub" value="5">any aliases configured for this graphic form, which contain the complete or partial tag name</li>
+            <li class="Bullets" value="6"><b>Spiders</b>: this <b>Type</b> only displays those spiders to which the complete or partial tag name has been specifically connected to, as follows:</li>
+        </ul>
+        <p class="ListNotice"><b>IMPORTANT:</b> Furthermore this only displays the spiders to which the specified agent name is directly (initially) connected and NOT the spiders that reference this spider. </p>
+        <ul>
+            <li class="BulletSub" value="1">when searching for a complete tag name, this section typically only contains DataElement spiders (which in turn can be linked to multiple spiders, such as  Mathematical spiders etc.) and Application spiders.</li>
+            <li class="BulletSub" value="2">when searching for a partial tag name, this section can also contain String Format and Variable Data Element spiders.</li>
+        </ul>
+        <p>For the LOCAL utility: </p>
+        <ul>
+            <li class="Bullets" value="1">clicking a row in the <b>Find Results</b> tab selects the object that the row pertains to, in other words:</li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1"> the applicable control is selected on the graphic form that, for instance, has the selected Behaviour and/or  </li>
+            <li class="BulletSub" value="2">the applicable spider is selected in the Spider workspace.</li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1">the <b>Edit</b> column provides browse buttons next to each reference that is NOT&#160;directly replaceable so that their indirect tag referencing mechanism can be edited to change this tag reference to the required one, as follows:</li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1">Any Behaviour or tag reference within a wizard: displays the Wizard substitutions dialog.</li>
+            <li class="BulletSub" value="2">Aliases: opens the Edit aliases dialog.</li>
+            <li class="BulletSub" value="3">Graphic Form Script: opens the Script Editor displaying this script.</li>
+        </ul>
+        <p class="Notices"><b>Note:</b> Any errors are displayed in red at the bottom of this <b>Find</b> tab.</p>
+        <p>You can export the references listed in <b>Find results</b> to an Excel Formatted XML document for reference purposes. Simply click the <b>Export</b> button  to specify the name and location of this (*.xml) file. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="Export"><img style="border: none;margin-right: 5px;" src="../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+        <div MadCap:targetName="Export" style="display: none;">
+            <p>By default, the file name is called FindResults.xml and is saved into the current Configuration folder.</p>
+            <p>This file displays the <b>Search Text</b> and then lists the located references of this text in a table with the following columns for ease of reference: Graphic Form, Object, Type, Details, Replaceable, Reason, where the Reason column provides the reason when the Replaceable entry is No .</p>
+        </div>
+        <p>The <b>Advanced View</b> button displays the <b>Exclude property spiders</b> checkbox, since it is NOT typically recommended to uncheck the checkbox to include all property spiders and their inputs in the search. </p>
+        <h2><a name="To_replace_DIRECT_text_references_in_a_graphic_form"></a>To replace DIRECT text references in a graphic form:</h2>
+        <p>You can ONLY&#160;perform a replace when using the LOCAL <b>Find and Replace</b> utility in the graphic form toolbar.</p>
+        <p class="Notices"><b>IMPORTANT:</b> There is no undo mechanism - so be VERY SURE before replacing tag references. </p>
+        <p class="Notices"><b>Note:</b> You need to find the required full or partial tag name first before you can replace it with something else. </p>
+        <p>Click the <b>Replace</b> tab, which adds the     <b>Replace with</b> field.</p>
+        <p>Specify the text in the <b>Replace with</b> field that you want to replace the text that you have already searched this graphic form for, which is specified in the <b>Text to find</b> field for the currently displayed graphic form (as specified in the <b>Look in</b> field).</p>
+        <p>Having performed a <b>Find</b> all the results  in the <b>Find results</b> tab, whose <b>Replaceable</b> column is <b>Yes</b> are selectable (not greyed out) and ONLY&#160;these can be directly replaced. </p>
+        <p>Either manually check the individual checkboxes of the required results that you want to replace or click the <b>Check All</b>.</p>
+        <p class="Notices"><b>Note:</b> If you perform a <b>Check All</b> ONLY the non greyed out results are selected (those whose <b>Replaceable</b> column is <b>Yes</b>) .</p>
+        <p>Click the <b>Replace</b> button.</p>
+        <p class="Notices"><b>IMPORTANT:</b> There is no undo mechanism - so be VERY SURE before replacing tag references. </p>
+        <p>All the references to the selected results are replaced. For instance this only lists  the Behaviours that currently contain the searched for tag, ignoring all references of the spiders and/or controls that are ALSO directly linked to this tag. However ALL of these references will be replaced when this Behaviour is selected. </p>
+        <p>Once the text in the <b>Text to find</b> field has been replaced with the text in the <b>Replace with</b> field for the currently displayed graphic form (as specified in the <b>Look in</b> field) then the graphic form is searched again for any references to the text in the <b>Text to find</b> field to identify:</p>
+        <ul>
+            <li class="Bullets" value="1"> any <b>Find results</b> whose <b>Replaceable</b> column is <b>Yes</b> that you may want to directly replace or  </li>
+            <li class="Bullets" value="2">any <b>Find results</b> whose <b>Replaceable</b> column is <b>No</b> that CANNOT be directly replaced, in this case you need to click their browse button in the <b>Edit</b> column, so that their indirect tag referencing mechanism can be edited to change this tag reference to the required one, as follows:</li>
+            <li class="BulletSub" value="3">Any Behaviour or tag reference within a wizard: displays the Wizard substitutions dialog.</li>
+            <li class="BulletSub" value="4">Aliases: opens the Edit aliases dialog.</li>
+            <li class="BulletSub" value="5">Graphic Form Script: opens the Script Editor displaying this script.</li>
+        </ul>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

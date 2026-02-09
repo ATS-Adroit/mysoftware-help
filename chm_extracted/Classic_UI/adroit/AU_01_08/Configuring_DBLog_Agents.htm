@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents|The DBLog Agent" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Configuring DBLog Agents</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1371"></a>Configuring DBLog Agents</h1>
+        <p class="Notices"><b>Tip:</b> Typically you need to separate the Analog and Digital tags that you want to log into different DBLog agents, due to their unique logging requirements.</p>
+        <p>The DBLog configuration dialog is divided into the following sections:</p>
+        <p>The top checkboxes that determine the general operation of this agent:</p>
+        <ul>
+            <li class="Bullets" value="1">The <b>Enable</b> checkbox (the BOOLEAN <b>start</b> slot), which allows you to start/stop this agent from logging the listed tags.</li>
+            <li class="Bullets" value="2">The <b>Disable on standby</b> checkbox  (the BOOLEAN <b>disableOnStandby</b> slot), which allows you to  disable this agent, when its Agent Server is part of a cluster and is in standby node - to prevent the logging of DUPLICATE tags.</li>
+            <li class="Bullets" value="3">
+                <p>The <b>String logging</b> checkbox (the BOOLEAN <b>strLog</b> slot), when enabled logs the tag values  as Strings and not numeric values; this also allows you to log other string slots (this will log the first 79 characters). </p>
+                <p class="Notices"><b>Note:</b> While DBLog agents typically log Numerical and Digital values or bits, they can be configured to convert ALL values to  Strings, by checking the <b>String logging</b> checkbox - but this is NOT&#160;recommended for general use, since <b>it requires MORE SPACE to store String values compared to Numerical values</b> and this can also cause formatting problems.</p>
+            </li>
+        </ul>
+        <p>Then the selected <b>Logging method</b> determines which parameters are required and when the list of tags are logged, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LoggingMethods"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <ul MadCap:targetName="LoggingMethods" style="display: none;">
+            <li class="Bullets" value="1">
+                <p><b>Log all on interval</b>: all the listed tags are logged at the specified <b>Logging interval</b> regardless of whether they have changed or not and regardless of their quality.</p>
+                <p class="Notices"><b>Tip:</b> This method is typically used when logging Analog values.</p>
+            </li>
+            <li class="Bullets" value="2">
+                <p><b>Log on change</b>: only the tags that change are logged, typically  when their value or quality status changes.</p>
+                <p class="Notices"><b>IMPORTANT:</b> To prevent this logging method from logging the tags when their quality status changes, add the following registry value and set it to 1: <a href="../AU_01_02/DisableOnQualityChangeLogging.htm">DisableOnQualityChangeLogging</a>.</p>
+                <p class="Notices"><b>Note:</b> Only this method allows for the logging of historical putslots.</p>
+            </li>
+            <li class="Bullets" value="3">
+                <p><b>Log all on change</b>: all the listed tags are logged if ANY tag value changes. </p>
+                <p class="Notices"><b>Note:</b> Tags are ONLY&#160;logged when a value of ANY listed tag changes.</p>
+            </li>
+            <li class="Bullets" value="4"><b>Log all on trigger value -&gt; zero</b>: all the listed tags are logged when the value of the specified <b>Trigger tag</b> goes to zero.</li>
+            <li class="Bullets" value="5"><b>Log all on trigger value -&gt; non-zero</b>: all the listed tags are logged when the value of the specified <b>Trigger tag</b> leaves zero.</li>
+            <li class="Bullets" value="6"><b>Log all on trigger any value change</b>:all the listed tags are logged when the value of the specified <b>Trigger tag</b> changes value.</li>
+        </ul>
+        <p class="Notices"><b>IMPORTANT:</b> When selecting the <b>Log all on interval</b> method, <b>do NOT add more than 5000 agents to the DBLog agent</b>, otherwise ALL the logged values are ALWAYS be dumped to a .SQL file and not be logged directly to the database, since the total number of logged values exceeds the maximum queue size (5000). <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="QueueDetail"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More detail:</a></p>
+        <p MadCap:targetName="QueueDetail" style="display: none;">This agent provides a queue of values waiting to be logged to the specified database  (or buffer),  when the number of items in this queue exceeds 5000, the currently  unlogged transactions are dumped to a .SQL file in the <span class="AdroitAdrPrjFolder">C:\ProgramData\Adroit Technologies\Adroit\Configurations\Default</span>\Work folder. </p>
+        <p MadCap:targetName="QueueDetail" style="display: none;">These .SQL files can be manually loaded into SQL Enterprise manager and executed to “catch up” this data. Each file name uses the following format:  DBLogAgentName_Y_M_D_H_M_S.sql. </p>
+        <p class="Notices"><b>Tip:</b> You can split DBLog agents up to share the load of the agents being logged.</p>
+        <p>Then the <b>Tag list</b>, which is sorted alphabetically, allows you to specify and configure the tags that are logged according to the specified <b>Logging method</b>, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="TagList"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="TagList" style="display: none;">
+            <p>Either manually browse in the required tags, by using the <img src="DBLogAddTagButton.jpg" /> button to both browse in the tag and add it to the list, which is sorted alphabetically - so it may not be added to the end of this list.</p>
+            <p class="Notices"><b>Tip:</b> You can also use the  <img src="DBLogAddRowButton.jpg" /> button to add a blank row to this list and then type in the required <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span>.</p>
+            <p>Or configure this list from a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">CSV<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Comma Separated Value file containing data, which consists of a number of fields in one or more rows, in which the different fields (values) are typically separated by commas.</span></span> editor, as follows:</p>
+            <ul>
+                <li class="Numbers" value="1">Manually add the first tag to the <b>Tag List</b> (since you cannot export an empty list).</li>
+                <li class="Numbers" value="2">Click the <b>Export...</b> button to export this as a CSV file and open the current CSV editor for you, such as Microsoft Excel, so you can populate this list will all the required tags.</li>
+                <li class="Numbers" value="3">Save this CSV file.</li>
+                <li class="Numbers" value="4">Click the <b>Import...</b> button and browse for this required CSV file to import the configured tag list.</li>
+            </ul>
+            <p>Specify the required VALUE deadband, in the <b>Deadband</b> column of either the CSV file or the Tag list, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> specify the MINIMUM Value which the value being logged must EXCEED for it to be logged. Since, if the change in value is LESS than this value then this value is NOT logged.</span></span></p>
+            <p class="Notices"><b>IMPORTANT:</b> When logging DIGITAL values, ensure that this Value deadband is 0, otherwise NO values will be logged.</p>
+            <p class="Notices">&#160;</p>
+        </div>
+        <p>Then you can specify both the OLE&#160;DB&#160;database and the table name in which these tags are logged, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OLEDBcfg"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="OLEDBcfg" style="display: none;">
+            <p class="Notices"><b>Note:</b> While these fields specify SQL, you are able to connect to any OLE DB database.</p>
+            <p><b>SQL connection string</b>: the required OLE DB connection string to the database where these tag values are to be kept (the VARSTRING <b>connection</b> slot).&#160; </p>
+            <table style="margin-left: 0;margin-right: auto;width: 95%;" class="A4-Table-NoteGrayBack">
+                <col />
+                <tbody>
+                    <tr>
+                        <td>
+                            <p><b>Note:</b>
+                            </p>
+                            <p>If you specify <b>global</b>, the <b>Global OLE DB connection</b> string of the Agent Server is used, which is specified  in the <b><span class="AdroitAppName">Adroit</span> Config Editor</b>.</p>
+                            <ul>
+                                <li value="1">Typically, you can launch this tool from the Desktop shortcut. </li>
+                                <li value="2">Select the <b>Agent Server Configuration </b><i>Welcome</i> menu item.</li>
+                                <li value="3">Select the <b>Advanced Agent Server Configuration</b> option.</li>
+                                <li value="4">At the bottom of the dialog, the <b>Global OLE DB connection</b> field is available for you to specify this connection string.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><b>SQL table name</b>: the name of the table in this database to log this data, which is <b>Adr_DBLog</b> by default (the STRING <b>tableName</b> slot).</p>
+            <p>&#160;</p>
+        </div>
+        <p class="Notices"><b>Tip:</b> If you want  basic trending and/or  to summarise your data in a structured way then, we recommend that you  install the <span style="font-weight: normal;" class="AdroitAppName">Adroit</span> Report Suite and specifically the General Reports report pack, which includes standard reports on the DBLog agent data.</p>
+        <p class="A4-Note-SimpleImportantLilacBack" MadCap:autonum="&lt;span style=&quot;color: #800080;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Important: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #800080;" class="mcFormatColor"><b>Important: &#160;</b></span></span></span>If the computer, on which SQL Server was installed, was renamed, then SQL Server may need to be re-installed.</p>
+        <p>If the computer was renamed <i style="text-decoration: underline;">after</i> installing SQL Server, then SQL Server must be re-installed, to function correctly.</p>
+        <p>Run the following check:</p>
+        <ul>
+            <li value="1">Execute the following T-SQL (Transact-SQL) script in SQL Server Management Studio: SELECT @@SERVERNAME</li>
+            <li value="2">If the resulting server name is different to the actual name of the computer, then the name of the computer has been changed <i style="text-decoration: underline;">after</i> SQL Server was installed, so you need to reinstall SQL Server.</li>
+        </ul>
+        <p>Lastly, the <b>Housekeeping</b> section   allows you to specify how long, in days, that you want to store your 
+ logged data, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="Housekeeping"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a> <![CDATA[ ]]></p>
+        <p>By default housekeeping takes place at the turn of midnight, however you can control the hour of the day for housekeeping by adding and configuring the <a href="../AU_01_02/HousekeepingHour.htm">HousekeepingHour</a> registry setting.</p>
+        <p class="Notices"><b>Note:</b> These housekeeping settings apply to the database table that a DBLog agent logs to. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="dblog_house_ex"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+        <div MadCap:targetName="dblog_house_ex" style="display: none;">
+            <h3>DBLog Housekeeping configuration examples:</h3>
+            <ul>
+                <li class="Bullets" value="1">DBLog1 writes data to Table1  and is configured with no housekeeping:</li>
+            </ul>
+            <p class="ListDesc">So housekeeping will NOT&#160;run on Table1, as expected.</p>
+            <ul>
+                <li class="Bullets" value="1">DBLog2 writes data to Table2 and housekeeping is configured:</li>
+            </ul>
+            <p class="ListDesc">So the specified housekeeping WILL run on Table2, as expected.</p>
+            <ul>
+                <li class="Bullets" value="1">DBLog3 and DBLog4 writes data to the same table Table34 - </li>
+                <li class="BulletSub" value="2">DBLog3 is configured with no housekeeping AND</li>
+                <li class="BulletSub" value="3">DBLog4 is configured with 30 days housekeeping:  </li>
+            </ul>
+            <p class="ListDesc">So Housekeeping WILL run on Table34 as per DBLog4’s housekeeping configuration for this SHARED table.</p>
+            <ul>
+                <li class="Bullets" value="1">DBLog5 and DBLog6 writes data to the same table Table56 - </li>
+                <li class="BulletSub" value="2">DBLog5 is configured with 30 days housekeeping AND</li>
+                <li class="BulletSub" value="3">DBLog6 is configured with 90 days housekeeping: </li>
+            </ul>
+            <p class="ListDesc">So  Housekeeping will run on Table34 as per DBLog5’s housekeeping configuration and the data older than 30 days will be deleted, since the SHORTEST housekeeping period is always used as this is the period that is reached first for this SHARED table.</p>
+        </div>
+        <div MadCap:targetName="Housekeeping" style="display: none;">
+            <p>This depends upon the storage capacity you have 
+ available for your database and how useful this data becomes to you the 
+ older it gets.</p>
+            <p> Specify the maximum number of days to keep records for (the INTEGER <b>housekeepDays</b> slot).</p>
+            <p class="Notices"><b>Note1:</b> A value of 0 disables this housekeeping functionality, provided NO OTHER DBLog agents log to the specified table that have configured housekeeping!</p>
+            <p class="Notices"><b>Note2:</b> By design, one additional day's worth of data is kept for you.</p>
+            <p>If necessary, when performing housekeeping you can also specify an OPTIONAL <b>Backup folder</b> to backup the old data to, before it is deleted from the table (the VARSTRING <b>housekeepFolder</b> slot).</p>
+            <p class="Notices"><b>IMPORTANT1:</b> Please ensure that the specified folder exists on the computer where SQL is installed (this is NOT the Agent Server computer when using a remote SQL Server) or housekeeping will not happen!</p>
+            <p class="Notices"><b>IMPORTANT2:</b> ALSO  ensure that the specified folder name does NOT contain SPACES or housekeeping will ALSO not happen!</p>
+            <p class="Notices"><b>IMPORTANT3:</b> ALSO  ensure that the database has the necessary permissions needed to add these files to this specified folder  or housekeeping will ALSO  NOT HAPPEN!</p>
+            <p class="Notices"><b>Note1:</b>This path is specified relative to the computer where SQL is installed (this is NOT the Agent Server computer when using a remote SQL Server). </p>
+            <p class="Notices"><b>Note2:</b> Leaving this field empty disables this backup functionality.</p>
+        </div>
+        <p>When this backup folder is being used each DBLog agent creates a daily flat cabinet (.CAB) file of the data that is to be deleted (by the SHORTEST <b>Housekeeping</b> setting if multiple DBLog agents log to the same table).</p>
+        <p>These files are self-extracting SQL scripts, which you need to manually execute against the required SQL database, in order to import your data.</p>
+        <p class="Notices"><b>PLEASE NOTE:</b> It is up to you to manage the files stored in this folder yourself.</p>
+        <p>Once the DBLog Agent has been configured and enabled, it creates table<MadCap:conditionalText MadCap:conditions="Adroit.Adr_VerMinorThree">/s</MadCap:conditionalText> in the specified database with <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DBLOGColumns"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following fields:</a></p>
+        <ul MadCap:targetName="DBLOGColumns" style="display: none;">
+            <li class="Bullets" value="1"><b>id</b>: a unique indexing identifier</li>
+            <li class="Bullets" value="2"><b>dt</b>: the Timestamp of the logged value</li>
+            <li class="Bullets" value="3"><b>Tagname</b>: the name of the tag being logged</li>
+            <li class="Bullets" value="4"><b>Value</b>:– the value of the tag being logged</li>
+            <li class="Bullets" value="5"><b>Quality</b>: an indication of whether value of this logged tag was good or bad.</li>
+        </ul>
+        <p>This agent ALSO creates the <b>Adr_DBLog_AgentDetails</b> table, which contains all the agents referenced by all DBLog agents to provide more details about these referenced agents, which can be used to provide more context about them for reports. </p>
+        <p>This table is updated when: the agent is started; or when its tag list is changed; and unconditionally every morning at 01h00 and this table contains <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgentDescFields"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following fields:</a></p>
+        <ul MadCap:targetName="AgentDescFields" style="display: none;">
+            <li class="Bullets" value="1"><b>ID</b> – integer key: a unique indexing identifier </li>
+            <li class="Bullets" value="2"><b>Owner</b> – varchar(255): the DBLog agent name for future use to remove entries owned by the agent
+</li>
+            <li class="Bullets" value="3"><b>AgentName</b> – varchar(255): the name of the agent of the tag being logged
+</li>
+            <li class="Bullets" value="4"><b>AgentDescription</b> - varchar(255): the description of the agent being logged
+</li>
+            <li class="Bullets" value="5"><b>AgentType</b> – varchar(255): the agent type of the tag being logged
+</li>
+            <li class="Bullets" value="6"><b>TagName</b> – varchar(255): the tag being logged
+</li>
+            <li class="Bullets" value="7"><b>TagDescription</b> – varchar(255): a description of the tag being logged; always equal to <b>AgentDescription</b> unless agent type is Marshal whereupon it contains the description of the bit
+</li>
+            <li class="Bullets" value="8"><b>Units</b> - varchar(255): for Analog agents only
+</li>
+            <li class="Bullets" value="9"><b>OffText</b> - varchar(255): for Digital and Marshal agents only
+</li>
+            <li class="Bullets" value="10"><b>OnText</b> - varchar(255): for Digital and Marshal agents only</li>
+            <li class="Bullets" value="11"><b>RawMin</b> - float: Raw (device-scale) minimum scaling limit for Analog agents only</li>
+            <li class="Bullets" value="12"><b>RawMax</b> - float: Raw (device-scale) maximum scaling limit for Analog agents only</li>
+            <li class="Bullets" value="13"><b>EngMin</b> - float: Engineering minimum scaling limit for Analog agents only</li>
+            <li class="Bullets" value="14"><b>EngMax</b> - float: Engineering maximum scaling limit for Analog agents only</li>
+            <li class="Bullets" value="15"><b>LoLo</b> - float: Low-low alarm level for Analog agents only</li>
+            <li class="Bullets" value="16"><b>Lo</b> - float: Low alarm level for Analog agents only</li>
+            <li class="Bullets" value="17"><b>Hi</b> - float: High alarm level for Analog agents only</li>
+            <li class="Bullets" value="18"><b>HiHi</b> - float: High-high alarm level for Analog agents only</li>
+        </ul>
+        <p class="Notices"><b>Note:</b> If you do not intend to make use of this table then you can prevent this table from being created by all of your DBLog agents, by adding the following registry value and setting it to 0: <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_02/DumpAgentDetailsEnabled.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">DumpAgentDetailsEnabled</a></span>.</p>
+        <p>The <b>Adr_DBLog_Housekeeping_Config</b> table is also created, simply contains a list of all DBLog agent tables requiring housekeeping, which is required to perform this housekeeping without affecting the logging operations of the DBLog agents.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

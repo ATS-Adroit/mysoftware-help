@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Available Agents|The SNMPMgr Agent" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Ver9" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to use the SNMPMgr agent to Manage a Device</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1593"></a><a name="kanchor1594"></a>How to use the  SNMPMgr agent to Manage a Device</h1>
+        <p>This agent can both 
+ monitor and manage devices on a network, by using the Simple Network Management 
+ Protocol (SNMP). Examples of devices that can be monitored using SNMP 
+ include routers, switches, hubs, UPSs, printers, modems and computers. </p>
+        <p><a name="kanchor1595"></a><a name="kanchor1596"></a><a name="kanchor1597"></a><a name="kanchor1598"></a>
+        </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Things you need to know or do before you can manage a device:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">ensure that you know which SNMP version the device supports and that you know all of its connection settings. Since the SNMPMgr agent supports up to SNMP version 3 and SNMP version 3 supports additional connection settings.</li>
+                <li class="Bullets" value="2">ONLY&#160;if this device is a computer, ensure that you have installed and configured the SNMP service on this computer. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Installing_the_Windows_SNMP_Service.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Installing the Windows SNMP Service</a></span> or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SNMP_Service_Security_Configuration.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">SNMP Service Security Configuration</a></span>.
+                </li>
+            </ul>
+            <p class="ListNotice"><b>IMPORTANT:</b> NEVER run the Windows SNMP Trap (listener) service because it conflicts with the <span class="AdroitAppName">Adroit</span> SNMP&#160;trap functionality!</p>
+            <p class="ListNotice"><b>Note:</b> This agent  does NOT require the Windows SNMP Service to function, this service is ONLY required on each computer that this agent monitors.</p>
+            <ul>
+                <li class="Bullets" value="1">please ensure that the 
+ device and your Agent Server license, complies with the specified <a href="SNMPMgr_Agent_Usage_Requirements.htm">SNMPMgr Agent Usage Requirements</a>.</li>
+                <li class="Bullets" value="2">if you want to monitor 
+ this device, then you need the read community string of this device. For 
+ details of community strings, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SNMP_Community_Strings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">SNMP Community Strings</a></span>.</li>
+                <li class="Bullets" value="3">if you want to control 
+ this device, then you need the read/write community string of this device.</li>
+                <li class="Bullets" value="4">if you want to control 
+ (write) OID values in the device, ensure that their return types CAN be 
+ written to by the SNMPMgr agent. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SNMP_Object_Value_Return_Types.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">SNMP 
+ Object Value Return Types</a></span>.</li>
+                <li class="Bullets" value="5">if you want to receive 
+ SNMP events (traps) from the device then you need to create a&#160;script 
+ that processes the received traps. For further details, see <a href="About_SNMP_Traps.htm">About SNMP Traps</a>.</li>
+            </ul>
+        </div>
+        <h2>To monitor a device:</h2>
+        <p class="Numbers">Edit 
+ an agent of type: <b>SNMPMgr</b>.</p>
+        <p>If necessary, add an agent of the required type, as follows:</p>
+        <div MadCap:targetName="AddingAgents">
+            <h2>In the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+            <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+            <ol>
+                <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+                <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+                <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+            </ol>
+            <ol start="4">
+                <li class="Numbers" value="4">If necessary, expand the <img src="../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b> Datasources</b> category.</li>
+                <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+                <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup </b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+                <li class="Numbers" value="7">Right click the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically, and select <b>Create Tag</b>.</li>
+                <li class="Numbers" value="8">Specify the required <b>Tag Name</b> or agent name.</li>
+            </ol>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AgtNmgConventns"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />The following rules apply when naming agents:</a>
+            </p>
+            <div MadCap:targetName="AgtNmgConventns" style="display: none;">
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Agent names have a maximum 
+ of 27 characters.</li>
+                    <li class="NumbersSubLetters" value="2">Agent names cannot be the 
+ same as the names used for Agent Types or for Agent Groups.</li>
+                    <li class="NumbersSubLetters" value="3">Agent names cannot use 
+ the following characters:</li>
+                </ol>
+                <p class="ListDescSub">
+                    <table>
+                        <tr>
+                            <td>
+                                <p>Space</p>
+                            </td>
+                            <td>
+                                <p>&#160;</p>
+                            </td>
+                            <td>
+                                <p>Percent</p>
+                            </td>
+                            <td>
+                                <p><b>%</b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>Comma</p>
+                            </td>
+                            <td>
+                                <p><b>,</b>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Period</p>
+                            </td>
+                            <td>
+                                <p><b>.</b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>back slash</p>
+                            </td>
+                            <td>
+                                <p><b>\</b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>Dollar</p>
+                            </td>
+                            <td>
+                                <p><b>$</b>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </p>
+            </div>
+            <ol start="9">
+                <li class="Numbers" value="9">If necessary, provide an optional <b>Description</b> that describes the purpose or describes the value of this tag (agent) for ease of reference.</li>
+                <li class="Numbers" value="10">Click the <b>Finish</b> button.</li>
+            </ol>
+            <p>&#160;</p>
+        </div>
+        <p> If necessary, locate the required agent, as follows:</p>
+        <h2>In <a name="kanchor1599"></a>the <span class="VIPAppName">SmartUI</span> Designer:</h2>
+        <p>Select the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise Manager</b>, as follows: <![CDATA[
+]]></p>
+        <ol>
+            <li value="1">Open the <b>Enterprise 
+ Manager</b>. </li>
+            <li value="2">Navigate to <b>Servers &gt; [Server Name]</b>.</li>
+            <li class="A4-BulletTipGreenBack" MadCap:autonum="&lt;span style=&quot;color: #006400;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Tip: &#160;&lt;/b&gt;&lt;/span&gt;" value="3"><span class="autonumber"><span><span style="color: #006400;" class="mcFormatColor"><b>Tip: &#160;</b></span></span></span>The connection 
+ name is prefixed by the <span style="font-weight: bold;" class="VIPAppName">SmartUI</span><b> Server</b> computer name.</li>
+        </ol>
+        <ol start="4">
+            <li class="Numbers" value="4">If necessary, expand the <img src="../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b> Datasources</b> category.</li>
+            <li class="Numbers" value="5"> If necessary, expand the required <span class="AdroitAppName">Adroit</span> datasource or its icon <img src="../Resources/Images/16/DataSources/Adroit_Healthy.png" />.</li>
+            <li class="Numbers" value="6">If necessary, expand the <b>AgentGroup</b> <img src="../Resources/Images/16/DataSources/Adroit_AgentGroup.png" /> tree.</li>
+            <li class="Numbers" value="7">If necessary, expand the required agent type <img src="../Resources/Images/16/DataSources/Adroit_AgentType.png" />, which are listed alphabetically.</li>
+            <li class="Numbers" value="8">Locate the required agent <img src="../Resources/Images/16/DataSources/Adroit_Agent.png" />, which is also listed alphabetically beneath their applicable agent 
+ type.</li>
+        </ol>
+        <p>&#160;</p>
+        <p>In the Enterprise Manager window: right click this agent and select <b>Configure</b>.</p>
+        <p class="LineNote">In the <b>Edit SNMP Manager Agent</b> dialog:</p>
+        <ol>
+            <li class="Numbers" value="1">
+                <p>Specify the IP address 
+ of the device, in the <b>IP address</b> edit box (STRING <b>ipAddress</b> slot), in the <b>Connection settings</b> 
+ section or when a device does not have a unique IP address then specify the unique port address (INTEGER <b>ipPort</b> slot) that allows this SNMP devices 
+to be uniquely addressed via a gateway.</p>
+                <p class="Notices"><b>Note:</b> ensure that the port used for SNMP communications is unblocked (enabled) in any firewalls that may exist, 
+which is typically UDP port 161 for a fixed IP address or the unique port address for the device, when addressed via a gateway. </p>
+            </li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2">Select the required SNMP <b>Version</b> for this device supports, if this is version 3 then the following 3 additional connection settings are required: </li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1"><b>Username</b> (STRING <b>userName</b> slot): <b>SNMP&#160;version 3 ONLY:</b> the required user name.</li>
+            <li class="ListBullets" value="2"><b>Authentication</b> (STRING <b>authPassword</b> slot): <b>SNMP&#160;version 3 ONLY:</b> the required password for authentication on this device.</li>
+            <li class="ListBullets" value="3"><b>Encryption</b> (STRING <b>encrPassword</b> slot): <b>SNMP&#160;version 3 ONLY:</b> the required encryption password for this device.</li>
+        </ul>
+        <ol start="3">
+            <li class="Numbers" value="3">If you ONLY want to retrieve 
+ (poll) values from this device then specify its read-only SNMP Community 
+ String in the <b>Read comm.</b> edit box (STRING <b>readCommunity</b> slot).</li>
+            <li class="Numbers" value="4">If you want to retrieve and/or write (get 
+ and/or set) values for this device then specify its read-write SNMP Community 
+ String in the <b>WriteRead comm.</b> edit box (STRING <b>writeCommunity</b> slot).</li>
+            <li class="Numbers" value="5">If you want to receive 
+ <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">SNMP traps<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">unsolicited SNMP messages sent by a device to notify an SNMP manager of significant events.</span></span> 
+ from this device then check the <b>Enable 
+ traps</b> checkbox.</li>
+            <li class="Numbers" value="6">Click the <b>Browse 
+ OID to add</b> <img src="BrowseOIDtoAdd.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" /> button to open the <b>MIB Browser</b> dialog.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> If this 
+ dialog is displayed then the specified connection settings are correct. 
+ </p>
+        <ol start="7">
+            <li class="Numbers" value="7">Select the values of this 
+ device that you want to monitor (retrieve) and control (change), as follows:</li>
+            <li class="ListBullets" value="8">
+                <p>Either click the <b>Walk device</b> button, which then build the tree of the available OID values supported by this device. In this case the retrieved nodes of this tree are only indicated by their numbers. </p>
+                <p class="Notices"><b>Note:</b> If the monitored device is a computer and you receive an error when trying to walk this device, then ensure that you have installed the SNMP service on this computer AND configured its security settings appropriately. For details, see <a href="Installing_the_Windows_SNMP_Service.htm">Installing the Windows SNMP Service</a> and <a href="SNMP_Service_Security_Configuration.htm">SNMP Service Security Configuration</a>.</p>
+            </li>
+            <li class="ListBullets" value="9">Or click the <b>Load MIB file...</b> button to browse in a MIB file for this device, which provides the available OID values supported by this device. In this case the nodes of this tree display their textual descriptions, making it easier to select the required values. </li>
+        </ol>
+        <p class="ListDesc">Browse the resultant tree and select the required OID value and click the <b>Add to list</b> button to add it to the OID list maintained 
+ by this agent.</p>
+        <ol start="8">
+            <li class="Numbers" value="8">Configure each selected 
+ OID values in the list as follows:</li>
+            <li class="ListBullets" value="9">Click the <b>Name</b> 
+ field of the required OID to select this row in the list.</li>
+            <li class="ListBullets" value="10">
+                <p>The <b>Type</b> field displays the following integer values that represents the type of data returned by this OID, which therefore determines which agent/s you can use to store this data: </p>
+                <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                    <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                    <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                    <thead>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Value</th>
+                            <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">OID Return Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">2</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Integer or Integer32</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">3</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Bits
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">4</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Octet String
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">5</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Null
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">6</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Object Identifier
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">16</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Sequence or Sequence 
+ Of</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">64</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>IP Address
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">65</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>32-bit counter
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">66</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>32-bit gauge
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">67</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Time ticks
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">68</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>Opaque
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                                <p class="Centered">70</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                <p>64-bit counter
+                    </p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                                <p class="Centered">71</p>
+                            </td>
+                            <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                                <p>Unsigned 32-bit value
+                    </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li class="ListBullets" value="11">Click the <b>Browse 
+ tag</b> <img src="../COMMON/BrowseTag.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" /> button&#160;and use the built-in agent explorer 
+ to create and/or select the      <b>Tag</b> that will contain and/or 
+ change this OID value. For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting a Tag Using the Agent 
+ Explorer</a></span>.</li>
+        </ol>
+        <p class="ListNoteSub"><b>Note:</b> Ensure that 
+ the selected agent type can store the data of this OID value and, if necessary, 
+ that the return type of this OID value is writable. For help on this, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SNMP_Object_Value_Return_Types.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">SNMP Object Value Return Types</a></span>.</p>
+        <ul start="3">
+            <li class="ListBullets" value="3">To poll (retrieve) 
+ this OID value: click the <b>E</b> field 
+ of this row to check (tick) this checkbox.</li>
+        </ul>
+        <p class="ListNoteSub"><b>Note:</b> By default, 
+ this value is polled at the global <b>Poll 
+ rate</b> for this agent. If this value changes faster or slower than 
+ the global rate then use the <b>Rate</b> 
+ field of this row to specify this specific rate in milliseconds.</p>
+        <p class="ListNoteSub"><b>Tip:</b> You may 
+ need to enlarge this dialog or use the horizontal scroll bar to see this 
+ <b>Rate</b> field.</p>
+        <ul start="3">
+            <li class="ListBullets" value="3">To change this 
+ OID value (when the value of the specified <b>Tag</b> 
+ changes): click the <b>W</b> field of this row to check (tick) this checkbox.</li>
+        </ul>
+        <p class="ListNoteSub"><b>Tip:</b> The <b>lastWriteStatus</b> STRING slot, displays 
+ a text message that indicates whether the last value written to the device 
+ was successfully changed in the device or not.</p>
+        <p class="ListNoteSub"><b>Note:</b> Ensure 
+ that you either click the <b>Update</b> or <b>OK</b> button BEFORE clicking 
+ the <b>Refresh</b> button; otherwise these configuration changes will 
+ be lost.</p>
+        <p class="ListDesc">In the <b>Poll settings</b> 
+ section of this dialog:</p>
+        <ol start="9">
+            <li class="Numbers" value="9">
+                <p>If necessary, specify the 
+ default rate at which values are retrieved from the managed device, in 
+ milliseconds, in the <b>Poll rate</b> 
+ edit box (INTEGER <b>scanRate</b> slot).</p>
+                <p class="Notices"><b>Tip:</b> You can also specify the number of OID items in each polling transaction in the <b>Pdu</b> edit box. The maximum number is device dependant.</p>
+            </li>
+            <li class="Numbers" value="10">Select the <b>Enable 
+ polling</b> option (BOOLEAN <b>start</b> slot) to start managing this 
+ device, by polling (getting), writing (setting) and/or trapping (enabling 
+ events) its OID values.&#160;</li>
+        </ol>
+        <p class="ListDesc">If necessary display, manipulate, log, trend, chart and 
+ or alarm the OID values that are returned from the device.</p>
+        <p class="ListNotice"><b>Tip:</b> Check 
+ the <b>Auto-refresh values</b> checkbox 
+ to immediately obtain the latest values of all the listed OIDs at their 
+ specified polling rates, without having to <b>Refresh</b> 
+ this dialog manually.</p>
+        <p class="LineNote">Ensure that you backup the GLOBAL SNMP configuration 
+ file.</p>
+        <h2>Related Links:</h2>
+        <p><a href="Configuring_SNMPMgr_Agents.htm">Configuring SNMPMgr Agents</a> : Describes all the configuration options provided by this agent to connect to and manage a network device.</p>
+        <p><a href="Monitoring_a_network_using_SNMPMgr_Agents.htm">Monitoring a network using SNMPMgr Agents</a>: Provides suggestions for using SNMPMgr agents 
+ to monitor and/or manage a network.</p>
+        <p><a href="Externally_Accessing_the_OID_List.htm">Externally Accessing 
+ the OID List</a>: Describes how you can select and configure the records 
+ in this OID list of this agent externally, such as from a mimic.</p>
+        <p>Specific 
+ Status Bits: Describes the errors that the following status bits of 
+ this agent can indicate and how they affect the management of the device:</p>
+        <ul>
+            <li class="Bullets" value="1">the <b>InvalidConnection</b>status bit (<b>Invalid connection</b> checkbox) is set when connection-related errors occur and</li>
+            <li class="Bullets" value="2">the <b>Error</b> 
+ status bit is set when non connection-related errors occur.</li>
+        </ul>
+        <p><a href="SNMP_Error_Codes.htm">SNMP Error Codes</a>: Lists the 
+ SNMP error codes implemented by Microsoft for troubleshooting SNMP-related 
+ problems.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

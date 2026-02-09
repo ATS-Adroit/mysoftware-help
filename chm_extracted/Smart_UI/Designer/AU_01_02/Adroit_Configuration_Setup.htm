@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Adroit Utilities|Classic Setup (PSEXE)" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Adroit Configuration Setup</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1824"></a><a name="kanchor1825"></a><a name="kanchor1826"></a><a name="kanchor1827"></a><a name="kanchor1828"></a><a name="kanchor1829"></a>Classic Configuration Setup</h1>
+        <p>This Setup utility is used to configure your Classic <span class="AdroitAppName">Adroit</span> installation, after 
+ it has been installed.</p>
+        <table style="margin-left: auto;margin-right: auto;">
+            <col style="width: 7.705%;" MadCap:conditions="Common.Icons" />
+            <col style="width: 92.295%;" />
+            <tr>
+                <td>
+                    <p>
+                        <img src="Adr7_PSEXE_32Icon_32x31.bmp" NOalt="Images\ebx_1332786420.gif" style="width: 32;height: 31;" border="0" />
+                    </p>
+                </td>
+                <td>
+                    <p>To run Setup you must be logged on with Administrator privileges. </p>
+                    <p>Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>Classic Setup</b>  and select it from the list.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Notices" MadCap:conditions="VIP.AdroitConfig"><b>Note:</b> You can also configure the Agent Server and protocol drivers by using the <b>Agent Server Configuration</b> section of <span style="font-weight: bold;" class="VIPConfigEditorName">Adroit Config Editor</span>.</p>
+        <p>This <b><span class="AdroitAppName">Adroit</span> 
+ Configuration Setup</b> program, only displays the <span class="AdroitAppName">Adroit</span> component 
+ installation and its relevant configuration pages, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1">If the Agent Server is installed then this program is entitled "<b><span class="AdroitAppName">Adroit</span> 
+ Configuration Setup – FULL</b>" and all the configuration pages 
+ are displayed, as follows:</li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> This 
+ can be launched using the /smartui command line parameter to HIDE the 
+ <b>UI Connection</b> and <b>UI 
+ Preferences</b> tabs.</p>
+        <p class="ListDesc"><a href="Agent_Server_Project_Configuration.htm">Agent Server 
+ Configuration</a> : to configure default settings of the Agent Server</p>
+        <p class="ListDesc"><a href="Advanced_Agent_Server_Configuration.htm">Advanced 
+ Agent Server Configuration</a> : advanced configuration options for the 
+ Agent Server, such as enabling auditing and/or versioning.</p>
+        <p class="ListDesc">Typically the Agent Server is configured to run as a Service during install, although you can do this after the install if necessary by using specific command line options. For details, see <a href="../AU_01_04/To_install_or_uninstall_the_Agent_Server_as_a_service.htm" class="MCXref_0">To install or uninstall the Agent Server as a service</a>.</p>
+        <p class="ListDesc">Drivers 
+ Configuration : to install the necessary protocol drivers and add, 
+ configure and remove their device</p>
+        <p class="ListDesc">Event 
+ Log Configuration : to specify these event-specific settings</p>
+        <p class="ListNotice"><b>Note:</b> This 
+ can be launched using the /smartui command line parameter to HIDE the 
+ <b>UI Connection</b> and <b>UI 
+ Preferences</b> tabs.</p>
+        <ul>
+            <li class="Bullets" value="1">If ONLY the Agent Server API (MISSRVR) Interfaces are installed then 
+ the <span class="AdroitAppName">Adroit</span> Configuration Setup program is not installed.</li>
+        </ul>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

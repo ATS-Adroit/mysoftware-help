@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Spider title bars</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor304"></a>Spider title bars</h1>
+        <p>Once a spider is added to a spider workspace, in Design view, its title 
+ bar should be used when interacting with it. This title bar is the colored 
+ bar, which is displayed at the top of its view, in both viewing modes.</p>
+        <p>By default the standard or deselected color of this title bar is blue 
+ and when the spider or one of its connected spiders is selected or highlighted 
+ it becomes red.</p>
+        <p class="Notices"><b>Note:</b> Title bars 
+ contain icons that indicate the status of the <b>Trigger 
+ Spider on Event</b> and <b>Propagate 
+ Outputs At Startup</b> spider properties respectively. For details, 
+ see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../Visual_property_indicators.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Spider property indicators</a></span>.</p>
+        <p class="Notices"><b>Tip:</b> Click the help button 
+ <img src="Spider%20-%20TitleBarHelpButton.bmp" style="border: none;float: none;width: 12px;height: 12px;border-style: none;border-style: none;" width="12" height="12" border="0" /> on the right hand side of the title bar  to display the relevant 
+ help for this spider.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>The default, standard or deselected title 
+ bar color:</p>
+            <table style="margin-left: auto;margin-right: auto;">
+                <col style="width: 15.449%;" />
+                <col />
+                <tr>
+                    <td>
+                        <p>
+                            <img src="../../../../image73.gif" style="border: none;width: 34px;height: 48px;" width="34" height="48" border="0" />
+                        </p>
+                        <p>&#160;</p>
+                        <p>
+                            <img src="../../../../image72.gif" style="border: none;width: 18px;height: 25px;" width="18" height="25" border="0" />
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <img src="../../../../image7.jpg" style="border: none;width: 204px;height: 194px;" width="204" height="194" border="0" />
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <p>&#160;</p>
+            <p>The default, highlighted or selected title 
+ bar color:</p>
+            <table style="margin-left: auto;margin-right: auto;">
+                <col style="width: 15.449%;" />
+                <col />
+                <tr>
+                    <td>
+                        <p>
+                            <img src="../../../../image74.gif" style="border: none;width: 34px;height: 48px;" width="34" height="48" border="0" />
+                        </p>
+                        <p>&#160;</p>
+                        <p>
+                            <img src="../../../../image75.gif" style="border: none;width: 18px;height: 25px;" width="18" height="25" border="0" />
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <img src="../../../../image8.jpg" style="border: none;width: 204px;height: 196px;" width="204" height="196" border="0" />
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a>
+        </p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">When the mouse 
+ pointer passes over a spider, its title bar is outlined with a navy border.</li>
+                <li class="Bullets" value="2">Spiders need 
+ to be selected in the spider workspace, before they can be interacted 
+ with and configured. For details, see <a href="Selecting_spiders.htm">Selecting 
+ spiders</a>.</li>
+                <li class="Bullets" value="3">If the <b>Hide Unselected Spiders</b> option is enabled 
+ for this spider workspace then only spiders with title bars in the highlighted 
+ or selected color will be displayed. For details, see <a href="Hiding_unselected_spiders_and_regions.htm">Hiding 
+ unselected spiders</a>.</li>
+                <li class="Bullets" value="4">Although Data 
+ spiders 
+ (data elements and/or properties) can also be interacted with using their title bars, their viewing 
+ modes are different. For details, see <a href="50Cat/Data_spiders.htm">Data 
+ spiders</a>.</li>
+            </ul>
+            <ul>
+                <li class="Bullets" value="1">Double-clicking 
+ the title bar of the spider can be used to display or hide its configuration 
+ view.</li>
+                <li class="Bullets" value="2">Right-click 
+ the title bar of any spider to display a menu of available options. For 
+ details, see <a href="Right_click_spider_menu.htm">Configuring spiders</a>.</li>
+                <li class="Bullets" value="3">This title 
+ bar can also be dragged when moving spiders. For details, see <a href="Moving_spiders.htm">Moving 
+ spiders</a>.</li>
+                <li class="Bullets" value="4">Both the name 
+ and description, if any, of the spider is displayed by tool tip text, 
+ whenever the mouse pointer hovers over the title bar of a spider. For 
+ details, see <a href="Renaming_spiders.htm">Renaming spiders</a> 
+ or <a href="Annotating_spiders.htm">Annotating spiders</a>.</li>
+            </ul>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

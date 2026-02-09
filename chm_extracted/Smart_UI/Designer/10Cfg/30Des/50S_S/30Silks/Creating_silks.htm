@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Silks" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Silks.doc" /><title>Creating silks</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor4005"></a>Creating silks</h1>
+        <p>Silks<a name="kanchor4006"></a><a name="kanchor4007"></a> are created, within a spider workspace
+ to connect Data spiders 
+ (properties and data elements) and/or other spiders together. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a></p>
+        <p>Silks are created by dragging the output of one 
+ spider to the input of another.</p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p class="Notices"><b>Note1:</b> A silk will 
+ only be created, if the data type of both the specified output and input 
+ entries are compatible. If necessary the output can be converted to data 
+ type of the input. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../10Spd/20Cfg/Converting_output_data_types.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Converting output data types</a></span>.</p>
+            <p class="Notices"><b>Note2:</b> When the spider 
+ workspace is running, the silk’s output spider will be triggered, whenever 
+ the value of the silk’s input spider changes. For details, see <a href="../10Spd/30Trigr/Triggering_spiders.htm">Triggering 
+ spiders</a>.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To create a silk originating from a Data spider:</a>
+        </p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the required spider 
+ workspace.</li>
+                <li class="Numbers" value="2">If necessary, display the 
+ required tree pane adjacent to the spider workspace by using the pane 
+ display bar and expand this tree to display the required node e.g. property, 
+ data element etc. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../20DesEnv/Working_with_pane_display_bars.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working 
+ with pane display bars</a></span>.</li>
+                <li class="Numbers" value="3">Ensure that you are also 
+ able to see the required destination for this silk e.g. spider or Data 
+ spider (property, data element, virtual data element).</li>
+            </ol>
+            <p class="ListNotice"><b>Note1:</b> If connecting 
+ to a spider, this may require adding the required spider to the spider 
+ workspace and moving it, if necessary. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../10Spd/Adding_spiders.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding spiders</a></span>.</p>
+            <p class="ListNotice"><b>Note2:</b> If connecting 
+ to a Data spider (property, data element, virtual data element), this 
+ may require displaying the required tree pane adjacent to the spider workspace 
+ by using the pane display bar and expanding this tree to display the required 
+ node.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">Drag the silk from the 
+ required tree node e.g. property, data element etc. to connect it to the 
+ required destination.</li>
+            </ol>
+            <p class="ListNotice"><b>Note1:</b> A Data spider 
+ will be added to the spider workspace when this node (property, data element, 
+ virtual data element) is dragged from the tree, which is demonstrated 
+ by a blue line appearing to the left of this node.</p>
+            <p class="ListNotice"><b>Note2:</b> It is possible 
+ to inadvertently add other Data spiders to the spider workspace, by dragging 
+ this node (property, data element, virtual data element) over any other 
+ node in this or another tree. However any Data spider that has no silks 
+ connected to it will automatically be removed when the spider workspace 
+ is saved. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../Saving_spider_workspaces.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Saving 
+ spider workspaces</a></span>.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To create a silk originating from a spider:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the required spider 
+ workspace.</li>
+                <li class="Numbers" value="2">If necessary, add the required 
+ spider(s) to the spider workspace. For details, see Adding 
+ spiders.</li>
+                <li class="Numbers" value="3">Open the configuration 
+ view of the spider, whose output you want to link to the destination spider 
+ or Data spider (property, virtual data element). For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../10Spd/20Cfg/Displaying_spider_configuration_views.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Displaying 
+ spider configuration views</a></span>.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> Double-click 
+ the title bar of the spider to display or hide its configuration view.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">If this configuration view 
+ contains a <b>New Outputs</b> section, you may want to create a custom 
+ output first. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../10Spd/20Cfg/Creating_customised_spider_outputs.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Creating 
+ customised spider outputs</a></span>.</li>
+                <li class="Numbers" value="5">Ensure that you are able 
+ to see the required destination for this silk e.g. spider, property or 
+ virtual data element.</li>
+            </ol>
+            <p class="ListNotice"><b>Note1:</b> If connecting 
+ to a spider, this may require moving this spider appropriately or adjusting 
+ the size of the spider workspace by using the pane display bars and splitter 
+ bars, where necessary. For details, see <a href="../../../20DesEnv/Working_with_pane_display_bars.htm">Working 
+ with pane display bars</a>.</p>
+            <p class="ListNotice"><b>Note2:</b> If connecting 
+ to a Data spider (property, virtual data element), this may require displaying 
+ the required tree pane adjacent to the spider workspace by using the pane 
+ display bar and expanding this tree to display the required node.</p>
+            <ol start="6">
+                <li class="Numbers" value="6">Drag the silk from the 
+ required entry beneath the <b>Outputs</b> section of this spider to connect 
+ it to the required destination.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To connect a silk to a spider:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p>Once a silk has been dragged from either a Data spider (property, data 
+ element) or from another spider, complete the required link to this spider, 
+ as follows:</p>
+            <p class="Notices"><b>Note:</b> The required spider 
+ must be visible in the spider workspace in order to connect the silk to 
+ it.</p>
+            <ul>
+                <li class="Bullets" value="1">If the configuration view 
+ of this spider is already displayed, then select the required compatible 
+ entry beneath the <b>Inputs</b> section that the silk to required to connect 
+ to and release the left mouse button.</li>
+            </ul>
+            <p class="ListNotice"><b>Note:</b> If this spider’s 
+ configuration view contains a <b>New Inputs</b> section, you can immediately 
+ create a custom input, by selecting the required compatible entry beneath 
+ the <b>New Inputs</b> section and releasing the left mouse button. For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../10Spd/20Cfg/Creating_customised_spider_inputs.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Creating 
+ customised spider inputs</a></span>.</p>
+            <ul>
+                <li class="Bullets" value="1">If the configuration view 
+ of this spider is not displayed, then when the mouse pointer is dragged 
+ over the title bar or icon of this second spider:</li>
+            </ul>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">If 
+ this spider only has one entry in its <b>Inputs</b> section, which has 
+ a compatible data type, then simply release the left mouse button to create 
+ the silk will automatically connect to this input.</li>
+                <li class="NumbersSubLetters" value="2">If 
+ this spider has more than one entry in its <b>Inputs</b> section, then 
+ its configuration view will automatically be displayed. Select the required 
+ input entry, with a compatible data type, and release the left mouse button 
+ to create the silk.</li>
+                <li class="NumbersSubLetters" value="3">If 
+ this spider does not currently have any inputs configured, but <b>New 
+ Inputs</b> types are available, then its configuration view will automatically 
+ be displayed. Drag the silk directly onto the required new input type 
+ to create this input and the silk simultaneously.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To connect a silk to a Data spider:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>Once a silk has been dragged from either a Data spider (property, data 
+ element) or from another spider, complete the link to the required property, 
+ as follows:</p>
+            <p class="Notices"><b>Note:</b> The node e.g. 
+ property, data element etc. must be visible in the required tree in order 
+ to connect the silk to it.</p>
+            <ol>
+                <li class="Numbers" value="1">Drag the silk to the node 
+ e.g. property, data element etc. in the required tree, with a compatible 
+ data type, and release the left mouse button.</li>
+            </ol>
+            <p class="ListNotice"><b>Note1:</b> Data spiders are added to the spider workspace when this node (property, data element, 
+ virtual data element) is dragged from the tree, which is demonstrated 
+ by a blue line appearing to the left of this node.</p>
+            <p class="ListNotice"><b>Note2:</b> You can add other Data spiders to the spider workspace, by dragging 
+ this node (property, data element, virtual data element) over any other 
+ node in this or another tree. But any Data spider that has no silks 
+ connected to is removed when the spider workspace 
+ is saved. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../Saving_spider_workspaces.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Saving 
+ spider workspaces</a></span>.</p>
+        </div>
+        <p>When dragging a silk from the first spider to its destination, use the 
+ mouse pointer icon to determine if the silk will be created, when the 
+ left mouse button is released, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1">A silk will be created 
+ when the mouse pointer icon appears as the following icon: <img src="Spiders%20-%20silk%20creation%20YES%20mouse%20icon_16x23.bmp" style="border: none;float: none;border-style: none;border-style: none;width: 16;height: 23;" border="0" />, assuming that the standard windows icons are used.</li>
+            <li class="Bullets" value="2">A silk will not be created 
+ when the mouse pointer icon appears as the following icon: <img src="Spiders%20-%20silk%20creation%20NO%20mouse%20icon_17x17.bmp" style="border: none;float: none;border-style: none;border-style: none;width: 17;height: 17;" border="0" />, assuming that the standard windows icons are used.</li>
+        </ul>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

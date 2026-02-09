@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Logging Alarms to an Access Database</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2332"></a>Logging Alarms to an Access Database</h1>
+        <p class="Notices"><b>Tip</b>: The EventLogging agent provides a 
+ simpler method for logging incidents to an Access (OLE DB compatible) 
+ database. For details, see<a href="Configuring_EventLogging_Agents.htm">Configuring EventLogging Agents</a>.    </p>
+        <p>In <span class="AdroitAppName">Adroit</span>, an EventOutput agent can be used to log alarm events to an 
+ Access database. This requires the following main steps:</p>
+        <ol>
+            <li class="Numbers" value="1"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Creating the Access database and its 
+ associated ODBC data source</a>, 
+ which is used by the EventOutput agent to refer to this Access database.<div MadCap:targetName="t4" style="display: none;"><ol><li class="NumbersSubLetters" value="1">Create 
+ your Access Database and save it.</li></ol><p class="ListNoteSub"><b>Tip1:</b> It is 
+ recommended to limit the size of the table and field names as ONLY 80 
+ characters is available to represent the comma delimited list of these 
+ names in the EventOutput agent.</p><p class="ListNoteSub"><b>Tip2:</b> It is 
+ recommended to save this database file in the <b>Data</b> 
+ subfolder of your <span class="AdroitAppName">Adroit</span> project directory, which is typically '<span class="AdroitAdrPrjFolder">C:\ProgramData\Adroit Technologies\Adroit\Configurations\Default</span>\Data'.</p><ol start="2"><li class="NumbersSubLetters" value="2">Click the <b>Start</b> menu and type in  
+ “odbc” and select the appropriate version of the ODBC&#160;Data Sources.</li><li class="NumbersSubLetters" value="3">Click 
+ on the <b>System DSN</b> tab in the <b>ODBC Data Source Administrator</b> dialog.</li></ol><ol start="5"><li class="NumbersSubLetters" value="5">press 
+ the <b>Add...</b> button.</li><li class="NumbersSubLetters" value="6">Double-click 
+ the <b>Driver do Microsoft Access (*/.mdb)</b> 
+ entry in the <b>Create New Data Source</b> 
+ dialog.</li></ol><p class="ListNoteSub"><b>Tip:</b> This 
+ should be the second entry in the list.</p><ol start="7"><li class="NumbersSubLetters" value="7">Specify 
+ the name of this ODBC data source in the <b>Data 
+ Source Name</b> field of the <b>ODBC 
+ Microsoft Access Setup</b> dialog. In this example the following name 
+ is used: <b>AdrEvtMDB</b></li></ol><p class="ListNoteSub"><b>Note1:</b> This 
+ name will be used to specify this Access database, when configuring the 
+ EventOutput agent.</p><p class="ListNoteSub"><b>Note2:</b> The 
+ <b>Description</b> field is optional 
+ and adds a description for this data source in the <b>System 
+ DSN</b> tab of the <b>ODBC Data Source 
+ Administrator</b> dialog.</p><ol start="8"><li class="NumbersSubLetters" value="8">press 
+ the <b>Select</b> button in the <b>Database</b> group and browse in the path 
+ and name of the required Access database, created in step 1.</li></ol><ol start="9"><li class="NumbersSubLetters" value="9">press 
+ <b>OK</b> and <b>OK</b> 
+ again to close the <b>ODBC Data Source Administrator</b> 
+ dialog.</li></ol></div></li>
+            <li class="Numbers" value="2"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Adding and configuring an EventOutput 
+ agent</a> 
+ to log to this Access database.<div MadCap:targetName="t3" style="display: none;"><ol start="1"><li class="NumbersSubLetters" value="1">Open 
+ the Agent Configurator dialog.</li></ol><ol start="2"><li class="NumbersSubLetters" value="2">Add 
+ a new <b>EventOutput</b> agent and press 
+ the <b>Edit</b> button.</li></ol><ol start="3"><li class="NumbersSubLetters" value="3">In 
+ the <b>Printer Type</b> field, select 
+ the <b>SQL</b> option.</li></ol><p class="ListDescSub">You will notice that the "Printer Name" 
+ and "Setup Data" fields immediately default to a simple form 
+ of help. </p><p class="ListDescSub">These defaults can be re-created by deleting the contents of 
+ the respective field, exiting the dialog box and re-entering.</p><ol start="4"><li class="NumbersSubLetters" value="4">In 
+ the <b>Printer Name</b> field, enter 
+ the ODBC data source name that refers to the required Access database, 
+ followed by the username and password required to log on to this database 
+ as set up in Access.</li></ol><p class="ListNoteSub"><b>Note:</b> Ensure 
+ that commas separate these three items.</p><p class="ListDescSub">Since no username or password has been specified in 
+ this case, this field is simply: <b>AdrEvtMDB,,</b></p><ol start="5"><li class="NumbersSubLetters" value="5">In 
+ the <b>Setup Data</b> field, enter the 
+ table name (specified in the Access database) followed by a comma delimited 
+ list of the required field names.</li></ol><p class="ListNoteSub"><b>Note:</b> The 
+ MAXIMUM size of this <b>Setup Data</b> 
+ field is 80 characters, therefore ensure that the table and field names 
+ are small enough to all fit.</p><p class="ListNoteSub"><b>Tip:</b> It is 
+ recommended to add the fields ONE at a time and test that events are added 
+ to the Access database before adding the next field. </p><p class="ListNoteSub">Because any problem 
+ with any field will prevent records from being added to the database i.e. 
+ no warning messages are displayed.<br /></p><p class="ListNoteSub">Problem areas are the widths of text field; date fields and specific field 
+ formatting such as the various Number formats in Access etc.</p><p class="ListDescSub">In this case this field, after three testing iterations 
+ is: <b>Evnts,AgtFld,AgtData,EvtTime</b>, 
+ where<b> Evnts</b> refers to the table 
+ name.</p><ol start="6"><li class="NumbersSubLetters" value="6">Enable 
+ <b>size Printing</b> and disable <b>Demand Printing</b> and <b>Time 
+ Printing</b> to prevent duplicate, 
+ out of sequence entries in the Access table.</li><li class="NumbersSubLetters" value="7">Type 
+ a 1 into the <b>size</b> drop-down list 
+ box, so that size = 1, otherwise you will have to wait until the Page 
+ is Full or the File is Full before the agent logs to the database.</li></ol><ol start="8"><li class="NumbersSubLetters" value="8">press 
+ the <b>Format...</b> button and specify 
+ the required columns that are to be added to the fields specified in the 
+ <b>Setup Data</b> field. For details 
+ of these columns, see <a href="To_Specify_the_Column_Format_for_Event_Output_Agents.htm">EventOutput 
+ Agent Column Formatting</a>.</li></ol><p class="ListNoteSub"><b>Note1:</b> Ensure 
+ that these columns correspond to order of the database fields specified 
+ in the <b>Setup Data</b> field (in step 
+ e), otherwise records may not be added to the database.</p><p class="ListNoteSub"><b>Note2:</b> Ensure 
+ that the specified column widths correlate with the widths of the database 
+ fields; otherwise, records may not be added to the database.</p><p class="ListNoteSub"><b>Tip:</b> Ensure 
+ that the total number of columns that you have selected is ONE LESS than 
+ the comma delimited items of information in the <b>Setup Data</b> field (in step e).</p><ol start="9"><li class="NumbersSubLetters" value="9">press 
+ <b>Compress</b> and <b>OK</b>.</li><li class="NumbersSubLetters" value="10">In 
+ the <b>Activate</b> section select the 
+ <b>Yes</b> radio button and click the 
+ <b>Update</b> button to activate the 
+ EventOutput agent and press <b>OK</b> 
+ to close the edit dialog.</li></ol></div></li>
+            <li class="Numbers" value="3"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Adding this EventOutput agent to the 
+ required Alarm agent</a>.<div MadCap:targetName="t2" style="display: none;"><ol start="1"><li class="NumbersSubLetters" value="1">Then 
+ edit the required <b>Alarm</b> agent 
+ and browse in this newly created Event Output agent in the <b>Event 
+ route (global) destinations</b> 
+ section.</li></ol></div></li>
+            <li class="Numbers" value="4"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Testing that alarm events can be successfully 
+ logged to this database</a>.<div MadCap:targetName="t1" style="display: none;"><ol start="1"><li class="NumbersSubLetters" value="1">Place 
+ an agent into an alarm state and test that the alarm event(s) are added 
+ to the specified Access database.</li></ol></div></li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> It is 
+ also possible to prevent the EventOutput agent from outputting alarm events 
+ when its clustered Agent Server is in standby mode, so that the output 
+ destination does not receive duplicate entries, by adding the <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_02/DisableEventOutputOnStandby.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">DisableEventOutputOnStandby</a></span> 
+ value to the registry.</p>
+        <p>For other uses of this agent, see <a href="To_Edit_or_Configure_the_EventOutput_Agent.htm">Configuring 
+ the EventOutput Agent</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

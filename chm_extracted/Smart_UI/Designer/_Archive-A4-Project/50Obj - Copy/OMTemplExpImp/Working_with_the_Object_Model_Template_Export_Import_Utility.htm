@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer,Adroit.ExcludeFromProject" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with the Object Model Template Export Import Utility</title>
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor614"></a>Working with the Object Model Template Export Import Utility<a name="Top"></a></h1>
+        <p>The <MadCap:conditionalText MadCap:conditions="Common.ExFromHTML"><img src="ObjMdlTempExpImp_16Icon.png" style="width: 16px;height: 16px;" /></MadCap:conditionalText><![CDATA[  ]]><b>Object Model Template Export and Import</b> utility allows you to export one or more of your existing Object Model Templates to a proprietary .TEF (Template Export File) file and also to import Object Model Templates from a .TEF file.</p>
+        <p>You can typically launch the <img src="ObjMdlTempExpImp_16Icon.png" style="width: 16px;height: 16px;" /> <b>Object Model Template Export and Import</b> utility via the <img src="../../../../../Resources/Images/ADTECH LAUNCHER.png" style="width: 23px;height: 23px;" /> <span MadCap:conditions="Common.ExForMAPS" style="font-weight: bold;" class="AdroitAppName">Adroit</span><b> Utilities</b> on the Desktop and then select this utility from this menu.</p>
+        <p><a href="#Export_one_or_more_of_your_existing_Object_Model_Templates">Export one or more of your existing Object Model Templates</a>
+        </p>
+        <p>For instance this allows you to easily move your Object Model Templates from one computer or Configuration to another or for backup purposes.</p>
+        <p class="Notices"><b>Note:</b> Since these templates are obtained directly from your hard drive, you do NOT need the <span class="VIPAppName">SmartUI</span> Server to be running to do this.</p>
+        <p><a href="#Import_Object_Model_Templates_from_a_.TEF_(Template_Export_File)_file">Import Object Model Templates from a .TEF (Template Export File) file</a>
+        </p>
+        <p class="Notices"><b>IMPORTANT:</b> You need to shut down your <span class="VIPAppName">SmartUI</span> Server first, before you can import templates. </p>
+        <p class="Notices"><b>Note:</b> These templates will be imported into a unique folder, which also specifies the date and time of the import, so they will not overwrite existing templates.</p>
+        <h2><a name="Export_one_or_more_of_your_existing_Object_Model_Templates"></a>Export one or more of your existing Object Model Templates</h2>
+        <p>For instance this allows you to easily move your Object Model Templates from one computer or Configuration to another or for backup purposes.</p>
+        <ol>
+            <li class="Numbers" value="1">If necessary, click the <b>Export</b> tab.</li>
+            <li class="Numbers" value="2">Click the <b>Get Templates</b> button, which obtains the list of both user and system templates directly from your hard drive, so you do NOT need the <span class="VIPAppName">SmartUI</span> Server to be running to do this.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> This only lists the  Object Model Templates of the currently Active Configuration, which you can check via the Configuration page of your <span class="VIPAppName">SmartUI</span> Config Editor.</p>
+        <ul>
+            <li class="ListBullets" value="1">On the left hand side, the <b>Templates</b> <img src="TreeIcon_Templates.png" /> tree, by default, selects all the available templates <img src="TreeIcon_TemplateNoError.png" /> and their folder <img src="TreeIcon_FolderNoError.png" />structure in the <b>System</b> and <b>User</b> folders <img src="TreeIcon_FolderNoError.png" />.</li>
+        </ul>
+        <p class="ListBullNote"><b>Note:</b> The icons of all the folders <img src="TreeIcon_FolderError.png" /> that contain templates that have configuration issues and the problematic templates <img src="TreeIcon_TemplateError.png" /> themselves display a red cross to assist you in locating these problematic templates.</p>
+        <ul>
+            <li class="BulletSub" value="1">If you select a template <img src="TreeIcon_TemplateNoError.png" /> then the <b>Templates Details</b> section appears on the right hand side, which displays a summary of its configuration and displays any detected errors.</li>
+        </ul>
+        <p class="BullSubNote"><b>Note:</b> If you hover over the <b>Template</b> name then you can preview the <b>Primary wizard</b>. </p>
+        <ul>
+            <li class="ListBullets" value="1">On the right hand side, the <b>Export Details</b>, displays the <b>Number of templates</b>, that have been selected to be exported, as follows:</li>
+        </ul>
+        <ul>
+            <li class="ListSubBullet" value="1">If one of the selected templates has a configuration issue, then  the <b>Number of templates</b> displays this icon <img src="ErrorIcon.png" /> and specifies the number of Good (error-free templates) and Bad (templates with problems) templates that are currently selected for export.</li>
+        </ul>
+        <p class="BullSubNote"><b>Note:</b> In this case you are UNABLE to specify a <b>Description</b> and export any templates until the problematic templates are unchecked or you close this utility and fix the issues before exporting them.</p>
+        <ul>
+            <li class="ListSubBullet" value="1">If all the selected templates are configured correctly, then  the <b>Number of templates</b> displays this icon <img src="HealthyIcon.png" /> and then specify the <b>Description</b> for these exported templates, that is displayed when a user tries to import the exported templates, so provide a useful description.</li>
+        </ul>
+        <p class="BullSubNote"><b>Note:</b> This <b>Description</b> is NOT displayed in the name of the exported .TEF (Template Export File) file.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Click the <b>Export</b> button (once all the problematic templates have been unchecked).</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If you click the <b>Export</b> button and problematic templates are still selected then a message box is displayed that details the errors that have been encountered and the exporting process is prevented from occurring.</p>
+        <ol start="4">
+            <li class="Numbers" value="4">When the exporting process is successful, this automatically creates the following unique file name: TEF [<b>#</b> templates] <b>date time</b>.tef, where # is the number of templates that are being exported, and data and time specify the date and time of the export.</li>
+        </ol>
+        <p class="ListDesc">By default this file will be saved in the same folder that the <b>Object Model Template Export and Import</b> utility is launched from, however you can select any folder that you want.</p>
+        <p><a href="#Top">Back to top:</a>
+        </p>
+        <h2><a name="Import_Object_Model_Templates_from_a_.TEF_(Template_Export_File)_file"></a>Import Object Model Templates from a .TEF (Template Export File) file</h2>
+        <p class="Notices"><b>IMPORTANT:</b> You need to shut down your <span class="VIPAppName">SmartUI</span> Server first, before you can import templates. </p>
+        <ol>
+            <li class="Numbers" value="1">If necessary, click the <b>Import</b> tab.</li>
+            <li class="Numbers" value="2">Click the <b>Browse for export file</b> button and browse for the required .TEF file.</li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1">On the left hand side, the <b>Template</b> list contains the names of the templates <img src="TreeIcon_ExportedTemplate.png" /> within the selected export file.</li>
+        </ul>
+        <p class="ListBullNote"><b>Tip:</b> You can view the source path of an exported template <img src="TreeIcon_ExportedTemplate.png" /> by hovering over its name in the list.</p>
+        <ul>
+            <li class="BulletSub" value="1">If you select an exported template <img src="TreeIcon_ExportedTemplate.png" /> then the <b>Templates Details</b> section appears on the right hand side, which displays a summary of its configuration  and displays any detected warnings or errors.</li>
+        </ul>
+        <p class="BullSubNote"><b>Note:</b> If you hover over the <b>Template</b> name then you can preview the <b>Primary wizard</b>. </p>
+        <p class="ListDescSub">By analysing the contained templates also allows you to determine that you are importing the required wizards.</p>
+        <ul>
+            <li class="ListBullets" value="1">On the right hand side, the <b>Import details</b> section  displays:</li>
+        </ul>
+        <ul>
+            <li class="ListSubBullet" value="1"> the <b>Number of templates</b> contained within this export file and lists the import status of them, as follows: </li>
+            <li class="ListSubSubBullet" value="2"><b>Good</b>: all is OK&#160;with importing these templates - for instance no configured elements already exists.</li>
+            <li class="ListSubSubBullet" value="3"><b>Warning</b>: a non-critical issue has been found with importing these templates - for instance a configured element already exists, such as the primary wizard</li>
+        </ul>
+        <p class="ListNotSubSub"><b>Note:</b> In the case of an existing configured element, this element will NOT be replaced! </p>
+        <ul>
+            <li class="BulletSubSub" value="1"><b>Bad</b>: when one of more of these templates cannot be correctly referenced within this export file, typically due to file corruption, then these templates CANNOT be imported at all. </li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1">the <b>Description</b> that provides the detailed description of these exported templates, so you can determine if you have selected the correct templates to import.</li>
+        </ul>
+        <ul>
+            <li class="BulletSub" value="1">when an incompatible <span class="VIPAppName">SmartUI</span> Server version is detected, which PREVENTS these exported templates from being imported, then the <b>Source</b> and <b>Destination</b> <b>Server</b> section is displayed by default, otherwise you need to click the <b>Show more</b> button to view this information.</li>
+        </ul>
+        <ol start="3">
+            <li class="Numbers" value="3">Click the <b>Import</b> button and click <b>Yes</b> to the confirmation dialog that you are certain that these are the templates that you want to import .</li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> These templates will be imported into your Active Configuration, which you can check via the Configuration page of your <span class="VIPAppName">SmartUI</span> Config Editor.</p>
+        <p class="ListNotice"><b>Note2:</b> These templates will be imported into a unique folder, which also specifies the date and time of the import, so they will not overwrite any existing templates that have the same name.</p>
+        <p class="ListDesc">At the end of this process the <b>Import results</b> are displayed, listing all the events pertaining to this importing process.</p>
+        <p class="ListNotice"><b>Note:</b> Although you should not see any  <img src="ErrorIcon.png" /> errors in these results but if you do: then you attempt to fix them and depending upon their severity, delete this import folder and attempt to reimport these templates.</p>
+        <ol start="4">
+            <li class="Numbers" value="4">
+                <p>If necessary, click the <b>Open the Templates folder in Windows Explorer</b> button in the top right corner of the utility to view the folder of these newly imported templates, which uses this name format: </p>
+                <p>IMPORT_<b>#</b> templates_<b>date</b>_<b>time</b>.tef, where <b>#</b> is the number of templates that are being exported, and <b>data</b> and <b>time</b> specify the date and time of the import.</p>
+            </li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

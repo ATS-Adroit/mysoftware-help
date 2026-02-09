@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Adroit Utilities|Adroit OPC Server|OPC Server Window" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_OPCServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>The OPC Server Window</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2790"></a><a name="kanchor2791"></a>The OPC Server  item-address Browser Window</h1>
+        <p>This <span class="AdroitAppName">Adroit</span> OPC Server item-address browser window displays all the agent.slot combinations, which the <span class="AdroitAppName">Adroit</span>OPC 
+ Server is currently connected to.</p>
+        <p class="Notices"><b>Note:</b> Enabling the <a href="Automatically_Populating_the_OPC_Server_Item_Browser_Window.htm">browser-populating</a> feature, adds a number of items, by 
+ default, which are used to monitor the state 
+ of the Agent Server. </p>
+        <p>The OPC Server graphically displays the status of connection to the specified Agent Server (node), as follows: all the added items are displaying all tags in <span style="color: #ff0000;">red</span></p>
+        <ol>
+            <li class="Bullets" value="1"><b>Disconnection:</b> a <span style="color: #ff0000;">red</span> font is used for each <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> displayed by this window.</li>
+            <li class="Bullets" value="2"><b>Connection:</b> a <span style="color: #008000;">green</span> font is used for each tag that is connected to an <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">OPC client<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">an application that uses the data provided by an OPC server.</span></span> and all other tags are displayed using a <span style="color: #a9a9a9;">grey</span> font.</li>
+        </ol>
+        <p class="Notices"><b>Note:</b> To optimise tag browsing tags are greyed out  in the <span class="AdroitAppName">Adroit</span> OPC Server window 
+ until an OPC client connects to a tag.</p>
+        <p>Each tag (<span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">OPC item<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a string, uniquely describing an individual 
+ data element residing in an OPC server. It may be up to 80 characters long, and structured hierarchically typically using a period "." to separate each level.</span></span>) displayed by this window adheres to the following addressing: <b>nodename.agenttype.agentname.slotname</b>. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="OPCitemAddrNotList"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a></p>
+        <ol MadCap:targetName="OPCitemAddrNotList" style="display: none;">
+            <li class="BulletSub" value="1"><b>nodename</b>, specifies the 
+ node, which is like an Agent Server, but transparently provides 
+ redundancy (especially for Agent Server clustering).For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Working_with_Adroit_OPC_Server_Nodes.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Working with Nodes</a></span>.</li>
+            <li class="BulletSub" value="2"><b>agenttype</b> is the agent 
+ type (e.g. Analog or Digital),</li>
+            <li class="BulletSub" value="3"><b>agentname</b> 
+ is the name of the applicable agent (e.g. MYANALOG or AIRCON01_SP) and</li>
+            <li class="BulletSub" value="4"><b>slotname</b> 
+ is the slot of the value that is required (e.g. Value).</li>
+        </ol>
+        <p><a href="Automatically_Populating_the_OPC_Server_Item_Browser_Window.htm">Automatically Populating the OPC Server Item Browser Window</a> : in addition to enabling this feature, this allows you to configure which  agent.slot combinations populate this item-address browser.</p>
+        <p>The following columns   provide 
+ additional information concerning the update activity of values from the Agent Server:</p>
+        <ol>
+            <li class="Bullets" value="1"><b>Update:</b> which specify the number 
+ of good updates i.e. correct values.</li>
+            <li class="Bullets" value="2"><b>Bad updates:</b> which specify the 
+ number of bad updates received.</li>
+        </ol>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="To_Configure_the_Columns_in_the_OPC_Server_Window.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To configure the width of the columns</a></span>.</p>
+        <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="To_Configure_the_Refresh_Rate_of_the_OPC_Server_Window.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To set the refresh rate of the browser</a></span>.</p>
+        <p>&#160;</p>
+        <p>The <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Status_Bar_of_the_OPC_Server_Window.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">status bar</a></span> 
+ of the item-address browser, displays information regarding the current 
+ menu command being used and provides performance-related information and 
+ other tag-related data. You can also: <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="To_Display_or_Hide_the_Status_Bar_from_View.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">display or hide the status bar from view</a></span>.</p>
+        <p class="Notices"><b>Note:</b> If OPC connectivity 
+ is not required, then this OPC Server item-address browser can still be 
+ used <a href="Automatically_Populating_the_OPC_Server_Item_Browser_Window.htm">to 
+ visually monitor specific tags</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

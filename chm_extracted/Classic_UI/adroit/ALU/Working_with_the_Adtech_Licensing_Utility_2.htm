@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.ALU,Adroit.ExcludeFromProject" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Working with the Adtech Licensing Utility</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor391"></a>Working with the Adtech Licensing Utility<a name="Top"></a></h1>
+        <p>The <MadCap:conditionalText MadCap:conditions="Common.ExFromHTML"><img src="AdtechLicensingUtility.png" style="width: 16px;height: 16px;" /></MadCap:conditionalText><![CDATA[  ]]><b>Adtech Licensing Utility</b> allows you to get, view and/or update your <span class="AdroitAppName">Adroit</span> 10 or <span class="VIPMAPSProductName">MAPS</span> 4 product license.</p>
+        <p MadCap:conditions="Common.ExFromHTML">You can typically launch the <img src="AdtechLicensingUtility.png" /><![CDATA[  ]]><b>Adtech Licensing Utility</b> via the <img src="../Resources/Images/ADTECH%20LAUNCHER_23x23.png" style="width: 23;height: 23;" /><span MadCap:conditions="Common.ExForMAPS" style="font-weight: bold;" class="AdroitAppName">Adroit</span><b> Utilities</b> on the Desktop and then select this utility from this menu.</p>
+        <p class="Notices"><b>IMPORTANT:</b> Existing <span class="AdroitAppName">Adroit</span> and <span class="VIPMAPSProductName">MAPS</span> users require NEW licenses for  <span class="AdroitAppName">Adroit</span> 10 or <span class="VIPMAPSProductName">MAPS</span> 4, since the entire licensing mechanism has changed!</p>
+        <p class="Notices"><b>PLEASE NOTE:</b> Purple HASPs are not supported (they lack the necessary space required by this licensing mechanism).</p>
+        <p>Only the Agent Server and/or <a name="kanchor392"></a><a name="kanchor393"></a> <span class="VIPAppName">SmartUI</span> Server,  requires a licence - all the other applications, such 
+ as the Designer or Operator etc. do not. </p>
+        <p><a href="#Important_licensing_changes">Important licensing changes:</a>
+        </p>
+        <p><a href="#Important_differences_between_a_HASP_and_a_soft_license:">Important differences between a HASP and a soft license:</a>
+        </p>
+        <p><a href="#Prerequisites_to_get_or_update_a_product_license:">Prerequisites to get or update a product license:</a>
+        </p>
+        <p><a href="#How_to_get_a_new_HASP_license_or_update_an_existing_one:">How to get a new HASP license or update an existing one:</a>
+        </p>
+        <p><a href="#How_to_get_a_new_soft_license__or_update_an_existing_one:">How to get a new soft license  or update an existing one:</a>
+        </p>
+        <p><a href="#How_to_view_your_current_product_license:">How to view your current product license:</a>
+        </p>
+        <h2><a name="Important_licensing_changes"></a>Important licensing changes:</h2>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>The product license is now a .XML document to make it easier to read and is displayed in the <b>License</b> tab.</p>
+            </li>
+            <li class="Bullets" value="2">
+                <p><b>IMPORTANT:</b> The former  <b>Remote Nodes</b> licenses that applied to all types of clients have been <b>DISCONTINUED</b>. These have now been  replaced by  the following client specific node licenses, each of which have different costs:</p>
+            </li>
+            <li class="BulletSub" value="3">
+                <p><b>Clients</b>: typically <b>Operators</b> and/or <b>Designers</b> and </p>
+            </li>
+            <li class="BulletSub" value="4">
+                <p><b>Web Clients</b>: typically <b>Performance Anywhere</b> clients.</p>
+            </li>
+            <li class="BulletSub" value="5">
+                <p>Remote Desktop (RDP) clients can now get a free node connection to obtain engineering access to the Agent Server, by  adding and configuring the <b>RDAdminName</b> WG.INI registry string value.</p>
+                <p class="Notices"><b>Note:</b> By default this registry entry does not exist and therefore all Remote Desktop (RDP) clients are subject to node licensing. This registry value must be created and set to the required Windows username to establish free connections for this user.</p>
+            </li>
+            <li class="Bullets" value="6">
+                <p>The OEM (separately-licensed) components are no longer specified by their associated OEM codes but now included as separate textual entries in the product license, so that users can easily see exactly which components they are currently licensed for.</p>
+                <p class="Notices"><b>Tip:</b> Only the OEM&#160;components that you are licensed for will appear.</p>
+            </li>
+            <li class="Bullets" value="7">
+                <p>All product licenses have a GLOBAL expiry and can also support  product-specific expiries, which can be used for product trials.</p>
+            </li>
+            <li class="Bullets" value="8">
+                <p>.V2C (Vendor to Customer) and .C2V (Customer to Vendor) files are now used to create and update product licenses instead of using .RUS files.</p>
+            </li>
+        </ul>
+        <p><a href="#Top">Back to top:</a>
+        </p>
+        <h2><a name="Important_differences_between_a_HASP_and_a_soft_license:"></a>Important differences between a HASP and a soft license:</h2>
+        <p>Your product license can either be a HASP and a soft license, each of which have the following important differences:
+</p>
+        <ul>
+            <li class="Bullets" value="1">A HASP license is bound to a USB HASP, which has a specific serial number - this is therefore portable and not restricted to a specific computer, but has associated security risks and needs to be insured at your own risk.</li>
+            <li class="Bullets" value="2">A Soft license is bound to a specific computer and therefore cannot be transferred to another computer. Therefore if the computer fails then the soft license will no longer work.</li>
+        </ul>
+        <p> For details of the available licensing methods and their respective 
+ advantages, see Available licensing methods.</p>
+        <p><a href="#Top">Back to top:</a>
+        </p>
+        <h2><a name="Prerequisites_to_get_or_update_a_product_license:"></a>Prerequisites to get or update a product license:</h2>
+        <ul>
+            <li class="Bullets" value="1">The ability to send and receive files via email, either directly or remotely via another device.</li>
+            <li class="Bullets" value="2">Typically you need the <span class="AdroitAppName">Adroit</span> 10 Agent Server or <span class="VIPMAPSProductName">MAPS</span> 4 Server installed (unless you separately install the Adtech Licensing Utility).</li>
+        </ul>
+        <p><a href="#Top">Back to top:<a name="How_to_get_a_new_HASP_license_or_update_an_existing_one:"></a></a>
+        </p>
+        <div>
+            <h2>How to get a new HASP license or update an existing one:</h2>
+            <p>If necessary, launch the <![CDATA[  ]]><b>Adtech Licensing Utility</b> first.</p>
+            <p class="Notices"><b>PLEASE NOTE:</b> Purple HASPs are not supported (they lack the necessary space required by this licensing mechanism).</p>
+            <ol>
+                <li class="Numbers" value="1">Ensure that your HASP is inserted into the computer.</li>
+            </ol>
+            <p class="ListDesc">If necessary, click the <b>Rescan HASPs</b> button in the lower right corner.</p>
+            <p class="ListDesc">The <b>Request HASP Update</b> button should now be enabled.</p>
+            <p class="ListDesc">If the <b>Request HASP Update</b> button is disabled then there is a problem reading your HASP, in which case do the following:</p>
+            <ul>
+                <li class="ListBullets" value="1">Click the <b>Status</b> tab and right click this page and click the <b>Select all</b> menu item.</li>
+                <li class="ListBullets" value="2"> Then right click this page and click the <b>Copy</b> menu item.</li>
+                <li class="ListBullets" value="3">Email the contents of this tab to your sales representative for further assistance.</li>
+            </ul>
+            <ol start="2">
+                <li class="Numbers" value="2">Click the <b>Request HASP Update</b> button.</li>
+            </ol>
+            <p class="ListDesc">This will temporarily disable the <b>Refresh Current License</b> and the <b>Apply License (V2C)</b> buttons, indicating that this request is being processed.</p>
+            <p class="ListDesc">Once the .c2v (Customer to vendor) file has been created for this HASP license:</p>
+            <p class="ListDesc">Windows Explorer is opened, displaying the folder in which this .c2v file has been copied, which adheres to the following syntax: it begins with HL- followed by the unique serial number of your HASP.c2v</p>
+            <p class="ListDesc">The <b>Main</b> tab of the <b>Adtech Licensing Utility</b> also displays the location of this .c2v file and the email address to which this file should be sent.</p>
+            <ul>
+                <li class="ListBullets" value="1">If you have an email client on your local computer, then do the following:</li>
+                <li class="ListSubBullet" value="2">Click this email address link, which opens your default email client and creates the License Request email message for you that is addressed to the required email address. </li>
+                <li class="ListSubBullet" value="3">In this case simply attach the .c2v file and send it off.</li>
+            </ul>
+            <ul>
+                <li class="ListBullets" value="1">If you cannot email from the local computer, then do the following:</li>
+                <li class="ListSubBullet" value="2">Make a note of the required email address </li>
+                <li class="ListSubBullet" value="3">Copy the resultant .c2v file to a device that is able to email </li>
+                <li class="ListSubBullet" value="4">Create an email that is addressed to the specified email address that is entitled "License Request : " and then copy the entire name of your .c2v file</li>
+                <li class="ListSubBullet" value="5">Attach this .c2v file and send it off.</li>
+            </ul>
+            <ol start="3">
+                <li class="Numbers" value="3">Once the .v2c (Vendor to Customer) file is emailed back to you, copy this file to a folder on the computer on which you have installed <span class="AdroitAppName">Adroit</span> 10 Agent Server or <span class="VIPMAPSProductName">MAPS</span> 4 Server.</li>
+                <li class="Numbers" value="4">Click the <b>Apply License (V2C)</b> button.</li>
+            </ol>
+            <p class="ListDesc">In the <b>Open Vendor to Customer (.v2c) File</b>dialog, browse to the folder in which you copied the . v2c file and select this .v2c file and click the <b>Open</b> button.</p>
+            <p class="ListDesc">Your license is updated and your license details are displayed in the    <b>License</b> tab.</p>
+        </div>
+        <p><a href="#Top">Back to top:<a name="How_to_get_a_new_soft_license__or_update_an_existing_one:"></a></a>
+        </p>
+        <div>
+            <h2>How to get a new soft license  or update an existing one:</h2>
+            <p>By default, the <b>Adtech Licensing Utility</b> hides the options to obtain or update a soft license, to display these options you need to run the <b>Adtech Licensing Utility</b> with the -softlicensemode command line option, as follows:</p>
+            <p>Use the Windows key +R shortcut to launch the <b>Run</b> dialog (or right click the Start menu and select <b>Run</b>) and then specify and run the following command: alu.exe -softlicensemode </p>
+            <p>In the <b>Adtech Licensing Utility</b> dialog:</p>
+            <ol start="1">
+                <li class="Numbers" value="1">Click the <b>Request Soft-License Update</b> button.</li>
+            </ol>
+            <p class="ListDesc">This will temporarily disable the <b>Refresh Current License</b> and the <b>Apply License (V2C)</b> buttons, indicating that this request is being processed.</p>
+            <p class="ListDesc">Once the .c2v (Customer to vendor) file has been created for this HASP license:</p>
+            <p class="ListDesc">Windows Explorer is opened, displaying the folder in which this .c2v file has been copied, which adheres to the following syntax: it begins with New-SL- followed by the computer name.c2v</p>
+            <p class="ListDesc">The <b>Main</b> tab of the <b>Adtech Licensing Utility</b> also displays the location of this .c2v file and </p>
+            <p class="ListDesc">the email address to which this file should be sent.</p>
+            <ul>
+                <li class="ListBullets" value="1">If you have an email client on your local computer, then do the following:</li>
+                <li class="ListSubBullet" value="2">Click this email address link, which opens your default email client and creates the License Request email message for you that is addressed to the required email address. </li>
+                <li class="ListSubBullet" value="3">In this case simply attach the .c2v file and send it off.</li>
+            </ul>
+            <ul>
+                <li class="ListBullets" value="1">If you cannot email from the local computer, then do the following:</li>
+                <li class="ListSubBullet" value="2">Make a note of the required email address </li>
+                <li class="ListSubBullet" value="3">Copy the resultant .c2v file to a device that is able to email </li>
+                <li class="ListSubBullet" value="4">Create an email that is addressed to the specified email address that is entitled "License Request : " and then copy the entire name of your .c2v file</li>
+                <li class="ListSubBullet" value="5">Attach this .c2v file and send it off.</li>
+            </ul>
+            <ol start="2">
+                <li class="Numbers" value="2">Once the .v2c (Vendor to Customer) file is emailed back to you, copy this file to a folder on the computer on which you have installed <span class="AdroitAppName">Adroit</span> 10 Agent Server or <span class="VIPMAPSProductName">MAPS</span> 4 Server.</li>
+                <li class="Numbers" value="3">Click the <b>Apply License (V2C)</b> button.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> You can use the default <b>Adtech Licensing Utility</b> (without specifying the command line option) to do this.</p>
+            <p class="ListDesc">In the <b>Open Vendor to Customer (.v2c) File</b> dialog, browse to the folder in which you copied the . v2c file and select this .v2c file and click the <b>Open</b> button.</p>
+            <p class="ListDesc">Your license is updated and your license details are displayed in the <b>License</b> tab.</p>
+        </div>
+        <p><a href="#Top">Back to top:</a>
+        </p>
+        <div>
+            <h2><a name="How_to_view_your_current_product_license:"></a>How to view your current product license:</h2>
+            <p>If necessary, click the <b>Refresh Current License</b> button, especially if you have just updated your license.</p>
+            <p>Open the <b>License</b> tab to display the details of your current  license, which describes which components you are currently licensed to use.</p>
+        </div>
+        <p>For 
+ details on viewing your current license details from the <span class="VIPAppName">SmartUI</span> Server or Service Manager, see Viewing <span class="VIPAppName">SmartUI</span> Server 
+ license information.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

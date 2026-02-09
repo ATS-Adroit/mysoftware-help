@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Important TableLayoutPanel properties</title>
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Important TableLayoutPanel properties</h1>
+        <p><a name="kanchor2019"></a>The following list describes the functions of some of the more important 
+ properties that the TableLayoutPanel provides:</p>
+        <p class="Notices"><b>Note:</b> These 
+ properties can be viewed and configured in the <b>Properties</b> 
+ tool window. </p>
+        <p class="Notices"><b>Tip:</b> Since ONLY ONE table can be displayed by the DataGrid control there is no need 
+ to configure properties that are concerned with multi-table or related 
+ table navigation etc.</p>
+        <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+            <col style="width: 253px;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+            <col style="width: 78.667%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <h2><b>Auto sizing</b>
+                        </h2>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Autosize</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This property affects the way in which the available space in the TableLayoutPanel control is allocated for each column and row when this TableLayoutPanel control is auto sized and hence affects how the configured <b>sizeType</b> property of each row and column style operate, as follows:</p>
+                        <table style="width: 100%;mc-table-style: url('../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                            <col class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                            <col class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                            <tbody>
+                                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                                    <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">false</td>
+                                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                                        <p>The TableLayoutPanel control proceeds from left to right, and allocates space for the column or row or in the following order.</p>
+                                        <ul>
+                                            <li class="Bullets" value="1">If the <b>sizeType</b> property is set to <b>Absolute</b>, this allocates the number of pixels specified by the width or height of the TableLayoutPanel control.</li>
+                                            <li class="Bullets" value="2">If the <b>sizeType</b> property is set to <b>Autosize</b>, this allocates the minimum number of pixels to fully contain the largest control in the column/row.</li>
+                                            <li class="Bullets" value="3">After space for all <b>Absolute</b> and <b>Autosize</b> columns or rows is allocated, any columns or rows with <b>sizeType</b> set to <b>Percent</b> are used to proportionally allocate the remaining free space.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                                    <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">true</td>
+                                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                                        <p>Similar to the previous interaction, with the exception that the <b>Percent</b> columns or rows are treated as if they were <b>Autosize</b>.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>For details on editing the <b>sizeType</b> property, see <a href="Setting_row_heights_and_column_widths_in_the_TableLayoutPanel.htm">Setting row heights and column widths in the TableLayoutPanel</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <h2><b>Layout</b>
+                        </h2>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>CellBorderStyle</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This property determines if the cell is outlined with a border or not. By default no border is displayed (None), however you can specify the following options: &#9702;</p>
+                        <ul>
+                            <li class="Bullets" value="1"><b>None</b> – No borders.</li>
+                            <li class="Bullets" value="2"><b>Single</b> – A single-line border.</li>
+                            <li class="Bullets" value="3"><b>Inset</b> – A single-line sunken border.</li>
+                            <li class="Bullets" value="4"><b>InsetDouble</b> – A double-line sunken border.</li>
+                            <li class="Bullets" value="5"><b>Outset</b> – A single-line raised border.</li>
+                            <li class="Bullets" value="6"><b>OutsetDouble</b> – A double-line raised border.</li>
+                            <li class="Bullets" value="7"><b>OutsetPartial</b> – A single-line border containing a raised portion.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Columns</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>Launches the <b>Column and Row Styles</b> editor,  setting the <b>Show</b> field to <b>Columns</b> to edit the <b>sizeType</b> property of the available column styles  that determines how the available space in the TableLayoutPanel control is allocated for each column. </p>
+                        <p>For details on editing this <b>sizeType</b> property, see <a href="Setting_row_heights_and_column_widths_in_the_TableLayoutPanel.htm">Setting row heights and column widths in the TableLayoutPanel</a>.</p>
+                        <p class="Notices"><b>Note:</b> This <b>sizeType</b> property is affected by the current <b>Autosize</b>  TableLayoutPanel property setting.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Rows</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>  Launches the <b>Column and Row Styles</b> editor, setting the <b>Show</b> field to <b>Rows</b> to edit the <b>sizeType</b> property of the available row styles  that determines how the available space in the TableLayoutPanel control is allocated for each row.</p>
+                        <p>For details on editing this <b>sizeType</b> property, see <a href="Setting_row_heights_and_column_widths_in_the_TableLayoutPanel.htm">Setting row heights and column widths in the TableLayoutPanel</a>.</p>
+                        <p class="Notices"><b>Note:</b> This <b>sizeType</b> property is affected by the current <b>Autosize</b>  TableLayoutPanel property setting.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyD-Column1-Body1" colspan="2">
+                        <p class="Notices" style="text-align: left;"><b>Note:</b> The <b>ColumnCount</b> and <b>RowCount</b> properties are automatically incremented/decremented when you add and remove rows and columns in design time and the <b>GrowStyle</b> property appears to be ignored.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <h2><b>Inherited control properties</b>
+                        </h2>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p><b>Layout</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">For details on laying out controls in a TableLayoutPanel control, see <a href="Laying_out_controls_in_a_TableLayoutPanel.htm">Laying out controls in a TableLayoutPanel</a>.</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>ColumnSpan</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This integer value, whose default value is 1, allows this control to occupy (span) more than one (rightmost) columns in addition to the column that it is currently in.</p>
+                        <p class="Notices"><b>Note:</b> After setting this property, you need resize this control accordingly to occupy all or part of the allocated columns.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>RowSpan</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>This integer value, whose default value is 1, allows this control to occupy (span) more than one (bottommost) row in addition to the row that it is currently in.</p>
+                        <p class="Notices"><b>Note:</b> After setting this property, you need resize this control accordingly to occupy all or part of the allocated rows.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p><b>Location</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">&#160;</td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Cell</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The current position or location of this control in the table, specified by the <b>Column</b>, <b>Row</b> properties.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                        <p>Column</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                        <p>The (vertical) column in which this control is located, which is an integer starting from 0 (the first column).</p>
+                        <p class="Notices"><b>Note:</b> This property cannot be externally driven to change the location of a control within the TableLayoutPanel control's table.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                    <td style="font-weight: normal;" class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                        <p>Row</p>
+                    </td>
+                    <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                        <p>The (horizontal) row in which this control is located, which is an integer starting from 0 (the first row).</p>
+                        <p class="Notices"><b>Note:</b> This property cannot be externally driven to change the location of a control within the TableLayoutPanel control's table.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

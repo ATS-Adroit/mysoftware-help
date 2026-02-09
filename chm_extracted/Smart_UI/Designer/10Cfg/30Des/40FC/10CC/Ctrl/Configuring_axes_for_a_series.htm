@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Form Components|Specialized Controls|Charting controls|Common configuration tasks" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Charts" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Configuring axes for a series</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1559"></a><a name="kanchor1560"></a><a name="kanchor1561"></a>Configuring axes for a series</h1>
+        <p><a name="kanchor1562"></a><a name="kanchor1563"></a>The axes of the chart are configured in the <b>Axis 
+ Setup</b> page of the configuration dialog of the charting control, 
+ which provides a number of options, the more important of which are described 
+ below:</p>
+        <p class="Notices"><b>Note1:</b> Your end 
+ users can also configure these axes in runtime, by using 
+ the <b>Runtime Axes Configuration</b><img src="ChtTB_RuntimeAxesScalingConfig.jpg" style="border: none;width: 17px;height: 17px;float: none;border-style: none;border-style: none;" width="17" height="17" border="0" /> toolbar button to configure their scaling, position and/or axis ticks.</p>
+        <p class="Notices"><b>Note2:</b> To display the advanced configuration options, click the <b>Advanced View &gt;</b> button at the bottom of this configuration dialog.</p>
+        <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorFour"><b>Tip:</b> This page displays, below the <b>Select 
+ an Axis to configure</b> list box in <b>bold</b> which series, if any, are associated with the currently selected axis.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To create a custom axis:</a> 
+ typically <a name="kanchor1564"></a><a name="kanchor1565"></a><a name="kanchor1566"></a>required when using a golden curve or where the charted data 
+ require different axes.</p>
+        <div MadCap:targetName="t4" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Click the <b>Add 
+ a custom axis</b> <img src="../../../../../image78.gif" style="border: none;width: 20px;height: 19px;border-style: none;border-style: none;" width="20" height="19" border="0" /> button to add an axis called Custom 
+ X (where X is a consecutive number from 0).</li>
+                <li class="Numbers" value="2">Open the <b>Select 
+ an Axis to configure</b> list box and select this new axis.</li>
+            </ol>
+            <ul>
+                <li class="ListBullets" value="1">If this is an X 
+ axis then click the <b>Axis Position</b> 
+ tab and check the <b>Horizontal</b> checkbox.</li>
+                <li class="ListBullets" value="2">If this is an Y 
+ axis then click the <b>Axis Position</b> 
+ tab and clear the <b>Horizontal</b> checkbox.</li>
+            </ul>
+            <p class="ListDesc">This adds this axis to the <b>Horizontal</b> 
+ or <b>Vertical</b> axes list boxes that 
+ are available when configuring series.</p>
+            <p>&#160;</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To remove a custom axis:</a><a name="kanchor1567"></a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Open the <b>Select 
+ an Axis to configure</b> list box and select a custom axis to enable the <img src="../../../../../image79.gif" style="border: none;width: 20px;height: 19px;border-style: none;border-style: none;" width="20" height="19" border="0" /> button.</li>
+                <li class="Numbers" value="2">Click the <b>Remove 
+ selected custom axis</b> <img src="../../../../../image79.gif" style="border: none;width: 20px;height: 19px;border-style: none;border-style: none;" width="20" height="19" border="0" /> button.</li>
+            </ol>
+        </div>
+        <p class="Notices"><b>IMPORTANT:</b> This removes this last custom axis that you added to this chart, which may NOT be the one that you select.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2" name="kanchor1568"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To customise the axis labelling:</a> 
+ typically<a name="kanchor1569"></a> used to specify the required scientific notation and/or rounding 
+ for each value or to display the values on the axis at an angle.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Click the <b>Axis 
+ Labels</b> tab, then:</li>
+            </ol>
+            <p class="ListDesc">To hide the labels - uncheck the <b>Visible</b> checkbox.</p>
+            <p class="ListDesc">If necessary specify the required <b>Style</b>, although the default of <b>Auto</b> should suffice.</p>
+            <p class="ListDesc"><b>To specify the required scientific notation 
+ and/or rounding for each value:</b>
+            </p>
+            <ol>
+                <li class="NumbersSubLetters" value="1">Specify 
+ the required <b>Values Format</b>.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> The 
+ displayed options depend upon the type of data currently selected for 
+ the values of this axis.</p>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">If 
+ you are unable to locate the required formatting then simply type in the 
+ required format string.</li>
+                <li class="NumbersSubLetters" value="3">Click 
+ the <b>Set</b> button.</li>
+            </ol>
+            <p class="ListDesc"><b>To display 
+ values on the axis at an angle:</b>
+            </p>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">Specify 
+ the required angle, in degrees, for the labels using the <b>Angle</b> 
+ spin control.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Tip:</b> Use the 
+ sample chart at the bottom of the configuration dialog to see how the specified angle 
+ looks.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AxisScalingCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To customise the scaling of this axis:</a> determine whether to manually or automatically scale this axis and/or invert the scaling and/or hide the scaling and/or to improve the readability of the axis.</p>
+        <div MadCap:targetName="AxisScalingCfg" style="display: none;">
+            <p>Click the <b>Axis 
+ Scales</b> tab to do one or more of the following:</p>
+            <p class="Notices"><b>Note:</b> You may   need to select the <b>Advanced view</b> in the <b>Edit Chart</b> dialog to display these settings.</p>
+            <p class="ListDesc"><b>To automatically configure the scaling of this 
+ axis:</b> ensure that the <b>Automatic</b> checkbox 
+ is checked, this also checks the <b>Auto</b> checkboxes for the <b>Minimum</b> and <b>Maximum</b> 
+ values.
+
+</p>
+            <p class="ListNotice"><b>Tip:</b> It is recommended 
+ to use automatic scaling (the default setting) when trending data with 
+ the Line or XYPlot chart.</p>
+            <p class="ListDesc"><b>To manually configure the scaling of this axis:</b>
+            </p>
+            <p class="ListNotice"><b>Tip:</b> This is typically required when you are using Bar or Column charts so 
+ that you can see the differences in values between two series.</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1">Ensure that the <b>Automatic</b> checkbox 
+ is cleared, this also clears the <b>Auto</b> checkboxes for the <b>Minimum</b> and <b>Maximum</b> 
+ values.
+
+</li>
+                <li class="NumbersSubLetters" value="2">Manually specify the <b>Minimum</b> and <b>Maximum</b> 
+ values, by using the <b>Value</b> spin control to specify the required value.</li>
+            </ol>
+            <p class="ListDesc"><b>To scale the axis logarithmically:</b>
+            </p>
+            <p class="ListNotice"><b>Note:</b> You need to select the <b>Advanced view</b> in the <b>Edit Chart</b> dialog to edit these settings.</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1">Check the <b>Logarithmic</b> checkbox to scale the selected axis logarithmically settings include:</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> The  <b>Minimum</b> and <b>Maximum</b> values of this axis should be greater than zero, and the Axis cannot be of type DateTime .</p>
+            <ol>
+                <li class="NumbersSubLetters" value="1">Then specify the required 	<b>Logarithmic Base</b> for this logarithmic scaling.</li>
+            </ol>
+            <p class="ListDesc" MadCap:conditions="VIP.Designer_VerMinorFour"><b>To specify a margin or offset above and/or below the axis scaling for improved readability:</b> specify the required <b>Offset</b> (blank space) below the <b>Minimum</b> value and/or above the <b>Maximum</b> value, in pixels (this is an Advanced feature).
+
+</p>
+            <p class="ListDesc"><b>To invert the scaling of this axis:</b> ensure that the <b>Inverted</b> checkbox 
+ is checked (this is an Advanced feature).
+
+</p>
+            <p class="ListDesc"><b>To hide the scaling of this axis:</b> ensure that the <b>Visible</b> checkbox 
+ is cleared.
+
+</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="PositionAxisCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To customise the positioning of this axis:</a> determine the relative position and the actual size of this axis relative to the  total dimension of the charting area.</p>
+        <div MadCap:targetName="PositionAxisCfg" style="display: none;">
+            <p>Click the <b>Axis 
+ Position</b> tab to specify one or more of the following axis positions:</p>
+            <p class="LineNote"><b>Relative Position</b>: the position of this axis, as percentage (0-100%) of the length or width of the charting area, as follows: </p>
+            <p class="ListDesc">For a horizontal (X) axis: 0 is the Bottom border  and 100 is the Top.</p>
+            <p class="ListDesc">For a vertical (Y) axis: 0 is the Left border and 100 is the Right.</p>
+            <p class="LineNote"><b>Start Position</b>: at the specified <b>Relative Position</b>, this determines the starting position of this axes, as percentage (0-100%) of the total size of the charting area, as follows:</p>
+            <p class="ListDesc">For a horizontal (X) axis: 0 is the leftmost point  and 100 is the rightmost point of the horizontal size of the charting area.</p>
+            <p class="ListDesc">For a vertical (Y) axis: 0 is the topmost point and 100 is the bottommost point of the length of the vertical size of the charting area.</p>
+            <p class="LineNote"><b>End Position</b>:  at the specified <b>Relative Position</b>, this determines the ending position of this axes, as percentage (0-100%) of the total size of the charting area, as follows:</p>
+            <p class="ListDesc">For a horizontal (X) axis: 0 is the leftmost point  and 100 is the rightmost point of the horizontal size of the charting area.</p>
+            <p class="ListDesc">For a vertical (Y) axis: 0 is the topmost point and 100 is the bottommost point of the length of the vertical size of the charting area.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AxisTicksCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To customise the display of the axis and its scaling demarcations or ticks:</a> determine to display the axis, its major demarcations or ticks and their grid lines and to configure the colors of these items.</p>
+        <div MadCap:targetName="AxisTicksCfg" style="display: none;">
+            <p>Click the <b>Axis Ticks</b> tab to specify the visibility and/or the displayed color of the following axis components:</p>
+            <p class="LineNote"><b>Axis Pen Visible</b>: This checkbox displays/hides this axis.</p>
+            <p class="LineNote"><b>Axis color</b>: Configure the required color of this axis. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Using the color edit box 
+ to select a color</a></span>.</p>
+            <p class="LineNote"><b>Ticks Visible</b>: This checkbox displays/hides the major ticks (demarcations) of this axis.</p>
+            <p class="LineNote"><b>Ticks color</b>: Configure the required color of these major ticks.</p>
+            <p class="LineNote"><b>Grid Visible</b>: This checkbox displays/hides the grid lines, displayed within the charting area, from each major tick (demarcation) of this axis.</p>
+            <p class="LineNote"><b>Grid color</b>: Configure the required color of these grid lines.</p>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

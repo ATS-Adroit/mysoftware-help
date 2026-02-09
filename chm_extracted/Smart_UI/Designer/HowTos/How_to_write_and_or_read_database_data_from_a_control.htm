@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_Data" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>How to write and or read database data from a control</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>How to write and or read database data from a control</h1>
+        <p><a name="Top"></a>This document briefly explains how to use the Data Binding functionality  to write and read data to and from a DataGrid or edit control to a SQL Server database table.</p>
+        <p>Data binding facilitates the selecting, adding, updating, deleting and inserting of rows to and from a SQL Server database table from any control that supports data binding.</p>
+        <p>The requires the following main steps:</p>
+        <ol>
+            <li class="Numbers" value="1"><a href="#AddingOleDBdatasource">Adding an OLEDB datasource</a>
+            </li>
+            <li class="Numbers" value="2"><a href="#CreatingADataBinder">Creating a DataBinder for this OLEDB datasource</a>
+            </li>
+            <li class="Numbers" value="3"><a href="#AddingVIZNETDataBinderComponent">Adding and Configuring a VIZNETDataBinder Component on the relevant Graphic Form</a>
+            </li>
+            <li class="Numbers" value="4"><a href="#UsingVIZNETBindingNavigator">Using the added VIZNETBindingNavigator control to interface to the specified table/s</a>
+            </li>
+            <li class="Numbers" value="5"><a href="#NBVIZNETDataBinderTasks">Important post configuration Tasks provided by the VIZNETDataBinder component</a>
+            </li>
+        </ol>
+        <h2><a name="AddingOleDBdatasource"></a>Adding an OLEDB datasource</h2>
+        <p>To configure data binding, we first need to create an OLEDB datasource which will connect to our SQL Server database: </p>
+        <p>For this example we will add an OLEDB datasoure that will connect to our Northwind database on our SQL Server.</p>
+        <ol>
+            <li class="Numbers" value="1">Launch and login to the Designer and then right-click on the <b>Datasources</b> node of the <b>Enterprise Manager</b> tree and select <b>Add Datasources</b>, then select <b>OLE DB</b> and click <b>Finish</b>.</li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addOLEBD1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addOLEBD1" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/03000001_197x357.png" style="visibility: visible;mso-wrap-style: square;width: 197;height: 357;" />
+        </p>
+        <ol start="2">
+            <li class="Numbers" value="2">
+                <p>In the <b>Add A New OLEDB Datasource</b> dialog, specify a name for your OLEDB datasource, in this case Northwind and click the  browse (...) button to the right of the <b>Connection String</b> edit field to display the <b>Connection Properties</b> dialog.</p>
+            </li>
+            <li class="Numbers" value="3">
+                <p>In the  <b>Connection Properties</b> dialog select <b>Microsoft OLE DB Provider for SQL Server</b> from the <b>OLE DB Provider</b> list and click the <b>Data Links…</b> button.</p>
+                <p>Typically do NOT  change the <b>Data source</b> from the default of <b>.NET Framework Data Provider for OLE&#160;DB</b>, unless you are connecting to a SQL Compact database. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">More details:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> in which case, click the <b>Change...</b> button and choose the datasource that corresponds to the correct version of SQL Compact and then the dialog will change so that you only need to browse in the required database file and specify the required password, if any.</span></span></p>
+            </li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addOLEBD2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addOLEBD2" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/03000003_252x321.png" style="visibility: visible;mso-wrap-style: square;width: 252;height: 321;" />
+        </p>
+        <ol start="4">
+            <li class="Numbers" value="4">In the <b>Data Link Properties dialog</b> enter the required details to connect to your SQL Server database and then click <b>Finish</b>.</li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addOLEBD3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addOLEBD3" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/03000004_358x415.png" style="visibility: visible;mso-wrap-style: square;width: 358;height: 415;" />
+        </p>
+        <ol start="5">
+            <li class="Numbers" value="5">In the <b>Connection Properties</b> dialog click <b>Test Connection</b> to verify that the connection details are correct and that we can connect to the SQL Server database and then click <b>OK</b>.</li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addOLEBD4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addOLEBD4" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/03000005_259x330.png" style="visibility: visible;mso-wrap-style: square;width: 259;height: 330;" />
+        </p>
+        <ol start="6">
+            <li class="Numbers" value="6">Click <b>Finish</b> in the <b>Add A New OLEDB Datasource</b> dialog to add this new OLEDB datasource to the Server.</li>
+        </ol>
+        <p>Our newly added OLEDB datasource, in this case Northwind, should be listed under the <b>Datasources</b> node in the <b>Enterprise Manager</b> tree listing all the tables, views and stored procedures for this SQL Server database that you are connected too.</p>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addOLEBD5"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addOLEBD5" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/03000007_189x361.png" style="visibility: visible;mso-wrap-style: square;width: 189;height: 361;" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="CreatingADataBinder"></a>Creating a DataBinder for this OLEDB datasource</h2>
+        <p>In order to bind controls to data in a specific table in our database we first need to create a server-side DataBinder in the OLEDB datasource, as follows:</p>
+        <ol>
+            <li class="Numbers" value="1">Right-click on the <b>DataBinders</b> node of this OLEDB datasource in the the <b>Enterprise Manager</b> tree and click <b>Add DataBinder</b>.</li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addDataBinder1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addDataBinder1" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/03000008_188x351.png" style="visibility: visible;mso-wrap-style: square;width: 188;height: 351;" />
+        </p>
+        <ol start="2">
+            <li class="Numbers" value="2">In the <b>Add DataBinder</b> dialog provide a descriptive name for your DataBinder as below, in this case CustomersDB, and click <b>Next</b>.</li>
+            <li class="Numbers" value="3">Select the tables and fields you wish to write and/or read data to and from. </li>
+        </ol>
+        <p class="ListNotice"><b>IMPORTANT:</b> If you are writing data back to the database you need to make sure the primary key field of the selected table is also selected. This is mandatory as data binding requires a primary key field so that it is able to distinguish which rows in your table need to be updated or deleted.</p>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addDataBinder2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addDataBinder2" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/0300000A_422x478.png" style="visibility: visible;mso-wrap-style: square;width: 422;height: 478;" />
+        </p>
+        <ol start="4">
+            <li class="Numbers" value="4">Click <b>Next</b> and then click <b>Finish</b> as for this example we are not going to do any further configuration. </li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> The <b>Add DataBinder</b> dialog allows you to configure multiple table relationships, constraints on rows and ordering of certain fields and adding custom views. For more information, see <a href="../10Cfg/30Des/20DS/ODB/Adding_DataBinders.htm">Adding DataBinders</a>.</p>
+        <p>Your newly added DataBinder, in this case CustomersDB, should now be listed under the DataBinders node of your OLEDB datasource tree.</p>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addDataBinder3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addDataBinder3" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/0300000B_204x396.png" style="visibility: visible;mso-wrap-style: square;width: 204;height: 396;" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="AddingVIZNETDataBinderComponent"></a>Adding and Configuring a VIZNETDataBinder Component on the relevant Graphic Form</h2>
+        <p>In order to data bind to controls on your graphic form, you need to add a <b>VIZNETDataBinder</b> component to the relevant graphic form:</p>
+        <ol>
+            <li class="Numbers" value="1">Drag this component from the <b>Data</b> category of your <b>Toolbox</b> window onto your graphic form.</li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addVIZNETDataBinder1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addVIZNETDataBinder1" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/0300000C_189x362.png" style="visibility: visible;mso-wrap-style: square;width: 189;height: 362;" />
+        </p>
+        <p class="ListDesc">This displays the <b>VIZNET Data Binder Configuration</b> dialog, in which you need to select the OLEDB datasource you are using as well as the you just configured and you need to select (check) the table you wish to write and/or read data to and from. </p>
+        <p class="ListDesc">For this example we are connecting to our OLEDB datasource called Northwind and using our DataBinder called CustomersDB and binding to the Customers table in the Northwind database.</p>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addVIZNETDataBinder2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addVIZNETDataBinder2" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/0300000D_378x481.png" style="visibility: visible;mso-wrap-style: square;width: 378;height: 481;" />
+        </p>
+        <p class="ListDesc">This <b>VIZNETDataBinder</b> component can create and bind controls for you to your tables and their fields on your graphic form which will allow your users to read and edit the data from your tables.</p>
+        <p class="ListDesc">We will now configure the <b>VIZNETDataBinder</b> component to create edit controls and a DataGrid on to your graphic form which will be bounded (linked) to the selected table and fields.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">On the right-side tab control, in the <b>Required Field Controls</b> tab, check <b>Select All Field Controls</b>, which in this case, ensures that you will  create and bind (link) edit controls on your graphic form to each selected field, although you can also manually select which fields you want. <br />You can also specify the order of the fields by moving the fields up and down in the specific order you want with the up/down arrow buttons on the right hand side.</li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addVIZNETDataBinder3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addVIZNETDataBinder3" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/0300000E_431x548.png" style="visibility: visible;mso-wrap-style: square;width: 431;height: 548;" />
+        </p>
+        <ol start="3">
+            <li class="Numbers" value="3">In the <b>Required DataGrid Columns</b> tab, check the <b>Select All DataGrid Columns</b>, which in this case, ensures that you will display all the fields as columns on the DataGrid control that will be created on your graphic form and bounded (linked) to the selected table and fields, although you can also manually select which DataGrid columns you want. <br />Again you can also specify the order of the columns by moving the columns up and down in the specific order you want with the up/down arrow buttons on the right hand side.</li>
+        </ol>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="addVIZNETDataBinder4"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="addVIZNETDataBinder4" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/0300000F_418x531.png" style="visibility: visible;mso-wrap-style: square;width: 418;height: 531;" />
+        </p>
+        <ol start="4">
+            <li class="Numbers" value="4">Click <b>Finish</b> and the VIZNET DataBinder component will create all the necessary edit controls and DataGrids to your graphic form and bind them to the selected table and fields of your DataBinder.</li>
+        </ol>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="UsingVIZNETBindingNavigator"></a>Using the added VIZNETBindingNavigator control to interface to the specified table/s</h2>
+        <p>This will also create a <b>VIZNETBindingNavigator</b> control on your graphic which allows you and your end-users to navigate through rows, add new rows, delete or update existing rows in the table/s you specified when creating this DataBinder and commit or load any changes to and from the selected database table/s.</p>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="UsingVIZNETBindingNavigator1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="UsingVIZNETBindingNavigator1" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/03000010_516x360.png" style="visibility: visible;mso-wrap-style: square;width: 516;height: 360;" />
+        </p>
+        <ol>
+            <li class="Numbers" value="1">Click the <b>Run</b> button of your graphic form to enter Run Mode in the Designer</li>
+            <li class="Numbers" value="2">Click the <b>Load</b> button in your <b>VIZNETBindingNavigator</b> to load the data into the edit controls and DataGrid. </li>
+            <li class="Numbers" value="3">Click the <b>Save</b> button to commit any changes made in the edit controls or DataGrid back to the database table.</li>
+        </ol>
+        <p class="ListDesc" MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="UsingVIZNETBindingNavigator2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="UsingVIZNETBindingNavigator2" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/03000011_503x360.png" style="visibility: visible;mso-wrap-style: square;width: 503;height: 360;" />
+        </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="NBVIZNETDataBinderTasks"></a>Important post configuration Tasks provided by the VIZNETDataBinder component</h2>
+        <p>The VIZNETDataBinder component does provide some additional post configuration options, accessed by clicking the 
+ <img src="../10Cfg/30Des/40FC/glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> glyph of this component (at the bottom of the graphic form) to display its <b>VIZNETDataBinder Tasks</b> menu.</p>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="NBVIZNETDataBinderTasks1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p MadCap:targetName="NBVIZNETDataBinderTasks1" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="DataBinding_Files/03000012_433x314.png" style="visibility: visible;mso-wrap-style: square;width: 433;height: 314;" />
+        </p>
+        <p>The following <b>Tasks</b> menu options are important:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Auto Load</b> – to automatically load data from the selected tables into their bounded controls when the graphic form runs. This Auto Load functionality can also be accomplished by using the DataBinder Trigger spider. For more details, see <a href="../10Cfg/30Des/50S_S/10Spd/50Cat/Dbs/Updating_changes_made_to_a_DataBinder_table.htm">Updating changes made to a DataBinder table</a> or <a href="../10Cfg/30Des/50S_S/10Spd/50Cat/Dbs/Fetching_data_from_a_DataBinder_table.htm">Fetching data from a DataBinder table</a>.</li>
+            <li class="Bullets" value="2"><b>Max Records</b> – this specifies how many records to fetch at a time per page.</li>
+            <li class="Bullets" value="3"><b>Refresh Data</b> – this specifies how to handle refreshing of the data on the edit controls and DataGrid when data is changed in the selected table in the SQL Server database. You can select one of the following three settings:</li>
+            <li class="BulletSub" value="4">Selecting the <b>Manual</b> setting will prompt the user if he wishes to refresh all edit controls and DataGrids with the new data. </li>
+            <li class="BulletSub" value="5">Selecting the <b>Auto</b> setting will automatically refresh all edit controls and DataGrids with the new data without prompting the user (you will lose any changes that have not been committed). </li>
+            <li class="BulletSub" value="6">Selecting the <b>Ignore</b> setting will not refresh all the edit controls and DataGrids with the new data (this has the potential of overriding any new data in the database table if someone has made a change to data in the table before you have committed your changes.)</li>
+        </ul>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

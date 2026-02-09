@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Adroit Utilities|UDT Agent Type Designer" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_UDTEdtr" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="UDT.doc" /><title>Configuring a UDT agent</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor3143"></a><a name="kanchor3144"></a><a name="kanchor3145"></a>Configuring a UDT Agent
+        </h1>
+        <p>The <b>UDT Agent Type 
+ Designer</b> creates UDT agent types that emulate the 
+ structure of a UDT in a PLC. Once created you need to add one or more 
+ agents to these UDT agent types (templates). Then configure and scan these 
+ agents to their corresponding UDTs in the required PLCs.</p>
+        <p class="Notices"><b>PLEASE 
+ NOTE</b> :Every instance (agent 
+ created) of an UDT agent type will consume (number of slots-1) scan points.&#160;The 
+ other scan point will be consumed if and when its rawValue slot is scanned.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To edit a UDT agent:</a> 
+ how to display the edit dialog of a defined UDT agent.</p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Ensure that your Agent 
+ Server is started.</li>
+                <li class="Numbers" value="2">If the <span class="AdroitAppName">Adroit</span> User Interface of your choice.</li>
+                <li class="Numbers" value="3">Open the Agent configuration dialog.</li>
+                <li class="Numbers" value="4">Select the name of the 
+ required UDT agent type from the <b>Type</b> list box.</li>
+                <li class="Numbers" value="5">Type the name of the required 
+ agent in the <b>Name</b> edit field.</li>
+                <li class="Numbers" value="6">Click the <b>Add</b> button.</li>
+            </ol>
+            <p class="ListNotice"><b>PLEASE NOTE</b> 
+ :Every instance (agent created) of an UDT agent type will consume 
+ (number of slots-1) scan points.&#160;The other scan point will be consumed 
+ if and when the rawvalue slot is scanned.</p>
+            <ol start="7">
+                <li class="Numbers" value="7">Double click this agent 
+ in the <b>Agents</b> list box to display its edit dialog.</li>
+            </ol>
+        </div>
+        <p class="Notices"><b>IMPORTANT</b> When you edit UDT agents you must also remove all existing agent instances of this UDT agent type from the Adroit agent database (.WGP) file!</p>
+        <p>When you change the structure of a UDT agent (by using the UDT agent designer), then any UDT agents of that type that are already saved in a WGP file will prevent the WGP file from loading because their saved structures are now incorrect.</p>
+        <p>Therefore when you change the structure of a UDT agent, you must remove all instances of this UDT agent type from the WGP file.</p>
+        <p>For example if you have a UDT agent type called MOTORE, whose structure you have changed, then you need to:</p>
+        <p>EITHER  manually delete all agents of this MOTORE agent type.</p>
+        <p>OR you can use the WGP Remove utility to do this for you and back up the original WGP&#160;file.</p>
+        <p class="Notices"><b>Note:</b> This utility can be installed from the Additional Components install that provided on the <span class="AdroitAppVerName">Adroit 10</span> <span class="AdroitAppMedia">DVD</span>  or can be downloaded from the Adroit website.</p>
+        <p class="LineNote">In this case, open the Command prompt, in Administrator mode (in Windows 8.1, right click the Windows button and select the <b>Command Prompt (Admin)</b> item).</p>
+        <p class="LineNote">Type in: wgpremove motore</p>
+        <p>This removes all instance of the MOTORE agent type from the currently configured WGP file in Adroit Config (if using the SmartUI) or in the Classic Adroit Setup (if using Classic Adroit) and back up the original WGP&#160;file.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure a UDT agent:</a> 
+ how to configure the edit dialog of a defined UDT agent.</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Check the <b>Live</b> checkbox, 
+ to immediately save changes made to the configuration of this agent, without 
+ needing to click the <b>Update</b> button first.</li>
+            </ol>
+            <ol start="2">
+                <li class="Numbers" value="2">Check the <b>Auto-refresh</b> checkbox, to immediately refresh the dialog to display the latest 
+ values of these properties, without needing to click the <b>Refresh</b> 
+ button first.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> Only use 
+ this setting for monitoring the UDT property values; do NOT use this when 
+ you are changing UDT properties values from this dialog.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">For 
+ each of the properties that are defined for this UDT, you can configure 
+ the following:</li>
+                <li class="ListBullets" value="3"><b>Value:</b> This is ONLY editable if the <b>Readonly</b> checkbox 
+ for this property is cleared in the <b>UDT 
+ Agent Type Designer</b> utility.</li>
+                <li class="ListBullets" value="4"><b>Tag reference:</b> Specify a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tag<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">A fully qualified named value in Adroit (agentName.slotName).</span></span> whose value will be mirrored with this property value. In other words 
+ the current value of this property will be copied into the specified tag. Clicking the browse <img src="../COMMON/BrowseTag.bmp" style="height: 20px;width: 20px;" width="20" height="20" border="0" /> button to select this 
+ tag using the tag browser. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../AU_01_04/Selecting_a_Tag_Using_the_Agent_Explorer.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Selecting a tag</a></span>.</li>
+            </ol>
+            <ol start="4">
+                <li class="Numbers" value="4">Click 
+ <b>OK</b> once you have configured this agent appropriately.</li>
+            </ol>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To scan this UDT agent:</a> 
+ how to communicate the UDT this agent represents to its corresponding 
+ UDT in the required PLC.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Right 
+ click this agent in 
+ the <b>Agents</b> list box.</li>
+                <li class="Numbers" value="2">Select the <b>Scan…</b> 
+ menu item to display the <b><a name="kanchor3146"></a>Tag scanning configuration</b> dialog.</li>
+                <li class="Numbers" value="3">Select the device that 
+ communicates to this PLC from the <b>Device</b> list box.</li>
+            </ol>
+            <p class="ListNotice"><b>Note</b> : 
+ Currently you can only specify devices that communicate using theBeckhoff      and Alan Bradley protocols.      </p>
+            <p class="ListDesc">This automatically selects both this <b>Agent</b> name 
+ and its required <b>Slot</b>, in this case <b>rawValue</b>.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">Specify the <b>Address</b> 
+ of the corresponding UDT in this PLC.</li>
+                <li class="Numbers" value="5">If necessary, specify the 
+ required <b>Scan Rate</b>, in milliseconds and <b>Deadband</b> settings.</li>
+            </ol>
+            <p class="ListNotice"><b>Note</b> 
+ : 
+ These settings apply to ALL the properties specified within this UDT.</p>
+            <ol start="6">
+                <li class="Numbers" value="6">You should 
+ NEVER check the <b>Scan (input) inhibited</b> checkbox.</li>
+                <li class="Numbers" value="7">It is NOT recommended to 
+ check the <b>Output Enabled</b> checkbox when your UDT contains properties 
+ that are a mixture of read and write variables. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click for more 
+ details:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">when a control is done the ENTIRE UDT is 
+ written back to the PLC which may overwrite the values of readonly properties.</span></span>&#160;</li>
+                <li class="Numbers" value="8">Click 
+ the <b>Scan</b> button.</li>
+            </ol>
+            <p class="ListDesc">Repeat this procedure for all the UDTs you need to configure.</p>
+        </div>
+        <p class="Notices"><b>Note:</b> 
+ The value slots are saved and the agent edit dialog is resizable.</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

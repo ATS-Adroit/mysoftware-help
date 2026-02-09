@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="ReuseGrphCmpnts.doc" /><title>How to reuse graphical components</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="Top"></a>How to reuse graphical components</h1>
+        <p>A common practice in projects is to modularise 
+ components to reuse them elsewhere, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Design-time reuse</b>: in this case, graphic forms or portions of graphic forms, behave like advanced controls that are added to other graphic forms to speed up the creation of their user-functionality.</li>
+            <li class="Bullets" value="2"><b>Run-time reuse</b>: in this case, complete pre-configured graphic forms allow you to change which values they display or allow user to interact with, at runtime.</li>
+        </ul>
+        <h2>Prerequisites</h2>
+        <p>Have <span class="AdroitAppName">Adroit</span> 8 (MAPS 3) or later installed.</p>
+        <p class="Notices"><b>Note:</b> If you are using a version later than this then this how to will probably also apply to your version too, although some dialogs and/or commands may have changed slightly.</p>
+        <h2>Design-time reuse</h2>
+        <p><b>Wizards:</b> Wizards allow you to reuse the same graphical 
+ object and its assigned Behaviours (if any), over and over again, with different values (data elements), without having to recreate this object from scratch ever time. In other words, a wizard is a reusable design-time object, much like a Windows control. Also wizards have the facility to update their instances that have been added to graphic forms to their current configuration, when they are modified after having been used.  For details, see <a href="#How%20to%20create%20and%20use%20wizards">How to create and use wizards</a>.</p>
+        <p>Use the <b>Favorites</b> tool window, which:</p>
+        <ol>
+            <li class="Bullets" value="1">allows you to  create  your own custom set (library) of your favorite graphic forms and wizards, which you frequently use. </li>
+            <li class="Bullets" value="2"> helps to speed up the process of designing your graphic forms, since you can directly drag these from this tool window onto your graphic forms without having to find them in their relevant projects.</li>
+        </ol>
+        <p class="Notices"><b>Note:</b> Projects and their folders provide a <b>Preview Graphic Forms</b> option to displays thumbnail snapshots of all the graphic forms located in their immediate or root level to either open the required graphic form or populate the <b>Favorites</b> tool window. For details, see <a href="../10Cfg/30Des/30GF/Previewing_graphic_forms_and_wizards.htm">Previewing graphic forms</a>.</p>
+        <p><b>Manually create and manage a library of graphical components</b>: Another method of design-time reuse is creating a library 
+ of graphical components that can be copied and pasted to the required graphic forms and then connecting the necessary values to the properties of these components. In this case, you can export the required graphical components 
+ to XML files and then simply drag the file into a graphic form that is 
+ being designed in the <span class="VIPAppName">SmartUI</span> Designer. For details, see <span style="color: #008000;"><a href="#ExportGrphcCmpnt">How to export a graphical component to a XML 
+ file</a></span>.</p>
+        <p>Although this reduces the amount 
+ of repetition required, it does not eliminate the task of reconnecting 
+ the data every time to every new component. Furthermore, should the specification of 
+ a component change (say its look and colors) then the user would need 
+ to go and manually update every instance of this component. </p>
+        <p><b><a href="#MappingSpider">Mapping 
+ spiders</a></b>: Facilitates the simple connection of data to the required 
+ properties of this reusable graphical component. In other words, this 
+ eliminates the process of manually locating the properties of the reusable 
+ graphical component, in order to provide their values with live data.</p>
+        <p>While using Mapping spiders makes it easier 
+ to map data to the properties of controls, it does not solve the problem of having to update every instance of a graphical component 
+ should a global change be required.</p>
+        <h2>Run-time reuse</h2>
+        <p>This document also explores other 
+ techniques that you can use to implement a highly reusable 
+ component system.</p>
+        <p MadCap:conditions="VIP.Ctrl_Templates"><b><a href="#TmpltGrphcFrms">Template GOs</a></b>: By using a TemplateGO control, a graphic form can 
+ behave as a reusable graphical component. The advantage of this is that 
+ any changes made to it can immediately become available in all the places 
+ where this graphic form is used. </p>
+        <p>SmartUI Templates are reusable graphic forms that can be used at run-time. </p>
+        <p>The fundamental difference between a graphic form and a SmartUI Template is that a SmartUI Template has aliases, some of which are automatically created, which allow data elements within Behaviours and/or spiders to be dynamically driven. </p>
+        <p>Typically SmartUI Templates are used for graphic forms that are displayed as pop-ups or within <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">TemplateGO<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a Template Graphic Object control that  displays a graphic form and connects data elements to any aliases of this graphic form.</span></span> controls.  For more details about using aliases, see <a href="../10Cfg/30Des/30GF/30Als/Working_with_aliases.htm">Working with aliases</a>.</p>
+        <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorTwo"><b>IMPORTANT:</b> The default action for values entered into the <b>Aliases</b> tab of the <b>Advanced View</b> has been changed to always specify the text that is either manually entered or browsed in, unless the <b>Use Tag Value</b> checkbox is checked, at which time it will try to resolve the required data element value from the entered (typically browsed in) text.</p>
+        <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorTwo">Therefore when passing substitutions or aliases, in curly {} brackets, ensure that  the <b>Use Tag Value</b> checkbox is NOT checked, which is its default setting.</p>
+        <p>When launching child SmartUI Templates from a parent SmartUI Template, you can automatically use the alias values of the parent SmartUI Template, instead of manually assigning values to the aliases of each child. For details, see <a href="../10Cfg/30Des/30GF/30Als/Passing_alias_values_from_parent_to_child.htm">Passing alias values from parent to child</a>.</p>
+        <p MadCap:conditions="VIP.Ctrl_Templates">Aliases  allow you to expose specific properties of each graphic form (and/or their form components) that you add so that you can  configure these properties and hence customise each SmartUI Template like any other  form component that you add to a graphic form. </p>
+        <h4><a name="kanchor349"></a>Automatic alias creation</h4>
+        <p>Aliases can be automatically created for you, by using {} notation, in the following instances:</p>
+        <ul>
+            <li class="Bullets" value="1">in the <b>Properties</b> tool window: for any String or Text properties, you can specify the required name enclosed in { } braces.</li>
+            <li class="Bullets" value="2">when configuring Behaviours: for any data element field, you can specify the required name enclosed in { } braces.</li>
+            <li class="Bullets" MadCap:conditions="VIP.Designer_VerMinorTwo" value="3">when configuring a charting control, for the applicable Series values specify the required name enclosed in { } braces.</li>
+            <li class="Bullets" MadCap:conditions="VIP.Designer_VerMinorTwo" value="4">when configuring an Adroit Alarm Viewer control,  specify the required name enclosed in { } braces for the <b>Alarm List / Alarm Agent</b> value.</li>
+        </ul>
+        <p>Use {} notation to specify aliases, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SpecifySubst"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows: </a></p>
+        <ul MadCap:targetName="SpecifySubst" style="display: none;">
+            <li class="Bullets" value="1">if you require the alias to specify the ENTIRE value/data element to be substituted then specify the single {requiredAliasName} - this is most typical. </li>
+            <li class="Bullets" value="2">if you require multiple parts of the value/data element name to be separately replaced then specify multiple aliases, such as {DataSource}.{Structure}.{DataName}.{Value}.</li>
+        </ul>
+        <p>For example: {tag} or by concatenating a number of hierarchical levels for this data element , for instance: {AS}.{tag}</p>
+        <p MadCap:conditions="Common.Screenshots"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="GFexample"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Example:</a>
+        </p>
+        <p class="ListDesc" MadCap:targetName="GFexample" MadCap:conditions="Common.Screenshots" style="display: none;">
+            <img src="../10Cfg/30Des/30GF/30Als/SmartUITemplate_GFEx_624x203.png" style="width: 624;height: 203;" />
+        </p>
+        <h4>Manual alias creation</h4>
+        <p>If you need to expose any other property of the graphic form or its configured form components, then you need to manually add the required alias to a graphic form and then manually assign them to the required properties of this graphic form and/or its 
+ added form components via the <b>Spider Configuration</b> 
+ tool window. For details on how to configure aliases in this manner, see <a href="../10Cfg/30Des/30GF/30Als/Working_with_aliases.htm">Working with aliases</a>.</p>
+        <p style="font-weight: bold;"><a href="#Using_SmartUI_Templates_as_run-time_reusable_graphic_objects">Using SmartUI Templates as run-time reusable graphic objects</a>.</p>
+        <p>The following three options are provided when dragging or copying a graphic form 
+or SmartUI Template onto a graphic form:</p>
+        <p class="Notices"><b>IMPORTANT:</b> When copying SmartUI&#160;Templates ONLY use the <b>Graphic Form by Reference</b> option as this is the ONLY&#160;option that creates TemplateGO controls so that you can configure its aliases.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Paste Graphic Form Contents:</b> In this case, ONLY&#160;the contents of this graphic form 
+or SmartUI Template are added to this graphic form.</li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1"><b>Graphic Form by Reference:</b> In this case, each copy of the added graphic form 
+ refers to the original graphic form and TemplateGO controls are created for each.</li>
+        </ul>
+        <p class="ListDesc">Use this method, if you want ALL the copies of this graphic 
+ form to look the same and be centrally configuration.</p>
+        <p class="ListDesc">In other words, 
+ when you modify the original (copied) graphic form ALL of its copies on 
+ other graphic forms are immediately updated.</p>
+        <p class="ListDesc">However, this means that 
+ any change made to a copy will be OVERWRITTEN when the original graphic 
+ form is modified.</p>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2" name="kanchor350"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuring the Graphic Form by Reference:</a>
+        </p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">In <b>Enterprise 
+ Manager</b>, drag the graphic form that you want to copy onto the required 
+ graphic form.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> These 
+ graphic forms do not need to be in the same project.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Specify the required number 
+ of copies of this graphic form, in the <b>No. 
+ of References</b> spin control.</li>
+            </ol>
+            <ol start="3">
+                <li class="Numbers" value="3">If necessary, specify how 
+ you want to arrange multiple copies in the <b>Layout 
+ Panel</b> section, as follows:</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">Select 
+ the required method of arranging multiple copies from the <b>Layout 
+ Panel Type</b> list box, as follows:</li>
+                <li class="ListSubBullet" value="2"><b>Flow:</b> 
+ Copies of the graphic form are added from left to right horizontally onto 
+ the host graphic form, wrapping down the graphic form as required</li>
+            </ol>
+            <p class="ListNotice" style="margin-left: 73px;"><b>Note:</b> 
+ In this case, ANY further control that you add to the parent graphic form 
+ is added next to the last one.</p>
+            <ul>
+                <li class="ListSubBullet" value="1"><b>Table:</b> 
+ The SAME as Flow, except, each copy is added to its own cell, so you can 
+ add other controls to each of the configured cells.</li>
+            </ul>
+            <p class="ListNotice" style="margin-left: 73px;"><b>Note:</b> 
+ In this case each copy has a row and column property and 
+ can be spanned over adjacent rows and/or columns.</p>
+            <ul>
+                <li class="ListSubBullet" value="1"><b>VIZNETFlow:</b> 
+					The SAME as <b>Flow</b>, except that this flow can be broken later so that you can manually move (re-position) these graphic forms, by clicking <b>Move Controls</b> from the <b>Tasks</b> list of the flow container (accessed by clicking  its <img src="../10Cfg/30Des/40FC/glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">glyph<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a glyph is a specific graphic symbol, for instance employed by form components, which when clicked launch alternate configuration dialogs.</span></span>, which is usually displayed in 
+ the top left corner of the flow container).</li>
+            </ul>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">Configure 
+ the initial <b>size of the Layout Panel</b>, 
+ <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">specify the required <b>Width</b> and 
+ <b>Height</b> in pixels.
+
+</span></span></li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> Depending 
+ upon the configured size of the Layout Panel, you may not be able to see 
+ all the added copies.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">Specify the size of each 
+ copy, in the Template GO section, as follows:</li>
+                <li class="ListBullets" value="5">Either check the 
+ <b>Auto Resize</b> checkbox, so that 
+ each copy expands to fit all the controls of the copied graphic form.</li>
+                <li class="ListBullets" value="6">OR specify the 
+ required <b>Width</b> and <b>Height</b> 
+ for each copy in pixels.</li>
+            </ol>
+        </div>
+        <ul>
+            <li class="Bullets" value="1"><b>Graphic Form by Instance:</b> In this case the copied graphic form is added to this 
+ graphic form and can be configured within it, like any other control.</li>
+        </ul>
+        <p class="ListDesc">Use this method if you need to customise most of the 
+ copies.</p>
+        <p class="ListDesc">This method requires less administration but you need to configure 
+ EACH copy manually.</p>
+        <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1" name="kanchor351"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Configuring the Graphic Form by Instance:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">In <b>Enterprise 
+ Manager</b>, drag the graphic form that you want to copy onto the required 
+ graphic form.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b> These 
+ graphic forms do not need to be in the same project.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Specify the required number 
+ of copies of this graphic form, in the <b>No. 
+ of Instances</b> spin control.</li>
+            </ol>
+            <ol start="3">
+                <li class="Numbers" value="3">If necessary, specify how 
+ you want to arrange multiple copies in the <b>Layout 
+ Panel</b> section, as follows:</li>
+            </ol>
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">Select 
+ the required method of arranging multiple copies from the <b>Layout 
+ Panel Type</b> list box, as follows:</li>
+                <li class="ListSubBullet" value="2"><b>Flow:</b> 
+ Copies of the graphic form are added from left to right horizontally onto 
+ the host graphic form, wrapping down the graphic form as required</li>
+            </ol>
+            <p class="ListNotice" style="margin-left: 73px;"><b>Note:</b> 
+ In this case, ANY further control that you add to the parent graphic form 
+ is added next to the last one.</p>
+            <ul>
+                <li class="ListSubBullet" value="1"><b>Table:</b> 
+ The SAME as Flow, except, each copy is added to its own cell, so you can 
+ add other controls to each of the configured cells.</li>
+            </ul>
+            <p class="ListNotice" style="margin-left: 73px;"><b>Note:</b> 
+ In this case each copy has a row and column property and 
+ can be spanned over adjacent rows and/or columns.</p>
+            <ul>
+                <li class="ListSubBullet" value="1"><b>VIZNETFlow:</b> 
+					The SAME as <b>Flow</b>, except that this flow can be broken later so that you can manually move (re-position) these graphic forms, by clicking <b>Move Controls</b> from the <b>Tasks</b> list of the flow container (accessed by clicking  its <img src="../10Cfg/30Des/40FC/glyph_Tasks.bmp" style="border: none;width: 10px;height: 10px;float: none;border-style: none;border-style: none;" width="10" height="10" border="0" /> <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">glyph<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a glyph is a specific graphic symbol, for instance employed by form components, which when clicked launch alternate configuration dialogs.</span></span>, which is usually displayed in 
+ the top left corner of the flow container).</li>
+            </ul>
+            <ol start="2">
+                <li class="NumbersSubLetters" value="2">Configure 
+ the initial <b>size of the Layout Panel</b>, 
+ <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">specify the required <b>Width</b> and 
+ <b>Height</b> in pixels.
+
+</span></span></li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> Depending 
+ upon the configured size of the Layout Panel, you may not be able to see 
+ all the added copies.</p>
+            <ol start="4">
+                <li class="Numbers" value="4">Select the control that 
+ surrounds each copy on the host graphic form, from the <b>Type 
+ of Container Control</b> list, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">choose either a <b>Panel</b> or <b>GroupBox</b> control, the only difference 
+ between the two is that the <b>GroupBox</b> 
+ control allows you to add a title and a border around the controls; otherwise 
+ these controls function the same.
+
+</span></span></li>
+            </ol>
+            <ol start="5">
+                <li class="Numbers" value="5">If necessary, specify the 
+ default label that is applied to each copy in the <b>Title 
+ of Container Control</b> field.</li>
+                <li class="Numbers" value="6">Specify the required size 
+ of each copy, using the <b>size of Container 
+ Control</b>, <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">as follows:<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">specify the required <b>Width</b> and 
+ <b>Height</b> in pixels.
+
+</span></span></li>
+            </ol>
+        </div>
+        <p>&#160;</p>
+        <p>However, using SmartUI Templates  are not desirable 
+ if you simply want to reuse a graphic form directly without making any 
+ copies or containing that form in other forms using a TemplateGO control. </p>
+        <p><b><a href="#SpdrTmplSet">Spider 
+ Template Sets</a></b>, which are named collections of silks, are ideally 
+ suited for this application. When a template set is active then all the 
+ silks that belong to that template set are active and allow communications 
+ from one spider to the next. In this way it is possible to control which 
+ data is communicated to which properties.</p>
+        <p>In addition, a spider engine with this 
+ template set configuration can be exported and imported, making for simpler 
+ bulk configuration.</p>
+        <p class="Notices"><b>PLEASE NOTE</b>: 
+ Spider template sets have nothing to do with TemplateGOs or SmartUI&#160;Templates and 
+ should not be confused with them! </p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="How to create and use wizards"></a>How to create and use wizards</h2>
+        <p>A Wizard is a pre-drawn and/or pre-configured skeleton of graphical 
+ objects and their assigned Behaviours (if any), which has placeholders (substitutions) for data elements, which can simplify and speed up the task of creating graphic forms. But, instead of directly specifying 
+ the values that drive these Behaviours, these are replaced with value <MadCap:conditionalText MadCap:conditions="VIP.Designer_VerMinorTwo">or static text</MadCap:conditionalText> placeholders (substitutions). </p>
+        <p>Each time a wizard is inserted into a graphic form, a dialog is displayed 
+ whereby values must be specified for all the substitutions that occur within 
+ this wizard. For instance, instead of redrawing a pump or a motor, each time one is 
+ required, a wizard can be created and simply inserted wherever a pump or motor is 
+ needed, at which time you link the required data elements (values) to its pre-defined  substitutions.</p>
+        <p>You have two main options when creating wizards, typically in the <b>Enterprise Manager</b> window:</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p>Either create the wizard from scratch: in this case, right click a project <img src="../Resources/Images/16/DataSources/Project_DS.png" /> or folder <img src="../Resources/Images/16/Generic/Folder.png" /> and select <span style="font-weight: bold;">Create Wizard</span>.</p>
+                <p class="Notices"><b>Note:</b> When creating a wizard from scratch, the default size of the wizard is 200 by 200 pixels, since wizards are typically small by nature. If necessary customise this default, by using the Designer.CONFIG setting in the <span style="font-weight: bold;">Misc</span> group, called <span style="font-weight: bold;">DefaultWizardsize</span>. </p>
+            </li>
+            <li class="Bullets" value="2">
+                <p>Or convert an existing graphic form into a wizard: in this case, open the required graphic form <img src="../Resources/Images/16/DataSources/Project_GraphicObject.png" /> and select the <span style="font-weight: bold;">Save as Wizard</span> <img src="../Resources/Images/16/DataSources/Project_WizardGraphicObject.png" /> graphic form toolbar button.</p>
+                <p>Then use the <span style="font-weight: bold;">Substitution</span> configuration dialog to create ALL the necessary substitutions for this new wizard. </p>
+                <p class="Notices"><b>Tip:</b> When you substitute a data element that is used in numerous locations within the graphic form, all these locations use the specified substitution name.</p>
+            </li>
+        </ul>
+        <p>The graphic form toolbar contains the <span style="font-weight: bold;">Optimise Graphic Form size</span><![CDATA[  ]]><img src="../Resources/Images/16/Generic/GF_OptimizeSize.png" /> button (at the end), which resizes the wizard to the size of the added controls and vectors, so that there are no overlaps at the top, bottom, left or right sides.</p>
+        <p>Now design the graphical components of your wizard as you would a normal graphic form. When you get to the point of where you must specify data elements (values), e.g. when creating a behaviour, instead of browsing in a data elements you simply type in the substitution name with curly brackets around the name, e.g. {PUMP}. For details, see <a href="../10Cfg/30Des/30GF/40Wiz/Working_with_substitutions.htm">Working with Wizard substitutions</a>.</p>
+        <p>After saving the wizard, you simply drag the wizard from the Enterprise Manager onto the graphic form where you want to use this wizard, at which point you’ll be prompted to assign valid data elements to the substitutions you specified in your wizard.</p>
+        <p class="Notices"><span style="font-weight: bold;">IMPORTANT NOTE</span>: Since wizards are ONLY inserted into a graphic form, by instance NOT by reference, any subsequent change to the wizard will NOT be reflected in the instances of the wizard that you have ALREADY added to a graphic form, unless you update them again.</p>
+        <p class="Notices"><b>Tip:</b> You can also drag a wizard onto the Templates tool window if you intend to use this frequently for quick access when designing other graphic forms.</p>
+        <p>If you change a wizard AFTER you have inserted it into one or more graphic forms, then you can choose which of these instances you want to update to the latest version. For details, see <a href="../10Cfg/30Des/30GF/40Wiz/Updating_wizard_instances_added_to_graphic_forms.htm">Updating wizard instances added to graphic forms</a>. </p>
+        <p>SmartUI Templates can also be used when creating wizards that contain a pop-up that needs to “inherit” or use the tag data that is substituted when the user drops the wizard down on the form. For an example of configuring this, see <a href="How_to_create_a_Wizard_that_contains_a_Template_pop_up.htm">How to create a Wizard that contains a Template pop up</a>.</p>
+        <p MadCap:conditions="VIP.Designer_VerMinorTwo" class="Notices"><b>Tip:</b> Wizards that display one or more SmartUI Templates can use their substitutions to drive the values of the aliases of these child SmartUI Templates. For details, see <a href="../10Cfg/30Des/30GF/40Wiz/Driving_aliases_with_wizard_substitutions.htm">Driving aliases with wizard substitutions</a>.</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="ExportGrphcCmpnt"></a>How to export a graphical component to a XML 
+ file</h2>
+        <p>The simplest method of reusing graphical 
+ components is to simply export the required graphical components to a 
+ XML file and then simply drag this file into the required graphic form 
+ that is being designed in the <span class="VIPAppName">SmartUI</span> Designer.</p>
+        <ol start="1">
+            <li class="Numbers" value="1">If the component you 
+ want to export consists only of vectors (no spiders and no controls)</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Select all the vectors.</li>
+            <li class="NumbersSubLetters" value="2">Right click and select 
+ <b>Create Vector Group</b>.</li>
+            <li class="NumbersSubLetters" value="3">Select the new group 
+ of vectors.</li>
+            <li class="NumbersSubLetters" value="4">Right click and select 
+ export, and specify the filename and location to export the vector to. 
+ The vector will be exported to a file with an XML extension.</li>
+            <li class="NumbersSubLetters" value="5">To reuse the vector, 
+ simply drag the file into a graphic form that is being designed in the 
+ Designer.</li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2">If the component you 
+ want to export consists of vectors and spiders (no controls)</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Select all the vectors.</li>
+            <li class="NumbersSubLetters" value="2">Right click and select 
+ <b>Create Vector Group</b>.</li>
+            <li class="NumbersSubLetters" value="3">Select the new group 
+ of vectors.</li>
+            <li class="NumbersSubLetters" value="4">Press CTRL+ALT+C</li>
+            <li class="NumbersSubLetters" value="5">This will pop up a 
+ dialog asking you to specify a name. Type in a meaningful name for the 
+ component you are exporting.</li>
+            <li class="NumbersSubLetters" value="6">Open a windows explorer 
+ window and browse to the folder that you want to export the component 
+ to.</li>
+            <li class="NumbersSubLetters" value="7">Right click in the 
+ folder where you want to export the component to and select paste.</li>
+            <li class="NumbersSubLetters" value="8">The component will 
+ be exported to a file with the name you specified and have an XML extension.</li>
+            <li class="NumbersSubLetters" value="9">To reuse the component, 
+ simply drag the file into a graphic form that is being designed in the 
+ Designer.</li>
+        </ol>
+        <ol start="3">
+            <li class="Numbers" value="3">If the component you 
+ want to export consists of vectors spiders and controls</li>
+        </ol>
+        <ol start="1">
+            <li class="NumbersSubLetters" value="1">Select all the vectors.</li>
+            <li class="NumbersSubLetters" value="2">Right click and select 
+ <b>Create Vector Group</b>.</li>
+            <li class="NumbersSubLetters" value="3">Select the new group 
+ of vectors.</li>
+            <li class="NumbersSubLetters" value="4">Click on the control 
+ selection pointer in the pointer toolbar</li>
+            <li class="NumbersSubLetters" value="5">While holding in the 
+ CTRL key click and select the controls that you want to include as part 
+ of the exported component.</li>
+            <li class="NumbersSubLetters" value="6">Press CTRL+ALT+C</li>
+            <li class="NumbersSubLetters" value="7">This will pop up a 
+ dialog asking you to specify a name. Type in a meaningful name for the 
+ component you are exporting.</li>
+            <li class="NumbersSubLetters" value="8">Open a windows explorer 
+ window and browse to the folder that you want to export the component 
+ to.</li>
+            <li class="NumbersSubLetters" value="9">Right click in the 
+ folder where you want to export the component to and select paste.</li>
+            <li class="NumbersSubLetters" value="10">The component will 
+ be exported to a file with the name you specified and have an XML extension.</li>
+            <li class="NumbersSubLetters" value="11">To reuse the component, 
+ simply drag the file into a graphic form that is being designed in the 
+ Designer.</li>
+        </ol>
+        <p class="Notices"><b>Notes:</b> Spiders are 
+ copied along with the controls and vectors that they belong to by default 
+ when you press <b>CTRL+C</b>, <b>CTRL+ALT+C</b>, through the right click 
+ menu or the toolbar. To prevent the spiders from being copied press and 
+ hold the <b>Shift</b> key down when copying or exporting your component.</p>
+        <p>&#160;</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2><a name="MappingSpider"></a>Mapping Spiders</h2>
+        <p>Ultimately, data is connected to properties 
+ of controls or vectors, to animate them. </p>
+        <p>However, it is not always easy to know 
+ which property to connect the data to, especially considering the number 
+ of properties that a control can expose.</p>
+        <p>Mapping spiders can be used to simply this 
+ process, by providing a central location where the data for a reusable 
+ graphical component can be connected, without needing to manually locate 
+ the required properties. In other words, the user ties the data to the 
+ inputs of the Mapping spider, which are custom-named so that it is easy 
+ to identify which data point goes to which input.</p>
+        <p>This is made possible because the Mapping 
+ spider consists of input output pairs, so the user who creates the reusable 
+ graphical component also creates the Mapping spider and the required input-output 
+ pairs, which are named appropriately. Then the outputs of this Mapping 
+ spider are connected to the required properties and / or other spiders 
+ associated with this reusable graphical component. </p>
+        <p>Then when this graphical component is copied, 
+ the Mapping spider will be copied and pasted along with it.</p>
+        <p><a href="#UseMappingSpider">How to use a Mapping 
+ spider with a reusable component</a>
+        </p>
+        <p><a href="#ReuseCmpWithMappingSpider">How to use 
+ a reusable component containing a Mapping spider</a>
+        </p>
+        <p>&#160;</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="UseMappingSpider"></a>How to use a Mapping spider with a reusable 
+ component </h3>
+        <ol start="1">
+            <li class="Numbers" value="1">Draw the component 
+ using vectors and controls. It is helpful to name the various controls 
+ and vectors that make up the reusable component that you are designing.</li>
+            <li class="Numbers" value="2">Create a Mapping spider 
+ in the Spider Workspace window.</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ReuseGrphCmpnts_files/image005.jpg" style="width: 202px;height: 74px;border-style: none;border-style: none;" width="202" height="74" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 1 : Default Mapping spider 
+ configuration dialog
+        </p>
+        <ol start="3" style="list-style: decimal;margin-top: 0in;list-style-type: decimal;">
+            <li class="Numbers" value="3">Name the spider to 
+ something useful by double clicking the name at the top and typing in 
+ a meaningful name – you cannot name this spider to the same name as a 
+ control, vector or another spider.</li>
+            <li class="Numbers" value="4">Double click on the 
+ ‘New Mapping Pair’ cell to create a named input and output pair for each 
+ input/output that you need to ultimately connect to your component. It 
+ will help to give these mapping pairs useful names that communicate their 
+ purpose or use to the user who will ultimately connect them up to the 
+ data elements.</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ReuseGrphCmpnts_files/image007.jpg" style="width: 202px;height: 237px;border-style: none;border-style: none;" width="202" height="237" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 2 : Renamed Mapping spider 
+ with three mapping pairs added
+        </p>
+        <ol start="5">
+            <li class="Numbers" value="5">Make sure that ‘Enable 
+ Silk Triggering’ option is enabled for this spider.</li>
+            <li class="Numbers" value="6">For each property that 
+ needs to be animated from an external value, drag the corresponding output 
+ from the spider to the correct property.</li>
+            <li class="Numbers" value="7">For each property that 
+ will be used to drive an external value, drag the property to the corresponding 
+ input. Make sure that the necessary property spider is configured to trigger 
+ of the correct event raised by the object to ensure that the value is 
+ ‘written’ at the correct time.</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="Common.Screenshots">
+            <img src="ReuseGrphCmpnts_files/image009.jpg" style="width: 576px;height: 278px;border-style: none;border-style: none;" width="576" height="278" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="Common.Screenshots">Figure 3 : Mapping spider with inputs 
+ and outputs connected from/to required properties
+        </p>
+        <ol start="8" style="list-style: decimal;margin-top: 0in;list-style-type: decimal;">
+            <li value="8">You can now save this form, with this component 
+ or export the component with the spider to an XML file that can be dragged 
+ into the Designer at a later stage when the component needs to be reused. 
+ For details, see <span style="color: #008000;">How to export a graphical 
+ component to a XML file</span>.</li>
+        </ol>
+        <p>&#160;</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h3><a name="ReuseCmpWithMappingSpider"></a>How to use a reusable component containing 
+ a Mapping spider</h3>
+        <p style="margin-left: .25in;text-align: justify;">If the reusable component 
+ is located on another graphic form, copy that component, and paste it 
+ into the new form.</p>
+        <p>OR</p>
+        <p style="margin-left: .25in;text-align: justify;">If the reusable component 
+ is a XML file that is located on a disk, browse to the file and drag it 
+ into the form’s design surface, or copy and paste the file onto the design 
+ surface (using standard copy and paste commands).</p>
+        <p>&#160;</p>
+        <ol start="1">
+            <li class="Numbers" value="1">Open the spider workspace 
+ and search for the Mapping spider linked to the component that has just 
+ been pasted into the design workspace. </li>
+        </ol>
+        <p class="ListNotice"><b>Note: </b>Selecting ‘Hide 
+ unselected spiders’ and selecting the component that was just pasted will 
+ highlight the associated Mapping spider. </p>
+        <ol start="2">
+            <li class="Numbers" value="2">Connect the relevant 
+ inputs/outputs to the respective data elements that need to connect to 
+ the component.</li>
+        </ol>
+        <p>&#160;</p>
+        <p><a href="#Top">Back to top</a>
+        </p>
+        <h2 MadCap:conditions="VIP.Ctrl_Templates"><a name="TmpltGrphcFrms"></a>Template Graphic Objects</h2>
+        <p MadCap:conditions="VIP.Ctrl_Templates">While it is possible to use a Mapping spider 
+ to simplify the mapping of data to the properties of reusable graphical 
+ components, it would still be necessary to update every instance of this 
+ graphical component should a global change be required. This can be prevented, 
+ however, by using template graphic forms. </p>
+        <p MadCap:conditions="VIP.Ctrl_Templates">There is a control called a TemplateGO 
+ control, which has the unique ability to contain another graphic form. 
+ By using this control, it is possible to reuse a graphic form as a component 
+ in another graphic form. </p>
+        <p MadCap:conditions="VIP.Ctrl_Templates">Since this reusable component is actually 
+ a reference to another graphic form and not a copy of a reusable component, 
+ making changes to the reusable form can result in that change immediately 
+ becoming available in all the places where this graphic form is used.</p>
+        <p MadCap:conditions="VIP.Ctrl_Templates">Furthermore, just as reusable components 
+ allow data to be connected to them to animate them, it is also possible 
+ to create a reusable graphic form that can have data connected to it via 
+ the TemplateGO control. This is accomplished, through the <b>Aliases</b> property 
+ of the graphic form, which can contain any number of user defined data 
+ entry points to the graphic form. In other words any of the properties 
+ of the controls used on the graphic form can be exposed by this Aliases 
+ property.</p>
+        <p MadCap:conditions="VIP.Ctrl_Templates">Then when a TemplateGO control contains 
+ this graphic form, the Aliases property of the TemplateGO control exposes 
+ the Aliases property in this contained graphic form and the data entry 
+ points that have been configured so that data can be connected to them.</p>
+        <p MadCap:conditions="VIP.Ctrl_Templates">In this case the property spider associated 
+ with the Aliases property provides a central location from which data 
+ can be connected to these exposed entry points, much like the Mapping 
+ spider.</p>
+        <p MadCap:conditions="VIP.Ctrl_Templates"><a href="#CreateRGOwithTemplateGO">How to create 
+ a reusable graphic form</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Templates"><a href="#UseTemplateGO">How to use a reusable graphic 
+ form in a TemplateGO control</a>
+        </p>
+        <p MadCap:conditions="VIP.Ctrl_Templates">&#160;</p>
+        <p MadCap:conditions="VIP.Ctrl_Templates"><a href="#Top">Back to top</a>
+        </p>
+        <h3 MadCap:conditions="VIP.Ctrl_Templates"><a name="CreateRGOwithTemplateGO"></a>How to create a reusable graphic form</h3>
+        <ol start="1">
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="1">Create a graphic form 
+ containing vectors, controls, and/or spiders but do not connect the spiders 
+ to the Server-side data elements.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="2">Select the form.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="3">Select the <b>Aliases</b> 
+ property of the graphic form in the property grid content window and press 
+ the browse(<img src="ReuseGrphCmpnts_files/image011.jpg" style="width: 23px;height: 19px;border-style: none;border-style: none;" width="23" height="19" border="0" />) button next to the property.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="4">This will pop up a 
+ dialog where you fill in useful names of items that you want to expose 
+ or use to drive internal values and properties of controls and vectors 
+ on this form.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="5">Click the <b>Add</b> 
+ button to add and name the inputs/outputs for this form. It helps to create 
+ items that have meaningful names.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="6">Click the <b>Finish</b> 
+ button once you have added the items that you want to add.</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="VIP.Ctrl_Templates">
+            <img src="ReuseGrphCmpnts_files/image013.jpg" style="width: 556px;height: 274px;border-style: none;border-style: none;" width="556" height="274" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="VIP.Ctrl_Templates">Figure 4 : Adding items to be exposed 
+ or driven by this graphic form to the Aliases property
+        </p>
+        <ol start="7">
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="7">In the spider workspace 
+ with the form being selected in the <span class="VIPAppName">SmartUI</span> Designer, find 
+ the form’s object in the property tree on the left of the spider content 
+ window.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="8">Expand the tree and 
+ locate the Aliases property (under the VIZNET Extended category)</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="9">Right click on the 
+ tree node and select ‘Show property spider’ to bring the <b>Aliases</b> property 
+ spider into view.</li>
+        </ol>
+        <p style="text-align: center;" MadCap:conditions="VIP.Ctrl_Templates">
+            <img src="ReuseGrphCmpnts_files/image015.jpg" style="width: 202px;height: 194px;border-style: none;border-style: none;" width="202" height="194" border="0" />
+        </p>
+        <p class="Caption" MadCap:conditions="VIP.Ctrl_Templates">Figure 5 : Displaying the graphic 
+ form Aliases property spider with the added items
+        </p>
+        <ol start="10">
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="10">You will notice that 
+ the inputs and outputs are the items that you added when configuring the 
+ Aliases property.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="11">Make sure that ‘Enable 
+ Silk Triggering’ is enabled for this spider.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="12">For each property that 
+ needs to be animated from an external value, drag the corresponding output 
+ from the spider to the correct property.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="13">For each property that 
+ will be used to drive an external value, drag the property to the corresponding 
+ input. Make sure that the property spider is configured to trigger of 
+ the correct event raised by the object to ensure that the value is ‘written’ 
+ at the correct time.</li>
+            <li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="14">Save the Graphic form.</li>
+        </ol>&#160;
+
+<p MadCap:conditions="VIP.Ctrl_Templates"><a href="#Top">Back to top</a></p><h3 MadCap:conditions="VIP.Ctrl_Templates"><a name="UseTemplateGO"></a>How to use a reusable graphic form in a TemplateGO 
+ control</h3><ol start="1"><li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="1">Locate the TemplateGO 
+ control in the control Toolbox window (usually located in the Templates 
+ category)</li></ol><p style="text-align: center;" MadCap:conditions="VIP.Ctrl_Templates"><img src="ReuseGrphCmpnts_files/TemplatesCatOfToolbox.jpg" /></p><p class="Caption" MadCap:conditions="VIP.Ctrl_Templates">Figure 6 : Locating the TemplateGO 
+ control in the Toolbox window</p><ol start="2"><li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="2">In the graphic form 
+ where you need to reuse another pre-created reusable template graphic 
+ form, place a TemplateGO control. </li><li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="3">Select the TemplateGO 
+ control.</li><li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="4">Find the ‘GraphicFormPath’ 
+ property of the TemplateGO control in the properties content window, and 
+ press the browse(<img src="ReuseGrphCmpnts_files/image011.jpg" style="width: 23px;height: 19px;border-style: none;border-style: none;" width="23" height="19" border="0" />) button.</li><li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="5">Browse in the graphic 
+ form that you want to contain in the TemplateGO control.</li><li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="6">Select the templateGO 
+ control (clicking on it will not select it) you must drag a selection 
+ rectangle around it or select it from the drop down list box at the top 
+ of the property grid.</li><li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="7">With the templateGO 
+ control selected, locate the Aliases property in the spider workspace. 
+ (Make sure you are looking at the Aliases property of the TemplateGO control 
+ and not the Aliases property of the Form!)</li><li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="8">Right click on the 
+ Aliases tree node item and select ‘Show property spider’ to make the property 
+ spider visible.</li></ol><p style="text-align: center;" MadCap:conditions="VIP.Ctrl_Templates"><img src="ReuseGrphCmpnts_files/image019.jpg" style="width: 202px;height: 194px;border-style: none;border-style: none;" width="202" height="194" border="0" /></p><p class="Caption" MadCap:conditions="VIP.Ctrl_Templates">Figure 7 : Displaying the TemplateGO 
+ control Aliases property spider with the added items</p><ol start="9"><li class="Numbers" MadCap:conditions="VIP.Ctrl_Templates" value="9">Connect the relevant 
+ inputs and/or outputs to their associated data elements/outputs of other 
+ spiders.</li></ol><br style="clear: all;" clear="all" /><p><a href="#Top">Back to top</a></p><h2><a name="Using_SmartUI_Templates_as_run-time_reusable_graphic_objects"></a>Using SmartUI Templates as run-time reusable graphic objects</h2><ol><li value="1">Create a SmartUI Template  with 2 aliases using 4 labels.</li></ol><p class="ListDesc" MadCap:conditions="Common.Screenshots"><img src="ReuseGrphCmpnts_files/SUITmpGFEx2a4label.png" style="width: 381px;height: 141px;" /></p><ol start="2"><li value="2">Create a normal graphic form with 3 buttons.</li></ol><p class="ListDesc" MadCap:conditions="Common.Screenshots"><img src="ReuseGrphCmpnts_files/NmlGF3butns.png" style="width: 174px;height: 163px;" /></p><ol start="3"><li value="3">For each button, add an Execute Command behaviour that opens the SmartUI Template that you created.</li></ol><p class="ListDesc" MadCap:conditions="Common.Screenshots"><img src="ReuseGrphCmpnts_files/CfgExeCmdToOpenSUITmpl.jpg" /></p><ol start="4"><li value="4">Click the <b>Advanced View</b> button and the <b>Aliases</b> tab to browse in the appropriate data element for each Alias. Repeat this step for each Button.</li></ol><p class="ListDesc" MadCap:conditions="Common.Screenshots"><img src="ReuseGrphCmpnts_files/CfgExeCmd_Aliases.jpg" /></p><ol start="5"><li value="5"><p>Once you’ve configured each button, clicking on each button in the Operator to display the same SmartUI Template but with different data element values.</p><p MadCap:conditions="Common.Screenshots">The following are examples of what you see when you click each button, in turn:</p></li></ol><p class="ListDesc" MadCap:conditions="Common.Screenshots"><img src="ReuseGrphCmpnts_files/ExClick3Btns.jpg" /></p><ol start="6"><li value="6">If you want to display this SmartUI Template in a TemplateGO then drag a TemplateGO onto the normal graphic form and edit each Execute Command behaviour, changing the <b>Open As</b> option to <b>Template Graphic Object</b> and select the newly added TemplateGO from the list.</li></ol><p class="ListDesc" MadCap:conditions="Common.Screenshots"><img src="ReuseGrphCmpnts_files/CfgExeCmdToOpenSUITmplinTGO.jpg" /></p><ol start="7"><li value="7">Now when you click on each button, the TemplateGO will display the SmartUI Template with it’s configured data element values:</li></ol><p class="ListDesc" MadCap:conditions="Common.Screenshots"><img src="ReuseGrphCmpnts_files/ExClick3Btn_seeTGOs.jpg" /></p><p><a href="#Top">Back to top</a></p><h2><a name="SpdrTmplSet"></a>Spider Template Sets</h2><p>While template graphic forms are useful 
+ when a single graphic form is required in multiple locations, this feature 
+ is unable to reuse a graphic form directly. </p><p>In this case, the best approach is to configure 
+ the spider engine to contain multiple template sets. </p><p class="Notices"><b>PLEASE NOTE</b>: 
+ Spider template sets have nothing to do with TemplateGOs or SmartUI&#160;Templates and 
+ should not be confused with them! </p><p>Template sets are essentially named collections 
+ of silks. </p><p>When the template set is active then all 
+ the silks that belong to that template set are active and allow communications 
+ from one spider to the next. In this way, it is possible to control which 
+ data is communicated to which properties and/or spiders.</p><p>Silks can belong to more than one template 
+ set. The Default template set is always active, so all the silks that 
+ belong to this template set are always active.</p><p>In addition, the Template Set spider allows 
+ the user to view and change the active template set at runtime.</p><p>Another advantage of using this method 
+ is that this template set configuration can be exported and imported via 
+ a Microsoft Excel readable XML spreadsheet, for simpler bulk configuration.</p><p>&#160;</p><p><a href="#CreateReuseFrmSpdrTmplSet">How to create 
+ a reusable form using spider template sets</a></p><p><a href="#UseTemplateSets">How to use spider template 
+ sets</a></p><p>&#160;</p><p><a href="#Top">Back to top</a></p><h3><a name="CreateReuseFrmSpdrTmplSet"></a>How to create a reusable form using 
+ spider template sets</h3><ol start="1"><li class="Numbers" value="1">Create a graphic form 
+ with the components and vectors that you need to connect to data.</li><li class="Numbers" value="2">In the spider workspace 
+ window toolbar click on the “New Template Set” (<img src="ReuseGrphCmpnts_files/image021.jpg" style="width: 24px;height: 21px;border-style: none;border-style: none;" width="24" height="21" border="0" />) Button.</li><li class="Numbers" value="3">Create a template set 
+ for each reusable instance and name them accordingly.</li><li class="Numbers" value="4">In the drop down list 
+ box to the right of the <img src="ReuseGrphCmpnts_files/image021.jpg" style="width: 24px;height: 21px;border-style: none;border-style: none;" width="24" height="21" border="0" /> Button, 
+ select “Default” to select the default template set.</li><li class="Numbers" value="5">All data that is connected 
+ while the Default Template set is active will always be active and are 
+ not dependant of which template set is currently active. i.e. Connect 
+ data that you want to be permanently connected irrespective of which template 
+ set is active.</li><li class="Numbers" value="6">Select one of the other 
+ template sets from the drop down list box.</li><li class="Numbers" value="7">Create silk connections 
+ between data elements and properties and other spiders which are relevant 
+ only for this template set.</li><li class="Numbers" value="8">Repeat the above step 
+ until you have configured all the silk connections for each template set.</li></ol><p class="Notices"><b>Note:</b> If a silk should belong to more 
+ than one template set other than the Default template set, you can make 
+ the silk active for more than one set by right clicking on the silk and 
+ selecting the template set(s) that the silk belongs to under the ‘Template 
+ Sets’ sub menu.</p><p>&#160;</p><p><a href="#Top">Back to top</a></p><h3><a name="UseTemplateSets"></a>How to use spider template sets</h3><p>Spider template sets can be used in two ways:</p><p><a href="#ApplicationSpiderTempltSet">To load a 
+ form with a predetermined template set as active (in the form being loaded)</a></p><p><a href="#TemplateSetSpider">To switch template 
+ sets on a form that is already open, from that same form using the Template 
+ Set spider</a></p><p>&#160;</p><p><a href="#Top">Back to top</a></p><p><a name="ApplicationSpiderTempltSet"></a>To load a form with a predetermined 
+ template set as active (in the form being loaded):</p><ol><li class="Numbers" value="1">Place an application 
+ spider on the parent form (the one that opens the child form)</li><li class="Numbers" value="2">Browse in the form 
+ that you want to open.</li><li class="Numbers" value="3">Select Open as Action.</li><li class="Numbers" value="4">Specify whether the 
+ form should be opened as a Modal (popup) form or as another tab in the 
+ Operator.</li><li class="Numbers" value="5">Specify the TemplateSet 
+ that the form should default to after being opened in the ‘TemplateSet’ 
+ input.<span style="font: 7.0pt 'Times New Roman';">&#160;&#160;&#160;</span></li></ol><p class="ListDesc" style="text-align: center;" MadCap:conditions="Common.Screenshots"><img src="ReuseGrphCmpnts_files/image023.jpg" style="width: 302px;height: 214px;border-style: none;border-style: none;" width="302" height="214" border="0" /></p><p class="Caption" MadCap:conditions="Common.Screenshots">Figure 8 : Using the Application spider to load a graphic form 
+ with a specific template set</p><ol start="6"><li class="Numbers" value="6">Configure the event 
+ (e.g. button click) that should trigger this spider to open the form.</li></ol><p>&#160;</p><p><a href="#Top">Back to top</a></p><p><a name="TemplateSetSpider"></a>To switch template sets on a form that is 
+ already open, from that same form using the Template Set spider:</p><ol start="1"><li class="Numbers" value="1">Place a ComboBox on 
+ the form and give it a suitable name. Its purpose is to be a template 
+ set selector that the user, can use to select which template set to view.</li><li class="Numbers" value="2">Place a label on the 
+ form and name it appropriately. It’s purpose is to display the name of 
+ the active template set.</li><li class="Numbers" value="3">Place a Template Set 
+ spider in the spider workspace window.</li><li class="Numbers" value="4">Make sure that the 
+ currently active template set is: ‘Default’</li><li class="Numbers" value="5">Select the ComboBox 
+ control</li><li class="Numbers" value="6">Drag the Set List output 
+ of the Template Set spider to the Items property of the ComboBox (located 
+ in the data category). </li><li class="Numbers" value="7">Click Finish to accept 
+ the defaults for the <b>Filter DataSet</b> configuration dialog that pops up.</li><li class="Numbers" value="8">This will populate 
+ the ComboBoxes items with the template set names.</li><li class="Numbers" value="9">Drag the ComboBoxes 
+ Text property to the Set Name Template Set spider input.</li><li class="Numbers" value="10">Ensure that the event 
+ trigger for the combobox.Text property spider is set to use the comboboxes’ 
+ TextChanged event</li><li class="Numbers" value="11">Select the label control.</li><li class="Numbers" value="12">Drag the Active Set 
+ Name output of the Template Set spider to the labels text property.</li></ol><p style="text-align: center;" MadCap:conditions="Common.Screenshots"><img src="ReuseGrphCmpnts_files/image025.jpg" style="width: 576px;height: 588px;border-style: none;border-style: none;" width="576" height="588" border="0" /></p><p class="Caption" MadCap:conditions="Common.Screenshots">Figure 9 : Using the Template Set spider to specify the required 
+ template set</p><ol start="13"><li class="Numbers" value="13">Save the form.</li><li class="Numbers" value="14">Run the form in 
+ the <span class="VIPAppName">SmartUI</span>&#160;Designer or the Operator.</li><li class="Numbers" value="15">You will notice that 
+ the ComboBox should contain a list of all the template sets. Selecting 
+ another template set from the form’s ComboBox will result in the label 
+ updating to show that another template set is active.</li></ol><!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />--><script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js"></script></body>
+</html>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Designing Environment|Tool Windows" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Deployment,VIP.Designer" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Spider configuration.doc" /><title>Spider Configuration tool window</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor345"></a>Spider Configuration tool window</h1>
+        <p>This <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">tool window<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">tool windows are dockable windows, which provide several arrangement options to increase the size of the Design workspace window used for designing graphic forms.</span></span> 
+ makes it possible to animate the graphic form that is currently displayed 
+ in the <b>Design workspace</b>. For details, 
+ see <a href="../../30Des/30GF/20Dsgn/Animating_graphic_forms.htm">Animating 
+ graphic forms</a> or <a href="../Design_workspace.htm">Design workspace</a>.</p>
+        <p class="A4-Note-SimpleNoteGrayBack" MadCap:autonum="&lt;span style=&quot;color: #000050;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;b&gt;Note: &#160;&lt;/b&gt;&lt;/span&gt;"><span class="autonumber"><span><span style="color: #000050;" class="mcFormatColor"><b>Note: &#160;</b></span></span></span>Each tool 
+ window is a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">dockable window<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a window that can be either be attached to a docking area or that can float anywhere on the screen. See floating mode; docked mode; docking area.</span></span> whose location can be customised to increase the viewing and editing space provided 
+ by the <b>Design workspace</b>.  </p>
+        <p>For more information, 
+ see <a href="10Arr/Arranging_tool_windows.htm">Arranging 
+ tool windows</a>.</p>
+        <p>This tool window is divided into three panes, that provides the following 
+ functions, when animating a graphic form:</p>
+        <ol>
+            <li class="Numbers" value="1">The explorer tree on the 
+ left: this is used primarily to expose data elements of the configured 
+ datasources, so that they can be dragged to the other two panes as required.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Although this 
+ explorer tree resembles and provides the identical user interaction as 
+ the <b>Enterprise Manager</b> tool window, it is only possible to drag 
+ data elements from this tree. For details, see <a href="Enterprise_Manager_tool_window.htm">Enterprise 
+ Manager tool window</a>.</p>
+        <ol start="2">
+            <li class="Numbers" value="2">The spider workspace in 
+ the center: this is generally used to manipulate data elements before 
+ they are displayed in the controls on the graphic form, by adding, configuring 
+ and linking spiders to the required data elements and/or properties and/or 
+ other spiders. For details, see <a href="../../30Des/50S_S/Working_with_spider_workspaces.htm">Working 
+ with spider workspaces</a>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> The right and 
+ left borders of this central pane contain pane display bars, which can 
+ be used to adjust the working area displayed by this pane. For details 
+ on using a pane display bar, see <a href="../Working_with_pane_display_bars.htm">Working 
+ with pane display bars</a>.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">The property tree on the 
+ right: this can only be used to expose properties of the graphic form 
+ and the graphic form components that have been added to it, so that they 
+ can be dragged to or from spiders or data elements, as required. For details, 
+ see <a href="../../30Des/40FC/Working_with_form_components.htm">Working with form 
+ components</a>.</li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> This tree will 
+ only display the properties for the currently selected form component(s). 
+ If graphic form itself is selected, then the properties of the graphic 
+ form and all its form components are displayed.</p>
+        <p class="ListNotice"><b>Note2:</b> The names and 
+ icons of the form components are listed in the order that they have been 
+ added to the graphic form and their properties are listed beneath each 
+ control according to their category.</p>
+        <p class="ListNotice"><b>Note3:</b> Hidden properties 
+ of each form component are shown as an additional property tree 
+ entry.</p>
+        <h2>To access the Spider Configuration tool window:</h2>
+        <ol>
+            <li class="Numbers" value="1">Click the <b>Spider Configuration</b> tab, which is at the bottom of the Designer, 
+ by default. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Accessing_tool_windows.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Accessing 
+ tool windows</a></span>.</li>
+        </ol>
+        <p class="ListNotice"><b>Tip:</b> If you right-click 
+ on any item in this window, a menu will open with the available options, 
+ if any, for working with that item.</p>
+        <p>The <b>Spider Configuration Mode</b> section of <b>View</b> tab of the Designer ribbon determines the visibility and user interaction within the <b>Spider Configuration</b> window, as follows: </p>
+        <p class="Notices"><b>Note:</b> When changing from one mode to another, you need to close all open graphic forms.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Beginner</b>: (default selection for new installs) the <b>Spider Configuration</b> window is not accessible at all and therefore does not appear in the <b>Content</b> list. This provides the added advantage that graphic forms open faster, since the visual components of the configured spiders are not loaded.</li>
+        </ul>
+        <p class="BullNotice"><b>Note:</b> This mode is required when using graphic forms that have an excessively large number of spiders.</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Intermediate</b>: the <b>Spider Configuration</b> window can be accessed (is added to the <b>Content</b> list) but is not displayed by default and any spider regions associated with configured Behaviours cannot be accessed (they remain closed).</li>
+        </ul>
+        <ul>
+            <li class="Bullets" value="1"><b>Advanced</b>: grants full access to the <b>Spider Configuration</b> window and opens this window.</li>
+        </ul>
+        <p class="ListDesc">However, with regard to spider regions associated with configured Behaviours, you are ONLY able to edit the existing spiders and are therefore prevented from:</p>
+        <ul>
+            <li class="BulletSub" value="1">dragging spiders into or out of this region</li>
+            <li class="BulletSub" value="2">adding spiders to this region</li>
+            <li class="BulletSub" value="3">deleting spiders from this region</li>
+        </ul>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

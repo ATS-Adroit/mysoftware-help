@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Code to enable imagelist usage.doc" /><title>How to improve performance when trending of large amounts of data with a LineChart</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <div placeholder="" id="header" style="width: 100%;position: relative;">
+            <p>&#160;</p>
+        </div>
+        <h1>How to improve performance when trending of large amounts of data with a LineChart</h1>
+        <p>By default when trending series that have a large number of points in the Line chart, you may find that the data takes a long time to be charted as a lot of pressure is put on the CPU to draw it. Therefore you can employ the following strategies to minimise, if not prevent, any lag in the trending of a series and thereby reduce the required CPU load:</p>
+        <p><b>Change a Line series to a FastLine series:</b> a FastLine series is an optimised (extremely simplified) Line series, which is to draws its points as fast as possible, you can do this as follows:</p>
+        <ol>
+            <li class="Numbers" value="1">Open the graphic form that contains the required LineChart  control.</li>
+            <li class="Numbers" value="2">Right click this control and select the <b>Edit 
+ Chart...</b> menu option.</li>
+            <li class="Numbers" value="3"> Ensure that the default <b>Series Setup</b> dialog of the <b>Configuration: LineChart</b> configuration dialog is displayed.</li>
+            <li class="Numbers" value="4">
+                <p>Click the  <b>Type</b> dropdown list box of the Line series you wish to change and select the FastLine series type from the list of available series types.</p>
+                <p>
+                    <img src="TrendPerformanceImprovement_Files/FastLineSeriesTypeConfiguration.png" />
+                </p>
+            </li>
+        </ol>
+        <p><b>Reduce the number of data points that the FastLine series needs to plot:</b> instead of drawing all the points within a series, you can use reduce the number of points when large numbers of points occur at the same location or date time. </p>
+        <p>In this case ONLY&#160;the FastLine series  provides methods to reduce the number of plotted points. We recommend that you use the <b>First</b> method, which only plots the first point at each location or date time, which you can configure as follows:</p>
+        <ol>
+            <li class="Numbers" value="1">Open the graphic form that contains the required LineChart  control.</li>
+            <li class="Numbers" value="2">Right click this control and select the <b>Edit 
+ Chart...</b> menu option.</li>
+            <li class="Numbers" value="3">  Ensure that the default <b>Series Setup</b> dialog of the <b>Configuration: LineChart</b> configuration dialog is displayed.</li>
+            <li class="Numbers" value="4">
+                <p>Select the required FastLine series that you want to configure, this is indicated in the series list by displaying a filled right arrow in the first column.</p>
+                <p>
+                    <img src="TrendPerformanceImprovement_Files/SelectingTheRequiredSeriesToConfigure.png" />
+                </p>
+            </li>
+            <li class="Numbers" value="5">
+                <p>In the default <b>Line Style</b> tab, uncheck <b>Draw All</b> checkbox in the <b>Draw All Points</b> section and ensure that the list box specifies <b>First</b>, the default option.</p>
+                <p class="Notices"><b>Note:</b> The other option provided by this list box is the <b>MinMax</b> option, which plots both the minimum and the maximum point at each date time (X value).</p>
+                <p class="Notices"><b>Tip:</b> ONLY the FastLine series allows for this configuration, you will NOT find this option when a Line series is selected.</p>
+            </li>
+        </ol>
+        <p MadCap:conditions="VIP.Designer_VerMinorFour"><b>Direct2D mode and Anti-aliasing (as a last resort):</b> configure chart-specific settings that speed up the drawing  process.</p>
+        <p class="Notices" MadCap:conditions="VIP.Designer_VerMinorFour"><b>Note:</b> These settings are only available from <span class="VIPMAPSProductName">MAPS</span> 3.4.1 or <span class="AdroitAppName">Adroit</span> 8.4.1 onwards.</p>
+        <p MadCap:conditions="VIP.Designer_VerMinorFour">By default the Line chart control renders the charts using the GDI+ API. To speed up the drawing  process there is an option to draw the charts using the much faster Direct2D API, by setting the Boolean <b>Direct2DMode</b> property of the Line Chart to True.</p>
+        <p MadCap:conditions="VIP.Designer_VerMinorFour">You can also turn off anti-aliasing to speed up the drawing of the chart but the chart will not appear as smooth, by setting the Boolean <b>AntiAliased</b> property of the Line Chart to False.</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

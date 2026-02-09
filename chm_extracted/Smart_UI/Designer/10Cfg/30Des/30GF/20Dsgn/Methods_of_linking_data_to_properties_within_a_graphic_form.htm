@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Graphic Forms|Designing Graphic Forms" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Methods of linking data to properties within a graphic form</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>Methods of linking data to properties within a graphic form</h1>
+        <p>Graphic forms are animated during their design process, by attaching 
+ any data element to any property of the graphic form itself or its form 
+ components.&#160;            <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more information:</a></p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p class="Notices"><b>Note1:</b> Behaviours provide 
+ configuration dialogs that link data to properties. For details, see <a href="../../40FC/30B/About_Behaviors.htm">About 
+ Behaviours</a>.</p>
+            <p class="Notices"><b>Note2:</b> This visual 
+ animation or data binding can be used to configure more than just display 
+ properties (for example, the Text property of a TextBox control) if required, 
+ such as the sizes of controls, their colors and images.</p>
+            <p class="Notices"><b>Note3:</b> It is also 
+ possible to link properties to data elements and properties to other properties 
+ too, if necessary.</p>
+            <p class="Notices"><b>Note4:</b> If a property 
+ is connected to a data element that contains more than one value i.e. 
+ of type dataset, then the <b>Filter Dataset</b> 
+ configuration dialog is displayed, to select which of these value(s) are required. For 
+ details, see <a href="../../50S_S/10Spd/50Cat/Filtering_datasets.htm">Filtering 
+ datasets</a>.</p>
+            <p class="Notices"><b>Tip:</b> Run 
+ a graphic form,  in order to see 
+ what the end-user will see. For details, see <a href="../10Opn/Running_graphic_forms.htm">Running 
+ graphic forms</a>.</p>
+        </div>
+        <p>Although the process of animating a graphic form can become involved, 
+ there are typically only two methods of linking data to properties within 
+ a graphic form:</p>
+        <ol start="1">
+            <li class="Numbers" value="1"><b>Direct 
+ animation:</b> in this case a data element is directly connected to a 
+ property, so that it displays the actual data element value(s). <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DirectAnim"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />This can 
+ be achieved in one of following ways:</a></li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> Although 
+ more than one data element can be linked to the same property, most properties 
+ will ONLY display the most recently received data element.</p>
+        <ol start="1" MadCap:targetName="DirectAnim" style="display: none;">
+            <li class="NumbersSubLetters" value="1">You 
+ can drag the required data element from the Enterprise Manager and drop it onto the required <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">graphic element<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a form component that typically provides drawing functionality for the graphic form. See form component.</span></span> 
+ or <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">control<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a visible form component used to display data or accept user input in the graphic form. See form component.</span></span>, 
+ within the graphic form in the <b>Design workspace</b>. 
+ Then select the required property and the necessary spiders and silks 
+				will be automatically created for you. For details, see <a href="Quickly_linking_data_elements_to_properties.htm">Quickly 
+			linking data elements to properties</a>.</li>
+            <li class="NumbersSubLetters" value="2">If 
+ you need to connect a data element to a property of a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">component<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a hidden form component that provides additional functionality to this graphic form and some or all of its form components. See form component.</span></span>, 
+ then you need to use the <b>Spider Configuration</b> tool window, to drag 
+ the data element, from the explorer tree, on the right, to the required 
+ property, in the property tree, on the left. This will manually create 
+ the necessary spiders and silk. For details, see <a href="../../50S_S/30Silks/Creating_silks.htm">Creating 
+ silks</a> or <a href="../../../20DesEnv/10TW/Spider_Configuration_tool_window.htm">Spider 
+ Configuration tool window</a>.</li>
+        </ol>
+        <ol start="2">
+            <li class="Numbers" value="2">
+                <p><b>Modified 
+ animation:</b> in this case one or more data elements are connected to 
+ one or more added spiders, which are then connected to one or more properties, 
+ so that the properties display modified data element value(s). </p>
+                <p>This can 
+ only be achieved within the <b>Spider Configuration</b> tool window and 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ModAnim"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> 
+ involves the following process:</a></p>
+            </li>
+        </ol>
+        <div MadCap:targetName="ModAnim" style="display: none;">
+            <ol start="1">
+                <li class="NumbersSubLetters" value="1">Add 
+ one or more spiders to the center spider workspace. </li>
+                <li class="NumbersSubLetters" value="2">If 
+ necessary, configuring one or more of these spiders as required. </li>
+                <li class="NumbersSubLetters" value="3">Creating 
+ silks to connect:</li>
+            </ol>
+            <ul>
+                <li class="List2ndBullets" value="1">one or more data elements to one or more of 
+ the added spiders</li>
+                <li class="List2ndBullets" value="2">the added spiders together</li>
+                <li class="List2ndBullets" value="3">one or more of the added spiders to one or 
+ more properties</li>
+            </ul>
+            <p class="ListDescSub">For details, see <a href="../../50S_S/30Silks/Creating_silks.htm">Creating 
+ silks</a>.</p>
+            <p class="ListNoteSub"><b>Tip:</b> Whenever 
+ a property requires the name of a data element, simply drag the required 
+ data element to this property and its name will be automatically extracted 
+ to specify this property at runtime.</p>
+            <p class="ListNotice"><b>Note1:</b> If required, 
+ only the spiders directly associated with the currently selected form 
+ component(s) can be displayed. For details, see <a href="../../50S_S/10Spd/Hiding_unselected_spiders_and_regions.htm">Hiding 
+ unselected spiders</a>.</p>
+            <p class="ListNotice"><b>Note2:</b> It is possible 
+ to change which Servers are used to obtain the required data elements, 
+ at any time. For details, see <a href="../../50S_S/10Spd/50Cat/Changing_data_element_referencing.htm">Changing 
+ data element referencing</a>.</p>
+            <p class="ListNotice"><b>Note3:</b> Whenever a 
+ data element or property is dragged to or from their tree, the appropriate 
+ Data spider is automatically added to the spider workspace. For details, 
+ see <a href="../../50S_S/10Spd/50Cat/Data_spiders.htm">Data spiders</a>.</p>
+        </div>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

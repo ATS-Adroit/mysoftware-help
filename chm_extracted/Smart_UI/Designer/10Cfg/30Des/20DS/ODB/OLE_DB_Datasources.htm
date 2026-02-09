@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|OLE DB Datasources" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.DS_OLEDB" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>OLE DB Datasources</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1637"></a>OLE DB datasources</h1>
+        <p><a name="kanchor1638"></a><a name="kanchor1639"></a><a name="kanchor1640"></a>An OLE DB datasource exposes the data contained within an OLE DB compliant 
+ database or data store. This data is contained within fields in one or 
+ more tables.</p>
+        <p>For a practical example of using Select queries one of which uses parameters, which are supplied by controls on a graphic form, see <a href="../../../../HowTos/How_to_chart_and_or_report_data_from_a_database.htm">How to chart and/or report data from a database</a>.</p>
+        <p>For an example of using a DataBinder to read and/or write data in a database to and/from a control on a graphic form, see <a href="../../../../HowTos/How_to_write_and_or_read_database_data_from_a_control.htm">How to write and or read database data from a control</a>.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t3"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for more details:</a>
+        </p>
+        <div MadCap:targetName="t3" style="display: none;">
+            <p><a name="kanchor1641"></a>OLE DB is an open standard for accessing data from a variety of sources 
+ — both relational and non-relational data including: mainframe and hierarchical 
+ databases; e-mail and file system stores; text and graphical data and 
+ custom business objects etc.</p>
+            <p>An OLE DB data or service provider is required, before a database or 
+ data store can become OLE DB compliant. This data provider ensures that 
+ the database shares its data in a uniform or consistent manner using OLE 
+ DB.</p>
+        </div>
+        <p>This datasource is added 
+ to and configured within the <b>Datasources 
+ category of the required</b> Server connection in the <b>Enterprise 
+ Manager</b>. For more details, see <a href="Adding_OLE_DB_datasources.htm">Adding 
+ OLE DB datasources</a>.</p>
+        <p> <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for advanced OLE&#160;DB datasource usage information:</a></p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">This datasource can be updated, 
+ locked or removed, if necessary. For details, see <a href="../Updating_datasources.htm">Updating 
+ datasources</a>, <a href="../Locking_datasources.htm">Locking datasources</a> 
+ or <a href="../Removing_datasources.htm">Removing datasources</a>.</li>
+                <li class="Bullets" value="2">Instead of manually duplicating 
+ an OLE DB datasource from one Server to another, especially when many 
+ queries and/or stored procedures have been configured, it is possible 
+ to export and import the required datasource. For details, see <a href="../Exporting_datasources.htm">Exporting 
+ datasources</a>.</li>
+                <li class="Bullets" value="3"><a name="kanchor1642"></a>When connecting to a SQL database, the table, view, stored procedure 
+ and user function names support schemas. <span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">Click for more details:<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;">The default schema 'DBO' is NOT displayed. But if a table, view, procedure 
+ or function has a different schema name, then this is indicated in brackets 
+ after the name of the table, view, procedure or function. This means that 
+ you can now have a table, view, procedure or function with the same name 
+ as another table, view, procedure or function as long as it belongs to 
+ a different schema.
+</span></span></li>
+            </ul>
+            <p class="Notices"><b>Note1:</b> This datasource 
+ provides the following as its data elements: its tables, their fields 
+ and any queries which have been created.</p>
+            <p class="Notices"><b>Note2:</b> Currently both 
+ the Client and Server computers need the required OLE DB data provider 
+ to be installed. Both computers also need access to the required data 
+ store in order to establish a connection to it.</p>
+            <p class="Notices"><b>Note3:</b> If necessary, 
+ the access to this OLE DB datasource, its data and/or queries can be controlled. 
+ For details, see <a href="../Securing_datasources.htm">Securing datasources</a>.</p>
+            <p class="Notices"><b>Note4:</b> Each table is monitored at an individually configurable interval for new 
+ or updated data by the Server.</p>
+            <p class="Notices"><b>Note5:</b><a name="kanchor1643"></a>Queries can 
+ be executed, by using Special Function spiders. Also, if using SQL, please 
+ ensure that all time based queries adhere to the universal date time standard 
+ for SQL, which is yyyy-mm-dd.  For details, see <a href="Qry/Executing_queries_and_stored_procedures.htm"> Executing 
+ queries and stored procedures</a>.</p>
+        </div>
+        <p>An OLE DB datasource is identified in  the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /><![CDATA[
+ ]]><b> Datasources</b> category in the <b>Enterprise 
+ Manager</b>, which can 
+ be identified by its specified name or icon <img src="../../../../Resources/Images/16/DataSources/OLEDB.png" />. When this datasource 
+ is opened,  
+ it displays the following main branches:</p>
+        <ol>
+            <li class="Numbers" value="1"><b>Tables </b>
+                <img src="../../../../Resources/Images/16/DataSources/OLEDB_Tables.png" />: contains all the data exposed by this data store, within 
+ its tables and their fields. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="TablesInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for advanced usage information:</a></li>
+        </ol>
+        <div MadCap:targetName="TablesInfo" style="display: none;">
+            <ol start="1">
+                <li class="ListBullets" value="1">The tables <img src="../../../../Resources/Images/16/DataSources/OLEDB_Table.png" /> are listed alphanumerically, which specify all the tables 
+ which have been configured for this data store.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note1:</b> Only the tables 
+ with a plus box <img src="../../../../00CmnUse/Generic%20-%20Plus%20box.bmp" style="border: none;width: 9px;height: 9px;border-style: none;border-style: none;" width="9" height="9" border="0" /> to their left actually contain fields.</p>
+            <p class="ListNoteSub"><b>Note2:</b> The rate at which 
+ each table is monitored by the Server for new or updated data can be individually 
+ configured. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Specifying_the_OLE_DB_table_or_view_or_databinder_polling_interval.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Specifying the table polling interval</a></span>.</p>
+            <p class="ListNoteSub"><b>Note3:</b> Tables return their 
+ last 1000 records, by default, although you can adjust this number, see 
+ <a href="Specifying_the_maximum_returnable_records_for_an_OLE_DB_table_or_view_or_databinder.htm">Specifying the maximum number of 
+ records to return for a table</a>.</p>
+            <ol start="2">
+                <li class="ListBullets" value="2">The fields <img src="../../../../Resources/Images/16/DataSources/OLEDB_Field.png" /> are listed alphanumerically beneath their applicable table.</li>
+                <li class="ListBullets" value="3">Fields which are 
+ configured as primary keys are indicated by the following icon: <img src="../../../../Resources/Images/16/DataSources/OLEDB_PrimaryKey.png" />.</li>
+            </ol>
+        </div>
+        <ol start="2">
+            <li class="Numbers" value="2"><b>DataBinders </b>
+                <img src="../../../../Resources/Images/16/DataSources/OLEDB_Databinders.png" />: allow your users to view and/or modify the data within 
+ your database. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DataBindersInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for advanced usage information:</a></li>
+        </ol>
+        <div MadCap:targetName="DataBindersInfo" style="display: none;">
+            <p class="ListDesc" MadCap:conditions="VIP.Ctrl_Data"> For more details about how to use DataBinders, see <a href="About_DataBinders.htm">About 
+ DataBinders</a>.</p>
+            <ol start="1">
+                <li class="ListBullets" value="1">The DataBinders <img src="../../../../Resources/Images/16/DataSources/OLEDB_Databinder.png" /><![CDATA[
+ ]]> that have been configured are listed alphanumerically 
+ beneath the <b>DataBinders <img src="../../../../Resources/Images/16/DataSources/OLEDB_Databinders.png" /></b>folder.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note1:</b> The 
+ rate at which each DataBinder is monitored by the Server for new or updated 
+ data can be individually configured. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Specifying_the_OLE_DB_table_or_view_or_databinder_polling_interval.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Specifying 
+ the databinder polling interval</a></span>.</p>
+            <p class="ListNoteSub"><b>Note2:</b> Databinders return 
+ their last 1000 records, by default, although you can adjust this number, 
+ see <a href="Specifying_the_maximum_returnable_records_for_an_OLE_DB_table_or_view_or_databinder.htm">Specifying the maximum number of records 
+ to return for a databinder</a>.</p>
+            <ol start="2">
+                <li class="ListBullets" value="2">The tables <img src="../../../../Resources/Images/16/DataSources/OLEDB_Table.png" /> and their fields <img src="../../../../Resources/Images/16/DataSources/OLEDB_Field.png" /> are listed alphanumerically 
+ beneath their databinder <img src="../../../../Resources/Images/16/DataSources/OLEDB_Databinder.png" />.</li>
+            </ol>
+        </div>
+        <ol start="3">
+            <li class="Numbers" value="3"><b>Queries </b>
+                <img src="../../../../Resources/Images/16/DataSources/OLEDB_Queries.png" />: queries can also be created for this OLE DB datasource 
+ to perform common tasks for managing and/or obtaining data from your database. 
+ <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="QueriesInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for advanced usage information:</a><![CDATA[  ]]></li>
+        </ol>
+        <div MadCap:targetName="QueriesInfo" style="display: none;">
+            <p class="ListDesc">For more details about creating and using queries, see <a href="About_queries.htm">About queries</a>.</p>
+            <p class="ListNotice"><b>Note1:</b> Queries can be queued so that they are not lost when the connection 
+ to their OLE DB database fails. </p>
+            <p class="ListNotice"><b>Note2:</b> The data obtained 
+ by a query is not updated by the Server and remains as current as the 
+ last time that it was executed.</p>
+            <p class="ListNotice"><b>Note3:</b> Queries display ALL the records that match the specified criteria.</p>
+        </div>
+        <ol start="4">
+            <li class="Numbers" value="4"><b><a name="kanchor1644"></a>Views </b>
+                <img src="../../../../Resources/Images/16/DataSources/OLEDB_Views.png" />: contains any stored (pre-defined) queries in an Access 
+ and/or SQL database. These views can be used and interacted with in the 
+ same way as the listed <b>Tables </b><img src="../../../../Resources/Images/16/DataSources/OLEDB_Tables.png" />. For instance they can also be dragged onto DataGrid 
+ controls etc. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ViewsInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for advanced usage information:</a></li>
+        </ol>
+        <div MadCap:targetName="ViewsInfo" style="display: none;">
+            <p class="ListDesc">The applicable 
+ fields <img src="../../../../Resources/Images/16/DataSources/OLEDB_Field.png" /> are listed alphanumerically beneath their associated 
+ view <img src="../../../../Resources/Images/16/DataSources/OLEDB_View.png" />.</p>
+            <p class="ListNotice"><b>Note1:</b> The rate at which 
+ each View is monitored by the Server for new or updated data can be individually 
+ configured. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Specifying_the_OLE_DB_table_or_view_or_databinder_polling_interval.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Specifying the view polling interval</a></span>.</p>
+            <p class="ListNotice"><b>Note2:</b> Views return 
+ their last 1000 records, by default, although you can adjust this number, 
+ see <a href="Specifying_the_maximum_returnable_records_for_an_OLE_DB_table_or_view_or_databinder.htm">Specifying the maximum number of records 
+ to return for a view</a>.</p>
+            <p class="ListNotice"><b>Note3:</b> Views do not 
+ have primary keys.</p>
+            <p class="ListNotice"><b>Note4:</b> If necessary, 
+ you can view the associated SQL Script, see <a href="Viewing_the_associated_SQL_Script.htm">Viewing 
+ the associated SQL Script</a>.</p>
+        </div>
+        <ol start="5">
+            <li class="Numbers" value="5"><b>Procedures </b>
+                <img src="../../../../Resources/Images/16/DataSources/OLEDB_Procedures.png" />: lists the predefined stored procedures<a name="kanchor1645"></a> or <a name="kanchor1646"></a>user-functions 
+ of the database, which can be performed by using a <b>Execute 
+ Statement</b> <img src="../../../../Resources/Images/16/DataSources/OLEDB_Queries_Execute.png" />  query. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ProcediuresInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" /> Click for advanced usage information:</a></li>
+        </ol>
+        <div MadCap:targetName="ProcediuresInfo" style="display: none;">
+            <p class="ListDesc">For details on how to run stored procedure , see <a href="Execute_Statements.htm">Execute 
+ Statement queries</a>.</p>
+            <p class="ListDesc">Each stored procedure and/or user function <img src="../../../../Resources/Images/16/DataSources/OLEDB_Procedure.png" /> display the following elements when expanded:</p>
+            <ul>
+                <li class="BulletSub" value="1">One or more input parameters <img src="../../../../Resources/Images/16/DataSources/OLEDB_Procedure_Parameter.png" /><![CDATA[
+ ]]>: these provide the stored procedure/user-defined function 
+ with values.</li>
+                <li class="BulletSub" value="2">One Output/Result parameter <img src="../../../../Resources/Images/16/DataSources/OLEDB_Procedure_Return.png" /><![CDATA[
+ ]]>: these values are returned when the stored procedure/user-defined 
+ function is executed.</li>
+            </ul>
+            <p class="ListNotice"><b>Note1:</b> Currently these 
+ procedures can ONLY be viewed.</p>
+            <p class="ListNotice"><b>Note2:</b> System stored 
+ procedures and functions are not displayed.</p>
+            <p class="ListNotice"><b>Note3:</b> If necessary, 
+ you can view the associated SQL Script, see <a href="Viewing_the_associated_SQL_Script.htm">Viewing 
+ the associated SQL Script</a>.</p>
+            <p>&#160;</p>
+        </div>
+        <p><a href="../../40FC/10CC/Ctrl/How_to_chart_dataset_data.htm">How to chart 
+ dataset data</a>: this describes how to chart the data within your databases.</p>
+        <p>&#160;</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To display the connection details of an OLEDB datasource:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>Right click the OLEDB <img src="../../../../Resources/Images/16/DataSources/OLEDB.png" /> datasource in the Enterprise 
+ Manager and select the <b>Connection Details</b> 
+ option.</p>
+            <p class="Notices"><b>Note:</b> If the connection 
+ string for this OLEDB datasource contains a password, it is hidden in 
+ *'s for security reasons.</p>
+        </div>
+        <p class="Notices"><b>Tip:</b> When editing 
+ an OLEDB datasource connection, the <b>Data 
+ Link Properties</b> dialog uses the previously supplied details, so 
+ you only need to specify the changed details NOT all of them.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

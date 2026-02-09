@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Utl_DbGen" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="DBGEN.doc" /><title>Creating a WGP file From a 3rd Party Application</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor255"></a><a name="kanchor256"></a><a name="kanchor257"></a>Creating a WGP file From a 3<sup>rd</sup> Party Application</h1>
+        <p>The <span class="AdroitAppName">Adroit</span> DB Generator creates <span class="AdroitAppName">Adroit</span> agent databases (.WGP files) 
+ from information stored in 3<sup>rd</sup> party applications, such as 
+ front-end devices.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Things you need to know beforehand:</a>
+        </p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <ul>
+                <li class="Bullets" value="1">Have 
+ you installed this utility from the Additional <span class="AdroitAppName">Adroit</span> Components installation?</li>
+                <li class="Bullets" value="2">Does 
+ the required Connector exist for the 3<sup>rd</sup> party application 
+ that you want to create a .WGP file for?</li>
+                <li class="Bullets" value="3">Has this Connector (DLL) 
+ file been added to the required Agent Server?</li>
+                <li class="Bullets" value="4">Can this Connector be accessed 
+ remotely or do you need to use the <span class="AdroitAppName">Adroit</span> DB Generator on the Agent Server 
+ computer on which the required 3<sup>rd</sup> party application resides.</li>
+                <li class="Bullets" value="5">Does 
+ this Connector support the use of templates? Templates can be used to customise or fine-tune your agent creation, scanning, logging and/or 
+ alarming default settings.</li>
+            </ul>
+        </div>
+        <h2>How to create a WGP file from a 3<sup>rd</sup> party application</h2>
+        <ol>
+            <li class="Numbers" value="1">  Press the Windows <img src="../Resources/Images/WindowsKey_17x17.png" style="width: 17;height: 17;" /> key  and start typing in <b>DB 
+ Generator</b>  and select it from the list.</li>
+            <li class="Numbers" value="2">If necessary, add the required 
+ remote Agent Server.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> 
+ ALL the available Connectors of this Agent Server are displayed, whether 
+ they can be accessed remotely or not. If necessary, create a Link for 
+ the required Connector.</p>
+        <ol start="3">
+            <li class="Numbers" value="3">If a Configuration dialog 
+ is displayed, configure this Link.</li>
+            <li class="Numbers" value="4">Right click the Link and 
+ select the <b>Import</b> menu item to retrieve the complete configuration 
+ for the Link.</li>
+            <li class="Numbers" value="5">Perform any post editing 
+ that is necessary, such as the implementation of any templates, if these 
+ are supported for this Link.</li>
+            <li class="Numbers" value="6">If 
+ necessary, configure the global options that determine the default actions 
+ that are performed in <span class="AdroitAppName">Adroit</span> after committing an import. These options 
+ are used for ALL the connectors. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Global_Post_Committing_Options.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Global Post Committing Options</a></span>.</li>
+            <li class="Numbers" value="7">Right click the Link and 
+ select the <b>Commit</b> menu item to generate an agent database (.WGP) 
+ file from the current Link configuration files.</li>
+        </ol>
+        <p class="Notices"><b>Note</b><a name="kanchor258"></a>: When DBGen 
+ starts it obtains the connectors specified from a previous session from 
+ the DBGEN.INI file. If this DBGEN.INI file does not exist, then the connectors 
+ are obtained from the selected computer’s <span class="AdroitAppName">Adroit</span> installation folder, typically: <span class="AdroitInstallFolder">C:\Program Files\Adroit Technologies\Adroit</span>.</p>
+        <p><a href="About_the_Agent_Servers.htm">About 
+ the Agent Servers</a>: 
+ describes how to add and remove Agent Servers</p>
+        <p><a href="About_the_Connectors.htm">About the Connectors</a>: 
+ describes the Connectors and how to create Links</p>
+        <p><a href="About_the_Connector_Links.htm">About the Connector Links</a>: 
+ describes the Links and the various configuration options that they can 
+ provide.</p>
+        <p><a href="Available_Connectors.htm">Available Connectors</a>: 
+ this lists the available Connectors and their specific functionality and 
+ configuration of their Links, such as their support and/or implementation 
+ of templates.</p>
+        <p><a href="About_the_Templates.htm">About the Templates</a>: 
+ describes each of the available templates and how to configure them.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

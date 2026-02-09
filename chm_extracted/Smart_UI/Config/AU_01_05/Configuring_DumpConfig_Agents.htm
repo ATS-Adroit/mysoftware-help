@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Common.Ver9" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Config.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Configuring DumpConfig Agents</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor182"></a>Configuring DumpConfig Agents</h1>
+        <p>You can configure a DumpConfig agent to specify which agents' configurations you want to save to the OLE&#160;DB database and at what time or events their configurations should be saved, 
+ as follows:</p>
+        <p>If necessary, open the <b>Edit <b>DumpConfig</b> Agent</b> dialog, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t6"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="t6" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">
+                    <p>If necessary, add an <b>DumpConfig</b> agent. For details, see 
+ To Add a New Agent.</p>
+                    <p class="Notices"><b>Note:</b> You can only add ONE DumpConfig agent.</p>
+                </li>
+                <li class="Numbers" value="2">Select the name of this 
+ agent. For details, see To Select an Agent.</li>
+                <li class="Numbers" value="3">Right click and select 
+ the <b>Edit...</b> menu item to display 
+ the <b>Edit <b>DumpConfig</b> Agent</b> dialog.</li>
+            </ol>
+        </div>
+        <p>&#160;</p>
+        <p>Specify which agents' configurations you want to save to the OLE&#160;DB database, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SpecifyAgentConfigurations"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <ul MadCap:targetName="SpecifyAgentConfigurations" style="display: none;">
+            <li class="Bullets" value="1">Click the plus (+) button to add a row to the <b>Agent type configuration</b> table.</li>
+            <li class="Bullets" value="2">Type in the name of the required <b>Agent Type</b>, ensuring that you spell this name correctly.</li>
+            <li class="Bullets" value="3">
+                <p>By default all the <b>Agent slots</b> of the specified agent type are included in each configuration that is saved to the database (*), although you can specify a comma delimited list of slots to explicitly specify the slots that you are interested to reduce the size of each configuration.</p>
+                <p>When using the * to specify all the agent slots, you can also specify a comma delimited list of the header slots that you also want to save, in the following format: *,agentName.headerSlot1,agentName.headerSlot2, agentName.headerSlot3 etc.         </p>
+            </li>
+            <li class="Bullets" value="4">By default configurations for all the <b>Agent instances</b> of the specified agent type are saved to the database (*), although you can specify a comma delimited list of only those agent instances that you are interested to further reduce the amount of logged data and therefore the time taken to log this data.</li>
+        </ul>
+        <p class="Notices"><b>IMPORTANT:</b> The optional comma delimited list of <b>Agent slots</b> or <b>Agent instances</b> for the specified Agent type cannot exceed 79 characters!</p>
+        <p>&#160;</p>
+        <p>Specify what time interval or which event will cause the specified agent configurations to be dumped to the database, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SpecifyTriggering"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <ul MadCap:targetName="SpecifyTriggering" style="display: none;">
+            <li class="Bullets" value="1">If necessary, specify the required <b>Dump interval (in hours, 0 to disable)</b>. If this is set to a number greater than 0, then this number specifies the hourly interval that will be used to trigger this agent to dump the specified agent configurations to the database but if set to 0 this disables this method of triggering this agent.</li>
+            <li class="Bullets" value="2">And/or specify the required <b>Dump trigger tag</b> by typing or browsing in the required tag (agent.slot) with a Boolean, integer or real value so that whenever the value of this slot changes to a non-zero value, the specified agent configurations are dumped to the database.</li>
+            <li class="Bullets" value="3">Alternatively, you can manually dump the specified configurations to the database by clicking the <b>Dump now</b> button.</li>
+        </ul>
+        <p>&#160;</p>
+        <p>Specify which  OLE&#160;DB database you want to save the specified agent configurations to, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SpecifyDatabase"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <div MadCap:targetName="SpecifyDatabase" style="display: none;">
+            <p>Type or browse in the connection details of the required OLE DB database in the <b>Connection string</b> field.</p>
+            <p>Typically use an existing (or create) a SQL database to dump your agent configurations to.</p>
+            <p class="Notices"><b>Note:</b> In this case, if you need to configure this DumpConfig  agent from remote computers, it is safer to use SQL authentication (<b>Use a specific user name and password</b>) when creating this connection and NOT Windows authentication (<b>Use Windows NT Integrated Security</b>) unless you are sure that the logged on users at the remote computers have the necessary access rights to this SQL database. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="RemoteConfigDetails"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+            <div MadCap:targetName="RemoteConfigDetails" style="display: none;">
+                <p>If the SQL connection string configured in the DumpConfig  agent has been configured using Windows authentication and you then try and connect from a remote UI to configure, it will more than likely not work (in other words the agent configurations will not be dumped to the database). </p>
+                <p>This would happen if  the Windows User on this remote computer has not been given access rights to the SQL database.</p>
+            </div>
+            <p>Click the browse button <img src="../COMMON/image9.gif" style="height: 18px;width: 21px;" width="21" height="18" border="0" /> to 
+ the right of this field and use the <b>Data Link Properties</b> dialog 
+ to create the required connection string to your SQL Server database, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AdrSQLCoxnStrCreation"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+            <p class="Notices"><b>IMPORTANT:</b> If the computer on which SQL was installed was renamed, then SQL may need to be re-installed. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SQL_PCRenamingInfo"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+            <div MadCap:targetName="SQL_PCRenamingInfo" style="display: none;">
+                <p>If the computer is renamed AFTER installing SQL, then SQL must be re-installed, in order to function.</p>
+                <p>Do the following check:</p>
+                <ul>
+                    <li class="Bullets" value="1">Run the following T-SQL script in SQL Server Management Studio: SELECT @@SERVERNAME</li>
+                    <li class="Bullets" value="2">If the result is different to the actual name of the computer, then the name of the computer has been changed AFTER SQL Server was installed, so you need to reinstall SQL.</li>
+                </ul>
+            </div>
+            <div MadCap:targetName="AdrSQLCoxnStrCreation" style="display: none;">
+                <p>This <b>Data Link Properties</b> dialog specifies the location and the 
+ security credentials required to connect to this database.</p>
+                <p class="Notices"><b>Note:</b> 
+ If you need to configure or view this database and its data from other 
+ computers, like remote User Interfaces, then use a&#160;<span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">UNC<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">Universal Naming Convention (UNC) is used to specify the location of servers, printers, files and other shared resources on a local area network (LAN). UNC  names begin with \\ (two backslashes) and take the form: \\Computer_name\Share_name</span></span>&#160;path
+ and not a <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">local file path<img style="border: none;margin-left: 5px;" src="../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">this path, as opposed to a UNC path, can ONLY be accessed from the computer that it refers to, this path adopts the following general format: &lt;driveletter&gt;:\directories\filename.</span></span>to specify the location of this database.</p>
+                <ol>
+                    <li class="UpperLetters" value="1">Double click the <b>Microsoft 
+ OLE DB Provider for SQL Server</b> item in the <b>Provider</b> tab of 
+ the <b>Data Link Properties</b> dialog.</li>
+                    <li class="Bullets" value="2">Either type in the 
+ computer name of the SQL Server that you want to connect to, in the <b>Select 
+ or enter a server name</b> field.</li>
+                </ol>
+                <p class="ListNotice"><b>Tip</b>: This is the fastest method, if you know 
+ the name of the SQL Server.</p>
+                <ol>
+                    <li class="Bullets" value="1">Or click the button to 
+ the left of the <b>Select or enter a server name</b> list box and select 
+ the name of the required SQL Server from the list.</li>
+                    <li class="UpperLetters" value="2">Specify the required security 
+ credentials to connect to this SQL Server, as follows:</li>
+                </ol>
+                <p class="ListNotice"><b>IMPORTANT1:</b> If you need to connect to 
+ a remote SQL database and want to run the Agent Server service using the 
+ <b>Local System account</b>, then use 
+ <b>SQL Server Authentication</b>.</p>
+                <p class="ListNotice"><b>IMPORTANT2:</b> 
+ If you need to connect to a remote SQL database and want to <b>Use 
+ Windows NT Integrated security</b>, then ensure that the user profile 
+ that the Agent Server service uses to log onto the computer HAS the necessary 
+ rights to browse the network and connect to the remote database. This 
+ should <b>NOT</b> be the default <b>Local System account.</b> <![CDATA[ ]]></p>
+                <ul>
+                    <li class="ListBullets" value="1"><b>Use Windows NT Integrated security:</b> this 
+ option uses the username and password of the currently logged on Windows 
+ user.</li>
+                </ul>
+                <p class="ListNoteSub"><b>Tip:</b> We recommend 
+ that you configure your SQL Servers to use this option to avoid requiring 
+ additional database security.</p>
+                <ul>
+                    <li class="ListBullets" value="1"><b>SQL Server Authentication:</b> this option 
+ uses the <b>User name</b> and <b>Password</b> configured within the SQL 
+ Server you are attempting to connect to.</li>
+                </ul>
+                <p class="ListNoteSub"><b>Note</b>: In this case it is recommended to check 
+ the <b>Allow saving password</b> checkbox.</p>
+                <ol start="3">
+                    <li class="UpperLetters" value="3">Select the name of the 
+ required database from the <b>Select the database on the server</b> list 
+ box.</li>
+                    <li class="UpperLetters" value="4">Click the <b>Test Connection</b> 
+ button to ensure that you are able to connect to this database using these 
+ details. Only proceed once 'Test connection succeeded' is displayed.</li>
+                    <li class="UpperLetters" value="5">Click the <b>OK</b> button.</li>
+                </ol>
+                <p class="ListDesc">Your connection string will be created.</p>
+                <p class="Notices"><b>Note1</b>: The <b>Advanced</b> tab of this dialog 
+ allows you to specify access permissions for this connection string. If 
+ you are unsure about these settings NEVER set these permissions to <b>Read</b> 
+ otherwise this connection string will fail.</p>
+                <p class="Notices"><b>Note2</b>: These security credentials are database 
+ specific and should not be confused with application security.</p>
+                <p class="Notices"><b>Note3:</b> 
+ You can edit this string directly, once it has been created, if necessary.</p>
+            </div>
+        </div>
+        <p>&#160;</p>
+        <p>Configurations will be dumped to tables named Adr_Dump_AgentTypeName in the specified database, for instance: Adr_Dump_Analog. The available agent slots that are saved to these tables depend upon whether table exists or not in the specified database, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LoggedSlots"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a></p>
+        <ul MadCap:targetName="LoggedSlots" style="display: none;">
+            <li class="Bullets" value="1">If the Adr_Dump_xxxxx table does not exist it will be created with the specified <b>Agent slots</b> in the <b>Agent type configuration</b> table for this <b>Agent type</b>.</li>
+            <li class="Bullets" value="2">If the Adr_Dump_xxxxx table already exists then the configurations will be saved using the existing slots specified by this table, to allow users to manually remove columns of unwanted data from this table.</li>
+        </ul>
+        <p>&#160;</p>
+        <p>Lastly, ensure that the <b>Enable</b> checkbox (the <b>enable</b> slot) is checked, 
+ to start dumping the specified agent configurations to the selected database.</p>
+        <p>&#160;</p>
+        <p>The status bits of this agent can be 
+ used for diagnosing the status of its connection to the database and/or the process of dumping agent configurations to this database. For details, see <a href="Specific_Status_Bits_of_the_DumpConfig_Agent.htm">Specific Status Bits of the DumpConfig Agent</a>.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders|Categories|Application|Application spiders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Script Engine spiders.doc" /><title>Application spiders</title>
+        <link href="../../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2532"></a><a name="kanchor2533"></a><a name="kanchor2534"></a><a name="kanchor2535"></a><a name="kanchor2536"></a><a name="kanchor2537"></a><a name="kanchor2538"></a><a name="kanchor2539"></a><a name="kanchor2540"></a><a name="kanchor2541"></a>Application spiders</h1>
+        <table style="margin-left: auto;margin-right: auto;">
+            <col style="width: 33.4pt;" />
+            <col style="width: 392.9pt;" />
+            <tr>
+                <td>
+                    <p>
+                        <img src="Spiders%20-%20CAT_Application%20-%20Application%20Icon_34x48.bmp" style="border: none;float: none;border-style: none;border-style: none;width: 34;height: 48;" border="0" />
+                    </p>
+                </td>
+                <td>
+                    <p>The <b>Application</b> spider can 
+ interact with a graphic form within the <span class="VIPAppName">SmartUI</span> Operator  when this spider is 
+ triggered.</p>
+                    <p>For instance, opening, closing or printing a graphic form when an event occurs, such as by clicking a button or logging the current user on or off.</p>
+                    <p class="Notices"><b>Note:</b> Each action or command can be confirmed and/or logged to 
+ the event log - see the spider inputs for more details.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Notices"><b>Note:</b> You CANNOT test this spider in the <span class="VIPAppName">SmartUI</span> Designer in Run mode, when performing graphic forms operations (opening, closing etc.) - this functionality is only available in the <span class="VIPAppName">SmartUI</span> Operator. If you try to do so, an alert informing you of this is displayed.</p>
+        <ul>
+            <li class="Bullets" value="1"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_Application_spiders.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To add 
+ this spider to the spider workspace</a></span>.</li>
+            <li class="Bullets" value="2">
+                <p><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Opening_graphic_forms_from_an_event.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To open a graphic form from an event</a></span>.</p>
+                <p class="Notices"><b>Note:</b> If the specified graphic form does not exist (either was typed in incorrectly or this spider was copied from another project), then when this spider is triggered in the <span class="VIPAppName">SmartUI</span> Operator, it opens the specified graphic form containing the text 'graphic form not found'.</p>
+                <p class="Notices"><b>Tip:</b> If necessary a graphic form can be opened within a specific <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">TemplateGO<img style="border: none;margin-left: 5px;" src="../../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">a Template Graphic Object control that  displays a graphic form and connects data elements to any aliases of this graphic form.</span></span> control on this graphic form.</p>
+            </li>
+            <li class="Bullets" value="3"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Closing_graphic_forms_from_an_event.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">To close a graphic form from an event</a></span>.</li>
+        </ul>
+        <p class="ListNotice"><b>Tip:</b> To close the current 
+ graphic form, either set the <b>Action</b>  input to <b>Close 
+ this form</b>  action, which does not require or provide the <b>Graphic 
+ Form</b>  input or set the <b>Action</b>  input is <b>Close</b>  and do not specify the <b>Graphic Form</b>  input (leave it blank).</p>
+        <p class="ListNotice">This spider can perform the following additional commands:</p>
+        <ol>
+            <li class="Bullets" value="1"><b>Print this form</b>: This sends the currently displayed graphic form to the default printer and therefore does 
+ NOT provide the <b>Graphic Form</b>  input.</li>
+            <li class="Bullets" value="2">
+                <p><span style="font-weight: bold;">Log off</span>: to log off the current <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span> user,  you <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LogOffCfg"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />configure this command as follows:</a></p>
+                <div MadCap:targetName="LogOffCfg" style="display: none;">
+                    <ul>
+                        <li class="Bullets" value="1">No further configuration is required to simply log off the current user.</li>
+                        <li class="Bullets" value="2">If you have configured an auto-login account for this Client, then you can check the <span style="font-weight: bold;">Auto login</span> checkbox to automatically log in again using the specified auto-login user credentials.</li>
+                    </ul>
+                    <p class="ListDesc">This, in effect, performs a “switch user” operation for the pre-configured  auto-login user. </p>
+                </div>
+            </li>
+            <li class="Bullets" value="3">
+                <p><span style="font-weight: bold;">Log on</span>: to perform a “switch user” operation by logging in another user,  you <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LogOnCfg"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />configure this command as follows:</a></p>
+                <div MadCap:targetName="LogOnCfg" style="display: none;">
+                    <ul>
+                        <li class="Numbers" value="1"><b>Username:</b> either type in the name of the required Allowed or Impersonated user or use the browse button to use the <b>User Browser</b> to specify this user name.</li>
+                        <li class="Numbers" value="2"><b>Password:</b> type in the required password of the selected user.</li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+        <h2>Configuration</h2>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t2"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Spider menu:</a> 
+ This describes the available menu items and their default settings for 
+ this spider.&#160;</p>
+        <div MadCap:targetName="t2" style="display: none;">
+            <p class="Notices"><b>Note:</b> Menu items 
+ that are enabled will have a tick mark <img src="../../../../../../00CmnUse/Generic%20-%20Tick%20mark.bmp" style="border: none;width: 20px;height: 20px;float: none;border-style: none;" width="20" height="20" border="0" /> to the left of them.</p>
+            <ol start="1">
+                <li class="Numbers" value="1"><b>Detail 
+ View:</b> This can be used to display the configuration view of this spider, 
+ so its name, description, inputs and outputs can be configured. For details, 
+ see <a href="../../20Cfg/Working_with_spider_configuration_views.htm">Working with 
+ spider configuration views</a>.</li>
+            </ol>
+            <p class="ListNotice"><b>Tip:</b>  Double-click 
+ the title bar of the spider to display or hide the configuration view 
+ of the spider.</p>
+            <ol start="2">
+                <li class="Numbers" value="2"><b>Delete 
+ Spider:</b> This can be used to remove this spider from the spider workspace. 
+ For details, see <a href="../../Removing_spiders.htm">Removing spiders</a>.</li>
+                <li class="Numbers" value="3"><b>Trigger 
+ Spider From Event:</b> This enables the spider to be triggered (which 
+ will run its script) by means of an event. For details, see <a href="../../30Trigr/Triggering_a_spider_from_an_event.htm">Triggering 
+ a spider from an event</a>. This is enabled by default, since this is 
+ the preferred method for performing this spider's function.</li>
+                <li class="Numbers" value="4"><b>Enable 
+ Silk Triggering:</b> This enables the spider to be triggered (which will 
+ run its script) by any silks that are attached to the inputs of this spider. 
+ For details, see <a href="../../30Trigr/Triggering_spiders.htm">Triggering 
+ spiders</a>. This is disabled by default.</li>
+                <li class="Numbers" value="5"><b>Propagate 
+ Outputs At Startup:</b> This enables the spider to supply the silks connected 
+ to its outputs with values as soon as its spider workspace enters into 
+ running mode. For details, see <a href="../../../Working_with_spider_workspaces.htm">Working 
+ with spider workspaces</a> or <a href="../../20Cfg/Sending_spider_outputs_at_startup.htm">Sending 
+ spider outputs at startup</a>. This is disabled by default.</li>
+                <li class="Numbers" value="6"><b>Trigger 
+ Now!</b> : This will cause this spider to immediately be triggered.</li>
+                <li class="Numbers" value="7"><b>Add Alias Inputs</b>: If the graphic form that you open contains aliases, then use this option to expose these aliases as additional inputs.</li>
+            </ol>
+            <p>&#160;</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Inputs and outputs:</a> 
+ This describes the available inputs and outputs displayed by the default 
+ configuration view of this spider.</p>
+        <div MadCap:targetName="t1" style="display: none;">
+            <p>This default configuration view of this spider, contains the following 
+ sections:</p>
+            <ol>
+                <li class="Numbers" value="1"><b>Inputs</b>, 
+ this section contains the inputs to this spider.</li>
+            </ol>
+            <table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0">
+                <col style="width: 8.359%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" />
+                <col style="width: 11.048%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <col style="width: 70.476%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" />
+                <thead>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Head-Header1">
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Input</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Data</th>
+                        <th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>Graphic Form</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>DE</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This specifies the graphic form used by the&#160;<b>Action</b>  
+ input. For details, see <a href="Methods_of_specifying_graphic_forms.htm">Methods of 
+ specifying graphic forms</a>.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>Action</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>List</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>The graphic 
+ form actions, which <b>determines the other available 
+ inputs</b> , as follows:</p>
+                            <ol>
+                                <li class="Numbers" value="1"><b>Open</b> : 
+ This will open the graphic form specified by the <b>Graphic 
+ Form</b>  input, and display it in a manner specified by its <b>Open 
+ Graphic Form As</b>  input, as follows:</li>
+                                <li class="NumbersSubLetters" value="2"><b>ModalForm</b> : This will open as a separate 
+ window that requires the user to interact with it or close it before being 
+ able to continue using the application. This is the default selection.</li>
+                                <li class="NumbersSubLetters" value="3"><b>ModelessForm</b> : This will open as a separate 
+ window that allows the user to interact with it and also return to a previous 
+ task without closing it.</li>
+                                <li class="NumbersSubLetters" value="4"><b>TabPage</b> : This will open, normally, as 
+ another tabbed page within the workspace.</li>
+                                <li class="NumbersSubLetters" value="5"><b>Replace</b> : This graphic form will replace 
+ the currently displayed graphic form.</li>
+                                <li class="NumbersSubLetters" value="6"><b>Template Graphic Object</b>: the graphic form is opened within a specific Template Graphic Object control. </li>
+                            </ol>
+                            <p class="ListDescSub">This option displays the <b>Template Graphic Object</b> input to specify the name of the required Template Graphic Object control, from the list - assuming that one or more TemplateGO controls have been added to the graphic form on which this Application spider is on.</p>
+                            <p class="ListDesc">The <b>TemplateSet</b>  
+ input can  specify which template set to activate when this 
+ graphic form is opened.</p>
+                            <p class="ListDesc">The <b>Level</b>  input 
+ can specify which level should be visible when this graphic form is opened.</p>
+                            <p class="ListDesc">The <b>Location</b>  
+ input can specify the location of the opened graphic form at runtime - 
+ preferably as a <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Point data type<img style="border: none;margin-left: 5px;" src="../../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">the format of this data type are two integer values separated by a comma e.g. 34,56.</span></span> 
+ or a String in the format: 'X,Y' that represents the X and Y coordinates 
+ of the upper left corner of the graphic form e.g. 50,50.</p>
+                            <p class="ListNotice"><b>Note:</b> If empty 
+ (default) the location property of the specified graphic form is used.</p>
+                            <p class="ListDesc">The <b>size</b>  input 
+ can specify the size of the opened graphic form at runtime - preferably 
+ as a Point data type or a String in the format: 'Width,Height' that represents 
+ the width and height of this graphic form in pixels e.g. 800,600.</p>
+                            <p class="ListNotice"><b>Note:</b> If empty 
+ (default) the size property of the specified graphic form is used.</p>
+                            <p class="ListDesc">For example, open the graphic form on the mouse Click 
+ event, then pass the mouse location and the desired size which can vary 
+ on where the user clicked.</p>
+                            <ul>
+                                <li class="ListBullets" value="1">Check the <b>Center Screen</b> checkbox (this is checked by default) to open this graphic form in the center of the screen.</li>
+                                <li class="ListBullets" value="2">Uncheck the <b>Center Screen</b> checkbox and use a <b>Click</b> event to trigger this spider and open this graphic form where the user clicks.</li>
+                            </ul>
+                            <p class="ListDesc"><span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Opening_graphic_forms_from_an_event.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Opening graphic forms 
+ from an event</a></span>.</p>
+                            <ol start="2">
+                                <li class="Numbers" value="2"><b>Close</b> : 
+ This will close the graphic form specified by the <b>Graphic 
+ Form</b>  input.</li>
+                            </ol>
+                            <p class="ListNotice"><b>Tip:</b> If the 
+ <b>Graphic Form</b>  input is left blank 
+ (unspecified), then this closes the current graphic form.</p>
+                            <p class="ListDesc">&#160;<span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Closing_graphic_forms_from_an_event.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Closing 
+ graphic forms from an event</a></span>.</p>
+                            <ol start="3">
+                                <li class="Numbers" value="3"><b>Close 
+ this form</b> : This closes the current graphic form and therefore does 
+ NOT provide the <b>Graphic Form</b>  input.</li>
+                                <li class="Numbers" value="4"><b>Print this form</b>: This sends the currently displayed graphic form to the default printer and therefore does 
+ NOT provide the <b>Graphic Form</b>  input.</li>
+                                <li class="Numbers" value="5">
+                                    <p><span style="font-weight: bold;">Log off</span>: to log off the current <span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span> user,  you <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LogOffCfg"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />configure this command as follows:</a></p>
+                                    <div MadCap:targetName="LogOffCfg" style="display: none;">
+                                        <ul>
+                                            <li class="Bullets" value="1">No further configuration is required to simply log off the current user.</li>
+                                            <li class="Bullets" value="2">If you have configured an auto-login account for this Client, then you can check the <span style="font-weight: bold;">Auto login</span> checkbox to automatically log in again using the specified auto-login user credentials.</li>
+                                        </ul>
+                                        <p class="ListDesc">This, in effect, performs a “switch user” operation for the pre-configured  auto-login user. </p>
+                                    </div>
+                                </li>
+                                <li class="Numbers" value="6">
+                                    <p><span style="font-weight: bold;">Log on</span>: to perform a “switch user” operation by logging in another user,  you <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LogOnCfg"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />configure this command as follows:</a></p>
+                                    <div MadCap:targetName="LogOnCfg" style="display: none;">
+                                        <ul>
+                                            <li class="Numbers" value="1"><b>Username:</b> either type in the name of the required Allowed or Impersonated user or use the browse button to use the <b>User Browser</b> to specify this user name.</li>
+                                            <li class="Numbers" value="2"><b>Password:</b> type in the required password of the selected user.</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>Confirm Action?</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>Boolean</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This enables or disables the display of a confirmation dialog before 
+ the action specified by the <b>Action</b> input is performed. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">
+                            <p>Confirmation message</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">
+                            <p>String</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>The informative text that is displayed by the confirmation dialog, which depends upon the action that is being performed, as follows:</p>
+                            <ol>
+                                <li class="Bullets" value="1">Open: Open the graphic form {0}?</li>
+                                <li class="Bullets" value="2">Close: Close the graphic form {0}?</li>
+                                <li class="Bullets" value="3">Close this form: Close the graphic form {0}?</li>
+                                <li class="Bullets" value="4">Print this form: Print this graphic form {0}?</li>
+                                <li class="Bullets" value="5">Log off: Log off the current user {1}?</li>
+                                <li class="Bullets" value="6">Log on: Log on with the user {2}</li>
+                            </ol>
+                            <p>When specifying this text, the following placeholders can be used:</p>
+                            <p>{0}: The name of the specified (or currently selected) graphic form.</p>
+                            <p>{1}: The user name, of the currently logged in user, typically specified for the log off and log on actions</p>
+                            <p>{2}: The  user name specified by the <b>Username</b> input when performing a <b>Log on</b> action.</p>
+                            <p>&#160;</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1">Log Actioned Event?</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1">Boolean</td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1">
+                            <p>This enables or disables the logging of an event to an event log when 
+ the  action specified by the <b>Action</b> input is performed.</p>
+                            <p>For details on configuring or viewing the location of the Server event 
+ log where this event will be logged, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../../../05Dply/50Cfg/General_Server_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">General 
+ Server settings</a></span>.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-AdTechBasicTableStyle-Body-Body1">
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1">
+                            <p>EventLog message</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1">
+                            <p>String</p>
+                        </td>
+                        <td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1">
+                            <p>The text that is displayed by the logged event, which depends upon the action that is being performed, as follows:</p>
+                            <ol>
+                                <li class="Bullets" value="1">Open: [{1}] has opened the graphic form {0}</li>
+                                <li class="Bullets" value="2">Close: [{1}] has closed the graphic form {0}</li>
+                                <li class="Bullets" value="3">Close this form: [{1}] has closed the graphic form {0}</li>
+                                <li class="Bullets" value="4">Print this form: [{1}] has printed this graphic form {0}</li>
+                                <li class="Bullets" value="5">Log off: [{1}] has logged off</li>
+                                <li class="Bullets" value="6">Log on: [{1}] has logged on with the user {2}</li>
+                            </ol>
+                            <p>When specifying this message, the following placeholders can be used:</p>
+                            <p>{0}: The name of the specified (or currently selected) graphic form.</p>
+                            <p>{1}: The user name, of the currently logged in user, typically specified for the log off and log on actions</p>
+                            <p>{2}: The  user name specified by the <b>Username</b> input when performing a <b>Log on</b> action.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ol start="2">
+                <li class="Numbers" value="2"><b>Event 
+ Trigger</b>, this section specifies the event used to 
+ trigger this spider and perform the specified <b>Action</b>  
+ on the specified <b>Graphic Form</b> . 
+ For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../30Trigr/Triggering_a_spider_from_an_event.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Triggering 
+ a spider from an event</a></span>.</li>
+            </ol>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

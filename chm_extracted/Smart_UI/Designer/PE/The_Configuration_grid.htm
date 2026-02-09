@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.PrjExplorer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="au-01_03.doc" /><title>The Configuration grid</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1>The Configuration grid</h1>
+        <p>The <b>Configuration</b> grid, consists of the following 
+ fields, which displays information about the <span class="AdroitAppName">Adroit</span> configuration of the 
+ selected computer, as follows:</p>
+        <p class="notices"><b>Note:</b> The grid provides 
+ the following <a href="../COMMON/Grid_Configuration.htm">standard 
+ configuration options</a>. For instance any cell entries that 
+ are displayed in blue, in the grid, can be both <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../COMMON/Edit_the_Cell_Contents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">edited</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../COMMON/Replace_the_Cell_Contents.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">replaced</a></span>.</p>
+        <ol>
+            <li class="Bullets" value="1">The first untitled field 
+ numbers the information items in the grid.</li>
+            <li class="Bullets" value="2"><b>Item:</b> 
+ This field specifies the configuration item, which is being displayed.</li>
+            <li class="Bullets" value="3"><b>Setting:</b> 
+ This field specifies the current configuration of the specified item.</li>
+        </ol>
+        <p>The following list describes what the listed <b>Configuration</b> <![CDATA[  ]]><b>Items</b> refer to:</p>
+        <ol>
+            <li class="Numbers" value="1"><b>Server 
+ type:</b> This field, specifies the current type of Agent Server that 
+ is running on the selected computer, as follows:</li>
+        </ol>
+        <ul>
+            <li class="ListBullets" value="1">Type 0 - Cluster Server: 
+ In this case master or standby mode assignment is necessary and duplicate 
+ databases need to maintained on each.</li>
+            <li class="ListBullets" value="2">Type 1 - Cluster aware 
+ server: In this case Proxy agents are created if remote duplicate 
+ tags are found.</li>
+            <li class="ListBullets" value="3">Type 2 - Stand-alone server: 
+ In this case Proxy agents are not created if remote duplicate tags are 
+ found.</li>
+        </ul>
+        <ol start="2">
+            <li class="Numbers" value="2"><b>Server 
+ name:</b> This field specifies the configuration of the Agent Server name 
+ to be used when it starts up. This must be unique across the same network 
+ and when more than one Agent Server is being used within a project, ensure 
+ that the first 7 characters are unique.</li>
+            <li class="Numbers" value="3"><b>Project 
+ name:</b> This field specifies the configuration of the project name to 
+ be used by the Agent Server when it starts up. This project name must 
+ not be longer than 8 characters, nor contain any embedded spaces. When 
+ more than one project name is being used on the same network, ensure that 
+ the first 3 characters are unique.</li>
+            <li class="Numbers" value="4"><b>WGP 
+ file:</b> This field specifies the path and name that the WGP or Agent 
+ Server database file will be saved to.</li>
+            <li class="Numbers" value="5"><b><span class="AdroitAppName">Adroit</span> 
+ directory:</b> This field specifies the path where the <span class="AdroitAppName">Adroit</span> system files, 
+ executables and dynamic link libraries, are stored, which is typically: <span class="AdroitInstallFolder">C:\Program Files\Adroit Technologies\Adroit</span>.</li>
+            <li class="Numbers" value="6"><b>Channels:</b> 
+ This field specifies the maximum number channels used by the Agent Server 
+ when it starts up. A channel is a Client-Server connection from the Agent 
+ Server to the outside world, such as to the User Interface, other Agent 
+ Servers, the <span class="AdroitAppName">Adroit</span> OPC Server etc. The default setting is 
+ 20.</li>
+            <li class="Numbers" value="7"><b>Max 
+ agents:</b> This field specifies the maximum number of agents used by 
+ the Agent Server when it starts up. This number accounts for both the 
+ number of agents in the project and additional Agent Servers explicitly 
+ connected to the project. Hence determine the number of expected agents 
+ on all the connected Agent Servers and multiply this by two.</li>
+            <li class="Numbers" value="8"><b>Save 
+ on exit:</b> Change this <b>Setting</b> field to 1, to force the saving 
+ of the WGP file when the  Agent Server is shut down.&#160; This 
+ is valid for the current session only. The default value is 0.</li>
+            <li class="Numbers" value="9"><b>Installed devices:</b> 
+ This field lists the currently configured devices to which tags can be 
+ scanned. Additional devices can be added using the <span class="AdroitAppName">Adroit</span> Setup on this 
+ computer. For details, see <a href="../AU_01_02/Adding_a_Device_to_an_installed_Protocol_Driver.htm">Add 
+ Device</a>.</li>
+            <li class="Numbers" value="10"><b>Log 
+ system events enabled:</b> Change this <b>Setting</b> field to 1, to enable 
+ the logging of such events e.g.&#160; when time-stamped data is rejected 
+ by a mimic for being to old. The default value is 0.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

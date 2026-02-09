@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Datasources|Server Scripts Datasources" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.DS_SvrScripts" MadCap:PathToHelpSystem="../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Script datasources.doc" /><title>Server Scripts datasources</title>
+        <link href="../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor902"></a>Server Scripts datasources</h1>
+        <p>The Server Scripts datasource provides a repository for scripts that can either 
+ be run on the <span class="VIPAppName">SmartUI</span><span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Server<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">a "data portal" which exposes data from a number of disparate sources.</span></span> 
+ or the <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span>.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AddInfo"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Click for advanced Server Scripts datasource usage information:</a>
+        </p>
+        <div MadCap:targetName="AddInfo" style="display: none;">
+            <p>This datasource essentially manages one or more <a name="kanchor903"></a><![CDATA[  ]]><span class="MCTextPopup"><a class="MCTextPopupSpot_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">script object<img style="border: none;margin-left: 5px;" src="../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_0" style="display: none; ">this contains a script and provides its self-contained environment within which it is run.</span></span><![CDATA[  ]]><img src="../../../../Resources/Images/16/DataSources/ScriptSvr_NewScript.png" />, each of which contain a script that is run on the Server. For 
+ further details on scripts, see <a href="../../90Scr/Working_with_scripts.htm">Working 
+ with scripts</a>.&#160;These script objects can be added and edited from 
+ this Server Scripts datasource. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SObj/Adding_script_objects.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding script 
+ objects</a></span> 
+ or <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SObj/Editing_script_objects.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Editing script objects</a></span>.</p>
+            <p>If necessary, you can schedule the script objects 
+ to run at specific times, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="SObj/Scheduling_script_objects.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Scheduling script objects</a></span>.</p>
+            <p>For details on specifying where these scripts are saved, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../05Dply/50Cfg/Server_directory_settings.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Server 
+ directory settings</a></span>.</p>
+            <p class="Notices"><b>Note:</b> Access to both 
+ the Server Scripts datasource and its script objects can be controlled, 
+ if necessary. For details, see <a href="../Securing_datasources.htm">Securing datasources</a>.&#160;</p>
+        </div>
+        <p>This datasource is added within the <img src="../../../../Resources/Images/16/Generic/CategoryFolder.png" /> <b> Datasources</b> 
+ category of the required <span class="VIPAppName">SmartUI</span> Server in the <b>Enterprise 
+ Manager</b>. For details, see <a href="Adding_Script_datasources.htm">Adding Script datasources</a>.</p>
+        <p>A Server Scripts datasource is identified in the <b>Enterprise Manager</b> 
+ by its specified name and its icon <img src="../../../../Resources/Images/16/DataSources/ScriptSvr.png" />.</p>
+        <p>When this datasource 
+ is opened 
+ any script object <img src="../../../../Resources/Images/16/DataSources/ScriptSvr_NewScript.png" /> added to it are displayed 
+ immediately below it.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="Advantages"><img style="border: none;margin-right: 5px;" src="../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />Advantages of adding a script object to a Server 
+ Scripts datasource:</a>
+        </p>
+        <div MadCap:targetName="Advantages" style="display: none;">
+            <ol>
+                <li class="Numbers" value="1">Due to the self-contained 
+ nature of script objects, it is possible to create and store script objects, 
+ which will interact with either the Server or the Client or both of them, 
+ if necessary.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> Scripts 
+ are able to interact with the Client and/or the Server through the use 
+ of INeed interfaces. For details, see <a href="../../90Scr/20INdInt/Working_with_INeed_Interfaces.htm">Working 
+ with INeed Interfaces</a>. In addition to this functionality, you are 
+ also able to provide additional functionality, by referencing external 
+ assemblies (.DLL files). For details, see <a href="../../90Scr/10ScrEd/Managing_references.htm">Managing 
+ references</a>.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Each script object is able 
+ to be used within a Script Engine spider. For details, see <a href="../../50S_S/10Spd/50Cat/Adv/Script_Engine_spiders.htm">Script 
+ Engine spiders</a>.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> Scripts 
+ which are used within Script Engine spiders are run from the Client and 
+ not the Server.</p>
+            <ol start="2">
+                <li class="Numbers" value="2">Each script object is immediately 
+ accessible by all the Clients connected to its <span class="VIPAppName">SmartUI</span> Server.</li>
+                <li class="Numbers" value="3">Each 
+ script object becomes a data element and can therefore be secured, if 
+ necessary. Unlike a script object created within a Script Engine spider, 
+ which cannot be secured directly and instead relies upon the security 
+ applied to the graphic form with which this spider is associated.</li>
+            </ol>
+            <p class="Notices"><b>Note1:</b> Running a script 
+ object from the Server or a Client, should not affect its speed of execution. 
+ Typically, the script execution speed is dependent on the script source, 
+ the utilization of external references and correct programming techniques 
+ and other system-dependent factors such as CPU load etc.</p>
+            <p class="Notices"><b>Note2:</b> When running 
+ a script object of the Server Scripts datasource, within the Script Editor, 
+ the script will be executed slower than if it was run normally. For details, 
+ see <a href="../../90Scr/10ScrEd/Working_with_the_script_editor.htm">Working 
+ with the script editor</a>.</p>
+            <p class="Notices"><b>Note3:</b> Scripts which 
+ are not used within Script Engine spiders can either be executed manually 
+ <a href="SObj/Running_script_objects.htm">Running script objects</a> or by 
+ using the <b>ExecuteScriptObject</b> special function provided by the 
+ Script datasources.</p>
+        </div>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

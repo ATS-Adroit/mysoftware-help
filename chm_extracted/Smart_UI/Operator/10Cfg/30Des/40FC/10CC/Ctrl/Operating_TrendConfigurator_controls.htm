@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Ctrl_TrnCfg_Op" MadCap:PathToHelpSystem="../../../../../" MadCap:HelpSystemFileName="Operator.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Operating TrendConfigurator controls</title>
+        <link href="../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../Resources/Stylesheets/AdTech.css" rel="stylesheet" />
+        <script src="../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <h1><a name="kanchor21"></a><a name="kanchor22"></a><a name="kanchor23"></a>Operating TrendConfigurator controls</h1>
+        <p>This topic briefly explains how end-users can define set/s of values, at runtime in the TrendConfigurator control, which are trended using the associated LineChart control. </p>
+        <p class="Notices"><b>Note:</b> By default, the run-time configuration of all  TrendConfigurator controls are stored in a user profile variable called <b>TrendConfigurator</b>. Therefore if you want to  maintain separate lists of sets for your TrendConfigurator controls, then rename this variable  of each  TrendConfigurator control in the <b>The Setting Name to use to load and save the Set configuration to the Users Profile</b> field of the <b>General Settings</b> tab of the <b>TrendConfigurator Setup</b> dialog (the UserProfileSetting property).</p>
+        <p>For each <b>Pen</b> (tag or value) that you select to be trended as part of a set, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SeriesCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />you can specify the following:</a></p>
+        <p class="Notices"><b>IMPORTANT:</b> You need to click the <b>Save Set</b> button (on the right of the TrendConfigurator control ) after adding or configuring one or more series to this list, to save these changes to the current set (as specified by the <b>Set Name</b> drop-down list on the right of the TrendConfigurator control). Otherwise when you close this graphic form, the new series and/or configuration changes will be lost.</p>
+        <p class="Notices"><b>Note:</b> You may need to click the <b> Refresh Chart</b> button to view with any series that you add to the current set.</p>
+        <div MadCap:targetName="SeriesCfg" style="display: none;">
+            <ol>
+                <li class="Bullets" value="1"><b>Color:</b> Use the color box to choose the required color for this series or value (and its axis color if it has its own custom axis) in the associated LineChart control.</li>
+                <li class="Bullets" value="2">If displayed, the <b>Area</b> column typically allows the specific plant area to be specified, in which this tag is physically situated (unless the PresetArea property has been specified).</li>
+                <li class="Bullets" value="3">If displayed, the <b>Device</b> column typically allows the  specific FED device to be specified, in which this tag is being communicated  (unless the PresetDevice property  has been specified).</li>
+                <li class="Bullets" value="4">
+                    <p><b>Pen:</b> The name of the tag of this series.</p>
+                    <p>When using the <b>Adroit</b> mode: </p>
+                    <p>A  browse (...) button appears to the right of this field so that users can also browse in additional tags to the <b>Pen</b> drop-down list at runtime.</p>
+                    <p class="Notices"><b>Note:</b> These  additional tags can be removed from the <b>Pen</b> drop-down list at runtime, by selecting the required tag in the list and clicking the  button on the right.</p>
+                </li>
+                <li class="Bullets" value="5"><b>Title:</b> Edit the name of the series or value that is displayed in the legend of the associated LineChart (if you choose this value to be visible in the legend by checking its <b>Leg</b> checkbox).</li>
+            </ol>
+            <p class="Notices"><b>Note:</b> By default this column displays the  description of the tag as this is usually more descriptive than the tag name itself. However, if you want the series to display the tag name [AgentName.Property(Slot)Name] instead then uncheck  the <b>Use Pen (Tag) Description for Series Names instead of Tag Names</b> checkbox in the <b>General Settings</b> tab (the UsePenDescForSeriesName property).</p>
+            <ol>
+                <li class="Bullets" value="1"><b>Value:</b> The current value of the tag being used for this series when it was selected.</li>
+                <li class="Bullets" value="2"><b>Unit:</b> If necessary, specify the required unit to specify on the custom axis of the series on the LineChart for the trended value or series. If you are using the MAPS or Adroit modes, then this is retrieved for you, for Analog tags.</li>
+                <li class="Bullets" value="3"><b>Vis:</b> This checkbox toggles the series or value visibility on the associated LineChart. In other words this series is displayed in the LineChart when checked (the default setting) and it is hidden when unchecked.</li>
+                <li class="Bullets" value="4"><b>Leg:</b> This checkbox toggles the series or value visibility in the legend of the associated LineChart. In other words this series is displayed in the legend when checked  (the default setting) and it is hidden when unchecked.</li>
+                <li class="Bullets" value="5"><b>Axes:</b> This checkbox determines whether this series or value will be charted using the default Y (or value) axis when unchecked OR whether a custom Y axis will be used, when this is checked   (the default setting). When using custom Y axis then, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="CustomYAxisCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following fields are used to configure the display of this axis in the associated LineChart:</a></li>
+            </ol>
+        </div>
+        <div MadCap:targetName="CustomYAxisCfg" style="display: none;">
+            <ol>
+                <li class="BulletSub" value="1"><b>X-Pos:</b> Specify the horizontal position of this custom Y axis, relative to the position of the default Y axis, as a percentage of the total horizontal width (size) of the default X axis. In other words, a value of a 100 moves the custom Y axis to the other side of the LineChart.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> A positive value shifts this custom Y axis to the right of the default Y axis, by the specified amount; while a negative value shifts this custom Y axis to the left of the default Y axis, by the specified amount.</p>
+            <ol>
+                <li class="BulletSub" value="1"><b>Y-Pos:</b> Specify the vertical position or topmost end of this custom Y axis, relative to the top of the default Y axis, as a percentage of the total vertical height (size) of the default Y axis. In other words, a value of a 100 hides this custom Y axis and therefore this series too.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> A positive value decreases the height of this custom Y axis below that of the default Y axis, by the specified height; while a negative value increases the height of this custom Y axis above that of the default Y axis, by the specified height.</p>
+            <ol>
+                <li class="BulletSub" value="1"><b>Size:</b> Specify the size of this custom Y axis, from the specified Y-Pos location in the direction of the X axis (lower-left corner), as a percentage of the total vertical height (size) of the default Y axis. In other words, a value of 100 is the size of the actual Y axis.</li>
+            </ol>
+            <ol>
+                <li class="BulletSub" value="1"><b>Min:</b> The minimum value of this Custom Y axis, which depends upon the value being charted. By default this is set to 0, although, if possible, this control will obtain this value from the applicable <span class="AdroitAppName">Adroit</span> datasource for the selected agent.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> Any series value below the specified <b>Min</b> value will be hidden from view.</p>
+            <ol>
+                <li class="BulletSub" value="1"><b>Max:</b> The maximum value of this Custom Y axis, which depends upon the value being charted. By default this is set to 100, although, if possible, this control will obtain this value from the applicable <span class="AdroitAppName">Adroit</span> datasource  for the selected agent.</li>
+            </ol>
+            <p class="ListNoteSub"><b>Note:</b> Any series value above the specified <b>Max</b> value will be hidden from view.</p>
+        </div>
+        <ol>
+            <li class="Bullets" value="1"><b>Adv:</b> This column provides a  browse (...) button that   launched the tabbed <b>Advanced Pen Configuration</b> dialog, that allows <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AdvancedPenConfig"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the following advanced settings to be configured per pen:</a></li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> You typically need to click the <b> Refresh Chart</b> button after making changes to these settings to view them on the associated LineChart.</p>
+        <div MadCap:targetName="AdvancedPenConfig" style="display: none;">
+            <p class="ListDesc"><b>Series</b> settings: These settings affect how the series of this pen will be charted, as follows:</p>
+            <ul>
+                <li class="BulletSub" value="1">You can select one of the following series styles from the <b>Type</b> drop-down list: Line, FastLine, Area and XYPlot.</li>
+                <li class="BulletSub" value="2">You can specify the width of the line representing this series, in pixels, from the <b>Width</b> spin control.</li>
+                <li class="BulletSub" value="3">You can check the <b>Stairs/Steps</b> checkbox to change the series to be charted in stairs/step mode (when unchecked, the default setting, the series uses a smoothly interpolated line between successive data points).</li>
+                <li class="BulletSub" value="4">You can check the <b>Pointers</b> checkbox to display rectangular data points representing this series (when unchecked, the default setting, these data points are hidden).</li>
+            </ul>
+            <p class="ListDesc"><b>Custom Axis</b> settings: These settings affect the display of the vertical Y-Axis of the LineChart for the pen, as follows:</p>
+            <p class="ListNotice"><b>Note:</b> The bottom chart axis for each set can now be configured via the  <b>Advanced Set Configuration</b> dialog.</p>
+            <ul>
+                <li class="BulletSub" value="1">You can check the <b>Automatic Scales</b> checkbox to turn on automatic scaling for the entire axis or for only the minimum (by checking the <b>Minimum Auto</b> checkbox) or maximum (by checking the <b>Maximum Auto</b> checkbox) of the scale.</li>
+                <li class="BulletSub" value="2">You can specify the required frequency or number of the axis ticks and labels, by specifying the required <b>Increment</b> interval.</li>
+                <li class="BulletSub" value="3">You can change the <b>Axis Color</b>.</li>
+                <li class="BulletSub" value="4">You can display the axis on the right-hand side by checking the <b>Other side</b> checkbox (when unchecked, the default setting, this axis is displayed on the left side).</li>
+            </ul>
+        </div>
+        <p>&#160;</p>
+        <p>Using buttons, on the right of the TrendConfigurator control, you can change how the values of the current set are trended in the associated LineChart, as follows:</p>
+        <p><span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To view added series for the current set that are not yet displayed:<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> click the <b> Refresh Chart</b> button.</span></span>
+        </p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="TimeXAxisCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To set the time interval of the X-axis for all series: </a>
+        </p>
+        <div MadCap:targetName="TimeXAxisCfg" style="display: none;">
+            <p>Click the <b>Range</b> button, on the lower right of the TrendConfigurator control. </p>
+            <p>This displays the <b>Time Details Settings</b> dialog so you can configure the starting and ending times that apply to all the values that you are trending.</p>
+        </div>
+        <p class="Notices"><b>Note:</b> This affects the time interval for all series of all the sets that you display on this LineChart until you close the <span class="VIPAppName">Smart UI</span> Operator, at which time this configuration will be lost.</p>
+        <p>The following axes-stacking actions change both the Custom and default Y axes parameters, which you can edit if you want to change their resultant settings:</p>
+        <p class="Notices"><b>Note:</b> These Axes stacking actions only apply if you have configured one or more custom Y axis for this set of trended values. In other words, you have at least one <b>Axes</b> checkbox checked.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="StackAxesHorizontallyCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To view each custom Y axis on its own axis:</a> This is particularly useful when you are trending values, whose custom Y axes have differing scales (differing maximum values), since this separates each custom Y axis for easier readability.</p>
+        <div MadCap:targetName="StackAxesHorizontallyCfg" style="display: none;">
+            <p>Click the <b>Stack Axes Horizontally</b> button, on the lower right of the TrendConfigurator control.</p>
+            <p class="Notices"><b>Note:</b> This automatically configures the horizontal positioning (<b>X-Pos</b>) of the Custom Y axes for the best fit.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="StackAxesVerticallyCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To trend each series using their own Y (value) axis:</a> This allows you to compare the trend of each series (value) without confusing or hiding the trends of the other series.</p>
+        <div MadCap:targetName="StackAxesVerticallyCfg" style="display: none;">
+            <p>Click the <b>Stack Axes Vertically</b> button, on the lower right of the TrendConfigurator control.</p>
+            <p class="Notices"><b>Note:</b> This automatically configures the vertical positioning (<b>Y-Pos</b>) and <b>Size</b> of the Custom and default Y axes of each trended series, so that each series has their own Y axis that is the same size, one above the other.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="RuntimeAxesCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure the chart axes at runtime:</a> This allows you to configure the scaling, position and/or axis ticks of one or all the axes 
+ of the associated LineChart in the Operator.</p>
+        <div MadCap:targetName="RuntimeAxesCfg" style="display: none;">
+            <p>Click the <img src="ChtTB_RuntimeAxesScalingConfig_13x13.jpg" style="border: none;float: none;border-style: none;border-style: none;width: 13;height: 13;" border="0" /> <b>Axes</b> button, on the lower right of the TrendConfigurator control.</p>
+            <p>In the displayed <b>Axis Configuration</b> dialog, configure the axes of the associated LineChartconfigured, as follows:</p>
+            <p>If necessary, <b>Select 
+ an Axis to configure</b> from this drop-down list box.</p>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AxisScalingCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To customize the scaling of this axis:</a> determine whether to manually or automatically scale this axis and/or invert the scaling and/or hide the scaling and/or to improve the readability of the axis.</p>
+            <div MadCap:targetName="AxisScalingCfg" style="display: none;">
+                <p>Click the <b>Axis 
+ Scales</b> tab to do one or more of the following:</p>
+                <p class="Notices"><b>Note:</b> You may   need to select the <b>Advanced view</b> in the <b>Edit Chart</b> dialog to display these settings.</p>
+                <p class="ListDesc"><b>To automatically configure the scaling of this 
+ axis:</b> ensure that the <b>Automatic</b> checkbox 
+ is checked, this also checks the <b>Auto</b> checkboxes for the <b>Minimum</b> and <b>Maximum</b> 
+ values.
+
+</p>
+                <p class="ListNotice"><b>Tip:</b> It is recommended 
+ to use automatic scaling (the default setting) when trending data with 
+ the Line or XYPlot chart.</p>
+                <p class="ListDesc"><b>To manually configure the scaling of this axis:</b>
+                </p>
+                <p class="ListNotice"><b>Tip:</b> This is typically required when you are using Bar or Column charts so 
+ that you can see the differences in values between two series.</p>
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Ensure that the <b>Automatic</b> checkbox 
+ is cleared, this also clears the <b>Auto</b> checkboxes for the <b>Minimum</b> and <b>Maximum</b> 
+ values.
+
+</li>
+                    <li class="NumbersSubLetters" value="2">Manually specify the <b>Minimum</b> and <b>Maximum</b> 
+ values, by using the <b>Value</b> spin control to specify the required value.</li>
+                </ol>
+                <p class="ListDesc"><b>To scale the axis logarithmically:</b>
+                </p>
+                <p class="ListNotice"><b>Note:</b> You need to select the <b>Advanced view</b> in the <b>Edit Chart</b> dialog to edit these settings.</p>
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Check the <b>Logarithmic</b> checkbox to scale the selected axis logarithmically settings include:</li>
+                </ol>
+                <p class="ListNoteSub"><b>Note:</b> The  <b>Minimum</b> and <b>Maximum</b> values of this axis should be greater than zero, and the Axis cannot be of type DateTime .</p>
+                <ol>
+                    <li class="NumbersSubLetters" value="1">Then specify the required 	<b>Logarithmic Base</b> for this logarithmic scaling.</li>
+                </ol>
+                <p class="ListDesc"><b>To invert the scaling of this axis:</b> ensure that the <b>Inverted</b> checkbox 
+ is checked (this is an Advanced feature).
+
+</p>
+                <p class="ListDesc"><b>To hide the scaling of this axis:</b> ensure that the <b>Visible</b> checkbox 
+ is cleared.
+
+</p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="PositionAxisCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To customize the positioning of this axis:</a> determine the relative position and the actual size of this axis relative to the  total dimension of the charting area.</p>
+            <div MadCap:targetName="PositionAxisCfg" style="display: none;">
+                <p>Click the <b>Axis 
+ Position</b> tab to specify one or more of the following axis positions:</p>
+                <p class="LineNote"><b>Relative Position</b>: the position of this axis, as percentage (0-100%) of the length or width of the charting area, as follows: </p>
+                <p class="ListDesc">For a horizontal (X) axis: 0 is the Bottom border  and 100 is the Top.</p>
+                <p class="ListDesc">For a vertical (Y) axis: 0 is the Left border and 100 is the Right.</p>
+                <p class="LineNote"><b>Start Position</b>: at the specified <b>Relative Position</b>, this determines the starting position of this axes, as percentage (0-100%) of the total size of the charting area, as follows:</p>
+                <p class="ListDesc">For a horizontal (X) axis: 0 is the leftmost point  and 100 is the rightmost point of the horizontal size of the charting area.</p>
+                <p class="ListDesc">For a vertical (Y) axis: 0 is the topmost point and 100 is the bottommost point of the length of the vertical size of the charting area.</p>
+                <p class="LineNote"><b>End Position</b>:  at the specified <b>Relative Position</b>, this determines the ending position of this axes, as percentage (0-100%) of the total size of the charting area, as follows:</p>
+                <p class="ListDesc">For a horizontal (X) axis: 0 is the leftmost point  and 100 is the rightmost point of the horizontal size of the charting area.</p>
+                <p class="ListDesc">For a vertical (Y) axis: 0 is the topmost point and 100 is the bottommost point of the length of the vertical size of the charting area.</p>
+            </div>
+            <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="AxisTicksCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To customize the display of the axis and its scaling demarcations or ticks:</a> determine to display the axis, its major demarcations or ticks and their grid lines and to configure the colors of these items.</p>
+            <div MadCap:targetName="AxisTicksCfg" style="display: none;">
+                <p>Click the <b>Axis Ticks</b> tab to specify the visibility and/or the displayed color of the following axis components:</p>
+                <p class="LineNote"><b>Axis Pen Visible</b>: This checkbox displays/hides this axis.</p>
+                <p class="LineNote"><b>Axis Colour</b>: Configure the required color of this axis. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Using the color edit box 
+ to select a color</a></span>.</p>
+                <p class="LineNote"><b>Ticks Visible</b>: This checkbox displays/hides the major ticks (demarcations) of this axis.</p>
+                <p class="LineNote"><b>Ticks Colour</b>: Configure the required color of these major ticks.</p>
+                <p class="LineNote"><b>Grid Visible</b>: This checkbox displays/hides the grid lines, displayed within the charting area, from each major tick (demarcation) of this axis.</p>
+                <p class="LineNote"><b>Grid Colour</b>: Configure the required color of these grid lines.</p>
+            </div>
+        </div>
+        <p>&#160;</p>
+        <p>Using buttons, on the right of the TrendConfigurator control, you can manage and configure sets of your values that are trended in the associated LineChart, as follows:</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="NewSetCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To create a new set: </a>
+        </p>
+        <ol MadCap:targetName="NewSetCfg" style="display: none;">
+            <li class="Numbers" value="1">Open the <b>Set Name</b> drop-down list, on the lower right of the TrendConfigurator control,  and select the <b>New Set</b> entry.</li>
+            <li class="Numbers" value="2">Add and configure the series (values) that you want to trend in this set in the list on the left of the TrendConfigurator control. </li>
+            <li class="Numbers" value="3">Click the <b>Save Set</b> button to name this set and add it to the <b>Set Name</b> drop-down list.</li>
+        </ol>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SaveAndNameNewSetCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To save and name a new set: </a>
+        </p>
+        <div MadCap:targetName="SaveAndNameNewSetCfg" style="display: none;">
+            <p>Click the <b>Save Set</b> button, on the lower right of the TrendConfigurator control, which prompts you for the required name for this set of trended values, which is then added to the <b>Set Name</b> drop-down list.</p>
+            <p class="Notices"><b>Tip:</b> Ensure that you provide a descriptive or unique enough name so that you will remember exactly which trend values this set contains.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LoadSetCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure and/or trend the series (values) that you have added to a set: </a>
+        </p>
+        <div MadCap:targetName="LoadSetCfg" style="display: none;">
+            <p>Open the <b>Set Name</b> drop-down list, on the lower right of the TrendConfigurator control, and select the name of the required set.</p>
+            <p>This loads the series (values) and their configured properties in the list on the left of the TrendConfigurator control and then updates the associated LineChart to trend these series.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="BottomAxisConfig"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To configure the display of the bottom chart axis for each set:</a> to specify the minimum datetime interval between the axis labels and the required DateTime format of these labels.</p>
+        <div MadCap:targetName="BottomAxisConfig" style="display: none;">
+            <p class="Notices"><b>Note:</b> This configuration is stored per set in the currently logged on user’s profile.</p>
+            <p>Click the  <b>Advanced Set Configuration</b> button, on the lower right of the TrendConfigurator control, to the right of the <b>Set Name</b> drop-down list to configure the bottom chart axis for the currently selected set.</p>
+            <p>In the displayed <b>Advanced Set Configuration</b> dialog:</p>
+            <ul>
+                <li class="Bullets" value="1">Specify the minimum datetime interval between the axis labels i.e. 1 minute, 1 hour etc. by selecting and configuring the required <b>Scaling Increment</b> options, as follows:</li>
+                <li class="BulletSub" value="2">Check the <b>Exact Date Time</b> checkbox to enable <b>Standard</b> and to calculate the Axis Labels in exact 1 hour intervals. Unchecking this checkbox, the default setting, selects the <b>Custom</b> option.</li>
+                <li class="BulletSub" value="3">Select the <b>Standard</b> option and specify the required datetime interval e.g. 1 hour, 1 minute etc. from the drop-down list.</li>
+                <li class="BulletSub" value="4">Select the <b>Custom</b> option, if the Standard datetime intervals do not specify the interval that you require and then specify this required time interval in hours:minutes.</li>
+            </ul>
+            <ul>
+                <li class="Bullets" value="1">Specify the required <b>DateTime Format</b> of the Labels of this axis by specifying the required standard DateTime formatting string specifier i.e. yyy-MM-dd etc. from the list and then clicking the <b>Set</b> button.</li>
+            </ul>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="UpdateSetCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To update the current set with newly added and recently configured series: </a>
+        </p>
+        <div MadCap:targetName="UpdateSetCfg" style="display: none;">
+            <p>Click the <b>Save Set</b> button, on the lower right of the TrendConfigurator control.</p>
+            <p>This updates the set that is currently displayed by the <b>Set Name</b> drop-down list, with all the newly added series (values) and any changes that have been made to the properties of the other series in this list.</p>
+        </div>
+        <p class="Notices"><b>WARNING!</b>  If you forget to do this and then close this graphic form or exit the <span class="VIPAppName">Smart UI</span> Operator, then ALL the newly added series and/or configuration changes will be lost.</p>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="ImportExportSet"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To export and import the configuration of all the sets in the currently logged on user’s profile to and from an XML file:</a> This allows you to open this exported file in MS Excel or any XML editor and do bulk configuration or any other external editing and then import the edited file.</p>
+        <div MadCap:targetName="ImportExportSet" style="display: none;">
+            <p>To use this, click the <b>Export</b> and <b>Import</b> buttons, on the lower right of the TrendConfigurator control.</p>
+        </div>
+        <p><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="DeleteSetCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To delete the current set:</a> <![CDATA[ ]]></p>
+        <div MadCap:targetName="DeleteSetCfg" style="display: none;">
+            <p>Click the <b>Delete Set</b> button, on the lower right of the TrendConfigurator control.</p>
+            <p>This removes the set that is currently displayed by the <b>Set Name</b> drop-down list, from this list of sets, which therefore removes all of its added series (values) and their configuration.</p>
+            <p>&#160;</p>&#160;<span class="MCExpanding"><a href="javascript:void(0);" class="MCExpandingHead_0" onclick="FMCExpand( this ); return false;">To remove all the series or values from the left list:<img style="border: none;margin-left: 5px;" src="../../../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCExpandingBody" style="display: none;"> click the <b>Clear All</b> button.</span></span></div>
+        <p class="Notices"><b>Note:</b> This action does not automatically stop these values from being trended by the associated LineChart.</p>
+        <p class="Notices"><b>WARNING!</b>  After clearing all the series or values, ONLY click the <b> Refresh Chart</b> button if you want to remove all the series or values from the set that is currently displayed by the <b>Set Name</b> drop-down list.</p>
+        <p class="Notices"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="SelectSetViaScriptCfg"><img style="border: none;margin-right: 5px;" src="../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />To programmatically select a specific set from the Set Name combo box:</a>
+        </p>
+        <div MadCap:targetName="SelectSetViaScriptCfg" style="display: none;">
+            <p>Specify the name of the required set to load in the <b>Specify the Set Name to load if TriggerLoadSet is set to true through SpiderEngine</b> field of the <b>General Settings</b> tab of the <b>Advanced View</b> of the <b>TrendConfigurator Setup</b> dialog (or use the TriggerLoadSetName property)</p>
+            <p>Then trigger the Boolean <b>TriggerLoadSet</b> property via a spider, for instance by using a <b>Constant</b> spider, whose output is set to True.</p>
+            <p>This loads the series (values) and their configured properties in the list on the left of the TrendConfigurator control and then updates the associated LineChart to trend these series.</p>
+        </div>
+        <p>&#160;</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

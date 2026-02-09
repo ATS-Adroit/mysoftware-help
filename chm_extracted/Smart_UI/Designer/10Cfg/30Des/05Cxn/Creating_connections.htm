@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Connections" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Deployment,VIP.Login" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="Connections_.doc" /><title>Creating connections</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor2838"></a>Creating connections</h1>
+        <p>The <b>Create Connection</b> configuration dialog configures the connection that is 
+ created during the login between the <span class="VIPAppName">SmartUI</span> <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span> 
+ and the <span class="VIPAppName">SmartUI</span> Server computers and if necessary can store these settings in 
+ a login profile.</p>
+        <p>How you display this dialog depends on the application that you are in, as follows:</p>
+        <ul>
+            <li class="Bullets" value="1">In the <b>Login</b> dialog, click the <b>Change</b> button.</li>
+            <li class="Bullets" value="2">In the <b>Designer</b>, open the <b>Enterprise 
+ Manager</b>, right click the  <b>Servers</b> 
+ or its icon <img src="../../../Resources/Images/16/Generic/VIPServers.png" /> and select <b>New Connection</b>. </li>
+        </ul>
+        <p> </p>
+        <p>Specify the physical <a name="kanchor2839"></a>connection between this Client computer and the 
+ required <span class="VIPAppName">SmartUI</span> Server computer in the <b><a name="kanchor2840"></a>Connection Type</b> dialog, as follows:</p>
+        <p class="Notices"><b>WARNING!</b> 
+ The connection type cannot be reconfigured when modifying the connection 
+ properties. </p>
+        <p><a name="kanchor2841"></a>Select one of the following connection types:</p>
+        <ul>
+            <li class="Bullets" value="1"><b>Local 
+ Area Network:</b> The <span class="VIPAppName">SmartUI</span> Client computer connects to the required <span class="VIPAppName">SmartUI</span> Server 
+ computer by means of a network.<a name="kanchor2842"></a><a name="kanchor2843"></a></li>
+        </ul>
+        <p class="ListNotice"><b>Note:</b> These computers 
+ do not need to be part of the same domains, although the <span class="VIPAppName">SmartUI</span> Client computer 
+ need to have access rights to the <span class="VIPAppName">SmartUI</span> Server computer.</p>
+        <ul>
+            <li class="Bullets" value="1">
+                <p><b><a name="kanchor2844"></a><a name="kanchor2845"></a>Internet:</b> 
+ The <span class="VIPAppName">SmartUI</span> Client computer connects to the required <span class="VIPAppName">SmartUI</span> Server computer by means 
+ of the Internet. <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="InternetAddInfo"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />More details:</a></p>
+                <div MadCap:targetName="InternetAddInfo" style="display: none;">
+                    <p class="ListNotice"><b>Note1:</b> This connection 
+ type is only possible when the <span class="VIPAppName">SmartUI</span> Web Service is installed on the <span class="VIPAppName">SmartUI</span> Server computer itself or on another computer that can communicate to 
+ the Server computer.</p>
+                    <p class="ListNotice"><b>Note2:</b> If using the 
+ Intranet then use the <b>Local Area Network</b> connection type instead.</p>
+                    <p class="ListNotice"><b>Note3:</b> This connection 
+ uses the default HTTP port and so is able to connect to the Server even 
+ if it is behind a firewall.</p>
+                    <p class="ListNotice"><b>Tip:</b> It is recommended 
+			to only connect the <span class="VIPAppName">SmartUI</span> Operator to the <span class="VIPAppName">SmartUI</span> Server using this connection type, 
+		since this connection will be very slow if the <span class="VIPAppName">SmartUI</span> Designer is used.</p>
+                </div>
+            </li>
+        </ul>
+        <p class="ListBullDesc">If selected, then if a proxy server is 
+ required for this Internet connection, complete <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t4"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />the Proxy Settings displayed on this page, as follows:</a><div MadCap:targetName="t4" style="display: none;"><ol start="1"><li class="NumbersSubLetters" value="1">Specify 
+ the network name of this Proxy server or its IP address in the <b>Proxy</b> 
+ edit box.</li><li class="NumbersSubLetters" value="2">Specify 
+ the port that this Proxy Server uses in the <b>Port</b> 
+ edit box, this is typically port 80.</li></ol><p class="ListNoteSub" style="margin-left: 56px;"><b>Tip:</b> 
+ Use <b>Internet Options</b><a name="kanchor2846"></a> to determine 
+ the required port for this proxy server (typically launched from the Tools 
+ menu in Internet Explorer), by selecting the Connections tab and its LAN 
+ Settings… button.</p><ol start="3"><li class="NumbersSubLetters" value="3">If 
+ user authentication is required when connecting to this proxy server, 
+ then supply the necessary <b>User</b> 
+ name and <b>Password</b>.</li></ol></div></p>
+        <p>Click <b>Next</b>.</p>
+        <div>
+            <p>Configure the <b>Connection Settings</b> configuration dialog, as follows:</p>
+            <ol start="1">
+                <li class="UpperLetters" value="1">Specify the required <span class="VIPAppName">SmartUI</span> Server computer.</li>
+            </ol>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="LANServerSpecifying"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />As follows, when connecting via the local area network:</a>
+            </p>
+            <div MadCap:targetName="LANServerSpecifying" style="display: none;">
+                <ul>
+                    <li class="ListBullets" value="1">Either press the 
+ <b>Detected Servers...</b> button and double-click 
+ the required Server from the list of available Servers, which specifies 
+ each Servers' address, port, number of currently connected Clients and 
+ version. This is the simplest method.</li>
+                    <li class="ListBullets" value="2">Or type in the 
+ name or IP address of the required Server computer, in the <b>Insert the 
+ computer's name or it's IP address</b> edit box or click the <b>Network Servers...</b> button below this field to use the <b>Browse for Computer</b> 
+ dialog to locate this computer’s name as you would in Windows Explorer.</li>
+                </ul>
+                <p class="ListNoteSub"><b>Note:</b> 
+ If the <b>ServerPort</b> setting of 
+ this Server is not <span class="VIPServerPort">9000</span> (the default), then add a colon “:” after the 
+ specified name or IP address to specify this port number.</p>
+                <p class="ListNoteSub"> For instance, the following entries connect to a Server computer using 
+ a custom port of 9010: 'localhost:9010' or '10.10.10.124:9010'.</p>
+            </div>
+            <p class="ListDesc"><a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="InternetServerSpecifying"><img style="border: none;margin-right: 5px;" src="../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />As follows, when connecting via the Internet:</a>
+            </p>
+            <div MadCap:targetName="InternetServerSpecifying" style="display: none;">
+                <p class="ListDesc"> Type in 
+ the web location of the <span class="VIPAppName">SmartUI</span> Server in the <b>Insert the URL to connect to</b> 
+ edit box.</p>
+                <p class="ListDesc">This is the web site name and virtual folder 
+ specified when installing the <span class="VIPAppName">SmartUI</span> Web Service of this <span class="VIPAppName">SmartUI</span> Server as follows: 
+ http://webSiteName/virtualFolder</p>
+                <p class="ListNotice"><b>Tip:</b> 
+ Click the <b>Test Connection</b> button to ensure 
+ that this <span class="VIPAppName">SmartUI</span>&#160;Server 
+ can be located at the specified address.</p>
+            </div>
+            <ol start="2">
+                <li class="UpperLetters" value="2">Specify the <b>User login 
+ details</b> of the required user account on this Server computer, in the 
+ <b>Name</b> and <b>Password</b> edit boxes.</li>
+            </ol>
+            <p class="ListNotice"><b>WARNING!</b> ALWAYS specify these details, even if they to remain the SAME - otherwise 
+ this connection will FAIL.</p>
+            <p class="ListNotice"><b>Note:</b> Ensure 
+ that the specified login details are correct and that this user account is either 
+ an allowed user or part of an allowed group on this <span class="VIPAppName">SmartUI</span> Server computer. For 
+ details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../40Mng/10Sec/10U_G/Adding_allowed_users_and_groups.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding 
+ allowed users and groups</a></span>.</p>
+            <ol start="3">
+                <li class="UpperLetters" value="3">If necessary, open the 
+ <b>Communication method</b> list and select the required way in which you want to transfer data between 
+ the <span class="VIPAppName">SmartUI</span> <span class="MCTextPopup"><a class="MCTextPopupSpot_glossterm_0" href="javascript:void(0);" onclick="FMCTextPopup( event, this ); return false;">Client<img style="border: none;margin-left: 5px;" src="../../../SkinSupport/ExpandingClosed.gif" MadCap:altsrc="../../../SkinSupport/ExpandingOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../SkinSupport/ExpandingOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCExpandingIcon" /></a><span class="MCTextPopupBody_glossterm_0" style="display: none; ">refers to either the Designer or the Operator, both of which are client applications of the Server.</span></span> 
+ and  <span class="VIPAppName">SmartUI</span> Server, from the available options. For details on the differences between these communication 
+ methods, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="About_connection_communication_methods.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">About connection 
+ communication methods</a></span>.</li>
+            </ol>
+            <p class="ListNotice"><b>Note:</b> The available 
+					method(s) depends upon the specified connection <b>Type</b> 
+				or how the two computers are physically connected.</p>
+            <ol start="4">
+                <li class="UpperLetters" value="4">Click the <b>Save Login Profile</b> button, if you want to save these connections 
+ settings to a login profile, for future use when logging into this Client.</li>
+            </ol>
+            <p class="ListDesc">In this case, specify the required name for this profile 
+ in the displayed dialog. Try to keep the names less than 35 characters 
+ in size.</p>
+            <ol start="5">
+                <li class="UpperLetters" value="5">Click <b>Finish</b> once 
+ these communication settings are complete.</li>
+            </ol>
+        </div>
+        <p>This will create this connection, provided 
+ the Server is available and the login details are correct.</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

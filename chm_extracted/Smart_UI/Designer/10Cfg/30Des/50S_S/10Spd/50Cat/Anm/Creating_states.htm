@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Designer|Spiders and Silks|Spiders|Categories|Animation|Multi-state Color spiders" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="VIP.Designer" MadCap:PathToHelpSystem="../../../../../../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>Creating states</title>
+        <link href="../../../../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../../../../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <link href="../../../../../../Resources/TableStyles/AdTechBasicTableStyle.css" rel="stylesheet" />
+        <script src="../../../../../../SkinSupport/jquery.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../../../../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../../../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../../../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../../../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../../../../../../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../../../../../../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor419"></a><a name="kanchor420"></a>Creating states</h1>
+        <p>Define the required “states” , each of which associate a particular color with either a 
+ specific string or value or a range of numeric values or a logical result 
+ when comparing one or more input values.</p>
+        <p>When the monitored String, Double or Integer input value/s corresponds 
+ to the criteria of a defined state, the spider returns the associated 
+ color; thereby providing a visual indication of the value/s.</p>
+        <h2>To create a state:</h2>
+        <ol>
+            <li class="Numbers" value="1">If necessary, add and/or select the required <b>Multi-state color</b> spider and/or open its 
+ configuration view. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Adding_Multi-state_color_spiders.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Adding Multi-state color 
+ spiders</a></span> <![CDATA[ 
+ ]]>.</li>
+            <li class="Numbers" value="2">Double-click the <b>New State</b> entry, in the <b>New 
+ Input</b> section.</li>
+        </ol>
+        <ol start="3">
+            <li class="Numbers" value="3">Specify the criteria that 
+ must be met for this state in the <b>Enter 
+ a State</b> dialog, <a href="javascript:void(0);" onclick="FMCToggler( this ); return false;" class="MCToggler_0" MadCap:targets="t1"><img style="border: none;margin-right: 5px;" src="../../../../../../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../../../../../../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../../../../../../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCTogglerIcon" />as follows:</a><div MadCap:targetName="t1" style="display: none;"><ol start="1"><li class="ListBullets" value="1">For <b>String</b> 
+ values, specify the required text value that the default <b>Value</b> 
+ input or additional input (<b>i1</b> 
+ etc.) must match exactly, for instance "True" or "False" 
+ for boolean values.</li></ol><p class="ListNoteSub"><b>Note:</b> Do not 
+ specify the required name of this state within quotes.</p><ol start="2"><li class="ListBullets" value="2">For <b>Integer</b>  or <b>Double</b> values, specify 
+ the range of values that the default <b>Value</b> 
+ or additional input (<b>i1</b> etc.) 
+ must lie within, as follows:</li><li class="ListSubBullet" value="3"><b>To 
+ specify a specific range:</b></li></ol><p class="ListDescSubSub">connect the minimum and maximum values with ":" 
+ character, for instance: 5.5:6.5 or -20:-10.</p><ol start="2"><li class="ListSubBullet" value="2"><b>To 
+ create infinite ranges</b>, you can use one of the following operators:</li></ol><p class="ListDescSubSub">&gt;&#160;&#160;&#160;for 
+ instance: &gt;5.5.</p><p class="ListDescSubSub">&gt;=&#160;for 
+ instance: &gt;=6.5</p><p class="ListDescSubSub">&lt;&#160;&#160;&#160;for 
+ instance: &lt;-20</p><p class="ListDescSubSub">&lt;=&#160;for 
+ instance: &lt;=-10</p><p class="ListDescSubSub">&lt;&gt;&#160;for 
+ instance: &lt;&gt;7</p><p class="ListNoteSub"><b>Note:</b> Ensure 
+ that there are NO spaces between the specified numbers and the operator 
+ characters.</p><ul><li class="ListBullets" value="1"><b>To 
+ compare the values of one or more inputs</b>, create a logical expression 
+ using the following Boolean operators:</li></ul><div><p class="ListDescSub">Example of a logical expression that compares more 
+ than one input values: <b>(Value&gt;3)||(i1&lt;34)</b></p><p class="ListNoteSub"><b>Note:</b> If a 
+ state uses multiple inputs, these need to be added and the correct values 
+ need to be assigned to them before the state can be evaluated.</p><p class="ListDescSub">Although these boolean operators are typically used 
+ to compare the values of more than one input, you can also use them to 
+ define states for the single default Value input, for instance: <b>(Value&gt;23)&amp;&amp;(Value!=25)</b></p><p class="ListNoteSub"><b>IMPORTANT:</b> When adding multiple “&amp;&amp;” , “||” and other expressions, each expression MUST be enclosed in parentheses “()” (see the examples above). If these parentheses are left out, these expressions do not evaluate correctly.</p><table style="margin-left: auto;margin-right: auto;mc-table-style: url('../../../../../../Resources/TableStyles/AdTechBasicTableStyle.css');" class="TableStyle-AdTechBasicTableStyle" cellspacing="0"><col style="width: 39.047%;" class="TableStyle-AdTechBasicTableStyle-Column-Column1" /><col style="width: 29.525%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" /><col style="width: 31.428%;" class="TableStyle-AdTechBasicTableStyle-Column-Column2" /><thead><tr class="TableStyle-AdTechBasicTableStyle-Head-Header1"><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column1-Header1">Boolean Operator &amp; Usage</th><th class="TableStyle-AdTechBasicTableStyle-HeadE-Column2-Header1">Name or Meaning</th><th class="TableStyle-AdTechBasicTableStyle-HeadD-Column2-Header1">Examples</th></tr></thead><tbody><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p>term == term</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Boolean equality</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>“2==3” returns false (0)</p><p>“3==3” returns true (1)</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p>term != term</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Boolean inequality</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>“2!=3” returns true (1)</p><p>“3!=3” returns false (0)</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p>term &lt; term</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Less than</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>“2&lt;3” returns true (1)</p><p>“3&lt;3” returns false (0)</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p>term &gt; term</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Greater than</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>“2&gt;3” returns false (0)</p><p>“3&gt;3” returns false (0)</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p>term &lt;= term</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Less than or Equal</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>“2&lt;=3” returns true (1)</p><p>“3&lt;=3” returns true (1)</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p>term &gt;= term</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Greater than or Equal</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>“2&gt;=3” returns false (0)</p><p>“3&gt;=3” returns true (1)</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p>! term</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>&#160;Not 
+ – Boolean inverse</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>“!1” returns false (0)</p><p>“!0” returns true (1)</p><p>“!n” returns 0, where n is not equal to 0</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column1-Body1"><p>term &amp;&amp; term</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyE-Column2-Body1"><p>Boolean AND</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyD-Column2-Body1"><p>l“1&amp;&amp;1” returns true (1)</p><p>“1&amp;&amp;0” returns false (0)</p><p>x&amp;&amp;y returns true (1) where x and y are non-zero</p></td></tr><tr class="TableStyle-AdTechBasicTableStyle-Body-Body1"><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column1-Body1"><p>term || term</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyB-Column2-Body1"><p>Boolean OR</p></td><td class="TableStyle-AdTechBasicTableStyle-BodyA-Column2-Body1"><p>“1||1” returns true (1)</p><p>“1||0” returns true (1)</p><p>“0||0” returns false (0)</p><p>x||y returns true (1) where either x and/or y are non-zero</p></td></tr></tbody></table></div></div></li>
+        </ol>
+        <p class="ListNotice"><b>WARNING!</b> Ensure 
+ that the state definition is correct because you CANNOT edit it after you add it. If the state is incorrectly defined then you need to remove and then add it again. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="Removing_states.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Removing states</a></span>.</p>
+        <p class="ListDesc">This adds this defined state to the <b>Inputs</b> 
+ section and associates it with the color White, by default.</p>
+        <ol start="4">
+            <li class="Numbers" value="4">If necessary, use the color 
+ edit box on the right of this input to specify the color that is associated 
+ with this state. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../../../../../07GenCfg/Selecting_colors.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Using the color edit box 
+ to select a color</a></span>.</li>
+        </ol>
+        <ol start="5">
+            <li class="Numbers" value="5">Repeat this until all the 
+ required states have been defined.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../../../../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

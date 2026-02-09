@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Working with the Agent Server|Available Agents|The DBAccess Agent|Configuring the DbAccess Agent" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.AgentServer" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10 Designer.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" /><title>To Edit or Configure the DbAccess Agent</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffects.js">
+        </script>
+        <script src="../SkinSupport/MadCapEffectsMenu.js">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor4155"></a>Configuring the DbAccess Agent</h1>
+        <p><a href="The_DbAccess_Agent.htm">The DbAccess agent</a>.</p>
+        <p class="Notices"><b>NB Read through the </b><a href="Usage_Guidelines_for_DbAccess_Agents.htm"><b>usage 
+ guidelines</b></a><b> of this agent first.</b>
+        </p>
+        <ol>
+            <li class="Numbers" value="1"><a href="../AU_01_04/Editing_an_agent.htm">Edit</a> 
+ an agent of type: <b>DbAccess</b>.</li>
+        </ol>
+        <p class="ListDesc">The <b><a name="kanchor4156"></a>Edit DbAccess Agent</b> 
+ dialog box is displayed</p>
+        <ol start="2">
+            <li class="Numbers" value="2">Click the browse <img src="13_035_20x20.gif" NOalt="Images\ebx_1159522385.gif" style="width: 20;height: 20;" border="0" /> button to the right of the<b> 
+ Connection string</b> to specify the connection details to the OLE 
+ DB database that you want to transact on. For details, see <span class="MCPopup"><a href="javascript:void(0);" MadCap:src="../COMMON/Connecting_to_an_OLE_DB_database.htm" onclick="FMCPopup( event, this ); return false;" class="MCPopupSpot">Connecting to an OLE DB database</a></span>.</li>
+        </ol>
+        <p class="ListDesc">If remote User Interfaces are to configure these agents 
+ then the database folder must be shared and the location to the database 
+ file must be expressed in the UNC (Universal Naming Convention) format: 
+ <b>\\ComputerName\ShareName\dataBaseFileName</b></p>
+        <p class="ListDesc">The DbAccess Agent only establishes one connection per 
+ database; so many DbAccess Agents may share the same connection if they 
+ transact with the same database.</p>
+        <p class="ListNotice"><b>IMPORTANT:</b> 
+ If you are connecting to a database across the network and your Agent 
+ Server is running as a service, then ensure that the user profile that 
+ the Agent Server service uses to log onto the computer HAS the necessary 
+ rights to browse the network and connect to the remote database. This 
+ should <b>NOT</b> be the default <b>Local System account.</b> See Configuring Agent Server Service User Profile.&#160;</p>
+        <ol start="3">
+            <li class="Numbers" value="3">Check <b>Connect 
+ to database</b>, to allow the table to be selected from the database, 
+ in general use, this is used to determine whether the transactions between 
+ <span class="AdroitAppName">Adroit</span> and the database can occur.</li>
+            <li class="Numbers" value="4">Then click the <b>Update</b><a name="kanchor4157"></a> button, which updates the agent with the configuration changes.</li>
+            <li class="Numbers" value="5">In the <b>Table 
+ name</b> edit box, specify the name of the table in which the transactions 
+ are to occur, by:</li>
+            <li class="ListBullets" value="6">Entering the name 
+ of the table directly into the edit box.</li>
+            <li class="ListBullets" value="7">If there is at 
+ least one connection to the database identified in the connection string, 
+ then the browse button <img src="13_035_20x20.gif" NOalt="Images\ebx_1159522385.gif" style="width: 20;height: 20;" border="0" /> can be used to select the required 
+ table, from the list of tables available in the selected database.</li>
+        </ol>
+        <ol start="6">
+            <li class="Numbers" value="6">If you have clustered Agent 
+ Servers that both access the same database then check the <b>Disable 
+ on standby</b> checkbox to prevent double 
+ entries for "Insert" transactions. The default state is unchecked.</li>
+        </ol>
+        <p class="ListNotice"><b>Note:</b> If enabled, 
+ the master Agent Server will perform the Retrieve transaction and shadow 
+ the result to the standby Agent Server tags.</p>
+        <p class="ListDesc">If this option is NOT enabled and client runtime transaction 
+ shadowing is also enabled, then any Retrieve transactions performed by 
+ this DbAccess agent will be performed by both cluster nodes (Agent Servers). 
+ For details on enabling client runtime transaction shadowing, see <a href="../AU_01_02/Cluster_Server_Configuration_Options.htm">Cluster 
+ Server Options</a>.</p>
+        <ol start="7">
+            <li class="Numbers" value="7">Check <b>Eventlog 
+ errors</b>, to enable the event logging of any errors generated while 
+ connecting or transacting with the database.</li>
+        </ol>
+        <p class="ListDesc">All events will be logged under the category DbAccess 
+ in the event log. Alternatively, monitor the <b>information</b> 
+ slot of the agent on a mimic.</p>
+        <ol start="8">
+            <li class="Numbers" value="8">Under <a href="Transaction_Types_of_DbAccess_Agents.htm">Transaction 
+ Type</a> , select the type of transaction that is required to be performed. 
+ The available transactions are: Insert row, Update row, Delete row and 
+ Retrieve row.</li>
+            <li class="Numbers" value="9">Enter the <a href="Adroit_Tag_to_Database_Field_Mapping.htm">tag 
+ to field mapping</a> i.e. the mapping of  tags to the specific fields 
+ within the table of the database. These mappings are required for every 
+ transaction type, except for the delete transaction.</li>
+        </ol>
+        <p class="ListNotice"><b>Note1:</b> When 
+ connecting to an <b><a name="kanchor4158"></a>Oracle</b> database, 
+ after the tag to field mappings have been made, add the name of the required 
+ database to the <b>Table name</b> edit 
+ box, as follows: OracleDataBaseName.SelectedTableName e.g. DB1.Table1</p>
+        <p class="ListNotice"><b>Note2:</b> Support 
+ has been added for databases, which require square brackets around the 
+ field names otherwise their SQL transactions fail. If required, <a href="../AU_01_02/Registry_Values_affecting_the_Agent_Server.htm">add 
+ the ForceJet registry value</a>.</p>
+        <ol start="10">
+            <li class="Numbers" value="10">Use the <a href="Using_SQL_Queries_within_Identify_Row.htm">Identify 
+ row</a> edit box, to identify the row in the table of the database, in 
+ which the transaction is to occur.</li>
+        </ol>
+        <p class="ListDesc">This is required for every transaction type, except for 
+ the insert transaction.</p>
+        <p class="ListDesc">To delete all records in a table, leave this field blank, 
+ when using the delete transaction.</p>
+        <ol start="11">
+            <li class="Numbers" value="11">Under <a href="DbAccess_Transaction_Scheduling_and_Triggering.htm">Transaction 
+ scheduling and triggering</a> , either click the <b>Edit…</b> 
+ button to configure the scheduling and/or triggering of the transaction 
+ or click the <b>Trigger Now</b> button 
+ to force the transaction to occur immediately.</li>
+            <li class="Numbers" value="12">The <a href="DbAccess_Agent_Details.htm">Details…</a> 
+ button , displays the <b>Details</b> 
+ dialog box, which gives the status of the transactions, by showing any 
+ database connection errors and the SQL statement that is being sent to 
+ the database.</li>
+        </ol>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>

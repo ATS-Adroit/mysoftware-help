@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Available Agents|The MaxDemand Agent" MadCap:medium="print" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="HtmlHelp" MadCap:conditions="Adroit.Ex4HMI" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="Adroit10.xml" MadCap:SearchType="Stem">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+        <meta name="Originator" content="ImportDoc" />
+        <meta name="OriginalFile" content="MaxDemand.doc" /><title>About Power Factor</title>
+        <link href="../Resources/Stylesheets/AdTech-Adroit10.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../../../../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (from !== "index" && from !== "drivers") {
+    link.textContent = "Close";
+    link.href = "#";
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try {
+        if (window.opener) {
+          window.close();
+          return;
+        }
+      } catch (e) {}
+      try { history.back(); } catch (e) {}
+    });
+  }
+})();
+</script>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:#f7f7f7;
+  border:1px solid #ccc;
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../../../../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../../../../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  var from = (getParam("from") || "").toLowerCase();
+  if (from !== "index" && from !== "drivers") {
+    var nav = document.getElementById("help-nav");
+    if (nav) nav.style.display = "none";
+  }
+})();
+</script>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+
+        <p style="text-align: right;">
+            <img src="../05Dply/30Ins/Adroit_188x17.jpg" style="width: 188;height: 17;" />
+        </p>
+        <p>
+            <button onclick="topFunction()" id="myBtn" title="Go to top" style="display: none;">Top</button>
+            <script type="text/javascript" src="../Resources/Scripts/scroll-to-top.js">
+            </script>
+        </p>
+        <h1><a name="kanchor1887"></a><a name="kanchor1888"></a><a name="kanchor1889"></a>About Power Factor </h1>
+        <p>The importance of the power factor lies in the fact that electricity 
+ providers supply customers with volt-amperes, but bill them for watts.</p>
+        <p>Power factors below 1.0 require an electricity provider to generate 
+ more than the minimum volt-amperes necessary to supply the real power 
+ (watts). Since this increases the electricity provider’s generation and 
+ transmission costs, they may charge additional costs to customers who 
+ have a power factor below some limit.</p>
+        <p>In other words, most electric billing is done in kilowatt-hours, which 
+ is determined by the following equation:</p>
+        <p>Kilowatt-hours = (Volts * Amperes) * power factor 
+ * run time</p>
+        <p>If we assume that the run time, volts, and kilowatt-hours are constant, 
+ then as the power factor decreases the amperage must rise to compensate.&#160; 
+ The converse is also true, if the power factor is raised for a load, then 
+ the amperage is reduced.&#160;</p>
+        <p>For this reason, by adjusting the power factor of a system to very near 
+ unity, you ONLY&#160;pay for the power that you use.</p>
+        <p>A good power factor is considered to be greater than 0.85.</p>
+        <p>&#160;</p>
+        <p><a name="kanchor1890"></a>To&#160;understand the power factor&#160;is more detail, it is necessary 
+ to know that&#160;the&#160;following three types of power are used to describe energy flow in an alternating 
+ current (A.C.) electrical system:</p>
+        <ul>
+            <li class="Bullets" value="1">Real power is the 
+ actual power that is being used or the ability of the system to perform 
+ work and is measured in watts (kW).</li>
+            <li class="Bullets" value="2">Apparent power is 
+ the power that the system seems to be using, being the product of the 
+ current and voltage of the circuit and is therefore measured in volt-amperes 
+ (kVA).</li>
+            <li class="Bullets" value="3">Reactive power is 
+ ‘invisible’ or wattless 
+ power, in which energy stored in the load is 
+ returned to the source and is measured in kVAR, 
+ which stands for volt-amperes-reactive.</li>
+        </ul>
+        <p>The power factor of an alternating current (A.C.) electrical system 
+ is simply the ratio of the real power to the apparent power and is a number 
+ between 0 and 1.</p>
+        <p>The following ‘power triangle’ describes the relationship between these 
+ three types of power:</p>
+        <p>
+            <img src="PowerTriangle.gif" style="height: 180px;width: 376px;" width="376" height="180" border="0" />
+        </p>
+        <p>&#160;Therefore, from this power triangle the following can be seen:</p>
+        <ul>
+            <li class="Bullets" value="1">When there is no reactive 
+ power element, such as for a purely resistive load (i.e. heating elements, 
+ incandescent lighting, etc.) then 
+ the actual and the apparent power are the same i.e. there is no 
+ reactive power and so the power factor is 1.</li>
+            <li class="Bullets" value="2">When a reactive power element 
+ exists then the apparent power can be greater than the real power component, 
+ which decreases the power factor.</li>
+        </ul>
+        <p>This reactive power element can be generated by:</p>
+        <ul>
+            <li class="Bullets" value="1">Inductive loads such as 
+ transformers and motors (any type of wound coil) generate reactive power 
+ with current waveform lagging the voltage</li>
+            <li class="Bullets" value="2">&#160;Capacitive 
+ loads such as capacitor banks or buried cable generate reactive power 
+ with current phase leading the voltage.</li>
+        </ul>
+        <p>It is often possible to adjust the power factor 
+ of a system to very near unity. This practice is known as <b>power factor 
+ correction</b> and is achieved by switching in or out banks of inductors 
+ or capacitors. For example the inductive effect of motor loads may be 
+ offset by locally connected capacitors and vice verse.</p>
+        <p>For further details, see:</p>
+        <p>Wikipedia, <b>Power factor</b>, <a href="http://en.wikipedia.org/wiki/Power_factor" title="http://en.wikipedia.org/wiki/Power_factor">http://en.wikipedia.org/wiki/Power_factor</a>&#160; 
+ (as of May. 28, 2007)</p>
+        <p>Wikipedia, <b>Power factor correction</b>, <a href="http://en.wikipedia.org/wiki/Power_factor_correction" title="http://en.wikipedia.org/wiki/Power_factor_correction">http://en.wikipedia.org/wiki/Power_factor_correction</a> 
+ (as of May. 28, 2007).</p>
+        <!--<MadCap:breadcrumbsProxy />
+        <MadCap:miniTocProxy />
+        <MadCap:topicToolbarProxy class="" style="mc-topic-toolbar-items: ;" />-->
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>
