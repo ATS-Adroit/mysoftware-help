@@ -5,32 +5,106 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Adroit Online Help - Best Practices</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; background:#f6f7f9; color:#222; }
-  .header { position:sticky; top:0; z-index:10000; background:#fff; border-bottom:1px solid #e3e5e8; }
+  :root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+  body { font-family: Arial, sans-serif; margin: 0; }
+  .header { position:sticky; top:0; z-index:10000; background:var(--panel); border-bottom:1px solid var(--border-soft); }
   .header-inner { padding:14px 20px; display:flex; align-items:center; gap:16px; }
   .logo img { max-height:64px; width:auto; }
   .title { font-size:22px; font-weight:700; }
   .wrap { padding: 18px 20px 30px; }
-  .topbar { position:sticky; top:78px; z-index:9999; background:#fff; border:1px solid #e3e5e8;
+  .topbar { position:sticky; top:78px; z-index:9999; background:var(--panel); border:1px solid var(--border-soft);
             padding:10px; border-radius:10px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
-  input[type="search"] { padding:8px 10px; min-width: 300px; flex:1 1 260px; }
+  input[type="search"] { padding:8px 10px; min-width: 220px; flex:1 1 220px; }
   select { padding:8px 10px; }
-  .meta { color:#666; font-size: 12px; margin-top: 6px; }
-  .counts { margin: 12px 2px 12px; color:#333; }
-  .group { margin-top: 18px; background:#fff; border:1px solid #e3e5e8; border-radius:10px; padding:12px 14px; }
-  .group h2 { border-bottom: 1px solid #eef0f2; padding-bottom: 6px; margin:0 0 8px; font-size:16px; }
+  .meta { color:var(--muted); font-size: 12px; margin-top: 6px; }
+  .counts { margin: 12px 2px 12px; color:var(--text); }
+  .group { margin-top: 18px; background:var(--panel); border:1px solid var(--border-soft); border-radius:10px; padding:12px 14px; }
+  .group h2 { border-bottom: none; padding-bottom: 0; margin:0 0 8px; font-size:16px; }
   ul { list-style: none; padding-left: 0; margin:0; }
-  li { margin: 6px 0; padding:6px 4px; border-bottom:1px dashed #eef0f2; }
+  li { margin: 6px 0; padding:6px 4px; border-bottom:none; }
   li:last-child { border-bottom:none; }
-  a { text-decoration: none; color:#0066cc; }
-  a:visited { color:#0066cc; }
   a:hover { text-decoration: underline; }
-  .small { color:#666; font-size: 12px; margin-left: 8px; }
+  .small { color:var(--muted); font-size: 12px; margin-left: 8px; }
   .nav { position:absolute; top:14px; right:20px; z-index:10001;
-         background:#f7f7f7; border:1px solid #ccc; padding:6px 10px; font-size:13px; border-radius:6px; }
+         background:var(--panel-2); border:1px solid var(--border); padding:6px 10px; font-size:13px; border-radius:6px; }
   .nav a { text-decoration:none; }
   .nav span { color:#999; margin:0 6px; }
-  .btn { padding:8px 10px; border:1px solid #d0d4d8; background:#f7f7f7; border-radius:6px; cursor:pointer; }
+  .btn { padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); border-radius:6px; cursor:pointer; color:var(--text); }
+  @media (max-width: 640px) {
+    .header-inner { padding:10px 12px; }
+    .title { font-size:18px; }
+    .topbar { position:static; }
+    input[type="search"], select, .btn { width:100%; min-width:0; }
+    .nav { position:static; margin:8px 12px; display:flex; flex-wrap:wrap; gap:6px; }
+    .nav span { display:none; }
+  }
 </style>
 </head>
 <body>
@@ -43,6 +117,7 @@
   <div class="nav" id="nav">
     <a href="index.html">Help Index</a><span>|</span>
     <a href="drivers.html">Drivers</a><span>|</span>
+    <button class="theme-toggle" type="button">Dark mode</button><span>|</span>
     <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener">Chat Help</a><span>|</span>
     
     <a href="Adroit_Installation_Read_Me.html">Installation Read Me</a>
@@ -52,12 +127,18 @@
 
 <div class="topbar">
   <input id="q" type="search" placeholder="Search by topic / phrase..." />
+  <select id="ui">
+    <option value="">All UI</option>
+    <option value="classic ui">Classic UI</option>
+    <option value="smart ui">Smart UI</option>
+  </select>
   <select id="cat">
     <option value="">All categories</option>
   </select>
   <select id="mode">
     <option value="alpha">Alphabetical list</option>
     <option value="category">Group by category</option>
+    <option value="ui">Group by UI</option>
   </select>
   <button class="btn" id="clear">Clear</button>
 </div>
@@ -77,6 +158,14 @@ function uniq(arr) {
 
 function normalise(s) {
   return (s || "").toLowerCase();
+}
+
+function getUI(it) {
+  if (it.ui) return normalise(it.ui);
+  const c = normalise(it.category || "");
+  if (c.startsWith("classic ui - ")) return "classic ui";
+  if (c.startsWith("smart ui - ")) return "smart ui";
+  return "";
 }
 
 function getQ() {
@@ -122,10 +211,12 @@ if (chatLink) {
 function render() {
   const qRaw = getQ();
   const q = normalise(qRaw);
+  const ui = normalise(document.getElementById("ui").value);
   const cat = document.getElementById("cat").value;
   const mode = document.getElementById("mode").value;
 
   let filtered = ITEMS.filter(it => {
+    if (ui && getUI(it) !== ui) return false;
     if (cat && it.category !== cat) return false;
     if (!q) return true;
     const hay = normalise(it.title + " " + it.rel + " " + it.category + " " + (it.text || ""));
@@ -154,6 +245,34 @@ function render() {
       ul.appendChild(li);
     });
     host.appendChild(ul);
+    return;
+  }
+
+  if (mode === "ui") {
+    const byUI = new Map();
+    filtered.forEach(it => {
+      const ui = getUI(it) || "other ui";
+      if (!byUI.has(ui)) byUI.set(ui, []);
+      byUI.get(ui).push(it);
+    });
+
+    const uis = Array.from(byUI.keys()).sort((a,b)=>a.localeCompare(b));
+    uis.forEach(u => {
+      const div = document.createElement("div");
+      div.className = "group";
+      const label = u === "other ui" ? "Other UI" : (u === "classic ui" ? "Classic UI" : "Smart UI");
+      div.innerHTML = `<h2>${label}</h2>`;
+      const ul = document.createElement("ul");
+      byUI.get(u).forEach(it => {
+        const li = document.createElement("li");
+        const href = addParamsToHref(it.href, qRaw.trim(), SELF);
+        const kind = it.kind ? ` <span class="small">[${it.kind}]</span>` : "";
+        li.innerHTML = `<a href="${href}">${it.title}</a>${kind}`;
+        ul.appendChild(li);
+      });
+      div.appendChild(ul);
+      host.appendChild(div);
+    });
     return;
   }
 
@@ -192,13 +311,14 @@ function initCats() {
   });
 }
 
-["q","cat","mode"].forEach(id => {
+["q","ui","cat","mode"].forEach(id => {
   document.getElementById(id).addEventListener("input", render);
   document.getElementById(id).addEventListener("change", render);
 });
 
 document.getElementById("clear").addEventListener("click", () => {
   document.getElementById("q").value = "";
+  document.getElementById("ui").value = "";
   document.getElementById("cat").value = "";
   document.getElementById("mode").value = "alpha";
   render();
@@ -206,6 +326,63 @@ document.getElementById("clear").addEventListener("click", () => {
 
 initCats();
 render();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
 </script>
 
 <div class="meta">
