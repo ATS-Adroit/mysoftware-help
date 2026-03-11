@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -185,6 +185,10 @@ input::placeholder, textarea::placeholder {
   <span style="color:#999; margin:0 6px;">|</span>
   <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
   <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../specifications.html" style="text-decoration:none;">Specifications</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../best_practices.html" style="text-decoration:none;">Best Practices</a>
+  <span style="color:#999; margin:0 6px;">|</span>
   <a href="../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
 </div>
 <script>
@@ -205,19 +209,6 @@ input::placeholder, textarea::placeholder {
     ch.addEventListener("click", function() {
       ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
     });
-  }
-  function getParam(name) {
-    try {
-      var u = new URL(window.location.href);
-      return u.searchParams.get(name) || "";
-    } catch (e) {
-      return "";
-    }
-  }
-  var from = (getParam("from") || "").toLowerCase();
-  if (from !== "index" && from !== "drivers") {
-    var nav = document.getElementById("help-nav");
-    if (nav) nav.style.display = "none";
   }
 })();
 </script>
@@ -289,24 +280,26 @@ input::placeholder, textarea::placeholder {
 
 <script>
 (function() {
-  function getParam(name) {
-    try {
-      var u = new URL(window.location.href);
-      return u.searchParams.get(name) || "";
-    } catch (e) {
-      return "";
-    }
+  function refToDrivers(ref) {
+    return /drivers\.html([?#]|$)/i.test(ref || "");
   }
   function setBack() {
-    var from = (getParam("from") || "").toLowerCase();
     var link = document.getElementById("backLink");
     if (!link) return;
-    if (from === "drivers") {
-      link.textContent = "← Back to Drivers";
+    if (refToDrivers(document.referrer)) {
+      link.textContent = "â† Back to Drivers";
       link.href = "../drivers.html";
     } else {
-      link.textContent = "← Back to Help Index";
+      link.textContent = "â† Back to Help Index";
       link.href = "../index.html";
+    }
+    if (document.referrer) {
+      link.addEventListener("click", function(ev) {
+        ev.preventDefault();
+        try { history.back(); } catch (e) {
+          window.location.href = link.getAttribute("href");
+        }
+      });
     }
   }
   setBack();
@@ -453,3 +446,4 @@ input::placeholder, textarea::placeholder {
 
 </body>
 </html>
+

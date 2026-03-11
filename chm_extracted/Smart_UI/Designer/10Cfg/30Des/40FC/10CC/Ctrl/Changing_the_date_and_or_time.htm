@@ -51,29 +51,14 @@ a:visited
 </div>
 <script>
 (function() {
-  function getParam(name) {
-    try {
-      var u = new URL(window.location.href);
-      return u.searchParams.get(name) || "";
-    } catch (e) {
-      return "";
-    }
-  }
-  var from = (getParam("from") || "").toLowerCase();
   var link = document.getElementById("helpHomeLink");
   if (!link) return;
-  if (from !== "index" && from !== "drivers") {
-    link.textContent = "Close";
-    link.href = "#";
+  if (document.referrer) {
     link.addEventListener("click", function(ev) {
       ev.preventDefault();
-      try {
-        if (window.opener) {
-          window.close();
-          return;
-        }
-      } catch (e) {}
-      try { history.back(); } catch (e) {}
+      try { history.back(); } catch (e) {
+        window.location.href = link.getAttribute("href");
+      }
     });
   }
 })();
@@ -187,19 +172,6 @@ input::placeholder, textarea::placeholder {
     ch.addEventListener("click", function() {
       ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
     });
-  }
-  function getParam(name) {
-    try {
-      var u = new URL(window.location.href);
-      return u.searchParams.get(name) || "";
-    } catch (e) {
-      return "";
-    }
-  }
-  var from = (getParam("from") || "").toLowerCase();
-  if (from !== "index" && from !== "drivers") {
-    var nav = document.getElementById("help-nav");
-    if (nav) nav.style.display = "none";
   }
 })();
 </script>
