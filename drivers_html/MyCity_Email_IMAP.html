@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,136 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/MyCity Email IMAP.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-MYCITY.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-MYCITY.docx
+P a g e | 4
+1. Overview
+This driver supports IMAP for accessing and reading in MyCity RTU protocol packets and updating
+Real and Analog Agents.
+1.1.
+Test Software
+This driver has been tested using the following email services:
+Gmail
+Outlook
+
+[Page 6]
+ATQMS-DRVR-DOC-MYCITY.docx
+P a g e | 6
+3. Device Configuration
+3.1.
+Device Configuration
+3.1.1. Port Selection
+Enable Secondary - Enables secondary configuration for dual redundant Controllers. This setting
+is disabled for this driver.
+Primary / Secondary - Select the primary or secondary button depending on which connection
+you wish to configure.
+3.1.2. Common Mail Settings
+(The parameters identified by the * define a resource common to all devices that share those
+parameters. Any change to these parameters in this group will cause a change for all Adroit devices
+using this mailbox. Note: this will include other drivers such as the Adroit SMTP Email client driver.)
+Resource - An internal ID representing a mailbox configuration in Adroit that cannot be edited.
+When adding a new device, the last added resource will be used to pre-populate the mailbox settings
+(this is used to make the adding of multiple devices easier). To choose another resource, simply
+select it and click OK. To change anything the driver will ask if a new resource is to be created or
+the existing resource be changed for all devices using it.
+*Mailbox Type - IMAP is automatically selected (POP is no longer supported).
+*Mail Server - The name of the mail server.
+
+[Page 8]
+ATQMS-DRVR-DOC-MYCITY.docx
+P a g e | 8
+4. Supported Addresses
+A CSV row constitutes a record. The example email body consists of two records.
+2022-05-01
+01:15:00,3614.53979,24.00000,1.50000,131.00000,250.00000,0.00000,1.00000,
+The format follows the following structure:
+Date[YY-MM-DD] Time[HH:MM:SS],Param1,Param2,…Param48
+The maximum number of parameters/Param&lt;x&gt; fields is 48.
+You can test this driver with the above example. The checksum field, although necessary to still have
+in the email body, does not have to be correct but make sure it still has an integer type, otherwise
+it will fail to validate and cause errors. If you use the above example and it is not working, make
+sure to only have a Carriage Return (CR) character followed by a Line Feed (LF) character between
+CSV rows. There should be no white character spaces (spaces, tab spaces, etc.) Then when copying
+to an email, ensure that you send the email using plaintext only. For example, with Gmail:
+The address can only be used for Adroit Real Agents only. To scan an Adroit agent to a parameter,
+use the scan address Chan&lt;x&gt; as follows:
+Email Data Parameter
+Param1
+Chan0
+
+[Page 16]
+ATQMS-DRVR-DOC-MYCITY.docx
+P a g e | 16
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+6.3.
+Troubleshooting
+We recommend if you have any queries or issues, please visit our Knowledge Base for more
+information and additional troubleshooting. If you still cannot find a resolution for your problem,
+6.3.1. Cannot install the driver (Adroit 10.0.5.2 and earlier)
+As of Adroit 10.0.5.2 Update 1, the MyCity Email driver does not have a .inf which is used to add the
+installation of the driver. To install the driver, please go to the following Adroit directory and move
+the mycity.dll from the Drivers folder into the main directory. So, move the mycity.dll from:
+Move into the directory:
+6.3.2. Access denied error
+Error code according to the device datascope:
+[10013] Access denied
+[10013] Access deniedCannot do email work!
+If you are experiencing this error, please check that the following are correct:
+Login Name and Password
+Mail Server and Mail Port
+If this is still not causing the issue, please make sure that your firewall is not currently blocking the
+port that was provided in the device configuration.
+
+[Page 18]
+ATQMS-DRVR-DOC-MYCITY.docx
+P a g e | 18
+7. Appendix A
+7.1.
+Gmail Setup for Email Drivers using IMAP [New Google
+Security Policy]
+This knowledge base article details the steps required in configuring the Gmail IMAP server with the
+mentioned Adroit email drivers, in line with Gmail&#x27;s new security policies implemented as of 30 May
+2022. For further information, refer to the following Google Account Help article:
+https://support.google.com/accounts/answer/6010255?hl=en
+The opening article states the following:
+To help keep your account secure, from May 30, 2022, Google no longer supports the use of
+third-party apps or devices which ask you to sign in to your Google Account using only your
+username and password.
+Important: This deadline does not apply to Google Workspace or Google Cloud Identity customers.
+The enforcement date for these customers will be announced on the Workspace blog at a later
+date.
+For more information, continue to read.
+Previously, Adroit email driver&#x27;s required full access to your Gmail account, and subsequently your
+Google account, to allow access into your inbox using the Gmail IMAP server. This required adjusting
+a security setting on your Google account to allow 3rd party applications to access your account.
+If you have noticed that Adroit has not been able to successfully connect to the Gmail IMAP server,
+typically stating an authentication error, the problem could be related to this issue.
+Example of MYCITY Email Client Protocol Driver device authentication error [x0000 NO
+[AUTHENTICATIONFAILED] Invalid Credentials (Failure) Cannot do email work!]
+To access the setting in question, follow the steps provided:
+Accessing from Gmail directly:
+a.
+Log in to your Gmail account.</pre>
+</details>
+
 
 <script>
 (function() {

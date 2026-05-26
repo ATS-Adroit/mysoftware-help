@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,143 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Mitsubishi FX2 and FX3 Extended FX Protocol.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-MITFXS.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-MITFXS.docx
+P a g e | 4
+1. Overview
+Adroit supports communication with the Mitsubishi FX PLC range, using the red Beijer RS-232/422
+converter cable and other programming cables. MitFXS is designed to replace the existing MitsuFX
+and MitsuFXS drivers which are discontinued (see Appendix A for compatibility with deprecated
+drivers).
+This driver also supports communication using Dial-Up Modem.
+This driver also supports communication using &quot;Serial over Ethernet&quot; connection that wraps the serial
+FX extended protocol into the data portion so as to be usable by Ethernet to serial gateways, the
+protocol is not modified.
+
+[Page 6]
+ATQMS-DRVR-DOC-MITFXS.docx
+P a g e | 6
+3. Device Configuration
+3.1.
+Device Configuration
+3.1.1.
+Port Selection
+Enable Secondary - Enables secondary configuration for dual redundant PLCs. This setting is
+disabled for this driver.
+Primary / Secondary - Select the primary or secondary button depending on which connection
+you wish to configure.
+3.1.2. Local Details
+Comms Type - Allows Selection of communication using Serial or Ethernet.
+PLC Model - The various FX models. Valid I/O scan ranges are provided in the table below:
+Model
+Input
+
+[Page 7]
+ATQMS-DRVR-DOC-MITFXS.docx
+P a g e | 7
+**Octal representation 177
+Retry - The number of attempts that Adroit will try to communicate with a PLC before failing a
+transaction.
+Timeout - The time that Adroit will wait for a valid response from a PLC before failing a transaction
+(Read or Write).
+PDU Length - Indicates the maximum number of bytes that will be requested in a single Transaction
+from the PLC.
+Use Single Protocol - This checkbox allows some of the protocol transactions to be combined and
+sent through as a single transaction, this is sometimes necessary when using modems. This checkbox
+is off by default and this option should only be used when necessary as the ACK/NAK/READY
+commands will be combined with other messages and sent as in a single transaction.
+This has the effect of not exceeding tight timing considerations for protocol such as the READY and
+ACK transactions, which would otherwise be delayed due to delays produced by the modems.
+3.1.3.
+Comm Settings
+Port - The available serial ports on your machine.
+Modem - Allows Dial-Up Connection using Modems. Pressing this button will show the modem
+configuration window as shown below to setup modem to modem communications.
+Use Modem - Enable/Disable Modem for communication.
+Dial Number - Remote Modem number to dial.
+FX2nc
+1535*
+
+[Page 8]
+ATQMS-DRVR-DOC-MITFXS.docx
+P a g e | 8
+Modem Init String - AT Command initialisation string that will be sent to the modem before
+dialling.
+Connect Timeout - Maximum time to wait in milliseconds for a connection response from the
+remote modem.
+Inactivity Timeout - Is the time to wait in milliseconds, before dropping the line due to no activity.
+Ignore Dial Tone - Some telephone systems including GSM do not have dial tone.
+Phone Type - Select Tone or Pulse Dialling (for very old switch exchanges).
+IgnoreDC (Data Carrier) for Connection, use Modem Response - If no signalling is wired on
+the serial line between the master and its modem.
+Modem Response for Connection - When ignoring data carrier, the response string that the
+driver can expect from the remote modem is defined here. Some modems reply with &quot;CONNECT&quot;
+others with &quot;OK&quot; etc.
+3.1.4.
+TCP/IP Settings
+IP Address - Destination TCP/IP address.
+Port - Destination Port.
+3.1.5.
+Test Device Configuration for Connectivity
+This section is available to help users determine whether the settings they have entered are valid
+and Adroit can communicate with the device. The Agent Server is not required to be running.
+Test Address - An address in your device which will be polled when the &quot;Read Address&quot; button is
+clicked. The address entered must be valid and will match the IEC or Standard Modbus addressing
+scheme selected in the advanced dialogue.
+IO Type - Defines the base address type to be read, i.e. Boolean, Integer, Real or String80.
+Read Address - Click this button to poll the PLC with the current settings in the dialog.
+Reply -The successful or failed result will be updated to this static text control.
+
+[Page 15]
+ATQMS-DRVR-DOC-MITFXS.docx
+P a g e | 15
+8. Revisions
+8.1.
+Document Revision
+Rev.
+Date
+Changes to format, updated image resources.
+D. Jordaan
+2.0
+3.0
+4.0
+5.0
+6.0
+8.2.
+DLL Revision
+Rev.
+Date
+Fixes added to D registers below 1024 , 1024-7999 not available.
+Plc model only allowed even selection…
+09/12/2005
+Fix added to M region bits were not being unpacked correctly.
+09/12/2005
+Added FX3U PLC support.
+23/10/2009
+Added D Register Float Support
+18/01/2012
+Added Modem and Ethernet Support to the Driver
+08/02/2012
+Added Extended FX Protocol Support for FX2N and FX3U to the Driver.
+14/06/2013
+Added test read to dialog
+01/10/2013
+Updated documentation
+Fixed driver lockup on ethernet comms error , fixed performance counters not
+visible when running the Agent Server as a service.</pre>
+</details>
+
 
 <script>
 (function() {

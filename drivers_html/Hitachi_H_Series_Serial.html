@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,172 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Hitachi H Series Serial.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Protocol Driver
+Name
+Hitachi H Series Serial
+DLL
+HITACHIH
+
+[Page 3]
+ATQMS-DRVR-DOC-HITACHIH.docx
+P a g e | 3
+1.
+2.
+
+[Page 6]
+ATQMS-DRVR-DOC-HITACHIH.docx
+P a g e | 6
+2.1.1. For Modems
+Connect PLC via the [DTE&lt;-&gt;DCE] cable to the receiving Modem.
+Connect PC via a straight modem cable (usually ships with modem) to the Transmitting modem.
+Recommended US Robotics Modem config Setups:
+Configuring PC-side modem use Hyper-terminal:
+Start with &quot;AT&amp;F0&quot; factory reset. &quot;ATI4&quot; displays current configuration. Alternatively, insert this
+string into device modem configuration for auto loading:
+&quot;ATE0&amp;B1&amp;N10&amp;C1&amp;D2&amp;R2&quot;
+Save with &quot;AT&amp;W0&quot;, &quot;AT&amp;W1&quot;.
+&amp;B1, &amp;N10 forces it to connect at only 19200.
+Careful: to match your configuration, see your modem documents for specific details.
+&amp;D2, &amp;R2 forcing hang-ups, etc., during communications attachment.
+Configuring PLC-side modem use Hyper-terminal:
+&quot;ATE0S0=1&amp;B1&amp;N10&amp;C1&amp;D0&amp;H1&amp;S1&amp;R2&quot;
+&quot;&amp;D0&quot; forces modem to accept incoming connections without terminal ready (TR).
+&quot;&amp;H1&quot;, &quot;&amp;S1&quot;, &quot;&amp;R2&quot; enables handshaking to the PLC.
+&quot;S0=1&quot; auto answer mode.
+&quot;&amp;B1&quot;, &quot;&amp;N10&quot; forces it to connect at only 19200 (Careful: make sure to match your device
+configuration.)
+
+[Page 8]
+ATQMS-DRVR-DOC-HITACHIH.docx
+P a g e | 8
+Stop bits - Forms part of the serial communication setting. For example, 8 data bits, 1 or 2 Stop bits,
+no parity serial communication. Ensure that the Stop bit settings are the same on the local and remote
+machines. (Data bits are fixed to 7)
+Retry - The number of times that Adroit will try to gain communication with a PLC before failing a
+transaction.
+Timeout (ms) - The time that Adroit will wait for a valid response from a PLC before failing a
+transaction (Read or Write).
+Trans delay (ms) - (Default = 60) If non-zero CTS (Clear-to-send) flow control is enabled, and the
+driver uses this value as a &quot;settle&quot; time for the outgoing CTS signal whenever it is about to send any
+requests.
+3.1.3. PLC Details
+PLC Type - Applicable Hitachi PLC types (as detailed above.)
+Use RS-422 Network - Uncheck/disable for point-to-point connection. Check/enable for RS-422
+multi-dropped connection.
+PLC Station ID - (RS-422 only) station ID as set on PLC.
+Link Number - (Default = FF) Link # in hexadecimal.
+Unit Number - (Default = FF) Unit # in hexadecimal.
+Module Number - (Default = 00) Module version number.
+Port Number - (Default = 00) Port # in hexadecimal.
+Delay (TM) - (Default = 2) The TM (TW) delay in hexadecimal.
+3.1.4. Advanced
+Use Occupy Task Codes - (Default = unchecked) This option will be set depending on CPU model
+selected. If it was automatically set for a CPU, this option will be disabled but &quot;ON&quot;.
+3.1.5. Defaults Button
+Load Default values - Will reset all settings shown to what they were before this device was
+created.
+Specific CPUs only operate correctly with special parameter changes viz.
+H300, H302, H700 and H702 models require that the Trans delay parameter be adjusted to 60ms or
+more. (Rev 20c onwards of the driver does this).
+Models H200 H300 H307 H700 and H2000 require the Task codes option turned on. In this case, the
+driver does not allow the user to manipulate the setting either.
+
+[Page 10]
+ATQMS-DRVR-DOC-HITACHIH.docx
+P a g e | 10
+4.
+Supported Addresses
+Hitachi PLC data address types supported by the Hitachi Adroit Protocol driver
+Device
+PLC Data Type
+Boolean
+Integer
+Unsigned 16bit Reg
+WR0000
+WR0000
+Signed 16bit Reg
+WR0000I
+WR0000I
+Unsigned 16bit Reg
+WM0000
+WM0000
+Signed 16bit Reg
+WM0000I
+WM0000I
+Unsigned 16bit Reg
+WL0000
+WL0000
+Signed 16bit Reg
+WL0000I
+WL0000I
+Unsigned 32bit Reg
+WR0000
+DR0000
+Signed 32bit Reg
+WR0000L
+DR0000L
+Float 32bit Reg
+DM0000R
+DM0000R
+Signed 32bit Reg
+DM0000
+DM0000
+Unsigned 32bit Reg
+DL0000L
+DL0000L
+Float 32bit Reg
+DL0000R
+DL0000R
+Signed 32bit Reg
+DM0000
+DM0000
+Unsigned 32bit Reg
+DL0000L
+DL0000L
+Float 32bit Reg
+DL0000R
+DL0000R
+PLEASE NOTE
+BOOLEAN types can only be Read from and Written to Digital areas in the PLC (i.e. R, M, L types).
+The maximum number of items (digital bits or &quot;16-bit&quot; Registers, with 2 consecutive registers for
+Doubles) that can be communicated for the different Hitachi PLC&#x27;s is shown below:
+R
+M
+
+[Page 12]
+ATQMS-DRVR-DOC-HITACHIH.docx
+P a g e | 12
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+6.3.
+Troubleshooting Notes
+1. H200 type PLC&#x27;s require CTS handshaking. This is automatically enabled if the PLC Type is
+H200, but not for other types.
+2. A Transaction Delay value of 60-100ms has been found to suit most applications. It is
+required as some Hitachi PLC&#x27;s cannot handle too many transactions in quick succession. Check
+the Windows NT event log to see if you are getting too many retries or timeouts and try
+adjusting the Transaction Delay value to optimise performance. The default setting here is 60
+milliseconds, newer controllers may be able to use 20 ms. Adjust this setting until stable comms
+is achieved for maximum performance.
+3. Another factor sometimes causing excessive errors/retries in the H200/250/252 PLC types is
+if the PLC program is too short. Some users have reported much more reliable communications
+to these PLC&#x27;s simply by increasing the PLC program size.
+4. If you get intermittent comms failures on older models … try setting the tm delay to 2. This
+delay&#x27;s default value is 2, a value of 0 may be used for some newer CPU models.</pre>
+</details>
+
 
 <script>
 (function() {

@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,196 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Mitsubishi Ethernet (3E Frames).pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-D_MIT_ETH.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-D_MIT_ETH.docx
+P a g e | 4
+1.
+Overview
+This driver supports the Mitsubishi 3E Frames protocol, with communication to the Q/QnA/L/R and
+FX5 Series CPU&#x27;s.
+The 2nd Generation driver allows for the following features:
+a)
+Improved performance due to optimizations on mixed I/O to the same protocol area being
+transacted only once removing redundant transactions.
+b)
+Support for multiple channels, where due scan tasks are balanced over available channels,
+reads and writes are interlaced to prevent starvation.
+c)
+Demand scanning support, where read only I/O that is not on a mimic / graphic form and not
+logged or alarmed and not output enabled will be removed from the scanning system , the applicable
+tasks will dynamically be reduced in size and can merge into fewer scan tasks.
+For improved network performance and reliability, it is recommended that you install 2 network
+adapters into your PC. Use the first adapter for Adroit to Adroit and all other Windows connectivity.
+The first adapter may have all the default installation bindings. Use the second adapter for Adroit to
+PLC connectivity and bind only to the TCP/IP protocol for PLC communications.
+1.1.
+Upgrading from classical MITQJE71 Driver
+The scanning addresses are identical.
+If using the MITQJE71 driver, remove all of the old Device Agents, and create them again with the
+same names using the Q driver. Take care to note settings like the IP, port address and watchdog
+addresses. On the A-Series driver the Decimal or Hex notation used is important and does change
+over in this Q/QnA driver. Names of I/O types stay the same so far possible, this means that scanned
+I/O types existing in the A-Series driver that have different names (prefixes) in the Q Driver are
+promoted automatically to their new names. After saving, the WGP file cannot be loaded on the old
+driver again without the possibility of losing some scan-points.
+
+[Page 7]
+ATQMS-DRVR-DOC-D_MIT_ETH.docx
+P a g e | 7
+Enable secondary - Turn this option to have the driver maintain 2 channels of communication,
+the radio buttons Primary and Secondary can then be used to toggle between configurations.
+Enable shadow scanning from master to standby - NASA specific function - per Device Agent
+level shadow scanning.
+If enabled, writes will be sent to the master to be executed on its corresponding device and reads
+from master will be replicated to the standby.
+If disabled writes Parallel scanning is enabled.
+Enable standby reads - If disabled, the standby will be considered cold, no reading will take place
+on the standby connection, and neither will any replication from the master occur.
+Enable standby writes -- If disabled, no writing will take place on the standby connection, and
+neither will any request be forwarded to the master.
+3.1.1. Error Handling
+Retries - (Default = 3) Number of attempts per transaction.
+Disconnect after every transaction - (Default = False) -Tell the channel to close the port after
+every transaction. This can be useful on gateways if required.
+Disconnect after every error - (Default = False) Tell the channel to close and reopen the port
+on every error during retries else it will only occur after the final retry.
+3.1.2. Latency
+Inter-PLC latency - The period that the system will wait before transmitting any read request or
+write request in multi-dropped system when a new device is contacted.
+Transmission latency - The period that the system will wait before transmitting any read request
+or write request for the same plc device. Inter message delay.
+Tx to RX latency - The period that the system will wait after transmitting a request and before
+attempting to read the response.
+3.1.3. Ethernet
+IP Address - IPv4 address. For example, 192.168.3.50
+IP Port - (Default = 1280) For multiple channels a CSV format is supported. For example, say for
+Channels = 3, IP Port = 1280,1282,1289
+PLEASE NOTE
+Please ensure that the number of channels matches the number of ports listed in the CSV
+formatted. Please also ensure that the delimiter in the CSV is correct using a comma (&#x27;,&#x27;).
+
+[Page 9]
+ATQMS-DRVR-DOC-D_MIT_ETH.docx
+P a g e | 9
+Stale threshold - (Default = 0) Every nth occurrence of an unchanged item value will be sent to
+the master. If the value is different, the value will be sent regardless of this count. This count reduces
+unnecessary event within the Agent Server.
+PLC Model - Select the relevant PLC CPU model; Q Series CPU, QnA Series CPU, L Series CPU, R
+Series CPU, FX5(iQF) Series and Custom. By selecting a CPU, the device address range is set. Custom
+allows you to modify these ranges.
+3.1.5. Test
+Ping size - (Default = 32 bytes) Adjustable but not more than 65000 bytes. Indicates the number
+of bytes to send with the ICMP ping packet. This is only an indicator of IP destination
+acknowledgment during the life of the setup dialog.
+Ping - (and result) Click the test button on the far left.
+3.1.6. Driver Send Watchdog
+This is an internal driver based write to help the PLC program to check if the communications
+between master and PLC is healthy. It can be used to pause operations or cycle the network, etc.
+Enable - (Default = OFF) Enable to tell the device to generate an internal write based on Type, to
+a specified bit Address.
+Address - (Default = M 100) Any writeable bit Address.
+Rate (mSec) - (Default = 2000ms) The period the driver will initiate a new watchdog send.
+Type - (Pulse on/off, Latch on/off) - Pulse will generate a configured on or off per the Pulse active
+time duration.
+Pulse active time (mSec) - (Default = 5ms) if pulse type is used, this will be the pulse width. It
+is recommended to keep it much smaller the Rate. If Latch is used, this will be ignored.
+3.1.7. Validation
+Use deprecated mechanism - (Default = False) If set to true, it will revert the scanning validation
+algorithm to the older method. For Backward compatibility only.
+3.1.8. Data Ranges for Selected PLC Model
+This section specifies the maximum address that can be validated for each address type.
+
+[Page 14]
+ATQMS-DRVR-DOC-D_MIT_ETH.docx
+P a g e | 14
+Word Devices:
+Device
+Timer (current value)
+T or TN*
+Decimal
+none
+Retentive timer (current value)
+SN
+Decimal
+Counter (current value)
+C or CN*
+Decimal
+none
+Special link reg.
+SW
+HEX
+Extended File register
+ZR
+Decimal
+When accessing a word device in a Boolean or Digital tag, a bit number from 0 through 15 must
+be supplied.
+Only when accessing a word device in a Real or Analog tag, does the floating-point presentation
+become available, (suffix F).
+Timers and counter types do not support float &quot;F&quot; presentation.
+Extended file registers are not supported.
+5. Protocol Definition and Considerations
+5.1.
+PLC software and Heartbeat code
+5.1.1. PLC Side Communication setup
+Two possible configurations are presented, one without a watchdog timer, and one with a watchdog.
+The driver thus supports two modes: one with heartbeat, and one without. PLC logic is required for
+the watchdog. If a watchdog/heartbeat is not used, the AJ must simply be configured using GX
+developer. Sample code using IEC to configure the AJ is not supplied. Any sample programs are
+supplied as-is and are not under any warranty.
+5.2.
+Using GX Works2 (Used for All except R Series CPU)
+5.2.1. Settings for CPU without an on-board Ethernet Connection (Q02)
+Operational Settings
+In the Ethernet Network Parameters of the PLC Program specify the Ethernet module in the required
+slot and then select &quot;Operation Setting&quot;. Modify settings based on the image below with the Ethernet
+modules IP Address in it.
+
+[Page 24]
+ATQMS-DRVR-DOC-D_MIT_ETH.docx
+P a g e | 24
+6.4.
+Error Message Reference:
+Only commonly encountered PLC error codes are listed, for a full reference, see Melsec Q
+Programmable Controller User manual (basic) QJ71E71. The PLC error codes can be seen in the
+Adroit event log, alarm viewer and driver Datascope screens, where a reason description also
+appears.
+HEX Code
+The scanned device or I/O does not exist. Verify PLC device range configuration or
+existence of File register.
+C050
+Configure the Q71 card for binary and restart the module.
+C051 - C055
+The number of points to read/write is incorrect, contact Adroit technical support.
+C056
+The scanned device or I/O does not exist. The starting address + length of the
+request exceeds the number of points in the PLC. Verify PLC device range
+configuration.
+C057
+Requested data length miss-match, contact Adroit technical support.
+C058
+Requested data length miss-match, contact Adroit technical support.
+C059
+The command issued is invalid, contact Adroit technical support.
+C05B
+The requested device does not exist. Verify PLC device configuration.
+03E8 - 4FFF
+Are generated by the CPU, see CPU error code manual for more detail.
+In the event of remedial action failing to rectify a problem, the context of the error message is
+needed by our team. Please see the Adroit help file on how to capture driver data screens by
+searching for &quot;to create a protocol dump&quot; (no quotes) in the search tab.</pre>
+</details>
+
 
 <script>
 (function() {

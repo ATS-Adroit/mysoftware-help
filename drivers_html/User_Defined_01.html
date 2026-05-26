@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,243 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/User Defined 01.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+User Defined Protocol Driver: UserDrv
+User Defined Protocol: protocol driver
+Overview
+The UserDrv protocol driver for Adroit is a generic paging and text device driver. Messages
+configured in String or Notifier Agents may be sent via an encoder or modem to paging
+devices. Alarms that occur in Adroit can thus be routed to automatically page a person.
+This driver is intended for easy use with many varied text protocols, while allowing advanced
+users to configure custom protocols of their own. No windows drivers for a modem (is used)
+are needed, this driver provides it&#x27;s own interface and control over the modem via the serial
+port or IP address assigned to it.
+Sections
+Driver Installation and Setup
+Installation of the UserDrv protocol driver is done in the standard way in Adroit Set-up. After
+installation of the driver, the user may then create and configure devices for the UserDrv
+driver.
+Devices
+At a minimum, you must create at least one device for each encoder/modem. Currently, the
+port settings for all devices on a port must be identical. I.e.: It is not permitted for example to
+use Vodacom and AutoPage protocols together if they use different data bit settings.
+Printed 14-Aug-03
+
+[Page 7]
+User Defined Protocol Driver: UserDrv
+How to upgrade from the old pager driver.
+1.
+Take a note of the driver settings for all devices configured on pager, and then delete
+all the devices in Driver Setup (not in the Agent Server configurator!).
+2.
+Add the devices back, but this time using the &#x27;User Defined&#x27; driver, instead of pager.
+Select your protocol from the list in the driver setup and click on &quot;load protocol
+defaults&quot;.
+3.
+Now change any settings as necessary, click on &quot;Modem&quot; and edit the dial-up number
+if needed. &quot;OK&quot; the changes and a message will appear indicating that performance
+counters were successfully installed (first time only).
+4.
+If any errors occur in this procedure, log off and log on as administrator and try again.
+5.
+Run your agent server again as normal, if you are running as a service, we
+recommend stopping the service via control panel and running the server as a window
+from the icon in your start menu until it is working correctly.
+6.
+Verify correct operation.
+7.
+You can now delete the old pager.dll file, or rename it to have the .BAK extension.
+Wiring
+For standard modems, use the modem cable supplied with the modem, for other devices see
+manufacturer documentation. The normal modem cable provides pin-to-pin matching, and is
+often also referred to as a null modem cable.
+Supported Addresses
+The user driver does not have a strict addressing mechanism, addressing individual I/O is only
+required when the driver is used in a text protocol to acquire data.
+For pager and SMS, use scan addresses as Notify : n , where n is a number from 1 to 99999.
+When acquiring Digital, String or Analogue values, scan addresses are
+Digital : n or
+String : n or
+Analog : n
+When adding items to the scan point list, there is no difference between using a Notifier Agent
+and a String Agent.
+For sending user strings to the script to use in building messages:
+User: n, where 1&lt;=n&lt;=10;
+These must be string slots that are used.
+Take care when using these values that they are scan inhibited as the driver will do an empty
+string update at device startup to trigger an output initialize if enabled.
+Printed 14-Aug-03
+
+[Page 9]
+User Defined Protocol Driver: UserDrv
+Testing the driver operation
+1.
+Open the driver datascope, to do so you can either run the driver monitor
+launcher and select USERDRV from the list there to open a monitor, or use the
+&quot;Diagnostics&quot; button in the Adroit Setup program.
+2.
+In the datascope program, select option 1 which is for datascope, the
+communications analyser screen will appear. If it does not, the driver could not
+open the communications port or the driver could not be found, troubleshoot
+accordingly. If the window TITLE displays &quot;HEX datascope …&quot; then hit &#x27;A&#x27; on the
+keyboard to force it to toggle modes into ASCII.
+3.
+Leave this window running. Go back to the Configurator window, and edit the
+notify agent. Click on the &quot;Advanced&quot; button and type in &quot;Hello world&quot; in the format
+field (if there is already text in the field, add a &quot;dot&quot; period&quot; to the field each time to
+cause a change).
+4.
+Click on the Test button (subsequent test messages must differ), and then AltTab back to the Datascope (communications analyser) window. A message must
+appear indicating that the driver will attempt to start sending. If not go to
+troubleshooting. As relevant, the modem will start to dial and connect to the
+gateway or terminal server, watch the display as it does this to determine where if
+anywhere it goes wrong.
+5.
+If the SMS does get sent this part is working, else verify the modem operation in
+some other way.
+Testing the Alarming setup
+1.
+Edit your alarm agent, and place a value of 100 into it, thereby sending it into high
+and high-high alarm, click &quot;Update&quot;, then change the value to zero again to
+generate low alarms.
+2.
+If this does not result in an SMS being sent, create a new mimic, and display a
+text value associated to MYNOTIFY.rawValue on it, the last alarm text should
+thus be displayed, if your &quot;Hello world&quot; is still in there, re-check the alarm
+configuration steps. The actual text shown should be the subscriber user/cell
+code, a comma &#x27;,&#x27; and the alarm text, which is usually preceded by the time.
+The Notifier Agent can also support User entered messages. Simply type the message into
+the value slot from an Operator Action, &quot;Set value&quot; and the message will be sent when clicking
+on the OK button. Note, to re-send an old message, you must change the message content by
+e.g. adding a space at the end of it.
+Message limitations
+Limitations may apply to the content of messages, the driver will NOT convert illegal
+characters in a message. Generally only use keyboard characters. The message length is
+limited to 79 characters, including the device code and a comma added for internal purposes.
+Protocol / Type of
+device
+Illegal characters for the service
+AutoPage
+&#x27;&lt;&#x27; , &#x27;&gt;&#x27; and &#x27;:&#x27;
+GSE / Golay
+&lt;SPACE&gt;, the space character
+Printed 14-Aug-03
+
+[Page 14]
+User Defined Protocol Driver: UserDrv
+If not installed, install HyperTerminal, as follows:
+From control panel, select Add/remove programs.
+Click on the &quot;windows&quot; or &quot;components&quot; tab, and select HyperTerminal under
+&quot;communications&quot; to install it.
+Select windows start/programs/communications/HyperTerminal, HyperTerminal will launch.
+Type in a connection name (you can save this profile if you need to use it again) If this is the
+first time you run HyperTerminal, it may ask to install/configure a modem, ignore this step by
+providing any needed information or skipping as needed. You do not want to be installing a
+modem driver at this point.
+Use default settings at all these steps, only select the comm. port you are using. Baud rate is
+not important, select 9600 if in doubt; no handshaking, 8 data bits, 1 stop and no parity. When
+you see &quot;0&quot; in this explanation it is a zero, not uppercase &quot;o&quot;, case is not important in these
+commands, but uppercase is used for simplicity. If them instruction says to turn the modem
+off, do so for at least 5 seconds.
+1.
+Click on the &quot;Connect&quot; toolbar icon; then type &quot;ATZ&quot; (no quotes) followed by Carriagereturn &lt;ENTER&gt;
+You should see the text ATZ as you type it, and the next line should read OK.
+If you see your typing ATZ appearing twice, click on the menu &quot;File/properties&quot; click
+&quot;ASCII setup&quot;, and remove the check from the box &quot;echo typed characters locally&quot;.
+OK the settings, and click the &quot;connect&quot; toolbar icon.
+2.
+If the modem does not respond:
+Disconnect HyperTerminal and select 2400 baud, reconnect. Switch the modem off,
+then on, and type AT&lt;ENTER&gt; in (the AT MUST be upper-case here) 3 times over.
+Doing so allows the modem to train to a new baud-rate, which it will loose if reinitialized.
+Type AT+IPR=9600;&amp;W&lt;ENTER&gt;, then switch the modem off and on again, change
+the HyperTerminal baud-rate back to 9600, it should respond properly on the first
+command now. If the modem still returns garbage, type AT+ICF=3,4&lt;ENTER&gt; to set
+up 8 data-bits 1 stop and no parity. Save this using the W command as above, and
+cycle power on the modem.
+3.
+Type ATE1 and &lt;ENTER&gt;, the unit will respond with OK. Now we can build on this,
+type AT&amp;D2&lt;ENTER&gt; this turns the handshaking to the default we want.
+4.
+Then AT+CMEE=1&lt;ENTER&gt; this turns error reporting mode , (which the datascope
+displays as a number if an error is reported) , the unit will respond with OK.
+5.
+Then AT+CMGF=1&lt;ENTER&gt;, this puts the modem into Text mode. the unit will
+respond with OK.
+6.
+Then type ATE0&amp;W0&lt;ENTER&gt;, this will turn echo off, and save the modem settings
+to profile 0, also type ATE0&amp;W1&lt;ENTER&gt; to save into profile 1 (this is because some
+modems have profile 0 and 1, and others have 1 and 2). If using a Falcom modem,
+the &quot;W&quot; must not be followed by a 0 or 1, the modem only has 1 profile.
+7.
+Turn the modem off and on.
+8.
+In HyperTerminal, type AT+CMGF?&lt;ENTER&gt;, the unit will respond with AT+CMGF:
+1, this verifies that our settings have been saved, else go back to step 5.
+9.
+Finally to test that all is working.
+10. In HyperTerminal, type AT+CMGS=&quot;0821234567&quot;&lt;ENTER&gt; , use your own mobile
+number here, it must appear between double-quotes. The unit will then prompt with a
+&quot;&gt;&quot; (greater-than) sign.
+11. Type in a test message, for Example, &quot;This is a test message&quot;, do not use extended
+characters or escape codes. (You may use capitals though.) Finnish off your message
+with the &lt;CTRL-Z&gt; key combination. To do this, hold down the &lt;CTRL&gt; key, and tap
+&#x27;Z&#x27;. This adds character x1A (26 dec), you do not need to hit &lt;ENTER&gt;. The unit
+should respond with a &quot;CMGS:&quot; and &quot;OK&quot; or else an error code. If you get an error
+code back, the message center has probably not been set up.
+Printed 14-Aug-03
+
+[Page 26]
+User Defined Protocol Driver: UserDrv
+1.
+From Setup, click on &quot;Check…&quot;, a dialog with all the script variables in it appear.
+2.
+Double-click on each user variable labelled &quot;TX1&quot; etc to make sure that the driver can
+process it correctly. Fix any errors then close this dialog and open it again and re-check
+your changes.
+3.
+Close the driver setup dialog. If you still have problems continue…
+4.
+Once connected, the driver will wait for a while to allow the server to respond. Then it will
+commence with the processing of the communication steps. If the driver sends a string
+that is incorrect or not recognised by the remote device, that device will either not respond
+or will give an error response. Use the ASCII &quot;DataScope&quot; to determine if this is the case.
+5.
+If problems persist, try exporting all of the built-in scripts and analysing them to find a
+possible solution. Note: You can edit the script and save it between attempts, since the
+driver re-processes the script on every transaction.
+6.
+Q: My tag does not update, what am I doing wrong? A: If the Datascope is showing a
+update value and it looks correct, all you need to do is type the scan-address correctly,
+see the section on Typing scan-addresses above.
+7.
+Q: What do I do if the device&#x27;s response for a step is random or un-defined? A: Use an
+empty RX step, the driver will read and display the response without doing anything else
+with it.
+8.
+The PFF script is re-loaded every time the datascope displays [Attempt n/n Sending xxxx]
+or [Acquire I/O data], certain script variables require a re-start to re-load or change.
+Printed 14-Aug-03
+
+[Page 28]
+User Defined Protocol Driver: UserDrv
+Multiple messages
+14. When sending multiple messages to a pager, if the driver fails to send a message (i.e. the
+retries get exhausted) and another message is queued within 30 seconds of the failure,
+the new message is not sent. However any messages already queued before the
+communication fails will still be sent via scanning to the driver for transmission.
+Abbreviations
+DT
+Date Terminal Ready (a hardware signal)
+GSM
+Global System for Mobile telecommunicatio</pre>
+</details>
+
 
 <script>
 (function() {

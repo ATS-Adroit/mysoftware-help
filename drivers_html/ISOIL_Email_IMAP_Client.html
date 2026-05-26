@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,148 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/ISOIL Email IMAP Client.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-ISOIL.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-ISOIL.docx
+P a g e | 4
+1. Overview
+This driver is designed to provide an interface for ISOIL ISOMAG flow meters.
+The data is sent in the form of an email containing a csv attachment.
+Once the email is received it is decoded to expose the values contained in the attachment and body
+of the mail.
+Inbox management is provided through a BACKUPBOX mailbox and an UNKNOWN/TODO box, where
+email messages can be moved as appropriate.
+Messages older than a configured amount of days may be set for auto deletion.
+A separate Adroit device has to be created for each flow meter with the station ID being set equal
+to the serial number of the flow meter.
+There is a resource ID allocated automatically on configuration, new devices will attempt to find a
+compatible configuration (those that share an inbox for example) any others will create a new
+resource, selecting a resource in the dialogue will load the current configuration for that box, if the
+device is saved (on OK) any changes will be save with an appropriate warning. Resource ID can be
+deleted with appropriate warnings if it might affect other devices.
+Offline devices and unknown (unconfigured) devices will have their emails moved to the UNKNOWN
+box if the MOVE radio is applied. Else if DELETE was selected unconfigured emails will be deleted.
+And offline device emails will be left in the main INBOX. Once an offline device is restarted the
+UNKNOWN box will be checked once for any emails for that device(s). This will also be done at Agent
+Server startup.
+
+[Page 7]
+ATQMS-DRVR-DOC-ISOIL.docx
+P a g e | 7
+*Server uses SSL - (Default = ON) Some POP and IMAP servers require SLL mode. IMAP servers
+listen on port 143 typically, while 993 is used for SSL/TLS.
+POP servers listen on port 110 typically, while 995 is used for SSL/TLS (no longer supported).
+PLEASE NOTE
+The remaining parameters can be considered as sub-parameters (these will not result in a new
+resource being generated if different from any other resource) and if a change is requested on
+these the whole resource will be updated, and thus affect all devices using that resource.
+Login Password - User password.
+Detailed debugging to datascope - Additional processing information will be sent to the
+datascope.
+3.1.2.
+Incoming Mailbox Configuration
+Incoming Mailbox - Incoming account inbox name. This is where all new emails should arrive
+first.
+Poll Period (ms) - Mailbox will be checked for new mail at this interval.
+Move used messages to BACKUP mailbox - If a mail is parsed and accepted and considered
+complete, checking this radio button will tell the driver to move that mail to the used or BACKUP
+mailbox, where further processing could take place such as remain there for x amount of days before
+being discarded (see further down).
+Delete used messages - If a mail is parsed and accepted and considered complete, checking this
+radio button will tell the driver to delete the mail immediately.
+Move unknown messages to UNKNOWN mailbox - If a mail is parsed and found to be junk,
+or for an offline device and NOT considered complete, checking this radio button will tell the driver
+to move that mail to the TODO or UNKNOWN mailbox, where further processing could take place
+such as remain there for x amount of days before being discarded (see further down).
+Delete unknown messages - If a mail is parsed and accepted and considered complete, checking
+this radio button will tell the driver to delete the mail immediately.
+3.1.3.
+Backup mailbox configuration
+Backup Mailbox - Backup name - this is a sub or secondary mailbox where completed emails can
+be stored for a period of time.
+Delete messages older than x days - Any email in this box older than this number of days will
+be deleted during driver maintenance tasks.
+
+[Page 8]
+ATQMS-DRVR-DOC-ISOIL.docx
+P a g e | 8
+3.1.4.
+Local Device Settings
+PLEASE NOTE
+These setting are stored per device and will not affect other devices using the same resource
+ID.
+Station ID - This is the identifier code sent in the subject line of the email For example, data from
+ML250 29902, the ID is then 29902.
+Model - Select the Model of the ISOMAG flowmeter. Currently two models are supported. The
+ML150 and the ML250.
+The ML155 and ML255 can be selected but these must run in compatibility mode.
+Pressure Multiplier - Multiplier for the pressure values contained in the csv files
+Device contains units - The ISOMAG can report data with unit fields.
+3.1.5.
+Unknown mailbox configuration
+Unknown Mailbox - Unknown name - this is a sub or secondary mailbox where emails not
+associated with an Adroit Device can be stored for a period of time. Junk/spam and or unconfigured
+or offline devices will also go here.
+Delete messages older than x days - Any email in this box older than this number of days will
+be deleted during driver maintenance tasks.
+
+[Page 11]
+ATQMS-DRVR-DOC-ISOIL.docx
+P a g e | 11
+5. Protocol Definition and Considerations
+5.1.
+Application Example
+1. You have a ML250 ISOMAG flow meter from which you need to extract the following data:
+a. The positive volume counter
+b. The negative volume counter
+c. The Flow rate
+d. The Pressure
+2. You are also required to extract the units of these values from the csv file.
+3. In addition to this you need to determine the signal strength of the antenna.
+In order to accomplish this you will need to create 5 Analog Agents and 4 String Agents.
+You will scan the value of the positive volume counter (analog) from the &quot;V1&quot; address of the device.
+You will scan the unit of the positive volume counter (string) from the &quot;U1&quot; address of the device.
+You will scan the value of the negative volume counter (analog) from the &quot;V2&quot; address of the device.
+You will scan the unit of the negative volume counter (string) from the &quot;U2&quot; address of the device.
+You will scan the value of the flow rate (analog) from the &quot;V3&quot; address of the device.
+You will scan the unit of the flow rate (string) from the &quot;U3&quot; address of the device.
+You will scan the value of the pressure (analog) from the &quot;V4&quot; address of the device.
+You will scan the unit of the pressure (string) from the &quot;U4&quot; address of the device.
+You will scan the value of the antenna signal strength from the &quot;V9&quot; address of the device.
+
+[Page 12]
+ATQMS-DRVR-DOC-ISOIL.docx
+P a g e | 12
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+6.3.
+Troubleshooting
+1. Ensure the connection settings to your mailbox is correct.
+2. Ensure the serial number of the ISOMAG flow meter matches the Station ID as set up in the
+driver configuration.
+3. Ensure the emails do have attachments.
+4. Ensure that the data attachment is before the event attachment.
+5. Ensure that there is no invalid data in the body of the email, or in the attachment.
+6. Do not move emails between folders in excel. A Copy is required for the driver to operate to
+specification.</pre>
+</details>
+
 
 <script>
 (function() {

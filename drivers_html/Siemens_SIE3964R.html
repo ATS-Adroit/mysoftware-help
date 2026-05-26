@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,163 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Siemens SIE3964R.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Siemens : SIE3964R
+Printed 19-Apr-22
+14-1
+  : Siemens SIE3964R protocol driver
+Overview
+Adroit supports the Siemens S5 3964/R driver protocol.
+PLC Details
+Protocol - 3964 No BCC checking, 3964R BCC checking.
+Local Details
+Port - The available serial ports on your machine
+Baud Rate - The speed of data transmission. Any of the following Baud Rates may be
+specified: 2400, 4800, 9600, or 19200.
+Parity - (Default even) Select none, odd or even as required.
+Retry - The number of times that Adroit will try to gain communication with a PLC
+before failing a transaction.
+Wiring
+PLC 25 pin
+PC 25 pin
+Shield
+Note:
+Connect shield to PLC side only
+
+[Page 2]
+14-2
+Printed 19-Apr-22
+PLC software is required to allow communication with the CP524 and CP525 cards.
+Supported addresses
+Siemens S5 PLC data address types supported by the SIE3964R Adroit Protocol driver
+Version 1.0
+Device
+Min
+Range
+Input Bytes
+IB 0.0
+Flags Bytes
+FB 0.0
+Timers
+ZB 0
+DB 0:DW 0.0
+DB 255:DW 255.15
+Digital
+X
+DB 0:DW 0
+DB 255:DW 255
+Signed
+Integer
+X
+X
+DB 0:DD 0 KF
+DB 255:DD 255 KF
+32 Bit
+Integer
+X
+X
+DB 0:DD 0 KG
+DB 255:DD 255 KG
+32 Bit
+IEEE Float
+X
+Message protocol
+The SIE3964R protocol involves a number of separate instructions for each memory read
+or memory write transaction. This is a point-to-point protocol and therefore device
+addressing is not supported.
+The basic sequence of events for any transaction is displayed below. The arrows indicate
+P (for Protocol Driver) and S (for Siemens) to denote direction of communication. The
+transaction data may be read or write requests.
+The master (protocol driver) commences the transaction with:
+Mnemonic
+Value
+Hi, are you ready?
+DLE
+10h
+Here&#x27;s the message
+DLE
+10h
+End of message
+DLE
+10h
+Within 5 seconds, the slave (Siemens device) responds with:
+Mnemonic
+Value
+Hi, are you ready?
+DLE
+10h
+PS
+Here&#x27;s my response
+DLE
+10h
+End of message
+DLE
+10h
+Follow-on telegrams are not supported/used by the protocol driver.
+The rest of this section will concern itself only with the [Transaction] and with the
+[Response] structures.
+
+[Page 3]
+Siemens : SIE3964R
+Printed 19-Apr-22
+14-3
+The 3964R protocol uses the last byte of these structures as a byte checksum. The 3964
+protocol does not use checksums. The checksum capability is configured per SIE3964R
+connection device in the protocol driver setup procedure.
+The 3964/3964R protocol employs DLE doubling in these structures whereby any DLE
+that forms part of the data is padded immediately with another DLE.
+Output flag bytes 0-255
+Read request:
+Fetch
+Input flag bytes 0-255
+Read request:
+Fetch
+Data
+Source H Source L Number H
+Number L
+CF
+Error
+num
+1st data byte
+nth data byte
+xx
+xx
+Write request:
+Not allowed
+Flag bytes 0-255
+Read request:
+Fetch
+1st data byte
+nth data byte
+xx
+xx
+Data blocks 0-255, data words 0-255
+Read request:
+Fetch
+Data
+
+[Page 4]
+14-4
+Printed 19-Apr-22
+1st data byte
+nth data byte
+xx
+xx
+1st data
+byte
+Error
+num
+Document Revisions
+Date
+New screenshot, showing parity selection option, fixed wirrring diagram
+characters to be lines.</pre>
+</details>
+
 
 <script>
 (function() {

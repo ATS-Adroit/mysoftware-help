@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,147 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Sigfox.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-D_SIGFOX.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-D_SIGFOX.docx
+P a g e | 4
+1. Overview
+Sigfox is a Low Power Wide Area Network (LPWAN) technology that allows Sigfox enabled devices
+to send small packets of data to the Sigfox Cloud (dedicated Sigfox servers on the internet). Sigfox
+uses a very light-weight protocol, so devices consume very little power and can operate over large
+distances.
+As shown below, the Sigfox network consists of objects (devices), Sigfox Stations (gateways) and
+the Sigfox cloud (internet). Objects are Sigfox compliant sensors that send data over the air to the
+Sigfox base stations, which then routes the data to the Sigfox Cloud (also known as the Sigfox
+backend). The Adroit Sigfox Driver then communicates with the Sigfox cloud via an API or a callback, to retrieve the objects data.
+Figure 1 Sigfox Overview
+This Sigfox Driver document is divided into two parts:
+Setting up and registering objects/devices onto the Sigfox cloud.
+Setting up the Adroit Sigfox driver to communicate to the Sigfox cloud.
+PLEASE NOTE
+The Sigfox cloud can store a maximum of 1 years&#x27; worth of data per device.
+
+[Page 9]
+ATQMS-DRVR-DOC-D_SIGFOX.docx
+P a g e | 9
+PLEASE NOTE
+Contracts cannot be changed once device type is created.
+In figure 4, the most important fields are the Device Type name (keep to naming conventions), the
+contract (discussed above), the payload parsing (keep this as Regular). Downlink data is if you are
+writing information down to the device from the Sigfox backend. This is not currently implemented
+in the Sigfox driver, so keep this field (Downlink Mode) as NONE.
+3.1.4. Creating a new Device
+Once the device type is created, then we can register our device to that device type. Figure 5 displays
+the parameters required for registering a new device.
+Figure 5: Creating a New Device
+In Figure 5, the Device ID (keep to naming conventions), PAC and end product certificate must be
+supplied by the manufacturer of the Sigfox device. For instance, if VisioSoft manufactured the device,
+then communicate with them to get this information.
+3.1.5. Setting up the Sigfox Callback
+The Sigfox Callback is used to send data to a specific computer on the internet when the value of a
+device changes on the Sigfox backend. As shown in Figure 6, the callback is a query string with a
+public facing IP address (41.185.80.219) and an open port (5004) on the machine. This should be
+the IP address of the computer where Adroit is running. An example of the query string is:
+http://41.185.80.219:5004/sigfox_data?id={device}&amp;time={time}&amp;data={data}&amp;snr={snr}&amp;statio
+n={station}&amp;avgsnr={avgSnr}&amp;lat={lat}&amp;lng={lng}&amp;rssi={rssi}&amp;seqNumber={seqNumber}
+PLEASE NOTE
+Your computer must have a public IP address and the port in the callback string must be opened
+on the firewall on the computer that is running Adroit.
+
+[Page 14]
+ATQMS-DRVR-DOC-D_SIGFOX.docx
+P a g e | 14
+3.3.1. Driver Details
+Enable Secondary - (Default = OFF) Allows enabling of redundant Sigfox Cloud connections such
+that in case of a failure, a switchover will occur.
+Primary - Allows configuration setting of the Primary Sigfox Cloud connection.
+Secondary - Allows configuration setting of the Secondary Sigfox Cloud connection.
+3.3.2. Primary Connection Parameters
+Enable shadow scanning from master to standby - (Default = OFF) If enabled will stop any
+communication to the Sigfox Cloud when the Agent server is in standby mode. By default, parallel
+scanning is assumed.
+Enable standby reads - (Default = ON) Allows reading from the Sigfox Cloud when Agent Server
+is in standby mode.
+Enable standby writes - (Default = OFF) Allows writing to the Sigfox Cloud when Agent Server is
+in standby mode.
+3.3.3. REST API
+User - This is the API Access Login name from the Sigfox Backend, see Figure 13.
+Password - This is the API Access Password from the Sigfox Backend, see Figure 13.
+Device type ID - The Device Type ID from the Sigfox Backend, as shown in Figure 5.
+3.3.4. HTTP Server
+Port - The port which the Sigfox Backend will use to connect to Adroit. Make sure this port is open
+on the firewall and accessible from the internet. This port must be used in the Callback query string,
+as shown in Figure 6.
+3.3.5. Script
+Script File - Load the script file to parse the Device Type payload.
+3.3.6. TimeOut
+Contact Exceeded Time - If Adroit does not receive a payload from a specific device within this
+amount of time, the device will mark bad. Due to the 140 message constraint, the minimum contact
+exceeded time is 10 minutes. A value of 0 will disable this functionality.
+PLEASE NOTE
+The computer that has Adroit installed and running must have internet access. In addition, all
+relevant Sigfox ports must be accessible from the internet.
+
+[Page 18]
+ATQMS-DRVR-DOC-D_SIGFOX.docx
+P a g e | 18
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+6.3.
+Troubleshooting
+When troubleshooting a Sigfox Driver problem, it is important to understand where the source of
+the problem is. Please use the Sigfox device Datascope as a tool to try debug the problem. The
+following steps will hopefully be a guide in troubleshooting a faulty Sigfox device that is trying to
+1. Step 1: As shown in Figure 17 below, if the device cannot be found on your Sigfox backend,
+then you need to register that device onto the Sigfox backend (see Part 1 of this document). If
+it was registered, then check if it was deleted, moved or if you are searching in the correct
+Sigfox group.
+Figure 17: Device Not Found
+2. Step 2 is to check if the device and device type contracts have expired. In Figure 18 below, the
+adroit_t_50bb_820c contract is clickable, this is where you can check if the devices and device
+type contracts are still valid.
+
+[Page 19]
+ATQMS-DRVR-DOC-D_SIGFOX.docx
+P a g e | 19
+Figure 18: Check Contract Validity
+3. Step 3 is to check if the information on the Sigfox backend is correct for that specific device, as
+shown in Figure 19 below.
+Figure 19: Verify Device Payloads
+If the signal strength is bad, then packets could be lost. Check the times of each message
+and check if this correlates to the devices contract (140/50/2 messages per day). Also
+check if the payload of these messages are what you expect, if you are unsure how to
+interpret the payload, then contact Adroit support or the device manufacturer. This is the
+first place to check if you are reading incorrect values in Adroit from the device.
+If the timestamp is very old, and a lot of messages are being lost, then check if the device
+is turned off, if the battery died or if the device moved to a location with bad signal
+strength.
+4. If the callbacks are failing, as shown in Figure 20 below. Then the callback URL for the device
+type associated to that device might be incorrect. The port needs to be opened on the relevant
+firewalls and servers and the IP address must be a static public IP address. If the Agent Server
+is not running on the machine waiting for the callback, then the callback will also fail. Note that
+multiple callbacks can be setup for a device type and if one of them fails (and the rest
+succeed), then the icon will go red. Also make sure the User, Password and Device Type ID are
+correct in the Adroit Sigfox Driver Configuration.
+Figure 20: Callback Failure</pre>
+</details>
+
 
 <script>
 (function() {

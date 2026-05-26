@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,115 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Toshiba ASCII.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Toshiba : TOSHIBA
+Toshiba ASCII protocol driver
+Overview
+The TOSHIBA driver currently only supports the ascii-based protocol, the binary protocol
+is not supported in this driver. This driver supports the PROSEC T2 PLC, EX100 ,
+EX500. Communication is RS-485. The ADROIT TOSHIBA driver will act as the master
+in a master-slave transaction system.
+See also: Toshiba binary driver and Toshiba Ethernet driver for T2.
+Device Configuration
+PLC Details
+PLC Station ID - Up to a maximum of 32 PLCs may be addressed.
+Local Details
+Port - The available serial ports on your machine.
+Baud rate - This is configurable. The TOSHIBA PROSEC T2 PLC supports the
+following baud rates : 300, 600, 1200, 2400, 4800, 9600 or 19200 bps. Select the
+appropriate baud rate from the dialogue&#x27;s drop-down list.
+Parity - This is configurable. Valid choices are None, Odd or Even.
+Printed 28-May-97
+
+[Page 2]
+Protocol Driver Setup Manual
+Data bits - This is configurable. Valid choices are 7 or 8 bits.
+Stop bits - This is configurable. Valid choices are 1 or 2 bits.
+Retry - This is the number of times the ADROIT TOSHIBA driver will attempt a
+particular scan job before failing.
+Timeout - This is the maximum time the ADROIT TOSHIBA driver will wait for a
+response to its request message from the PLC.
+Optimisation (Global affects all devices)
+Prioritize write - Check this check box to ensure the driver will optimize writes.
+Wiring
+The Computer Link Port on the PLC must be used for communications between ADROIT
+and the PLC. This port accepts a 4-wire RS-485 interface. The Computer Link Port is a
+standard 15-pin female connector. The following table shows the pin assignment of the
+Computer Link Port :
+Pin No.
+Signal name
+Request to send
+PLC →
+Host
+Clear to send
+PLC ←
+Host
+The driver was tested with the PC labs RS 422/485 card.
+Printed 28-May-97
+
+[Page 3]
+Toshiba : TOSHIBA
+Supported Commands
+Area
+XW0.0 - XW0.15
+N/A
+External Input
+YW0.0 - YW0.15
+N/A
+External Output
+ZW0.0 - ZW0.15
+N/A
+Link Relay
+RW0.0 - RW0.15
+N/A
+Auxiliary Relay
+D0.0 - D0.15
+D0 S2
+Data Register
+C0.0 - C0.15
+N/A
+Counter Register
+T0.0 - T0.15
+N/A
+Timer Register
+Note: Strings are only supported for Data Registers by Adding &quot;S&quot; at the end of the
+address with the amount of characters required!
+Example: D:100 S20
+Message protocol
+The checksum value is the ASCII code of the lower two digits of the sum of all the values
+of all the bytes in a message starting from the first byte until the &quot;&amp;&quot; termination byte.
+Telegram examples shown below. All values shown are in ASCII-HEX unless specified
+otherwise.
+Read request:
+… continued …
+Checksum
+Delimiter
+
+[Page 4]
+Protocol Driver Setup Manual
+Advanced Registry key settings
+The following settings are not configurable in the normal fashion and are accessible via
+the registry.
+Open the registry editor and go to …
+rivers\TOSHIBA
+..then open each device, and open &quot;Primary&quot;. Add the appropriate key (DWORD)
+Close port on failure: If ethernet serial extenders hang, try changing the value
+ClosePortOnFailure, If the key does not exist add it as type dword , 1 means
+close port if failed , 0 means don&#x27;t close the port. Driver default is 1.
+Document Revisions
+Date
+Fixed document margins and minor formatting adjustments done. Some
+redundant statements removed.
+16-Apr-08
+Added String support to Driver on Data Registers. - Rev 13
+Printed 28-May-97</pre>
+</details>
+
 
 <script>
 (function() {

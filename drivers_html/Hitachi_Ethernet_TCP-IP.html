@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,238 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Hitachi Ethernet TCP-IP.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 4]
+ATQMS-DRVR-DOC-HITACHIE.docx
+P a g e | 4
+1. Overview
+Adroit supports communication with the following Hitachi PLC CPU&#x27;s - EH150, H200, H250,
+H252A/B/C, H300, H302, H700, H702, H1002, H2000, H2002 and H4010 via a dedicated Ethernet
+module.
+The three Ethernet modules that have been tested against this driver are the EH ETH (EH150), HLAN
+(H200-H252C) and the LAN ETH2 (H300-H4010).
+
+[Page 6]
+ATQMS-DRVR-DOC-HITACHIE.docx
+P a g e | 6
+3. Device Configuration
+3.1.
+Device Configuration
+3.1.1. Config Selection [not implemented]
+Enable Secondary - (feature disabled) Enables secondary configuration for dual redundant or
+backup PLC&#x27;s.
+Primary / Secondary - (feature disabled) Select the primary or secondary button depending on
+which connection you wish to configure.
+3.1.2. PLC Details
+The maximum amount of data per scan is shown here :
+Data type
+Max number of read elements
+Max number of write elements
+Words
+120 words
+PLC IP Address - The TCP/IP Address of the PLC.
+PLC Port - This is the TCP or UDP port, typically 3004 through 3007.
+3.1.3. Connection Type
+Connection Type - Choose whether the protocol driver should implement the TCP or UDP protocol.
+
+[Page 8]
+ATQMS-DRVR-DOC-HITACHIE.docx
+P a g e | 8
+4. Supported Addresses
+Hitachi Ethernet PLC data address types supported by the Hitachi Ethernet Adroit Protocol driver.
+Please refer to the relevant Hitachi CPU manuals for ranges, and or check the driver address options
+prompt.
+Hitachi PLC data address types supported by the Hitachi Adroit Protocol driver:
+Device
+PLC Data Type
+Boolean
+Integer
+16-bit WORD Reg
+WR0000
+WR0000
+16-bit SHORT Reg
+WR0000 I
+WR0000 I
+16-bit WORD Reg
+WM0000
+WM0000
+16-bit SHORT Reg
+WM0000 I
+WM0000 I
+16-bit WORD Reg
+WX0000
+WX0000
+16-bit SHORT Reg
+WX0000 I
+WX0000 I
+16-bit WORD Reg
+WY0000
+WY0000
+16-bit SHORT Reg
+WY0000 I
+WY0000 I
+16-bit WORD Reg
+WL0000
+WL0000
+16-bit SHORT Reg
+WL0000 I
+WL0000 I
+32-bit DWORD Reg
+WR0000
+WR0000
+32-bit LONG Reg
+WR0000 L
+WR0000 L
+32-bit FLOAT Reg
+DM0000 R
+DM Area
+32-bit DWORD Reg
+DM0000
+DM0000
+32-bit LONG Reg
+DL0000 L
+DL0000 L
+32-bit FLOAT Reg
+DL0000 R
+DL Area
+32-bit DWORD Reg
+DM0000
+DM0000
+32-bit LONG Reg
+DL0000 L
+DL0000 L
+32-bit FLOAT Reg
+DL0000 R
+PLEASE NOTE
+Write functionality to the X and WX area (Status register area) have been disabled, due to it
+being an input register.
+Floats are defined as IEEE-754.
+
+[Page 9]
+ATQMS-DRVR-DOC-HITACHIE.docx
+P a g e | 9
+5. Protocol Definition and Considerations
+Prefix structure for all Read/ Write task messages.
+Start Code
+Sequence no.
+Start Code:
+The start code indicates that we are issuing a new command when it is set to 0x00.
+Sequence no:
+The sequence no. can be anything from 0x01 to 0xFF. This number will be the same in the reply
+packet. This would be used to distinguish the correct reply packet from numerous incoming packets
+on a busy network.
+LUMP Address: (H Series Network Address):
+L: Loop No.
+The loop no. for a CPU Link module installed. In case a CPU link module is not installed or a station
+to link is not accessed, this number is set to 0xFF. For this protocol driver, the number is always set
+to 0xFF.
+U: Unit No.
+Station no. of a CPU Link module installed. In case a CPU link module is not installed or a station to
+link is not accessed, this number is set to 0xFF. For this protocol driver, the number is always set
+to 0xFF.
+M: Module number.
+If set to 0x00, this number indicates a normal CPU module. It is always set to 0x00 in this protocol
+driver. An error in the communication will result in the response packet having a different module
+and/or port number, to indicate the origin of the error. This will result in a communications failure
+in the protocol driver, after which the sequence of port retry and the back off time will be
+implemented.
+P: Port number.
+If set to 0x00 indicates that it is a normal CPU module port.
+Task code and task code parameters:
+The specific task to be performed, along with its parameters, can be set here. The task code is 1
+byte long (for ex. 0x0A).
+5.2.
+Hitachi Continuous N points monitor (READ) function
+Command Format:
+Task Code
+No. of items to read
+A0
+0007ff
+Response Format:
+Execution status
+
+[Page 12]
+ATQMS-DRVR-DOC-HITACHIE.docx
+P a g e | 12
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+6.3.
+Troubleshooting
+When Addressing the X and Y regions as Booleans the following indicates how:
+X/Y 0000 displayed as X ABCD means the following:
+A
+- The base number where the input or output card is plugged in.
+B
+- The Slot Number where the input or output card is plugged in.
+CD
+- The Input or Output Address of that card ranging from 00 to 3F.
+Example: X 0100 means you require input 0 from the input card plugged into slot 1 of base 0.
+When Addressing the X and Y regions as Integers/Reals the following indicates how:
+WX/WY 0000 displayed as WX ABCD means the following:
+A
+- The base number where the input or output card is plugged in.
+B
+- The Slot Number where the input or output card is plugged in.
+CD
+- The Input or Output Address of that card ranging from 00 to 30 depending on your
+input/output card.
+Example: WX 0110 means you require input word 2(Bits 16 to 31) from the input card plugged into
+slot 1 of base 0.
+The addressing of WX and WY only occur on multiples of 16, so that means that we can only make
+CD equal to 00,10,20,30 where 00 will get the whole word from input 0 to 15 and 10 will get the
+whole word containing input 16 to 31 etc.
+If your input card has 16 inputs you can only scan CD = 00.
+If your input card has 32 inputs you can only scan CD = 00 and CD = 10.
+If your input card has 48 inputs you can only scan CD = 00 and CD = 10 and CD = 20.
+If your input card has 64 inputs you can only scan CD = 00 and CD = 10 and CD = 20 and CD = 30.
+
+[Page 13]
+ATQMS-DRVR-DOC-HITACHIE.docx
+P a g e | 13
+7. Revisions
+7.1.
+Document Revision
+Rev.
+Date
+Changes to format, updated image resources.
+Added Appendix B DCOM Hardening. Removed
+Windows XP section
+D. Jordaan
+2.0
+3.0
+4.0
+5.0
+6.0
+7.2.
+DLL Revision
+Rev.
+Date
+First release notes! Beta Release Available
+14-Jan-2005
+Post commissioning updates
+11-Oct-2005
+CDB: Back-off mechanism paragraph moved lower down and revised.
+29-Aug-2006
+Reworked many aspects of the driver , corrected problems with i/o formatting.
+25-Aug-2006
+MGL: Added notes about configuration of backoff time and timeout value as
+they pertain to rev 10c of the driver
+09-Feb-2007
+CCS: Got UDP working as it was not working at all and changed the way we
+address WX, WY, X, and Y addresses. In TROUBLESHOOTING you will find a
+thorough explanation on these Addressing.</pre>
+</details>
+
 
 <script>
 (function() {

@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,130 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Koyo Direct Logic DL205.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Koyo Direct Logic DL205 : KDL205KS
+Koyo Direct Logic KDL205KS Protocol driver
+Overview
+Adroit supports communications with the Koyo Direct Logic DL205 PLC. Via the K-Sequence
+Protocol. This driver is property Adroit Technologies.
+Device configuration
+DL205 Details
+The CPU Model currently installed in the base. 230, 240 or 250.
+PLC Station ID:
+The ID number of the PLC on the PLC network.
+Fixed at 1 on Port 1 of the 230 &amp; 240 CPU.
+1 - 90 on Port 1 of the 250
+1 - 90 on Port 2 of the 240 &amp; 250.
+Printed
+
+[Page 2]
+Koyo Direct Logic DL205 : KDL205KS
+Port Details
+Port:
+The available serial ports on your machine
+Baud Rate:
+The speed of data transmission for the PLC
+Fixed at 9600 on Port 1 of the 230, 240 &amp; 250.
+Up to 19200 on Port 2 of the 240
+Up to 38400 on Port 2 of the 250
+Parity:
+Check bit. Fixed at Odd.
+Stop Bits:
+UART signal bits. Fixed at 1.
+Retries:
+The number of times that Adroit will try to gain communication with
+a PLC before failing a transaction.
+Timeout:
+The time that Adroit will wait for a valid response from a PLC before
+failing a transaction (Read or Write).
+Wiring
+The diagram above shows the wiring for the comms cable between a PC serial port and the 230, 240 &amp; 250
+CPU port 1 and the 240&#x27;s Port 2.
+For information on the use of port 2 of the 250 please refer to the DL205 User Manual 2nd Edition.
+Supported addresses 230 CPU
+Prefix
+Start
+V2000
+WORD
+V4000
+WORD
+V7260
+WORD
+V7750
+WORD
+
+[Page 3]
+Koyo Direct Logic DL205 : KDL205KS
+C
+V40600
+Supported addresses 240 CPU
+Prefix
+Start
+V2000
+WORD
+V4000
+WORD
+V7260
+WORD
+V7746
+WORD
+Supported addresses 250 CPU
+Prefix
+Start
+V10000
+WORD
+V7400
+WORD
+
+[Page 4]
+Koyo Direct Logic DL205 : KDL205KS
+Supported Data types are as follows:
+PLC Data Type
+Bool
+Integer
+NB All addresses with the Koyo DL205 PLC are expressed in Octal.
+When reading or writing data to or from the DL205 the driver is actually always using 16 bit words. The
+driver, depending on the prefix, will work out the type of data and get or put only the correct information.
+For example when a digital input &quot;X&quot; prefix is used it can be mapped to any Adroit data type. The global
+equivalent for X0 is V40400. This is a word and X0 to X20 (The next 16 bits) are stored here. This can be
+read into any Adroit data type except BOOLEAN or any of its derivatives. The most efficient way of
+reading or writing digitals is to use a multistate agent and read the global equivalent address.
+Troubleshooting
+During the installation of the driver the following files will be copied:
+KDL205KS.DLL
+The driver itself.
+KDL205KS.PDF
+The driver help file.
+KDL205KS.WGP
+KDL205KS.MIM
+Once the driver has been installed and setup, run the REG file, you may then set the Adroit database file to
+the KDL205KS.WGP and start the agent server.
+When the agent server is ready, start the user interface and open the file KDL205KS.MIM. You will then
+see a representation of a DL205 base unit with a 240 CPU, an input simulation module and an output
+module.
+The database will work with the 230 and 250 as well.
+If all is installed correctly and the driver has successfully started, you will be able to see the inputs change
+when the simulator module switches are changed and also will be able to change output states when the
+output lights are highlighted and clicked.
+This is the first thing to run when first setting up the unit. It can also be used as a training aid to see how the
+unit works.
+Printed
+
+[Page 5]
+Koyo Direct Logic DL205 : KDL205KS
+Revision Information
+Date
+Adroit Technologies takes over driver from Alex Griffiths.
+14-Aug-03
+PDF format document distribution from now on
+Printed</pre>
+</details>
+
 
 <script>
 (function() {

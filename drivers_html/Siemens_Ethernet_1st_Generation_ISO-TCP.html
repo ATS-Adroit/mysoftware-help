@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,196 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Siemens Ethernet 1st Generation ISO-TCP.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Siemens : SIEINAT
+Siemens Ethernet protocol driver
+Overview
+Adroit supports the Siemens Ethernet protocol in the following 2 ways:
+1. ISO over TCP/IP for the S7-200/300/400 PLC
+Using the following PLC cards, tested so far :
+S7-200 CPU 226 with CP Card CP 243 - 1
+See Appendix B at the end of this document to see how to setup an Ethernet connection on the
+S7-200 PLC&#x27;s using MicroWin version 4.0 that allows ADROIT to communicate to it.
+S7-315 2DP using the following cp cards : (S7-317 2DP probably the same , not confirmed yet).
+CP343-1-Lean Siemens partnumber 6GK7 343-1CX00-0XE0
+CP343-1- Siemens partnumber 6GK7 343-1EX20-0XE0
+(S7-317 2DP)Without cp cards, a direct connection into the cpu ethernet port make sure Dest
+TSAP CPU and RACK possitions are both set to 2.
+S7-414-2DP using the following cards :
+CP443-1- Siemens partnumber 6GK7 443-1EXE0-0XE0
+CP443-1- Siemens partnumber 6GK7 443-1EX02-0XE0
+The system requires no other drivers , stacks or plc code to run , provided the cp card is capable
+of communicating ISO over TCP/IP and is configured with an appropriate ethernet address and
+mask and in the same range as the adroit machine.
+The driver can also communicate to the PLC using the IBH Link S7/S7++ connection module. See
+Appendix C on how to setup the communication using the IBH Link!
+2. H1 for the S5 and S7 PLC
+Using the following PLC cards, tested so far :
+CP1430.
+The system requires additional setup to be done on the S5 side as well as PLC code, before setting
+up this driver. provided the cp card is capable of communicating H1 and is configured with an
+appropriate Mac address in the same range as the adroit machine. See Appendix A for a step by
+step procedure on how to get H1 running for S5 using this driver.
+Printed 17-Oct-02
+
+[Page 2]
+Device Configuration
+Redundancy
+Enable Secondary - (Unchecked by default) Check if redundancy is required.
+Primary - Radio selected , displays primary configuration.
+Secondary - Radio selected , displays secondary configuration.
+Clustering
+Close Conn in Standby - (Unchecked by default) In the case of having a Clustered
+Environment, the Device will disconnect from the PLC when switching from Master to Standby
+which allows the new Master Server Device to take the same connection! This will only work in a
+shadow scanning cluster!
+Device Details
+PLC Model - S5 or S7 Selectable - (S7 default)
+Protocol - Select either TCP/IP or H1, depending on protocol being used. TCP/IPP is not
+available when selecting S5 PLC model.
+Retry - The number of retries in the case of a communication time-out or interruption.
+Timeout - The time in milliseconds to wait for a transaction to the PLC to complete successfully.
+PDU Length - The maximum bytes to read in a single transaction.
+S7 Settings
+This block will only be active when S7 PLC Model is selected.
+Ethernet Address - Configurable Ethernet Address. Will only be active if TCP/IP protocol is
+selected.
+MAC Address - Configurable MAC Address. Will only be active if H1 protocol is selected.
+Printed 17-Oct-02
+
+[Page 3]
+Siemens : SIEINAT
+IP Port - Usualy 102 , change not recommended.
+Destination TSAP - The Destination(PLC) TSAP works in the following manner. The TSAP
+format is 01.02.(Default is 03.03)
+The first byte(01) is the Service Number or also known as Connection Resource number. The
+number represents the following:
+01 - STEP 7 Connection
+02 - SCADA Connection to S7-200
+03 - SCADA Connection to S7-300/400
+The second byte(02) represents the CPU destination where the 0 is the rack number and the 2 is
+the slot number.
+Default values per PLC type will then most likely look like this:
+S7-200 - 02.00 - As S7-200 does not have RACK and CPU position it is thus 00.
+S7-300 - 03.02 - The PSU takes slot 1 and the CPU takes slot 2.
+S7-400 - 03.03 - The PSU takes slot 1 and 2 and the CPU slot 3.
+See Appendix C on how to setup the communication using the IBH Link to determine the TSAP
+settings when using IBH Link module!
+Local TSAP - Deafult is 01.01. It does not have much meaning but it is the standard. It works
+fine with S7-300 and S7-400 but does not work for S7-200 as MicroWin requires you to setup an
+Ethernet connection where you have to specify the PC TSAP and it does not allow for 01.01 to be
+entered. For S7-200 02.01 works fine as MicroWin Allows that setting in the connection setup.
+See Appendix B at the end of this document to see how to setup an Ethernet connection on the
+S7-200 PLC&#x27;s using MicroWin version 4.0.
+See Appendix C on how to setup the communication using the IBH Link to determine the TSAP
+settings when using IBH Link module!
+S5 Settings
+This block will only be active when S5 PLC Model is selected.
+Local MAC Address - Configurable MAC Address for the PC. It can be any spare MAC address
+as long as it is in the same range as the PLC network.
+Remote MAC Address - Configurable MAC Address for the PLC. This is the MAC address of
+the PLC we will connect too.
+OwnTSAP - An 8 Character String as setup in PLC. See Appendix A, Step 4. (Default is
+OPCSERVV).
+FetchTSAP - An 8 Character String as setup in PLC. See Appendix A, Step 4. (Default is
+FETCHXXX).
+WriteTSAP - An 8 Character String as setup in PLC. See Appendix A, Step 4. (Default is
+WRITEXXX).
+Printed 17-Oct-02
+
+[Page 4]
+Wiring
+Please see standard Ethernet wiring documentation.
+Supported addresses
+Siemens S5 and S7 PLC data address types supported
+For Data Blocks:
+Device
+Min
+DB 65534.DBX 65534.7
+Digital
+x
+DB 65534.DBB 65534
+Unsigned 8
+X
+DB 65534.DBW 65534
+Unsigned 16
+X
+DB 65534.DBI 65534
+Signed 16
+X
+DB 65534.DBL 65534
+Signed 32
+X
+DB 65534.DBD 65534
+Unsigned 32
+X
+DB 65534.DBF 65534
+IEEE 32
+X
+DB0.DBS 0 S2
+DB 65534.DBS 65534 S79
+Character
+String
+DB0.DBB 0 S2
+DB 65534.DBB 65534 S79
+Pascal
+String
+MS 0 S2
+MS 65534 S79
+Character
+String
+MB 0 S2
+MB 65534 S79
+Pascal
+String
+I/QS 0 S2
+I/QS 65534 S79
+Character
+String
+I/QB 0 S2
+I/QB 65534 S79
+Pascal
+String
+A Character string reads character for character and return it as a string. Pascal String is
+the standard Siemens string which has 2 bytes in front of the actual string data bytes
+which contains the character &#x27; P &#x27; as first byte and the string length in the second byte.
+Printed 17-Oct-02
+
+[Page 12]
+● You need to call the SYNC function block at startup and the SEND/REC ALL function blocks in the
+cyclic part of your program. These are:
+PLC
+135/150/155
+In Step 5 for S5 PLC - H1 communication you have to setup 2 Connections. The first is a FETCH
+connection and should look like the image below. The Local Parameter TSAP is unique to the FECTH
+connection and by default FETCHXXX. We keep the length to a standard 8 characters, but it does not
+have to be 8 characters long. The Remote Parameter TSAP is the TSAP of the PC or in other words
+the Driver. This can be any name, also standard to 8 characters and by default we make it
+OPCSERVV.
+The second is a RECEIVE connection and should look like the image below. The Local Parameter
+TSAP is unique to the RECEIVE connection and by default WRITEXXX. We keep the length to a
+standard 8 characters, but it does not have to be 8 characters long. The Remote Parameter TSAP is
+the TSAP of the PC or in other words the Driver. This can be any name, also standard to 8 characters
+and by default we make it OPCSERVV.
+The Remote TSAP MUST BE THE SAME for the FETCH and RECEIVE connections, although the
+Local TSAP&#x27;s must be unique. The IP Address in the remote parameter box should be MAC address in
+our case and it indicates the MAC address of the PC and should be the same for both connections.
+Printed 17-Oct-02
+
+[Page 14]
+Appendix B - Creating S7-200 Ethernet Connection
+Create a new Ethernet Configuration
+When using MicroWin 4, right click with the mouse on the Ethernet Wizard as shown above. Select
+&#x27;New Configuration&#x27;. The next page will popup.
+Specify the Ethernet module IP Address and then press next. The next page will popup.
+Printed 17-Oct-02</pre>
+</details>
+
 
 <script>
 (function() {

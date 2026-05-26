@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,205 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/ABB COMLI.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 9]
+COMLI
+1 COMLI
+COMLI (COMmunication LInk) is a ABB Automation data transmission system for communication between control systems and between control systems
+and computers. COMLI is a conventional communication link using serial,
+asynchronous data transmission in half duplex mode, i.e. one direction at a
+time, and according to the master/slave principle.
+This document provides detailed information on COMLI for personnel requiring a thorough understanding of the system in order to implement COMLI in
+a particular application or locate faults on a system.
+The description assumes a knowledge of ABB Automation&#x27;s control systems
+and the terminology used in the control system descriptions.
+COMLI is the most common data communication system used with the ABB
+Automation family of control systems. Latest generation installations providing operator presentation as well as PLC facilities may use new data transmission systems such as MMS. When COMLI is also used in these new systems,
+implementation is slightly different to when COMLI is used for data communication between SattCon systems only. Throughout this description it is
+assumed that only SattCon systems are used.
+Definitions
+Master and Slave
+The terms master and slave are used frequently throughout this handbook.
+Master in a communications context means the controlling station which
+always initiates the message transmission sequence. Slave means a reply station which cannot start a communication sequence but simply responds to calls
+from the Master station.
+Hexadecimal notation and ASCII format
+When communication via COMLI is used 2-digit hexadecimal notation is used
+to described a byte. This is indicated by the suffix H after the hexadecimal
+characters. The data in the last byte of the message is coded in hexadecimal
+format, other bytes are coded in ASCII-hexadecimal format.
+I/O-bit
+ABB Automation&#x27;s control systems include a memory area called I/O RAM
+containing the I/O rack&#x27;s digital input and output signal statuses. In addition to
+I/O RAM, storage for memory cells, timer indications, limiter modules etc. is
+also included. An advantage with I/O RAM is that unused channels on the
+input and output cards can be used as working memory cells for temporary
+storage of intermediate results. Throughout the remainder of this description
+the term I/O bit refers to a location in this I/O RAM.
+
+[Page 10]
+COMLI
+Letter codes
+The following letters are used to identify the various types of address:
+P = an address of 16 contiguous I/O-bits in I/O-RAM.
+AI = analogue input signal address.
+A = analogue output signal address.
+R = 16-bit register address.
+1.2 COMLI - principle of operation
+ABB Automation&#x27;s systems communicate with each other and with other computers using COMLI (COMmunication LInk). COMLI is one of ABB Automation&#x27;s communication networks using serial, asynchronous data
+transmission in half duplex mode (one direction at a time) and in accordance
+with the Master/Slave principle (the Slave does not reply if there is an error in
+the message received).
+Master and Slave can be linked together in different ways to achieve the
+desired function, i.e. Point-to-Point, Multipoint (Multidrop) or radial configuration (see the section on Network configuration). Up to 32 Slave systems can
+be connected to a Master system in a multipoint configuration. Master and
+Slave are linked via the serial channels on the different systems which are to
+communicate with each other. Master and Slave need not use the same physical channel numbers in both the systems. They must however have the same
+character format, transmission speed etc.
+Communication is controlled by the PLC programs in the different control systems. By activating a predetermined memory cell, the PLC program in the
+control system acting as Master transmits a message. When the Slave receives
+the message, it responds either by sending the requested information or by
+acknowledging the information received. The memory cell is reset when the
+Master receives the information or an acknowledgement from the Slave.
+The information in ABB Automation&#x27;s control systems is stored in the different memory modules. About 50 different message types are defined for the
+various types of information to be transferred.
+When the master starts a communication sequence, a communication area
+determines the type of data to be transferred. The data is transmitted and
+received via a serial channel defined using a channel definition area.
+Network configurations
+There are two network configurations for a COMLI serial communication network:
+• Multipoint communication
+• Point to point communication
+
+[Page 15]
+COMLI
+1.3 Communication interfaces
+One of the following standard communication interfaces is used for serial
+communication with COMLI:
+• RS485.
+• RS232C/V24.
+• Current loop.
+RS-485 interface
+This is the most usual interface used for communications with COMLI since
+it is less sensitive to interference than RS232C. This communication interface
+should be used where possible.
+The RS485 is a standard communications interface from EIA (Electronic
+Industries Association, USA) and is a voltage driven interface which operates
+with voltages between 0 and +5V. The interface is differential, i.e. for every
+logic state it sends two signals where one signal is inverted in relation to the
+other. By detecting differences between these two signals, a more interference
+tolerant transfer is achieved compared with RS232C. RS485 is a later version
+of RS422 which can handle a greater load but is otherwise identical to the earlier standard. RS485 can handle a maximum of 32 units.
+Unlike RS232C, RS-485 defines only the electrical parameters. RS485 permits a maximum transmission speed of 10 Mbits/s and can operate over a longer transmission distance than RS232C. The maximum transmission distance is
+1200 metres at 9600 baud.
+RS-232C/V24 interface
+RS232C/V24 is used primarily for connections to terminals but can also be
+used for COMLI communication in point to point configuration. RS232 cannot be used for multidrop configurations.
+The RS232C communications interface is a standard from EIA (Electronics
+Industries Association, USA). The standard specifies serial, asynchronous
+communication up to 20 kbit/s with a maximum distance between communicating units of 15 metres. Under various circumstances it is however possible
+to communicate over much longer distances via RS232C. The standard specifies signal levels, driver circuits and mechanical structure, i.e. the connector
+device and the pin configuration.
+The communication interface is an international standard which merely specifies signal levels. RS232C and V24 have the same signal levels and the voltage levels +15V/+5V mean logic zero whereas voltage levels -5V/-15V mean
+logic 1. Handshaking takes place with XON-XOFF or with the signals RTSCTS.
+Current loop
+A current loop employs switched current to represent data on the line. Usually,
+a closed circuit, current flow, means a logic one and an open circuit (no current
+flow) a logic zero. A current loop is used in less demanding applications or
+where electrical isolation of linked units is required. A current loop usually
+operates with a current of 20 mA.
+
+[Page 19]
+COMLI
+Function block
+The function block contains the functional information and data as follows:
+• Message type
+• Start address
+• Quantity
+• Data block
+Message type
+This indicates the type of message being transmitted or received. The characters can be considered as a function code indicating how the Master or Slave
+interprets the data received. The message type is included in all message categories, i.e. request, data transfer, acknowledge. The character can assume a
+value between 30H and 7FH. Always coded in ASCII.
+Start address, quantity and data block
+The start address, quantity and data block have different meanings depending
+on whether the message is a request, a data transfer or an acknowledgement.
+The meanings are as follows:
+Request
+Start address indicates the first address from which the requested data is to be
+read. In the case of data that does not have an address, e.g a controller or limiter module, the number of the requested device is given, i.e. the controller
+number or limiter module number. Always represented in ASCII code.
+Quantity indicates the number of items requested, e.g. the number of I/Os,
+number of registers, number of limiter modules etc. Always coded in ASCII.
+The data block is not used in a request.
+Data transfer
+Start address indicates the first destination address for the data being transferred. In the case of data that does not have an address, e.g a controller or limiter module, the number of the requested device is given, i.e. the controller
+number or limiter module number. Always coded in ASCII.
+Quantity indicates the number of bytes of data being transferred. Always coded in ASCII.
+The data block contains the data being transferred. The arrangement of the
+data depends on the type of message. The size of the data block can be between
+1 and 64 bytes. The data can be coded in binary or coded in ASCII depending
+on the chosen communication method.
+Note. The data block must contain as many byte as requested. If there isn´t
+enough data, then fill the block with 00H.
+
+[Page 29]
+Message types
+Request the status of several I/O bits (Message type 2)
+Application
+Used to request the status of up to 512 I/O bits using binary communication
+(256 using ASCII communication). Note that there is a special message to
+request the status of a single I/O bit. I/O bits starting at any address divisible
+by 8 in the address range 0000 (octal) to 37770 (octal) can be requested. The
+upper limit in different systems can be larger or smaller than the message
+allows. For systems containing addresses above 37770 (octal), bits in the out
+of range addresses must first be moved to addresses under 40000 (octal) before
+they can be transferred via COMLI.
+Message structure
+The message structure is as follows:
+Message type (byte 4)
+The message type is &quot;2&quot;, i.e. ASCII code 32H. Note that a request for a register
+and a request for I/O bits share the same message type. The address determines
+if the request is for I/O bits or for a register. An address less than 4000H indicates that the request is for I/O bits, an address 4000H or above indicates registers.
+Start address (bytes 5-8)
+Indicates the first address of the group of input or output I/O bits being requested. The address must always be exactly divisible by 8, i.e. the octal address
+must always end with a zero. Requests for bits in the address range 00000
+(octal) to 37770 (octal) are permitted.
+Number of I/O bits requested (bytes 9-10)
+The number of bits which can be requested depends on whether binary or
+ASCII communication is being used. Every byte can contain the status of 8
+I/O bits in binary communication (4 I/O bits in ASCII communication). A data
+block can contain a maximum of 64 bytes. Thus the minimum and maximum
+quantities of data which can be requested are as follows:
+Min. 1 byte = 8 I/O bits using binary communication.
+Min. 1 byte = 4 I/O bits using ASCII communication.
+Max. 64 byte (64x8) = 512 I/O bits using binary communication.
+Max. 64 byte (64x4) = 256 I/O bits using ASCII communication.
+Example
+A request for 512 I/O bits beginning at address 4770(octal). Binary communication is assumed.The message is as follows:
+4770(octal) = 09F8H
+64(dec)= 40H
+DESTINATION
+OF I/O BITS
+I/O-BIT ADDRESS
+DESTINATION
+
+[Page 92]
+2.15 Time marked events
+Request time marked events (Message type Å)
+Application
+Requests 6 time marked events when using binary communication to transfer
+the data from a subsystem (3 events using ASCII communication). A knowledge of the type of alarm monitoring used in the system concerned is necessary
+to use this message correctly. See also the message &quot;Transfer of time marked
+events&quot;.
+An increasing number of installations employ several control systems linked
+via a communications network. This type of installat</pre>
+</details>
+
 
 <script>
 (function() {

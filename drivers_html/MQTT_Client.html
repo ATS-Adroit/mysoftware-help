@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,172 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/MQTT Client.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 4
+1.
+Overview
+Message Queue Telemetry Transport (MQTT) is a lightweight, report by exception, ISO-standard
+pub-sub messaging protocol specifically designed for the Internet of Things. The MQTT network
+consists of publishers, subscribers and a broker. The publishers will publish or send information to
+the broker, the broker will then relay those messages to the subscribers. The broker is the
+&quot;middleman&quot; in the network and could be situated in the cloud. A publisher/subscriber are the clients
+on the network and are linked together by topics.
+Each Adroit agent can be a publisher and/or subscriber, and acts as a client on the network. If Adroit
+is a publisher, then it will write values out to other subscribers (when the tag is scanned using
+Output enabled). When Adroit is a subscriber, then it waits for data on a specific topic from any
+publisher to that topic.
+There are three parts of an MQTT transmission:
+Message: This is the data that is passed through the broker to all clients subscribed to a
+specific topic on the MQTT network.
+Topic: Some brokers support topic strings with a maximum of 128 levels and a maximum
+length of 250 bytes, so an MQTT client connection that exceeds those limits will be closed.
+QoS: Quality of Service, ensures delivery to connected clients:
+a.
+At most once - The published message is sent once, and if it does not arrive it is lost.
+b.
+At least once - Guarantees that the published message arrives, but there may be duplicates.
+c.
+Exactly once - Guarantees that the publish message arrives and that there are no duplicates.
+1.1. Supported Hardware
+This driver has been tested on the following hardware:
+None applicable.
+The driver has been tested is known to work with the following brokers:
+Mosquitto
+HiveMQ
+
+[Page 6]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 6
+3.
+Device Configuration
+3.1. Device Configuration
+Enable secondary - Turn this option to have the driver maintain 2 channels of communication,
+the radio buttons Primary and Secondary can then be used to toggle between configurations.
+3.1.1. Driver Details
+Enable Secondary - (Default = OFF) Allows enabling of redundant MQTT Broker connections such
+that in case of a failure a switchover will occur.
+Primary - Allows configuration setting of the Primary broker connection.
+
+[Page 7]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 7
+Secondary - Allows configuration setting of the Secondary broker connection.
+3.1.2. Device Details
+Enable shadow scanning from master to standby - (Default = OFF) If enabled will stop any
+communication to the MQTT broker when the Agent server is in standby mode. By default, we
+assume parallel scanning.
+Enable standby reads - (Default = ON) Allows reading from the MQTT broker when agent server
+is in standby mode.
+Enable standby writes - (Default = OFF) Allows writing to the MQTT broker when agent server
+is in standby mode.
+Broker Host IP - The static IP Address or HOST name of the MQTT broker. Domain names are
+resolved to IP addresses. To connect over Websockets specify a hostname beginning with ws:// or
+wss://.
+For example: ws://test.mosquitto.org or test.mosquitto.org
+Port - A valid port number is required for the connection to take place.
+Client Name - The client identifier is a (1- 23 UTF-8 encoded) unique name to identify each MQTT
+client to the MQTT broker. It should be unique per client for a given broker, and each Adroit server
+device needs its own unique client ID. Click the button on the right-hand side to generate a random
+string for this field if required.
+Username - A username could be required by the MQTT broker. This allows authentication and
+authorization of clients to a broker. This must be a UTF-8 encoded string.
+Password - A password could be required by the MQTT broker. This allows authentication and
+authorization of clients to a broker.
+QoS - (Default = 2) Quality of Service level of each client. The level (0, 1 or 2) determines the
+guarantee of a message being delivered.
+Clean Session - (Default = True) This will tell the MQTT broker to establish a persistent session or
+not. If True, the broker will discard any data previously associated with the current client ID once
+successfully connected. Otherwise, when disconnected the broker and client will store the session,
+all subscriptions for the client and all missed messages, when QoS 1 or 2.
+Retain Flag - (Default = False) When publishing a non-empty message with the Retain flag set
+and a non-zero QoS level, will cause the server to store it (replacing any previously retained message
+in the process). When the message is stored, any new clients that subscribe to that topic will receive
+the message.
+Auto Reconnect - (Default = False) The MQTT driver will automatically reconnect to the MQTT
+broker if connection is lost.
+KeepAliveTime - The KeepAliveTime is a time interval that the client will continuously send control
+packets/PING requests to the MQTT broker to show that the client is still alive. If the broker does
+not receive a control packet/PING request within 1.5 times the KeepAliveTime, the broker MUST
+disconnect the network connection to the client as if the network had failed.
+
+[Page 9]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 9
+4.
+Supported Addresses
+The scan address in Adroit is the topic in the MQTT protocol with a format prefix. A MQTT topic is a
+simple string with a hierarchical structure, with forward slashes as delimiters.
+For example:
+Prefix:City/house/bedroom/lamp/on
+PLEASE NOTE
+Currently the Adroit MQTT driver does not support wildcards, so please avoid using &quot;+&quot; and &quot;#&quot;
+characters in the scan addresses.
+Prefixes :
+Data type
+Prefix
+INFORMATION
+Prefixes attempt to force the driver to pre-convert the I/O to various types and must be
+included.
+4.1. Example
+Making use of the online MQTT Broker supplied by Mosquito you can test the MQTT functionality.
+Settings is as follows:
+HOST: test.mosquitto.org
+PORT: 1883
+The scan address can be anything, as it relates to the Topic name. On this broker, scanning to any
+topic will register the topic and allow values to be transferred through the channel.
+Scanning a string agent to the broker will now have the following result in the scanniong dialog.
+
+[Page 12]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 12
+5.1. Additional MQTT Information
+Retained message: A retained flag tells the MQTT broker to store the last message of each topic,
+in case a new client subscribes to the broker and automatically deliver the message to that new
+client. Retained flag off means if a client is offline during a publish, it will never get that message.
+Persistent Sessions: This makes MQTT designed for intermittent connectivity. Sessions may last
+weeks, months or years and it does this using a keep alive message and a timeout. QoS 1 &amp; 2
+messages are queued for clients which may be offline but have not timed out.
+Last Will &amp; Testament messages: If enabled, a device will register a message to the broker so
+that if a session is lost, send this message to a specific topic. This can be used to see which devices
+are online/offline at any given time.
+Quality of Service levels explained:
+QoS 0: At most once, &quot;Fire and forget&quot;. Sends a message and does not wait for a reply. Sender
+never retries to send the message and receiver might not get message.
+QoS 1: At least once, &quot;guaranteed delivery&quot;, continuously sends a message until there is a reply
+from the broker. But there is a chance of a duplicate message on receiver side while waiting for
+confirmation.
+QoS 2: Exactly once, &quot;2 phase commit guaranteed delivery&quot;. This is used when packet losses or
+duplication of messages is unacceptable. Comes at additional network traffic, most data heavy
+service so not ideal for GSM or GPRS.
+MQTT Ports:
+1. TCP: 1883
+2. TCP + SSL: 8883
+3. Websocket: 9001
+4. Websocket + SSL: 9883
+MQTT Advantages:
+Very lightweight protocol, devices do not need a lot of resources such as RAM. High power
+efficiency.
+The protocol supports for messages up to 256 MB is size.
+Publishers and Subscribers can communicate to each other without knowing ports, IP addresses
+etc.
+Devices don&#x27;t have to be actively connected at the same time. Therefore suitable for unstable
+networks.
+Sending and receiving messages happens at each devices own speed, synchronization works
+seamlessly.</pre>
+</details>
+
 
 <script>
 (function() {

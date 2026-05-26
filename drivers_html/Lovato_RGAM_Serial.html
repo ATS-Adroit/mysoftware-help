@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,138 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Lovato RGAM Serial.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-LOVRGAM.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-LOVRGAM.docx
+P a g e | 4
+1. Overview
+This document describes the setup of, and the communication protocol implemented in the Adroit
+protocol driver with the Lovato RGAM.
+
+[Page 6]
+ATQMS-DRVR-DOC-LOVRGAM.docx
+P a g e | 6
+3. Device Configuration
+3.1.
+Device Configuration
+3.1.1. Configuration Selection [not implemented]
+Enable Secondary - (not available) Enables secondary configuration for dual redundant
+Controllers. This setting is disabled for this driver.
+Primary/Secondary - Select the primary or secondary button depending on which connection you
+wish to configure.
+3.1.2. Port Setup
+Port - Select the serial port to use for communications.
+Parity - Select even or uneven parity in a single serial transmission message.
+DataBits - Select the number of data-bits per packet.
+StopBits - Select the number of stop-bits per packet.
+Baud Rate - The transmission rate of data (including start and stop bits). The default baud rate for
+an RGAM unit is 9600.
+Retry - The number of times to retry a transaction before a comms-failure is reported.
+Timeout - The number of milliseconds to wait between communication-retries.
+
+[Page 7]
+ATQMS-DRVR-DOC-LOVRGAM.docx
+P a g e | 7
+3.1.3. Device Details
+RGAM Station Address - Supply the unit address of the RGAM device to communicate with.
+3.1.4. IP Settings
+If an Ethernet gateway is used to provide an encapsulated Serial interface to the controller, the
+following settings is used to configure the connection:
+Use TCP/IP encapsulation - Ticking this box switches the driver from communicating using a
+COM Port to using a TCP/IP Socket.
+TCP Port - The TCP Port on which the driver should try to connect to the controller.
+IP Address - The IP Address that will be used for communicating with the controller.
+3.1.5. Advanced Settings
+This checkbox is available so that during setup the values being sent to and read from the device
+are displayed. The breakdown of what is sent back to Adroit is displayed and any errors that occur
+during transmission are displayed.
+Display advanced debug in datascope - Displays extra information for debugging purposes
+during setup.
+
+[Page 8]
+ATQMS-DRVR-DOC-LOVRGAM.docx
+P a g e | 8
+4. Supported Addresses
+The Lovato RGAM Adroit serial driver supports the following read-only data address types:
+Op-code
+Description
+General status request
+ST 1
+ST 12
+Error status request
+ER 1
+ER 21
+Mains voltage value (3-phase) request
+MV 1
+MV 3
+Generator voltage value request
+GV 1
+Integer
+Generator frequency request
+FR 1
+Integer
+Battery voltage request
+BV 1
+Real
+Engine total working time request
+(minutes)
+HR 1
+Battery charger alternator voltage
+request
+AV 1
+Digital input / output status request
+IO 1
+IO 15
+IO 1
+Integer
+CW
+Control Bits for simulation of the
+buttons on the controller
+CW 1
+CW 11
+
+[Page 9]
+ATQMS-DRVR-DOC-LOVRGAM.docx
+P a g e | 9
+5. Protocol Definition and Considerations
+5.1.
+Lovato RGAM Message Structure
+Message
+start
+Message start:
+The opening bracket character (0x28) indicates the start of a new message.
+RGAM Station Address:
+This two-digit number indicates the address of the RGAM to which the message has to be sent.
+Op-code:
+The op-code identifies the type of information that is requested by the user. This could be any one
+of the opcodes described in the previous section (Supported addresses).
+Operator:
+The operator indicates the type of message to send (Read or Write message). The Adroit Lovato
+RGAM serial driver only supports &#x27;Read&#x27; messages; thus, the operator will always be a question mark
+Data:
+The data that the user wants to write to the unit. Because this driver doesn&#x27;t support write
+functionality, the data portion will always be omitted.
+Start checksum:
+The ampersand character (&#x27;&amp;&#x27;) indicates the start of the message checksum.
+Checksum:
+The checksum is two characters wide and is the lowest significant byte of the algebraic sum of the
+single bytes that are transmitted, starting from the RGAM station address to the last data byte.
+Message stop:
+The closing bracket (&#x27;)&#x27;) indicates the end of the message.
+Carriage-return-linefeed:
+The carriage-return and linefeed characters are appended to the end of each message.</pre>
+</details>
+
 
 <script>
 (function() {

@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,93 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/BACnet Ethernet UDP-IP.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Protocol Driver
+Name
+BACnet Ethernet UDP/IP
+DLL
+D_BACNET
+
+[Page 3]
+ATQMS-DRVR-DOC-D_BACNET.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-D_BACNET.docx
+P a g e | 4
+1. Overview
+This driver makes use of the BACnet Stack library supplied by sourceforge.com.
+The driver supports these functions at the moment:
+ReadProperty
+ReadPropertyMultiple
+Not all devices support ReadPropertyMultiple.
+For reading we will always try to do a ReadPropertyMultiple and if it fails the driver will revert to a
+ReadProperty call instead. ReadProperty is much slower and has a limitation of only supporting 255
+Items that can be scanned individually.
+The driver also supports Ethernet connection through a WhoIs function call.
+NOTE: Please ensure broadcasting is enabled on all routers and internal network between driver
+and BACnet devices to ensure successful communications. Also only UDP is used so ensure UDP is
+enabled through any firewalls. UDP port 47808 is used.
+
+[Page 6]
+ATQMS-DRVR-DOC-D_BACNET.docx
+P a g e | 6
+3. Device Configuration
+3.1.
+Driver Details
+Enable Secondary - Allows enabling of redundant BACnet device connections such that in case of
+a failure a switchover will occur. (Default = OFF)
+Primary - Allows configuration setting of the Primary BACnet device.
+Secondary - Allows configuration setting of the Secondary BACnet device.
+3.1.1. BACnet Device Details
+Enable shadow scanning from master to standby - If enabled will stop any communication
+to the BACnet device when the Agent server is in standby mode. By default we assume parallel
+scanning (default = OFF)
+Enable standby reads - Allows reading from BACnet device when agent server is in standby
+mode. (Default = ON)
+Enable standby writes - Allows writing to BACnet device when agent server is in standby mode.
+(Default = OFF)
+Timeout - Time in milliseconds to wait for a response from the BACnet device. (Default = 1000
+ms)
+Retries - The maximum number of retries to attempt communication to the BACnet device before
+ensuring a complete failure. (Default = 3)
+
+[Page 7]
+ATQMS-DRVR-DOC-D_BACNET.docx
+P a g e | 7
+Station ID - The BACnet device Station ID. This is only required and comes into working when
+the actual IP Address of the unit is unknown or will change dynamically.
+IP Address - The static IP Address of the BACnet device. If this is specified the Station ID is
+ignored as connection happens purely based on IP and UDP Port then.
+APDU - The maximum size in bytes that can be transferred over Ethernet. 1495 bytes is the
+maximum allowed on a single network packet and then some devices may implement segmentation
+of packets. As not all devices support segmentation, the driver in itself will segment the packets
+before sending it.
+Poll Interval - The time in milliseconds at which all the items will be requested from the device.
+PLEASE NOTE
+NB - If using the Station ID for WhoIs command the BACnet stack makes use of the very first NIC
+on your PC to send broadcast messages. In some cases, this specific NIC chosen is not the same one
+that the BACnet devices is running on and hence no communications. To overcome this scenario, a
+global registry key called &quot;IPToUse&quot; is created in the Drivers registry area with the default used NIC&#x27;s
+IP address in it. Here you can change the IP Address to the current NIC you want to use to access
+your BACnet devices with. See image below.
+The registry key for 32 Bit O/S:
+The registry key for 64 Bit O/S:
+
+[Page 12]
+ATQMS-DRVR-DOC-D_BACNET.docx
+P a g e | 12
+PROP_VT_CLASSES_SUPPORTED
+PROP_WEEKLY_SCHEDULE</pre>
+</details>
+
 
 <script>
 (function() {

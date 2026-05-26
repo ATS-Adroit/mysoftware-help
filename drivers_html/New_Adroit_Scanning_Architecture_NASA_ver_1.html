@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,252 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/New Adroit Scanning Architecture (NASA) ver 1.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 2]
+Last printed 11/15/2017 8:19 AM
+PART 1
+Audience
+The intended audience is communications specialists knowledgeable in protocols, and in the
+hardware technologies that make data communications possible. I also assume that some terms
+related to the operation of Adroit such as proxies and subscriptions make sense at a simple level
+at least. A working knowledge of scanning is also assumed.
+The problem
+Currently we identify 2 short-comings in the Adroit scanning philosophy, these are largely offset
+by simplicity of configuration, and some automated reasoning in our drivers. However for the
+more advanced customer who wants total control, and the best possible performance we identify
+the following.
+Double-polling of data when packing in the Front-end has overlaps
+Continued polling of data that is not needed in the client at times.
+We will now lay out the reasons for the problems, and then move onto a proposal in the next
+section. Understanding these problems is imperative to the design of a solution.
+Double-polling:
+This occurs because the driver always maps I/O addresses that are near to
+each other into one large task. This happens automatically in the driver
+based on an optimization algorithm which tries to fetch the largest legal
+blocks (PDU length) of data since this is the optimal method. This causes
+a hitch because of a presentation problem. For instance data in an Analog
+tag in Adroit has 8-byte IEEE float presentation, data in a counter would
+have 4-byte long. If I/O addresses for these 2 types is interspersed, the
+driver has to create 2 tasks in order to return the data to Adroit, one for
+the IEEE presentation, and another for the 4-byte long. Nothing however
+stops the driver from creating one physical task for both, and converting
+for both presentations (this may include Booleans and Strings) in memory,
+saving communications bandwidth.
+Continuous polling:
+The scanning sub-system continues to poll for data even if it is not
+required. The only current work-around is to create a separate device
+agent for each plant segment, and scan those tags from it. Then, when
+the data is not required, stop the device agent. This situation is quite
+complex, and as a system grows with time, the benefits of this type of
+configuration are typically eroded by people placing more un-necessary
+tags on mimics, which causes these scan tasks to run again when only 1
+item is needed.
+Limited data types:
+Currently the Adroit scanning subsystem is limited to scanning Boolean,
+Integer, Real and String[80] data types only. The new architecture will
+break this limitation allowing for datetime and longer strings data types to
+
+[Page 3]
+Last printed 11/15/2017 8:19 AM
+be communicated as well. User Defined Types, discussed later, will also
+be supported in that the scanning subsystem.
+New architecture
+NASA requires changes in two areas of Adroit&#x27;s scanning subsystem:
+New device agent
+A new Device class (called Device_NASA) inherits from the current Device class in the device agent
+to handle the new architecture.
+The Device_NASA class does NOT require the use of scan agents. The responsibility for scheduling
+scan tasks are now demoted to the protocol driver as explained later.
+The
+Device_NASA
+CAdroitProtocolDriverCallbacks class which will allow NASA drivers to call back into the device
+agent.
+On creation of a device agent, the decision to use the legacy device class or the new class takes
+place in the Device agent&#x27;s construct() API call whereby the driver DLL would be tested for the
+existence of a new export function called CreateAdroitProtocolDriver, otherwise falling back to
+the legacy ProtDrvCreate. If CreateAdroitProtocolDriver exists, it implies that the protocol driver
+is compliant to the new scanning architecture and will be controlled by an instance of
+Device_NASA.
+In order to cater for on demand polling, a scan flag bit mask will be introduced for each scanned
+item that will denote the type of scanning required for each scanned tag. These are:
+Bit 0 = enable reads
+Bit 1 = enable writes
+Bit 2 = output initialize
+Bit 3 = demand scan
+It is envisaged that write-only tags will never be marked bad.
+The scanned Adroit tag type is NOT passed to the driver. The driver shall return all values as
+COleVariant&#x27;s and the Device_NASA class shall be responsible for converting these returned
+The driver issues callback to the Device_NASA class in much the way OPC callbacks work viz an
+array of tag handles, an array of timestamps, an array of variant values and an array of qualities.
+New protocol drivers
+Unlike the legacy architecture, where flat C DLL export functions are used to interface to the
+protocol driver, NASA drivers will derive from an abstract class called CNASADevice which will
+contain the necessary functions for interfacing. The interface specification is included in the file
+nasadevice.h with further definitions defined in nasaclasses.h.
+
+[Page 4]
+Last printed 11/15/2017 8:19 AM
+Cluster operations
+Cluster scanning operations, such parallel scanning will now be controlled at the protocol driver
+level on a device by device basis. The Device_NASA class will inform the driver of the current
+agent server cluster status via a SetClusterStatus() method call and this method will return
+whether the driver is configured for shadowing or not, thus instructing the device agent to
+perform shadowed putslots if required.
+The legacy global cluster shadowed scanning configuration will only apply to legacy architecture
+protocol drivers.
+Quality values
+Quality values will honour the defined OPC quality values. These are currently defined as:
+// --- QUALITY MASK VALUES
+#define OPC_QUALITY_MASK 0xC0
+#define OPC_STATUS_MASK 0xFC
+#define OPC_LIMIT_MASK 0x03
+// --- QUALITY BIT VALUES
+#define OPC_QUALITY_BAD 0x00 //x
+#define OPC_QUALITY_UNCERTAIN 0x40
+#define OPC_QUALITY_GOOD 0xC0
+// --- STATUS BIT VALUES
+#define OPC_QUALITY_CONFIG_ERROR 0x04
+#define OPC_QUALITY_NOT_CONNECTED 0x08
+#define OPC_QUALITY_DEVICE_FAILURE 0x0c //x
+#define OPC_QUALITY_SENSOR_FAILURE 0x10 //x
+#define OPC_QUALITY_LAST_KNOWN 0x14
+#define OPC_QUALITY_COMM_FAILURE 0x18
+#define OPC_QUALITY_OUT_OF_SERVICE 0x1C //x
+#define OPC_QUALITY_LAST_USABLE 0x44 //x
+#define OPC_QUALITY_SENSOR_CAL 0x50 //x
+#define OPC_QUALITY_EGU_EXCEEDED 0x54 //x
+#define OPC_QUALITY_SUB_NORMAL 0x58 //x
+#define OPC_QUALITY_LOCAL_OVERRIDE 0xD8 //x
+#define OPC_LIMIT_OK 0x00 //x
+// --- LIMIT BIT VALUES
+#define OPC_LIMIT_LOW 0x01 //x
+#define OPC_LIMIT_HIGH 0x02 //x
+#define OPC_LIMIT_CONST 0x03 //x
+Many of the above will be unusable from within Adroit in that that they cannot be determined.
+Such values are marked with the trailing &quot;//x&quot;. Typically, tag qualities would be used as follows:
+OPC_QUALITY_CONFIG_ERROR
+Unknown scan address. The quality for such a tag is never changed.
+OPC_QUALITY_UNCERTAIN
+The protocol does not allow for reading this address i.e. write only address
+OPC_QUALITY_NOTCONNECTED
+Device is started but the group has not yet been enabled
+
+[Page 6]
+Last printed 11/15/2017 8:19 AM
+PART 2
+nasaclasses.h file
+The nasaclasses.h file contains the following classes:
+CAdroitProtocolDriverCallbacks Base class for Device_NASA class allowing for CNASADevice
+instances to call back into the device agent
+CScanItem
+Defines the scan configuration for an FED address to be scanned
+CAdroitOleDateTime
+Helper class to the COleDateTime to provide millisecond
+support
+CNASAPropertyItem
+Defines a single configuration property for CNASADevice&#x27;s
+CNASAPropertyItems
+A collection of CNasaPropertyItems
+nasadevice.h file
+The nasadevice.h file contains the following classes:
+CNASADevice
+Base class for all NASA drivers. The new device class will will
+contain an instance of this class as instantiated by the driver
+itself
+CAdroitProtocolDriverCallbacks Defines the callback that must be implemented by Adroit&#x27;s
+Deicve agent to allow NASA drivers to process new values from
+the FED.
+Typical NASA driver
+A typical NASA driver derives from CNASADevice as follows:
+class ADROITDRIVER_EXT_CLASS COPCUADevice : public CNASADevice
+public:
+// --- runtime methods ----------------------------
+COPCUADevice(LPCTSTR szDeviceName,
+CAdroitProtocolDriverCallbacks* hAdroitDevice);
+virtual CScanItem* AddScanAddress(LPCTSTR szAddress,
+DWORD dwRate,
+DWORD dwScanFlag,
+BOOL Browse(COPCUADevice* pd,
+CString&amp; csError,
+HWND hwnd);
+virtual void DynamicConfig(void);
+virtual void EnableItem(void* pClientHandle,
+
+[Page 7]
+Last printed 11/15/2017 8:19 AM
+BOOL bEnable = TRUE);
+void OutputScopeMsg(CString cs_text,
+WORD colour);
+virtual void RemoveItem(void* pClientHandle);
+virtual void ResetConnection();
+virtual void Setup();
+virtual void Start(BOOL bStart = TRUE);
+virtual void WriteItem(void* pClientHandle,
+COleVariant&amp; ovValue);
+// --- configuration methods ----------------------------
+virtual void SetPropertyItem(LPCTSTR szName,
+LPCTSTR szValue);
+virtual CString OnSetPropertyButton(DWORD dwData);
+virtual void Unload();
+void Run();
+BOOL m_bThreadRunning;
+BOOL m_bDeviceStarted;
+long m_UseCount; // for use by CDeviceArray()
+WORD m_Status; // status (DEVICE_OK or DEVICE_BAD)
+long m_Retries;
+BYTE m_TimeStampMethod;
+DriverEngineStatus m_EngineState;
+COPCUAConnection* m_pOPCUAConnection;
+private:
+HANDLE m_hDevice;
+HANDLE m_MonFileHandle; // monitor memory-mapped file structure
+BOOL CreateMonitor();
+// protocol dependant members
+PSECURITY_DESCRIPTOR m_pSD;
+// ... and security descriptor
+CString BrowseComputers();
+CString BrowseOPCServers();
+BOOL BrowseOPCServers(CString&amp; csServerName,
+CString&amp; csServerUrl,
+EnumUserTokenType&amp; ut,
+EnumMessageSecurityMode&amp; sm, CString&amp; csSecPolicy);
+BOOL Connect(CString&amp; csError);
+Device_NASA class
+The new Device_NASA class is as follows:
+class Device_NASA : public Device, public CAdroitProtocolDriverCallbacks
+// --- Interface ----------------------------------------------------------
+public:
+// --- Interface Operations of Device_NASA class ---
+// constructor - creates Device_NASA instances
+Device_NASA (
+
+[Page 12]
+Last printed 11/15/2017 8:19 AM
+Make sure you test this change by running the protocol driver monitor (pdrvmon.exe) under
+option 2.
+To allow perfomance monitor to operate correctly, run an administrative cmd console window ,
+navigate to your driver source path and run the following:
+&quot;..\incs.bat&quot;
+Check that counternames.inc and offsets.inc have been rebuilt.
+You should be good to go, rebuild the driver dll, copy to agent path, restart the agent server attach
+a device , see if the driver and its device instance is visible in the perfmon list.
+Troubleshooting Performance Counters
+To test if performance counters are active, goto permon.cpp line ~456 and change the
+perfversion, this tells the setup procedure to reinstall performance counters, this is especially
+important if performance counters are ADDED even if it is just a name change when including the
+use of a new &quot;USERx&quot; count.
+Perfmon.cpp:
+CHAR perfversion[] = &quot;1.00&quot;;
+After compile rerun setup.
+Any name change you must rerun incs.bat, and you cannot transfer incs between projects.
+Another check is via regedit:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\D_SAMPLE_NASA</pre>
+</details>
+
 
 <script>
 (function() {

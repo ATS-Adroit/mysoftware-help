@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,106 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/RDC Reporter 8102.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+RDC SYSTEMS : REPORTER 8102
+Printed 17-Aug-20
+RDC8102 driver
+The RDC8102 protocol for Adroit communicates to a Reporter 8102, which is designed to receive
+transmitter codes in a control room or operate as a stand alone intelligent repeater. Product obtainable
+from Radio Data Communications (Tel 011 616 7685)
+The protocol is an exception based protocol driver in that data is received asynchronously when a value
+changes on an outstation.
+Wiring
+Wiring between the RS232 port and the modem is standard RS232. Please consult your REPORTER
+8102 documentation for additional particulars on setting up the hardware.
+Driver Installation and Setup
+The driver is installed by picking the RDC8102 driver from the drivers directory. The RDC8102.DLL
+and the RDC8102.DOC is then copied into the agent directory.
+After installation of the driver, the user may then create and configure devices for the RDC8102 driver.
+Device Configuration
+Devices
+At a minimum, you must create at least one device for every port being used. However, you may
+choose to create a device for a group of transmitters.
+
+[Page 2]
+RDC SYSTEMS : REPORTER 8102
+Printed 17-Aug-20
+Device configuration dialog
+Port
+Select the port through which you are going to communicate. The baud rate is fixed
+at 9600,8,1,N.
+Prefix
+This field is only used when the protocol is configured to communicate in alpha
+prefix mode. In all other modes this field is ignored.
+Scanning
+Due to the system operation, all scanned tags must be output enabled, pulsed, and cold started to zero.
+The reasoning follows: The scanning sub-system keeps a record of the last received value for
+optimization, and thus will not re-send an alarm &quot;on&quot; until it goes &quot;off&quot; again. By output enabling the
+tag, when the tag goes to &quot;zero&quot; the scanning system updates it&#x27;s last known value with the zero
+(&quot;off&quot;), thus when the alarm on (&quot;one&quot;) condition arrives again, it gets put into the tag as expected. By
+the same reasoning, cold-start will initialize the tags to zero (&quot;off&quot;), so that all current alarms are clear.
+In addition, stopping and starting a device agent causes the driver to zero all scanned values, and the
+tags.
+The driver keeps a last known value for the alarms, which is cleared on device start, this last known
+value gets &quot;OR&quot;ed with an incoming alarm, thus giving the SUM of alarms received to the tag.
+Effectively this &quot;copy&quot; of the value allows the driver to keep track of the tags&#x27; value. This function
+naturally only works correctly if the tag was output enabled, so that when bits in the tag clear (go off)
+the driver will also clear them at the same instant in time.
+Outstation Data
+The driver processes the following data received:
+Alarm
+Lock up
+
+[Page 3]
+RDC SYSTEMS : REPORTER 8102
+Printed 17-Aug-20
+Mains Restore
+Data received in any mode will be processed according to the above list. In Chubb mode only bits(0-7)
+will be activated.
+Digital inputs
+Digital tags (Boolean slots) that are scanned from Outstations can be scanned into Digital tags
+The format of the address string is as follows: CN: TTTT: B
+Where: CN - stands for code number.
+TTTT - Code number of transmitter
+B - Bit number (0 - 15)
+Analogue / Multistate inputs
+If scanned into a Multistate agent than the 16 slots represent the digital status of that transmitter.
+The format of the address string is as follows: CN: TTTT
+Where: CN - stands for code number.
+TTTT - Code number of transmitter
+When scanned into an integer, the value of the integer will represent the status of the outstation by a
+number ranging from 1 to 65535 with the value 0 representing no alarms.
+Message protocol
+Datascope messages are displayed in hex or ascii. All messages are displayed whether that transmitter
+is configured or not. Messages of devices not configured are displayed in the first devices protocol
+monitor.
+Reporter Standard
+
+[Page 4]
+RDC SYSTEMS : REPORTER 8102
+Printed 17-Aug-20
+3 Digit Telemetry
+Byte Number
+Code Number
+Chubb Format
+Byte Number
+^13
+Protocol with alpha prefix - Any of the above three protocols with an alpha prefix. Thus this protocol
+will have 1 byte more than the above 3 protocols. For the data to be valid the prefix defined must match
+the prefix defined in the device.
+Troubleshooting
+Revisions
+Date
+Dialog updated after neatening up.
+24/02/2003
+Described better output enable and cold-starting of the tags.</pre>
+</details>
+
 
 <script>
 (function() {

@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,284 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Endress & Hauser Promag 800 Email.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Adroit : Endress &amp; Hauser Promag 800 Email Driver
+Endress &amp; Hauser Promag 800 Email driver
+Introduction
+This driver is designed to provide an interface for Promag 800 flow meters.
+The data is sent in the form of an email containing a csv attachment.
+Once the email is received it is decoded to expose the values contained in the attachment
+and body of the mail.
+Inbox management is provided through a backup box and an unknown/todo box, where
+email messages can be moved as appropriate.
+Messages older than a configured amount of days may be set for auto deletion.
+A separate Adroit device has to be created for each flow meter with the station ID being
+set equal to the serial number of the flow meter as per the CSV file that get emailed.
+There is a resource id allocated automatically on configuration, new devices will attempt
+to find a compatible configuration (those that share an inbox for example) any others will
+create a new resource, selecting a resource in the dialogue will load the current
+configuration for that box, if the device is saved (On OK) any changes will be save with an
+appropriate warning. Resource ID can be deleted with appropriate warnings if it might
+affect other devices.
+Offline devices and unknown (unconfigured) devices will have their emails moved to the
+UNKNOWN box if the MOVE radio is applied. Else if DELETE was selected
+unconfigured emails will be deleted. And offline device emails will be left in the main
+INBOX.
+
+[Page 2]
+Adroit : Endress &amp; Hauser Promag 800 Email Driver
+Configuration Dialog
+Mail server settings (*Resource key)
+(the parameters Identified by the * define a resource common to all devices that share
+those parameters, any change to any other parameter in this group will be
+changed for all devices using this mailbox.)
+*Mailbox Type - Choose IMAP or POP depending on your server type. (pop has been
+disabled for the time being)
+*Mail Server - The name of the mail server
+*Mail Port - 143 for IMAP , 110 for POP. (Some Servers use non-default ports)
+*Server uses SSL - IF the mail server requires this, usually IMAP port will then need
+993.
+*Login Name - User name on the server.
+(the remaining parameters can be considered as sub-parameters (these will not result
+in a new resource being generated if different from any other resource) and if a
+change is requested on these the whole resource will be updated, and thus
+affect all devices using that resource)
+Login Password - User password.
+
+[Page 3]
+Adroit : Endress &amp; Hauser Promag 800 Email Driver
+Detailed debugging to datascope - Additional processing information will be sent to
+the datascope.
+Incoming mailbox configuration
+Incoming Mailbox Inbox name - this is where all new emails should arrive first.
+Mailbox Poll Period (ms) - Mailbox will be checked for new mail at this interval.
+Move used messages to BACKUP mailbox - Radio - If a mail is parsed and accepted
+and considered complete, checking this radio button will tell the driver to move that mail
+to the used or BACKUP mailbox, where further processing could take place such as
+remain there for x amount of days before being discarded.(see further down)
+Delete used messages - Radio - If a mail is parsed and accepted and considered
+complete, checking this radio button will tell the driver to delete the mail immediately.
+Move unknown messages to UNKNOWN mailbox - Radio - If a mail is parsed and
+found to be junk or for an offline device and NOT considered complete, checking this
+radio button will tell the driver to move that mail to the todo or UNKNOWN mailbox,
+where further processing could take place such as remain there for x amount of days
+before being discarded.(see further down)
+Delete unknown messages - Radio - If a mail is parsed and found to be junk or for an
+offline device and NOT considered complete, checking this radio button will tell the driver
+to delete the mail immediately.
+Backup mailbox configuration
+Backup Mailbox - Backup name - this is a sub or secondary mailbox where completed
+emails can be stored for a period of time.
+Delete messages older than x days - Any email in this box older than this number of
+days will be deleted during driver maintenance tasks.
+Unknown mailbox configuration
+Unknown Mailbox - Unknown name - this is a sub or secondary mailbox where
+incompleted emails can be stored for a period of time. Junk/spam and or unconfigured or
+offline devices will also go here.
+Delete messages older than x days - Any email in this box older than this number of
+days will be deleted during driver maintenance tasks.
+Unknown mailbox configuration
+(these setting are stored per device and will not affect other devices using the
+same resource id.)
+Station ID - This is the identifier code sent in the subject line of the email. (for example
+: Data from ML250 29902 , the id is 29902.
+Model - Select the Model of the Promag 800 flometer. Currently only Promag 800 is
+available.
+Device contains units - The Promag 800 can report data with unit fields.
+
+[Page 4]
+Adroit : Endress &amp; Hauser Promag 800 Email Driver
+Supported addresses
+A CSV row constitutes 1 record:
+1,2010/02/03,00:00:00,&lt;Unit 1&gt;,&lt;Value1&gt;,&lt;Unit 2&gt;,&lt;Value2&gt;…&lt;Unit
+21&gt;,&lt;Value21&gt;
+Data
+Unit for Positive Total
+U1
+Value 1
+Value of Positive Total
+V1
+V1
+Unit of Negative Total
+U2
+Value 2
+Value of Negative Total
+V2
+V2
+Unit of Flow Rate
+U3
+Value 3
+Value of Flow Rate
+V3
+V3
+Unit of Flow Rate %
+U4
+Value 4
+Value of Flow Rate %
+V4
+V4
+Unit of SPARE
+U5
+Value 5
+Value of SPARE
+V5
+V5
+Unit of SPARE
+U6
+Value 6
+Value of SPARE
+V6
+V6
+Unit of Positive Partial Total
+U7
+Value 7
+Value of Positive Partial Total
+V7
+V7
+Unit of Negative Partial Total
+U8
+Value 8
+Value of Negative Partial Total
+V8
+V8
+Unit of Total Net Value
+U9
+Value 9
+Value of Total Net Value
+V9
+V9
+Unit of Partial Net Value
+U10
+Value 10
+Value of Partial net Value
+V10
+V10
+Unit of SPARE
+U11
+Value 11
+Value of SPARE
+V11
+V11
+Unit of SPARE
+U12
+Value 12
+Value of SPARE
+V12
+V12
+Unit of SPARE
+U13
+Value 13
+Value of SPARE
+V13
+V13
+Unit of SPARE
+U14
+Value 14
+Value of SPARE
+V14
+V14
+Unit of SPARE
+U15
+Value 15
+Value of SPARE
+V15
+V15
+Unit of Cycles Per Hour
+U16
+Value 16
+Value of Cycles Per Hour
+V16
+V16
+Unit of Battery 1 Status
+U17
+Value 17
+Value of Battery 1 Status
+V17
+V17
+Unit of Battery 2 Status
+U18
+Value 18
+Value of Battery 2 Status
+V18
+V18
+Unit of Battery 3 Status
+U19
+Value 19
+Value of Battery 3 Status
+V19
+V19
+Unit of Antenna Signal
+U20
+Value 20
+Value of Antenna Signal
+V20
+V20
+Unit of Board Temperature
+U21
+Value 21
+Value of Board Temperature
+V21
+V21
+
+[Page 5]
+Adroit : Endress &amp; Hauser Promag 800 Email Driver
+Application example
+1.
+You have a Promag 800 flow meter from which you need to extract the following
+data:
+a.
+The positive volume counter
+b.
+The negative volume counter
+c.
+The Flow rate
+2.
+You are also required to extract the units of these values from the csv file.
+3.
+In addition to this you need to determine the signal strength of the antenna.
+In order to accomplish this you will need to create 4 analog agents and 4 string agents.
+You will scan the value of the positive volume counter (analog) from the &quot;V1&quot; address of
+the device
+You will scan the unit of the positive volume counter (string) from the &quot;U1&quot; address of the
+device.
+You will scan the value of the negative volume counter (analog) from the &quot;V2&quot; address of
+the device
+You will scan the unit of the negative volume counter (string) from the &quot;U2&quot; address of
+the device.
+You will scan the value of the flow rate (analog) from the &quot;V3&quot; address of the device
+You will scan the unit of the flow rate (string) from the &quot;U3&quot; address of the device.
+You will scan the value of the antenna signal strength from the &quot;V20&quot; address of the
+device.
+You will scan the unit of the antenna signal strength from the &quot;U20&quot; address of the
+device.
+Fault finding
+Ensure the connection settings to your mailbox is correct.
+2.
+Ensure the serial number of the Promag 800 flow meter matches the Station ID
+as set up in the driver configuration.
+3.
+Ensure the emails do have attachments.
+4.
+Ensure that the data attachment is before the event attachment.
+5.
+Ensure that there is no invalid data in the body of the email, or in the
+attachment.
+6.
+Do not move emails between folders in excel. A Copy is required for the driver to
+operate to specification.
+
+[Page 6]
+Adroit : Endress &amp; Hauser Promag 800 Email Driver
+Revision information
+Date:
+First Released Document.</pre>
+</details>
+
 
 <script>
 (function() {

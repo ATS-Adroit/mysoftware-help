@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,186 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Modbus RTU Ethernet TCP-IP Multi Channel.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-MOD_EMC_new.docx
+P a g e |
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-MOD_EMC_new.docx
+P a g e |
+1.
+Overview
+Adroit supports communication with the following PLCs: Modicon 84, 884, 184, 384, 484, 584,984,
+Quantum, Premium, M340, Ethernet/serial gateways and many other third-party devices over TCP/IP
+using MOD_EMC and its sister driver MOD_ETH (Modbus Ethernet).
+MOD_EMC implements various optimizations over MOD_ETH to ensure very high-speed
+communications and includes the ability to configure multiple channels on one device configuration,
+scan tasks will then be load balanced over these channels.
+MOD_ETH and MOD_EMC are interchangeable due to identical registry and addressing structures,
+and they can be run simultaneously.
+Logical devices are still possible but redundant unless special requirements such as requiring
+permanent separation of the devices scan list to say stop parts of the list.
+
+[Page 8]
+ATQMS-DRVR-DOC-MOD_EMC_new.docx
+P a g e |
+For Multiple logical mappings to one PLC (as multiple Adroit devices), use the same IP and Port
+number. The driver will only open multiple sockets (parallel connections) to this physical device if
+the &quot;Create multiple connections...&quot; checkbox is selected in the Advanced Settings Dialog.
+4.1.3. Dynamic IP via DNS Lookup (Disabled until required)
+When Dynamic IP via DNS is enabled, the driver will launch a thread that will attempt to lookup an
+IP address when retries are exhausted and found to be failing. This lookup process will continue
+indefinitely until the Agent Server is stopped. It will not block a connection or the Agent Server
+read/writes which will continue on existing connection parameters until changed by a successful
+lookup, which will then save those new parameters.
+This mode can be used on connections that are on the internet and have a dynamic IP such as when
+using ADSL that change IP address once a day. The device will need to be registered on a DNS
+server such as DYNDNS.ORG
+Enable - (Default = unchecked) This will enable the DNS Lookup mechanism.
+DNS Server IP - IP address of the DNS server that will handle lookup requests.
+Host Name - The name of the machine/PLC registered on the DNS server. This name is used to
+request the associated IP address. The IP address returned will be stored in the IP Address field
+dynamically in the PLC Details.
+4.1.4. Local Details
+Retry - The number of attempts that the Master will attempt to communicate with the PLC before
+failing a transaction.
+Timeout - The time that the Master will wait for a valid response from a PLC before failing an
+individual transaction (Read or Write).
+4.1.5. Test Device Config for Connectivity
+This section is available to help users determine whether the settings they have entered are valid
+and Adroit can communicate with your device. The Agent Server is not required to be running.
+Test Address - An address in your device which will be polled when the &quot;Read Address&quot; button is
+clicked. The address entered must be valid and will match the IEC or Standard Modbus addressing
+scheme selected in the advanced dialog.
+IO Type - Defines the base address type to be read, i.e., Boolean, Integer, Real or String80.
+Read Address - Click this button to poll the PLC with the current settings in the dialog.
+Reply - The successful or failed result will be updated to this static text control.
+Ping Test - Click to verify that the TCP/IP address entered into the boxes can be accessed using a
+ping, an appropriate message box will appear as to the result.
+
+[Page 11]
+ATQMS-DRVR-DOC-MOD_EMC_new.docx
+P a g e |
+Backoff count (mSec) … (Default=2) After the backoff-count is consecutively exceeded the
+driver will enter a backoff mode, rejecting any further reads or writes on all channels until the period
+is exceeded, then one is allowed through to test for resumption , if it still fails then the driver will
+re-enter the backoff period again.
+PLEASE NOTE
+Please note setting backoff count to too high a value will negate the usefulness , recommended &lt;
+10 , remember timeouts and retries are also taken into account
+4.2.2. Byte Ordering
+Reverse Modbus coil MSB/LSB ordering when scanning them into integers - If Integer or
+Real Agents are scanned to coil(0xxxxx) or input(1xxxxx) region and the result appears jumbled,
+use this setting to reverse the ordering and swap the endian order.
+Force 16bit boundary justification. - If (checked - default) the driver will force Integer or Real
+Agents scanned to coil(0xxxxx) or input(1xxxxx) region to be mapped into 16 bit word boundaries.
+Reverse MSByte/LSByte ordering when scanning Holding register bits into Booleans. -
+before unpacking to Boolean Agents the word data returned from a holding register is first byte
+swapped.
+Swap byte ordering on Strings Agents - Toggle to change the byte order of each word that the
+string occupies, for example &quot;EHLL1O&quot;   &quot;HELLO1&quot; .
+Swap word&#x27;s byte order- Toggle to change the byte order of word 16 bit register results.
+Swap LONG word ordering - Toggle to change the word order of long 32 bit register results.
+Swap floating-point value ordering - Toggle to change the word order of floating 32 bit register
+results. Must be selected for communication to all genuine Modicon equipment.
+4.2.3. General
+if using a slow and noisy media or getting timeouts. This option may be incompatible with simple
+Optimize scanning of Coils and relays to only scan the exact number of elements - turn
+on this option to prevent the driver from reading multiples of 8 bits (at least 1 byte), and instead
+read only the required number of bits.
+Use function6 (Write Single Holding Register) - (Default = unchecked) This will use function
+06 to write single registers, instead of writing one register using multiple register write function,
+some PLCs only support function 06.
+Insert spaces for non-printable characters in strings - (Default = checked) This will change
+any character that is less than a space &quot; &quot; 0x20 and greater than &quot;~&quot; 0x7e. These are referred to as
+
+[Page 12]
+ATQMS-DRVR-DOC-MOD_EMC_new.docx
+P a g e |
+non-printable and can cause load and save problems in the wgp file. (Opt-out if previous functionality
+is needed).
+Detailed debugging information - (Default = unchecked) This causes the driver to add more
+debugging information to the datascope, such as data values and more specific information relating
+to each protocol message.
+Use IEC Standard Addressing - (Default = checked) If checked it will enable the driver to use
+IEC addressing when validating, for example %MW0 instead of 400001. %MW0 = 400001.
+Address 255 Padding required - (Default = checked) If checked it will force the driver to use a
+16-bit address word prefixed with a 0xFF pad byte when the address is larger than 254 decimal
+value.
+See Address padding below for examples.
+Use Modbus serial encapsulation in TCP/IP - (Default = unchecked) If checked it will remove
+the data portion of the IP packet and sent to a dumb TCP to serial convertor/gateway where the
+data portion is simple retransmitted on its serial bus.
+
+[Page 22]
+ATQMS-DRVR-DOC-MOD_EMC_new.docx
+P a g e |
+7. General Notes and Troubleshooting
+7.1.
+Contact Details
+Phone: +27 11 658-8100
+7.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+7.3.
+PLC Exception Codes
+These codes are returned by the PLC. Some action either in scan configuration, driver setup
+parameters or hardware configuration may be needed to rectify the problem.
+Hex code
+Meaning
+0x1
+Illegal Function
+The function code received in the query is not an allowable
+action for the slave.
+0x2
+Illegal Data Address
+The data address received is not an allowable address for the
+slave.
+0x3
+Illegal Data value
+A value contained in the query data field is not an allowable
+value for the slave.
+0x4
+Slave Device failure
+Unrecoverable error occurred in the slave while processing
+the request.
+0x5
+This response is returned if the slave is processing the
+request but will take a long time; this is to prevent the
+master from timing out.
+0x6
+Slave device busy
+Re-transmit the command later when the slave is not busy.
+0x7
+Negative acknowledge
+Slave cannot perform a programming function requested.
+0x8
+Memory Parity error
+The slave may require service. This error may occur when a
+request is made to read extended memory and a parity error
+is detected in the memory.
+0xA
+Gateway Path un-available
+The remote device on a Modbus plus + network did not
+respond to the gateway in time, this may occurs if a device
+routes through the gateway onto a different network and is
+no longer connected.
+0xB
+Gateway Target failed to
+respond.
+The remote device did not respond to the gateway in time,
+this occurs if a device routes through a gateway onto a
+different network such as RS485 and is no longer connected.</pre>
+</details>
+
 
 <script>
 (function() {

@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,264 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Modbus RTU-ASCII Serial.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-MODBUSI.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 12]
+ATQMS-DRVR-DOC-MODBUSI.docx
+P a g e | 12
+Swap long value ordering - Allows the ordering of all long (suffix L) holding-register I/O to be
+word-swapped. Checked means it is not swopping.
+Swap byte ordering of strings - Turn off to swap each byte of the string, e.g. &quot;EHLL1O&quot;
+becomes &quot;HELLO1&quot;.
+Swap word byte order - Turn on to swap each byte of the word.
+3.3.3.
+General
+RS485 wiring with reflections - (Advanced option) When using RS-485 the driver will receive
+and cater for message reflection which occurs because the RX circuit is enabled during the
+transmission of telegrams. (Used with RTS enabled and DTR enabled.) When using an external RS232 to 485 converter this option may not be necessary.
+Close serial port on fail - (Default = enabled) This setting, when enabled, will do a hard shut
+down and reinitialization of the communications Port. Some Ethernet to serial convertors hang
+under noisy conditions, so we compensate for this by only purging and not closing the port.
+Optimize scanning of Coils and relays - turn on this option to prevent the driver from doing
+read-ahead optimization, and instead read only the required number of bits. By default, the driver
+will read all bits packed into a byte, hence the last coil or relay read is always at the end of an 8bit multiple. This option prevents incorrect packing by some non-genuine RTUs.
+Detailed debugging - (Default = Disabled) This setting will add additional information to the
+datascope.
+Use Preset single register (06) func. - (Advanced option) (Default = disabled) Allow the driver
+to use function code 06Hex when writing to any single holding register types. If disabled, the driver
+uses function 10Hex which is more generic.
+Integer &quot;I&quot; format is Signed_ magnitude - (Default = disabled) Integers will be expressed as
+signed magnitude if checked. Use, for example, 400001 I 0xFFFF will result in 0x8001 if checked
+else 0xFFFF if not.
+Purge Timeout - (0 to disable) Will instruct the communication resource to idle for the specified
+period in milliseconds to wait for incoming noise/corrupted messages to clear from the port, this
+happens when the timeout is too short, and data is still being received.
+3.3.4.
+PDU lengths (see section: Protocol unit sizes)
+Outputs 000000 , Inputs 100000, Analogue 300000, Holding 400000 , Extended
+600000 - Must be used in conjunction with the &quot;CUSTOM&quot;PLC type, set the appropriate
+lengths here. Length count is in items i.e., 000000, 100000 = 8 items per byte, 300000, 400000
+= 2 bytes per item.
+Bit types (Inputs 000000 , Outputs 100000) work optimally in multiples of 8 bits (to a
+byte), i.e. 16 will result in 2 data bytes returned in the data portion of the PDU. Some devices do
+not respond correctly if multiples are not 8.
+
+[Page 17]
+ATQMS-DRVR-DOC-MODBUSI.docx
+P a g e | 17
+5. Protocol Definition and Considerations
+5.1.
+Diagnostic Sub-Functions
+The function 08 sub-functions are supported as an extension to the driver&#x27;s capabilities, and as
+such do not operate as standard scan-points, although they are licensed as such. Data returned
+from a function cannot be read into a tag at this point.
+The diagnostic functions are advanced functions, and require special tag configuration for proper
+operation. To enable the function 08 support, set the registry value &quot;enableFn08&quot; to a non-zero
+value, this is the default. These functions are only supported in RTU mode, and not yet for ASCII
+operation.
+5.1.1.
+Function 08 Supported Addresses
+Tag access
+Min
+Write (rising edge trigger)
+11 DT
+Values
+Read (result of diagnostic request)
+11 DD
+The driver provides 22 digitals, which can be written to, a value of 1 (one) triggers the
+corresponding sub-function from 0 through 21. A value of zero is ignored, the driver only detects
+the rising edge, digitals should thus be configured as pulsed. The driver performs the sub-function
+when triggered and stores the communications result in a further list of 22 Integer slots. These
+can be read using multistates or integers. Where applicable, they may also be written to, this will
+in certain cases affect the way that the trigger will work for the corresponding function.
+5.1.2.
+Startup Function
+Facility is provided to automatically trigger one function only, whenever the device is started, as-if
+the relevant digital was triggered, the start-up feature is disabled by default. To enable this feature
+use regedit.exe to enter a valid code in the value &quot;startupFn08code&quot;. An invalid code, (for example,
+65525) simply disables the start-up feature and no further warnings are issued.
+PLEASE NOTE
+Not all devices support the full range of sub-functions, the driver makes no attempt to validate the
+model for a particular function&#x27;s compatibility. Use of certain diagnostic sub-functions is thus at own
+risk.
+Certain functions do not provide responses, for those that are, the driver copies the response data
+field to the relevant integer placeholder. The value is then read on the next scan. For functions
+that require data, the same placeholder may be written to, to provide the necessary data. The data
+for sub-function 00 can be pre-set to a value by entering it into the registry, see comms recovery
+below. The internal read and write locations of the place-holder are separate. Reading that location
+returns any data returned from the last time the function was transmitted to the FED, or zero.
+Writing to the location transfers the user data in the place-holder to the FED.
+5.1.3.
+Comms Recovery
+
+[Page 18]
+ATQMS-DRVR-DOC-MODBUSI.docx
+P a g e | 18
+After a communications failure, the driver will automatically issue the start-up function if it is a
+valid one. This will accommodate a FED that gets re-set and allow adroit to re-initiate
+communications to the device smoothly. If the start-up function is enabled, the driver will continue
+to use the start codes to try and re-initiate communications, until a scan succeeds. Any
+communications fault will force the driver to re-init. See the registry entries section for the data to
+send in the start-up function.
+5.1.4.
+Tag Configuration
+Digitals configured for triggers must be output enabled and input disabled. Integers configured
+for placeholders only need to be output enabled if applicable. The engineer need not configure a
+corresponding placeholder for every trigger.
+5.1.5.
+Function Reference
+The function codes and a brief explanation of each follow, for more detail see Modicon Modbus
+Protocol Reference Guide - PI-MBUS-300:
+Sub-function Code Description
+00 00
+Return query data (echo function)
+00 01
+Restart communications option. Restarts and initializes slave&#x27;s peripheral port. This
+function also brings a slave out of listen only mode. (Option) data code 0xFF00
+clears the slaves comms event log, data code 0x0000 leaves log as-is.
+00 02
+Return diagnostics register. (returns the slave&#x27;s 16-bit diagnostic register, see
+Modbus manual for bit meanings)
+00 03
+Change ASCII delimiter (Option). The high byte of the 16-bit data code corresponds
+to the ASCII character to use.
+00 04
+Force listen-only mode. While in this mode watchdog will expire. Use sub-code 01 to
+get out of this mode.
+5-9
+Reserved
+00 0A
+Clear counters and diagnostics register.
+00 0B
+Return bus message count.
+00 0C
+Return bus communication error count.
+00 0D
+Return bus exception error count.
+00 0E
+Return slave message count.
+00 0F
+Return slave no-response count.
+00 10
+Return slave NAK count.
+00 11
+Return slave busy count.
+00 12
+Return BUS character overrun count.
+00 13
+Return IOP overrun count (884 specific)
+00 14
+Clear overrun counter and flag.
+Trigger digital (0…)
+Issue protocol
+command, (using
+code if required)
+Front-End
+Device
+16-bit placeholder (0…)
+Update
+place-holder
+
+[Page 20]
+ATQMS-DRVR-DOC-MODBUSI.docx
+P a g e | 20
+5.1.6.
+Function 08 Registry Entries
+The 3 registry entry values can be found in the &quot;Primary&quot; key for each device. e.g.
+DWORD startupFn08code = FFFF
+DWORD enableFn08 = 1
+DWORD startupSF00data = AA55
+By changing the &quot;enableFn08&quot; value to zero, reading and writing of the diagnostics points can disabled for security. The values in &quot;Secondary&quot; are ignored if they are different. If the diagnostics
+functions have been disabled, the driver addressing options message will no longer show the
+explanation regarding the diagnostic scan configuration. The StartupSF00data value can be used
+to set an initial value for the sub-function 00 data. e.g.: 0xaa55.
+ABB Specific
+For proper communication to ABB AC400 series, the diagnostic functions must be enabled, use the
+following registry settings. Settings tested with the model AC 450.
+DWORD startupFn08code = 0
+DWORD enableFn08 = 1
+DWORD startupSF00data = AA55
+5.2.
+Broadcast Support
+Broadcast support is achieved by configuring an additional device for station #0. The Modbus
+protocol uses a station ID of zero to perform broadcasts. The driver will return zero on scan of any
+coils/registers on address zero, and when writing, will not wait for any response from the slave(s).
+If you do not want the database to be updated with the zero, you must scan-inhibit the tag while
+output enabling it.
+All slaves will interpret the command if it is valid. Slaves do not reply to broadcast commands and
+only support the following commands in broadcast mode, commands not used by the driver are
+not shown.
+Broadcast commands
+Code (HEX)
+Write single coil
+Preset/Write multiple holding registers
+For a full list of commands see Message Protocol below:
+
+[Page 26]
+ATQMS-DRVR-DOC-MODBUSI.docx
+P a g e | 26
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+6.3.
+PLC Exception Codes
+These codes are returned by the PLC. Some action either in scan configuration, driver setup
+parameters or hardware configuration may be needed to rectify the problem.
+Hex code
+Meaning
+0x1
+Illegal Function
+The function code received in the query is not an allowable
+action for the slave.
+0x2
+Illegal Data Address
+The data address received is not an allowable address for the
+slave.
+0x3
+Illegal Data value
+A value contained in the query data field is not an allowable
+value for the slave.
+0x4
+Slave Device failure
+Unrecoverable error occurred in the slave while processing
+the request.
+0x5
+This response is returned if the slave is processing the
+request but will take a long time; this is to prevent the
+master from timing out.
+0x6
+Slave device busy
+Re-transmit the command later when the slave is not busy.
+0x7
+Negative acknowledge
+Slave cannot perform a programming function requested.
+0x8
+Memory Parity error
+The slave may require service. This error may occur when a
+request is made to read extended memory and a parity error
+is detected in the memory.
+6.4.
+Trouble Shooting
+If you are using a clone and have problems scanning floating-point or long (32 bit) values see
+the sub-section Advanced settings dialog.
+If using a network of PLCs and experience intermittent communication errors see the net-latency
+option in the Configuration Dialog section.</pre>
+</details>
+
 
 <script>
 (function() {

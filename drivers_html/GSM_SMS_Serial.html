@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,182 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/GSM SMS Serial.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Protocol Driver
+Name
+GSM SMS Serial
+DLL
+GSM_SMS
+
+[Page 3]
+ATQMS-DRVR-DOC-GSM_SMS.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-GSM_SMS.docx
+P a g e | 4
+1.
+Overview
+The GSM_SMS protocol driver for Adroit using GSM modems. Messages configured in String or Notify
+Agents may be sent via SMS. Alarms that occur in Adroit can thus be routed to a person via SMS.
+The driver only handles the transmission of the intended message, which can originate as an alarm,
+a message entered by an operator or from programming done in Adroit. This driver is intended for
+easy use with any cellular SMS protocol. No Windows drivers for the modem are needed, this driver
+provides its own interface to the modem via the serial port assigned to it.
+All tests and designs were carried out using a &#x27;WAVECOM WMOD2&#x27; model GSM Modem.
+PLEASE NOTE
+This driver does not currently support secondary ports.
+
+[Page 6]
+ATQMS-DRVR-DOC-GSM_SMS.docx
+P a g e | 6
+3.
+Device Configuration
+3.1.
+Driver Installation and Setup
+Installation of the GSM_SMS protocol driver is done in the standard way in Adroit Setup. After
+installation of the driver, the user may then create and configure devices for the GSM_SMS driver.
+3.1.1. Devices
+At a minimum, you must create at least one GSM_SMS device for each modem. A new device must
+be created per service provider. Currently, the port settings for all devices on a port must be identical.
+In other words, it is not permitted for example to use Vodacom and MTN together.
+3.1.2. Device Configuration Dialog
+3.1.3. GSM_SMS Driver Details Settings
+Port
+The communication port to which the modem/device is attached.
+Baud rate
+The speed of data transmission. Any Baud Rates may be specified from 110 to
+256000.
+Retries
+Number of attempts to communicate.
+Timeout
+Number of milliseconds before a transaction will be deemed as timed out. This
+setting is a safety in case the remote device keeps giving the same error response.
+Use with Command
+Agent
+If checked, then the device will only work for Command Agent Tags.
+Mark all scanned tags
+good (healthy) on
+starting up
+By default all tags are scan-bad or grey on start-up, selecting this option will enable
+all the tags on start up. However, if the tags then fail to communicate after this,
+they will be displayed as scan-bad (grey).
+
+[Page 7]
+ATQMS-DRVR-DOC-GSM_SMS.docx
+P a g e | 7
+Tags never grey out
+in a communication
+failure state
+This option prevents tags from being marked bad.
+WARNING: If this option is used, then your Device Agent will NEVER show that it
+is unhealthy, even if the GSM modem stops working.
+Suppress writes on
+startup for x minutes.
+Default:0 - normal operation, if &gt; 0 on start-up will cause the driver to suppress
+and consume any SMS alarm sending until this period expires, only new alarms
+after this period will be sent as normal.
+Modem type
+Type of GSM modem used. Currently ONLY the &quot;Wavecom&quot; option is supported,
+which is the default selection. Theoretically other modems should work as the
+driver attempts to use the standard GSM Hayes command set.
+Message centre
+number
+This is the message centre number, which will overwrite the number in your SIM.
+Example:
+MTN
+This is optional because it is not necessary to enable and use a SIM PIN. See below
+for the advantages and disadvantages of using a SIM PIN and how to configure
+this parameter in both cases.
+Delivery Report
+Separator
+This is the .CSV delimiter, defaulted to your locale setting. This may be changed as
+required. (default = comma)
+SMS Separator
+This setting is reserved for future use and is network provider dependent.
+However, the comma separator has worked on all the cell networks encountered so
+far.
+Incoming message
+This setting affects the update rate of the signal strength parameter.
+It is recommended to use a minimum interval of 1000 milliseconds, since smaller
+values have no effect.
+Modem Specific
+Adjustments
+Some modems does not all support the standard AT+CSMP=17,1,0,0 command
+and thus allows the user to change it accordingly.
+Enable per month
+cost control
+This allows a user to cap the number of messages that can be sent in a month.
+WARNING: Use this at your own risk, any messages sent after the cap has been
+reached will be discarded and you will never receive them.
+Maximum messages
+per month
+The number of messages that can be sent in a month. Note the month starts from
+the 1st of the specific month.
+Enable burst
+protection cost
+This allows a user to cap the number of messages that can be sent in a specific
+time period. For example, if your plant goes into an alarmed state, use this to
+prevent multiple SMS&#x27;s being sent which all refer to the same alarm.
+WARNING: Use this at your own risk, any messages exceeding the maximum
+allowed within the period of time will be discarded.
+Allow a maximum of
+X messages
+This is the maximum number of messages that can be sent in the period specified
+below.
+Within a period of X
+minutes
+This is the period in minutes in which messages will be capped if they exceed the
+maximum specifies above.
+Purge port if idle
+while in standby
+This is a hard purge (an API call) it has been found to sometimes cause locking
+(depending on the device used). If this occurs, see the point below.
+Gobble bytes during
+purge
+This is a soft purge; it is a standard read to clear the buffer. This has been found to
+be more tolerant than a hard purge on certain devices.
+Disable standby
+comms when in
+parallel mode
+Turn this on if your cluster system Is in parallel mode and you have reads or
+writes enabled in standby. This will disable all comms to the modem from the
+standby server.
+3.1.4. Using Cost Control
+
+[Page 22]
+ATQMS-DRVR-DOC-GSM_SMS.docx
+P a g e | 22
+9.
+Appendix B - Unicode (Multi-byte)
+Languages (Send only)
+When using Unicode languages there are some points to consider.
+Due to the Hex mode used on the modem only half the amount of characters can be sent. i.e 70.
+The correct code page must be selected, if incorrect the message will likely be garbled. It is
+usually best to have the computers local setting match the code page.
+English can be sent simultaneously due to the fact that the English alphabet is always
+accessible, but again due the use of hex mode the 70 character limit still applies.
+If a code page is visible in the Unicode Code page combo box in setup , that means it is a valid
+and may be used, the driver will acquire the installed and compatible codepages automatically.
+Not all code pages are clearly marked, in those cases an online search may prove use full. For
+example : Polish is a Latin based language and its special characters are available on ISO-88592 Latin-2 code page.
+When selecting Hex mode, the 4th value of the +CSMP string will automatically be changed to 8
+from 0 and vice versa.
+The GSM_SMS driver only supports sending of Unicode strings. Reception of Unicode strings will
+still be interpreted as single byte strings.
+The Command Agent does not recognise Multi-byte strings, so receiving any string in that
+format will not be accepted. It is therefore recommended to not use Hex mod when using the
+Command Agent in command reception mode.
+The Command, Notify or String Agent can be used to send Unicode messages.</pre>
+</details>
+
 
 <script>
 (function() {

@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,150 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/LT350-Belt Scale.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 13]
+LT350 HARDWARE INTERFACE DIAGRAM
+Power supply input. The indicator accepts a dc voltage
+between[16-48]Volts. If PoE is used, do not connect power here.
+Nominal power input should be 24Vdc @ 200mA
+The controller supports three types of network configurations.
+Ethernet, Wi-Fi or USB. The Ethernet option also supports PoE
+(power over Ethernet).
+The sense line mode is a special 6 wire load cell configuration.
+This configuration uses CH-1 as the sense lines and CH-2 as
+the weigh idler load cell inputs. This configuration is typically
+used to improve signal quality over long cable hauls.
+Command[93] should be used to enable sense line activation.
+The indicator is a single scale multiple weigh idler load cell
+system that supports between [1-4] weigh idler channels using
+command[10]
+The primary serial port can be configured as RS232 or RS422
+and supports printing or strings using the ASCII.NET protocol
+The primary serial port can be configured as RS232 or RS422
+and supports printing or strings using the ASCII.NET protocol
+
+[Page 35]
+HOW TO SETUP USB TO TRANSMIT WEIGHT DATA
+This setup assumes that a USB port is installed on the LT350. The USB cable can also be the power
+source to power the LT350. The USB drivers are available on the accompanied CD to support Virtual
+COM ports on MSWindows platforms. To transmit ASCII strings containing weight information on the
+USB port of the LT350 do following:
+COMMAND[46] - Submenu for USB speed and protocol setup
+USB PARAMETERS
+Data Rate:
+Supported baud rates: 4800, 9600, 14400, 28800, 38400, 57600 or 230400
+Protocol Mode:
+protocol string format. The LT350 Belt scale data include speed, rate and
+total related data.
+String Mode:
+This command dictates whether the string is transmitted automatically or
+polled via an ASCII command.
+Windows HyperTerminal can be used to capture serial data strings at the same baud rate
+
+[Page 36]
+HOW TO SETUP RS22/485 TO TRANSMIT WEIGHT DATA
+To change between RS232 and RS485 mode, the user must first unplug the COM1 cable. This
+configuration allows for long distance transmission over 100 meters. Unplug serial port, change to
+RS485 and then do the correct wire setup as outlined below before re-connecting:
+COMMAND[34] - Disconnect serial port connector and then set COM1 for RS485 mode. Port
+may get damaged if a cable is left plugged in that is not an RS485 type.
+COMMAND[35] - serial baud rate 600,1200,4800,9600,14400,38400,57600 or 230400
+COMMAND[36] - parity None, Even or Odd
+COMMAND[37] - protocol string format. The LT350 Belt scale data include speed, rate and
+total related data.
+COMMAND[39] - This command dictates whether the string is transmitted automatically or
+polled via the ASCII command
+COMMAND[52] - string update rate dictates the pause periods between successive string
+transmissions where continuous transmission was selected. This is helpful to prevent buffer
+overruns on the host system.
+Windows HyperTerminal can be used to capture serial data strings at the same baud rate
+NOTE: A RS232 to RS422 converter is required for the computer
+
+[Page 37]
+HOW TO SETUP TCP/IP TO TRANSMIT WEIGHT DATA - I
+This setup assumes that a TCP/IP network port is installed on the LT350. The CAT5 network cable can
+also be the power source to power the LT350 - see PoE:
+COMMAND[47] - Submenu for internet setup
+INTERNET NETWORK PARAMETERS
+IP address:
+Sets the device IP address when DHCP is off. Factory default is
+[192.168.1.200]
+This address needs to be obtained from the network administrator.
+Subnet Mask:
+Sets the device subnet mask address when DHCP is off. Factory
+default is [255.255.255.000]
+This address needs to be obtained from the network administrator.
+Default
+Gateway:
+Sets the default gateway address. Factory default is
+[192.168.1.1]
+This address needs to be obtained from the network administrator.
+DHCP Mode:
+If a DHCP server is available on you network you can have an IP
+address allocated by the server - try not to use DHCP where
+possible.
+You should try to obtain an extended lease on the IP address from
+the network administrator - typically a real life person.
+Protocol Mode:
+protocol string format. The LT350 Belt scale data include speed, rate
+and total related data.
+String Poll
+Mode:
+This command dictates whether the string is transmitted automatically
+or polled via the ASCII command set.
+Wireless SSID:
+You should set this SSID to the same as your wireless router SSID.
+The factory SSID is:[ Connect ]
+Node ID:
+The node ID [1-100] will be set to the value displayed on the display
+screen e.g. SCALE 100. If you use the discovery software tool to
+search for network enabled connected nodes on the internet, the
+node ID will be used to identify your device. This is particularly
+important if you will be using DHCP.
+Windows HyperTerminal can be used by selecting WinSock to capture the data strings by specifying
+the IP address at Port 502
+(continued on next page)
+
+[Page 39]
+HOW TO SETUP TCP/IP WiFi TO TRANSMIT WEIGHT DATA
+To setup a LT350 indicator using wireless WiFi802.11b, using a Ethernet wireless router or access
+point, using COMMAND[47] Submenu for internet setup:
+Get a static IP address for your LT350 and enter it by selecting IP address in the sub menu in
+the form of [196.168.200]
+Get the Network mask for the network you are connecting to - enter it at the sub menu, Network
+Mask. Most networks use the default of [255.255.255.000]. This information is readily available
+on any computer connected to the network - simply copy this information. This information is
+also available in the network router setup pages.
+Get the Default Gateway information and enter it at the sub menu, Default Gateway. This
+information should be the same for any computer connected to the network or on the network
+router.
+Setup the SSID to be the same name as the access point or wireless router/switch.
+It is best to first get the basics working before enabling advanced WiFi encryption. Once you can
+communicate with the LT350 across a network. Use the Web interface described below to setup
+encryption if you need it.
+Alternatively, temporarily change the SSID of the router to the factory default SSID of the
+LT350, which is [Connect]. You should now be able to find the indicator using the
+LTDISCOVER.EXE program on the CD. Also temporarily disable encryption on the router until you
+have the basic communications working. Then use the Web interface to setup the network address
+information.
+The network setup interface requires a login and password. The default login and password is as
+follows: LOGIN = [root] and PASSWORD = [dbps]
+You will then be directed to the TCP/IP address settings. Fill in the IP address, Network Mask,
+Default Gateway, SSID and enable encryption if needed. The SSID should be the same as the
+wireless router/switch. Connect the antenna, with a clear line of sight and positioned away from
+metal structures wherever possible.
+Save the settings and request the LT350 to reboot with new settings - may take up to 10
+seconds for reboot.
+The green LED (furthest from the display) must flash during boot up and then remain off during
+normal operation.
+The yellow LED (closest to the display) should stay on as soon as a CAT5 cable is connected. It
+should flicker during data transmissions.</pre>
+</details>
+
 
 <script>
 (function() {

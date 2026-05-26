@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,301 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/EnvisaLinkTPI-1-08.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+EnvisaLink™ TPI Programmer&#x27;s Document
+DEVELOPER DOCUMENTATION
+VERSION 1.08
+February 10, 2017
+1.0 Overview
+The EnvisaLink™ Third Party Interface (TPI) consists of a set of commands and responses designed to allow third-party
+command and control applications to interface directly with the EnvisaLink™ module and in turn the security system, over
+a TCP/IP connection.
+The goal in releasing this programmer&#x27;s interface is not only to allow existing home-automation software greater
+interaction with the EnvisaLink module, but also to encourage the development of third-party applications on mobile
+platforms.
+2.0 Connecting to the Envisalink™
+2.1 Hardware Connections
+Please refer to Envisalink installation or &quot;Quick Start&quot; document.
+2.2 TCP Connection
+The Envisalink acts as a server for the TCP connection and the user application is the client. The Envisalink listens on
+port 4025 and will only accept one client connection on that port. Any subsequent connections will be denied.
+The Envisalink will close the connection if the client closes its side.
+To initiate a connection, the application must first start a session by establishing a TCP socket. Once established the TPI
+will send a 5053 command (See   for a detailed description of the protocol) requesting a session password.
+The client should then, within 10 seconds, send 005 login request. The 005 command contains the password which is the
+same password to log into the Envisalink&#x27;s local web page. Upon successful login, the Envisalink&#x27;s TPI will respond with
+the session status command, 505, and whether the password was accepted or rejected. If a password is not received
+within 10 seconds, the TPI will issue a 5052 command and close the TCP socket. The socket will also be closed if the
+password fails.
+Once the password is accepted, the session is created and will continue until the TCP connection is dropped.
+
+[Page 2]
+Note, as with all network communications, it is possible the TCP socket could be lost due to a network disruption, or an
+exception at either the client or server end. Application programmers are advised to include some handling for dropped
+connections. The Poll command (000) is a useful command to test of the connection is still alive. Alternately, an
+application could watch for the period time broadcast (510) which is issued by the panel every 4 minutes.
+Enivsalink 3 vs Envisalink 4 Difference
+The Envisalink 3 only supports 6 ASCII digits for a password but the Envisalink 4 supports 10.
+IMPORTANT: Envisalink Application Firewall
+As of Envisalink 4 (1.0.102) and Envisalink 3 (1.12.180) the Envisalink has an internal firewall that will block all TPI
+connections that originate outside of the network segment it resides upon. This is to protect users who expose their
+Envisalinks to the public Internet either by mistake or ignorance. This feature can be disabled by changing the default
+user&#x27;s password from &quot;user&quot; to any other password, 4 characters or longer.
+3.0 Detailed Description of the Feature Set
+3.1 Communications Protocol
+All data is sent as hex ASCII codes. The transmission from will consist of the following:
+CCC DDD…DDD CKS CR/LF
+CCC =&gt; 3 Digit Command
+This tells the module or the application what to do. Commands are 3 characters long. For example, the Status Command
+(001) would be sent as hex ASCII codes &#x27;30 30 31&#x27;. See the following tables for a list of supported commands.
+DDD…DDD =&gt; Data Byte(s)
+This is the data that may be needed for the command. For example, after the Partition Arm command (030), the
+application must specify which partition should be armed (1-8). The following tables show what the data requirements are
+for each command. Some commands, like the User Closing, have space holding zeros. In this case all 4 digits are sent
+even though this module ever uses only two.
+CKS =&gt; Checksum
+The checksum is calculated by adding the hex value of all command and data digits, and truncating the result to 8 bits.
+The upper and lower nibbles of the result are converted to ASCII characters before sending. For example, a Partition
+Alarm on partition 3 would be sent like this:
+The command and data fields contain:
+6 5 4 3
+The ASCII codes for this would be:
+36 35 34 33
+36 + 35 + 34 + 33 = D2. Since the result is already 8 bits we don&#x27;t have to worry about the length and simply send it.
+Format
+Command
+6 5 4
+D 2
+CR LF
+36 35 34
+44 32
+0D 0A
+CR/LF =&gt; Carriage Return &amp; Line Feed
+Each transmission is followed with a carriage return (hex ASCII 0D) and a line feed (hex ASCII 0A) to indicate the end of a
+transmission.
+
+[Page 3]
+3.2 Application Commands
+Description
+Command
+# of Data
+Bytes
+Data Bytes
+The TPI will respond with a Command Acknowledge code.
+Note: The POLL command will also reset the Envisalink&#x27;s network watchdog timer. If there is no communications with the Envisalerts servers for a
+period of 20 minutes, the Envisallink will reboot. Sending the TPI POLL
+command will reset this timer. Useful if the module is not connected to the
+Internet or firewalled.
+Status Report
+The TPI will send updates for all general zone, partition, and trouble
+status to the Application (Troubles will be limited to indicating the status of
+the Trouble LED on a keypad). Only the partitions that have been
+detected, and their trouble states, will be displayed. Please see   for more information.
+Dump Zone Timers
+This will dump the internal Envisalink Zone Timers. See command 615
+Network Login
+The command is sent by the client after it has created a TCP connection
+to the TPI to open a session. The TPI will respond with command 505 if
+the login was successful. The password is the same as the local
+Envisalink password for the web page.
+1-6
+Password, case
+Set Time &amp; Date
+The TPI will change the time and date to that sent by the application.
+Please note it may take up to 4 minutes for this command to be reflected
+on all the keypads on the security system.
+hhmmMMDDYY
+Command Output Control
+The TPI will activate the selected Command Output
+Partition (1-8)
+Output (1-4)
+Partition Arm Control
+The TPI will attempt to arm the selected partition. The partition will be
+armed in AWAY mode (no zones bypassed).
+Partition (1-8)
+Partition Arm Control - Stay Arm
+The TPI will attempt to stay-arm the selected partition.
+Partition (1-8)
+Partition Arm Control - Zero Entry Delay
+The TPI will attempt to arm the partition with zero entry delay.
+Partition (1-8)
+Partition Arm Control - With Code
+The TPI will attempt to arm the selected partition by using a User Code.
+This is equivalent to entering a User Code while the partition is in the
+Ready mode.
+Partition (1-8)
+Code (4-6 digit)
+Partition Disarm Control
+The TPI will attempt to disarm the selected partition.
+This command can also be used to acknowledge alarms on a partition.
+Sending the Partition Disarm command will silence any alarms as well as
+disarm the partition.
+Partition (1-8)
+Code (4-6 digit)
+Time Stamp Control
+Sending a &#x27;1&#x27; (ON) will cause the TPI to prepend all TPI commands with
+an 8 digit timestamp followed by a single space (0x20). For backwards
+compatibility the default state is OFF. Note, the timestamps do not form
+part of the packet format and hence are not included in the checksum.
+On/Off (1,0)
+Time Broadcast Control
+Sending a &#x27;1&#x27; (ON) will cause the TPI to periodically transmit system time
+broadcasts (TPI COMMAND 550). The default state is OFF.
+On/Off (1,0)
+Temperature Broadcast Control
+Sending a &#x27;1&#x27; (ON) will cause the TPI to periodically transmit the interior
+On/Off (1,0)
+
+[Page 5]
+3.3 TPI Commands
+Description
+Command
+# of Data
+Bytes
+Data Bytes
+A command has been received successfully
+Previous CMD
+received
+A command has been received with a bad checksum
+System Error
+An error has been detected. See   for a list of error codes
+000-255
+(error code)
+Sent during session login only.
+3 = Request for password, sent after socket setup
+2 = Time out. You did not send a password within 10 seconds.
+1 = Password Correct, session established
+0 = Password provided was incorrect
+0 = Fail
+1 = Successful
+2 = Timed_Out
+3 = Password
+Request
+Keypad LED State - Partition 1 only
+Outputed when the TPI has detected a change of state in the Partition 1
+keypad LEDs.
+Bit 7 - BACKLIGHT LED
+Bit 6 - FIRE LED
+Bit 5 - PROGRAM LED
+Bit 4 - TROUBLE LED
+Bit 3 - BYPASS LED
+Bit 2 - MEMORY LED
+Bit 1 - ARMED LED
+Bit 0 - READY LED
+Byte (HEX)
+indicating LED
+Keypad LED FLASH state - Partition 1 only
+Outputed when the TPI has detected a change of state in the Partition 1
+keypad LEDs as to whether to flash or not. Overrides 510. That is, if 511
+says the PROGRAM LED is flashing, then it doesn&#x27;t matter what 510
+says.
+Bit 7 - BACKLIGHT LED
+Bit 6 - FIRE LED
+Bit 5 - PROGRAM LED
+Bit 4 - TROUBLE LED
+Bit 3 - BYPASS LED
+Bit 2 - MEMORY LED
+Bit 1 - ARMED LED
+Bit 0 - READY LED
+Byte (HEX)
+indicating LED
+Outputs the current security system time.
+HH:MM
+MM/DD/YY
+The Panel has detected a ring on the telephone line. Note: This command
+will only be issued if an ESCORT 5580xx module is present.
+Indoor Temperature Broadcast
+If an ESCORT 5580TC is installed, and at least one ENERSTAT
+thermostat, this command displays the interior temperature and the
+thermostat number. For other thermostats you must request this
+command by using API command 080.
+NOTE: The three digit temperature is a decimal representation of a
+signed byte. (0 - 255) representing -127 to 127 degrees. MSB is sign bit.
+Thermostat (1-4)
+Temperature
+
+[Page 6]
+Outdoor Temperature Broadcast
+If an ESCORT 5580TC is installed, and at least one ENERSTAT
+thermostat with an external temperature sensor, this command displays
+the exterior temperature and the thermostat number.
+NOTE: The three digit temperature is a decimal representation of a
+signed byte. (0 - 255) representing -127 to 127 degrees. MSB is sign bit.
+Thermostat (1-4)
+Temperature
+A zone has gone into alarm
+Partition(1-8)
+Zone (001-064)
+Zone Alarm Restore
+A zone alarm has been restored
+Partition(1-8)
+Zone (001-064)
+A zone has a tamper condition
+Partition(1-8)
+Zone (001-064)
+Zone Tamper Restore
+A zone tamper condition has been restored
+Partition(1-8)
+Zone (001-064)
+A zone has a fault condition
+Zone (001-064)
+Zone Fault Restore
+A zone fault condition has been restored
+Zone (001-064)
+Zone Open
+General status of the zone.
+Zone (001-064)
+Zone Restored
+General status of the zone.
+Zone (001-064)
+Envisalink Zone Timer Dump
+This command contains the raw zone timers used inside the Envisalink.
+The dump is a 256 character packed HEX string representing 64 UINT16
+(little endian) zone timers. Zone timers count down from 0xFFFF (zone is
+open) to 0x0000 (zone is closed too long ago to remember). Each &quot;tick&quot; of
+the zone time is actually 5 seconds so a zone timer of 0xFFFE means &quot;5
+seconds ago&quot;. Remember, the zone timers are LITTLE ENDIAN so the
+above example would be transmitted as FEFF.
+HEX string of 64
+little endian
+UINT16 words
+Bypassed Zones Bitfield Dump
+This command is issued upon leaving Zone Bypass programming (*1 on
+the keypad). It is a 16 character HEX string representing an 8 byte bitfield.
+This bitfield indicates which zones are currently in bypass. A &quot;1&quot; indicates
+the zone is in bypass. The lower 8 zones are in the first position of the
+bitfield. The developer can force this dump by using the keystring
+commands to enter and leave zone bypassing. i.e. &quot;*1#&quot;
+Enivsalink 3 vs Envisalink 4 Difference
+This command is currently only available on the Envisalink 3 with
+firmware revision 1.12.182 and higher.
+HEX string of 8
+bytes
+Duress Alarm
+A duress code has been entered on a system keypad
+cannot trace user
+[F] Key Alarm
+A Fire key alarm has been activated
+[F] Key Restore
+A Fire key alarm has been restored (sent automatically)
+[A] Key Alarm
+An Auxillary key alarm has been activated
+[A] Key Restoral
+An Auxillary key alarm has been restored (sent automatically)
+[P] Key Alarm
+A Panic key alarm has been activated
+[P] Key Restore
+A Panic key alarm has been restored (sent automatically)
+2-Wire Smoke/Aux Alarm
+A 2-wire smoke/Auxiliary alarm has been activated
+2-Wir</pre>
+</details>
+
 
 <script>
 (function() {

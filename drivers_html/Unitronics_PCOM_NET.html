@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,107 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Unitronics PCOM NET.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+UNITRONICS PCOM_NET M90 : UNI_M90
+UNITRONICS PCOM_NET protocol driver
+Overview
+Adroit supports communication with the following Unitronics Devices:
+M90-19-B1A or UNRESTRICTED for the other modifiable models.
+This driver has be tested with M-90 and a M-210.
+
+[Page 2]
+UNITRONICS PCOM_NET M90 : UNI_M90
+PLC Details
+PLC Model - Select &#x27;M-90&#x27; for standard M-90
+Select &#x27;Unrestricted&#x27; if the device is extended unrestricted provides
+for protocol maximums (not Device maximums).
+PLC Station ID - Network address if networked.
+Local Details
+Port - The available serial ports on your machine.
+Parity - default : even
+DataBits - default : 7
+StopBits - default : 1
+Baud rate - default : 9600, (9600,19200,38400,57600)
+Retry - The number of times that Adroit will try to gain communication with a PLC
+before failing a transaction.
+Timeout - The time that Adroit will wait for a valid response from a PLC before
+failing a transaction (Read or Write).
+Use 3Wire (Disable signaling) - (Default is off i.e. signalling enabled)
+Check this if you want to use 3 wire only.
+Note for M-2xx series users:
+The M-2xx series must have a function block loaded via Unitronics programming
+software !
+Eg PCOM_NET , PCOM_NS
+where various settings are made available eg Addressing, Rs232 settings not
+normally available from the faceplate!
+NB - if retries persist continually : try lowering DTR delay settings in the function
+block!
+NB - Make sure if you have hardware handshaking enabled use the correct rs232c
+cable (not 3 wire)
+
+[Page 3]
+UNITRONICS PCOM_NET M90 : UNI_M90
+Wiring
+Cable connection for RS232C communication (Connection between PLC and
+Computer)
+Supported addresses
+M90 PLC data address types and maximum ranges supported by the Adroit M90
+Protocol driver.
+Device
+Write
+DI Area
+M-90 model can be extended , hence
+*1 -not larger than 255 (M90 Device limit), 2048(Protocol limit)
+*2 -not larger than 255 (M90 Device limit), 2048(Protocol limit)
+*3 -not larger than 255 (M90 Device limit), 65535(Protocol limit)
+*4 -not larger than 255 (M90 Device limit), 65535(Protocol limit)
+*5 -not larger than 255 (M90 Device limit), 65535(Protocol limit)
+Size specifier (eg W) for Integers and Reals are not used but the default (W) is
+specified , this is to cater for possible future changes
+Connector of PC side
+(Female D9)
+Connector of PLC side
+(RJ-11)
+Dtr 1
+0V Ref 2
+TxD 3
+RxD 4
+0V Ref 5
+Dsr 6
+2 RxD
+
+[Page 4]
+UNITRONICS PCOM_NET M90 : UNI_M90
+Message protocol
+Protocol overview
+00 00 00 00
+XX
+/r
+The following transactions are supported:
+1.Read (RE) Digital Input
+2.Read (RA) Digital Output
+3.Write (SA) Digital Output
+4.Read (RW) Internal Integer
+5.Write (SW) Internal Integer
+6.Read (RB) Internal Bit
+7.Write (SB) Internal Bit
+8.Read (GF) System Integer
+BCC:
+The Bcc is obtained by adding every byte except STX,ETX and Bcc and Ack,
+truncated to a Byte , where each nibble is converted to its corresponding Ascii value.
+Eg 40h+41h+43h = 124h =Truncated&gt; 24h =Converted ( 3234h or &#x27;24&#x27;Ascii)
+Revision information
+Date
+Revision 0 - 1st release.
+01/09/2006
+Revision 5 - Added a 3wire disable signalling checkbox.</pre>
+</details>
+
 
 <script>
 (function() {

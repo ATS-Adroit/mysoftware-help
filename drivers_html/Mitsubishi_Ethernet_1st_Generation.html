@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,189 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Mitsubishi Ethernet 1st Generation.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-MITQJE71.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-MITQJE71.docx
+P a g e | 4
+1. Overview
+This driver supports the Mitsubishi 3E Frames protocol, with communication to the Q/QnA/L/R and
+FX5 Series CPU&#x27;s.
+For further information regarding TCP/IP connectivity refer to Windows Networks Help. The SNMP,
+WEB and FTP services on the QJ71E71 are not required for Adroit to Mitsubishi communication.
+For improved network performance and reliability, it is recommended that you install 2 network
+adapters into your PC. Use the first adapter for Adroit to Adroit and all other Windows connectivity.
+The first adapter may have all the default installation bindings. Use the second adapter for Adroit to
+PLC connectivity and bind only to the TCP/IP protocol for PLC communications.
+1.1.
+Upgrading from original A Series Driver for Q CPU
+If using the A-series driver, remove all the old Device Agents, and create them again with the same
+names using the Q driver. Take care to note settings like the IP, port address and watchdog addresses.
+On the A-Series driver the Decimal or Hex notation used is important and does change over in this
+Q/QnA driver. Names of I/O types stay the same so far possible, this means that scanned I/O types
+existing in the A-Series driver that have different names (prefixes) in the Q Driver are promoted
+automatically to their new names. After saving, the WGP file cannot be loaded on the old driver again
+without the possibility of losing some scan-points.
+
+[Page 7]
+ATQMS-DRVR-DOC-MITQJE71.docx
+P a g e | 7
+Port - The accessible port on the PLC in GX-developer. This value is expressed in hexadecimal; hence
+you can use the drop-box nest to the entry field to toggle between HEX and decimal display modes.
+AJ-&gt;CPU timeout (ms) - The timeout setting to be used internally by the external card for
+transactions with the CPU. This value must be less than the communications timeout specified
+below it. The actual value used is rounded up in increments of 250ms. Legal values are 1 through
+63750ms.
+CPU Number - Enables communication to up to 4 CPU units on the same PLC. Also allows for
+selection of &quot;Redundant&quot; CPU pair and if selected will ensure that all communications are transferred
+to MASTER CPU in configured redundant system.
+Connection Type - Select TCP or UDP connection.
+3.1.4.
+MC Protocol
+Uses a MELSEC network to access other CPUs remotely through this PLC.
+Network No - Network Number of network to be used.
+Station No - Remote PLC station number.
+3.1.5.
+Heartbeat for Reliable Connection
+Use heartbeat - Enable this button to have the driver keep the PLC connection alive. Please see the
+PLC program and heartbeat sections below. This option is only useful with the watchdog program
+running in the PLC.
+Heartbeat bit # - Specify the &quot;M&quot; bit number to be turned on by the driver periodically signalling
+SCADA connection as OK. The default heartbeat bit is &quot;M 0&quot; which must be changed if used.
+Time between beats - Specify the millisecond interval at which to turn the bit on. The PLC program
+should use a time set to double this value to detect link failure.
+3.1.6.
+Local Details
+Communications timeout - The interval in milliseconds before the driver assumes the PLC is not
+responding if not response is received, after which the driver will reset and open the connection. As
+in the case with a non-fatal error exception response, the driver will re-attempt the transaction 3
+times. The number of retries is not settable.
+Retries - The number of times a specific transaction will be retried before failing the transaction
+completely.
+Detailed debugger output - turning this option on forces the driver to provide detailed information
+of activity on the device&#x27;s driver diagnostic datascope screen. Use this option when troubleshooting
+problems involving the watchdog/heartbeat, or specific tags not working.
+
+[Page 14]
+ATQMS-DRVR-DOC-MITQJE71.docx
+P a g e | 14
+If your PLC&#x27;s memory range is smaller than the range supported by the driver, it is possible to
+configure the driver to scan non-existent I/O addresses. Since this can cause unpredictable results,
+please ensure that all scanned I/O are valid for your controller&#x27;s current configuration.
+INFORMATION
+Timer/Counter current values are supported, but the contact and coil values are not scanned. T
+and C prefixes are promoted to TN and CN respectively.
+Adroit string slots and ASCII type is only supported to Data/File registers and can be scanned as &quot;D/R
+0 Sn&quot; where n is the number of ASCII characters in the string required, which can go up to a maximum
+of 79.
+Omitted
+The following I/O types or devices are not supported:
+Device
+Mnemonic
+Special relays
+SM, SD
+Timer and counter coils and contacts
+TS, TC, SS, SC, CS, CC
+Step relay
+S
+Non-bit device writes
+Bit-writes to items that are not supported in the protocol as discrete (bit devices) will be supported
+using read-mask-write, hence they will be slower.
+Bit devices:
+Device
+Special link relay
+SB
+HEX
+Bit devices are always accessed in groups of 16 or more, except when writing to a bit.
+When addressing Integer and Real slots, it is possible to address 32-bit devices in a grouping. A
+suffix to the scan-address must also be supplied to indicate the size and presentation.
+Unsigned 16-bit
+W
+Signed 16-bit (default)
+I
+Unsigned 32-bit
+Unsigned 64-bit float
+F
+
+[Page 16]
+ATQMS-DRVR-DOC-MITQJE71.docx
+P a g e | 16
+5. Protocol Definition and Considerations
+5.1.
+PLC Side Communication setup
+2 possible configurations are presented, one without watchdogs, and one with a watchdog. The driver
+thus supports 2 modes, with heartbeat, and without respectively. PLC logic is required for the
+watchdog. If a watchdog/heartbeat is not used, the AJ must simply be configured using GX developer.
+Sample code using IEC to configure the AJ is not supplied. Any sample programs are supplied as-is
+and are not under any warranty.
+5.2.
+Using GX Works2 (Used for All except R Series
+CPU)
+5.2.1.
+Settings for CPU without an on-board Ethernet
+Connection (Q02)
+Operational settings
+In the Ethernet Network Parameters of the PLC Program specify the Ethernet module in the required
+slot and then select &quot;Operation Setting&quot;. Modify settings based on the image below with the Ethernet
+modules IP Address in it.
+Open Settings
+Configure the connections as below (note how the port address 1280 is in decimal format) Copy the
+connection as many times as needed for additional ports.
+
+[Page 25]
+ATQMS-DRVR-DOC-MITQJE71.docx
+P a g e | 25
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+6.3.
+Troubleshooting Steps
+The RUN and INIT lamps on the AJ must be lit.
+The COM.ERR lamp indicates a protocol or hardware fault has occurred.
+Ping the relevant PLC Ethernet card E.g.
+ping 192.168.1.11
+The ping should be echoed back.
+During a ping, the RD and SD lamps on the external module will flicker together.
+Check that the port is not already open, if another device is already connected to the PLC, the OPEN
+lamp will be lit. It is possible that multiple pieces of equipment are connected and have an open
+port. To see the status of open ports, the &quot;Ethernet diagnostics&quot; menu in GX Developer.
+6.4.
+Error Message Reference:
+Only commonly encountered PLC error codes are listed, for a full reference, see MELSEC Q
+Programmable Controller User manual (basic) QJ71E71. The PLC error codes can be seen in
+the Adroit event log, alarm viewer and driver datascope screens, where a reason description also
+appears.
+HEX Code
+The scanned device or I/O does not exist. Verify PLC device
+range configuration or existence of File register.
+C050
+Configure the Q71 card for binary and restart the module.
+C051 - C055
+The number of points to read/write is incorrect, contact Adroit
+technical support.
+C056
+The scanned device or I/O does not exist. The starting address
++ length of the request exceeds the number of points in the
+PLC. Verify PLC device range configuration.
+C057
+Requested data length miss-match, contact Adroit technical
+support.</pre>
+</details>
+
 
 <script>
 (function() {

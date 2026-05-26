@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,235 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Omron Sysmac C200H.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Omron : Sysmac C200H
+OMRON SYSMAC C200H protocol driver
+Overview
+The Adroit Omron protocol driver provides serial connectivity using RS-232 or
+RS-422 to omron host link modules The C200 and C1000 ,CS1 series amongst
+others, as well as KEYENCE PLC and Process-Plus modules are supported in
+this driver.
+Device configuration
+Note: The most commonly used
+settings are for multi-link
+system operation with station
+zero even when on RS232. A
+baud rate of 19200 is suggested
+if the default of 9600 does not
+work. Re-start your agent
+server after changing any of
+these settings for them to take
+effect.
+PLC Details
+Select to enable multiple link protocol on a RS-422 line. If
+this option is selected, the Link Unit number must be
+entered in the &#x27;PLC Station ID&#x27; field.
+Single-link System
+Select to disable multiple link (for point to point
+communication).
+PLC Station ID
+Host Link unit number for multi-link (multidrop)
+connections
+PLC Type
+Applicable SYSMAC PLC types. The PLC type selected will
+apply to the primary and secondary port if available. This
+selection currently has no affect on communications.
+Local Details
+Port
+The available serial ports on the machine.
+Baud
+Rate
+The speed of data transmission. Any of the following Baud Rates may be
+specified 300, 600, 1200, 2400, 4800, 9600, 19200 or 38400.
+
+[Page 2]
+Format
+The transmission format used for the port.
+Retry
+The number of times that Adroit will try to gain communication with a
+PLC before failing a transaction.
+Time-out
+The time that Adroit will wait for a valid response from a PLC before
+failing a transaction (Read or Write).
+Advanced dialog
+The settings visible in the advanced dialog should only be modified to optimise
+configuration.
+Maximum frames
+The number of frames that Adroit will grow transactions to.
+A larger number reduces the number of poll records used, but
+will reduce performance if the scan points are widely
+scattered.
+Force PLC into
+monitor mode
+Allow the Driver to put the PLC into monitor mode on
+startup as well as whenever the PLC mode is changed to run.
+If at any stage the driver attempts to write to PLC memory
+and fails because the PLC is in run mode this option will
+allow the driver to set the PLC mode while running. The
+driver will fail to write values to PLC memory if it is in run
+mode.
+The settings in the advanced dialog will be applied to primary and secondary
+configurations.
+Wiring
+RS232C to C200HS CPU communications port or C200H-LK201 Host link
+CPU Comm port
+9 pin Male
+PC 9 pin
+Female
+4 + 5 Bridged
+4 + 6 Bridged
+8 + 9 Bridged
+RS-422 to C200H-LK202 Host link
+RS-422 port
+9 pin Male
+RS-422
+RDB(+)
+Note: Connect the screen to one side only to prevent earth loops.
+
+[Page 3]
+Omron : Sysmac C200H
+The protocol driver was tested using a RS-422 converter and wired as follows:
+PC RS-232
+port 25 pin
+Female
+RS-422
+25 pin Male
+RS-422
+Host Link
+RS-422 Wiring Diagram
+Host Link
+Computer
+A B
+A B
+The RS-422 line should be terminated at either end, the total resistance must be
+100Ω minimum. The maximum cabling length recommended is 500m. For
+further details refer to your Host link and RS-422 adapter manuals.
+Terminating resistance&#x27;s may not be necessary for cables shorter than 20m.
+PC COM Ports - Hardware Setup
+If communications appears inconsistent or unreliable, the serial port settings
+may need some adjusting. Reducing the serial port RX FIFO buffer to 1 (or
+minimum) may help. If the computer does not have a buffered UART, this
+setting may not help, in sucha case, set the PLC for a lower baud rate.
+
+[Page 8]
+LR AREA READ:
+Send Telegram:
+Beginning word (x10)
+Number of words (x10)
+R
+L
+Data from beginning
+word (x16)
+Data from second word
+(x16)
+R
+LR AREA WRITE:
+Send Telegram:
+Beginning word
+Data for beginning
+word (x16)
+Data for beginning word (x16)
+W
+L
+Response code (x16)
+W
+L
+Beginning word (x10)
+Number of words (x10)
+R
+C
+Data from beginning
+word (x16)
+Data from second word
+(x16)
+R
+Data for beginning word
+(x16)
+Data for beginning word
+(x16)
+W
+DM AREA READ:
+Send Telegram:
+Beginning word
+Number of words
+(x10)
+R
+Data from beginning
+word (x16)
+Data from second word (x16)
+R
+D
+
+[Page 9]
+Omron : Sysmac C200H
+DM AREA WRITE:
+Send Telegram:
+Beginning word
+Data for beginning
+word (x16)
+Data for beginning word
+(x16)
+W
+EM AREA READ:
+Send Telegram:
+Beginning word
+Number of words
+(x10)
+R
+Data from beginning
+word (x16)
+Data from second word (x16)
+R
+E
+EM AREA WRITE:
+Send Telegram:
+Beginning word
+Data for beginning
+word (x16)
+Data for beginning word
+(x16)
+W
+Used to set the PLC back to monitor mode if configured to do so. (see advanced…
+configuration dialog box)
+Send Telegram:
+Mode (x16)
+This driver supports the standard performance monitor counters described in
+the user manual.
+Troubleshooting
+If at first there is no communication, try setting the system to &quot;multi-link&quot; mode
+with station address 0 (zero).
+
+[Page 10]
+Simplified cable diagram with fewer conductors (only use this diagram if you
+have to)
+CPU Comm port
+9 pin Male
+PC 25 pin
+Female
+PC 9 pin
+Male
+Revisions
+Added note about multiple and single link operation.
+9-Jun-99
+Fixed page size and some document formatting, refernces to station
+# /link unit # clarified.
+10-Jul-01
+Keyence PLCS KV-300 uses same protocol
+20-Jan-03
+Added new I/O Area sizes, and new IEEE754 float type.
+22-Aug-03
+Revisions by NHP included, thanks
+30-Aug-05
+Added BCD32 support.
+22-Jul-09
+Added Extended Memory Area Capabilities</pre>
+</details>
+
 
 <script>
 (function() {

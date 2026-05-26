@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,149 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Adroit Generic Email SMTP.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-EMAIL.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-EMAIL.docx
+P a g e | 4
+1.
+Overview
+This driver is used to send email messages via Simple Mail Transfer Protocol (SMTP), designed
+specifically for sending alarms or any other information such as Adroit tag values, SV and PV values,
+as well as attachments.
+The driver currently only supports RAWBYTES slots, of which only the Notify Agent currently provides
+a suitable Rawbytes slot.
+The Notify Agent allows for manual email sending, and it also exposes the various sub items such as
+TO, CC, FROM, SUBJECT and so forth as individual VARSTRING slots so an email interface could easily
+be crafted onto a mimic.
+The subject line and body may contain text macros that are parsed to allow for the additional
+information from Adroit, specifically slot and alarm details, to be sent if required and not just a simple
+alarm text field.
+
+[Page 6]
+ATQMS-DRVR-DOC-EMAIL.docx
+P a g e | 6
+3.
+Device Configuration
+3.1. Email Configuration
+3.1.1. Outgoing Mail Settings
+Mailbox Resource - A specific resource ID that uniquely identifies an email resource. The relevant
+mailbox settings are saved and remembered for the next time the configuration is brought up.
+Additional Adroit devices can be created and quickly configured with existing mailbox resources. A
+prompt will appear when settings have been changed that do not impact the resource constituents
+whether it must affect all existing devices that use that resource or if it must create a new resource
+to not affect current devices. For this email driver, this only applies to the LOGIN PASSWORD field.
+From - The fully qualified email address the email will be sent from.
+Login Password - The account domain password.
+SMTP Server - The specific SMTP server to contact according to protocol specifications. Usually
+SMTP Mail Port - Port required on the mail server for SMTP. Typically, this is 465 for SSL. Other
+ports could include 25 and 587.
+3.2. MACRO Usage in Email
+This email driver is used in conjunction with the Notify agent.
+&lt;ALM&gt; will insert the alarm string received from the Notify Agent.
+
+[Page 10]
+ATQMS-DRVR-DOC-EMAIL.docx
+P a g e | 10
+6. General Notes and Troubleshooting
+6.1. Contact Details
+Phone: +27 11 658-8100
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+6.3. Troubleshooting
+When I try send a test email in the Notify agent with an &lt;ALM&gt; macro, I get the following
+printed in my email body: Alarm trigger required to generate ALM message.
+Placeholding 80 characters here.
+The reason this message is inserted is because an alarm has not been triggered for the affected
+Notify agent. Only on an alarm is the message generated which can then be substituted into this
+macro. This message is substituted instead to account for the worst-case scenario regarding the
+length of the alarm message macro - maximum size of 80 characters.
+I cannot connect to my Gmail account. (Authentication error)
+Google has updated its security policy regarding 3rd party applications with access to your Google
+account. You will need to setup an App Password with 2-Step Verification to allow the Adroit Email
+Protocol Driver to have access to your Google account.
+For more information, please refer to this Adroit Knowledge Base article, which can also be viewed
+in Appendix A: Gmail Setup for Email Drivers using IMAP [New Google Security Policy]:
+https://adroittechnologiesautomation.com/t/sending-e-mail-with-smtp-using-gmail/1287
+Or visit Google Help Centre for more information:
+https://support.google.com/accounts/answer/185833?hl=en
+I cannot connect to my email account. (Authentication error)
+If you are experiencing issues trying to connect to your email address, please confirm the following is
+correct:
+1. Email address (check formatting, characters used)
+2. Email password
+3. FROM field in the device configuration
+
+[Page 11]
+ATQMS-DRVR-DOC-EMAIL.docx
+P a g e | 11
+If this error has still not been resolved, there may be an issue with the authentication. Similar to Gmail
+and Google&#x27;s security policy changes (refer to the previous troubleshooting scenario for more details),
+there may be a security policy change surrounding 3rd party application access to your email account.
+If this is the case or if there is no reference of this security policy change, please report it to Adroit
+Support.
+I get any of the following errors:
+In the Datascope:
+ERROR: Email exceeds RAWBYTES max size in _______ field…
+In the email notification:
+[ADROIT ERROR] This message indicates that your email is too long. You will experience
+missing or incomplete text or information, and there will be no attachments. Please refer
+to the Adroit Email driver documentation for more information on how to resolve this,
+This indicates that the number of characters in the email generated exceeded the maximum size.
+Adroit recommends that you reduce the number of characters in your email. This can be done by:
+Reducing the number of recipients.
+Reducing the number of macros.
+Simplify the text in the email text to summarise the alarm.
+Send email attachments only if necessary.
+If this is not possible, another solution is to change the RAWBYTESMaxSize registry setting.
+WARNING
+Incorrectly configuring this registry setting can cause undesirable behaviour. Please only change
+this setting if there is no other solution. This setting will affect all drivers that utilise the Rawbytes
+slot in Adroit. This setting is only available in Adroit 10.0.5.2 Update 1 or later. Do not
+add this registry setting manually.
+
+[Page 13]
+ATQMS-DRVR-DOC-EMAIL.docx
+P a g e | 13
+7.
+Appendix
+7.1. Appendix A: Gmail Setup for Email Drivers using IMAP
+[New Google Security Policy]
+This knowledge base article details the steps required in configuring the Gmail IMAP server with the
+mentioned Adroit email drivers, in line with Gmail&#x27;s new security policies implemented as of 30 May
+2022.
+For
+The opening article states the following:
+To help keep your account secure, from May 30, 2022, Google no longer supports the use of third-party
+apps or devices which ask you to sign in to your Google Account using only your username and password.
+Important: This deadline does not apply to Google Workspace or Google Cloud Identity customers. The
+enforcement date for these customers will be announced on the Workspace blog at a later date.
+For more information, continue to read.
+Previously, Adroit email driver&#x27;s required full access to your Gmail account, and subsequently your
+Google account, to allow access into your inbox using the Gmail IMAP server. This required adjusting
+a security setting on your Google account to allow 3rd party applications to access your account.
+If you have noticed that Adroit has not been able to successfully connect to the Gmail IMAP server,
+typically stating an authentication error, the problem could be related to this issue.
+Example of MYCITY Email Client Protocol Driver device authentication error [x0000 NO
+[AUTHENTICATIONFAILED] Invalid Credentials (Failure) Cannot do email work!]
+To access the setting in question, follow the steps provided:
+1)
+Accessing from Gmail directly:
+a. Log in to your Gmail account
+b. Click on the Google Account indicator in the   right-hand corner of the screen. Click on
+Manage your Google Account</pre>
+</details>
+
 
 <script>
 (function() {

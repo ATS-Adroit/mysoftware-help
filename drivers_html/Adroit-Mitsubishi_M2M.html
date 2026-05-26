@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,224 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Adroit-Mitsubishi M2M.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-MIT_M2M.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 8]
+ATQMS-DRVR-DOC-MIT_M2M.docx
+P a g e | 8
+3.
+Device Configuration
+3.1.
+Features and Operation:
+The system supports the following &quot;Areas&quot; or data types scannable into Adroit:
+FX5 DATA Area: 500 data 16-bit WORDs or 250 32-bit WORDs can be mapped or any
+combination making up a total 500 WORDs. This is enforced because of the maximum packet
+size that can be transmitted in one transaction. (ONLY D registers can be monitored)
+Q/L DATA Area: 232 data 16-bit WORDs or 116 32-bit WORDs can be mapped or any
+combination making up a total 232 WORDs. This is enforced because of the maximum packet
+size that can be transmitted in one transaction. (ONLY D registers can be monitored) (500
+WORD support still to come)
+CONFIG Area: 30 configuration WORDs.
+STATISTICS Area: 6 data usage DWORDs and 7 remote side statistical WORDs.
+STATUS Area: 3 status 16-bit WORDs, status bits, count WORD seconds to next poll, other
+status bits.
+ACTION Area: 2 control 16-bit packed WORDs.
+Data area is time-stamped (seconds resolution) data. Devices request time synchronization
+periodically (default is once per day, but this is configurable) but the master can set time at
+any point if required. (Time set is instantaneously, not gradually.)
+Manual poll instructions for all Areas, and a periodic DATA Area poll.
+Write commands for all Areas except STATISTICS.
+Unsolicited support for priority events of DATA Area.
+Unsolicited support for historical events of DATA Area.
+Logical addresses can be allocated to Priority (Alarmed) or Historical modes, with per logical
+address value deadbanding to reduce risk of chatter.
+The driver implements a daemon that will listen for and associate a channel to device link to
+allow incoming and outgoing data to a known device. The PLC is in control of the connection
+attempt and is expected to contact the master periodically via a LINK which the master will
+ACK. This allows for support for fixed and, part of the main design philosophy, dynamic nonpublic IPs typically found on public GPRS networks.
+FX Systems Historical buffer supporting 1000 (16-bit) events or 500 (32-bit) events.
+Q/L Systems Historical buffer supporting 7 500 (16-bit) events or 3750 (32-bit) events.
+FX Systems Priority buffer supports 250 (16-bit) events or 125(32-bit) events.
+Q/L Systems Priority buffer supports 250 (16-bit) events or 125(32-bit) events.
+
+[Page 9]
+ATQMS-DRVR-DOC-MIT_M2M.docx
+P a g e | 9
+Historical mode can be enabled/disabled. Automatic retrieval of history can be
+enabled/disabled. Historical buffer can be configured to be kept below a defined threshold.
+Any device may be put into reduced communications mode or &#x27;Economy Mode&#x27; on a per device
+level, and/or per driver level, to allow for reduced comms load during high/peak periods.
+History buffer threshold exceeded reads and periodic interrogates are stopped during this time.
+Failover protection in case an invalid IP/port is configured the PLC will eventually timeout and
+go back to the last known &quot;good&quot; configuration (LKG) to reduce the risk of having to manually
+reprogram the configuration.
+A standard default configuration is also implemented for first boot-up and connection.
+A forced and fixed latency (quiet delay) between consecutive message transmissions from the
+master to the same PLC device is currently hardcoded to 500ms. Retry attempts are also
+hardcoded at 250ms.
+The following config data will result in dynamic change and persisted to keep the change valid
+between agent server restarts:
+o Enable priority events.
+o Enable history logging.
+o Keep buffer below %.
+o The actual %. - (this will only accept 25%, 50%, 75% and will automatically select
+the closest valid value.)
+o Periodic Update interval.
+Local daemon configuration, however, will remain offline. Changes via Adroit&#x27;s setup will
+require an Agent Server restart. Please note that even though station address is
+configurable via the CONFIG Area and can even be changed, this is specifically not
+persisted. The user is forced to manually allocate a new device configuration via setup.
+Unknown contacts can thus come in via their default address assuming one at a time come
+alive, then a user can force a new address into the PLC via that same device. The PLC will
+then swing over to the newly provided device, thus freeing up the &quot;unknown device&quot; to
+wait for the next contact and the procedure can be repeated.
+If a device does not answer, the PLC will failover back the original address allowing a
+retry.
+WARNING
+Port changes result in an entirely new Daemon being instantiated so devices cannot cross between
+communications Daemon.
+STATISTICAL data is available in the statistics area where data such as current daily and the
+last month&#x27;s usage is available (this data is persisted and available between Agent Server
+restarts). Other PLC side data such as the number of times the modem has been reset, open
+errors, transactions etc. are also available. This must be manually polled via an ACTION bit.
+ACTION and STATUS WORDs are available for information on what modes the M2M is currently
+in, and for control of these functions including manual initiation of functions by toggling these
+bits as required.
+
+[Page 16]
+ATQMS-DRVR-DOC-MIT_M2M.docx
+P a g e | 16
+4.4.
+Addressing Details CONFIG AREA
+4.4.1. Config Area [CW0 - CW15] (READ and WRITEABLE (on some))
+PLEASE NOTE
+As of rev620 for the Q-series, the CONFIG Area has been expanded for CW0 - CW29, as well as
+bit 14 of ACTION Word 0 has been repurposed. These changes are currently not available for the
+FX PLCs. Please contact Adroit for further queries.
+The configuration area is designed to allow the SCADA to see and possibly tweak a devices
+configuration. Use this with caution as an invalid or unreasonable parameter may inadvertently
+force the PLC into a state that can seriously limit communications or perhaps even break it.
+This area does get a start-up poll so that the device will be marked healthy.
+Manual read on Action WORD 2 (AW0), Bit 1 (2nd Bit). (Dig01 if marshal)
+Writes are sent via the tag change in Adroit while &#x27;Output Enabled&#x27; is set to true. It is only
+accepted if it has been specified to not be read-only in the driver.
+WORD 0
+ID (Immediate)
+IP Most Significant WORD (MSW) (Read-Only)
+WORD 2
+IP Least Significant WORD (LSW) (Read-Only)
+WORD 3
+Port (Read-Only)
+Timeout (Immediate 100ms) [&gt;=20] seconds
+WORD 5
+Retries (Immediate)
+Live duration (Immediate 100ms)
+WORD 7
+Live reporting interval (Immediate 100ms) [&gt;=100]
+WORD 8
+Auto History duration (Immediate / hours)
+WORD 9
+Auto History reporting Interval (Immediate 100ms) [&gt;=100]
+WORD 10
+Real time clock request update interval (Immediate hours)
+WORD 11
+Links interval (immediate 100ms) [&gt;=100]
+WORD 12
+M2M Software version (Read-Only)
+WORD 13
+On Standalone: NEW IP (MSW) (AW0 Reset Required)
+On Dual-port: (Available Only for Q-series Rev620, FX5 Rev634 and later)
+NEW IP on A (MSW) (AW14 Force Switch over required)
+On Dual-port: (Available Only for Q-series Rev620, FX5 Rev634 and later)
+NEW IP on A (MSW) (AW14 Force Switch over required)
+WORD 14
+On Standalone: NEW IP (MSW) (AW0 Reset Required)
+On Dual-port: (Available Only for Q-series Rev620, FX5 Rev634 and later)
+NEW IP on A (MSW) (AW14 Force Switch over required)
+On Dual-port: (Available Only for Q-series Rev620, FX5 Rev634 and later)
+NEW IP on A (MSW) (AW14 Force Switch over required)
+WORD 15
+On Standalone: NEW IP (MSW) (AW0 Reset Required)
+On Dual-port: (Available Only for Q-series Rev620, FX5 Rev634 and later)
+NEW IP on A (MSW) (AW14 Force Switch over required)
+On Dual-port: (Available Only for Q-series Rev620, FX5 Rev634 and later)
+NEW IP on A (MSW) (AW14 Force Switch over required)
+WORD 16
+Keep Buffer level below (Immediate) [Internal to Adroit]
+WORD 17
+Periodic update interval (Immediate seconds) [Internal to Adroit]
+WORD 18
+Enable auto buffer levelling (immediate 0 or &gt;0) [Internal to Adroit]
+
+[Page 34]
+ATQMS-DRVR-DOC-MIT_M2M.docx
+P a g e | 34
+value has a hourly resolution and thus the value illustrated here means that the PLC will continue to
+send automatic history updates for one hour after receiving the command.
+DefaultAutoHistoryReportInterval: This value determines how often the PLC will send
+automatic history update messages after receiving the Auto Report History command from the
+SCADA. This value has a 100mS resolution so the illustrated value of 600 means that updates will
+be sent every 60 seconds or one minute.
+DefaultRTCUpdateInterval: This value governs how often the PLC will ask the SCADA to update
+its time. This value has a hourly resolution. In this example the PLC will thus raise the NeedTime
+status flag once a day to prompt the SCADA to update the Real time clock of the PLC.
+DefaultKeepAliveInterval: This value governs how often the PLC will send a keep alive message
+to the SCADA to ensure that it has not lost communication. These keep alive messages are important
+to not only ensure that the connection stays active, but to notify the SCADA of any changes in the
+status of the PLC communication. This timer has a 100mS resolution timer and thus the illustrated
+value of 200 results in keep alive messages being sent every 20 seconds.
+DataMapHeaderAddress: The address of the device where the DataMap that was defined in the
+configuration program starts.
+DataMapLength: The length in number of items that the DataMap comprises.
+Configurator EN program to configure the E-net Module.
+Reinitialising: Added in rev613 to overcome certain lockup conditions. This is driven from the
+Reinit output var of the protocol block. It is used to restore most of the runtime parameters to the
+E-net module.
+
+[Page 42]
+ATQMS-DRVR-DOC-MIT_M2M.docx
+P a g e | 42
+DefaultPort: This is the primary IP Port that the PLC will try and connect to the Adroit server.
+16#505 Hex = 1285 Dec. So, the port in Adroit is 1285.
+DefaultIP_B: This is the secondary (B) IP Address that the PLC will try and connect to when in
+Dual-port mode and the primary connection has failed. This is the Fixed Public IP address for the
+Adroit Standby server. 16#0A0A0A26 Hex = 10.10.10.38 IPv4 = 168430118 Dec. The Fixed
+Public IP address for this example is 192.168.100.10.
+DefaultPort_B: This is the secondary IP Port that the PLC will try and connect to the Adroit server
+when on Dual-port mode and the primary connection has failed. 16#505 Hex = 1285 Dec. So,
+Default_bUseClustering: This is set when the system has a Dual-port configuration, reset when
+the system has Standalone configuration. Both Masters need to be contactable with fixed IP
+addresses.
+DefaultTimeOut: This is the timeout that the PLC will wait for messages before assuming that the
+message did not reach its end point and retransmitting.
+DefaultRetries: This is the number of times that the PLC will attempt to send certain messages
+which are not critical, before it abandons the attempts. Critical messages like unsolicited updates,
+will not follow this rule and will continue to be transmitted until acknowledged by the SCADA system.
+DefaultLivePeriod: This is the time that the PLC will stay in live mode and send continues updates
+to the SCADA system.
+DefaultLiveReportInterval: This is the interval at which the PLC will send complete system
+snapshots to the SCADA system.
+DefaultAutoHistoryPeriod: This value determines how long the PLC will continue to send
+automatic history updates after receiving the Auto Report History command from the SCADA.
+DefaultAutoHistoryReportInterval: This value determines how often the PLC will send
+automatic history update messages after receiving the Auto Report History command from the
+SCADA.
+DefaultRTCUpdateInterval: This value governs how often the PLC will ask the SCADA to update
+its time.
+DefaultKeepAliveInterval: This value governs how often the PLC will send a keep alive message
+to the SCADA to ensure that it has not lost communication. These keep alive messages are important
+to not only ensure that the connection stays active, but to notify the SCA</pre>
+</details>
+
 
 <script>
 (function() {

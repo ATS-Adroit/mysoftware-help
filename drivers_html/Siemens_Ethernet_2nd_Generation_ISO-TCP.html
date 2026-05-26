@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,154 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Siemens Ethernet 2nd Generation ISO-TCP.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-SIEMENS.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-SIEMENS.docx
+P a g e | 4
+1.
+Overview
+The Adroit Siemens protocol driver supports a set of various PLC models and communication
+protocols.
+1.1. Supported Communication Protocols
+ISO over TCP/IP - Ethernet connection.
+o supported PLC models: S7-200, S7-300 and S7-400 and S7-1200 and S7-1500
+MPI - Serial connection.
+o supported PLC models: S7-300 and S7-400 and S7-1200 and S7-1500
+MPI via IBH Link S7/S7++ - Ethernet connection from Adroit to IBH Link, serial connection
+from IBH Link to PLC.
+o supported PLC models: S7-300 and S7-400 and S7-1200 and S7-1500
+PPI - Serial connection.
+o supported PLC models: S7-200
+PPI via IBH Link S7/S7++ - Ethernet connection from Adroit to IBH Link, serial connection
+from IBH Link to PLC.
+o supported PLC models: S7-200
+See Appendix A for a list of tested CPU&#x27;s and CP&#x27;s and their respective part numbers.
+See Appendix B for some considerations about the protocol and how it is used effectively.
+See Appendix C for MicroWin S7-200 configuration.
+See Appendix D for Siemens TIA Portal configuration for S7-1200/S7-1500.
+The system requires no third party drivers, software, stacks or plc code to run, provided the
+Siemens PLC and/or IBH Link and/or CP card is supported and has been configured
+appropriately.
+
+[Page 8]
+ATQMS-DRVR-DOC-SIEMENS.docx
+P a g e | 8
+4.1.1. Redundancy
+Enable Secondary - (Default = unchecked) Turn this option to have the driver maintain 2 channels
+of communication, where the radio buttons Primary and Secondary can then be used to toggle
+between configurations.
+4.1.2. Device Details
+PLC Model - (Default = S7-200) Select which PLC model the driver will connect to, S7 200, S7 300
+or S7 400. In the case of using S7-1200 or S7-500 select the S7300 option.
+Protocol - Select which communication protocol should be used when the driver communicate with
+the PLC. See the Overview: Supported Communication Protocols section for more details on
+supported protocols.
+Retry count - In the event of communication failure, this value indicates the number of retry
+attempts before the driver enters a back-off state.
+Back-off Period - The time in milliseconds which the driver idles when in the back-off state.
+Connection Timeout - Maximum time in milliseconds Adroit will wait for a device to reply, before
+timing out and retrying.
+PDU Length - The maximum bytes to read in a single transaction.
+4.1.3. Connection Configuration
+Ethernet Configuration
+This block will only be active if either of the following protocols are selected: ISOTCP, MPI by IBH,
+or PPI by IBH.
+IP Address - Configurable Ethernet Address. 127.0.0.1 (default).
+Port - Usually 102 when ISOTCP is selected and 1099 when MPI by IBH, or PPI by IBH is selected.
+Change not recommended.
+Serial Configuration
+This block will only be active if either of the following protocols are selected: PPI, MPI
+Com Port - The available serial ports on your machine.
+Baud Rate - The speed of data transmission. Any of the following Baud Rates may be specified:
+300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200.
+Parity - The parity bit setting used in the data transmission. This can be Even, Odd or None.
+
+[Page 9]
+ATQMS-DRVR-DOC-SIEMENS.docx
+P a g e | 9
+4.1.4. Protocol Configuration
+Rack - The rack number in which the PLC is installed. The rack is only applicable to the S7-300 and
+S7-400 PLCs. All the other PLC models have no concept of racks and is therefore always 0.
+Slot - The slot number in which the CPU is installed. By default if using the S7-300 the PSU takes
+slot 1 and the CPU slot 2. In the case of S7-400 you could get the PSU to take slot 1 and 2 and then
+CPU is in slot 3. For S7-1200/S7-1500 the CPU is actually slot 1 as there is no actual bus system.
+For the S7-200 the slot is always 2.
+Type - (Default = PG) Options are PG(1) programming interface, OP(2) operator panel , S7(3)
+standard Scada communications.
+4.1.5. MPI/PPI Configuration
+Local Address - Local MPI/PPI address, usually 0.
+PLC Address - MPI/PPI address of the PLC.
+Speed - The speed at which the MPI/PPI connection has been configured.
+4.1.6. Test Device Configuration for Connectivity
+This is used to check whether or not the configuration currently on the dialog can establish a
+connection and communicate correctly with the PLC. Use this feature instead of having to start the
+Agent Server only to find your configuration does not establish a connection or communicate
+correctly with the PLC.
+Test Address - The Siemens PLC address which the driver will attempt to scan.
+IO Type - The Adroit type in which returned values from the PLC will be displayed in.
+Start Reading - If this button is clicked, the driver will attempt to connect to the PLC using the
+current configuration on the dialog and the driver datascope will automatically open. If the driver
+does not connect or does not receive any information back from the PLC within 5 seconds, the scan
+attempt will be deemed unsuccessful and an appropriate error message will be displayed in the
+message box to the right of the button.
+INFORMATION
+Note, be sure to read messages on the device&#x27;s datascope and read message box on the righthand side of &#x27;Test Device Configuration for Connectivity&#x27;. These messages will help you determine
+whether the device is operating correctly.
+4.1.7. Watchdogs
+Enable PLC program running check - Enable to activate.
+This is a master side check that will force all I/O offline if the SPU is stopped and not the CP card.
+Data will become latched and stale. Use this to check for activity.
+Address DB:DBW any DBx:DBWy that has activity, if the value is stale in this register for more
+than 1 second, all I/O on this device will be marked bad.
+
+[Page 13]
+ATQMS-DRVR-DOC-SIEMENS.docx
+P a g e | 13
+7. General Notes and Troubleshooting
+7.1. Contact Details
+Phone: +27 11 658-8100
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+7.3. Troubleshooting
+7.3.1. Error 33028 - cannot connect to the Siemens S7-1200/1500
+PLC
+This error indicates the following: &quot;The S7-1200 has indirect access on by default. Check if Optimised
+Block access is disabled.&quot; To resolve this issue, ensure that all the steps in Appendix D - Creating S71200/1500 Ethernet Connection have been correctly implemented.
+8.
+Appendix A - PLC Models Tested
+The following PLC CPU&#x27;s and cards have been tested so far:
+S7-200 CPU 226 with CP Card CP 243 - 1.
+S7-300 CPU 314C-2 with CP Card CP 343 - lean.
+S7-400 CPU xxx
+S7-1200 and S7-1500 (WARNING - See Appendix D below for correct setting)
+
+[Page 16]
+ATQMS-DRVR-DOC-SIEMENS.docx
+P a g e | 16
+Specify the number of connections required. At least 1 for Adroit connection. Now press next button
+to open the next screen.
+This is the most important screen of all. This is where we setup the connection to allow Adroit to
+communicate to the PLC. The screen above is the exact setting required to make the communications
+work. We want a server connection that allows the PLC to operate as the server and Adroit as the
+client which connects and requests data from the PLC. The Local TSAP on this page refers to the
+PLC TSAP settings. This setting is not changeable and when &#x27;The server will connect with an Operator
+Pane(OP)&#x27; is selected the TSAP will change to 02.00. This means the SLOT setting in the driver is 2
+and RACK setting is 0. Also make sure &#x27;Accept all connection requests&#x27; is checked. This will allow for
+any IP address to create a connection to the PLC. The Remote TSAP properties refer to the PC TSAP
+and always leave it as 02.01. Once ready click the OK button to continue to the next screen.</pre>
+</details>
+
 
 <script>
 (function() {

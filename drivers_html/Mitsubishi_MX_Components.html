@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,254 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Mitsubishi MX Components.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-MITMXACT.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-MITMXACT.docx
+P a g e | 4
+1. Overview
+The Mitsubishi MX Components driver makes use of the Mitsubishi MX Components ActiveX Control
+supplied by Mitsubishi. The MX Components installation and License can be purchased from
+Mitsubishi.
+Please ensure MX Components is installed for this driver to function correctly. The driver also uses
+the Mitsubishi Communication Setup Utility that gets installed with MX Components for configuring
+communications with PLCs.
+WARNING
+The driver only supports MX Components 4 or later.
+1.1.
+Upgrading
+If the MITQJE71 driver is being used, remove all the old Device Agents and create them again with
+the same names using this driver. Restart the Agent Server and all your scanning will remain, but
+on the new MX Components driver.
+
+[Page 6]
+ATQMS-DRVR-DOC-MITMXACT.docx
+P a g e | 6
+3. Device Configuration
+3.1.
+Device Configuration
+3.1.1. Port Selection
+Enable secondary - Turn this option to have the driver maintain 2 channels of communication,
+the radio buttons Primary and Secondary can then be used to toggle between configurations.
+Check PLC is in MASTER Mode - When two PLC&#x27;s are configured for redundancy, a check is
+performed for a PLC Bit (SM1516) to establish which PLC is in MASTER mode before doing a WRITE
+to the PLC. This functionality can be disabled by deselecting the box, causing the driver will not
+check for this bit in the PLC and will just do the write to the PLC it is connected to.
+3.1.2. PLC Details
+PLC Series type - Select the PLC Series type namely FX Series, Q Series, L Series, A series, R
+Series or QnA series PLC.
+Wizard Configured PLC - Select the relevant communication configuration that was done by the
+Mitsubishi communications setup utility.
+Launch Wizard Configuration - Click to open the Mitsubishi communication setup utility.
+Communications timeout - The interval in milliseconds before the driver assumes the PLC is not
+responding if not response is received, the driver will reset and open the connection. As in the case
+with a non-fatal error exception response, the driver will re-attempt the transaction three times. The
+number of retries is not settable.
+Detailed debugger output - Turning this option on forces the driver to provide detailed
+information of activity on the device&#x27;s driver diagnostic datascope screen. Use this option when
+troubleshooting problems involving the watchdog/heartbeat, or specific tags not working.
+Retries - The amount of retries for a specific scan task before returning failed.
+
+[Page 7]
+ATQMS-DRVR-DOC-MITMXACT.docx
+P a g e | 7
+Launch Configuration Wizard - Launches the MX Components configuration wizard. Ensure the
+correct version of MX Components is installed.
+4. Supported Addresses
+4.1.
+Mitsubishi Q Series (System Q) PLC
+Mitsubishi Q series (System Q) PLC data (device) types supported in the Adroit Protocol.
+Device
+Prefix
+Int 16
+X0
+X0
+Word 16
+X0 W
+X0 W
+dword 32
+X0 D
+X0 D
+Long 32
+X0 L
+X0 L
+Float 32
+X0 F
+X0 F
+Output relay
+Y
+Internal relay
+M
+Latch relay
+L
+Annunciator
+F
+Link relay
+B
+Special link relay
+SB
+0x7FF
+Edge relay
+V
+Data register
+D
+D 0 Sn
+Int 16
+D0
+D0
+Word 16
+D0 W
+D0 W
+dword 32
+D0 D
+D0 D
+Long 32
+D0 L
+D0 L
+Float 32
+D0 F
+D0 F
+Link register
+W
+W 0
+W 0
+Timer
+(current value)
+T or TN*
+Int 16
+TN 0
+TN 0
+Retentive timer
+(current value)
+ST 0
+ST 0
+Counter
+(current value)
+C or CN*
+Int 16
+CT 0
+CN 0
+Special link reg.
+SW
+0x7FF
+SW 0
+SW 0
+File register
+R
+R 0 Sn
+Int 16
+R0
+R0
+Word 16
+R0 W
+R0 W
+dword 32
+R0 D
+R0 D
+Long 32
+R0 L
+R0 L
+Float 32
+R0 F
+R0 F
+Extended File
+register
+Int 16
+ZR0
+ZR0
+Word 16
+ZR0 W
+ZR0 W
+dword 32
+ZR0 D
+ZR0 D
+Long 32
+ZR0 L
+ZR0 L
+Float 32
+ZR0 F
+ZR0 F
+
+[Page 15]
+ATQMS-DRVR-DOC-MITMXACT.docx
+P a g e | 15
+4.11. PLC Software
+4.11.1. Installing MX Components
+Get the MX Components install from Mitsubishi and run it. It will require a serial key to be entered
+during the installation so ensure you have a serial key for MX Components. Current version being
+used is 4.00.
+4.11.2. Configuring a new communication channel using the utility.
+Launch Adroit Setup and select the Drivers TAB.
+Select the MX Components Driver from the list and add a new device.
+In the device configuration Dialog, press the &#x27;Launch Configuration Wizard&#x27; button.
+You will now have the Mitsubishi communication setup utility open. Press the &#x27;Wizard&#x27; button
+to start the configuration wizard.
+From the Logical station number dropdown box you can select an existing configured station
+to edit or by typing in a new station number you can create a new configuration. Press Next
+button.
+
+[Page 20]
+ATQMS-DRVR-DOC-MITMXACT.docx
+P a g e | 20
+6.3.2. Error Message Reference
+The First 2 bytes of the error message as shown on the Datascope is which PLC Module type send
+the message, like for example a Q Series CPU. The last 2 bytes in the error message represents the
+error code as shown in the table below, but only for the Q Series PLC.
+Only commonly encountered PLC error codes are listed, for a full reference, see Melsec Q
+Programmable Controller User manual (basic) QJ71E71. The PLC error codes can be seen in
+the Adroit event log, alarm viewer and driver datascope screens, where a reason description also
+appears.
+HEX Code
+Remedial Action
+The scanned device or I/O does not exist. Verify PLC device range configuration or
+existence of File register.
+C050
+Configure the Q71 card for binary and restart the module.
+C051 through C055
+The number of points to read/write is incorrect, contact Adroit technical support.
+C056
+The scanned device or I/O does not exist. The starting address + length of the
+request exceeds the number of points in the PLC. Verify PLC device range
+configuration.
+C057
+Requested data length miss-match, contact Adroit technical support.
+C058
+Requested data length miss-match, contact Adroit technical support.
+C059
+The command issued is invalid, contact Adroit technical support.
+C05B
+The requested device does not exist. Verify PLC device configuration.
+03E8 through 4FFF
+Are generated by the CPU, see CPU error code manual for more detail.
+In the event of remedial action failing to rectify a problem, the context of the error message is
+needed by our team. Please see the Adroit help file on how to capture driver data screens by
+searching for &quot;to create a protocol dump&quot; (no quotes) in the search tab.
+7. Revisions
+7.1.
+Document Revision
+Rev.
+Date
+Changes to format, updated image resources.
+D. Jordaan
+2.0
+7.2.
+DLL Revision
+Rev.
+Date
+Now using MX components version 5.
+13-Jul 2022
+Using very fast scanning would cause high CPU load, fixed.</pre>
+</details>
+
 
 <script>
 (function() {

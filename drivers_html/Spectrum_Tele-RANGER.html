@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,176 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Spectrum Tele-RANGER.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-SPECTR.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-SPECTR.docx
+P a g e | 4
+1. Overview
+Adroit supports communications with the Spectrum TeleRanger Radio Telemetry System, using the
+Protocol Driver SPECTR.DLL. Related documents that may be read in conjunction with this document
+are:
+Engineering Note EN-5 SCADA Protocol Serial Interface for the tele-RANGER Radio Telemetry
+System
+
+[Page 8]
+ATQMS-DRVR-DOC-SPECTR.docx
+P a g e | 8
+Timeout (Sec) - The time (in seconds) that a response will be waited for, before retrying or timing
+out
+Number of Retries - Number of times a link test (or other command) will be sent without receiving
+the corresponding response, before a communications failure is flagged. Not inclusive
+3.1.2.
+Central Station Details (Global affects all
+devices)
+Items configured in this group are common to all outstations using the same serial port. What this
+means is if you want to change a parameter such as, say, Link Test Interval, you will need to change
+it for all other devices on that particular communications resource (com port), if not then a new port
+should be used, which implies a different teleRanger RS-232 module, etc.
+Please Note non device specific messages like SM and LT etc will not have a checksum at all, the
+spectrum device will not expect one either.
+Central Station Address - The teleRanger central station address, C1 -&gt; C2
+Link Test Interval (Sec) - The time (in seconds) between the sending of successive link test (&quot;LT&quot;)
+commands from Adroit to the teleRanger central station. A time of zero disables link testing
+Synchronize All Telemetry Clocks (Startup) - When active, this check box will cause all
+outstations to be time synchronized with the SCADA system clock, This will happen once when the
+driver loads. Manual syncs via OSCTL.5 will need to be done when in modem mode … OSHDR.16
+can be driven via an Expression Agent.
+Time between &quot;IR&quot; messages The number of seconds to leave between any two stations
+performing an &quot;IR&quot; or interrogate command.
+Latency (Sec) - The minimum time delay (in seconds) between the sending of ANY (IR or GL)
+request commands from Adroit to the outstation. Any one will reset the timer to force the other to
+delay. This is NOT global it is only a delay between two IR/GL polls to the SAME station. Manual
+commands (IR and GL) are unaffected and will go out as normal.
+3.1.3.
+Outstation Logging &quot;GL&quot; Functions (Device
+Specific)
+GetLog Interval (Sec) - Default is 0 (disabled). This is a timer to generate an automatic GL request
+to a device every x Seconds. If set to 0 the timer is disabled and GL&#x27;s will have to be done from
+within adroit either via osctl.7 These Gl messages obey the OQD.
+Logs per batch - Default is 5. This is the number of logs to request either in autolog mode or via
+OSCTL.7 bit.
+3.1.4.
+Outstation Modem Identification Strings (Device
+Specific)
+Modem ID&#x27;s Enabled - Default : Checked, Used for backward compatibility to older tele-ranger
+equipment where no ID&#x27;s are available and where unsolicited mode is unavailable too.
+(ONLY Used In Modem MODE!)
+
+[Page 12]
+ATQMS-DRVR-DOC-SPECTR.docx
+P a g e | 12
+4. Supported Addresses
+4.1.
+Modem Configuration Strings (x2 command
+set)
+Tested with US-Robotics 56k modems, compatible with x2 command set.
+See Appendix A for additional modem topics.
+This string is sent whenever Adroit attempt to communicate to a device, it is also sent at startup of
+the agent server, and also if your stop/restart your device.
+Try to use Factory default settings if possible; AT&amp;F
+To use Auto answer mode on the modem: AtS0=n (where n = number of rings)
+To not use Auto Answer, make sure you uncheck the AutoAnswer checkbox in the Modem Dialogue.
+Make sure AtS0=0 in your string.
+Make sure &amp;D is 2, the driver needs normal DTR signals to do its hang-ups etc
+Make sure &amp;C is 1, the driver needs normal Carrier detection to operate correctly.
+4.1.1.
+Example Connection String:
+At&amp;f&amp;w0&amp;w1 in &quot;terminal&quot; to reset to factory defaults and save profiles or you could allow adroit to
+do it at startup.
+ATE0&amp;D2&amp;C1S0=2&amp;W0&amp;W1
+Echo off | normal dtr | Normal cd | AA after 2 rings | Save profile to 0 and 1.
+The Non Protocol or noise message above is not fatal, some modem handshake may be found to
+be rejected as above … ok The &quot;\r\n&quot; etc are just the carriage return line feed converted to printable
+form they are not actually &quot;\r&quot; they are non-printable and thus not detectable on the scope
+otherwise!
+
+[Page 13]
+ATQMS-DRVR-DOC-SPECTR.docx
+P a g e | 13
+4.2.
+Basic Structure of Driver
+Being a Radio Telemetry System, teleRanger poses some special protocol driver development and
+configuration challenges:
+Delayed response. With PLC systems a read request is honoured immediately, whereas with
+a radio telemetry system, several different requests can be sent out before a response to the
+first one is received. Also, the sequence in which responses arrive is totally unpredictable
+Exception-based. Instead of using a poll-response type protocol like most other Adroit protocol
+drivers, the teleRanger driver operates in an exception- or event-based mode. This means
+that messages arrive from the teleRanger equipment in an unsolicited fashion
+Time-tagged. The teleRanger protocol includes the possibility of tagging changes of state and
+other events with the time of occurrence. The protocol driver needs to be aware of timetagged information and make sure that this time, as opposed to the current system time, is
+associated with the event
+Even though Adroit directly connects to only a local teleRanger station, it must maintain
+communications, etc., on a per remote station basis. This is to prevent all stations being
+considered bad when only one station may be experiencing communication problems
+Given all the above, the following diagram illustrates the context within which the teleRanger protocol
+driver operates:
+From the above diagram it is clear that there is a direct correspondence between teleRanger stations
+and Adroit device agents, i.e. a separate device agent is configured for each teleRanger outstation.
+The following diagram shows how the protocol driver connects via an RS232 link to the teleRanger
+local station
+The local station connects via a radio network to its remote outstations. One can see on the above
+diagram, shown in dotted, that it is possible for different instances of the teleRanger driver to use
+different COM ports to other local stations that are part of completely separate radio telemetry
+systems, if necessary.
+4.3.
+Log Retrieval
+For datalog retrieval from the RTU via the tag OSCTL.7, or Autolog retrieval…
+An Int/real tag must be scanned from OSLOG.1 to hold the count of remaining records.
+A Digital tag can be scanned to OSCTL.7 if a manual log retrieval is required.
+An Int/real/marshal tag must be scanned to OSHDRB.1 these items all update as a result of a SL,
+GL or in the case of a Teleflex an IR, which provide an LS.
+
+[Page 21]
+ATQMS-DRVR-DOC-SPECTR.docx
+P a g e | 21
+7. Appendix A - How to Troubleshoot and
+Setup Modems.
+This discussion describes landline dialup modem support , but gsm modems are also compatible to
+the basic command sets so there is no reason for them not to work either.
+Where applicable I will refer to the Hayes (x.2) command set as well as the Duxbury command set.
+(*h) - X2 Hayes only (e.g. US robotics)
+(*d) - Duxbury only.
+Nothing means identical for both command sets.
+7.1.
+1st Steps
+Use HyperTerminal to establish initial communications with the modems , make sure you can
+communicate with the modem by creating a hyper terminal session manually to the appropriate com
+port. Type in any command and check whether the modem acknowledges it. Try AT(return) you
+should see OK. [ATZ, ATI4(*h) or AT&amp;V(*d) for current config info etc)
+If no ack is found try a command that will definitely return something ATI4(*h) AT&amp;V(*d).
+If no acks are sent but the about info does get sent check result codes are being sent Q = 0. And
+the codes must be returned as text V=1.
+AT&amp;F will reset the modem factory defaults.
+Make sure Carrier detect is enabled &amp;C1. *NB - for driver hang up ability.
+Make sure DTR control is enabled &amp;D2. *NB - for driver hang up ability.
+If you want the modem to auto-answer make sure S0&gt;0 (i.e. S0=2 for 2 rings then answer)
+Make sure Echo is off when you are finished testing E=0. *NB - for driver logic.
+Make sure B0(*h). Data baud rate will follow connection train rate.
+AT&amp;W(*h) will save the profile , older modems have 2 profiles AT&amp;W0 , AT&amp;W1…
+7.2.
+For Remote Modem
+Make sure the following is set : S0=0, spectrum answers manually.
+&amp;D0 spectrum does not control the DTR line and thus must be disabled/ignored!
+Recommended ATE0 s0=0 &amp;D2 &amp;C1&amp;W done manually via terminal! Make sure the save went
+through by turning off the modem and then doing a ATI4(*h) to check.
+7.3.
+For Master Modem
+S0 = 2 , two rings until auto answer, then the device modem &quot;modem is configured for auto answer&quot;
+must be checked , otherwise if its unchecked S0=0, then the driver with do a manual ATA. (It is
+recommended to use the modems auto answer feature)</pre>
+</details>
+
 
 <script>
 (function() {

@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,147 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Beckhoff.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Protocol Driver
+Name
+Beckhoff TwinCAT ADS-DLL API
+DLL
+BECKHOFF
+
+[Page 3]
+ATQMS-DRVR-DOC-BECKHOFF.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-BECKHOFF.docx
+P a g e | 4
+1. Overview
+For this driver to work correctly the machine must have a running version of the Beckhoff&#x27;s TwinCAT
+Server. The Driver Supports TwinCAT2 and TwinCAT3. Please ensure it is installed.
+See Appendix A for TwinCAT2 Installation and Appendix B for TwinCAT3 installation.
+1.1.
+Required Files
+This driver was developed using AdsDll.dll version 28, revision 0, build 14. This file or newer must
+be present in the Windows path for the driver to be configured or run.
+
+[Page 6]
+ATQMS-DRVR-DOC-BECKHOFF.docx
+P a g e | 6
+3. Device Configuration
+3.1.
+Device Configuration
+3.1.1.
+Port Selection
+Enable Secondary - Enables secondary configuration for dual redundant PLCs via the primary and
+secondary radio buttons. Do not enable if a secondary channel is not configured correctly.
+3.1.2.
+UDT Settings
+TPY File. - The TPY File is a file from the Beckhoff System that contains all the UDT Data. The
+Driver will import this file and automatically create all the UDT&#x27;s as specified in this TPY file. Click on
+the browse button to select a file to open, and then press the &quot;Get UDT Defs.&quot; Button to create all
+the UDT&#x27;s. A window will open after the creation process that will show all the UDT&#x27;s created and
+allow for manual intervention, if required.
+UDT Prefix - Prefix for UDT&#x27;s to search for in the TPY File.
+Get UDT defs. - This button will be enabled as soon as the &quot;Test Con.&quot; Action has succeeded. This
+will open the TPY File specified and automatically create all UDT&#x27;s that can be found in the file with
+the specified Prefix.
+PLEASE NOTE
+From Adroit 7.0.10.0 onwards, you will have a Browse functionality on the scan dialog that will
+read all the symbols from the TPY file into the browser and allow you to select the symbol. This
+will then construct the scan address accordingly.
+
+[Page 7]
+ATQMS-DRVR-DOC-BECKHOFF.docx
+P a g e | 7
+3.1.3.
+PLC Details
+Routes - The Routes allow selection of Remote Beckhoff Units or just the remote. These routes will
+be read from the registry where Beckhoff saves its configured routes. If communication is to be on
+the local machine, just select &quot;Local&quot;. Also, &quot;Custom&quot; is available whereby the user can then manually
+specify the AMS Net ID in case of the driver failing to fetch the routes from the registry as in the
+case of TwinCAT3.
+AMS Net ID - The IP Address of the device you wish to communicate to. The default IP Address
+will be the hosting PC&#x27;s IP Address. The last two digits are fixed.
+Port No. - A drop down list of available supported ports.
+Packet size (bytes) - The maximum number of bytes to read in one job. The maximum available
+is 1990 bytes and a minimum of 80 bytes (default string length).
+Retries - The number of times that Adroit will try to gain communication with a PLC before failing
+a transaction.
+The driver uses a fixed timeout of 5000 milliseconds on transactions.
+3.1.4.
+Test Connection Details
+Test Con. - A &#x27;test connection&#x27; button is provided and will report the details of the type of PLC and
+its status.
+4. Supported Addresses
+Device
+Min
+Inputs I (read only)
+65535.8
+BOOL
+WORD
+IW:0
+IW:0
+Outputs Q
+65535.8
+BOOL
+WORD
+QW:0
+QW:0
+Internal M
+65535.8
+Byte
+MB:0
+WORD
+MW:0
+MW:0
+Int
+MW:0 S
+MW:0
+DWORD
+MD:0
+MD:0
+Dint
+MD:0 S
+MD:0 S
+Float (Real)
+MD:0 F
+String
+MW:0.80 C
+UDT&#x27;s
+
+[Page 8]
+ATQMS-DRVR-DOC-BECKHOFF.docx
+P a g e | 8
+5. Protocol Definition and Considerations
+5.1.
+Scanning UDT&#x27;s
+To Scan any UDT, just follow the following structure:
+UDT:&lt;ProgramName&gt;.&lt;MyUDT&gt; &lt;StructureName&gt;
+Where:
+&lt;ProgramName&gt; = If the UDT Instance is in the Global Variable Scope of the Beckhoff Software,
+then this stays empty, but if it is any other place than Global Variables, then
+the scope must be specified, like MAIN as example.
+&lt;MyUDT&gt;
+= The Structure Instance as created in Beckhoff software.
+&lt;StructureName&gt; = UDT(Structure) Name as created in the Beckhoff software.
+Example(MAIN Program Scope): UDT:MAIN.myTest1 ST_DEMO
+Example(Global Variable Scope): UDT:.myTest1 ST_DEMO
+UDT&#x27;s can be setup for callbacks instead of polling. To do this, just change the scan rate to 0 when
+scanning. This is for the purpose of timestamping. To enable timestamping for a UDT, you must
+create 2 DWORD slots called &quot;FILETIME_HIGH_DWORD&quot; and &quot;FILETIME_LOW_DWORD&quot;, which
+must be packed with the FILETIME&#x27;s high and low 32-bit words.
+The driver also support ENUMS and UDT&#x27;s in UDT&#x27;s.
+PLEASE NOTE
+This driver does not support Arrays in UDT&#x27;s.</pre>
+</details>
+
 
 <script>
 (function() {

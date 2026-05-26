@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,205 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/OPC Client.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 4
+1.
+Overview
+OPC (OLE for Process Control) is a standard specification that makes it possible for
+automation/control software applications and field systems/devices to interoperate and
+communicate data between each other.
+To learn more about what OPC is, visit the OPC foundation website http://www.opcfoundation.org/
+The OPC Client driver for Adroit communicates to OPC servers that expose at least the OPC DA
+Custom Interface Version 1.0A. The driver is compatible with OPC DA Version 2.0. As of revision
+56 of the driver, it is not version 3.0 compatible.
+PLEASE NOTE
+It is very important that Adroit users updating to revision 56 of the OPC client driver re-check
+all their OPC client device settings as things have changed since.
+Read especially the setting &quot;Override default DCOM security (for callbacks)&quot; below. By default,
+older versions of this driver had this setting hardcoded as enabled.
+Also make a note of newly introduced settings (such as &quot;auto recovery&quot;) and make sure you
+understand what is being provided for in this new version. &quot;Auto recovery&quot; was not a feature
+available in older versions of the driver.
+1.1.
+Supported Hardware
+This is equipment &amp; vendor specific, installation instructions for specific OPC Servers is beyond the
+intended scope of this document, however notes on specific differences have been included. OPC
+Servers supporting version 2.0 of the OPC interface allow remote connections to servers as well as
+local OPC server connections.
+Please see the section on &quot;Specific OPC Servers&quot;, which covers differences experienced between
+commonly encountered OPC Servers.
+
+[Page 6]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 6
+2.
+Device Configuration
+2.1.
+Driver Installation and Setup
+The driver is installed in Adroit by default. If not, you will need to install it via the &quot;Drivers&quot; tab and
+click on &quot;Add&quot; in Adroit setup. The opc_cl.dll and the opc_cl.doc are then copied into the agent
+directory.
+2.2.
+Device Configuration
+2.2.1. Device Configuration
+The configuration of an OPC client device has only three basic items of configuration for a connection.
+These are:
+Remote or local
+If remote, name of remote host (or PC)
+The name of the OPC Server to connect to
+As with most Adroit protocol drivers, you can also specify a secondary (or backup) connection.
+Enable
+Secondary
+Enables secondary configuration for dual redundant OPC Server Connections. If
+enabled, the primary and secondary buttons are also enabled to allow you to select
+the connection you wish to configure.
+This driver supports auto and manual resetting and switching of connections. See
+&quot;Resetting and Switching Connections&quot; below.
+Local host
+Connect to an OPC Server on the local PC. The &quot;host name&quot; dropdown box will be
+disabled.
+Domain host /
+Global host
+Select an OPC Server on a remote PC. The &quot;host name&quot; dropdown box will be
+enabled to allow you to select a remote PC. The reason for two buttons is simply to
+allow for fast and slow (respectively) network searching of remote PC&#x27;s for populating
+the dropdown box. &quot;Domain host&quot; will search the local domain only while &quot;global
+host&quot; will take longer to search the wider network.
+OPC Server
+Select the OPC Server that you want to connect to. All servers registered on the PC
+will be available in the dropdown box. If you are not able to see OPC Servers on a
+remote PC please consult the paragraph on Security below.
+2.3.
+Advanced Settings Dialog
+All advanced settings are accessible in the advanced dialog; Changes to these settings are not
+required by default. Notable exceptions are listed in the section OPC Server Notes.
+
+[Page 9]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 9
+3. Protocol Definition and Considerations
+3.1.
+Scanning Configuration
+The default address is First:OPC:Address:01 this field must be substituted by the item ID (or name)
+of the OPC item being scanned. Item ID can be browsed using the browse button which launches
+Adroit OPCBROWSER utility to display all OPC items available on the selected OPC Server.
+Note that some OPC Servers do not allow address space browsing, in such cases you need to type
+in a tag name manually. You then need to read the documentation of that server to get details of
+the item ID&#x27;s, and how to manually type them in. It is always possible to manually enter an item, if
+the item is incorrectly typed, it may or may not be rejected based on the Server and the Advanced
+settings for Validation of item-IDs
+The update rate of a tag is determined by the scan period specified. The driver creates new OPC
+groups automatically; a new group is created and managed for you if:
+The maximum number of tags per group (as configured in the Advanced dialog) is reached.
+Tags have a different scan rate.
+3.2.
+Resetting and Switching Connections
+This driver supports the resetting and switching of connections using the device agent&#x27;s
+&quot;switchconnection&quot; and &quot;resetconnection&quot; slots. Setting either of these slots to 1 will cause the
+device to reset (close and re-open) the connection to the OPC Server or switch the connection from
+the primary to the secondary connection.
+These slots must be used with care in a cluster as they are shadowed to the partner. To prevent
+shadowing, use the buttons as provided in the advanced dialog accessed from the configurator&#x27;s
+scanning dialog - this will then perform the action on the connected agent server (master or standby)
+only.
+WARNING
+The OPC client driver uses &quot;connection pooling&quot;. This means that OPC client devices that use
+the identical primary and secondary connection paths (host and OPC Server) will interact with
+the OPC server via a single OPC client connection. Therefore, when resetting or switching a
+device, any other devices using the same &quot;pooled connection&quot; will also be affected.
+3.3.
+Message Protocol
+Datascope messages are displayed in ASCII mode. (Press the &quot;A&quot; key)
+The underlying communication protocols to the device is not available to the OPC Client and thus
+not showed, see the Troubleshooting section.
+This window will however show all validation of tags. If the tag cannot be validated, a message
+indicating the error code &amp; message will be displayed here.
+All item updates (process-data changes) are also indicated here with an offset number of the tag
+that&#x27;s being updated.
+
+[Page 13]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 13
+4. General Notes and Troubleshooting
+4.1.
+Contact Details
+Phone: +27 11 658-8100
+4.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+4.3.
+Troubleshooting
+The Adroit Protocol Driver Monitor will give feedback on the OPC activity with error codes.
+OPC Servers supporting only version 1.0 of the OPC spec/interface do not allow remote DCOM clients
+i.e., OPC Server must be on same machine as Adroit.
+If you have trouble getting a remote connection to work:
+1. Use Explorer to connect to a share on the server machine. (Check your network)
+2. Run Adroit&#x27;s OPC browser and see if it connects to the remote machine and shows the OPC
+servers installed on it. (See the security section)
+3. Try the same from a different computer, or with a local connection first by installing Adroit on
+the server machine.
+What version of OPC Client driver do I have?
+If using versions prior to 5.0.4.0:
+1. Using Explorer, open your Adroit folder, and find opc_cl.dll
+2. Right-click the file, select properties from the pop-up menu.
+3. Click on the &quot;Version&quot; (it&#x27;s the second one) tab and select the field &quot;DriverRevision&quot; from the
+list on the left. The driver&#x27;s revision number will appear next to it.
+1. In the setup program drivers tab, select the Driver (not a device) from the tree.
+2. One of the fields in the list to the right will be Revision.
+3. The Adroit website always shows the latest driver revision currently in production.
+Changing the settings in the &quot;Advanced&quot; settings for the device
+This can resolve many configuration problems, please read the Device configuration and OPC Server
+notes sections.
+Remember that any setting change requires a re-start of the Agent Server. Certain OPC Servers
+implement the OPC spec differently, Adroit Technologies development department attempt to
+
+[Page 16]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 16
+INAT OPC
+INAT
+H1, and Profibus networks for Siemens S5 and S7 equipment
+1. Turn on the &quot;do not validate items&quot; tick-mark after commissioning all scans, since this server is
+sometimes slower to start, and may cause scan-points to be lost during starting on large
+systems.
+2. In order to give the OPC server enough time to load, use DeviceStartDelay values of 5000ms
+or greater, to find out how to edit this registry setting, search for DeviceStartDelay in the Adroit
+help.
+Johnson Controls OPC Server
+Johnson Controls
+Building management
+This OPC Server makes use of the @ symbol in the item-address, and since Adroit previously reserved
+the use of this symbol for subscription-scanning, you will need to disable subscription-scanning on
+this device. Adroit will then treat the @ symbols as part of the OPC item-address, and not as an
+internal agent tag-name reference.
+Adding the REG_DWORD registry value &quot;DisableAtScanning&quot; to the registry for the
+required device and setting it to 1.
+For example, if you wanted to disable @ scanning in the WESTDAM device-agent
+1. Open the registry editor
+2. Find the following registry key: HKEY_LOCAL_MACHINE\SOFTWARE\Adroit
+3. Add a DWORD entry called &#x27;DisableAtScanning&#x27; (no quotes)
+4. Set the value to 1
+5. Perform steps 2 through 4 for any other Johnson Controls server devices.
+Applicom OPC Server
+Woodhead Systems Intl.
+Communications server supporting many devices
+If you want to browse variables by name in a Rockwell LogiX 5000 project, you will need to import
+the project into Applicom OPC, please read your Applicom OPC Server manual on how to do this.</pre>
+</details>
+
 
 <script>
 (function() {

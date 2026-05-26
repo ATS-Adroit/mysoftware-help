@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,145 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Strike ENERMAX Plus.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-STKEMAXP.docx
+P a g e | 3
+1.
+2.
+
+[Page 5]
+ATQMS-DRVR-DOC-STKEMAXP.docx
+P a g e | 5
+2.
+Wiring
+Standard RS-232C cable (DTE-DTE) cross-over cable with or without handshaking.
+The driver expects the communication link to be point-to-point due to the session-based protocol
+used.
+OR
+Standard Ethernet UTP Cable.
+
+[Page 6]
+ATQMS-DRVR-DOC-STKEMAXP.docx
+P a g e | 6
+3.
+Device Configuration
+Comms Type - Select communications type:
+Select &#x27;Serial&#x27; for Serial communications.
+Select &#x27;Ethernet&#x27; for Ethernet communications.
+Serial ID - Serial identification number unique to the meter.
+Retry - The number of times that Adroit will try to gain communication with the meter before failing
+a transaction.
+Timeout - The time that Adroit will wait for a valid response from the meter before failing a
+transaction (Read or Write). Ensure proper timeout if using modem connection as it is much slower,
+where the maximum is 9600bps.
+Modem - Opens the Modem Dialog if using Modem Connection.
+Port - The available serial ports on your machine.
+
+[Page 7]
+ATQMS-DRVR-DOC-STKEMAXP.docx
+P a g e | 7
+Baud rate - (Default = 115200) Select a baud rate: 9600, 19200, 38400, 56000, 57600, 115200
+Parity - (Default = Even)
+DataBits - (Default = 7)
+StopBits - (Default = 1)
+Force Sign-on - (Default = unchecked) If checked the driver will force a sign on and off for every
+transaction used when having multiple serial devices on a bus network.
+WARNING: communications will be slower.
+3.1.1. TCP/IP Settings
+Address - IP address of the meter.
+Port - (Default = 10001) The port configured for the meter.
+3.1.2. Modem Settings
+Use Modem - Enable/Disable the Use of Modem on RS232.
+Dial Number - Number to dial that is situated at end device.
+Modem Init String - String to Initialize Local Modem with before dialling.
+Connect Timeout - Time(ms) to wait for connection.
+
+[Page 10]
+ATQMS-DRVR-DOC-STKEMAXP.docx
+P a g e | 10
+*2) The display reads numbers can be found in Emaxplus-CM-RDU-3rd-Party-0v01.xls
+Please remember that Dx:y , x is the row and you usually want to scan D2:y not 1 , which will give you the
+display name… but it can be scanned if you really want to… just use D1:y
+*3) 8 profile channels available as floating-point values, only Real/Analog agents will be supported for profile
+data.
+WARNING
+Channels are dynamically ordered from the smallest period to the largest. If you add a channel or
+edit a channel in the meter, the SCADA MUST take this into account that channels positions could
+move.
+Example: channel 1 period = 10 minute sample rate, channel 2 = 30 minute sample rate, now you
+add channel 3 = 5 minute rate, then channel 3 will become channel 1 in memory, and the old 1
+and 2 will become 2 and 3 respectively. So, if channel 1 was VOLTS, and channel 3 was VARS, the
+next profile read, channel 1 would have VARS instead of VOLTS. This is like swapping two digital
+jumpers on a digital output card without telling the SCADA engineer to update the user interface
+- a wrong indication is presented.
+WARNING
+Channels cannot be skipped in the read. So, for example, if channel 2 were to be deleted from the
+meter, the remaining channels would move down the list in this case channel 3 would move to
+channel 2.
+Profile modifiers: Modifiers can be added to a channel to modify the value before it is sent to
+You can multiply(divide) a value and/or subtract(add) a value. (See Profile Modifiers Appendix.)
+*4) These are administrative registers used in advanced function that may require more than one type of data
+to be present before execution can take place, for example profile retrieval of multiple days.
+Admin area consists of 5 16bit registers only available to integer type agents such as Integer/Marshal.
+Register 0 (Address A:0) is not persisted data, will be reset when the Agent Server restarts.
+Register 1-4 (Address A:1-4) are persisted, so these will be preserved between Agent Server restarts, and
+there is no need to save WGP file manually, the data is persisted to the device config in the registry.
+Register 0 [bit packed 16 (unpersisted)]
+{ Bit 0 = Do time synchronisation (&gt;20min will cause a fast set)
+Bit 1 = Do profile read (will use Registers 2 and 3 for required parameters)
+Bit 2 ... Bit 15 = not used yet.}
+Register 1 [bit packed 16 (persisted)]
+{ Bit 0 = Enable &quot;fetch yesterday&quot; profile data (uses Register 4 as time in minutes from 00:00 to start)
+Bit 1... Bit 15 = not used yet.}
+Register 2 [unsigned short] = day offset from today for profile read (see bit 1 of register 0) (1 = yesterday)
+(0 = today) (&gt;1 days further into the past)
+
+[Page 15]
+ATQMS-DRVR-DOC-STKEMAXP.docx
+P a g e | 15
+(Aside from applying the TVF)
+Slot Type
+To Do
+Allow user to choose if VT ratio to be applied
+xxxxxx.x
+Current
+Allow user to choose if CT ratio to be applied
+xxxx.xxx
+Power/Energy
+Allow user to choose if IMC to be applied
+Use demand category scaling
+8.
+Revisions
+8.1.
+Document Revision
+Rev.
+Date
+Grammar edits, formatting changes and
+content additions
+D. Jordaan
+3.0
+8.2.
+DLL Revision
+Rev.
+Date
+Enabled serial support.
+3a
+10/09/2009
+added documentation regarding P and A registers.
+3d
+06/10/2009
+added documentation regarding P modifiers.
+02/07/2010
+added modem support.
+18/01/2012
+Extra check on protocol to detect out of sequence messaging.</pre>
+</details>
+
 
 <script>
 (function() {

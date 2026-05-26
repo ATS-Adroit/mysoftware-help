@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,185 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/OPC UA Client.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+2018/10/16
+
+[Page 2]
+2018/10/16
+Overview
+OPC UA (OLE for Process Control Unified Architecture) is a standard specification that makes it
+possible for automation/control software applications and field systems/devices to interoperate and
+communicate data between each other.
+To learn more about what OPC UA is, visit the OPC foundation website
+https://opcfoundation.org/about/opc-technologies/opc-ua/
+The OPC UA client driver for Adroit communicates to OPC servers that expose an OPC UA interface.
+Connectivity
+The OPC UA client driver communicates with OPC UA Servers in accordance with the OPC UA
+Specification whose details are beyond the intended scope of this document.
+Driver Installation and Setup
+If the Adroit OPC UA Client driver is not installed, you will need to install it. Installation of this driver
+for the first time will install the OPC Foundation&#x27;s OPC UA reditributables if not already installed on
+your PC.
+The following files will be installed agent server folder:
+d_opc_ua.dll
+d_opc_ua.doc
+as well as the following 3rd party dependency files:
+libeay32.dll
+libxml2.dll
+If any of these files is not in the agent directory, then the driver did not install properly.
+OPC UA Instance Certificates
+The OPC UA specification requires that all UA clients have an instance certificate that positively
+identifies client to the server. The instance certificate for Adroit OPC UA is automatically created on
+the agent server PC when the OPC UA Protocl driver DLL is loaded by PSEXE or AS.EXE for the first
+time.
+The instance certificate can also be created manually by executing the %ProgramData%\Adroit
+Technologies\Adroit\certs\create_instance_certificate.bat file which is found in the folder. Once the
+batch file has completed, the following folders will have been created under the certs folder:
+crl
+issuer
+
+[Page 3]
+2018/10/16
+rejected
+The cert_adroit_client.der file will be found in the certs/own folder and the
+private_key_adroit_client.pem file will be found in the certs/private folder. Select these two files for
+the instance certificate entries above.
+Furthermore, the cert_adroit_client.der file needs to be copied to the trusted certificate folder of the
+OPC UA Server/s that you will be communicating to. Conversely, the OPC UA Server instance
+certificate needs to be copied to the Adroit system folder for two way authentication. The certificate
+types should be the same.
+OPC UA Server Certificates
+The OPC UA specification requires that all UA clients trust the server certificate for the OPC UA
+server that they are connecting to. By default, server certficates will be place in the
+%ProgramData%\Adroit Technologies\Adroit\rejected folder when a client connects to the OPC UA
+server for the first time. These must be manually copied to the %ProgramData%\Adroit
+Technologies\Adroit\trusted folder before a successful connection will be allowed.
+Device Configuration
+When configuring an OPC UA client device, the following dialog is launched and must be completed
+accordingly.
+The dialog has 3 different modes depending on the authentication type selected. By default, the dialog
+looks as follows for anonymous authentication:
+
+[Page 5]
+2018/10/16
+device/source received the value, by selecting this radio button, the driver
+will update values with the servers timestamp.
+Source - The driver will update values with the device/source timestamp as
+mentioned above. (NB, do not use this timestamp option if the
+communication protocol connecting to the device does not supply a
+timestamp)
+Local - If this option is selected, the driver will update values with the
+timestamp of when the driver receives the value.
+Polled - OPC clients by nature receive data &quot;by exception&quot; from OPC Servers. However, you can use
+OPC for polling data from front end devices. This setting enables polling as opposed to &quot;by
+exception&quot;. This setting should only be used if absolutely necessary. (Default off)
+Timeout - Poll and connection timeouts in msecs
+Retries - Number of retries before failing a poll transaction
+Test - Test the connection to the OPC UA server using the configured endpoints. If the connection to
+the OPC UA server is being made for the first time, you will be prompted as o whether you wish
+to trust the server certificate.
+Connect To Server
+Server name / Server IP address - This is the name or IP address of the machine on which an
+OPC UA server discovery will be conducted. To initiate a discovery on the machine or IP
+address entered, click on the refresh button.
+Discovered Servers - This list displays all available OPC UA servers which are discoverable
+on the machine or IP address specified in &quot;Discovery Host Machine.
+The [+] button allows you to enter a server manually that is not discoverable on the network if
+the format opc.tcp://hostname:port e.g. opc.tcp://klaus:1234. Manual entries are stored as a
+CSV entry in the registry value HKEY_LOCAL_MACHINE\SOFTWARE\Adroit
+The [-] button allows you to remove the currently selected server, if it is a manually added
+server.
+If any of the servers displayed in &quot;Discovered OPC Servers&quot; are clicked on, then the &quot;Connection
+Details&quot; will automatically populate with the selected server&#x27;s details.
+Connections Details
+
+[Page 7]
+2018/10/16
+A node&#x27;s namespace index and address can found/browsed by using the OPC UA Browser. Clicking
+the browse button in the scanning dialog will launch an item browser (not opcuabrowser.exe!) which
+will browse the entire address tree on the connected OPC UA server. The browser dialog looks as
+follows:
+If the driver is in polled mode, the update rate of a tag is determined by the scan period specified.
+Please note :
+1. This driver does not support dula scanning. In other words should you scan more than one tag
+to a single address, subsqequent tags will always remain scan bad.
+2. This driver does not support &quot;Output Initialize&quot;.
+Message protocol
+Datascope messages are displayed in ASCII mode.
+The underlying communication protocols to the device is not available to the OPC Client and thus not
+showed, see the troubleshooting section.
+This window will however show all validation of tags. If the tag cannot be validated, a message
+indicating the error message will be displayed here.
+All item updates (process-data changes) are also indicated here with an offset number of the tag that&#x27;s
+being updated.
+Troubleshooting
+Cannot connect to server
+Ensure that the OPC UA Server is running
+Re-connect failed (ERROR : Failed to get
+endpoints: 0x80AD0000(BadDisconnect)
+Ensure that the OPC UA Server is running
+Re-connect failed (ERROR : Failed to
+connect the session:
+0x801A0000(BadCertificateUntrusted)
+Ensure that the certificate of the OPC UA Server
+is trusted by Adroit by moving the certificate
+from the rejected folder to the trusted folder
+
+[Page 8]
+2018/10/16
+Re-connect failed (ERROR : Failed to
+connect the session:
+0x80130000(BadSecurityChecksFailed)
+Ensure that the Adroit certificate is trusted by
+OPC UA Server
+Re-connect failed (ERROR : Failed to get
+endpoints: 0x80AD0000(BadDisconnect)
+1. Ensure that the OPC UA Server is running
+2. Ensure that the certificate of the remote
+OPC UA Server is trusted
+Message boxes
+ERROR : Failed to find servers at
+opc.tcp://hostname:4840
+1. The host does not exist OR
+2. The host is not locatable by your DNS
+Server - try using the IP Address instead of
+the hostname
+3. The OPC UA Local Discovery Service is
+not running on the host
+4. If hostname is the local PC - there is a
+known issue caused by Windows&#x27;
+preference of IPV6 over IPV4. See
+https://theitbros.com/ping-returns-ipv6address-ping-ipv4/ for more information on
+the subject which will tell you how to set
+IPV4 over IPV6. Otherwise, simply use the
+IP address of the host instead of the host
+name.
+The OPC UA Server certificate is not trusted
+by this server. Would you like to trust this
+OPC UA Server?
+If you press [Yes] Adroit will trust the OPC UA
+Server for you.
+Our client certificate is not trusted by the
+OPC UA Server. Please invoke the trust on
+the OPC UA Server (or move the rejected
+client certificate to the trusted folder on the
+OPC UA Server
+If you press [Yes] Adroit will trust the OPC UA
+Server for you.
+ERROR: Failed to get endpoints:
+0x803D0000(BadNotSupported)
+Revisions
+27-May-2015
+03 July 2018
+Added OPC UA browser   October 2018
+Removed OPC UA browser section</pre>
+</details>
+
 
 <script>
 (function() {

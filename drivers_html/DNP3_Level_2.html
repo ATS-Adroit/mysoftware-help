@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,198 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/DNP3 Level 2+.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-DNP3.docx
+P a g e | 3
+1.
+2.
+
+[Page 6]
+ATQMS-DRVR-DOC-DNP3.docx
+P a g e | 6
+Enable Secondary - Will allow configuration for a second communication resource that will allow
+for dual redundancy at the driver level. The device will then be able to switching between
+configurations when a completed retry cycle exits without response from the slave device.
+Primary / Secondary - Selects between the two configurations (Enable Secondary must be
+enabled.)
+3.2.
+Master Details
+Link ID - Master identification number.
+Port - (Ethernet only) The TCP or UDP port number to use on the master side.
+Com Type - Choice between Rs232, Rs485, Modem(Rs232) or Ethernet communications resource.
+3.3.
+Slave Details
+Link ID - Slave identification number.
+Device Type - Unrestricted currently implements protocol maximums device specific maximums
+and default will become available when available.
+IP - (Ethernet only) Remote IP address.
+Port - (Ethernet only) Only available ports will be listed here.
+3.4.
+Communication Settings
+Communication Combo box: RS232, RS485, TCP/IP, UDP/IP, MODEM.
+Some group box areas will dynamically update to suit the communications resource selected.
+Retry - The number of times that Adroit will try to gain communication with a PLC before failing a
+transaction.
+Timeout - The time that Adroit will wait for a valid response from a PLC before failing a transaction
+(Read or Write). This is referring to time allowed to receive individual transport fragments that make
+up and application fragment. See Application timeout in the advanced dialogue for the overall
+Application timeout.
+3.4.1. RS-232, RS-485, MODEM Specific Parameters:
+Com Port - Select as per requirement.
+Baud Rate - Select as per requirement.
+Parity - Select as per requirement.
+Databits - Select as per requirement.
+Stopbits - Select as per requirement.
+
+[Page 7]
+ATQMS-DRVR-DOC-DNP3.docx
+P a g e | 7
+RTS - If enabled, the RTS signal line will be permanently on. If disabled, the RTS signal line will be
+permanently off. Other options are Toggle or Handshake as per requirement.
+Manual RTS for Radios - (Rs232 only) RTS will be asserted according to the delays specified
+below. This will allow the RTS to signal the radio key.
+Pre TX delay - (Rs232 only) (only if Manual RTS for Radios is checked) Key up time before manual
+RTS is Asserted (Read or Write).
+Post TX delay - (Rs232 only) (only if Manual RTS for Radios is checked) Key down time before
+manual RTS is de-asserted after transmission (Read or Write).
+DTR - (Serial types only) - If enabled, the DTR signal line will be permanently on. If disabled, the
+DTR signal line will be permanently off. Other option is Handshake as per requirement.
+CTS - (Serial types only) If enabled, the CTS signal line will be permanently on. If disabled, the CTS
+signal line will be permanently off.
+DSR - If enabled, the DSR signal line will be permanently on. If disabled, the DSR signal line will be
+permanently off.
+Rs485 Reflections - (Rs485 only) If checked, reflections are expected and will be filtered out
+during on any read algorithm. Currently no reflection checking is enabled.
+Enable DCD support - (Default = OFF) If checked, it will enable data carrier detection so that the
+driver attempts to prevent clashes (especially when using radios).
+Max DCD Wait Time (mSec) - Maximum backoff time to wait while a carrier busy is detected. If
+this time is exceeded before transmission, the transaction will fail, and normal retry procedures will
+be followed.
+3.4.2. TCP/IP, UDP/IP Specific Parameters:
+Keep Alive - (Ethernet types only) The period (in milliseconds) the driver will wait between
+keepalive (LINK TEST) messages.
+Incoming connection only - (Ethernet types only)If checked the driver will wait for incoming
+connections, it will not initiate connections, used for internet of things type devices that connect to
+the master only periodically, see Contact lost setting too. The driver will operate as normal when a
+connection is established, if the outstation disconnects the driver will wait for the next connection
+to continue. The master will not disconnect, that function is left up to the slave (Default =
+unchecked).
+Contact lost delay (mSec) - (Ethernet types only) Only active if the Incoming connection only is
+checkbox is checked. This is the period (in milliseconds) the driver will wait before marking I/O point
+as comms fail (Default = 93600000 = 26 hours).
+
+[Page 12]
+ATQMS-DRVR-DOC-DNP3.docx
+P a g e | 12
+Multiple Tags scanned to the same DNP address will override the schema for all duplicated tags,
+and currently it is the schema of last tag to be scanned wins. The application event log will have a
+warning entry describing the duplication, as will the datascope output.
+Scheme - A through F - scanning controls must specify this scheme character in the scanning
+address, i.e. &quot;40.2.1 A&quot; - Analogue output on control scheme A, if Fig3 were to use it, it would mean
+Direct operate with acknowledge. (See Fig4 for detailed descriptions).
+Wiring - Click on the icons to toggle mode. Defines what type of digital waveform is required, i.e.
+Pulsed or Latched. It also defines type for both digital states. Dual bit controls will employ trip close
+as well. (see Fig4).
+OnTime - Edit to change. Defines what the duration of the pulse ON for the digital waveform will be.
+If pulse ON only selected for wiring, then OffTime will be ignored.
+OffTime - Edit to change. Defines what the duration of the pulse OFF for the digital waveform will
+be. If pulse OFF only selected for wiring, then OnTime will be ignored.
+Protocol - Click on icon to toggle the mode. Defines the type of protocol mechanism to use
+Direct/Select &amp; Execute, etc. Register type controls to object 40 will only use this column. The others
+will be ignored.
+Select &amp; Execute - If selected in a scheme, controls will have a select phase and then either an
+internal or external execute phase.
+Driver will execute (internal) - If selected, the driver will confirm the correct control
+internally. It will then send a corresponding execute without user intervention, else if external
+is selected, then the execute requires a separate user initiated confirmation via the UI where
+the user has a choice to execute or abort the control. This functionality will require the use of
+specific bits within the administrative control words.
+SelectedBit will be set by the driver when the control has been selected on the first phase,
+then a visibility should be enabled (on SelectedBit) for the common execute button, which
+in turn sets the common ExecuteBit.The driver is waiting for this bit to complete the second
+and final execute phase, where upon completion the driver will clear both bits and
+ControlFailedBit if it were set from a previous control attempt. If the control fails or times
+out, the driver will reset both SelectedBit and ExecuteBit, as well as set the ControlFailed Bit
+to true. All of these bits should provide the required and adequate information back to the
+user.
+Select to execute expiry - (mSec) is the maximum delay between a select and an execute.
+If this delay expires, the SelectedBit will be reset and the control will be failed, and the
+ControlFailedBit will be set.
+Refresh after successful controls - The associated output status object will be polled (Default =
+checked = ON).
+Refresh Delay (mSec) - Means immediately after a control occurs the refresh will take place, else the
+refresh will be delayed by the specified amount of time (Default = 0 mSec).
+Allow control retries -If checked, then retries will be used. Be very careful with this, as it is not
+recommended practice to retry controls in DNP3 (Default = unchecked = no retries).
+
+[Page 14]
+ATQMS-DRVR-DOC-DNP3.docx
+P a g e | 14
+11. Class3DataPoll (Internal/External Request)
+12. FailoverResynchronise(Internal/External Request)
+13. EnableUnsolicited(Internal/External Request)
+14. RequestLinkStatus((Internal/External Request)
+15. ResetUSerProcess((Internal/External Request) not used.
+16. DisableUnsolicted(Internal/External Request)
+Note:
+Status - For indication purposes and reporting to Adroit.
+External - Bit will cause a specific control action within the driver such as a control or poll request.
+Internal - Will most usually be set from within the driver itself due to protocol requirements such
+as IIN request bits.
+Internal / External - Function may be safely called from Adroit but can also be called internally
+(driver) due to configuration and or IIN bit changes.
+The driver supports the flag information that DNP provides as a separate data point with a &quot;G&quot;
+modifier on the address. e.g.
+30.2.2 U -&gt; Analogue input
+30.2.2 UG -&gt; Its corresponding flag. Note the G (separate scan point).
+Each Flag is a bit packet set stored in an integer and is dependent on the corresponding object type,
+below is a list of each type (only the least significant 8 bits are used the rest are ignored and set to
+zero.)
+(Marshals are recommended to get easy access to the bits).
+Some objects are considered to be flagged as &quot;normal/good&quot; if they are sent in their bit packed
+form, e.g. Obj 1.1 and Obj 3.1. These points are considered online and normal on all other flag bits.
+If the flag is out of normal (say RemoteForcedData is true) this point will usually come in on Obj 1.2
+to allow for this flag to be seen and used where applicable.
+Analogue Outputs Flag (Lsb to Msb)
+1. Online
+2. Restart
+Analogue Inputs Flag (Lsb to Msb)
+1. Online
+2. Restart
+Counter Inputs Flag (Lsb to Msb)
+
+[Page 15]
+ATQMS-DRVR-DOC-DNP3.docx
+P a g e | 15
+1. Online
+2. Restart
+Digital Flag (Lsb to Msb)
+1. Online
+2. Restart
+Dual Bit Digital Flag (Lsb to Msb)
+1. Online
+2. Restart
+Select execute Control can be either internal or external depending on configuration (driver setup).
+a. If internal is selected, then the driver will verify via protocol and send the 2nd phase
+(Execute) immediately without user intervention. This will be virtually the same as a direct
+control action. Note the control bits in ADMIN.0 are therefore ignored, except the
+controlFailed bit that still reports success or failure.
+b. If external is selected, then when a select is detected (i.e. A control from Adroit on a
+specific tag is sent) the driver will issue a select to the device and upon receipt of a correct
+verification/echo will set the [Selected bit - 3rd bit of ADMIN.0]. This bit is available in
+Adroit (for example to be used for a visibility to enable a common execute button which will
+have an operator action that sets the Execute bit)
+c. Once the driver detects the Execute bit it will verify the selected bit is still on because the
+control could have timed out. The driver will then issue an execute to the device. Upon
+completion, fail or success, the select and execute will be cleared, and the ControlFailed
+bit will be set if the control failed, and it will stay set until the next successful control.</pre>
+</details>
+
 
 <script>
 (function() {

@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,193 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Lovato RGK Serial.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-LOVRGK.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-LOVRGK.docx
+P a g e | 4
+1. Overview
+This document describes the communication protocol details and configuration implemented in the
+Adroit protocol driver, with the following logic units: Lovato RGK60, RGK800.
+
+[Page 6]
+ATQMS-DRVR-DOC-LOVRGK.docx
+P a g e | 6
+3. Device Configuration
+3.1.
+Configuration Selection (not available)
+Enable Secondary - [Not implemented] Enables secondary configuration for dual redundant
+Controllers. This setting is disabled for this driver.
+Primary / Secondary - [Not implemented] Select the primary or secondary button depending on
+which connection you wish to configure.
+3.2.
+Device Details
+RGK60 Station Address - Supply the unit address of the RGK60 device to communicate with.
+3.3.
+Port Setup
+PLC Model - Select the PLC model (RGK60 or RGK800).
+Port - Select the serial port to use for communications.
+Parity - Select even or uneven parity in a single serial transmission message.
+DataBits - Select the number of data-bits per packet.
+StopBits - Select the number of stop-bits per packet.
+Baud Rate - The transmission rate of data (including start and stop bits). The default baud rate
+for an RGK60 unit is 9600.
+Retry - The number of times to retry a transaction before a communication failure is reported.
+
+[Page 7]
+ATQMS-DRVR-DOC-LOVRGK.docx
+P a g e | 7
+Timeout - The number of milliseconds to wait between communication retries.
+3.4.
+IP Settings
+If an Ethernet gateway is used to provide an encapsulated Serial interface to the controller, the
+following settings are used to configure the connection:
+Use TCP/IP encapsulation - Ticking this box switches the driver from communicating using a
+COM Port to using a TCP/IP Socket.
+TCP Port - The TCP Port on which the driver should try to connect to the controller.
+IP Address - The IP Address that will be used for communicating with the controller.
+3.4.1.
+Advanced
+Close port of device stop - If this check box is checked, when all logical devices sharing the same
+port have been stopped, the driver will release the COM port or IP port.
+
+[Page 8]
+ATQMS-DRVR-DOC-LOVRGK.docx
+P a g e | 8
+4. Supported Addresses
+The Lovato RGK60 Adroit serial driver supports the following data address types:
+Op-code
+Description
+General status request
+1.1
+1.12
+General status request
+ST 1
+Integer
+Error status request
+1.1
+4.5
+Error status request
+ER 1
+ER 4
+Mains voltage value (3-phase) request
+MV 1
+MV 6
+Genset voltage value (3-phase) request
+GV 1
+GV 6
+Mains &amp; Genset frequency request
+SF 1
+SF 2
+Load current (3-phase) request
+LC 1
+LC 3
+Mains total active power (3-phase) request
+MP 1
+MP 3
+Mains total reactive power (3-phase) request
+MR 1
+MR 3
+Mains total apparent power (3-phase) request
+MA 1
+MA 3
+Mains power factor (3-phase) request
+GF 1
+GF 3
+Genset total active power (3-phase) request
+GP 1
+GP 3
+Genset reactive power (3-phase) request
+GR 1
+GR 3
+Genset apparent power (3-phase) request
+GA 1
+GA 3
+Genset power factor (3-phase) request
+GF 1
+GF 3
+Mains &amp; genset energy meter
+EV 1
+EV 4
+Battery voltage request
+BV 1
+Real
+Engine total working time request
+HR 1
+HR 3
+Time-to-maintenance request (minutes)
+MN 1
+Integer
+Battery charger alternator voltage request
+AV 1
+Real
+Sensors value (pressure, temperature and
+fuel) request
+SV 1
+Engine speed request (RPM)
+WV 1
+WV 3
+Crank number request
+NS 1
+NS 2
+Front panel status
+1.1
+1.10
+Front panel status
+PS 1
+Integer
+Digital input / output status request
+1.1
+4.1
+Digital input / output status request
+IS 1
+IS 4
+Control Bits for simulation of the buttons on
+the controller
+1.1
+
+[Page 9]
+ATQMS-DRVR-DOC-LOVRGK.docx
+P a g e | 9
+5. Protocol Definition and Considerations
+5.1.
+Lovato RGK60 Message Structure
+Message
+start
+Message start:
+The opening bracket character (0x28) indicates the start of a new message.
+RGK60 Station Address:
+This two-digit number indicates the address of the RGK 60 device to which the message will to be
+sent.
+Op-code:
+The op-code identifies the type of information that is requested by the user. This could be any one
+of the op-codes described in the previous section (&#x27;Supported addresses&#x27;).
+Operator:
+The operator indicates the type of message to send (Read or Write message). The Adroit Lovato
+RGK60 serial driver only supports &#x27;Read&#x27; messages, thus the operator will always be a question mark
+Data:
+The data that the user wants to write to the unit. Because this driver does not support write
+functionality, the data portion will always be omitted.
+Start checksum:
+The ampersand character (&#x27;&amp;&#x27;) indicates the start of the message checksum.
+Checksum:
+The checksum is two characters wide and is the lowest significant byte of the algebraic sum of the
+single bytes that are transmitted, starting from the RGK60 station address to the last data byte.
+Message stop:
+The closing bracket (&#x27; )&#x27; ) indicates the end of the message.
+Carriage-return-linefeed:
+The carriage-return and linefeed characters are appended to the end of each message.</pre>
+</details>
+
 
 <script>
 (function() {

@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,174 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/PolyComp Sign Ethernet TCP-IP.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-POLY_ETH.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-POLY_ETH.docx
+P a g e | 4
+1. Overview
+Adroit supports communication with PolyComp GTX signs on ethernet. Communication is via an
+Ether-PAD box installed into the sign.
+
+[Page 7]
+ATQMS-DRVR-DOC-POLY_ETH.docx
+P a g e | 7
+Auto centre text - Text centres itself on the sign
+Display code (style)- Controls the way that text appears on the display.
+Line width Specify the line width (maximum of 40) in characters wide that the display is. This will
+only affect datascope text displayed.
+3.1.3. Sign Settings
+Use acknowledgments - The driver should request and wait for the ACK from the sign. If this
+option is on, and the sign must acknowledge in order for the driver to be able to determine if the
+communication is working. This option may not work on most signs, if the RS232 transmit from the
+sign is not connected.
+Send PC time to sign - The driver will send the local time to the Sign each time a message is sent.
+Allow multiple sign clients - The driver will disconnect and reconnect with each message sent,
+this will allow use in a cluster or situation where 2 devices control the sign content.
+3.1.4. Local Details
+IP Address - TCP/IP address of the sign.
+Port - The port used at this IP address to communicate.
+Retry - The number of times that Adroit will try to gain communication with a PLC before failing a
+transaction.
+Timeout - The time that Adroit will wait for a valid response from a PLC before failing a transaction
+(Read or Write).
+PLEASE NOTE
+The Clock and temperature options (displayed on the   line only) invoke the feature if present in
+the sign. If the sign does not have an internal clock (requires time sent from PC) and temperature
+sensor, these options have no effect.
+Apply Button - Use this button to save the settings without leaving the dialog, you may use the
+dialog to customise the sign appearance (any setting in the sign details group) and then send a
+message to the sign straight away from Adroit to see the effects of the selections.
+
+[Page 9]
+ATQMS-DRVR-DOC-POLY_ETH.docx
+P a g e | 9
+5. Protocol Definition and Considerations
+5.1.
+Message Details
+You must manually address a sign when not using the Notify agent by inserting the station/sign
+number in at the beginning of the string followed by a comma, e.g.: &quot;5,East-dam level high&quot;, will
+address the sign #5 with the message &quot;East-dam level high&quot;.
+Control codes may be sent to the sign using the character &#x27;` &#x27;, same key as the tilde &#x27;~ &#x27; on the
+keyboard, the driver converts this to the control code 28, thus the message &quot;Call `FAdroit&quot;
+5.1.1. Control Codes are:
+F : Flash Characters
+E : Enlarge Characters
+R : Change Colour to Red (Color signs only!)
+G : Change Colour To Green (Color signs only!)
+Y : Change Colour to Yellow (Color signs only!)
+M : Multicolour - i.e.:   Red Center Yellow Bottom Green and applies to everything after the `M
+(Color signs only!)
+D : Return To Default Setting - i.e.: Normal Red Letters Not Flashing. (All the above settings are
+cleared)
+T : Turn background on (applies to entire message, and also to subsequent messages)
+t : Turn background off (applies to entire message, and also to subsequent messages)
+5.1.2. Background Colors.
+The sign background can be enabled by sending a `T to the sign, this is a toggle that effects all
+subsequent messages. Using `t (lower-case T) turns the background off. The background setting
+code may appear anywhere in the message (it gets removed) and will affect the entire message.
+Background for certain colors may not be permissible depending on the sign used.
+5.1.3. Style Notes
+When using &quot;scroll&quot; style, the 1st line displayed in multi-line displays will not scroll, use the BOLD
+style or control code to scroll all the text.
+5.1.4. Longer Messages
+Long messages up to 180 characters are possible using the continuation character ` (same as for
+control codes) at the end of a message. All messages sent to the same scan address (E.g. NAME 0)
+are appended up to the above limit. The last message must not end in the control code; this triggers
+the sending of the built-up long message.
+E.g. Scan a notify agent from NAME 1, and then add the text &quot;Hello world`&quot;, and send it, then add
+&quot; how are you today`&quot; and lastly add &quot;?&quot;. All 3 messages will be concatenated and sent as one.
+&quot;Hello world how are you today?&quot;
+
+[Page 10]
+ATQMS-DRVR-DOC-POLY_ETH.docx
+P a g e | 10
+Any characters over the limit are discarded (without notice) at the time the message is built up for
+sending to the sign.
+5.1.5. Using Time and Temperature
+You must allow for the 1st line of the sign being swallowed up and will have to pad the message sent
+(add 25 characters) to the beginning of the message sent. This does not work is the display is not
+fitted with the relevant option.
+5.1.6. Actual Sign Appearance
+The display may not always appear as expected; some options are incompatible with others, and
+also with certain signs capabilities. You might try using the `D to return the current text to default,
+and `t to turn backgrounds off. Notice that the display can take up to 0.5 seconds to display the
+new message.
+5.2.
+Message Protocol
+Communications are TCP/IP protocol, via the Pandora box. Because the box only allows one socket
+connected at a time, simultaneous access to the sign from different machines or applications is only
+possible through application disconnecting first.
+Protocol is unchanged from the serial protocol, except in that for fault-tolerant operation,
+acknowledgements are required.
+The LRC value is the 8 bit XOR of all bytes in a message including the SYNC and the EOT characters.
+This section documents the protocol, which has been condensed here.
+SYNC
+Lines
+ACK
+x06
+Nn
+= number of text lines on display unit.
+Aaa = unit address, 1-127, address 0 = all units
+F
+= Flag, see note 1
+Ppp = Page number, &quot;000&quot; to &quot;999&quot;
+Data = Data, may be the time or a message, see note 2
+CRC = Cyclic redundancy check, calculated
+Note 1:
+Message status flag.
+Bit 0
+Bit 1
+1= Interrupt mode, 0=normal
+Bit 2
+1= More pages to come
+Bit 3
+1= Ack requested
+Bit 4
+1= Schedule information contained in data
+Bit 5
+Bit 6
+
+[Page 15]
+ATQMS-DRVR-DOC-POLY_ETH.docx
+P a g e | 15
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+6.3.
+Troubleshooting
+Q: The sign regularly fails to communicate properly because the driver retries, but still displays the
+intended message.
+A: ensure that the timeout is long enough (about 3 seconds), and restart. A good timeout value will
+also be dependent on the animation settings chosen; longer animations run slower.
+Q: The exact text I intended is displayed, but the colours are wrong.
+A: Some color combinations are invalid, try different combinations to find ones that work for your
+sign.
+Q: I cannot communicate at all.
+A: Try firstly to ping the display unit&#x27;s I/P address, if this works, ensure that no other computers are
+connected to the sign, the sign only allows one connection computer at a time. Lastly, ensure that
+the port selected is correct.
+Q: I cannot get the sign to communicate, but I do not know it&#x27;s settings.
+A: Using HyperTerminal (9600, 8 none 1,no handshaking) connect a serial cable (2to3 and 3to2 with
+ground; pin 5 through) to the configuration port. Turn the sign off, and then on, you will be prompted
+for a password xxx. Follow the menus to see the sign settings, and then follow the &quot;B&quot;ack menu to
+get out and re-boot the Ether-PAD.</pre>
+</details>
+
 
 <script>
 (function() {

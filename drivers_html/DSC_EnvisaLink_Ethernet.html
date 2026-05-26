@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,168 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/DSC EnvisaLink Ethernet.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+DSC EnvisaLink Ethernet Driver
+DSC EnvisaLink Ethernet Driver
+Overview
+This document describes the setup of, and the communication protocol implemented in the
+Adroit protocol driver, with the following logic unit: DSC EnvisaLink.
+Device Configuration
+Configuration Selection
+Enable Secondary - Enables secondary configuration for dual redundant Controllers.
+This setting is disabled for this driver.
+Primary / Secondary - Select the primary or secondary button depending on which
+connection you wish to configure.
+This setting is disabled for this driver.
+
+[Page 2]
+IP Settings
+IP Address - The IP Address that will be used for communicating with the controller.
+Passwords
+Please note. Passwords are encrypted using 16 bit key encryption before being stored in
+the registry.
+TPI Password - Enter your envisalink webpage password here
+DSC Master Code - Enter the DSC alarm panel&#x27;s master code. This is used to arm and
+disarm the alarm panel.
+DSC Installer Code - Enter the DSC alarm panel&#x27;s installer code. This is used when
+configuring the alarm panel.
+Internal Settings
+Note. This driver has an internal thread which handles the scanning. Changing these
+settings, change the frequency in which the scanning thread adds the following to the read
+queue.
+Keep alive poll frequency (ms) - This is the time delay between keep alive polls. This
+value is measured in milliseconds and must be between 1000 and 10000.
+Status poll frequency (ms) - This is the time delay between status polls. This value is
+measured in milliseconds and has a minimum of 10000ms.
+Set alarm system time from SCADA - If this checkbox is checked, the alarms panel&#x27;s
+system time will be set with the time from the Adroit agent server.
+Time update frequency (m) - The time on the alarm panel may drift, if &quot;Set alarm
+system time from SCADA&quot; is check, the alarm panel&#x27;s system time will be updated with
+this frequency.
+Timeout (ms) - If the driver does not receive a valid response from the device within this
+period (measured in milliseconds), the port will be closed. Note. This value must be greater
+that the &quot;keep alive poll period&quot; in the &quot;Internal Settings&quot; section.
+
+[Page 4]
+Supported addresses
+The DSC EnvisaLink Adroit Ethernet driver supports the following data address types:
+Address
+Description
+Partition status request
+PAR 1
+PAR 8
+Zone status request
+ZON 1
+ZON 64
+Alarm status request
+ALM 1
+ALM 5
+General status request
+GEN 1
+GEN 4
+Trouble LED request
+TBL 1
+TBL 8
+Panic Alarm Activate
+PAA
+Integer
+Note. Please read the Address Descriptions section before using these addresses!
+
+[Page 5]
+DSC EnvisaLink Ethernet Driver
+Address Descriptions
+The addresses are either read only or write only. Read only addresses are sent from the
+driver to adroit in an unsolicited manner. Write only addresses will be cleared (to 0
+if digital or integer and to &quot;&quot; if string) once the write is complete.
+Partition status request (PAR)
+This is a read only address. The value sent to adroit when scanning this address,
+represents the state of the partition being scanned.
+Value
+State
+Partition not ready
+Partition armed in away mode
+Partition armed in stay mode
+Partition armed in zero entry away mode
+Partition armed in zero entry stay mode
+Partition in alarm
+Partition in exit delay
+Partition in entry delay
+Zone status request (ZON)
+This is a read only address. The value sent to adroit when scanning this address,
+represents the state of the zone being scanned.
+Value
+State
+Alarm status request (ALM)
+Each address references a different type of alarm. The following table indicates what type
+of alarm each addresses refers to.
+Address
+Alarm Type
+Duress alarm state
+ALM 2
+Fire alarm state
+ALM 3
+Auxiliary key alarm state
+ALM 4
+Panic alarm state
+ALM 5
+Smoke alarm state
+This is a read only address. The value sent to adroit when scanning this address,
+represents the state of the alarm being scanned.
+Value
+State
+
+[Page 6]
+Not alarmed
+In Alarm
+General status request (GEN)
+This is a read only address. Each address references a unique general status. The table
+below indicates what each address references to.
+Address
+Status Type
+Panel battery trouble, battery low or battery has been removed.
+GEN 2
+Panel AC trouble, AC power to the panel has been removed.
+GEN 3
+System bell trouble, an open circuit has been detected across the
+bell terminals.
+GEN 4
+General system tamper.
+The value sent to adroit when scanning this addresses, represents the general state of the
+status type being scanned.
+Value
+State
+Trouble LED request (TBL)
+This is a read only address. The table below indicates the state of the trouble LED on the
+keypad of the partition being scanned (1-8).
+Value
+State
+Partition Arm/Disarm (PAD)
+This is a write only address. The table below describes the resultant action on the partition
+scanned (1-8), when writing the following values from adroit.
+
+[Page 8]
+Message Protocol Description
+DSC EnvisaLink message structure
+Command
+Code
+This three digit code when sent to the device issues a command, i.e. tells the device what
+to do. However when receiving a message from the device, this code tells the driver what
+type of information is being received.
+Data:
+This part of the message is variable length depending on the command code sent, and
+contains the data required for the command code.
+Checksum:
+The checksum is two characters wide. The checksum is calculated by adding the hex value
+of all command and data digits, and truncating the result to 8 bits.
+Carriage-return-linefeed:
+The carriage-return and linefeed characters are appended to the end of each message.</pre>
+</details>
+
 
 <script>
 (function() {

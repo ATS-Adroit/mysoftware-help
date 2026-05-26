@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,150 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/ScanRS Barcode Serial Scanner.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Protocol Driver
+Name
+ScanRS Barcode Serial Scanner
+DLL
+SCANRS
+
+[Page 3]
+ATQMS-DRVR-DOC-SCANRS.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-SCANRS.docx
+P a g e | 4
+1.
+Overview
+Adroit supports communication with the following devices:
+Scanners that return a string (unsolicited data, appended with carriage return (&lt;CR&gt;) and
+line feed (&lt;LF&gt;) control characters at the end)
+Any device that returns an ASCII string followed by a common terminating sequence of
+some kind. For example, &lt;CR&gt; and &lt;LF&gt;.
+Gryphon_D100 or UNRESTRICTED, for the other Unknown models. This driver has been tested with
+a Gryphon_D100 on site and only supports unsolicited reception of a data string used for monitoring
+barcodes.
+PLEASE NOTE
+Only string type Adroit items may be scanned using this driver (e.g., Text, String, etc) with
+exception for the Administrative register which is only scannable to Integer type slots. If data is
+required in Integer, Reals or Booleans slot types, then try using the Adroit &quot;USERDRV&quot; Driver which
+is script configurable.
+PLEASE NOTE
+Each device is treated as a point-to-point device i.e. One COM port per device. Attempting to scan
+more than one device will result in driver device attachment failure.
+
+[Page 7]
+ATQMS-DRVR-DOC-SCANRS.docx
+P a g e | 7
+Strip any termination/end characters from the code - (Default = checked)
+If CHECKED: the driver will search for these characters to determine the message length,
+thus buffering the incoming data until a CR and LF is encountered. Failing this, the buffer
+may overflow and an appropriate error message will be generated.
+If UNCHECKED: upon any data received, the driver will attempt to unpack into all scanned
+jobs even if only partially filling the range. It is up to the user to check via script to validate
+the data received.
+Verify code39 Check - (Default = unchecked) Check this checkbox if the device is using code39modulo43 check-summation.
+Only Accept data between - (Default = unchecked) Check this checkbox to force the driver to
+throw away any full reads (i.e. when a valid string terminator is found) that are smaller or larger
+than the bytes specified. Min/Max bytes is inclusive and includes terminating characters.
+3.1.3. Port Details
+Port - The available serial ports on the machine.
+PLEASE NOTE
+If a * next to a port is seen, it indicates the port is already in use by Adroit, either by this driver as
+another device, or another application such as a modem/Configurator etc.
+Baud - (Default = 9600) (...,9600, 19200, 38400, 57600, ...)
+Parity - (Default = None)
+Stop Bits - (Default = 1)
+Data Bits - (Default = 8)
+3.2.
+Supported Model Ranges
+&quot;Gryphon_D100&quot;
+- DB Offset range 0 - 255 bytes.
+&quot;Gryphon_D100&quot;
+- A Offset range 0 register.
+&quot;Unrestricted&quot;
+- DB Offset range 0 - 8191 bytes.
+&quot;Unrestricted&quot;
+- A Offset range 0 register.
+Address types and maximum ranges supported by the Adroit ScanRS Protocol driver.
+
+[Page 8]
+ATQMS-DRVR-DOC-SCANRS.docx
+P a g e | 8
+4.
+Supported Addresses
+Address types and maximum ranges supported by the Adroit ScanRS Protocol driver.
+Device
+Data Type
+PLEASE NOTE
+The size setup in the device configuration, &quot;only accept between __ and __ chars&quot; in the dialog is
+tested before any unpacking to any strings in the driver. If a violation is found, no unpacking will
+take place and the read is considered invalid and will be rejected.
+4.1.
+Administration Area/Registers
+Addressing structure:
+[Admin Type]:[Offset]
+Type is &#x27;A&#x27; Admin register.
+Offset can only be 0 at this time. Note: zero based indexing is used.
+Example address:
+A:0
+Scanning the address A:0 to a Marshal Agent or any Integer slot will allow the user to get additional
+information regarding the last read transaction. For more information, see the following table. These
+can be alarmed or used for triggers, etc.
+PLEASE NOTE
+Digitals are NOT supported. Please use Marshal Agents and access those bits individually using the
+mechanism provided by the Agent.
+Device
+Data Type
+The last read was out of range based on size rule configured in setup.
+Bit 1
+CRC failure.
+
+[Page 11]
+ATQMS-DRVR-DOC-SCANRS.docx
+P a g e | 11
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+7.
+Revisions
+7.1.
+Document Revision
+Rev.
+Date
+Grammar, spelling edits, alignment, and content
+editing.
+D. Jordaan
+3.0
+4.0
+5.0
+6.0
+7.2.
+DLL Revision
+Rev.
+Date
+1st Release of ScanRS string driver.
+5/11/2002
+Modulo43 checkSummation added.
+27/11/2002
+Admin reg added, and bytes range check added.
+6/01/2003
+Doc refined, Admin reg bit 1 added.</pre>
+</details>
+
 
 <script>
 (function() {

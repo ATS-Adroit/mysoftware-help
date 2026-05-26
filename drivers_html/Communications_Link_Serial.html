@@ -78,6 +78,9 @@ input::placeholder, textarea::placeholder {
   .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
   .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
   .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
@@ -281,6 +284,156 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Communications Link Serial.pdf"></iframe>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+D_COMLI_SER
+Communications Link Serial Protocol Driver
+
+[Page 3]
+D_COMLI_SER.docx
+P a g e | 2
+1.
+1.1.
+
+[Page 4]
+D_COMLI_SER.docx
+P a g e | 3
+1. Communications link Serial protocol Driver
+1.1.
+Overview
+This driver supports the ABB Communications link driver.
+The 2nd Generation driver allows for the following features:
+Improved performance due to optimizations on mixed I/O to the same protocol area being transacted
+only once removing redundant transactions.
+Serial drivers by design don&#x27;t benefit from multiple channels thus only one channel per device is
+enforced. Up to 247 Multi-dropped devices are supported per port.
+Demand scanning support, where read only I/O that is not on a mimic / graphic form and not logged
+or alarmed will be removed from the scanning system, the applicable tasks will dynamically reduce is
+size and merge into fewer scan tasks.
+For improved network performance and reliability, it is recommended to use of industrial USB serial ports
+or true serial cards into the machines where applicable. RS232 and RS485 and RS422 is supported
+Windows traditionally expects com ports to always be available, loosing contact with Ethernet serial
+extenders can cause lockups… please contact Adroit support if you suspect this.
+1.2.
+Test Hardware
+This driver has been tested on the following hardware:
+FX5U -32MT/DSS Plc using USER_FB_Comli_FX5U function block dated 2019/04/24 14:25:42
+1.3.
+Wiring
+Control of DSR/DTR CTS/RTS signalling is available as needed.
+RS-232-c / RS-422 / 485, 4 and 2 wire supported.
+Reflection detection is configurable, (future …)
+DB9 , DTE to DTE cable diagram RS-232C - 3 wire (With loopbacks in case the system expects signalling)
+PLC 9 pin
+PC 9 pin
+2 RX
+2 RX
+3 TX
+3 TX
+5 GND
+5 GND
+Note: Connect shield to one side , PLC side only
+
+[Page 7]
+D_COMLI_SER.docx
+P a g e | 6
+PLC Details
+Station ID - ( 1 default ) PLC station id 1 - 247 , Master is always 0.
+PLC Model - ( ABB CPU default) - Choose a specific model (future)
+Debug level bitmask - ( 480 default) - this is a bit mask that enable extra debugging in the data-scope
+output, do not leave it enabled during normal operation on high speed drivers as it will slow down the
+system, depending on speed requirements, in serial drivers this delay is negligible.
+960 default is just the protocol messages 40hex + 80hex+ 100hex + 200hex = 3C0hex -&gt; 960 decimal in
+the dialogue
+#define DEBUG_MASK_COMSRESOURCE_INFO 0x00000001
+#define DEBUG_MASK_COMSRESOURCE_CRITICAL 0x00000002
+#define DEBUG_MASK_PROTOCOL_ITEM_VALUES 0x00000004
+#define DEBUG_MASK_PROTOCOL_ITEM_BAD_VALUES 0x00000008
+#define DEBUG_MASK_NASA_POOLS 0x00000010
+#define DEBUG_MASK_TIMING 0x00000020
+#define DEBUG_MASK_PROTOCOL_RESPONSES 0x00000040
+#define DEBUG_MASK_PROTOCOL_REQUESTS 0x00000080
+#define DEBUG_MASK_PROTOCOL_READ_DESC 0x00000100
+#define DEBUG_MASK_PROTOCOL_WRITE_DESC 0x00000200
+Stale threshold - ( 5 default) - Every nth occurrence of a unchanged item value will be sent to the
+master, if the value is different the value will be send regardless of this count. This count reduces
+unnecessary event withing the agent server. Set to to report every poll value regardless of change , 0 is
+not a valid option.
+Max PDU length - (32 default) - The overall maximum transaction length , 1 is the lowest value up to
+32 16bit-registers or 32 x 16 discreet bits digitals per transaction.
+Serial
+Com Port - Only insert the number for the port, E.g. &quot;4&quot; for com4
+Baud rate - Combo ( 9600 default ) - select the required baud rate from the selection provided.
+Databits - Combo ( 8 default ) - select the required databit count from the selection provided.
+Parity - Combo (ODD default) - select the required Parity mode from the selection provided.
+Stopbits - Combo ( 1 default) ) - select the required stopbit count from the selection provided.
+Transaction timeout - (3000 mSec Default ) - insert the required timeout for the system in
+milliseconds.
+485 Reflections (false by default) - check if reflection detection and compensation is required on the
+port (future …)
+
+[Page 8]
+D_COMLI_SER.docx
+P a g e | 7
+Purging
+The driver will purge TX and RX buffers (data on the port) by default when required.
+However, some systems such as Ethernet to serial port servers can become overloaded or even lockup if
+left receiving bytes in its internal buffer without a driver reading anything for a long period, for example
+when a cluster partner is in standby use the setting below to compensate.
+Purge port in standby (false by default) - check if purging of the buffers are to be performed in the
+background while the cluster partner is in standby.
+Purge mode - (SOFT default) Soft cause a simple flushing via reading any available bytes, HARD sends
+a system call to tell the device itself to flush, some systems have become unresponsive in hard mode.
+Error handling - Multi-dropped system variables
+Retries - Enable this button to have the driver keep the PLC connection alive. Please see the PLC program
+and heartbeat sections below. This option is only useful with the watchdog program running in the PLC.
+Backoff count - (5 default) - require 5 full consecutive failures including retries.
+e.g. if 3 retries is configured and the backoff count is 5, the system will go into a backoff delay period in
+which this device will not be polled or written to for the Backoff period, in this example after the ((1+3)*5)
+consecutive failures.
+Backoff period - Specify the millisecond interval the a device will stay silent on the channel, this is very
+useful in multi-dropped systems as failing devices do not severely affect online devices.
+Disconnect after every transaction - (false default) -tell the channel to close the port after every
+transaction, can be useful on gateways if required.
+Disconnect after every error - -(false default) - tell the channel to close and reopen the port on every
+error during retries else it will only occur after the final retry
+Latency
+Inter-PLC latency - The period that the system will wait before transmitting any read request or write
+request in multi-dropped system when a new device is contacted.
+Transmission latency - The period that the system will wait before transmitting any read request or write
+request for the same plc device. Inter message delay.
+Tx to RX latency - The period that the system will wait after transmitting a request and before attempting
+to read the response.
+Data ranges
+P - I/O bits area , bits below 4000hex index is in bits , E.g. P 6, P 7, … P n (default 16376)
+PR - I/O bits above 4000hex (addressed in octal , index is in 16 bit registers , E.g. PR 0 W, PR 1 W … PR
+n W
+
+[Page 10]
+D_COMLI_SER.docx
+P a g e | 9
+1.6.
+Timesync considerations
+Scan address T 0, T 0 W scan to any discreet agent type such as BOOLEAN, INTEGER or REAL agent.
+Make sure the &quot;INPUT DISABLED&quot; and OUTPUT ENABLED&quot; check boxes are checked, as this type is write
+only.
+The driver will then send down the system time in UTC time format.
+1.7.
+Comli - Protocol function supported
+0 30H (Write) Transfer Multiple I/O bits ( P 0 ) or register (P 0 W)
+1 31H Acknowledge.
+2 32H Requests multiple I/O bits or registers groups of at least 8 bits, registers are
+groups of 16bits
+3 33H (Write) Transfer single I/O bit
+4 34H Request a single I/O bit. (redundant function 2 is used)
+J 4AH Transfer date and time in UTC format.
+If more messages are required please contact the Adroit driver department, these will be added as required.</pre>
+</details>
+
 
 <script>
 (function() {
