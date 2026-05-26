@@ -93,7 +93,7 @@ input::placeholder, textarea::placeholder {
   font-family:Arial, sans-serif;
   font-size:13px;
 ">
-  <a id="backLink" href="drivers.html" style="text-decoration:none;">&#8592; Back</a>
+  <a id="backLink" href="../drivers.html" style="text-decoration:none;">&#8592; Back</a>
 </div>
 
 <style id="help-theme-style">
@@ -290,7 +290,10 @@ input::placeholder, textarea::placeholder {
   function setBack() {
     var link = document.getElementById("backLink");
     if (!link) return;
-    if (refToDrivers(document.referrer)) {
+    if (!document.referrer) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else if (refToDrivers(document.referrer)) {
       link.textContent = "← Back to Drivers";
       link.href = "../drivers.html";
     } else {
