@@ -4,6 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Adroit M2M Protocol</title>
+<meta name="description" content="PDF wrapper for Adroit M2M Protocol. Open the PDF, review the extracted HTML text, and search the converted content.">
+<meta name="keywords" content="internal, words, slave, reset, bytes, unsigned, rtu, master, all, prefix">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ats-adroit.github.io/mysoftware-help/drivers_html/Adroit_M2M_Protocol.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Adroit M2M Protocol","description":"PDF wrapper for Adroit M2M Protocol","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/Adroit_M2M_Protocol.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
 <style>
   :root {
   color-scheme: light dark;
@@ -81,6 +86,7 @@ input::placeholder, textarea::placeholder {
   details { margin-top: 14px; }
   summary { cursor: pointer; }
   pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
+  .chapter { margin: 14px 0; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
 </style>
 </head>
 <body>
@@ -185,6 +191,7 @@ input::placeholder, textarea::placeholder {
   <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
   <span style="color:#999; margin:0 6px;">|</span>
   <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
   <span style="color:#999; margin:0 6px;">|</span>
   <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
   <span style="color:#999; margin:0 6px;">|</span>
@@ -284,6 +291,145 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Adroit M2M Protocol.pdf"></iframe>
+
+<section class="conversion">
+<h2>Converted HTML</h2>
+<p class="note">This is an HTML rendering of the PDF text so crawlers and AI tools can read it without opening the PDF viewer.</p>
+<article class="chapter"><h3>M2M protocol final.vsd</h3><div class="note">Page 1</div><pre>Hist 
+Mask
+Unsol 
+Mask
+Index
+FuncW
+Data Map
+FuncW:
+0 : TYPE Msb {00(Dig),01(Int),10(ana)}
+1 : TYPE Lsb
+2 : MEMTYPE Msb {00(Dx),,10(DDx)}
+3 : MEMTYPE Lsb
+4 : En Unsolicited reporting
+5 : En History reporting
+6 – 15 : null
+0F00
+00FF
+03E8
+0C00
+03A9
+6C00
+000F
+0
+1
+2
+n
+Physical PLC 
+xxxx
+0000
+0000
+0000
+D1000
+Dig16
+D0016
+Dig16
+1
+2
+3
+Logical RTU 
+Converts physical PLC words to logical RTU words.
+DW1000
+DW937
+DW16
+n
+Index:
+Offset 0 - 65535
+Unsolicited Mask:
+Bitwise mask bits 0-15
+Register types &gt;0
+History Mask:
+Bitwise mask bits 0-15
+Register types &gt;0
+TimeObj:
+Msw +Lsw
+Value
+Index
+TimeObj
+Lsw
+TimeObj
+Msw
+0001
+0
+XXXX
+XXXX
+0002
+0
+0000
+0000
+1234
+1
+XXXY
+XXXX
+FFFF
+2
+XXXZ
+XXXX
+DWORD/
+LONG
+Special case
+Communications Buffers:
+Priority:
+History:
+Lsw
+Msw
+0000
+Size
+(words)
+Tail Idx
+Head Idx
+Addressing notes:
+Starting index index starts 
+anywhere the protocol ensures 
+index is always transferred with 
+the value.
+DWORDs are addressed in adroit 
+by DDx
+WORDs are addressed in adroit 
+by DWx
+Addressing
+DWx
+DDx
+Dix
+DLx
+CWx
+Awx
+Instantaneous (INTERROGATE) 
+Buffer:
+Fixed buffer control header
+Not sent to master aswell.
+QUEUE based buffer 
+Emptied from the oldest to 
+the newset.
+New records are pushed in 
+at the back , transact data is 
+acquired from the front.
+Sent in fixed records where 
+a record ios a whole row 
+(4Words) or (8Words) if a 32 
+item is sent.
+DWORD never get wrapped 
+halvies enough space is 
+poped for oth to be ordered.
+DWORDS are never 
+transmitted halvies.
+NOTES:
+If during popping to wrap we pop the msw of a double 
+the lsw wont be removed also the driver will detect the 
+null time and null index!
+Overview of the buffers in the PLC
+Every message that can possibly be sent containing DataWords (DW) will ALWAYS include the index the data does not need to be consecutive, 
+unless required. (this does not apply to the other types such as CW or SW s which are not indexed and fixed and are transacted as a whole.
+The following buffers are for example how we organize memory in our plc s M2M solution but don t necessarily have to be identical, except that the 
+protocol messaging content obviously needs to match. FuncW for example is not ever transmitted on the protocol, but having something like this in 
+the sensor would help matters, but perhaps the sensor may only need one type fit for all etc.</pre></article>
+</section>
 
 
 <details>

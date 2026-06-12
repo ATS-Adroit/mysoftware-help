@@ -4,6 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Siemens Ethernet 1st Generation ISO-TCP</title>
+<meta name="description" content="PDF wrapper for Siemens Ethernet 1st Generation ISO-TCP. Open the PDF, review the extracted HTML text, and search the converted content.">
+<meta name="keywords" content="plc, address, connection, tsap, ethernet, string, using, see, setup, default">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ats-adroit.github.io/mysoftware-help/drivers_html/Siemens_Ethernet_1st_Generation_ISO-TCP.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Siemens Ethernet 1st Generation ISO-TCP","description":"PDF wrapper for Siemens Ethernet 1st Generation ISO-TCP","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/Siemens_Ethernet_1st_Generation_ISO-TCP.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
 <style>
   :root {
   color-scheme: light dark;
@@ -81,6 +86,7 @@ input::placeholder, textarea::placeholder {
   details { margin-top: 14px; }
   summary { cursor: pointer; }
   pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
+  .chapter { margin: 14px 0; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
 </style>
 </head>
 <body>
@@ -185,6 +191,7 @@ input::placeholder, textarea::placeholder {
   <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
   <span style="color:#999; margin:0 6px;">|</span>
   <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
   <span style="color:#999; margin:0 6px;">|</span>
   <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
   <span style="color:#999; margin:0 6px;">|</span>
@@ -284,6 +291,728 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/Siemens Ethernet 1st Generation ISO-TCP.pdf"></iframe>
+
+<section class="conversion">
+<h2>Converted HTML</h2>
+<p class="note">This is an HTML rendering of the PDF text so crawlers and AI tools can read it without opening the PDF viewer.</p>
+<article class="chapter"><h3>Overview</h3><div class="note">Page 1</div><pre>Siemens : SIEINAT
+Siemens Ethernet protocol driver
+Overview
+Adroit supports the Siemens Ethernet protocol in the following 2 ways:
+1. ISO over TCP/IP for the S7-200/300/400 PLC 
+Using the following PLC cards, tested so far :
+S7-200 CPU 226 with CP Card CP 243 – 1
+See Appendix B at the end of this document to see how to setup an Ethernet connection on the 
+S7-200 PLC’s using MicroWin version 4.0 that allows ADROIT to communicate to it.
+S7-315 2DP using the following cp cards : (S7-317 2DP probably the same , not confirmed yet).
+CP343-1-Lean Siemens partnumber 6GK7 343-1CX00-0XE0
+CP343-1- Siemens partnumber 6GK7 343-1EX20-0XE0
+(S7-317 2DP)Without cp cards, a direct connection into the cpu ethernet port make sure Dest 
+TSAP CPU and RACK possitions are both set to 2.
+S7-414-2DP using the following cards :
+CP443-1- Siemens partnumber 6GK7 443-1EXE0-0XE0
+CP443-1- Siemens partnumber 6GK7 443-1EX02-0XE0
+The system requires no other drivers , stacks or plc code to run , provided the cp card is capable 
+of communicating ISO over TCP/IP and is configured with an appropriate ethernet address and 
+mask and in the same range as the adroit machine.
+The driver can also communicate to the PLC using the IBH Link S7/S7++ connection module. See 
+Appendix C on how to setup the communication using the IBH Link!
+2. H1 for the S5 and S7 PLC
+ Using the following PLC cards, tested so far :
+ CP1430.
+The system requires additional setup to be done on the S5 side as well as PLC code, before setting 
+up this driver. provided the cp card is capable of communicating H1 and is configured with an 
+appropriate Mac address in the same range as the adroit machine. See Appendix A for a step by 
+step procedure on how to get H1 running for S5 using this driver.
+Printed 17-Oct-02
+1</pre></article>
+<article class="chapter"><h3>Device Configuration</h3><div class="note">Pages 2-3</div><pre>Adroit Protocol Driver Setup Manual
+Device Configuration
+Redundancy
+Enable Secondary – (Unchecked by default) Check if redundancy is required.
+Primary - Radio selected , displays primary configuration.
+Secondary - Radio selected , displays secondary configuration. 
+Clustering
+Close Conn in Standby – (Unchecked by default) In the case of having a Clustered 
+Environment, the Device will disconnect from the PLC when switching from Master to Standby 
+which allows the new Master Server Device to take the same connection! This will only work in a 
+shadow scanning cluster!
+Device Details
+PLC Model – S5 or S7 Selectable - (S7 default)
+Protocol – Select either TCP/IP or H1, depending on protocol being used. TCP/IPP is not 
+available when selecting S5 PLC model. 
+Retry - The number of retries in the case of a communication time-out or interruption.
+Timeout - The time in milliseconds to wait for a transaction to the PLC to complete successfully.
+PDU Length - The maximum bytes to read in a single transaction.
+S7 Settings
+This block will only be active when S7 PLC Model is selected.
+Ethernet Address - Configurable Ethernet Address. Will only be active if TCP/IP protocol is 
+selected.
+MAC Address - Configurable MAC Address. Will only be active if H1 protocol is selected.
+2
+Printed 17-Oct-02
+
+Siemens : SIEINAT
+IP Port – Usualy 102 , change not recommended. 
+Destination TSAP – The Destination(PLC) TSAP works in the following manner. The TSAP 
+format is 01.02.(Default is 03.03)
+The first byte(01) is the Service Number or also known as Connection Resource number. The 
+number represents the following:
+01 – STEP 7 Connection
+02 – SCADA Connection to S7-200
+03 – SCADA Connection to S7-300/400
+The second byte(02) represents the CPU destination where the 0 is the rack number and the 2 is 
+the slot number.
+Default values per PLC type will then most likely look like this:
+S7-200 – 02.00 – As S7-200 does not have RACK and CPU position it is thus 00.
+S7-300 – 03.02 – The PSU takes slot 1 and the CPU takes slot 2.
+S7-400 – 03.03 – The PSU takes slot 1 and 2 and the CPU slot 3.
+See Appendix C on how to setup the communication using the IBH Link to determine the TSAP 
+settings when using IBH Link module! 
+Local TSAP – Deafult is 01.01. It does not have much meaning but it is the standard. It works 
+fine with S7-300 and S7-400 but does not work for S7-200 as MicroWin requires you to setup an 
+Ethernet connection where you have to specify the PC TSAP and it does not allow for 01.01 to be 
+entered. For S7-200 02.01 works fine as MicroWin Allows that setting in the connection setup. 
+See Appendix B at the end of this document to see how to setup an Ethernet connection on the 
+S7-200 PLC’s using MicroWin version 4.0. 
+See Appendix C on how to setup the communication using the IBH Link to determine the TSAP 
+settings when using IBH Link module! 
+S5 Settings
+This block will only be active when S5 PLC Model is selected.
+Local MAC Address - Configurable MAC Address for the PC. It can be any spare MAC address 
+as long as it is in the same range as the PLC network.
+Remote MAC Address - Configurable MAC Address for the PLC. This is the MAC address of 
+the PLC we will connect too.
+OwnTSAP – An 8 Character String as setup in PLC. See Appendix A, Step 4. (Default is 
+OPCSERVV).
+FetchTSAP – An 8 Character String as setup in PLC. See Appendix A, Step 4. (Default is 
+FETCHXXX).
+WriteTSAP – An 8 Character String as setup in PLC. See Appendix A, Step 4. (Default is 
+WRITEXXX).
+Printed 17-Oct-02
+3</pre></article>
+<article class="chapter"><h3>Wiring</h3><div class="note">Page 4</div><pre>Adroit Protocol Driver Setup Manual
+Wiring
+Please see standard Ethernet wiring documentation.
+Supported addresses
+Siemens S5 and S7 PLC data address types supported 
+For Data Blocks:
+Device
+Min
+Range
+Max 
+Range
+PLC Data 
+Type
+BOOL
+INT
+REAL
+STR
+Data Block
+DB0.DBX 0.0
+DB 65534.DBX 65534.7
+Digital
+x
+Data Block
+DB0.DBB 0
+DB 65534.DBB 65534
+Unsigned 8
+X
+X
+Data Block
+DB0.DBW 0
+DB 65534.DBW 65534
+Unsigned 16
+X
+X
+Data Block
+DB0.DBI 0
+DB 65534.DBI 65534
+Signed 16
+X
+X
+Data Block
+DB0.DBL 0
+DB 65534.DBL 65534
+Signed 32
+X
+X
+Data Block
+DB0.DBD 0
+DB 65534.DBD 65534 
+Unsigned 32
+X
+X
+Data Block
+DB0.DBF 0
+DB 65534.DBF 65534 
+IEEE 32
+X
+Data Block
+DB0.DBS 0 S2
+DB 65534.DBS 65534 S79
+Character 
+String
+X
+Data Block
+DB0.DBB 0 S2
+DB 65534.DBB 65534 S79
+Pascal 
+String
+X
+For Markers:
+Device
+Min
+Range
+Max 
+Range
+PLC Data 
+Type
+BOOL
+INT
+REAL
+STR
+Memory
+MX 0.0
+MX 65534.7
+Digital
+x
+Memory
+MB 0
+MB 65534
+Unsigned 8
+X
+X
+Memory
+MW 0
+MW 65534
+Unsigned 16
+X
+X
+Memory
+MI 0
+MI 65534
+Signed 16
+X
+X
+Memory
+ML 0
+ML 65534
+Signed 32
+X
+X
+Memory
+MD 0
+MD 65534 
+Unsigned 32
+X
+X
+Memory
+MF 0
+MF 65534 
+IEEE 32
+X
+Memory
+MS 0 S2
+MS 65534 S79
+Character 
+String
+X
+Memory
+MB 0 S2
+MB 65534 S79
+Pascal 
+String
+X
+For Inputs/Outputs:
+Device
+Min
+Range
+Max 
+Range
+PLC Data 
+Type
+BOOL
+INT
+REAL
+STR
+Memory
+I/QX 0.0
+I/QX 65534.7
+Digital
+x
+Memory
+I/QB 0
+I/QB 65534
+Unsigned 8
+X
+X
+Memory
+I/QW 0
+I/QW 65534
+Unsigned 16
+X
+X
+Memory
+I/QI 0
+I/QI 65534
+Signed 16
+X
+X
+Memory
+I/QL 0
+I/QL 65534
+Signed 32
+X
+X
+Memory
+I/QD 0
+I/QD 65534 
+Unsigned 32
+X
+X
+Memory
+I/QF 0
+I/QF 65534 
+IEEE 32
+X
+Memory
+I/QS 0 S2
+I/QS 65534 S79
+Character 
+String
+X
+Memory
+I/QB 0 S2
+I/QB 65534 S79
+Pascal 
+String
+X
+•
+A Character string reads character for character and return it as a string. Pascal String is 
+the standard Siemens string which has 2 bytes in front of the actual string data bytes 
+which contains the character ‘ P ‘ as first byte and the string length in the second byte.
+4
+Printed 17-Oct-02</pre></article>
+<article class="chapter"><h3>Supported addresses</h3><div class="note">Page 4</div><pre>Adroit Protocol Driver Setup Manual
+Wiring
+Please see standard Ethernet wiring documentation.
+Supported addresses
+Siemens S5 and S7 PLC data address types supported 
+For Data Blocks:
+Device
+Min
+Range
+Max 
+Range
+PLC Data 
+Type
+BOOL
+INT
+REAL
+STR
+Data Block
+DB0.DBX 0.0
+DB 65534.DBX 65534.7
+Digital
+x
+Data Block
+DB0.DBB 0
+DB 65534.DBB 65534
+Unsigned 8
+X
+X
+Data Block
+DB0.DBW 0
+DB 65534.DBW 65534
+Unsigned 16
+X
+X
+Data Block
+DB0.DBI 0
+DB 65534.DBI 65534
+Signed 16
+X
+X
+Data Block
+DB0.DBL 0
+DB 65534.DBL 65534
+Signed 32
+X
+X
+Data Block
+DB0.DBD 0
+DB 65534.DBD 65534 
+Unsigned 32
+X
+X
+Data Block
+DB0.DBF 0
+DB 65534.DBF 65534 
+IEEE 32
+X
+Data Block
+DB0.DBS 0 S2
+DB 65534.DBS 65534 S79
+Character 
+String
+X
+Data Block
+DB0.DBB 0 S2
+DB 65534.DBB 65534 S79
+Pascal 
+String
+X
+For Markers:
+Device
+Min
+Range
+Max 
+Range
+PLC Data 
+Type
+BOOL
+INT
+REAL
+STR
+Memory
+MX 0.0
+MX 65534.7
+Digital
+x
+Memory
+MB 0
+MB 65534
+Unsigned 8
+X
+X
+Memory
+MW 0
+MW 65534
+Unsigned 16
+X
+X
+Memory
+MI 0
+MI 65534
+Signed 16
+X
+X
+Memory
+ML 0
+ML 65534
+Signed 32
+X
+X
+Memory
+MD 0
+MD 65534 
+Unsigned 32
+X
+X
+Memory
+MF 0
+MF 65534 
+IEEE 32
+X
+Memory
+MS 0 S2
+MS 65534 S79
+Character 
+String
+X
+Memory
+MB 0 S2
+MB 65534 S79
+Pascal 
+String
+X
+For Inputs/Outputs:
+Device
+Min
+Range
+Max 
+Range
+PLC Data 
+Type
+BOOL
+INT
+REAL
+STR
+Memory
+I/QX 0.0
+I/QX 65534.7
+Digital
+x
+Memory
+I/QB 0
+I/QB 65534
+Unsigned 8
+X
+X
+Memory
+I/QW 0
+I/QW 65534
+Unsigned 16
+X
+X
+Memory
+I/QI 0
+I/QI 65534
+Signed 16
+X
+X
+Memory
+I/QL 0
+I/QL 65534
+Signed 32
+X
+X
+Memory
+I/QD 0
+I/QD 65534 
+Unsigned 32
+X
+X
+Memory
+I/QF 0
+I/QF 65534 
+IEEE 32
+X
+Memory
+I/QS 0 S2
+I/QS 65534 S79
+Character 
+String
+X
+Memory
+I/QB 0 S2
+I/QB 65534 S79
+Pascal 
+String
+X
+•
+A Character string reads character for character and return it as a string. Pascal String is 
+the standard Siemens string which has 2 bytes in front of the actual string data bytes 
+which contains the character ‘ P ‘ as first byte and the string length in the second byte.
+4
+Printed 17-Oct-02</pre></article>
+<article class="chapter"><h3>Message protocol</h3><div class="note">Page 5</div><pre>Siemens : SIEINAT
+ 
+Message protocol
+Driver datascope displays include a listing of the parameters passes to the INAT layer, and only 
+the RAW DB data sent/returned in each transaction.
+Appendix A – Installing H1 Network on the PC
+Step 1 - 
+ 
+ Install H1 Driver:
+ 
+ 
+● Start pch1.exe.
+● Select the Setup language and press ‘OK’.
+● The start dialogue window for PC-H1 setup appears.
+Printed 17-Oct-02
+5</pre></article>
+<article class="chapter"><h3>Appendix A – Installing H1 Network on the PC</h3><div class="note">Pages 5-13</div><pre>Siemens : SIEINAT
+ 
+Message protocol
+Driver datascope displays include a listing of the parameters passes to the INAT layer, and only 
+the RAW DB data sent/returned in each transaction.
+Appendix A – Installing H1 Network on the PC
+Step 1 - 
+ 
+ Install H1 Driver:
+ 
+ 
+● Start pch1.exe.
+● Select the Setup language and press ‘OK’.
+● The start dialogue window for PC-H1 setup appears.
+Printed 17-Oct-02
+5
+
+Adroit Protocol Driver Setup Manual
+● Select ‘Next’.
+● The license agreement appears.
+● Agree to the conditions set forth by clicking ‘Yes’.
+● Select ‘Next’.
+6
+Printed 17-Oct-02
+
+Siemens : SIEINAT
+● Select the directory, where the files shall be stored. Default C:\Programs\INAT\pch1\.
+● Select ‘Next’
+● Select the start menu folder.
+● Select ‘Next’
+● Installation is complete after a few seconds.
+Step 2 - 
+ 
+ Install the H1 Protocol on the Network Card:
+ 
+ 
+● After installation of PC-H1, the ‘network settings’ window opens together with the description below:
+Printed 17-Oct-02
+7
+
+Adroit Protocol Driver Setup Manual
+● Click Close and Double-click the network adapter that you want to configure. The following window 
+appears.
+8
+Printed 17-Oct-02
+
+Siemens : SIEINAT
+● Click Properties.
+● Click ‘Install’.
+Printed 17-Oct-02
+9
+
+Adroit Protocol Driver Setup Manual
+● Select Protocol and click Add.
+● Click ‘Have Disk...’
+● Browse to the path of the PC-H1 installation directory, which typically is 
+c:\Programs\INAT\pch1\driver).
+● Click Open.
+● Select ‘INAT H1 ISO Protocol’ and click OK.
+● In the window ‘Net Adapter properties’ the H1 protocol is indicated now as below.
+10
+Printed 17-Oct-02
+
+Siemens : SIEINAT
+The QoS Packet Scheduler has to be deactivated!
+In the window ‘Net Adapter properties’ there must not be a tick in front of the
+element QoS Packet Scheduler as shown above.
+● Run the registry key ‘start/programs/inat/PC-H1/H1 registry scripts/H1ChangeAddress.reg’.
+● Start your computer again, and make sure that all programs are loaded without error messages 
+when the system boots.
+Step 3 - 
+ 
+ License the H1 protocol:
+ 
+ 
+The H1 Protocol needs to be licensed as it only has a demo period of 10 hours to run. To License it do 
+the following: 
+● Get the MAC Address of the required Network adapter by going to run and typing ‘cmd’. In the 
+command prompt window type ‘ipconfig /All’. Write Down the MAC Address and e-mail it to 
+‘drivers@adroit.co.za’.
+● You will receive a key code as soon as possible. Open a file called ‘H1free.dat’ situated in 
+‘C:\winnt\system32\drivers’. Replace the code received with the dummy code inside and save and 
+close.
+● Start your computer again, and make sure that all programs are loaded without error messages 
+when the system boots.
+Step 4 - 
+ 
+ Configuring PLC to be H1 ready:
+ 
+ 
+Printed 17-Oct-02
+11
+
+Adroit Protocol Driver Setup Manual
+● You need to call the SYNC function block at startup and the SEND/REC ALL function blocks in the 
+cyclic part of your program. These are:
+PLC 
+135/150/155
+115
+SYNC
+FB125
+FB249
+SEND ALL
+FB126
+FB244
+REC ALL
+FB127
+FB245
+In Step 5 for S5 PLC – H1 communication you have to setup 2 Connections. The first is a FETCH 
+connection and should look like the image below. The Local Parameter TSAP is unique to the FECTH 
+connection and by default FETCHXXX. We keep the length to a standard 8 characters, but it does not 
+have to be 8 characters long. The Remote Parameter TSAP is the TSAP of the PC or in other words 
+the Driver. This can be any name, also standard to 8 characters and by default we make it 
+OPCSERVV.
+The second is a RECEIVE connection and should look like the image below. The Local Parameter 
+TSAP is unique to the RECEIVE connection and by default WRITEXXX. We keep the length to a 
+standard 8 characters, but it does not have to be 8 characters long. The Remote Parameter TSAP is 
+the TSAP of the PC or in other words the Driver. This can be any name, also standard to 8 characters 
+and by default we make it OPCSERVV. 
+The Remote TSAP MUST BE THE SAME for the FETCH and RECEIVE connections, although the 
+Local TSAP’s must be unique. The IP Address in the remote parameter box should be MAC address in 
+our case and it indicates the MAC address of the PC and should be the same for both connections.
+12
+Printed 17-Oct-02
+
+Siemens : SIEINAT
+After creating these 2 connections your setup on the PLC side is completed and so also the setup of 
+H1. All you need to do now is setup a new device in adroit setup. 
+Using the setup for the S5 PLC, as it is done with the images above as an example, we setup adroit 
+device as it is in the image above. The S5 PLC connections is setup as follow: 
+FETCH TSAP – fetch_s5
+RECEIVE TSAP – write_s5
+In both connections the remote TSAP is tsappc01 and the MAC address is 00 60 97 2E 73 7D.
+Using this information to complete the S5 Settings in the ADROIT device driver the settings will be as 
+in the image below where remote MAC address = PLC MAC addr.
+Printed 17-Oct-02
+13</pre></article>
+<article class="chapter"><h3>Appendix B – Creating S7-200 Ethernet Connection</h3><div class="note">Pages 14-17</div><pre>Adroit Protocol Driver Setup Manual
+Appendix B – Creating S7-200 Ethernet Connection
+Create a new Ethernet Configuration
+When using MicroWin 4, right click with the mouse on the Ethernet Wizard as shown above. Select 
+‘New Configuration’. The next page will popup.
+Specify the Ethernet module IP Address and then press next. The next page will popup.
+14
+Printed 17-Oct-02
+
+Siemens : SIEINAT
+Specify the number of connections required. At least 1 for ADROIT connection. Now press next button 
+to open the next screen.
+This is the most important screen of all. This is where we setup the connection too allow ADROIT to 
+communicate to the PLC. The screen above is the exact setting required to make the communications 
+work. We want a server connection that allows the PLC to operate as the server and ADROIT as the 
+client which connects and requests data from the PLC. The Local TSAP on this page refers to the PLC 
+TSAP settings. This setting is not changeable and when ‘The server will connect with an Operator 
+Pane(OP)’ is selected the TSAP will change to 02.00, so the Destination TSAP setting in the driver 
+setup must be 02.00. Also make sure ‘Accept all connection requests’ is checked. This will allow for 
+any IP address to create a connection to the PLC. The Remote TSAP properties refer to the PC TSAP 
+settings or as we know it in the driver setup as local TSAP. We prefer the TSAP of 01.01 as the local 
+TSAP but the MicroWin does not allow this, so it was changed to 02.01 which means your local TSAP 
+setting in the driver setup must be 02.01. Once ready click the OK button to continue to the next 
+screen. 
+Printed 17-Oct-02
+15
+
+Adroit Protocol Driver Setup Manual
+Generate CRC protection, it is a safer option. Click next button to continue to the next screen.
+This will just allocate memory area for the configuration, leave as default. Click next button to continue 
+to the next screen.
+16
+Printed 17-Oct-02
+
+Siemens : SIEINAT
+This is the last screen. Here you can give a name for your configuration if so do required, but leave it 
+as default otherwise. Press finish button to complete the new Ethernet connection setup. After this 
+setup is completed make sure to press the ‘save all’ button. Now go to the PLC menu and press 
+‘Compile All’ item. This will compile and check everything. As long as there is no errors, press 
+download button to download to the PLC. ADROIT should be able to communicate to the PLC!
+Printed 17-Oct-02
+17</pre></article>
+<article class="chapter"><h3>Appendix C – Creating connection to IBH Link S7/S7++ module</h3><div class="note">Pages 18-19</div><pre>Adroit Protocol Driver Setup Manual
+Appendix C – Creating connection to IBH Link S7/S7++ module
+For communication to occur between the driver and an IBH Link S7/S7++ unit, the following steps will be needed!
+1.
+On the same server machine or on another server machine in the network, the application called “RFC1006 to 
+IBHLink converter” need to be started. This application is supplied with the software you receive when you 
+purchased the IBH link module. “RFC1006 to IBHLink converter” application listens on port 102 and it might be 
+possible that one of siemens software already listens on port 102 and the application will fail to start. You can end 
+the process called “SIMATIC IEPG Help Service(s7oiehsx.exe)”! This will allow the “RFC1006 to IBHLink 
+converter” application to start up.
+2.
+Now you need to configure a connection inside the “RFC1006 to IBHLink converter” application’s configuration 
+window, which can be found by clicking on the tray icon representing the application and selecting ‘Configuration’ 
+from the menu. The window that will appear looks like this: 
+Click on ‘Create/Edit connection’ button to add a new connection. You should have a window looking like this.
+The Source TSAP is the same as what is specified on the drivers Local TSAP, by default the driver uses 01.01, so 
+we can make the settings the same.
+18
+Printed 17-Oct-02</pre></article>
+<article class="chapter"><h3>Revisions</h3><div class="note">Page 20</div><pre></pre></article>
+</section>
 
 
 <details>

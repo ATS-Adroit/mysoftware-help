@@ -4,6 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RDC Reporter 8102</title>
+<meta name="description" content="PDF wrapper for RDC Reporter 8102. Open the PDF, review the extracted HTML text, and search the converted content.">
+<meta name="keywords" content="driver, value, number, reporter, protocol, device, tags, rdc8102, data, prefix">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ats-adroit.github.io/mysoftware-help/drivers_html/RDC_Reporter_8102.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"RDC Reporter 8102","description":"PDF wrapper for RDC Reporter 8102","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/RDC_Reporter_8102.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
 <style>
   :root {
   color-scheme: light dark;
@@ -81,6 +86,7 @@ input::placeholder, textarea::placeholder {
   details { margin-top: 14px; }
   summary { cursor: pointer; }
   pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
+  .chapter { margin: 14px 0; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
 </style>
 </head>
 <body>
@@ -185,6 +191,7 @@ input::placeholder, textarea::placeholder {
   <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
   <span style="color:#999; margin:0 6px;">|</span>
   <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
   <span style="color:#999; margin:0 6px;">|</span>
   <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
   <span style="color:#999; margin:0 6px;">|</span>
@@ -284,6 +291,195 @@ input::placeholder, textarea::placeholder {
 </div>
 
 <iframe class="viewer" src="../driver_docs/RDC Reporter 8102.pdf"></iframe>
+
+<section class="conversion">
+<h2>Converted HTML</h2>
+<p class="note">This is an HTML rendering of the PDF text so crawlers and AI tools can read it without opening the PDF viewer.</p>
+<article class="chapter"><h3>Page 1</h3><div class="note">Page 1</div><pre>RDC SYSTEMS : REPORTER 8102 
+Printed 17-Aug-20 
+1 
+RDC8102 driver 
+Overview 
+The RDC8102 protocol for Adroit communicates to a Reporter 8102, which is designed to receive 
+transmitter codes in a control room or operate as a stand alone intelligent repeater. Product obtainable 
+from Radio Data Communications (Tel 011 616 7685) 
+The protocol is an exception based protocol driver in that data is received asynchronously when a value 
+changes on an outstation. 
+Wiring 
+Wiring between the RS232 port and the modem is standard RS232. Please consult your REPORTER 
+8102 documentation for additional particulars on setting up the hardware. 
+Driver Installation and Setup 
+The driver is installed by picking the RDC8102 driver from the drivers directory. The RDC8102.DLL 
+and the RDC8102.DOC is then copied into the agent directory. 
+After installation of the driver, the user may then create and configure devices for the RDC8102 driver. 
+Device Configuration 
+Devices 
+At a minimum, you must create at least one device for every port being used. However, you may 
+choose to create a device for a group of transmitters.</pre></article>
+<article class="chapter"><h3>Page 2</h3><div class="note">Page 2</div><pre>RDC SYSTEMS : REPORTER 8102 
+Printed 17-Aug-20 
+2 
+Device configuration dialog 
+ 
+Port 
+Select the port through which you are going to communicate. The baud rate is fixed 
+at 9600,8,1,N. 
+Prefix 
+This field is only used when the protocol is configured to communicate in alpha 
+prefix mode. In all other modes this field is ignored. 
+Scanning 
+Due to the system operation, all scanned tags must be output enabled, pulsed, and cold started to zero. 
+The reasoning follows: The scanning sub-system keeps a record of the last received value for 
+optimization, and thus will not re-send an alarm “on” until it goes “off” again. By output enabling the 
+tag, when the tag goes to “zero” the scanning system updates it’s last known value with the zero 
+(“off”), thus when the alarm on (“one”) condition arrives again, it gets put into the tag as expected. By 
+the same reasoning, cold-start will initialize the tags to zero (“off”), so that all current alarms are clear. 
+In addition, stopping and starting a device agent causes the driver to zero all scanned values, and the 
+tags. 
+The driver keeps a last known value for the alarms, which is cleared on device start, this last known 
+value gets “OR”ed with an incoming alarm, thus giving the SUM of alarms received to the tag. 
+Effectively this “copy” of the value allows the driver to keep track of the tags’ value. This function 
+naturally only works correctly if the tag was output enabled, so that when bits in the tag clear (go off) 
+the driver will also clear them at the same instant in time. 
+Outstation Data 
+The driver processes the following data received: 
+0 
+- 
+Alarm 
+1 
+- 
+Lock up 
+2 
+- 
+Open up 
+3 
+- 
+Emergency 
+4 
+- 
+Telemetry 1 
+5 
+- 
+Telemetry 2 
+6 
+- 
+Telemetry 3 
+7 
+- 
+Telemetry 4 
+8 
+- 
+Mains Fail</pre></article>
+<article class="chapter"><h3>Page 3</h3><div class="note">Page 3</div><pre>RDC SYSTEMS : REPORTER 8102 
+Printed 17-Aug-20 
+3 
+9 
+- 
+Mains Restore 
+10 
+- 
+Engineer Test 
+11 
+- 
+Customer Duress 
+12 
+- 
+Medical Alert 
+13 
+- 
+Fire Alarm 
+14 
+- 
+Telemetry 5 
+15 
+- 
+Telemetry 8 
+ 
+Data received in any mode will be processed according to the above list. In Chubb mode only bits(0-7) 
+will be activated. 
+Digital inputs 
+Digital tags (Boolean slots) that are scanned from Outstations can be scanned into Digital tags 
+The format of the address string is as follows: CN: TTTT: B 
+Where: CN – stands for code number. 
+TTTT – Code number of transmitter 
+ 
+B – Bit number (0 - 15) 
+ 
+Analogue / Multistate inputs 
+If scanned into a Multistate agent than the 16 slots represent the digital status of that transmitter. 
+The format of the address string is as follows: CN: TTTT 
+Where: CN – stands for code number. 
+TTTT – Code number of transmitter 
+ 
+When scanned into an integer, the value of the integer will represent the status of the outstation by a 
+number ranging from 1 to 65535 with the value 0 representing no alarms. 
+Message protocol 
+Datascope messages are displayed in hex or ascii. All messages are displayed whether that transmitter 
+is configured or not. Messages of devices not configured are displayed in the first devices protocol 
+monitor. 
+Reporter Standard 
+Byte Number 
+Code Number 
+1- 4 
+Telemetry 
+5 
+Repeater 
+6 
+CR 
+7 
+Example 
+1220 
+1 
+1 
+^13</pre></article>
+<article class="chapter"><h3>Page 4</h3><div class="note">Page 4</div><pre>RDC SYSTEMS : REPORTER 8102 
+Printed 17-Aug-20 
+4 
+3 Digit Telemetry 
+Byte Number 
+Code Number 
+1- 4 
+Telemetry 
+5-7 
+Repeater 
+8 
+CR 
+9 
+Example 
+1220 
+012 
+1 
+^13 
+ 
+Chubb Format 
+Byte Number 
+Code Number 
+1- 4 
+Space 
+5 
+Telemetry 
+6 
+CR 
+7 
+Example 
+1220 
+ 
+1 
+^13 
+ 
+Protocol with alpha prefix – Any of the above three protocols with an alpha prefix. Thus this protocol 
+will have 1 byte more than the above 3 protocols. For the data to be valid the prefix defined must match 
+the prefix defined in the device. 
+Troubleshooting 
+ 
+Revisions 
+Date 
+Changes 
+91/02/2002 
+Dialog updated after neatening up. 
+24/02/2003 
+Described better output enable and cold-starting of the tags.</pre></article>
+</section>
 
 
 <details>
