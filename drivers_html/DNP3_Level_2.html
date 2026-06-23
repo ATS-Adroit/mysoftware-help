@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DNP3 Level 2+</title>
-<meta name="description" content="PDF wrapper for DNP3 Level 2+. Open the PDF, review the extracted HTML text, and search the converted content.">
-<meta name="keywords" content="only, driver, control, execute, bit, select, selected, flag, rts, set">
+<title>DNP3_Level_2</title>
+<meta name="description" content="PDF wrapper for DNP3_Level_2. Open the PDF, review the extracted HTML text, and search the converted content.">
+<meta name="keywords" content="only, driver, control, execute, bit, select, selected, request, flag, rts">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://ats-adroit.github.io/mysoftware-help/drivers_html/DNP3_Level_2.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"DNP3 Level 2+","description":"PDF wrapper for DNP3 Level 2+","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/DNP3_Level_2.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"DNP3_Level_2","description":"PDF wrapper for DNP3_Level_2","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/DNP3_Level_2.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
 <style>
   :root {
   color-scheme: light dark;
@@ -285,12 +285,12 @@ input::placeholder, textarea::placeholder {
 </script>
 
 <div class="top" style="margin-top:42px;">
-  <h1 style="margin:0 0 10px 0;">DNP3 Level 2+</h1>
-  <a class="btn" href="../driver_docs/DNP3 Level 2+.pdf">Open / Download PDF</a>
+  <h1 style="margin:0 0 10px 0;">DNP3_Level_2</h1>
+  <a class="btn" href="../driver_docs/DNP3_Level_2.pdf">Open / Download PDF</a>
   <div class="note">If the PDF viewer does not show, use the button above.</div>
 </div>
 
-<iframe class="viewer" src="../driver_docs/DNP3 Level 2+.pdf"></iframe>
+<iframe class="viewer" src="../driver_docs/DNP3_Level_2.pdf"></iframe>
 
 <section class="conversion">
 <h2>Converted HTML</h2>
@@ -384,21 +384,24 @@ Advanced Registry Key Settings .................................................
 5. 
 Protocol Definition and Considerations ................................................................................................ 18 
 6. 
-General Notes and Troubleshooting ..................................................................................................... 19 
-6.1. 
-Contact Details ................................................................................................................................... 19 
-6.2. 
-Adroit Technologies Knowledge Base ................................................................................................... 19 
+IOT Mode Considerations ..................................................................................................................... 18 
+To test for incoming connections and know that the IOT mode is active and ready ............................................. 20 
 7. 
-Appendix A – Master Profile Document ................................................................................................ 20 
+General Notes and Troubleshooting ..................................................................................................... 22 
+7.1. 
+Contact Details ................................................................................................................................... 22 
+7.2. 
+Adroit Technologies Knowledge Base ................................................................................................... 22 
 8. 
-Appendix B - DNP Subset Definitions ................................................................................................... 23 
+Appendix A – Master Profile Document ................................................................................................ 23 
 9. 
-Revisions ............................................................................................................................................... 27 
-9.1. 
-Document Revision............................................................................................................................. 27 
-9.2. 
-DLL Revision ...................................................................................................................................... 27</pre></article>
+Appendix B - DNP Subset Definitions ................................................................................................... 26 
+10. 
+Revisions ............................................................................................................................................... 30 
+10.1. 
+Document Revision............................................................................................................................. 30 
+10.2. 
+DLL Revision ...................................................................................................................................... 30</pre></article>
 <article class="chapter"><h3>Page 4</h3><div class="note">Page 4</div><pre>_____________________________________________________________________________________________________________________ 
 ATQMS-DRVR-DOC-DNP3.docx 
  
@@ -553,12 +556,12 @@ be followed.
 Keep Alive – (Ethernet types only) The period (in milliseconds) the driver will wait between 
 keepalive (LINK TEST) messages. 
  
-Incoming connection only – (Ethernet types only)If checked the driver will wait for incoming 
-connections, it will not initiate connections, used for internet of things type devices that connect to 
-the master only periodically, see Contact lost setting too. The driver will operate as normal when a 
-connection is established, if the outstation disconnects the driver will wait for the next connection 
-to continue. The master will not disconnect, that function is left up to the slave (Default = 
-unchecked). 
+Incoming connection only – (Ethernet types only) (Default = unchecked). 
+If checked the driver will wait for incoming connections, it will not initiate connections, used for 
+internet of things type devices that connect to the master only periodically, see Contact lost setting 
+too. The driver will operate as normal when a connection is established, if the outstation disconnects 
+the driver will wait for the next connection to continue. The master will not disconnect, that function 
+is left up to the slave 
  
 Contact lost delay (mSec) – (Ethernet types only) Only active if the Incoming connection only is 
 checkbox is checked. This is the period (in milliseconds) the driver will wait before marking I/O point 
@@ -684,10 +687,13 @@ messages unless the failure occurred within a transport fragmentation session. I
 master will always strictly enforce transport sequence within a fragmented session. 
  
 Enable unsolicited support – (Default = unchecked) If checked, the driver will consume 
-unsolicited/report by exception messages from the outstation. 
+unsolicited/report by exception messages from the outstation. Incoming connection only will force 
+this to be evaluated as TRUE. 
  
 Enable behaviour modifiers – (Default = checked) If unchecked/opt-out, stops additional 
 functions such as: 
+ Incoming connection only will force this to be evaluated as FALSE. 
+ 
 Disable unsolicited functions while starting – If unchecked/opt-out, it stops the driver 
 from forcing unsolicited reporting off (but is on during start-up). 
  
@@ -717,9 +723,7 @@ Each row consists of 5 columns: Scheme, Wiring, OnTime, OffTime and Protocol.
  
 Each row represents 1 scheme. There are 6 available for use with digitals and analogue outputs, and 
 the same scheme can be used for both digital and analogue. However, for analogue controls, only 
-the protocol column has any useful effect, and the other columns are ignored. 
- 
- WARNING</pre></article>
+the protocol column has any useful effect, and the other columns are ignored.</pre></article>
 <article class="chapter"><h3>Page 12</h3><div class="note">Page 12</div><pre>_____________________________________________________________________________________________________________________ 
 ATQMS-DRVR-DOC-DNP3.docx 
  
@@ -732,6 +736,7 @@ ATQMS-DRVR-DOC-DNP3.docx
  
  
 P a g e | 12 
+ WARNING 
 Multiple Tags scanned to the same DNP address will override the schema for all duplicated tags, 
 and currently it is the schema of last tag to be scanned wins. The application event log will have a 
 warning entry describing the duplication, as will the datascope output. 
@@ -777,10 +782,7 @@ Refresh after successful controls - The associated output status object will be 
 checked = ON). 
  
 Refresh Delay (mSec) - Means immediately after a control occurs the refresh will take place, else the 
-refresh will be delayed by the specified amount of time (Default = 0 mSec). 
- 
-Allow control retries -If checked, then retries will be used. Be very careful with this, as it is not 
-recommended practice to retry controls in DNP3 (Default = unchecked = no retries).</pre></article>
+refresh will be delayed by the specified amount of time (Default = 0 mSec).</pre></article>
 <article class="chapter"><h3>Page 13</h3><div class="note">Page 13</div><pre>_____________________________________________________________________________________________________________________ 
 ATQMS-DRVR-DOC-DNP3.docx 
  
@@ -793,12 +795,17 @@ ATQMS-DRVR-DOC-DNP3.docx
  
  
 P a g e | 13 
+Allow control retries -If checked, then retries will be used. Be very careful with this, as it is not 
+recommended practice to retry controls in DNP3 (Default = unchecked = no retries). 
+ 
 3.8. 
 Maximum Addresses 
  
-3.9. Unique 
-Driver 
-Specifications 
+ 
+ 
+ 
+3.9. 
+Unique Driver Specifications 
  
  This driver has extra information and special functions that reside in a special fixed administration 
 integer job, which has address ADMIN.0, ADMIN.1 
@@ -866,11 +873,6 @@ TimeSync (Internal/External Request)
 StartUpPoll (Internal/External Request) 
 7. 
 PeriodicPoll (Internal/External Request) 
-8. 
-Class0DataPoll (Internal/External Request) 
-9. 
-Class1DataPoll (Internal/External Request) 
-10. Class2DataPoll (Internal/External Request) 
 PLC Type 
 Max Digitals Per Scan 
 Max Registers Per Scan) 
@@ -889,6 +891,11 @@ ATQMS-DRVR-DOC-DNP3.docx
  
  
 P a g e | 14 
+8. 
+Class0DataPoll (Internal/External Request) 
+9. 
+Class1DataPoll (Internal/External Request) 
+10. Class2DataPoll (Internal/External Request) 
 11. Class3DataPoll (Internal/External Request) 
 12. FailoverResynchronise(Internal/External Request) 
 13. EnableUnsolicited(Internal/External Request) 
@@ -940,11 +947,7 @@ Analogue Inputs Flag (Lsb to Msb)
 4. RemoteForcedData 
 5. LocalForcedData 
 6. Overrange 
-7. Reserved 
-8. Reserved 
- 
-• 
-Counter Inputs Flag (Lsb to Msb)</pre></article>
+7. Reserved</pre></article>
 <article class="chapter"><h3>Page 15</h3><div class="note">Page 15</div><pre>_____________________________________________________________________________________________________________________ 
 ATQMS-DRVR-DOC-DNP3.docx 
  
@@ -957,6 +960,10 @@ ATQMS-DRVR-DOC-DNP3.docx
  
  
 P a g e | 15 
+8. Reserved 
+ 
+• 
+Counter Inputs Flag (Lsb to Msb) 
 1. Online 
 2. Restart 
 3. ComLost 
@@ -1538,7 +1545,34 @@ ATQMS-DRVR-DOC-DNP3.docx
  
 P a g e | 18 
 5. Protocol Definition and Considerations 
-See DNP3 Users group documentation.</pre></article>
+See DNP3 Users group documentation. 
+ 
+ 
+6. IOT Mode Considerations 
+The DNP3 Driver allows unsolicited protocol to be consumed on outgoing connections via the enable 
+Unsolicited support mode – this is not directly related to IOT mode but must be enabled to allow the 
+driver to consume unsolicited protocol when using the incoming only IOT mode. 
+ 
+ 
+ 
+• 
+The driver can operate in an incoming only mode where the master will wait for incoming 
+connections and then continue to operate normally as if it was an outgoing connection. 
+This is useful for devices that want to dial into a master listening on a fixed IP from say 3G/4G 
+networks that do not have accessible IP addresses. 
+ 
+• 
+The Driver can hold the incoming connection for a time, the Keep alive can be used to send 
+link status message requests just the keep the channel active permanently, while waiting to 
+poll or receive unsolicited data. 
+ 
+• 
+The driver accepts remote side disconnects without marking bad, this is useful where devices 
+want to periodically connect in to say upload SOE data. 
+ 
+• 
+The driver can be configured to eventually mark its i/o bad after a configure contact lost 
+period.</pre></article>
 </section>
 
 
@@ -1615,12 +1649,12 @@ be followed.
 3.4.2. TCP/IP, UDP/IP Specific Parameters:
 Keep Alive - (Ethernet types only) The period (in milliseconds) the driver will wait between
 keepalive (LINK TEST) messages.
-Incoming connection only - (Ethernet types only)If checked the driver will wait for incoming
-connections, it will not initiate connections, used for internet of things type devices that connect to
-the master only periodically, see Contact lost setting too. The driver will operate as normal when a
-connection is established, if the outstation disconnects the driver will wait for the next connection
-to continue. The master will not disconnect, that function is left up to the slave (Default =
-unchecked).
+Incoming connection only - (Ethernet types only) (Default = unchecked).
+If checked the driver will wait for incoming connections, it will not initiate connections, used for
+internet of things type devices that connect to the master only periodically, see Contact lost setting
+too. The driver will operate as normal when a connection is established, if the outstation disconnects
+the driver will wait for the next connection to continue. The master will not disconnect, that function
+is left up to the slave
 Contact lost delay (mSec) - (Ethernet types only) Only active if the Incoming connection only is
 checkbox is checked. This is the period (in milliseconds) the driver will wait before marking I/O point
 as comms fail (Default = 93600000 = 26 hours).
@@ -1628,6 +1662,7 @@ as comms fail (Default = 93600000 = 26 hours).
 [Page 12]
 ATQMS-DRVR-DOC-DNP3.docx
 P a g e | 12
+WARNING
 Multiple Tags scanned to the same DNP address will override the schema for all duplicated tags,
 and currently it is the schema of last tag to be scanned wins. The application event log will have a
 warning entry describing the duplication, as will the datascope output.
@@ -1666,12 +1701,15 @@ Refresh after successful controls - The associated output status object will be 
 checked = ON).
 Refresh Delay (mSec) - Means immediately after a control occurs the refresh will take place, else the
 refresh will be delayed by the specified amount of time (Default = 0 mSec).
-Allow control retries -If checked, then retries will be used. Be very careful with this, as it is not
-recommended practice to retry controls in DNP3 (Default = unchecked = no retries).
 
 [Page 14]
 ATQMS-DRVR-DOC-DNP3.docx
 P a g e | 14
+8.
+Class0DataPoll (Internal/External Request)
+9.
+Class1DataPoll (Internal/External Request)
+10. Class2DataPoll (Internal/External Request)
 11. Class3DataPoll (Internal/External Request)
 12. FailoverResynchronise(Internal/External Request)
 13. EnableUnsolicited(Internal/External Request)
@@ -1703,11 +1741,12 @@ Analogue Outputs Flag (Lsb to Msb)
 Analogue Inputs Flag (Lsb to Msb)
 1. Online
 2. Restart
-Counter Inputs Flag (Lsb to Msb)
 
 [Page 15]
 ATQMS-DRVR-DOC-DNP3.docx
 P a g e | 15
+8. Reserved
+Counter Inputs Flag (Lsb to Msb)
 1. Online
 2. Restart
 Digital Flag (Lsb to Msb)

@@ -1,0 +1,1547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Communications_Link_Serial_Protocol_Driver</title>
+<meta name="description" content="PDF wrapper for Communications_Link_Serial_Protocol_Driver. Open the PDF, review the extracted HTML text, and search the converted content.">
+<meta name="keywords" content="default, driver, standby, required, protocol, port, serial, comli, device, not">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ats-adroit.github.io/mysoftware-help/drivers_html/Communications_Link_Serial_Protocol_Driver.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Communications_Link_Serial_Protocol_Driver","description":"PDF wrapper for Communications_Link_Serial_Protocol_Driver","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/Communications_Link_Serial_Protocol_Driver.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
+<style>
+  :root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+  body { font-family: Arial, sans-serif; margin: 20px; color: var(--text); }
+  .top { margin-bottom: 12px; }
+  .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
+  .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
+  .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
+  .chapter { margin: 14px 0; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+</style>
+</head>
+<body>
+
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="backLink" href="../drivers.html" style="text-decoration:none;">&#8592; Back</a>
+</div>
+
+<style id="help-theme-style">
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+</style>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Product%20Manuals" style="text-decoration:none;">Product Manuals</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Supporting%20Docs" style="text-decoration:none;">Supporting Docs</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../specifications.html" style="text-decoration:none;">Specifications</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../best_practices.html" style="text-decoration:none;">Best Practices</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function withFreshParam(href) {
+    try {
+      var u = new URL(href, window.location.href);
+      u.searchParams.set("_t", String(Date.now()));
+      return u.toString();
+    } catch (e) {
+      var sep = href.indexOf("?") >= 0 ? "&" : "?";
+      return href + sep + "_t=" + Date.now();
+    }
+  }
+  var ch = document.querySelector('[data-chat-help="1"]');
+  if (ch && ch.getAttribute("href")) {
+    ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    ch.addEventListener("click", function() {
+      ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    });
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+<div class="top" style="margin-top:42px;">
+  <h1 style="margin:0 0 10px 0;">Communications_Link_Serial_Protocol_Driver</h1>
+  <a class="btn" href="../driver_docs/Communications_Link_Serial_Protocol_Driver.pdf">Open / Download PDF</a>
+  <div class="note">If the PDF viewer does not show, use the button above.</div>
+</div>
+
+<iframe class="viewer" src="../driver_docs/Communications_Link_Serial_Protocol_Driver.pdf"></iframe>
+
+<section class="conversion">
+<h2>Converted HTML</h2>
+<p class="note">This is an HTML rendering of the PDF text so crawlers and AI tools can read it without opening the PDF viewer.</p>
+<article class="chapter"><h3>Page 1</h3><div class="note">Page 1</div><pre>Adroit Technologies 
+Protocol Driver 
+ 
+ 
+ 
+Name 
+Communications Link Serial Protocol Driver 
+DLL 
+D_COMLI_SER</pre></article>
+<article class="chapter"><h3>Page 2</h3><div class="note">Page 2</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 2 
+COPYRIGHT 
+ 
+Copyright © 2022 Advanced Worx 112 (Pty) Ltd. All rights reserved. 
+ 
+Information in this document is subject to change without notice. The software described in this document is furnished under a 
+license agreement or nondisclosure agreement. The software may be used or copied only in accordance with the terms of those 
+agreements. No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form or any means 
+electronic or mechanical, including photocopying and recording for any purpose other than the purchaser’s personal use without the 
+written permission of Advanced Worx 112 (Pty) Ltd. 
+ 
+ 
+Advanced Worx 112 (Pty) Ltd 
+20 Waterford Office Park 
+189 Witkoppen Road (c/o Waterford Drive) 
+Fourways 
+South Africa 
+ 
+https://adroittech.co.za/</pre></article>
+<article class="chapter"><h3>Page 3</h3><div class="note">Page 3</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 3 
+Contents 
+1. 
+Overview ............................................................................................................................................... 4 
+1.1. 
+Test Hardware ...................................................................................................................................4 
+2. 
+Wiring ................................................................................................................................................... 5 
+2.1. 
+DB9, DTE to DTE cable diagram RS-232C - 3 wire ................................................................................5 
+2.2. 
+DB9, DTE to DTE cable diagram RS-232C - 3 wire ................................................................................5 
+2.3. 
+DB9, DTE to DTE cable diagram RS-232C - 7 wire ................................................................................5 
+2.4. 
+RS422/485 – 2 wire, bus cabling .........................................................................................................6 
+2.5. 
+RS422/485 – 4 wire, bus cabling .........................................................................................................6 
+3. 
+Device Configuration ............................................................................................................................ 7 
+3.1. 
+Device Configuration ..........................................................................................................................7 
+3.1.1. 
+PLC Details .................................................................................................................................................. 8 
+3.1.2. 
+Serial .......................................................................................................................................................... 9 
+3.1.3. 
+Purging ....................................................................................................................................................... 9 
+3.1.4. 
+Error handling – Multi-dropped system variables ............................................................................................. 9 
+3.1.5. 
+Latency ..................................................................................................................................................... 10 
+3.1.6. 
+Data Ranges.............................................................................................................................................. 10 
+4. 
+Supported Addresses .......................................................................................................................... 11 
+5. 
+Protocol Definition and Considerations .............................................................................................. 12 
+5.1. 
+Timesync Considerations .................................................................................................................. 12 
+5.2. 
+COMLI – Protocol function supported ................................................................................................ 12 
+6. 
+General Notes and Troubleshooting ................................................................................................... 13 
+6.1. 
+Contact Details ................................................................................................................................. 13 
+6.2. 
+Adroit Technologies Knowledge Base ................................................................................................. 13 
+7. 
+ Appendix A - Configuring Mitsubishi FX5 as a COMLI slave .............................................................. 14 
+7.1. 
+COMLI Function Block Setup ............................................................................................................. 14 
+7.2. 
+PLC program .................................................................................................................................... 14 
+7.3. 
+PLC Wiring ....................................................................................................................................... 15 
+7.4. 
+Resulting Output .............................................................................................................................. 15 
+7.5. 
+FX5 / COMLI I/O Mapping ................................................................................................................. 16 
+8. 
+Revisions ............................................................................................................................................. 17 
+8.1. 
+Document Revision........................................................................................................................... 17 
+8.2. 
+DLL Revision .................................................................................................................................... 17</pre></article>
+<article class="chapter"><h3>Page 4</h3><div class="note">Page 4</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 4 
+1. 
+Overview 
+ 
+This driver supports the ABB Communications link driver. 
+ 
+The 2nd Generation driver allows for the following features: 
+• 
+Improved performance due to optimizations on mixed I/O to the same protocol area being 
+transacted only once removing redundant transactions. 
+• 
+Serial drivers by design don’t benefit from multiple channels thus only one channel per device 
+is enforced. Up to 247 Multi-dropped devices are supported per port. 
+• 
+Demand scanning support, where read only I/O that is not on a mimic / graphic form and not 
+logged or alarmed will be removed from the scanning system, the applicable tasks will 
+dynamically reduce is size and merge into fewer scan tasks. 
+ 
+For improved network performance and reliability, it is recommended to use of industrial USB serial 
+ports or true serial cards into the machines where applicable. RS-232 and RS-485 and RS-422 is 
+supported. 
+Windows traditionally expects COM ports to always be available, therefore losing contact with 
+Ethernet/serial extenders can cause lockups. Please contact Adroit support if you suspect this. 
+ 
+1.1. Test Hardware 
+ 
+This driver has been tested on the following hardware: 
+ 
+FX5U -32MT/DSS PLC using USER_FB_Comli_FX5U function block dated 2019/04/24 14:25:42</pre></article>
+<article class="chapter"><h3>Page 5</h3><div class="note">Page 5</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 5 
+2. 
+Wiring 
+ 
+Control of DSR/DTR CTS/RTS signalling is available as needed. 
+RS-232-c/RS-422/485, 4 and 2 wire supported. 
+ 
+2.1. DB9, DTE to DTE cable diagram RS-232C - 3 wire 
+ (With loopbacks in case the system expects signalling) 
+ 
+PLC 9 pin 
+ 
+PC 9 pin 
+2 RX 
+ 
+2 RX 
+3 TX 
+ 
+3 TX 
+5 GND 
+ 
+5 GND 
+Note: Connect shield to one side, PLC side only. 
+ 
+2.2. DB9, DTE to DTE cable diagram RS-232C - 3 wire 
+(With CTS/RTS loopbacks in case the system expects signalling, and DSR, DTR pulled high/Low on 
+CD) 
+ 
+PLC 9 pin 
+ 
+PC 9 pin 
+2 RX 
+ 
+2 RX 
+3 TX 
+ 
+3 TX 
+5 GND 
+ 
+5 GND 
+7 RTS 
+ 
+7 RTS 
+8 CTS 
+ 
+8 XCTS 
+1 CD 
+ 
+1 CD 
+4 DTR 
+ 
+4 DTR 
+6 DSR 
+ 
+6 DSR 
+Note: Connect shield to one side, PLC side only. 
+Also used for ABB AC-400 series DCS (diagram as above) 
+ 
+2.3. DB9, DTE to DTE cable diagram RS-232C - 7 wire 
+ 
+PLC 9 pin 
+ 
+PC 9 pin 
+2 RX 
+ 
+2 RX 
+3 TX 
+ 
+3 TX 
+5 GND 
+ 
+5 GND 
+7 RTS 
+ 
+7 RTS 
+8 CTS 
+ 
+8 CTS 
+4 DTR 
+ 
+4 DTR 
+6 DSR 
+ 
+6 DSR 
+Note: Connect shield to one side, PLC side only.</pre></article>
+<article class="chapter"><h3>Page 6</h3><div class="note">Page 6</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 6 
+2.4. RS422/485 – 2 wire, bus cabling 
+ 
+PLC 
+ 
+PC 
+SG 
+ 
+Signal ground 
+SDA 
+ 
+R+(D+) 
+RDA 
+ 
+ 
+SDB 
+ 
+R-(D-) 
+RDB 
+ 
+ 
+ *Polarity is important 
+ 
+2.5. RS422/485 – 4 wire, bus cabling 
+ 
+PLC 
+ 
+PC 
+SG* 
+ 
+Signal ground 
+SDA 
+ 
+R+ 
+SDB 
+ 
+R- 
+RDA 
+ 
+T+ 
+RDB 
+ 
+T- 
+*Ground can be left disconnected 
+*Polarity is important</pre></article>
+<article class="chapter"><h3>Page 7</h3><div class="note">Page 7</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 7 
+3. 
+Device Configuration 
+ 
+3.1. Device Configuration</pre></article>
+<article class="chapter"><h3>Page 8</h3><div class="note">Page 8</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 8 
+Enable secondary – Turn this option to have the driver maintain 2 channels of communication, the 
+radio buttons Primary and Secondary can then be used to toggle between configurations. 
+ 
+Enable shadow scanning from master to standby – NASA specific function – per device agent 
+level shadow scanning. 
+ 
+If enabled, writes will be sent to the master to be executed on its corresponding device and reads 
+from master will be replicated to the standby. 
+ 
+If disabled, writes Parallel scanning is enabled. 
+ 
+Enable standby reads – If disabled, the standby will be considered cold, no reading will take place 
+on the standby connection, and neither will any replication from the master occur. 
+ 
+Enable standby writes – If disabled, no writing will take place on the standby connection, and 
+neither will any request be forwarded to the master. 
+ 
+ 
+3.1.1. PLC Details 
+Station ID – (Default = 1) PLC station id 1 – 247. Master is always 0. 
+ 
+PLC Model – (Default = ABB CPU) Choose a specific model. 
+ 
+Debug level bitmask – (Default: 480) - This is a bit mask that enable extra debugging in the 
+datascope output, do not leave it enabled during normal operation on high-speed drivers as it will 
+slow down the system depending on speed requirements. In serial drivers this delay is negligible. 
+(Remember: All NASA drivers one can stop and start the device to reload these flags.) 
+960 default is just the protocol messages 40hex + 80hex+ 100hex + 200hex = 3C0hex -&gt; 960 decimal 
+in the dialogue. 
+ 
+#define DEBUG_MASK_COMSRESOURCE_INFO 
+ 0x00000001 
+#define DEBUG_MASK_COMSRESOURCE_CRITICAL 
+ 0x00000002 
+#define DEBUG_MASK_PROTOCOL_ITEM_VALUES 
+ 0x00000004 
+#define DEBUG_MASK_PROTOCOL_ITEM_BAD_VALUES 0x00000008 
+#define DEBUG_MASK_NASA_POOLS 
+ 0x00000010 
+#define DEBUG_MASK_TIMING 
+ 
+ 0x00000020 
+#define DEBUG_MASK_PROTOCOL_RESPONSES 
+ 0x00000040 
+#define DEBUG_MASK_PROTOCOL_REQUESTS 
+ 0x00000080 
+#define DEBUG_MASK_PROTOCOL_READ_DESC 
+ 0x00000100 
+#define DEBUG_MASK_PROTOCOL_WRITE_DESC 
+ 0x00000200 
+ 
+Stale threshold – (Default = 5) Every nth occurrence of an unchanged item value will be sent to the 
+master. If the value is different, the value will be sent regardless of this count. This count reduces 
+unnecessary event within the agent server. Set to report every poll value regardless of change, where 
+0 is not a valid option. 
+ 
+Max PDU length – (Default = 32) The overall maximum transaction length. 1 is the lowest value up 
+to 32 × 16-bit registers or 32 × 16 discrete bits digitals per transaction.</pre></article>
+<article class="chapter"><h3>Page 9</h3><div class="note">Page 9</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 9 
+3.1.2. Serial 
+Com Port – Only insert the number for the port. For example, “4” for COM4. 
+ 
+Baud rate – (Default = 9600) Select the required baud rate from the selection provided. 
+ 
+Data bits – (Default = 8) Select the required data bit count from the selection provided. 
+ 
+Parity – (Default = Odd) Select the required Parity mode from the selection provided. 
+ 
+Stop bits – (Default = 1) Select the required stop bit count from the selection provided. 
+ 
+Transaction timeout – (Default =3000ms) Insert the required timeout for the system in 
+milliseconds. 
+ 
+485 Reflections – (Default = False) Check if reflection detection and compensation is required on 
+the port [Currently not implemented]. 
+ 
+3.1.3. Purging 
+The driver will purge TX and RX buffers (data on the port) by default when required. 
+However, some systems such as Ethernet to serial port servers can become overloaded or even lockup 
+if left receiving bytes in its internal buffer without a driver reading anything for a long period. For 
+example, when a cluster partner is in standby, use the setting below to compensate: 
+ 
+Purge port in standby – (Default = False) Check if purging of the buffers is to be performed in the 
+background while the cluster partner is in standby. 
+ 
+Purge mode – (Default = SOFT) SOFT cause a simple flushing via reading any available bytes, 
+HARD sends a system call to tell the device itself to flush. Some systems have become unresponsive 
+in HARD mode. 
+ 
+3.1.4. Error handling – Multi-dropped system variables 
+Retries – Enable this button to have the driver keep the PLC connection alive. Please see the PLC 
+program and heartbeat sections below. This option is only useful with the watchdog program running 
+in the PLC. 
+ 
+Backoff count – (Default = 5) Require 5 full consecutive failures including retries. 
+ E.g. if 3 retries is configured and the backoff count is 5, the system will go into a backoff delay 
+period in which this device will not be polled or written to for the Backoff period, in this example after 
+the ((1 + 3) × 5) consecutive failures. 
+ 
+Backoff period – Specify the millisecond interval the device will stay silent on the channel. This is 
+very useful in multi-dropped systems as failing devices do not severely affect online devices. 
+ 
+Disconnect after every transaction – (Default = False) Tell the channel to close the port after 
+every transaction. This can be useful on gateways if required. 
+ 
+Disconnect after every error – (Default = False) Tell the channel to close and reopen the port on 
+every error during retries else it will only occur after the final retry.</pre></article>
+<article class="chapter"><h3>Page 10</h3><div class="note">Page 10</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 10 
+3.1.5. Latency 
+Inter-PLC latency – The period that the system will wait before transmitting any read request or 
+write request in multi-dropped system when a new device is contacted. 
+ 
+Transmission latency – The period that the system will wait before transmitting any read request 
+or write request for the same PLC device. Inter message delay. 
+ 
+Tx to RX latency – The period that the system will wait after transmitting a request and before attempting 
+to read the response. 
+3.1.6. Data Ranges 
+P – (Default = 16376) I/O bits area. Bits below 4000 hexadecimal index is in bits. Example: P 6, P 7, 
+… P n. 
+ 
+PR – I/O bits above 4000 hexadecimal (addressed in octal, index is in 16-bit registers. Example: PR 
+0 W, PR 1 W … PR n W) 
+As of Rev 13 PR area now supports Bits in Registers as well. For example, PR 1000.0 the bit index is 
+in decimal. 0 -&gt; 15 
+ 
+R – Registers {assumed these are referring to the high registers} 
+A – Analogue outputs [Currently not implemented] 
+ 
+AI – Analogue inputs [Currently not implemented] 
+ 
+T 0 – Time Sync can be scanned to any agent slot but must be Input disabled and Output enabled. 
+This is used to send down master time to the outstation.</pre></article>
+<article class="chapter"><h3>Page 11</h3><div class="note">Page 11</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 11 
+4. 
+Supported Addresses 
+ 
+ABB COMLI PLC data (device) types supported in the Adroit Protocol. Please note Decimal is used 
+throughout. 
+ 
+Device 
+Prefix 
+Max 
+Range 
+PLC Data 
+Type 
+Boolean 
+Integer 
+Real 
+String 
+P – I/O bits 
+P 
+0 - 16376 
+Bit 
+P 0 
+- 
+- 
+- 
+(Octal) 
+ 
+ 
+Word16 
+Int16 
+- 
+- 
+P 0 W 
+P 0 I 
+P 10 W 
+P 70 I 
+- 
+- 
+PR – I/O registers 
+ 
+PR 
+0 – 3071 
+Bit 
+ 
+* 
+PR 0.0 
+PR 0.15 
+PR 0 W 
+- 
+- 
+- 
+(Decimal) 
+ 
+ 
+Word16 
+Int16 
+- 
+- 
+PR 0 W 
+PR 79 I 
+PR 1 W 
+PR 89 I 
+- 
+- 
+T – Time sync 
+T 
+0 
+Bit 
+T 0 
+- 
+- 
+- 
+(write only, input 
+inhibited) 
+ 
+ 
+Word16 
+- 
+ 
+T 0 W 
+T 0 W 
+- 
+ 
+R (Future) 
+R 
+0 - 65535 
+Int16 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+Word16 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+DWord32 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+Long32 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+Float32 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+Int16 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+String 
+- 
+- 
+- 
+- 
+A AI (Future) 
+A 
+- 
+Int16 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+Word16 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+DWord32 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+Long32 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+Float32 
+- 
+- 
+- 
+- 
+ 
+ 
+ 
+String 
+- 
+- 
+- 
+- 
+* PR 0 W as a whole word can be scanned into a digital so that any value is deemed 1 (true) and 0 
+is 0 (false).</pre></article>
+<article class="chapter"><h3>Page 12</h3><div class="note">Page 12</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 12 
+5. Protocol Definition and Considerations 
+5.1. Timesync Considerations 
+ 
+Scan address T 0, T 0 W scan to any discreet agent type such as BOOLEAN, INTEGER or REAL 
+Agent. 
+Make sure the Input disabled and Output enabled check boxes are checked, as this type is 
+write-only. 
+ 
+ 
+ 
+The driver will then send down the system time in UTC time format. 
+ 
+5.2. COMLI – Protocol function supported 
+ 
+ 
+0 30H (Write) Transfer Multiple I/O bits ( P 0 ) or register (P 0 W) 
+ 
+1 31H Acknowledge. 
+ 
+2 32H Requests multiple I/O bits or registers groups of at least 8 bits, registers are 
+ groups of 16bits 
+ 
+3 33H (Write) Transfer single I/O bit 
+ 
+4 34H Request a single I/O bit. (Redundant function 2 is used) 
+ 
+J 4AH Transfer date and time in UTC format. 
+ 
+If more messages are required, please contact the Adroit driver department as these will be added 
+as required.</pre></article>
+<article class="chapter"><h3>Page 13</h3><div class="note">Page 13</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 13 
+6. General Notes and Troubleshooting 
+6.1. Contact Details 
+ 
+Email: support@adroit.co.za and drivers@adroit.co.za 
+ 
+Phone: +27 11 658-8100 
+ 
+Web: www.adroit.co.za 
+ 
+6.2. Adroit Technologies Knowledge Base 
+ 
+For additional information, please refer to our Knowledgebase website: 
+ 
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback 
+(adroittechnologiesautomation.com)</pre></article>
+<article class="chapter"><h3>Page 14</h3><div class="note">Page 14</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 14 
+7. 
+ Appendix A - Configuring Mitsubishi FX5 
+as a COMLI slave 
+ 
+7.1. COMLI Function Block Setup 
+ 
+This example uses the FX5U -32MT/DSS Plc using CH1 of USER_FB_Comli_FX5U function block dated 
+2019/04/24 14:25:42 
+ 
+7.2. PLC program 
+ 
+Fx5 plc with a serial port, in this example a FX5U-32MT/DSS was used. 
+The RS-485 port on the FX5 is channel 1, therefore ComliFXSlaveCH1 function block must be used. 
+ 
+Make sure the COM port settings match the Master driver settings. Baud rate, Databit length, stopbits 
+and parity. Check that the station number matches what is required.</pre></article>
+<article class="chapter"><h3>Page 15</h3><div class="note">Page 15</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 15 
+ 
+ 
+ 
+ 
+7.3. PLC Wiring 
+ 
+Example provided is wired for RS485 (2-wire) 
+ 
+Hint: use 2 terminal programs and a second RS485 port, make sure to test the link by sending and 
+receiving on the opposite end in both directions. This confirms the TX and RX buffers are working on 
+the 485 modules. 
+ 
+ 
+7.4. Resulting Output 
+ 
+Resulting montage PLC monitored via gxworks3, Adroit classic UI, Adroit datascope below.</pre></article>
+<article class="chapter"><h3>Page 16</h3><div class="note">Page 16</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 16 
+ 
+ 
+7.5. FX5 / COMLI I/O Mapping 
+ 
+• 
+COMLI P’s are described in OCTAL in the COMLI protocol specification, but we have decided to 
+prevent confusion to rather standardize as decimal. 
+ 
+• 
+P’s map to M’s in the FX5 plc … P0 ~ M0 
+ 
+• 
+P 0 W in Adroit is a 16-bit array or P’s mapped to COMLI P0, P1 ... P15 ~ [M0, M1 ... M15] 
+ 
+• 
+PR’s in COMLI are any 16-bit register addressing decimal higher than 0x4000 but addressed as 
+decimal starting from 0 such that PR 0 W maps to D0 in Mitsubishi. 
+ 
+• 
+PR 0 W ~ D0, PR 1 W ~ D1 … etc 
+ 
+• 
+PR 0.0 bit in Register read and writes (with read before write) to digital agents is supported. 
+ 
+• 
+PR 0 W as a whole word can be scanned into a digital also so that any value is 1, 0 is 0.</pre></article>
+<article class="chapter"><h3>Page 17</h3><div class="note">Page 17</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 17 
+8. 
+Revisions 
+ 
+8.1. Document Revision 
+ 
+Rev. 
+Date 
+Author 
+Comment 
+Approval 
+1.0 
+14-Dec-2022 
+J. Duncan 
+New Format 
+D. Jordaan 
+1.2 
+19-Jan-2022 
+K. 
+Robinson 
+Removed shadow effect on images, content 
+formatting and changes. Changed arrow 
+graphics. 
+D. Jordaan 
+2.0 
+ 
+ 
+ 
+ 
+3.0 
+ 
+ 
+ 
+ 
+4.0 
+ 
+ 
+ 
+ 
+5.0 
+ 
+ 
+ 
+ 
+6.0 
+ 
+ 
+ 
+ 
+ 
+8.2. DLL Revision 
+ 
+Rev. 
+Date 
+Changes 
+14 
+17/03/2021 
+Updated documentation. 
+18 
+16/11/2022 
+Shadow mode partner (with offline redundant plc) in standby did not mark 
+affected tags bad when becoming master.</pre></article>
+<article class="chapter"><h3>Page 18</h3><div class="note">Page 18</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_COMLI.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 18</pre></article>
+</section>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Protocol Driver
+Name
+Communications Link Serial Protocol Driver
+DLL
+D_COMLI_SER
+
+[Page 3]
+ATQMS-DRVR-DOC-D_COMLI.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-D_COMLI.docx
+P a g e | 4
+1.
+Overview
+This driver supports the ABB Communications link driver.
+The 2nd Generation driver allows for the following features:
+Improved performance due to optimizations on mixed I/O to the same protocol area being
+transacted only once removing redundant transactions.
+Serial drivers by design don&#x27;t benefit from multiple channels thus only one channel per device
+is enforced. Up to 247 Multi-dropped devices are supported per port.
+Demand scanning support, where read only I/O that is not on a mimic / graphic form and not
+logged or alarmed will be removed from the scanning system, the applicable tasks will
+dynamically reduce is size and merge into fewer scan tasks.
+For improved network performance and reliability, it is recommended to use of industrial USB serial
+ports or true serial cards into the machines where applicable. RS-232 and RS-485 and RS-422 is
+supported.
+Windows traditionally expects COM ports to always be available, therefore losing contact with
+Ethernet/serial extenders can cause lockups. Please contact Adroit support if you suspect this.
+1.1. Test Hardware
+This driver has been tested on the following hardware:
+FX5U -32MT/DSS PLC using USER_FB_Comli_FX5U function block dated 2019/04/24 14:25:42
+
+[Page 8]
+ATQMS-DRVR-DOC-D_COMLI.docx
+P a g e | 8
+Enable secondary - Turn this option to have the driver maintain 2 channels of communication, the
+radio buttons Primary and Secondary can then be used to toggle between configurations.
+Enable shadow scanning from master to standby - NASA specific function - per device agent
+level shadow scanning.
+If enabled, writes will be sent to the master to be executed on its corresponding device and reads
+from master will be replicated to the standby.
+If disabled, writes Parallel scanning is enabled.
+Enable standby reads - If disabled, the standby will be considered cold, no reading will take place
+on the standby connection, and neither will any replication from the master occur.
+Enable standby writes - If disabled, no writing will take place on the standby connection, and
+neither will any request be forwarded to the master.
+3.1.1. PLC Details
+Station ID - (Default = 1) PLC station id 1 - 247. Master is always 0.
+PLC Model - (Default = ABB CPU) Choose a specific model.
+Debug level bitmask - (Default: 480) - This is a bit mask that enable extra debugging in the
+datascope output, do not leave it enabled during normal operation on high-speed drivers as it will
+slow down the system depending on speed requirements. In serial drivers this delay is negligible.
+(Remember: All NASA drivers one can stop and start the device to reload these flags.)
+960 default is just the protocol messages 40hex + 80hex+ 100hex + 200hex = 3C0hex -&gt; 960 decimal
+in the dialogue.
+#define DEBUG_MASK_COMSRESOURCE_INFO
+0x00000001
+#define DEBUG_MASK_PROTOCOL_ITEM_BAD_VALUES 0x00000008
+#define DEBUG_MASK_NASA_POOLS
+0x00000010
+0x00000020
+#define DEBUG_MASK_PROTOCOL_RESPONSES
+Stale threshold - (Default = 5) Every nth occurrence of an unchanged item value will be sent to the
+master. If the value is different, the value will be sent regardless of this count. This count reduces
+unnecessary event within the agent server. Set to report every poll value regardless of change, where
+0 is not a valid option.
+Max PDU length - (Default = 32) The overall maximum transaction length. 1 is the lowest value up
+to 32 × 16-bit registers or 32 × 16 discrete bits digitals per transaction.
+
+[Page 9]
+ATQMS-DRVR-DOC-D_COMLI.docx
+P a g e | 9
+3.1.2. Serial
+Com Port - Only insert the number for the port. For example, &quot;4&quot; for COM4.
+Baud rate - (Default = 9600) Select the required baud rate from the selection provided.
+Data bits - (Default = 8) Select the required data bit count from the selection provided.
+Parity - (Default = Odd) Select the required Parity mode from the selection provided.
+Stop bits - (Default = 1) Select the required stop bit count from the selection provided.
+Transaction timeout - (Default =3000ms) Insert the required timeout for the system in
+milliseconds.
+485 Reflections - (Default = False) Check if reflection detection and compensation is required on
+the port [Currently not implemented].
+3.1.3. Purging
+The driver will purge TX and RX buffers (data on the port) by default when required.
+However, some systems such as Ethernet to serial port servers can become overloaded or even lockup
+if left receiving bytes in its internal buffer without a driver reading anything for a long period. For
+example, when a cluster partner is in standby, use the setting below to compensate:
+Purge port in standby - (Default = False) Check if purging of the buffers is to be performed in the
+background while the cluster partner is in standby.
+Purge mode - (Default = SOFT) SOFT cause a simple flushing via reading any available bytes,
+HARD sends a system call to tell the device itself to flush. Some systems have become unresponsive
+in HARD mode.
+3.1.4. Error handling - Multi-dropped system variables
+Retries - Enable this button to have the driver keep the PLC connection alive. Please see the PLC
+program and heartbeat sections below. This option is only useful with the watchdog program running
+in the PLC.
+Backoff count - (Default = 5) Require 5 full consecutive failures including retries.
+E.g. if 3 retries is configured and the backoff count is 5, the system will go into a backoff delay
+period in which this device will not be polled or written to for the Backoff period, in this example after
+the ((1 + 3) × 5) consecutive failures.
+Backoff period - Specify the millisecond interval the device will stay silent on the channel. This is
+very useful in multi-dropped systems as failing devices do not severely affect online devices.
+Disconnect after every transaction - (Default = False) Tell the channel to close the port after
+every transaction. This can be useful on gateways if required.
+Disconnect after every error - (Default = False) Tell the channel to close and reopen the port on
+every error during retries else it will only occur after the final retry.
+
+[Page 12]
+ATQMS-DRVR-DOC-D_COMLI.docx
+P a g e | 12
+5. Protocol Definition and Considerations
+5.1. Timesync Considerations
+Scan address T 0, T 0 W scan to any discreet agent type such as BOOLEAN, INTEGER or REAL
+Agent.
+Make sure the Input disabled and Output enabled check boxes are checked, as this type is
+write-only.
+The driver will then send down the system time in UTC time format.
+5.2. COMLI - Protocol function supported
+0 30H (Write) Transfer Multiple I/O bits ( P 0 ) or register (P 0 W)
+1 31H Acknowledge.
+2 32H Requests multiple I/O bits or registers groups of at least 8 bits, registers are
+groups of 16bits
+3 33H (Write) Transfer single I/O bit
+4 34H Request a single I/O bit. (Redundant function 2 is used)
+J 4AH Transfer date and time in UTC format.
+If more messages are required, please contact the Adroit driver department as these will be added
+as required.</pre>
+</details>
+
+
+<script>
+(function() {
+  function refToDrivers(ref) {
+    return /drivers\.html([?#]|$)/i.test(ref || "");
+  }
+  function setBack() {
+    var link = document.getElementById("backLink");
+    if (!link) return;
+    if (!document.referrer) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else if (refToDrivers(document.referrer)) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else {
+      link.textContent = "← Back to Help Index";
+      link.href = "../index.html";
+    }
+    if (document.referrer) {
+      link.addEventListener("click", function(ev) {
+        ev.preventDefault();
+        try { history.back(); } catch (e) {
+          window.location.href = link.getAttribute("href");
+        }
+      });
+    }
+  }
+  setBack();
+})();
+</script>
+
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+</body>
+</html>

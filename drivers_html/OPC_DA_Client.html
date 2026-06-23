@@ -1,0 +1,1397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OPC_DA_Client</title>
+<meta name="description" content="PDF wrapper for OPC_DA_Client. Open the PDF, review the extracted HTML text, and search the converted content.">
+<meta name="keywords" content="opc, server, driver, adroit, device, not, servers, connection, remote, client">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ats-adroit.github.io/mysoftware-help/drivers_html/OPC_DA_Client.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"OPC_DA_Client","description":"PDF wrapper for OPC_DA_Client","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/OPC_DA_Client.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
+<style>
+  :root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+  body { font-family: Arial, sans-serif; margin: 20px; color: var(--text); }
+  .top { margin-bottom: 12px; }
+  .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
+  .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
+  .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
+  .chapter { margin: 14px 0; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+</style>
+</head>
+<body>
+
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="backLink" href="../drivers.html" style="text-decoration:none;">&#8592; Back</a>
+</div>
+
+<style id="help-theme-style">
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+</style>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Product%20Manuals" style="text-decoration:none;">Product Manuals</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Supporting%20Docs" style="text-decoration:none;">Supporting Docs</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../specifications.html" style="text-decoration:none;">Specifications</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../best_practices.html" style="text-decoration:none;">Best Practices</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function withFreshParam(href) {
+    try {
+      var u = new URL(href, window.location.href);
+      u.searchParams.set("_t", String(Date.now()));
+      return u.toString();
+    } catch (e) {
+      var sep = href.indexOf("?") >= 0 ? "&" : "?";
+      return href + sep + "_t=" + Date.now();
+    }
+  }
+  var ch = document.querySelector('[data-chat-help="1"]');
+  if (ch && ch.getAttribute("href")) {
+    ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    ch.addEventListener("click", function() {
+      ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    });
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+<div class="top" style="margin-top:42px;">
+  <h1 style="margin:0 0 10px 0;">OPC_DA_Client</h1>
+  <a class="btn" href="../driver_docs/OPC_DA_Client.pdf">Open / Download PDF</a>
+  <div class="note">If the PDF viewer does not show, use the button above.</div>
+</div>
+
+<iframe class="viewer" src="../driver_docs/OPC_DA_Client.pdf"></iframe>
+
+<section class="conversion">
+<h2>Converted HTML</h2>
+<p class="note">This is an HTML rendering of the PDF text so crawlers and AI tools can read it without opening the PDF viewer.</p>
+<article class="chapter"><h3>Page 1</h3><div class="note">Page 1</div><pre>Adroit Technologies 
+Protocol Driver 
+ 
+ 
+ 
+Name 
+OPC DA Client 
+DLL 
+OPC_CL</pre></article>
+<article class="chapter"><h3>Page 2</h3><div class="note">Page 2</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 2 
+COPYRIGHT 
+ 
+Copyright © 2022 Advanced Worx 112 (Pty) Ltd. All rights reserved. 
+ 
+Information in this document is subject to change without notice. The software described in this document is furnished under a 
+license agreement or nondisclosure agreement. The software may be used or copied only in accordance with the terms of those 
+agreements. No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form or any means 
+electronic or mechanical, including photocopying and recording for any purpose other than the purchaser’s personal use without 
+the written permission of Advanced Worx 112 (Pty) Ltd. 
+ 
+ 
+Advanced Worx 112 (Pty) Ltd 
+20 Waterford Office Park 
+189 Witkoppen Road (c/o Waterford Drive) 
+Fourways 
+South Africa 
+ 
+https://adroittech.co.za/</pre></article>
+<article class="chapter"><h3>Page 3</h3><div class="note">Page 3</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 3 
+Contents 
+1. 
+Overview ............................................................................................................................................. 4 
+1.1. 
+Supported Hardware ....................................................................................................................... 4 
+2. 
+Device Configuration .......................................................................................................................... 6 
+2.1. 
+Driver Installation and Setup ............................................................................................................ 6 
+2.2. 
+Device Configuration ....................................................................................................................... 6 
+2.2.1. 
+Device Configuration ................................................................................................................................. 6 
+2.3. 
+Advanced Settings Dialog ................................................................................................................ 6 
+3. 
+Protocol Definition and Considerations .............................................................................................. 9 
+3.1. 
+Scanning Configuration .................................................................................................................... 9 
+3.2. 
+Resetting and Switching Connections ............................................................................................... 9 
+3.3. 
+Message Protocol ............................................................................................................................ 9 
+3.4. 
+Security ........................................................................................................................................ 10 
+3.4.1. 
+DCOM Configuration................................................................................................................................. 10 
+3.4.2. 
+Windows 10 Interface .............................................................................................................................. 10 
+4. 
+General Notes and Troubleshooting ................................................................................................. 13 
+4.1. 
+Contact Details .............................................................................................................................. 13 
+4.2. 
+Adroit Technologies Knowledge Base .............................................................................................. 13 
+4.3. 
+Troubleshooting ............................................................................................................................ 13 
+5. 
+Appendix A - OPC Server Notes ........................................................................................................ 15 
+5.1. 
+Specific OPC Servers ..................................................................................................................... 15 
+6. 
+Appendix B - DCOM Hardening ......................................................................................................... 17 
+6.1. 
+Background .................................................................................................................................. 17 
+6.2. 
+DCOM Hardening .......................................................................................................................... 17 
+7. 
+Appendix C – Terminology ................................................................................................................ 19 
+8. 
+Revisions ........................................................................................................................................... 20 
+8.1. 
+Document Revision........................................................................................................................ 20 
+8.2. 
+DLL Revision ................................................................................................................................. 20</pre></article>
+<article class="chapter"><h3>Page 4</h3><div class="note">Page 4</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 4 
+1. 
+Overview 
+ 
+OPC (OLE for Process Control) is a standard specification that makes it possible for 
+automation/control software applications and field systems/devices to interoperate and 
+communicate data between each other. 
+ 
+To learn more about what OPC is, visit the OPC foundation website http://www.opcfoundation.org/ 
+ 
+The OPC Client driver for Adroit communicates to OPC servers that expose at least the OPC DA 
+Custom Interface Version 1.0A. The driver is compatible with OPC DA Version 2.0. As of revision 
+56 of the driver, it is not version 3.0 compatible. 
+ 
+ PLEASE NOTE 
+It is very important that Adroit users updating to revision 56 of the OPC client driver re-check 
+all their OPC client device settings as things have changed since. 
+ 
+ Read especially the setting “Override default DCOM security (for callbacks)” below. By default, 
+older versions of this driver had this setting hardcoded as enabled. 
+ 
+ Also make a note of newly introduced settings (such as “auto recovery”) and make sure you 
+understand what is being provided for in this new version. “Auto recovery” was not a feature 
+available in older versions of the driver. 
+1.1. 
+Supported Hardware 
+ 
+This is equipment &amp; vendor specific, installation instructions for specific OPC Servers is beyond the 
+intended scope of this document, however notes on specific differences have been included. OPC 
+Servers supporting version 2.0 of the OPC interface allow remote connections to servers as well as 
+local OPC server connections. 
+ 
+Please see the section on “Specific OPC Servers”, which covers differences experienced between 
+commonly encountered OPC Servers.</pre></article>
+<article class="chapter"><h3>Page 5</h3><div class="note">Page 5</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 5 
+ 
+Wiring 
+ 
+Not applicable.</pre></article>
+<article class="chapter"><h3>Page 6</h3><div class="note">Page 6</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 6 
+2. 
+Device Configuration 
+ 
+2.1. 
+Driver Installation and Setup 
+The driver is installed in Adroit by default. If not, you will need to install it via the “Drivers” tab and 
+click on “Add” in Adroit setup. The opc_cl.dll and the opc_cl.doc are then copied into the agent 
+directory. 
+ 
+2.2. 
+Device Configuration 
+2.2.1. Device Configuration 
+The configuration of an OPC client device has only three basic items of configuration for a connection. 
+These are: 
+ Remote or local 
+ If remote, name of remote host (or PC) 
+ The name of the OPC Server to connect to 
+As with most Adroit protocol drivers, you can also specify a secondary (or backup) connection. 
+ 
+ 
+ 
+Enable 
+Secondary 
+Enables secondary configuration for dual redundant OPC Server Connections. If 
+enabled, the primary and secondary buttons are also enabled to allow you to select 
+the connection you wish to configure. 
+This driver supports auto and manual resetting and switching of connections. See 
+“Resetting and Switching Connections” below. 
+Local host 
+Connect to an OPC Server on the local PC. The “host name” dropdown box will be 
+disabled. 
+Domain host / 
+Global host 
+Select an OPC Server on a remote PC. The “host name” dropdown box will be 
+enabled to allow you to select a remote PC. The reason for two buttons is simply to 
+allow for fast and slow (respectively) network searching of remote PC’s for populating 
+the dropdown box. “Domain host” will search the local domain only while “global 
+host” will take longer to search the wider network. 
+OPC Server 
+Select the OPC Server that you want to connect to. All servers registered on the PC 
+will be available in the dropdown box. If you are not able to see OPC Servers on a 
+remote PC please consult the paragraph on Security below. 
+ 
+2.3. 
+Advanced Settings Dialog 
+All advanced settings are accessible in the advanced dialog; Changes to these settings are not 
+required by default. Notable exceptions are listed in the section OPC Server Notes.</pre></article>
+<article class="chapter"><h3>Page 7</h3><div class="note">Page 7</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 7 
+ 
+ 
+Use synchronised 
+polling 
+(Default = off) OPC clients by nature receive data “by exception” 
+from OPC Servers. However, you can use OPC for polling data from 
+front end devices. This setting enables polling at the scan period 
+specified when configuring scan items. This setting should only be 
+used if necessary. 
+Poll from device 
+(Default = on) If polling is enabled, OPC can poll data from the 
+device or internal cache of the OPC Server. Unless you are sure as 
+to how your OPC Server operates, it is safer to leave this setting on. 
+Use OPC server 
+timestamps 
+(Default = off) For OPC severs that provide timestamp data, whose 
+timestamps must be reflected in Adroit as current and/or historical 
+data, or else the current time is used for all data as it is received by 
+the scanning subsystem. This setting is generally used for telemetry 
+systems. 
+Do not validate items 
+(Default = off) This will skip the OPC item validation process. 
+Normally used only if you configuring offline, appropriate if your OPC 
+Server requires the actual hardware to be connected in order to 
+validate correctly. Switching this setting off greatly speeds up the 
+agent server loading process for configurations with large amounts 
+of OPC scanning. 
+Use alternate item 
+validation. 
+(Default = off) Some OPC servers have been found not to support 
+the OPC “validate items” function. These servers can still be made 
+to validate by turning this selection on which will cause the driver to 
+add an item and remove and item for validation. Successfully 
+adding the item implies a valid OPC item. 
+Force OPC to convert 
+data types 
+(Default = on) The driver will ask the OPC Server for data in a format 
+that best suits Adroit. If the option is off, the driver will accept any 
+data types returned by the server and convert the data at runtime. 
+Turn this option off if you have problems adding scan-points/items.</pre></article>
+<article class="chapter"><h3>Page 8</h3><div class="note">Page 8</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 8 
+Use OPC 1.0 
+(Default = off) Forces the driver will use OPC interface version 1.0 
+if both are presented in the server. This setting allows operation 
+where an OPC server has got version 2.0, but it does not operate 
+satisfactorily. 
+Enable auto recovery 
+Enables the driver to attempt recovery of an OPC Server connection 
+should the connection fail for any reason. This is achieved on a 
+background thread for non-polled devices OR on a read/write 
+transaction for polled devices. 
+If auto recovery is disabled, auto recovery will not take place 
+regardless of whether a device is set for sync. polling or not, and 
+regardless of whether you have a secondary connection configured 
+or not. Therefore, if you have a secondary connection, ensure that 
+auto recovery is enabled to ensure switching between connections. 
+The auto recovery mechanism will always attempt to reconnect to 
+the primary connection before trying the secondary connection. 
+Auto recovery interval 
+(Default = 30 seconds) The interval time at which attempts to 
+recover a failed OPC server connection will be made. 
+Access path 
+(Default = none) The access path is an optional piece of information 
+that can be provided by the user if supported by the OPC Server. 
+For those of you familiar with the OPC specification, this is the same 
+as the OPC item access path as discussed in the specification. If 
+used, only items that use this access path may be scanned to this 
+device. Its use is highly server specific but it is intended to allow 
+the client to provide a ‘recommendation’ to the server regarding how 
+to get to the data. 
+Maximum number of 
+items per group/scan 
+task 
+(Defaults - 500 for Booleans, 250 for Analogs and 100 for Strings) 
+OPC uses groups to contain scan items. The number of items per 
+group is controlled with these settings. A new group will be created 
+once the max items for that particular type has been exceeded. 
+Read from device after 
+write (0 to disable) 
+(Default = all zero) By default, Adroit subscribes to items in the OPC 
+Server (i.e., is informed when data changes), the driver does not 
+poll for data. To ensure that a successful write has taken place, the 
+user can enable a “read after write” transaction by specifying a non-
+zero value in one or more of these fields. The driver will wait for 
+the configured period and then executes an OPC read for that tag. 
+Override default DCOM 
+security (for 
+callbacks) 
+Overrides DCOM configuration settings for OPC Server callbacks to 
+OPC client devices. This is a global setting for all OPC client devices. 
+This setting is not enabled by default to allow your PC’s DCOM 
+configuration to be in control. Typically, if you can connect to an 
+OPC Server, browse OPC items and select them for scanning, but 
+no values are returned when scanning is started, reverse this setting 
+to see if it makes a difference. If reversing the setting fixes the 
+problem, make sure all other OPC devices are still working normally. 
+If not, you need to leave this option unchecked and resolve the 
+problem via the default DCOM configuration settings. 
+ 
+Registry Details 
+ 
+Not applicable.</pre></article>
+<article class="chapter"><h3>Page 9</h3><div class="note">Page 9</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 9 
+3. Protocol Definition and Considerations 
+3.1. 
+Scanning Configuration 
+The default address is First:OPC:Address:01 this field must be substituted by the item ID (or name) 
+of the OPC item being scanned. Item ID can be browsed using the browse button which launches 
+Adroit OPCBROWSER utility to display all OPC items available on the selected OPC Server. 
+Note that some OPC Servers do not allow address space browsing, in such cases you need to type 
+in a tag name manually. You then need to read the documentation of that server to get details of 
+the item ID’s, and how to manually type them in. It is always possible to manually enter an item, if 
+the item is incorrectly typed, it may or may not be rejected based on the Server and the Advanced 
+settings for Validation of item-IDs 
+ 
+The update rate of a tag is determined by the scan period specified. The driver creates new OPC 
+groups automatically; a new group is created and managed for you if: 
+ 
+ The maximum number of tags per group (as configured in the Advanced dialog) is reached. 
+ Tags have a different scan rate. 
+3.2. 
+Resetting and Switching Connections 
+This driver supports the resetting and switching of connections using the device agent’s 
+“switchconnection” and “resetconnection” slots. Setting either of these slots to 1 will cause the 
+device to reset (close and re-open) the connection to the OPC Server or switch the connection from 
+the primary to the secondary connection. 
+ 
+These slots must be used with care in a cluster as they are shadowed to the partner. To prevent 
+shadowing, use the buttons as provided in the advanced dialog accessed from the configurator’s 
+scanning dialog – this will then perform the action on the connected agent server (master or standby) 
+only. 
+ 
+ WARNING 
+The OPC client driver uses “connection pooling”. This means that OPC client devices that use 
+the identical primary and secondary connection paths (host and OPC Server) will interact with 
+the OPC server via a single OPC client connection. Therefore, when resetting or switching a 
+device, any other devices using the same “pooled connection” will also be affected. 
+ 
+3.3. 
+Message Protocol 
+Datascope messages are displayed in ASCII mode. (Press the “A” key) 
+ 
+The underlying communication protocols to the device is not available to the OPC Client and thus 
+not showed, see the Troubleshooting section. 
+ 
+This window will however show all validation of tags. If the tag cannot be validated, a message 
+indicating the error code &amp; message will be displayed here. 
+ 
+All item updates (process-data changes) are also indicated here with an offset number of the tag 
+that’s being updated.</pre></article>
+<article class="chapter"><h3>Page 10</h3><div class="note">Page 10</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 10 
+3.4. 
+Security 
+More often than not, OPC client applications fail to connect to remote OPC servers for all sorts of 
+DCOM and NT Security reasons. 
+ 
+Firstly, it is recommended that OPC clients and OPC server PCs are configured within the same 
+domain to ease security issues. If this is not the case, then you are required to ensure that users 
+(and their passwords) are configured on all these PC&#x27;s and kept synchronised. 
+3.4.1. DCOM Configuration 
+To set up the minimum-security run DCOMCNFG.EXE and execute the following (methodology for 
+NT4.0 and Win2K only, as WinXP has a different interface described latter under “Windows XP 
+Interface”): 
+ On OPC Client machines, set the Default Authentication Level to (None) on the Default 
+Properties tab. 
+ On OPC Server machine, set the Default Authentication Level to (None) on the Default 
+Properties tab, add “Everyone” to both the Default Access Permissions and Default Launch 
+Permissions Access Control Lists on the Default Security tab. 
+With these settings, the domain setup (if any) as well as the IDs of the login users of each machine 
+will be of no importance. 
+ 
+ PLEASE NOTE 
+In very rare cases, some 3rd party OPC Servers/Clients may enforce security (by calling 
+CoInitializeSecurity) explicitly - this will override the above settings which will not allow them to 
+work. This is not a problem with Adroit OPC components. 
+ 
+Finally, you may find that an OPC client application such as Adroit Setup program (PSEXE.EXE) may 
+be unable to browse OPC servers on some remote PC&#x27;s. If this is the case, then ask your network 
+administrator to do the following on the remote PC in question: 
+ 
+ Run DCOMCNFG.EXE 
+ Select the OPCENUM application on the &quot;Applications&quot; tab 
+ Press the &quot;Properties&quot; button 
+ Select the &quot;Identity&quot; tab which allows you to select the user account to be used when the 
+OPCENUM application is run 
+ Select &quot;This user&quot; and enter an administrator&#x27;s username and password. Domain usernames 
+must be entered as &quot;domainname\username&quot;. 
+ Close DCOMCNFG.EXE 
+This should resolve the OPC Server browsing problem on a PC from remote OPC client applications. 
+3.4.2. Windows 10 Interface 
+For Windows XP onwards, the DCOM config program is an MMC snap-in. Run it in the same way and 
+get the screen below.</pre></article>
+<article class="chapter"><h3>Page 11</h3><div class="note">Page 11</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 11 
+ 
+ 
+Navigate to “My Computer” as shown, and then right-click for properties on the “My Computer” 
+branch. 
+ 
+ 
+ 
+From here the “Default Properties”. “Default Protocols” and “COM Security” tabs present all the 
+options that need changing. To edit the properties for a specific server as in the past, select the 
+Program or server from the right-hand panel as shown below for OPCEnum.</pre></article>
+<article class="chapter"><h3>Page 12</h3><div class="note">Page 12</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 12</pre></article>
+<article class="chapter"><h3>Page 13</h3><div class="note">Page 13</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 13 
+4. General Notes and Troubleshooting 
+4.1. 
+Contact Details 
+ 
+Email: support@adroit.co.za and drivers@adroit.co.za 
+ 
+Phone: +27 11 658-8100 
+ 
+Web: www.adroit.co.za 
+ 
+4.2. 
+Adroit Technologies Knowledge Base 
+ 
+For additional information, please refer to our Knowledgebase website: 
+ 
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback 
+(adroittechnologiesautomation.com) 
+ 
+4.3. 
+Troubleshooting 
+The Adroit Protocol Driver Monitor will give feedback on the OPC activity with error codes. 
+OPC Servers supporting only version 1.0 of the OPC spec/interface do not allow remote DCOM clients 
+i.e., OPC Server must be on same machine as Adroit. 
+ 
+If you have trouble getting a remote connection to work: 
+1. Use Explorer to connect to a share on the server machine. (Check your network) 
+2. Run Adroit’s OPC browser and see if it connects to the remote machine and shows the OPC 
+servers installed on it. (See the security section) 
+3. Try the same from a different computer, or with a local connection first by installing Adroit on 
+the server machine. 
+What version of OPC Client driver do I have? 
+If using versions prior to 5.0.4.0: 
+1. Using Explorer, open your Adroit folder, and find opc_cl.dll 
+2. Right-click the file, select properties from the pop-up menu. 
+3. Click on the &quot;Version&quot; (it&#x27;s the second one) tab and select the field &quot;DriverRevision&quot; from the 
+list on the left. The driver&#x27;s revision number will appear next to it. 
+ In Adroit 5.0.4.0 onwards: 
+1. In the setup program drivers tab, select the Driver (not a device) from the tree. 
+2. One of the fields in the list to the right will be Revision. 
+3. The Adroit website always shows the latest driver revision currently in production. 
+Changing the settings in the “Advanced” settings for the device 
+This can resolve many configuration problems, please read the Device configuration and OPC Server 
+notes sections. 
+Remember that any setting change requires a re-start of the Agent Server. Certain OPC Servers 
+implement the OPC spec differently, Adroit Technologies development department attempt to</pre></article>
+<article class="chapter"><h3>Page 14</h3><div class="note">Page 14</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 14 
+accommodate unexpected data format and custom-interface changes etc. by releasing driver 
+updates. Check our website for driver patches. Also check out the next section OPC Server notes for 
+your server.</pre></article>
+<article class="chapter"><h3>Page 15</h3><div class="note">Page 15</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 15 
+5. 
+Appendix A - OPC Server Notes 
+5.1. 
+Specific OPC Servers 
+OPC servers all behave differently; this section contains hints, notes, and generic problems 
+sometimes experienced. Sometimes these issues are resolved in future revisions of these OPC 
+Servers, and scenarios shown here may apply to servers we have not encountered or mentioned. 
+ 
+RS-LinX OPC Server 
+Rockwell 
+All Allen Bradley equipment and networks 
+ 
+ In the OPC server, you must create a topic for each CPU or unit that Adroit must communicate 
+with. Simply put: 
+ 
+Open the RSLinx Window, select the CPU you want from the tree 
+ 
+Select “Add DDE/OPC topic” from the menu and provide a logical name, this logical 
+name will appear in the OPC browser. You may use the same topic name as your 
+adroit device name here. 
+ CPUs without topics cannot be accessed via OPC. 
+ When configuring the OPC driver, you must select the OPC server, no other 
+settings are needed initially. Be careful to select RSLinx OPC server, not “RSLinx 
+Remote OPC server. The “Remote” is only used if the Agent server is on a different 
+PC to the actual communications server 
+ Do NOT type in an access path, ensure this driver setting is empty. 
+ When connecting to SLC 500, 5/01 and 5/02 I/O are not numbered in files as laid 
+out in program logic, but always start at 0. 
+ After all scan-points have been added, turn on the tick box for “do not validate items” in the 
+advanced settings, and restart the machine. If Adroit starts up at a time when the PLC is dis-
+connected, this prevents the loss of scan-points to disconnected devices which will occur. 
+ 
+When browsing tags in the OPC browser, ensure that the tick-box for “Detailed” mode is on.</pre></article>
+<article class="chapter"><h3>Page 16</h3><div class="note">Page 16</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 16 
+INAT OPC 
+INAT 
+H1, and Profibus networks for Siemens S5 and S7 equipment 
+ 
+1. Turn on the “do not validate items” tick-mark after commissioning all scans, since this server is 
+sometimes slower to start, and may cause scan-points to be lost during starting on large 
+systems. 
+2. In order to give the OPC server enough time to load, use DeviceStartDelay values of 5000ms 
+or greater, to find out how to edit this registry setting, search for DeviceStartDelay in the Adroit 
+help. 
+Johnson Controls OPC Server 
+Johnson Controls 
+Building management 
+This OPC Server makes use of the @ symbol in the item-address, and since Adroit previously reserved 
+the use of this symbol for subscription-scanning, you will need to disable subscription-scanning on 
+this device. Adroit will then treat the @ symbols as part of the OPC item-address, and not as an 
+internal agent tag-name reference. 
+ 
+Adding the REG_DWORD registry value &quot;DisableAtScanning&quot; to the registry for the 
+required device and setting it to 1. 
+For example, if you wanted to disable @ scanning in the WESTDAM device-agent 
+1. Open the registry editor 
+2. Find the following registry key: HKEY_LOCAL_MACHINE\SOFTWARE\Adroit 
+Technologies\Adroit\ProtocolDrivers\OPC_CL\WESTDAM 
+3. Add a DWORD entry called ‘DisableAtScanning’ (no quotes) 
+4. Set the value to 1 
+5. Perform steps 2 through 4 for any other Johnson Controls server devices. 
+ 
+Applicom OPC Server 
+Woodhead Systems Intl. 
+Communications server supporting many devices 
+If you want to browse variables by name in a Rockwell LogiX 5000 project, you will need to import 
+the project into Applicom OPC, please read your Applicom OPC Server manual on how to do this.</pre></article>
+<article class="chapter"><h3>Page 17</h3><div class="note">Page 17</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 17 
+6. 
+Appendix B - DCOM Hardening 
+6.1. 
+Background 
+The following section is extracted from the Adroit Knowledge Base regarding the security changes 
+with regards to DCOM, referred to in the Microsoft community as DCOM Hardening. 
+ 
+https://adroittechnologiesautomation.com/t/opc-dcom-hardening-microsoft-security-update/1271 
+ 
+6.2. 
+DCOM Hardening 
+To address the security vulnerability CVE-2021-26414 as found 
+at https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-26414 6, Microsoft is 
+hardening the Distributed Component Model (DCOM) on its Windows operating systems. 
+DCOM Hardening means that an authentication of level RPC_C_AUTHN_LEVEL_PKT_INTEGRITY or 
+higher for access to OPC Servers will be enforced. This level authenticates credentials and verifies 
+that no call data has been modified in transit. See https://docs.microsoft.com/en-
+us/windows/win32/rpc/authentication-level-constants 3 for more information about authentication 
+levels. 
+Currently, hardening is disabled by default but can be enabled via a DWORD registry value 
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Ole\AppCompat\RequireIntegrityActivationAuthentic
+ationLevel. 
+• 
+If this registry value does not exist DCOM Hardening is disabled by default 
+• 
+If this registry value equals 0, DCOM Hardening is disabled 
+• 
+If this registry value equals 1, DCOM Hardening is enabled 
+ 
+For those with updated versions of one of the Windows Operating Systems as shown 
+at https://support.microsoft.com/en-us/topic/kb5004442-manage-changes-for-windows-dcom-
+server-security-feature-bypass-cve-2021-26414-f1400b52-c141-43d2-941e-37ed901c769c 15, 
+DCOM hardening will automatically apply on June 14 2022 where hardening changes will be 
+enabled by default. This means that Microsoft will automatically generate this key on June 14 2022 
+and set it’s value to 1. The effect of this is that users will begin to see unsecure connections to 
+OPC Servers failing. This will ONLY happen if customers have not configured for secure 
+connections to their OPC Servers. These customers will have two options 
+1. Set the above DWORD registry value 
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Ole\AppCompat\RequireIntegrityActivationA
+uthenticationLevel to 0 and reboot your PC. This will only be effective until 14 Mar 2023 
+2. Configure for secure connections to OPC Servers using DCOM Configuration 
+(Start/Run/dcomcnfg) 
+Adroit strongly recommends that all customers review their DCOM Configuration settings 
+for all their OPC Servers and set the authentication level to “Packet Integrity” as shown 
+below for the Adroit OPC Server.</pre></article>
+<article class="chapter"><h3>Page 18</h3><div class="note">Page 18</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-OPC_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 18</pre></article>
+</section>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 4
+1.
+Overview
+OPC (OLE for Process Control) is a standard specification that makes it possible for
+automation/control software applications and field systems/devices to interoperate and
+communicate data between each other.
+To learn more about what OPC is, visit the OPC foundation website http://www.opcfoundation.org/
+The OPC Client driver for Adroit communicates to OPC servers that expose at least the OPC DA
+Custom Interface Version 1.0A. The driver is compatible with OPC DA Version 2.0. As of revision
+56 of the driver, it is not version 3.0 compatible.
+PLEASE NOTE
+It is very important that Adroit users updating to revision 56 of the OPC client driver re-check
+all their OPC client device settings as things have changed since.
+Read especially the setting &quot;Override default DCOM security (for callbacks)&quot; below. By default,
+older versions of this driver had this setting hardcoded as enabled.
+Also make a note of newly introduced settings (such as &quot;auto recovery&quot;) and make sure you
+understand what is being provided for in this new version. &quot;Auto recovery&quot; was not a feature
+available in older versions of the driver.
+1.1.
+Supported Hardware
+This is equipment &amp; vendor specific, installation instructions for specific OPC Servers is beyond the
+intended scope of this document, however notes on specific differences have been included. OPC
+Servers supporting version 2.0 of the OPC interface allow remote connections to servers as well as
+local OPC server connections.
+Please see the section on &quot;Specific OPC Servers&quot;, which covers differences experienced between
+commonly encountered OPC Servers.
+
+[Page 6]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 6
+2.
+Device Configuration
+2.1.
+Driver Installation and Setup
+The driver is installed in Adroit by default. If not, you will need to install it via the &quot;Drivers&quot; tab and
+click on &quot;Add&quot; in Adroit setup. The opc_cl.dll and the opc_cl.doc are then copied into the agent
+directory.
+2.2.
+Device Configuration
+2.2.1. Device Configuration
+The configuration of an OPC client device has only three basic items of configuration for a connection.
+These are:
+Remote or local
+If remote, name of remote host (or PC)
+The name of the OPC Server to connect to
+As with most Adroit protocol drivers, you can also specify a secondary (or backup) connection.
+Enable
+Secondary
+Enables secondary configuration for dual redundant OPC Server Connections. If
+enabled, the primary and secondary buttons are also enabled to allow you to select
+the connection you wish to configure.
+This driver supports auto and manual resetting and switching of connections. See
+&quot;Resetting and Switching Connections&quot; below.
+Local host
+Connect to an OPC Server on the local PC. The &quot;host name&quot; dropdown box will be
+disabled.
+Domain host /
+Global host
+Select an OPC Server on a remote PC. The &quot;host name&quot; dropdown box will be
+enabled to allow you to select a remote PC. The reason for two buttons is simply to
+allow for fast and slow (respectively) network searching of remote PC&#x27;s for populating
+the dropdown box. &quot;Domain host&quot; will search the local domain only while &quot;global
+host&quot; will take longer to search the wider network.
+OPC Server
+Select the OPC Server that you want to connect to. All servers registered on the PC
+will be available in the dropdown box. If you are not able to see OPC Servers on a
+remote PC please consult the paragraph on Security below.
+2.3.
+Advanced Settings Dialog
+All advanced settings are accessible in the advanced dialog; Changes to these settings are not
+required by default. Notable exceptions are listed in the section OPC Server Notes.
+
+[Page 9]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 9
+3. Protocol Definition and Considerations
+3.1.
+Scanning Configuration
+The default address is First:OPC:Address:01 this field must be substituted by the item ID (or name)
+of the OPC item being scanned. Item ID can be browsed using the browse button which launches
+Adroit OPCBROWSER utility to display all OPC items available on the selected OPC Server.
+Note that some OPC Servers do not allow address space browsing, in such cases you need to type
+in a tag name manually. You then need to read the documentation of that server to get details of
+the item ID&#x27;s, and how to manually type them in. It is always possible to manually enter an item, if
+the item is incorrectly typed, it may or may not be rejected based on the Server and the Advanced
+settings for Validation of item-IDs
+The update rate of a tag is determined by the scan period specified. The driver creates new OPC
+groups automatically; a new group is created and managed for you if:
+The maximum number of tags per group (as configured in the Advanced dialog) is reached.
+Tags have a different scan rate.
+3.2.
+Resetting and Switching Connections
+This driver supports the resetting and switching of connections using the device agent&#x27;s
+&quot;switchconnection&quot; and &quot;resetconnection&quot; slots. Setting either of these slots to 1 will cause the
+device to reset (close and re-open) the connection to the OPC Server or switch the connection from
+the primary to the secondary connection.
+These slots must be used with care in a cluster as they are shadowed to the partner. To prevent
+shadowing, use the buttons as provided in the advanced dialog accessed from the configurator&#x27;s
+scanning dialog - this will then perform the action on the connected agent server (master or standby)
+only.
+WARNING
+The OPC client driver uses &quot;connection pooling&quot;. This means that OPC client devices that use
+the identical primary and secondary connection paths (host and OPC Server) will interact with
+the OPC server via a single OPC client connection. Therefore, when resetting or switching a
+device, any other devices using the same &quot;pooled connection&quot; will also be affected.
+3.3.
+Message Protocol
+Datascope messages are displayed in ASCII mode. (Press the &quot;A&quot; key)
+The underlying communication protocols to the device is not available to the OPC Client and thus
+not showed, see the Troubleshooting section.
+This window will however show all validation of tags. If the tag cannot be validated, a message
+indicating the error code &amp; message will be displayed here.
+All item updates (process-data changes) are also indicated here with an offset number of the tag
+that&#x27;s being updated.
+
+[Page 13]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 13
+4. General Notes and Troubleshooting
+4.1.
+Contact Details
+Phone: +27 11 658-8100
+4.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)
+4.3.
+Troubleshooting
+The Adroit Protocol Driver Monitor will give feedback on the OPC activity with error codes.
+OPC Servers supporting only version 1.0 of the OPC spec/interface do not allow remote DCOM clients
+i.e., OPC Server must be on same machine as Adroit.
+If you have trouble getting a remote connection to work:
+1. Use Explorer to connect to a share on the server machine. (Check your network)
+2. Run Adroit&#x27;s OPC browser and see if it connects to the remote machine and shows the OPC
+servers installed on it. (See the security section)
+3. Try the same from a different computer, or with a local connection first by installing Adroit on
+the server machine.
+What version of OPC Client driver do I have?
+If using versions prior to 5.0.4.0:
+1. Using Explorer, open your Adroit folder, and find opc_cl.dll
+2. Right-click the file, select properties from the pop-up menu.
+3. Click on the &quot;Version&quot; (it&#x27;s the second one) tab and select the field &quot;DriverRevision&quot; from the
+list on the left. The driver&#x27;s revision number will appear next to it.
+1. In the setup program drivers tab, select the Driver (not a device) from the tree.
+2. One of the fields in the list to the right will be Revision.
+3. The Adroit website always shows the latest driver revision currently in production.
+Changing the settings in the &quot;Advanced&quot; settings for the device
+This can resolve many configuration problems, please read the Device configuration and OPC Server
+notes sections.
+Remember that any setting change requires a re-start of the Agent Server. Certain OPC Servers
+implement the OPC spec differently, Adroit Technologies development department attempt to
+
+[Page 16]
+ATQMS-DRVR-DOC-OPC_CL.docx
+P a g e | 16
+INAT OPC
+INAT
+H1, and Profibus networks for Siemens S5 and S7 equipment
+1. Turn on the &quot;do not validate items&quot; tick-mark after commissioning all scans, since this server is
+sometimes slower to start, and may cause scan-points to be lost during starting on large
+systems.
+2. In order to give the OPC server enough time to load, use DeviceStartDelay values of 5000ms
+or greater, to find out how to edit this registry setting, search for DeviceStartDelay in the Adroit
+help.
+Johnson Controls OPC Server
+Johnson Controls
+Building management
+This OPC Server makes use of the @ symbol in the item-address, and since Adroit previously reserved
+the use of this symbol for subscription-scanning, you will need to disable subscription-scanning on
+this device. Adroit will then treat the @ symbols as part of the OPC item-address, and not as an
+internal agent tag-name reference.
+Adding the REG_DWORD registry value &quot;DisableAtScanning&quot; to the registry for the
+required device and setting it to 1.
+For example, if you wanted to disable @ scanning in the WESTDAM device-agent
+1. Open the registry editor
+2. Find the following registry key: HKEY_LOCAL_MACHINE\SOFTWARE\Adroit
+3. Add a DWORD entry called &#x27;DisableAtScanning&#x27; (no quotes)
+4. Set the value to 1
+5. Perform steps 2 through 4 for any other Johnson Controls server devices.
+Applicom OPC Server
+Woodhead Systems Intl.
+Communications server supporting many devices
+If you want to browse variables by name in a Rockwell LogiX 5000 project, you will need to import
+the project into Applicom OPC, please read your Applicom OPC Server manual on how to do this.</pre>
+</details>
+
+
+<script>
+(function() {
+  function refToDrivers(ref) {
+    return /drivers\.html([?#]|$)/i.test(ref || "");
+  }
+  function setBack() {
+    var link = document.getElementById("backLink");
+    if (!link) return;
+    if (!document.referrer) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else if (refToDrivers(document.referrer)) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else {
+      link.textContent = "← Back to Help Index";
+      link.href = "../index.html";
+    }
+    if (document.referrer) {
+      link.addEventListener("click", function(ev) {
+        ev.preventDefault();
+        try { history.back(); } catch (e) {
+          window.location.href = link.getAttribute("href");
+        }
+      });
+    }
+  }
+  setBack();
+})();
+</script>
+
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+</body>
+</html>

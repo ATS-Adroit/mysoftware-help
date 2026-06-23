@@ -1,0 +1,1206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MQTT_Client_Protocol_Driver</title>
+<meta name="description" content="PDF wrapper for MQTT_Client_Protocol_Driver. Open the PDF, review the extracted HTML text, and search the converted content.">
+<meta name="keywords" content="mqtt, broker, message, client, topic, default, data, qos, once, not">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ats-adroit.github.io/mysoftware-help/drivers_html/MQTT_Client_Protocol_Driver.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"MQTT_Client_Protocol_Driver","description":"PDF wrapper for MQTT_Client_Protocol_Driver","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/MQTT_Client_Protocol_Driver.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
+<style>
+  :root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+  body { font-family: Arial, sans-serif; margin: 20px; color: var(--text); }
+  .top { margin-bottom: 12px; }
+  .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
+  .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
+  .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
+  .chapter { margin: 14px 0; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+</style>
+</head>
+<body>
+
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="backLink" href="../drivers.html" style="text-decoration:none;">&#8592; Back</a>
+</div>
+
+<style id="help-theme-style">
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+</style>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Product%20Manuals" style="text-decoration:none;">Product Manuals</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Supporting%20Docs" style="text-decoration:none;">Supporting Docs</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../specifications.html" style="text-decoration:none;">Specifications</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../best_practices.html" style="text-decoration:none;">Best Practices</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function withFreshParam(href) {
+    try {
+      var u = new URL(href, window.location.href);
+      u.searchParams.set("_t", String(Date.now()));
+      return u.toString();
+    } catch (e) {
+      var sep = href.indexOf("?") >= 0 ? "&" : "?";
+      return href + sep + "_t=" + Date.now();
+    }
+  }
+  var ch = document.querySelector('[data-chat-help="1"]');
+  if (ch && ch.getAttribute("href")) {
+    ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    ch.addEventListener("click", function() {
+      ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    });
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+<div class="top" style="margin-top:42px;">
+  <h1 style="margin:0 0 10px 0;">MQTT_Client_Protocol_Driver</h1>
+  <a class="btn" href="../driver_docs/MQTT_Client_Protocol_Driver.pdf">Open / Download PDF</a>
+  <div class="note">If the PDF viewer does not show, use the button above.</div>
+</div>
+
+<iframe class="viewer" src="../driver_docs/MQTT_Client_Protocol_Driver.pdf"></iframe>
+
+<section class="conversion">
+<h2>Converted HTML</h2>
+<p class="note">This is an HTML rendering of the PDF text so crawlers and AI tools can read it without opening the PDF viewer.</p>
+<article class="chapter"><h3>Page 1</h3><div class="note">Page 1</div><pre>Adroit Technologies 
+Protocol Driver 
+ 
+ 
+ 
+Name 
+MQTT Client Protocol Driver 
+DLL 
+D_MQTT_CL</pre></article>
+<article class="chapter"><h3>Page 2</h3><div class="note">Page 2</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 2 
+COPYRIGHT 
+ 
+Copyright © 2025 Advanced Worx 112 (Pty) Ltd. All rights reserved. 
+ 
+Information in this document is subject to change without notice. The software described in this document is furnished under a 
+license agreement or nondisclosure agreement. The software may be used or copied only in accordance with the terms of those 
+agreements. No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form or any means 
+electronic or mechanical, including photocopying and recording for any purpose other than the purchaser’s personal use without the 
+written permission of Advanced Worx 112 (Pty) Ltd. 
+ 
+Advanced Worx 112 (Pty) Ltd t/a Adroit Technologies 
+20 Waterford Office Park 
+189 Witkoppen Road (c/o Waterford Drive) 
+Fourways 
+South Africa 
+ 
+www.adroitscada.com</pre></article>
+<article class="chapter"><h3>Page 3</h3><div class="note">Page 3</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 3 
+Contents 
+1. 
+Overview ............................................................................................................................................... 4 
+1.1. 
+Supported Hardware ..........................................................................................................................5 
+2. 
+Wiring ................................................................................................................................................... 5 
+3. 
+Device Configuration ............................................................................................................................ 6 
+3.1. 
+Device Configuration ..........................................................................................................................6 
+3.1.1. 
+Driver Details .............................................................................................................................................. 7 
+3.1.2. 
+Device Details .............................................................................................................................................. 7 
+4. 
+Supported Addresses ............................................................................................................................ 9 
+4.1. 
+Example .......................................................................................................................................... 10 
+5. 
+Protocol Definition and Considerations .............................................................................................. 11 
+5.1. 
+Additional MQTT Information ............................................................................................................ 13 
+6. 
+General Notes and Troubleshooting ................................................................................................... 14 
+6.1. 
+Contact Details ................................................................................................................................. 14 
+6.2. 
+Adroit Technologies Knowledge Base ................................................................................................. 14 
+7. 
+Sparkplug B Notes .............................................................................................................................. 14 
+8. 
+Revisions ............................................................................................................................................. 15 
+8.1. 
+Document Revision........................................................................................................................... 15 
+8.2. 
+DLL Revision .................................................................................................................................... 15</pre></article>
+<article class="chapter"><h3>Page 4</h3><div class="note">Page 4</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 4 
+1. 
+Overview 
+ 
+Message Queue Telemetry Transport (MQTT) is a lightweight, report by exception, ISO-standard 
+publish/subscription messaging protocol specifically designed for the Internet of Things. The MQTT 
+network consists of publishers, subscribers and a broker. The publishers will publish or send 
+information to the broker; the broker will then relay those messages to the subscribers. The broker 
+is the “middleman” in the network and could be situated in the cloud. A publisher/subscriber are the 
+clients on the network and are linked together by topics. 
+ 
+ 
+Each Adroit Agent Server can enable tags linked to a topic and publish and/or subscrib, and acts as 
+a client on the network. If Adroit is a publisher, then it will write values out to other subscribers 
+(when the tag is scanned using Output enabled). When Adroit is a subscriber, then it waits for 
+data on a specific topic from any publisher to that topic. 
+ 
+There are three parts of an MQTT transmission: 
+ Message: This is the data that is passed through the broker to all clients subscribed to a 
+specific topic on the MQTT network. 
+ Topic: Some brokers support topic strings with a maximum of 128 levels and a maximum 
+length of 250 bytes, so an MQTT client connection that exceeds those limits will be closed. 
+ QoS: Quality of Service, ensures delivery to connected clients: 
+a. 
+At most once - The published message is sent once, and if it does not arrive it is lost. 
+b. 
+At least once - Guarantees that the published message arrives, but there may be duplicates. 
+c. 
+Exactly once - Guarantees that the publish message arrives and that there are no duplicates.</pre></article>
+<article class="chapter"><h3>Page 5</h3><div class="note">Page 5</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 5 
+1.1. Supported Hardware 
+ 
+This driver has been tested on the following hardware: 
+ 
+None applicable. 
+ 
+The driver has been tested is known to work with the following brokers: 
+• 
+Mosquitto 
+• 
+HiveMQ 
+ 
+2. 
+Wiring 
+ 
+Not applicable.</pre></article>
+<article class="chapter"><h3>Page 6</h3><div class="note">Page 6</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 6 
+3. 
+Device Configuration 
+3.1. Device Configuration 
+ 
+ 
+Enable secondary – Turn this option to have the driver maintain 2 channels of communication, 
+the radio buttons Primary and Secondary can then be used to toggle between configurations.</pre></article>
+<article class="chapter"><h3>Page 7</h3><div class="note">Page 7</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 7 
+3.1.1. Driver Details 
+Enable Secondary – (Default = OFF) Allows enabling of redundant MQTT Broker connections such 
+that in case of a failure a switchover will occur. 
+ 
+Primary – Allows configuration setting of the Primary broker connection. 
+ 
+Secondary – Allows configuration setting of the Secondary broker connection. 
+3.1.2. Device Details 
+Enable shadow scanning from master to standby – (Default = OFF) If enabled will stop any 
+communication to the MQTT broker when the Agent Server is in standby mode. By default, we 
+assume parallel scanning. 
+ 
+Enable standby reads – (Default = ON) Allows reading from the MQTT broker when the Agent 
+Server is in standby mode. 
+ 
+Enable standby writes – (Default = OFF) Allows writing to the MQTT broker when the Agent 
+Server is in standby mode. 
+ 
+Broker Host IP – The static IP Address or HOST name of the MQTT broker. Domain names are 
+resolved to IP addresses. To connect over WebSockets specify a hostname beginning with ws:// or 
+wss://. 
+For example: ws://test.mosquitto.org or test.mosquitto.org 
+ 
+Port – A valid port number is required for the connection to take place. 
+ 
+Client Name – The client identifier is a (1- 23 UTF-8 encoded) unique name to identify each MQTT 
+client to the MQTT broker. It should be unique per client for a given broker, and each Adroit server 
+device needs its own unique client ID. Click the button on the right-hand side to generate a random 
+string for this field if required. 
+ 
+Username – A username could be required by the MQTT broker. This allows authentication and 
+authorization of clients to a broker. This must be a UTF-8 encoded string. 
+ 
+Password – A password could be required by the MQTT broker. This allows authentication and 
+authorisation of clients to a broker. 
+ 
+QoS – (Default = 2) Quality of Service level of each client. The level (0, 1 or 2) determines the 
+guarantee of a message being delivered. 
+ 
+Clean Session – (Default = True) This will tell the MQTT broker to establish a persistent session or 
+not. If True, the broker will discard any data previously associated with the current client ID once 
+successfully connected. Otherwise, when disconnected the broker and client will store the session, 
+all subscriptions for the client and all missed messages, when QoS 1 or 2. 
+ 
+Retain Flag – (Default = False) When publishing a non-empty message with the Retain flag set 
+and a non-zero QoS level, will cause the server to store it (replacing any previously retained message 
+in the process). When the message is stored, any new clients that subscribe to that topic will receive 
+the message. 
+ 
+Auto Reconnect – (Default = False) The MQTT driver will automatically reconnect to the MQTT 
+broker if connection is lost.</pre></article>
+<article class="chapter"><h3>Page 8</h3><div class="note">Page 8</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 8 
+KeepAliveTime – The KeepAliveTime is a time interval that the client will continuously send control 
+packets/PING requests to the MQTT broker to show that the client is still alive. If the broker does 
+not receive a control packet/PING request within 1.5 times the KeepAliveTime, the broker MUST 
+disconnect the network connection to the client as if the network had failed. 
+ Set the KeepAliveTime to +- half of the transaction timeout. 
+ 
+Transaction Timeout – (Default = 60) If the Timeout is set to 0, all operations return immediately, 
+potentially failing with an error if not completed immediately. If set to a positive value, then the 
+driver will wait for the operation to complete before returning control. 
+ 
+Connection Timeout – (Default = 60) If the Timeout is set to 0, all operations return immediately, 
+potentially failing with an error if not completed immediately. If set to a positive value, then the 
+driver will wait for the operation to complete before returning control. 
+ 
+Retries – Number of retries before trying to switch between primary/secondary. Each Retry is 1 
+second. 
+ 
+Will Topic – The topic to publish the Will message (payload). This topic can have a hierarchal 
+structure with forward slashes as delimiters. 
+ 
+Will Message – The message to publish when the Agent Server disconnects ungracefully. 
+ 
+Will QoS Level – (Default = 0) Publish payload with QoS set. 
+ 
+Will Retain Flag – (Default = False) This flag determines if the Will message will be saved by the 
+broker for the specific topic. New clients that subscribe to that topic will receive the last retained 
+message on that topic after subscribing.</pre></article>
+<article class="chapter"><h3>Page 9</h3><div class="note">Page 9</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 9 
+4. 
+Supported Addresses 
+ 
+The scan address in Adroit is the topic in the MQTT protocol with a format prefix. A MQTT topic is a 
+simple string with a hierarchical structure, with forward slashes as delimiters. 
+ 
+For example: 
+Prefix:City/house/bedroom/lamp/on 
+ 
+ PLEASE NOTE 
+Currently the Adroit MQTT supports “#” as a wildcard. Used mainly for Sparkplug implementations. 
+ 
+Prefixes : (do not add spaces after the colon below) 
+ 
+Data type 
+Prefix 
+Example 
+String 
+S 
+S:MYTOPIC 
+Long 
+L 
+L:MYSIGNED32 
+Double 
+D 
+D:MYUNSIGNED32 
+Integer 
+I 
+I:MYSIGNED32 
+Word 
+W 
+W:MYSIGNED32 
+Long 
+F 
+F:MYSIGNED32 
+VarString 
+V 
+V:MYVARSTRING 
+Sparkplug* (VarString) 
+K 
+K:MYSPKTOPIC or K:# 
+Rawbytes 
+R 
+R:MYRBTOPIC 
+ 
+ INFORMATION 
+• 
+Prefixes attempt to force the driver to pre-convert the I/O to various types and must be 
+included. 
+• 
+Sparkplug* prefix will result in the incoming topic to be prefixed to the data , the data is 
+in Google:Protobuf form in ASCII format to allow the Agent Server to consume the data 
+as VARSTRINGS , wildcards are supported to support Sparkplug. 
+• 
+The wildcard can be used on any topic, must be the last character of the applicable 
+topic. E.g. “K:Adroit/#” 
+• 
+RAWBYTE support is future.</pre></article>
+<article class="chapter"><h3>Page 10</h3><div class="note">Page 10</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 10 
+4.1. Example 
+ 
+Making use of the online MQTT Broker supplied by Mosquito you can test the MQTT functionality. 
+Settings is as follows: 
+ 
+HOST: test.mosquitto.org 
+PORT: 1883 
+ 
+The scan address can be anything, as it relates to the Topic name. On this Broker, scanning to any 
+topic will register the topic and allow values to be transferred through the channel. 
+ 
+Scanning a String Agent to the Broker will now have the following result in the scanning dialog. 
+ 
+Other supported ports for various Mosquitto.org test connections: 
+• 
+1883 : MQTT, unencrypted 
+• 
+8883 : MQTT, encrypted 
+• 
+8884 : MQTT, encrypted, client certificate required 
+• 
+8080 : MQTT over WebSockets, unencrypted 
+• 
+8081 : MQTT over WebSockets, encrypted</pre></article>
+<article class="chapter"><h3>Page 11</h3><div class="note">Page 11</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 11 
+5. Protocol Definition and Considerations</pre></article>
+<article class="chapter"><h3>Page 12</h3><div class="note">Page 12</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 12</pre></article>
+<article class="chapter"><h3>Page 13</h3><div class="note">Page 13</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 13 
+5.1. Additional MQTT Information 
+ 
+Retained message: A retained flag tells the MQTT broker to store the last message of each topic, 
+in case a new client subscribes to the broker and automatically deliver the message to that new 
+client. Retained flag off means if a client is offline during a publish, it will never get that message. 
+ 
+Persistent Sessions: This makes MQTT designed for intermittent connectivity. Sessions may last 
+weeks, months or years and it does this using a keep alive message and a timeout. QoS 1 &amp; 2 
+messages are queued for clients which may be offline but have not timed out. 
+ 
+Last Will &amp; Testament messages: If enabled, a device will register a message to the broker so 
+that if a session is lost, send this message to a specific topic. This can be used to see which devices 
+are online/offline at any given time. 
+ 
+Quality of Service levels explained: 
+• 
+QoS 0: At most once, “Fire and forget”. Sends a message and does not wait for a reply. Sender 
+never retries to send the message and receiver might not get message. 
+• 
+QoS 1: At least once, “guaranteed delivery”, continuously sends a message until there is a reply 
+from the broker. But there is a chance of a duplicate message on receiver side while waiting for 
+confirmation. 
+• 
+QoS 2: Exactly once, “2 phase commit guaranteed delivery”. This is used when packet losses or 
+duplication of messages is unacceptable. Comes at additional network traffic, most data heavy 
+service so not ideal for GSM or GPRS. 
+ 
+MQTT Ports: 
+1. TCP: 1883 
+2. TCP + SSL: 8883 
+3. WebSocket: 9001 
+4. WebSocket + SSL: 9883 
+ 
+MQTT Advantages: 
+• 
+Very lightweight protocol, devices do not need a lot of resources such as RAM. High power 
+efficiency. 
+• 
+The protocol supports for messages up to 256 MB is size. 
+• 
+Publishers and Subscribers can communicate to each other without knowing ports, IP addresses 
+etc. 
+• 
+Devices don’t have to be actively connected at the same time. Therefore suitable for unstable 
+networks. 
+• 
+Sending and receiving messages happens at each devices own speed, synchronization works 
+seamlessly.</pre></article>
+<article class="chapter"><h3>Page 14</h3><div class="note">Page 14</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 14 
+6. General Notes and Troubleshooting 
+6.1. Contact Details 
+ 
+Email: support@adroit.co.za and drivers@adroit.co.za 
+ 
+Phone: +27 11 658-8100 
+ 
+Web: www.adroitscada.com 
+ 
+6.2. Adroit Technologies Knowledge Base 
+ 
+For additional information, please refer to our Knowledgebase website: 
+ 
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback 
+(adroittechnologiesautomation.com) 
+ 
+ 
+7. Sparkplug B Notes 
+For Adroit 10.0.5.5 onwards Sparkplug B is supported via a SmartUI Server script. 
+That usually scans for all expected messaging. 
+Input and output Sparkplug B messages are usually scanned to a relatively high-level wildcard “K:#” 
+This will allow all Sparkplug messages to be sent to the applicable slots usually a String Agent’s valueex 
+slot.</pre></article>
+<article class="chapter"><h3>Page 15</h3><div class="note">Page 15</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_MQTT_CL.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 15 
+ 
+8. 
+Revisions 
+ 
+8.1. Document Revision 
+ 
+Rev. 
+Date 
+Author 
+Comment 
+Approval 
+1.0 
+14-Dec-2022 
+J. Duncan 
+New Format 
+D. Jordaan 
+1.1 
+09-Jan-2023 
+K. Robinson 
+Altered some text formatting, added more 
+detailed descriptions. 
+D. Jordaan 
+2.0 
+04-Jun-2025 
+D. Jordaan 
+Sparkplug and VarString and Rawbytes 
+additions , ongoing work 
+D. Jordaan 
+3.0 
+15-Sept-2025 
+J. Duncan 
+Reformat 
+ 
+4.0 
+ 
+ 
+ 
+ 
+5.0 
+ 
+ 
+ 
+ 
+6.0 
+ 
+ 
+ 
+ 
+ 
+8.2. DLL Revision 
+ 
+Rev. 
+Date 
+Changes 
+1 
+30/07/2019 
+First release of the driver. 
+24 
+01/12/2022 
+Shadow mode partner (with offline redundant plc) in standby did not mark 
+affected tags bad when becoming master. 
+For Shadow and Parallel , when switching cluster : unchanging tags were not 
+updated. 
+Updates for first update now working as expected. 
+37 
+06/08/2025 
+Added SparkplugB support for 10.0.5.5 SmartUI Server script.</pre></article>
+</section>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 3]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 4
+1.
+Overview
+Message Queue Telemetry Transport (MQTT) is a lightweight, report by exception, ISO-standard
+publish/subscription messaging protocol specifically designed for the Internet of Things. The MQTT
+network consists of publishers, subscribers and a broker. The publishers will publish or send
+information to the broker; the broker will then relay those messages to the subscribers. The broker
+is the &quot;middleman&quot; in the network and could be situated in the cloud. A publisher/subscriber are the
+clients on the network and are linked together by topics.
+Each Adroit Agent Server can enable tags linked to a topic and publish and/or subscrib, and acts as
+a client on the network. If Adroit is a publisher, then it will write values out to other subscribers
+(when the tag is scanned using Output enabled). When Adroit is a subscriber, then it waits for
+data on a specific topic from any publisher to that topic.
+There are three parts of an MQTT transmission:
+Message: This is the data that is passed through the broker to all clients subscribed to a
+specific topic on the MQTT network.
+Topic: Some brokers support topic strings with a maximum of 128 levels and a maximum
+length of 250 bytes, so an MQTT client connection that exceeds those limits will be closed.
+QoS: Quality of Service, ensures delivery to connected clients:
+a.
+At most once - The published message is sent once, and if it does not arrive it is lost.
+b.
+At least once - Guarantees that the published message arrives, but there may be duplicates.
+c.
+Exactly once - Guarantees that the publish message arrives and that there are no duplicates.
+
+[Page 6]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 6
+3.
+Device Configuration
+3.1. Device Configuration
+Enable secondary - Turn this option to have the driver maintain 2 channels of communication,
+the radio buttons Primary and Secondary can then be used to toggle between configurations.
+
+[Page 7]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 7
+3.1.1. Driver Details
+Enable Secondary - (Default = OFF) Allows enabling of redundant MQTT Broker connections such
+that in case of a failure a switchover will occur.
+Primary - Allows configuration setting of the Primary broker connection.
+Secondary - Allows configuration setting of the Secondary broker connection.
+3.1.2. Device Details
+Enable shadow scanning from master to standby - (Default = OFF) If enabled will stop any
+communication to the MQTT broker when the Agent Server is in standby mode. By default, we
+assume parallel scanning.
+Enable standby reads - (Default = ON) Allows reading from the MQTT broker when the Agent
+Server is in standby mode.
+Enable standby writes - (Default = OFF) Allows writing to the MQTT broker when the Agent
+Server is in standby mode.
+Broker Host IP - The static IP Address or HOST name of the MQTT broker. Domain names are
+resolved to IP addresses. To connect over WebSockets specify a hostname beginning with ws:// or
+wss://.
+For example: ws://test.mosquitto.org or test.mosquitto.org
+Port - A valid port number is required for the connection to take place.
+Client Name - The client identifier is a (1- 23 UTF-8 encoded) unique name to identify each MQTT
+client to the MQTT broker. It should be unique per client for a given broker, and each Adroit server
+device needs its own unique client ID. Click the button on the right-hand side to generate a random
+string for this field if required.
+Username - A username could be required by the MQTT broker. This allows authentication and
+authorization of clients to a broker. This must be a UTF-8 encoded string.
+Password - A password could be required by the MQTT broker. This allows authentication and
+authorisation of clients to a broker.
+QoS - (Default = 2) Quality of Service level of each client. The level (0, 1 or 2) determines the
+guarantee of a message being delivered.
+Clean Session - (Default = True) This will tell the MQTT broker to establish a persistent session or
+not. If True, the broker will discard any data previously associated with the current client ID once
+successfully connected. Otherwise, when disconnected the broker and client will store the session,
+all subscriptions for the client and all missed messages, when QoS 1 or 2.
+Retain Flag - (Default = False) When publishing a non-empty message with the Retain flag set
+and a non-zero QoS level, will cause the server to store it (replacing any previously retained message
+in the process). When the message is stored, any new clients that subscribe to that topic will receive
+the message.
+Auto Reconnect - (Default = False) The MQTT driver will automatically reconnect to the MQTT
+broker if connection is lost.
+
+[Page 9]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 9
+4.
+Supported Addresses
+The scan address in Adroit is the topic in the MQTT protocol with a format prefix. A MQTT topic is a
+simple string with a hierarchical structure, with forward slashes as delimiters.
+For example:
+Prefix:City/house/bedroom/lamp/on
+PLEASE NOTE
+Currently the Adroit MQTT supports &quot;#&quot; as a wildcard. Used mainly for Sparkplug implementations.
+Prefixes : (do not add spaces after the colon below)
+Data type
+Prefix
+K:MYSPKTOPIC or K:#
+Rawbytes
+R
+INFORMATION
+Prefixes attempt to force the driver to pre-convert the I/O to various types and must be
+included.
+Sparkplug* prefix will result in the incoming topic to be prefixed to the data , the data is
+in Google:Protobuf form in ASCII format to allow the Agent Server to consume the data
+as VARSTRINGS , wildcards are supported to support Sparkplug.
+The wildcard can be used on any topic, must be the last character of the applicable
+RAWBYTE support is future.
+
+[Page 13]
+ATQMS-DRVR-DOC-D_MQTT_CL.docx
+P a g e | 13
+5.1. Additional MQTT Information
+Retained message: A retained flag tells the MQTT broker to store the last message of each topic,
+in case a new client subscribes to the broker and automatically deliver the message to that new
+client. Retained flag off means if a client is offline during a publish, it will never get that message.
+Persistent Sessions: This makes MQTT designed for intermittent connectivity. Sessions may last
+weeks, months or years and it does this using a keep alive message and a timeout. QoS 1 &amp; 2
+messages are queued for clients which may be offline but have not timed out.
+Last Will &amp; Testament messages: If enabled, a device will register a message to the broker so
+that if a session is lost, send this message to a specific topic. This can be used to see which devices
+are online/offline at any given time.
+Quality of Service levels explained:
+QoS 0: At most once, &quot;Fire and forget&quot;. Sends a message and does not wait for a reply. Sender
+never retries to send the message and receiver might not get message.
+QoS 1: At least once, &quot;guaranteed delivery&quot;, continuously sends a message until there is a reply
+from the broker. But there is a chance of a duplicate message on receiver side while waiting for
+confirmation.
+QoS 2: Exactly once, &quot;2 phase commit guaranteed delivery&quot;. This is used when packet losses or
+duplication of messages is unacceptable. Comes at additional network traffic, most data heavy
+service so not ideal for GSM or GPRS.
+MQTT Ports:
+1. TCP: 1883
+2. TCP + SSL: 8883
+3. WebSocket: 9001
+4. WebSocket + SSL: 9883
+MQTT Advantages:
+Very lightweight protocol, devices do not need a lot of resources such as RAM. High power
+efficiency.
+The protocol supports for messages up to 256 MB is size.
+Publishers and Subscribers can communicate to each other without knowing ports, IP addresses
+etc.
+Devices don&#x27;t have to be actively connected at the same time. Therefore suitable for unstable
+networks.
+Sending and receiving messages happens at each devices own speed, synchronization works
+seamlessly.</pre>
+</details>
+
+
+<script>
+(function() {
+  function refToDrivers(ref) {
+    return /drivers\.html([?#]|$)/i.test(ref || "");
+  }
+  function setBack() {
+    var link = document.getElementById("backLink");
+    if (!link) return;
+    if (!document.referrer) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else if (refToDrivers(document.referrer)) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else {
+      link.textContent = "← Back to Help Index";
+      link.href = "../index.html";
+    }
+    if (document.referrer) {
+      link.addEventListener("click", function(ev) {
+        ev.preventDefault();
+        try { history.back(); } catch (e) {
+          window.location.href = link.getAttribute("href");
+        }
+      });
+    }
+  }
+  setBack();
+})();
+</script>
+
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+</body>
+</html>

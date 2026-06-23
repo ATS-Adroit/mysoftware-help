@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAG_SmartCheck_WebService</title>
+<meta name="description" content="PDF wrapper for FAG_SmartCheck_WebService. Open the PDF, review the extracted HTML text, and search the converted content.">
+<meta name="keywords" content="configuration, default, fag, status, measurement, acceleration, rms, job, smartcheck, page">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ats-adroit.github.io/mysoftware-help/drivers_html/FAG_SmartCheck_WebService.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"FAG_SmartCheck_WebService","description":"PDF wrapper for FAG_SmartCheck_WebService","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/FAG_SmartCheck_WebService.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
+<style>
+  :root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+  body { font-family: Arial, sans-serif; margin: 20px; color: var(--text); }
+  .top { margin-bottom: 12px; }
+  .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
+  .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
+  .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
+  .chapter { margin: 14px 0; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+</style>
+</head>
+<body>
+
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="backLink" href="../drivers.html" style="text-decoration:none;">&#8592; Back</a>
+</div>
+
+<style id="help-theme-style">
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+</style>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Product%20Manuals" style="text-decoration:none;">Product Manuals</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Supporting%20Docs" style="text-decoration:none;">Supporting Docs</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../specifications.html" style="text-decoration:none;">Specifications</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../best_practices.html" style="text-decoration:none;">Best Practices</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function withFreshParam(href) {
+    try {
+      var u = new URL(href, window.location.href);
+      u.searchParams.set("_t", String(Date.now()));
+      return u.toString();
+    } catch (e) {
+      var sep = href.indexOf("?") >= 0 ? "&" : "?";
+      return href + sep + "_t=" + Date.now();
+    }
+  }
+  var ch = document.querySelector('[data-chat-help="1"]');
+  if (ch && ch.getAttribute("href")) {
+    ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    ch.addEventListener("click", function() {
+      ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    });
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+<div class="top" style="margin-top:42px;">
+  <h1 style="margin:0 0 10px 0;">FAG_SmartCheck_WebService</h1>
+  <a class="btn" href="../driver_docs/FAG_SmartCheck_WebService.pdf">Open / Download PDF</a>
+  <div class="note">If the PDF viewer does not show, use the button above.</div>
+</div>
+
+<iframe class="viewer" src="../driver_docs/FAG_SmartCheck_WebService.pdf"></iframe>
+
+<section class="conversion">
+<h2>Converted HTML</h2>
+<p class="note">This is an HTML rendering of the PDF text so crawlers and AI tools can read it without opening the PDF viewer.</p>
+<article class="chapter"><h3>Page 1</h3><div class="note">Page 1</div><pre>Adroit Technologies 
+Protocol Driver 
+ 
+ 
+ 
+Name 
+FAG SmartCheck WebService 
+DLL 
+D_FAG</pre></article>
+<article class="chapter"><h3>Page 2</h3><div class="note">Page 2</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 2 
+COPYRIGHT 
+ 
+Copyright © 2022 Advanced Worx 112 (Pty) Ltd. All rights reserved. 
+ 
+Information in this document is subject to change without notice. The software described in this document is furnished under a license 
+agreement or nondisclosure agreement. The software may be used or copied only in accordance with the terms of those agreements. 
+No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form or any means electronic or 
+mechanical, including photocopying and recording for any purpose other than the purchaser’s personal use without the written 
+permission of Advanced Worx 112 (Pty) Ltd. 
+ 
+ 
+Advanced Worx 112 (Pty) Ltd 
+20 Waterford Office Park 
+189 Witkoppen Road (c/o Waterford Drive) 
+Fourways 
+South Africa 
+ 
+https://adroittech.co.za/</pre></article>
+<article class="chapter"><h3>Page 3</h3><div class="note">Page 3</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 3 
+Contents 
+1. 
+Overview ................................................................................................................................................. 4 
+2. 
+Wiring ..................................................................................................................................................... 5 
+3. 
+Device Configuration .............................................................................................................................. 6 
+3.1. 
+Device Configuration ............................................................................................................................ 6 
+3.1.1. 
+Driver Details ................................................................................................................................................. 6 
+3.1.2. 
+Primary Connection Parameters ....................................................................................................................... 6 
+4. 
+Supported Addresses .............................................................................................................................. 8 
+5. 
+Protocol Definition and Considerations ................................................................................................ 10 
+5.1. 
+Message Protocol ............................................................................................................................... 10 
+6. 
+General Notes and Troubleshooting ..................................................................................................... 11 
+6.1. 
+Contact Details ................................................................................................................................... 11 
+6.2. 
+Adroit Technologies Knowledge Base ................................................................................................... 11 
+7. 
+Revisions ............................................................................................................................................... 12 
+7.1. 
+Document Revision............................................................................................................................. 12 
+7.2. 
+DLL Revision ...................................................................................................................................... 12</pre></article>
+<article class="chapter"><h3>Page 4</h3><div class="note">Page 4</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 4 
+1. Overview 
+ 
+This driver allows communications to the FAG SmartCheck using its WebService. 
+ 
+The driver supports only reading the alarms status and values of the following signals: 
+ Velocity (iso10816_2hz_1khz_velocity) 
+ Peak to Peak Acceleration (peak_2_peak_acceleration_high_vibration_values) 
+ RMS Acceleration (rms_broadband_acceleration_overall_monitor) 
+ RMS Demodulation (rms_broadband_demodulation_overall_monitor) 
+ Temperature (temperature) 
+ 
+ PLEASE NOTE 
+The FAG SmartCheck cannot accept communications quicker than 1 poll every 15 seconds and will 
+be defaulted to 15 seconds. Nothing lower will be accepted and will be replaced with 15 seconds. 
+For this reason, the actual time specified for each scan point is ignored.</pre></article>
+<article class="chapter"><h3>Page 5</h3><div class="note">Page 5</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 5 
+2. Wiring 
+ 
+Ethernet</pre></article>
+<article class="chapter"><h3>Page 6</h3><div class="note">Page 6</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 6 
+3. Device Configuration 
+3.1. 
+Device Configuration 
+ 
+ 
+3.1.1. 
+Driver Details 
+ 
+Enable Secondary – Allows enabling of redundant device connections such that in case of a failure 
+a switchover will occur. (Default = OFF) 
+ 
+Primary – Allows configuration setting of the Primary device. 
+ 
+Secondary – Allows configuration setting of the Secondary device. 
+ 
+3.1.2. 
+Primary Connection Parameters 
+ 
+Enable shadow scanning from master to standby – If enabled will stop any communication to 
+the device when the Agent server is in standby mode. By default we assume parallel scanning 
+(default = OFF)</pre></article>
+<article class="chapter"><h3>Page 7</h3><div class="note">Page 7</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 7 
+Enable standby reads – Allows reading from the device when agent server is in standby mode. 
+(Default = ON) 
+ 
+Enable standby writes – Allows writing to the device when agent server is in standby mode. 
+(Default = OFF) 
+ 
+Timeout – Time in milliseconds to wait for a response from the device. (Default = 1000 ms) 
+ 
+Retries – The maximum number of retries to attempt communication to the device before ensuring 
+a complete failure. (Default = 3) 
+ 
+SmartCheck IP – The FAG SmartCheck device Station IP. 
+ 
+User Name – The FAG SmartCheck device username to access the WebService. (Default = admin) 
+ 
+Password – The FAG SmartCheck device password to access the WebService. (Default = admin123) 
+ 
+Poll Period (ms) – Time in milliseconds to Poll for a response from the device. (Default = 15000 
+ms - This is also the minimum possible for the FAG SmartCheck)</pre></article>
+<article class="chapter"><h3>Page 8</h3><div class="note">Page 8</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 8 
+4. Supported Addresses 
+ 
+Scan Addresses takes the form of V:[Measurment Job Name].[Measurement Signal Name] (The 
+Value) or S:[Measurment Job Name].[Measurement Signal Name] (The Alarm Status) exactly as it 
+is shown in the FAG SmartCheck configuration. 
+ 
+For example: 
+Out of the BOX, default configuration measurement job for a FAG SmartCheck is as follows with its 
+5 Measurement Characteristics and the corresponding scan address for it as specified below: 
+ 
+The Unit Status:-&gt; S:UNIT_STATUS 
+ 
+The Unit Firmware Version:-&gt; V:UNIT_STATUS 
+ 
+The Peak-Peak Acceleration Status\Value:-&gt; 
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_peak_2_peak_
+acceleration_high_vibration_values 
+ 
+The RMS Broadband Acceleration Status\Value :-&gt; 
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_rms_broadband
+_acceleration_overall_monitor 
+ 
+The RMS Broadband Demodulation Status\Value :-&gt; 
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_rms_broadband
+_demodulation_overall_monitor 
+ 
+The Temperature Status\Value :-&gt; 
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_temperature 
+ 
+The Velocity Status\Value :-&gt; 
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_iso10816_2hz_1
+khz_velocity</pre></article>
+<article class="chapter"><h3>Page 9</h3><div class="note">Page 9</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 9 
+If you want to address your own created Measurement Job as in the following image, where it is 
+called “Adroit_Demo” the addressing will be: 
+ 
+ 
+The Unit Status:-&gt; S:unit_status 
+ 
+The Temperature Status\Value :-&gt; S\V:Adroit_Demo.Temperature 
+ 
+The Peak-Peak Acceleration Status\Value:-&gt; S\V:Adroit_Demo.Peak-peak - Acceleration (High 
+vibration values 
+ 
+The RMS Broadband Acceleration Status\Value :-&gt; V\S:Adroit_Demo.RMS broad band - 
+Acceleration (Overall status) 
+ 
+The RMS Broadband Demodulation Status\Value :-&gt; V\S:Adroit_Demo.RMS broad band - 
+Demodulation (Overall status) 
+ 
+The Velocity Status\Value :-&gt; V\S:Adroit_Demo.ISO10816-1 (2Hz - 1kHz) - Velocity 
+ 
+The STATUS addresses in the above table returns INTEGER values as shown below: 
+0 - No characteristic value has yet been measured. 
+1 - No alarm exists. 
+2 - Pre-alarm exists. 
+3 - Main alarm exists. 
+4 - Error Occurred. 
+5 - Valid Value was returned in the Value Scan (V.0 – V.5) 
+ 
+The VALUES will return a 32 bit floating point value.</pre></article>
+<article class="chapter"><h3>Page 10</h3><div class="note">Page 10</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 10 
+5. Protocol Definition and Considerations 
+5.1. 
+Message Protocol</pre></article>
+<article class="chapter"><h3>Page 11</h3><div class="note">Page 11</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 11 
+6. General Notes and Troubleshooting 
+ 
+6.1. 
+Contact Details 
+ 
+Email: support@adroit.co.za and drivers@adroit.co.za 
+ 
+Phone: +27 11 658-8100 
+ 
+Web: www.adroit.co.za 
+ 
+6.2. 
+Adroit Technologies Knowledge Base 
+ 
+For additional information, please refer to our Knowledgebase website: 
+ 
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback 
+(adroittechnologiesautomation.com)</pre></article>
+<article class="chapter"><h3>Page 12</h3><div class="note">Page 12</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 12 
+7. Revisions 
+ 
+7.1. 
+Document Revision 
+ 
+Rev. 
+Date 
+Author 
+Comment 
+Approval 
+1.0 
+14-Dec-2022 
+J. Duncan 
+New Format 
+D. Jordaan 
+1.1 
+ 
+K. Robinson 
+Grammar and spelling edits, alignment and 
+general editing. 
+D. Jordaan 
+2.0 
+ 
+ 
+ 
+ 
+3.0 
+ 
+ 
+ 
+ 
+4.0 
+ 
+ 
+ 
+ 
+5.0 
+ 
+ 
+ 
+ 
+6.0 
+ 
+ 
+ 
+ 
+ 
+7.2. 
+DLL Revision 
+ 
+Rev. 
+Date 
+Changes 
+1 
+01-Aug-2017 
+First Release of Driver. 
+12 
+13-July-2022 
+Improved driver timing.</pre></article>
+<article class="chapter"><h3>Page 13</h3><div class="note">Page 13</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_FAG.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 13</pre></article>
+</section>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Protocol Driver
+Name
+FAG SmartCheck WebService
+DLL
+D_FAG
+
+[Page 3]
+ATQMS-DRVR-DOC-D_FAG.docx
+P a g e | 3
+1.
+2.
+
+[Page 4]
+ATQMS-DRVR-DOC-D_FAG.docx
+P a g e | 4
+1. Overview
+This driver allows communications to the FAG SmartCheck using its WebService.
+The driver supports only reading the alarms status and values of the following signals:
+Velocity (iso10816_2hz_1khz_velocity)
+Peak to Peak Acceleration (peak_2_peak_acceleration_high_vibration_values)
+RMS Acceleration (rms_broadband_acceleration_overall_monitor)
+RMS Demodulation (rms_broadband_demodulation_overall_monitor)
+Temperature (temperature)
+PLEASE NOTE
+The FAG SmartCheck cannot accept communications quicker than 1 poll every 15 seconds and will
+be defaulted to 15 seconds. Nothing lower will be accepted and will be replaced with 15 seconds.
+For this reason, the actual time specified for each scan point is ignored.
+
+[Page 6]
+ATQMS-DRVR-DOC-D_FAG.docx
+P a g e | 6
+3. Device Configuration
+3.1.
+Device Configuration
+3.1.1.
+Driver Details
+Enable Secondary - Allows enabling of redundant device connections such that in case of a failure
+a switchover will occur. (Default = OFF)
+Primary - Allows configuration setting of the Primary device.
+Secondary - Allows configuration setting of the Secondary device.
+3.1.2.
+Primary Connection Parameters
+Enable shadow scanning from master to standby - If enabled will stop any communication to
+the device when the Agent server is in standby mode. By default we assume parallel scanning
+(default = OFF)
+
+[Page 8]
+ATQMS-DRVR-DOC-D_FAG.docx
+P a g e | 8
+4. Supported Addresses
+Scan Addresses takes the form of V:[Measurment Job Name].[Measurement Signal Name] (The
+Value) or S:[Measurment Job Name].[Measurement Signal Name] (The Alarm Status) exactly as it
+is shown in the FAG SmartCheck configuration.
+For example:
+Out of the BOX, default configuration measurement job for a FAG SmartCheck is as follows with its
+5 Measurement Characteristics and the corresponding scan address for it as specified below:
+The Unit Status:-&gt; S:UNIT_STATUS
+The Unit Firmware Version:-&gt; V:UNIT_STATUS
+The Peak-Peak Acceleration Status\Value:-&gt;
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_peak_2_peak_
+acceleration_high_vibration_values
+The RMS Broadband Acceleration Status\Value :-&gt;
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_rms_broadband
+_acceleration_overall_monitor
+The RMS Broadband Demodulation Status\Value :-&gt;
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_rms_broadband
+_demodulation_overall_monitor
+The Temperature Status\Value :-&gt;
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_temperature
+The Velocity Status\Value :-&gt;
+S\V:DEFAULT_CONFIGURATION_BASE_MEASUREMENT_JOB.default_configuration_iso10816_2hz_1
+khz_velocity
+
+[Page 11]
+ATQMS-DRVR-DOC-D_FAG.docx
+P a g e | 11
+6. General Notes and Troubleshooting
+6.1.
+Contact Details
+Phone: +27 11 658-8100
+6.2.
+For additional information, please refer to our Knowledgebase website:
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback
+(adroittechnologiesautomation.com)</pre>
+</details>
+
+
+<script>
+(function() {
+  function refToDrivers(ref) {
+    return /drivers\.html([?#]|$)/i.test(ref || "");
+  }
+  function setBack() {
+    var link = document.getElementById("backLink");
+    if (!link) return;
+    if (!document.referrer) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else if (refToDrivers(document.referrer)) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else {
+      link.textContent = "← Back to Help Index";
+      link.href = "../index.html";
+    }
+    if (document.referrer) {
+      link.addEventListener("click", function(ev) {
+        ev.preventDefault();
+        try { history.back(); } catch (e) {
+          window.location.href = link.getAttribute("href");
+        }
+      });
+    }
+  }
+  setBack();
+})();
+</script>
+
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+</body>
+</html>

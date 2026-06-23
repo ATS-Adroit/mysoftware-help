@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JVA_Ethernet_Client_Protocol_Driver</title>
+<meta name="description" content="PDF wrapper for JVA_Ethernet_Client_Protocol_Driver. Open the PDF, review the extracted HTML text, and search the converted content.">
+<meta name="keywords" content="perimeter, patrol, jva, server, system, debug, protocol, agent, driver, scanning">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ats-adroit.github.io/mysoftware-help/drivers_html/JVA_Ethernet_Client_Protocol_Driver.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"JVA_Ethernet_Client_Protocol_Driver","description":"PDF wrapper for JVA_Ethernet_Client_Protocol_Driver","url":"https://ats-adroit.github.io/mysoftware-help/drivers_html/JVA_Ethernet_Client_Protocol_Driver.html","isPartOf":{"@type":"WebSite","name":"Adroit Online Help","url":"https://ats-adroit.github.io/mysoftware-help/"}}</script>
+<style>
+  :root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+  body { font-family: Arial, sans-serif; margin: 20px; color: var(--text); }
+  .top { margin-bottom: 12px; }
+  .btn { display:inline-block; padding:8px 10px; border:1px solid var(--border); background:var(--panel-2); text-decoration:none; color:var(--text); }
+  .viewer { width: 100%; height: 85vh; border: 1px solid var(--border); }
+  .note { color:var(--muted); font-size: 12px; margin-top: 8px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; }
+  pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel); border: 1px solid var(--border); padding: 10px; border-radius: 8px; }
+  .chapter { margin: 14px 0; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+</style>
+</head>
+<body>
+
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="backLink" href="../drivers.html" style="text-decoration:none;">&#8592; Back</a>
+</div>
+
+<style id="help-theme-style">
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+</style>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Product%20Manuals" style="text-decoration:none;">Product Manuals</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Supporting%20Docs" style="text-decoration:none;">Supporting Docs</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../specifications.html" style="text-decoration:none;">Specifications</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../best_practices.html" style="text-decoration:none;">Best Practices</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function withFreshParam(href) {
+    try {
+      var u = new URL(href, window.location.href);
+      u.searchParams.set("_t", String(Date.now()));
+      return u.toString();
+    } catch (e) {
+      var sep = href.indexOf("?") >= 0 ? "&" : "?";
+      return href + sep + "_t=" + Date.now();
+    }
+  }
+  var ch = document.querySelector('[data-chat-help="1"]');
+  if (ch && ch.getAttribute("href")) {
+    ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    ch.addEventListener("click", function() {
+      ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    });
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+<div class="top" style="margin-top:42px;">
+  <h1 style="margin:0 0 10px 0;">JVA_Ethernet_Client_Protocol_Driver</h1>
+  <a class="btn" href="../driver_docs/JVA_Ethernet_Client_Protocol_Driver.pdf">Open / Download PDF</a>
+  <div class="note">If the PDF viewer does not show, use the button above.</div>
+</div>
+
+<iframe class="viewer" src="../driver_docs/JVA_Ethernet_Client_Protocol_Driver.pdf"></iframe>
+
+<section class="conversion">
+<h2>Converted HTML</h2>
+<p class="note">This is an HTML rendering of the PDF text so crawlers and AI tools can read it without opening the PDF viewer.</p>
+<article class="chapter"><h3>Page 1</h3><div class="note">Page 1</div><pre>Adroit Technologies 
+Protocol Driver 
+ 
+ 
+ 
+Name 
+JVA Ethernet Client Protocol Driver 
+DLL 
+D_JVA_ETH</pre></article>
+<article class="chapter"><h3>Page 2</h3><div class="note">Page 2</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 2 
+COPYRIGHT 
+ 
+Copyright © 2022 Advanced Worx 112 (Pty) Ltd. All rights reserved. 
+ 
+Information in this document is subject to change without notice. The software described in this document is furnished under a 
+license agreement or nondisclosure agreement. The software may be used or copied only in accordance with the terms of those 
+agreements. No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form or any means 
+electronic or mechanical, including photocopying and recording for any purpose other than the purchaser’s personal use without the 
+written permission of Advanced Worx 112 (Pty) Ltd. 
+ 
+ 
+Advanced Worx 112 (Pty) Ltd 
+20 Waterford Office Park 
+189 Witkoppen Road (c/o Waterford Drive) 
+Fourways 
+South Africa 
+ 
+https://adroittech.co.za/</pre></article>
+<article class="chapter"><h3>Page 3</h3><div class="note">Page 3</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 3 
+Contents 
+1. 
+Overview ............................................................................................................................................... 4 
+1.1. 
+Supported Hardware ..........................................................................................................................4 
+1.2. 
+Supported Software............................................................................................................................4 
+2. 
+Wiring ................................................................................................................................................... 5 
+3. 
+Device Configuration ............................................................................................................................ 6 
+3.1. 
+Device Configuration ..........................................................................................................................6 
+3.1.1. 
+Device details .............................................................................................................................................. 6 
+3.1.2. 
+Perimeter Patrol server details ...................................................................................................................... 7 
+3.1.3. 
+Datascope details......................................................................................................................................... 7 
+4. 
+Supported Addresses ............................................................................................................................ 8 
+4.1. 
+Example .......................................................................................................................................... 10 
+5. 
+Protocol Definition and Considerations .............................................................................................. 12 
+6. 
+General Notes and Troubleshooting ................................................................................................... 13 
+6.1. 
+Contact Details ................................................................................................................................. 13 
+6.2. 
+Adroit Technologies Knowledge Base ................................................................................................. 13 
+7. 
+Revisions ............................................................................................................................................. 14 
+7.1. 
+Document Revision........................................................................................................................... 14 
+7.2. 
+DLL Revision .................................................................................................................................... 14</pre></article>
+<article class="chapter"><h3>Page 4</h3><div class="note">Page 4</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 4 
+1. 
+Overview 
+ 
+HLI(High level interface) SDK based driver allows for communication between the Adroit Scada 
+server and the Perimeter Patrol server. 
+ 
+ 
+Live data can be read in the form of discrete I/O communicated in the form of Boolean, Integer, 
+Real/Analog , String/Var-String types. 
+Live Data can also be read in XML communicated to an Adroit IOT Agent. 
+ 
+Zone statuses can also be issued to the system in the form of an action string, such as “Disarm”, 
+“ArmHighPower” see table 4.2 
+A writeable bitwise output word if available is also available. 
+ 
+PLEASE NOTE 
+The HLI updates all I/O on the channel once every second. Scanning anyfaster than this will not 
+affect this rate, scanning slower will just result in a slower retrieval from the internal store of 
+changes within the HLI. 
+ 
+ 
+1.1. Supported Hardware 
+ 
+This driver has been tested on the following hardware: 
+ 
+GPIO board revision xxxx. 
+Z18 JVA energiser revision xxxx. 
+ 
+1.2. Supported Software 
+ 
+ Perimeter Patrol version xxxx. 
+ 
+ HLI SDK version 1.0.0.6015. 
+ 
+ PP.HLITransport.dll (version 1.0.0.6015)</pre></article>
+<article class="chapter"><h3>Page 5</h3><div class="note">Page 5</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 5 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2. 
+Wiring 
+ 
+Standard Ethernet interface provided between the GPIO board and the Perimeter Patrol server 
+computer. The Adroit Scada computer also needs ethernet access to the Perimeter Patrol server 
+computer. 
+The GPIO communication bus to the energisers as per JVA documentation. 
+See Appendix X for setup howto and the following documentation : x.</pre></article>
+<article class="chapter"><h3>Page 6</h3><div class="note">Page 6</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 6 
+3. 
+Device Configuration 
+ 
+3.1. Device Configuration 
+ 
+ 
+ 
+Enable secondary – Turn this option to have the driver maintain 2 channels of communication, 
+the radio buttons Primary and Secondary can then be used to toggle between configurations. 
+The Perimeter Patrol HLI interface does provide access for more than 1 channel , so either parallel 
+or shadow mode clustering and primary and secondary connections per server is available 
+3.1.1. Device details 
+ 
+Enable Secondary – (Default = OFF) Allows enabling of redundant MQTT Broker connections such 
+that in case of a failure a switchover will occur. 
+ 
+Primary – Allows configuration setting of the Primary broker connection. 
+ 
+Secondary – Allows configuration setting of the Secondary broker connection.</pre></article>
+<article class="chapter"><h3>Page 7</h3><div class="note">Page 7</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 7 
+Enable shadow scanning from master to standby – (Default = OFF) If enabled will stop any 
+communication to the MQTT broker when the Agent server is in standby mode. By default, we 
+assume parallel scanning. 
+ 
+Enable standby reads – (Default = ON) Allows reading from the MQTT broker when agent server 
+is in standby mode. 
+ 
+Enable standby writes – (Default = OFF) Allows writing to the MQTT broker when agent server 
+is in standby mode. 
+ 
+ 
+ 
+3.1.2. Perimeter Patrol server details 
+ 
+TCP/IP Address – The static IP Address of the Perimeter patrol server machine. 
+ 
+TCP Port – A valid port number is required for the connection to take place. Configured in the 
+perimeter patrol system, see Appendix A for details. 
+ 
+Authorization key – An text string used as a seed for the encryption algorithm, used when 
+communicating to the Perimeter Patrol system. Configured in the perimeter patrol system, see 
+Appendix A for details. 
+ 
+User Name – A username required by Perimeter Patrol. Configured in the perimeter patrol system, 
+see Appendix A for details. 
+ 
+User Password – A password required by Perimeter Patrol. Configured in the perimeter patrol 
+system, see Appendix A for details. 
+ 
+3.1.3. Datascope details 
+ 
+Debug level bitmask – (Default = 480) This is a bitmask that enable extra debugging in the 
+datascope output, do not leave it enabled during normal operation on high-speed drivers as it will 
+slow down the system depending on speed requirements. In serial drivers this delay is negligible. 
+ 
+ 
+#define DEBUG_MASK_COMSRESOURCE_INFO 
+ 
+ 
+ 0x00000001 
+#define DEBUG_MASK_COMSRESOURCE_CRITICAL 
+ 
+ 0x00000002 
+#define DEBUG_MASK_PROTOCOL_ITEM_VALUES 
+ 
+ 0x00000004 
+#define DEBUG_MASK_PROTOCOL_ITEM_BAD_VALUES 
+ 0x00000008 
+#define DEBUG_MASK_NASA_POOLS 
+ 0x00000010 
+#define DEBUG_MASK_TIMING 
+ 0x00000020 
+#define DEBUG_MASK_PROTOCOL_RESPONSES 
+ 
+ 0x00000040 
+#define DEBUG_MASK_PROTOCOL_REQUESTS 
+ 
+ 0x00000080 
+#define DEBUG_MASK_PROTOCOL_READ_DESC 
+ 
+ 0x00000100 
+#define DEBUG_MASK_PROTOCOL_WRITE_DESC 
+ 
+ 0x00000200 
+ 
+Stale threshold – (Default = 0) Every nth occurrence of an unchanged item value will be sent to the 
+master. If the value is different, the value will be sent regardless of this count. This count reduces 
+unnecessary event within the Agent Server. This can be considered an integrity verification update.</pre></article>
+<article class="chapter"><h3>Page 8</h3><div class="note">Page 8</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 8 
+ 
+ INFORMATION 
+Remember, all NASA drivers one can stop and start the device to reload Debug level bitmask 
+flags, and most other parameters in setup. If in doubt restart the agent server as mechanisms 
+like PDU lengths might not be changeable during runtime. 
+ 
+ 
+4. 
+Supported Addresses 
+ 
+The scan address in Adroit for the JVA system is as follows : 
+ 
+When scanning discrete I/O: 
+&lt;Tagname&gt;&lt;Space&gt;&lt;Type-postfix&gt; 
+e.g., Zones.1.FenceAlarm BOOL 
+ 
+When scanning to the IOT agent’s rawValue slot: 
+&lt;Tagname&gt;&lt;Space&gt;&lt;Type-postfix&gt; 
+e.g., Zones.1 XML 
+ 
+ 
+ PLEASE NOTE 
+IOT slots cannot have additional ‘.’Dot notations as these are used within Adroit system itself, 
+therefor the xml sent from the driver will replace any ‘.’ With ‘_’ 
+The Address field when scanning however does allow for ‘.’ Notation, And the dot will be displayed 
+in the Description field for clarification purposes. 
+Example : IOT agent scanned its rawValue to “Zones.1” where a subsequent slot such as 
+AlarmOnStartTime.0 will be renamed to AlarmOnStartTime_0. 
+ 
+Type-Postfixes : 
+ 
+Data type 
+Prefix 
+Example 
+Boolean 
+BOOL 
+Zones.1.FenceAlarm BOOL 
+Long 
+LONG 
+Zones.1.Voltage1 LONG 
+Double 
+DWORD 
+Zones.1.ComsFailTimer DWORD 
+Integer 
+INT 
+Zones.1.Outputs INT 
+Word 
+WORD 
+Zones.1.Outputs WORD 
+Real 
+REAL/FLOAT 
+Zones.1.Voltage1 REAL</pre></article>
+<article class="chapter"><h3>Page 9</h3><div class="note">Page 9</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 9 
+String[80] 
+STRING 
+ 
+VarString 
+VARSTRING 
+Zones.1.ArmState VARSTRING 
+XML/IOT 
+XML 
+Zones.1 XML 
+ 
+ 
+String User events 
+(sent to Zones.x.ArmState) 
+ArmAllHighPower 
+ArmAllLowPower 
+ArmHighPower 
+ArmLowPower 
+Disarm 
+DisarmAll 
+ClearAlarmMemory 
+CloseAlarms 
+ControlOnSchedule 
+ControlOffSchedule 
+MuteAlarms 
+ 
+PLEASE NOTE 
+IOT agents are read only , the ArmState control string MUST be scanned to a String agent as 
+an output enabled discrete address. 
+E.g Zones.x.ArmState where x in the Zone number. 
+Some User event strings affect all devices/zones on a channel, andy zone number can accept 
+these strings 
+ 
+ 
+ 
+ 
+ 
+ 
+ INFORMATION 
+Prefixes attempt to force the driver to pre-convert the I/O to various types and must be 
+included.</pre></article>
+<article class="chapter"><h3>Page 10</h3><div class="note">Page 10</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 10 
+4.1. Example 
+ 
+PP1 is the channel / device name as configured. 
+J1 is the IOT agent ascociated with “Zone.1” 
+J1_CON is the writable string agent ascociated with “Zone.1” 
+ 
+The following screen shot shows the scanning configuration dialog:</pre></article>
+<article class="chapter"><h3>Page 11</h3><div class="note">Page 11</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 11 
+ 
+The following screen shot shows the configuration view of the IOT agent at runtime:</pre></article>
+<article class="chapter"><h3>Page 12</h3><div class="note">Page 12</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 12 
+5. Protocol Definition and Considerations 
+The following screen shot shows an example of the datascope under normal started conditions. Note 
+the connection (primary) , IP address and port on the title bar:</pre></article>
+<article class="chapter"><h3>Page 13</h3><div class="note">Page 13</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 13 
+6. General Notes and Troubleshooting 
+6.1. Contact Details 
+ 
+Email: support@adroit.co.za and drivers@adroit.co.za 
+ 
+Phone: +27 11 658-8100 
+ 
+Web: www.adroit.co.za 
+ 
+6.2. Adroit Technologies Knowledge Base 
+ 
+For additional information, please refer to our Knowledgebase website: 
+ 
+Latest Drivers topics - Features, discussions, tips, tricks, questions, problems and feedback 
+(adroittechnologiesautomation.com)</pre></article>
+<article class="chapter"><h3>Page 14</h3><div class="note">Page 14</div><pre>_____________________________________________________________________________________________________________________ 
+ATQMS-DRVR-DOC-D_JVA_ETH.docx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P a g e | 14 
+ 
+7. 
+Revisions 
+ 
+7.1. Document Revision 
+ 
+Rev. 
+Date 
+Author 
+Comment 
+Approval 
+1.0 
+28-Mar-2023 
+D. Jordaan 
+First release. 
+- 
+2.0 
+ 
+ 
+ 
+ 
+ 
+7.2. DLL Revision 
+ 
+Rev. 
+Date 
+Changes 
+1 
+28/03/2023 
+First release of the driver.</pre></article>
+</section>
+
+
+<details>
+  <summary>Extracted text (for search/chatbots)</summary>
+  <div class="note">If your crawler cannot read PDFs, it can index this extracted text instead.</div>
+  <pre>[Page 1]
+Protocol Driver
+Name
+JVA Ethernet Client Protocol Driver
+DLL
+D_JVA_ETH
+
+[Page 3]
+ATQMS-DRVR-DOC-D_JVA_ETH.docx
+P a g e | 3
+1.
+1.1.
+
+[Page 4]
+ATQMS-DRVR-DOC-D_JVA_ETH.docx
+P a g e | 4
+1.
+Overview
+HLI(High level interface) SDK based driver allows for communication between the Adroit Scada
+server and the Perimeter Patrol server.
+Live data can be read in the form of discrete I/O communicated in the form of Boolean, Integer,
+Real/Analog , String/Var-String types.
+Live Data can also be read in XML communicated to an Adroit IOT Agent.
+Zone statuses can also be issued to the system in the form of an action string, such as &quot;Disarm&quot;,
+&quot;ArmHighPower&quot; see table 4.2
+A writeable bitwise output word if available is also available.
+PLEASE NOTE
+The HLI updates all I/O on the channel once every second. Scanning anyfaster than this will not
+affect this rate, scanning slower will just result in a slower retrieval from the internal store of
+changes within the HLI.
+1.1. Supported Hardware
+This driver has been tested on the following hardware:
+GPIO board revision xxxx.
+Z18 JVA energiser revision xxxx.
+1.2. Supported Software
+Perimeter Patrol version xxxx.
+HLI SDK version 1.0.0.6015.
+PP.HLITransport.dll (version 1.0.0.6015)
+
+[Page 6]
+ATQMS-DRVR-DOC-D_JVA_ETH.docx
+P a g e | 6
+3.
+Device Configuration
+3.1. Device Configuration
+Enable secondary - Turn this option to have the driver maintain 2 channels of communication,
+the radio buttons Primary and Secondary can then be used to toggle between configurations.
+The Perimeter Patrol HLI interface does provide access for more than 1 channel , so either parallel
+or shadow mode clustering and primary and secondary connections per server is available
+3.1.1. Device details
+Enable Secondary - (Default = OFF) Allows enabling of redundant MQTT Broker connections such
+that in case of a failure a switchover will occur.
+Primary - Allows configuration setting of the Primary broker connection.
+Secondary - Allows configuration setting of the Secondary broker connection.
+
+[Page 7]
+ATQMS-DRVR-DOC-D_JVA_ETH.docx
+P a g e | 7
+Enable shadow scanning from master to standby - (Default = OFF) If enabled will stop any
+communication to the MQTT broker when the Agent server is in standby mode. By default, we
+assume parallel scanning.
+Enable standby reads - (Default = ON) Allows reading from the MQTT broker when agent server
+is in standby mode.
+Enable standby writes - (Default = OFF) Allows writing to the MQTT broker when agent server
+is in standby mode.
+3.1.2. Perimeter Patrol server details
+TCP/IP Address - The static IP Address of the Perimeter patrol server machine.
+TCP Port - A valid port number is required for the connection to take place. Configured in the
+perimeter patrol system, see Appendix A for details.
+Authorization key - An text string used as a seed for the encryption algorithm, used when
+communicating to the Perimeter Patrol system. Configured in the perimeter patrol system, see
+Appendix A for details.
+User Name - A username required by Perimeter Patrol. Configured in the perimeter patrol system,
+see Appendix A for details.
+User Password - A password required by Perimeter Patrol. Configured in the perimeter patrol
+system, see Appendix A for details.
+3.1.3. Datascope details
+Debug level bitmask - (Default = 480) This is a bitmask that enable extra debugging in the
+datascope output, do not leave it enabled during normal operation on high-speed drivers as it will
+slow down the system depending on speed requirements. In serial drivers this delay is negligible.
+#define DEBUG_MASK_COMSRESOURCE_INFO
+0x00000001
+#define DEBUG_MASK_COMSRESOURCE_CRITICAL
+0x00000002
+#define DEBUG_MASK_PROTOCOL_ITEM_VALUES
+0x00000004
+#define DEBUG_MASK_PROTOCOL_ITEM_BAD_VALUES
+0x00000040
+#define DEBUG_MASK_PROTOCOL_REQUESTS
+0x00000080
+#define DEBUG_MASK_PROTOCOL_READ_DESC
+0x00000100
+#define DEBUG_MASK_PROTOCOL_WRITE_DESC
+0x00000200
+Stale threshold - (Default = 0) Every nth occurrence of an unchanged item value will be sent to the
+master. If the value is different, the value will be sent regardless of this count. This count reduces
+unnecessary event within the Agent Server. This can be considered an integrity verification update.
+
+[Page 8]
+ATQMS-DRVR-DOC-D_JVA_ETH.docx
+P a g e | 8
+INFORMATION
+Remember, all NASA drivers one can stop and start the device to reload Debug level bitmask
+flags, and most other parameters in setup. If in doubt restart the agent server as mechanisms
+like PDU lengths might not be changeable during runtime.
+4.
+Supported Addresses
+The scan address in Adroit for the JVA system is as follows :
+When scanning discrete I/O:
+&lt;Tagname&gt;&lt;Space&gt;&lt;Type-postfix&gt;
+e.g., Zones.1.FenceAlarm BOOL
+When scanning to the IOT agent&#x27;s rawValue slot:
+&lt;Tagname&gt;&lt;Space&gt;&lt;Type-postfix&gt;
+e.g., Zones.1 XML
+PLEASE NOTE
+IOT slots cannot have additional &#x27;.&#x27;Dot notations as these are used within Adroit system itself,
+therefor the xml sent from the driver will replace any &#x27;.&#x27; With &#x27;_&#x27;
+The Address field when scanning however does allow for &#x27;.&#x27; Notation, And the dot will be displayed
+in the Description field for clarification purposes.
+Example : IOT agent scanned its rawValue to &quot;Zones.1&quot; where a subsequent slot such as
+AlarmOnStartTime.0 will be renamed to AlarmOnStartTime_0.
+Type-Postfixes :
+Data type
+Prefix</pre>
+</details>
+
+
+<script>
+(function() {
+  function refToDrivers(ref) {
+    return /drivers\.html([?#]|$)/i.test(ref || "");
+  }
+  function setBack() {
+    var link = document.getElementById("backLink");
+    if (!link) return;
+    if (!document.referrer) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else if (refToDrivers(document.referrer)) {
+      link.textContent = "← Back to Drivers";
+      link.href = "../drivers.html";
+    } else {
+      link.textContent = "← Back to Help Index";
+      link.href = "../index.html";
+    }
+    if (document.referrer) {
+      link.addEventListener("click", function(ev) {
+        ev.preventDefault();
+        try { history.back(); } catch (e) {
+          window.location.href = link.getAttribute("href");
+        }
+      });
+    }
+  }
+  setBack();
+})();
+</script>
+
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+</body>
+</html>
