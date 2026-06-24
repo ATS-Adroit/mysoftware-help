@@ -97,9 +97,9 @@ input::placeholder, textarea::placeholder {
 </head>
 <body>
 <div class="topnav">
-  <a href="index.html">Help Index</a>
-  <a href="Adroit_Installation_Read_Me.html">Read Me</a>
-  <a href="ai_manifest.json">AI Manifest</a>
+  <a href="./index.html">Help Index</a>
+  <a href="./Adroit_Installation_Read_Me.html">Read Me</a>
+  <a href="./ai_manifest.json">AI Manifest</a>
 </div>
 <div class="page">
   <h1>AI Index</h1>
@@ -138,6 +138,14 @@ function esc(s) {
     return ({"&":"&amp;","<":"&lt;",">":"&gt;"})[c];
   });
 }
+function escAttr(s) {
+  return esc(s).replace(/"/g, "&quot;");
+}
+function resolveHref(href) {
+  if (!href) return "#";
+  if (/^(?:[a-z]+:|#|\/)/i.test(href)) return href;
+  return href.startsWith("./") || href.startsWith("../") ? href : "./" + href;
+}
 function norm(s) {
   return (s || "").toString().toLowerCase().trim();
 }
@@ -148,13 +156,13 @@ function renderCard(host, row, kindLabel) {
   const card = document.createElement("div");
   card.className = "card";
   const title = esc(row.title || row.name || kindLabel);
-  const href = row.href || row.rel || "#";
+  const href = resolveHref(row.href || row.rel || "#");
   const extra = row.count ? `<div class="small">${row.count} item(s)</div>` : "";
   const desc = row.description ? `<div class="small">${esc(row.description).slice(0, 220)}${row.description.length > 220 ? "..." : ""}</div>` : "";
   const cat = row.category ? `<div class="small">${esc(row.category)}</div>` : "";
   const kind = row.kind ? `<span class="pill">${esc(row.kind)}</span>` : "";
   const text = row.text ? `<div class="small">${esc(row.text).slice(0, 220)}${row.text.length > 220 ? "..." : ""}</div>` : "";
-  card.innerHTML = `<h3><a href="${href}">${title}</a></h3>${cat}${kind}${desc}${text}${extra}`;
+  card.innerHTML = `<h3><a href="${escAttr(href)}">${title}</a></h3>${cat}${kind}${desc}${text}${extra}`;
   host.appendChild(card);
 }
 function addCards(hostId, rows, kindLabel) {
