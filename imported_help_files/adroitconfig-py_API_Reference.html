@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>adroitconfig-py API Reference</title>
+<style>
+  :root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+  body { font-family: Arial, sans-serif; margin: 20px; color: var(--text); background: var(--bg); }
+  .page { max-width: 1200px; margin: 0 auto; }
+  .content { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .content pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel-2); border: 1px solid var(--border); padding: 12px; overflow: auto; }
+  .content code { background: var(--panel-2); padding: 0 3px; border-radius: 4px; }
+  .content blockquote { margin: 12px 0; padding: 10px 14px; border-left: 4px solid var(--border); background: var(--panel-2); }
+  .content table { border-collapse: collapse; width: 100%; }
+  .content th, .content td { border: 1px solid var(--border); padding: 6px 8px; vertical-align: top; }
+  .content img { max-width: 100%; height: auto; }
+  .nav { position:fixed; top:10px; right:10px; z-index:9999;
+         background:var(--panel-2); border:1px solid var(--border); padding:6px 10px; font-size:13px; }
+  .nav a { text-decoration:none; }
+  .nav span { color:#999; margin:0 6px; }
+  .note { margin: 6px 0 16px 0; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (document.referrer) {
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try { history.back(); } catch (e) {
+        window.location.href = link.getAttribute("href");
+      }
+    });
+  }
+})();
+</script>
+<style id="help-theme-style">
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+</style>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Product%20Manuals" style="text-decoration:none;">Product Manuals</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Supporting%20Docs" style="text-decoration:none;">Supporting Docs</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../specifications.html" style="text-decoration:none;">Specifications</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../best_practices.html" style="text-decoration:none;">Best Practices</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function withFreshParam(href) {
+    try {
+      var u = new URL(href, window.location.href);
+      u.searchParams.set("_t", String(Date.now()));
+      return u.toString();
+    } catch (e) {
+      var sep = href.indexOf("?") >= 0 ? "&" : "?";
+      return href + sep + "_t=" + Date.now();
+    }
+  }
+  var ch = document.querySelector('[data-chat-help="1"]');
+  if (ch && ch.getAttribute("href")) {
+    ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    ch.addEventListener("click", function() {
+      ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    });
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+<div class="nav">
+  <a href="index.html">Help Index</a><span>|</span>
+  <a href="drivers.html">Drivers</a><span>|</span>
+  <button class="theme-toggle" type="button">Dark mode</button><span>|</span>
+  <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener">Chat Help</a><span>|</span>
+  <a href="specifications.html">Specifications</a><span>|</span>
+  <a href="best_practices.html">Best Practices</a><span>|</span>
+  <a href="Adroit_Installation_Read_Me.html">Installation Read Me</a>
+</div>
+<div class="page">
+  <h1 style="margin-top:42px;">adroitconfig-py API Reference</h1>
+  <div class="note">Imported from adroitconfig-py API Reference.md</div>
+  <div class="content">
+    <h1>adroitconfig-py — API Reference</h1>
+<p>This document describes every call programmers can make through the <strong>adroitconfig-py</strong> package: parameters, return types, exceptions, and examples.</p>
+<p>The package wraps the Adroit Agent Server OLE Automation interface (ProgID <code>adroitserver</code>) for <strong>configuration</strong> tasks — creating agents, scanning tags, logging, alarming, and group membership. Runtime read/write methods (<code>Fetch</code>, <code>Poke</code>, etc.) are intentionally blocked by the wrapper.</p>
+<hr />
+<h2>Requirements</h2>
+<p>| Requirement | Details | |---|---| | Platform | Windows only | | Python | 3.10+ | | Dependency | <code>pywin32&gt;=305</code> | | Adroit | Agent Server running with OLE Automation (MIS Server) installed | | 64-bit Windows | Use <strong>32-bit Python</strong> (<code>SysWOW64</code>) — the Adroit OLE server is 32-bit |</p>
+<p>Install:</p>
+<pre><code>python -m pip install adroitconfig-py</code></pre>
+<hr />
+<h2>Package exports</h2>
+<pre><code>from adroitconfig import AdroitConfigOLE, adroitconfig</code></pre>
+<p>| Name | Type | Description | |---|---|---| | <code>AdroitConfigOLE</code> | class | Main wrapper class. Creates and manages the COM connection. | | <code>adroitconfig</code> | <code>AdroitConfigOLE</code> | Module-level singleton (<code>auto_connect=False</code>). Useful for scripts and REPL sessions. |</p>
+<hr />
+<h2>Quick start</h2>
+<pre><code>from adroitconfig import AdroitConfigOLE
+
+# Create wrapper and connect to local Agent Server
+adroit = AdroitConfigOLE()
+
+# Connect to a named server (remote or local)
+adroit.Connect(None, &quot;MyAgentServer&quot;)
+
+# Create an analog agent
+adroit.CreateAgent(&quot;ANA-01&quot;, &quot;Tank level&quot;, &quot;Analog&quot;)
+
+# Scan rawValue from a PLC device
+adroit.ScanTag(&quot;ANA-01&quot;, &quot;rawValue&quot;, &quot;PLC1&quot;, &quot;DB1.DBD0&quot;, 1000, 0, 0)
+
+# Enable historical logging
+adroit.LogTag(&quot;ANA-01&quot;, &quot;rawValue&quot;, 1, 24, 5, None)
+
+# Clean up COM resources
+adroit.close()</code></pre>
+<p>Using the module singleton:</p>
+<pre><code>from adroitconfig import adroitconfig
+
+adroitconfig.connect()
+adroitconfig.Connect(None, &quot;MyAgentServer&quot;)
+# ...
+adroitconfig.close()  # also called automatically at process exit</code></pre>
+<hr />
+<h2><code>AdroitConfigOLE</code> — Python wrapper methods</h2>
+<p>These methods are implemented directly by the package (not proxied from COM).</p>
+<h3><code>AdroitConfigOLE(prog_id=&quot;adroitserver&quot;, auto_connect=True)</code></h3>
+<p>Create a new wrapper instance.</p>
+<p>| Parameter | Type | Default | Description | |---|---|---|---| | <code>prog_id</code> | <code>str</code> | <code>&quot;adroitserver&quot;</code> | COM ProgID of the Adroit OLE server | | <code>auto_connect</code> | <code>bool</code> | <code>True</code> | If <code>True</code>, call <code>connect()</code> immediately in <code>__init__</code> |</p>
+<p><strong>Returns:</strong> <code>AdroitConfigOLE</code> instance (not yet connected to an Agent Server — see <code>Connect()</code> below)</p>
+<p><strong>Example:</strong></p>
+<pre><code># Lazy connection — connect manually later
+adroit = AdroitConfigOLE(auto_connect=False)
+adroit.connect()</code></pre>
+<hr />
+<h3><code>connect() -&gt; AdroitConfigOLE</code></h3>
+<p>Initialize the COM apartment and dispatch the Adroit OLE server object. Safe to call multiple times; subsequent calls are no-ops if already connected.</p>
+<p><strong>Returns:</strong> <code>self</code> (the <code>AdroitConfigOLE</code> instance)</p>
+<p><strong>Raises:</strong> Any exception from COM initialization or dispatch failure (e.g. Adroit not installed, wrong Python bitness)</p>
+<p><strong>Example:</strong></p>
+<pre><code>adroit = AdroitConfigOLE(auto_connect=False)
+adroit.connect()</code></pre>
+<hr />
+<h3><code>close() -&gt; None</code></h3>
+<p>Release the COM object reference and uninitialize the COM apartment. Safe to call when not connected.</p>
+<p><strong>Returns:</strong> <code>None</code></p>
+<p><strong>Example:</strong></p>
+<pre><code>adroit.close()</code></pre>
+<hr />
+<h2>COM configuration methods</h2>
+<p>Once connected (<code>connect()</code> has succeeded), the following methods are forwarded to the underlying Adroit OLE server.</p>
+<p>Unless noted, <strong>return type is <code>Any</code></strong> — the underlying COM method returns a variant whose exact shape depends on the Adroit server version and method. Treat the return value as an opaque success indicator unless your environment documents otherwise.</p>
+<blockquote><p><strong>Licensing note:</strong> <code>AlarmTag</code>, <code>LogTag</code>, and <code>ScanTag</code> perform internal pokes and consume <strong>scan point licenses</strong> per unique tag touched. See the <a href="https://ats-adroit.github.io/mysoftware-help/Adroit_Installation_Read_Me.html">Adroit Installation Read Me</a>.</p></blockquote>
+<hr />
+<h3><code>Connect(Computer, Server) -&gt; Any</code></h3>
+<p>Connect the OLE wrapper to an Agent Server.</p>
+<p>| Parameter | Type | Description | |---|---|---| | <code>Computer</code> | <code>str \| None</code> | Remote computer name. Use <code>None</code> or <code>&quot;&quot;</code> for the local machine. | | <code>Server</code> | <code>str \| None</code> | Agent Server name as configured in Adroit. |</p>
+<p><strong>Returns:</strong> <code>Any</code> — COM result object</p>
+<p><strong>Raises:</strong> <code>ConnectionError</code> — if the connection fails</p>
+<p><strong>Example — local server:</strong></p>
+<pre><code>adroit.Connect(None, &quot;ProductionServer&quot;)
+# or
+adroit.Connect(&quot;&quot;, &quot;ProductionServer&quot;)</code></pre>
+<p><strong>Example — remote server:</strong></p>
+<pre><code>adroit.Connect(&quot;SCADA-HOST-01&quot;, &quot;ProductionServer&quot;)</code></pre>
+<hr />
+<h3><code>CreateAgent(Name, Description, Type) -&gt; Any</code></h3>
+<p>Create a new agent on the connected Agent Server.</p>
+<p>| Parameter | Type | Description | |---|---|---| | <code>Name</code> | <code>str</code> | Unique agent name | | <code>Description</code> | <code>str \| None</code> | Human-readable description | | <code>Type</code> | <code>str \| None</code> | Agent type name (e.g. <code>&quot;Analog&quot;</code>, <code>&quot;Digital&quot;</code>, <code>&quot;Device&quot;</code>) |</p>
+<p><strong>Returns:</strong> <code>Any</code> — COM result object</p>
+<p><strong>Raises:</strong> <code>RuntimeError</code> — on failure (e.g. duplicate name, invalid type)</p>
+<p><strong>Example:</strong></p>
+<pre><code>adroit.CreateAgent(&quot;ANA-01&quot;, &quot;Tank 1 level&quot;, &quot;Analog&quot;)
+adroit.CreateAgent(&quot;DIG-01&quot;, &quot;Pump run feedback&quot;, &quot;Digital&quot;)
+adroit.CreateAgent(&quot;PUMP-01&quot;, None, &quot;Digital&quot;)</code></pre>
+<hr />
+<h3><code>RemoveAgent(Name) -&gt; Any</code></h3>
+<p>Remove an agent from the connected Agent Server.</p>
+<p>| Parameter | Type | Description | |---|---|---| | <code>Name</code> | <code>str</code> | Agent name to remove |</p>
+<p><strong>Returns:</strong> <code>Any</code> — COM result object</p>
+<p><strong>Example — remove a user agent:</strong></p>
+<pre><code>adroit.RemoveAgent(&quot;ANA-01&quot;)</code></pre>
+<p><strong>Example — remove a logging agent</strong> (see <code>LogTag</code>):</p>
+<pre><code># Removes logging configured with LogTag(&quot;ANA-01&quot;, &quot;rawValue&quot;, ...)
+adroit.RemoveAgent(&quot;LOG$ANA-01$rawValue&quot;)</code></pre>
+<hr />
+<h3><code>ScanTag(Agent, Slot, Device, Address, Rate, Deadband, OutputEnable) -&gt; Any</code></h3>
+<p>Configure I/O scanning for an agent slot (typically <code>rawValue</code>).</p>
+<p>| Parameter | Type | Description | |---|---|---| | <code>Agent</code> | <code>str</code> | Agent name, or <code>&quot;agent.slot&quot;</code> combined form | | <code>Slot</code> | <code>str</code> | Slot name (ignored if <code>Agent</code> already contains a dot, e.g. <code>&quot;ANA-01.rawValue&quot;</code>) | | <code>Device</code> | <code>str \| None</code> | Front-end device agent name | | <code>Address</code> | <code>str \| None</code> | Protocol-specific scan address | | <code>Rate</code> | <code>int</code> | Scan period in <strong>milliseconds</strong>. Use a <strong>negative</strong> value to unscan. | | <code>Deadband</code> | <code>int</code> | Deadband in engineering units | | <code>OutputEnable</code> | <code>int</code> | <code>1</code> = output (write-enabled) point; <code>0</code> = input |</p>
+<p><strong>Returns:</strong> <code>Any</code> — COM result object</p>
+<p><strong>Example — scan an analog input at 1 s:</strong></p>
+<pre><code>adroit.ScanTag(&quot;ANA-01&quot;, &quot;rawValue&quot;, &quot;NX7_PLC&quot;, &quot;W0&quot;, 1000, 0, 0)</code></pre>
+<p><strong>Example — scan using combined agent.slot syntax:</strong></p>
+<pre><code>adroit.ScanTag(&quot;ANA-01.rawValue&quot;, &quot;&quot;, &quot;NX7_PLC&quot;, &quot;W0&quot;, 1000, 0, 0)</code></pre>
+<p><strong>Example — alias scan (internal reference):</strong></p>
+<pre><code>adroit.ScanTag(&quot;REJ21&quot;, &quot;rawValue&quot;, &quot;ALIASCAN&quot;, &quot;@REJ2.rawValue&quot;, 1000, 0, 0)</code></pre>
+<p><strong>Example — enable output (write) scanning:</strong></p>
+<pre><code>adroit.ScanTag(&quot;DIG-01&quot;, &quot;rawValue&quot;, &quot;NX7_PLC&quot;, &quot;R16.0&quot;, 100, 0, 1)</code></pre>
+<p><strong>Example — stop scanning (unscan):</strong></p>
+<pre><code>adroit.ScanTag(&quot;ANA-01&quot;, &quot;rawValue&quot;, None, None, -1, 0, 0)</code></pre>
+<hr />
+<h3><code>LogTag(Agent, Slot, Set, Period, Rate, Filename) -&gt; Any</code></h3>
+<p>Configure historical data logging for an agent slot.</p>
+<p>| Parameter | Type | Description | |---|---|---| | <code>Agent</code> | <code>str</code> | Agent name, or <code>&quot;agent.slot&quot;</code> combined form | | <code>Slot</code> | <code>str</code> | Slot name (ignored if <code>Agent</code> contains a dot) | | <code>Set</code> | <code>int</code> | Logging set number | | <code>Period</code> | <code>int</code> | Log period in <strong>hours</strong> | | <code>Rate</code> | <code>int</code> | Minimum logging interval in <strong>seconds</strong> | | <code>Filename</code> | <code>str \| None</code> | Optional path to a datalog file |</p>
+<p><strong>Returns:</strong> <code>Any</code> — COM result object</p>
+<p><strong>Example — log every 5 seconds, 24-hour period:</strong></p>
+<pre><code>adroit.LogTag(&quot;ANA-01&quot;, &quot;rawValue&quot;, 1, 24, 5, None)</code></pre>
+<p><strong>Example — log to a specific datalog file:</strong></p>
+<pre><code>adroit.LogTag(&quot;ANA-01&quot;, &quot;rawValue&quot;, 1, 168, 10, r&quot;C:\Adroit\Logs\tank1.dlg&quot;)</code></pre>
+<p><strong>Removing logging:</strong> use <code>RemoveAgent</code> with the synthetic logging agent name:</p>
+<pre><code>adroit.RemoveAgent(&quot;LOG$ANA-01$rawValue&quot;)</code></pre>
+<hr />
+<h3><code>AlarmTag(Agent, AlarmAgent, Type, Route, Ack, TypeEnum) -&gt; Any</code></h3>
+<p>Configure or remove alarming for an agent/tag.</p>
+<p>| Parameter | Type | Description | |---|---|---| | <code>Agent</code> | <code>str</code> | Agent name, or <code>&quot;agent.slot&quot;</code> combined form | | <code>AlarmAgent</code> | <code>str</code> | Alarm handler agent name | | <code>Type</code> | <code>str</code> | Alarm type name. Leave empty when using <code>TypeEnum</code>. | | <code>Route</code> | <code>int</code> | Alarm route number. Use <strong><code>-1</code></strong> to delete the alarm. | | <code>Ack</code> | <code>int</code> | <code>1</code> = alarm must be acknowledgeable; <code>0</code> = not | | <code>TypeEnum</code> | <code>int</code> | Numeric alarm type enum. Use <strong><code>-1</code></strong> when <code>Type</code> is provided. |</p>
+<p><strong>Returns:</strong> <code>Any</code> — COM result object</p>
+<p><strong>Raises:</strong> <code>RuntimeError</code> — on failure</p>
+<p><strong>Example — configure alarm by type name:</strong></p>
+<pre><code>adroit.AlarmTag(&quot;ANA-01&quot;, &quot;ALM_MGR&quot;, &quot;HiHi&quot;, 1, 1, -1)</code></pre>
+<p><strong>Example — configure alarm by enum:</strong></p>
+<pre><code>adroit.AlarmTag(&quot;ANA-01.rawValue&quot;, &quot;ALM_MGR&quot;, &quot;&quot;, 1, 1, 3)</code></pre>
+<p><strong>Example — remove alarm:</strong></p>
+<pre><code>adroit.AlarmTag(&quot;ANA-01&quot;, &quot;ALM_MGR&quot;, &quot;&quot;, -1, 0, -1)</code></pre>
+<hr />
+<h3><code>Join(Group, MemberList) -&gt; Any</code></h3>
+<p>Add one or more agents to a group.</p>
+<p>| Parameter | Type | Description | |---|---|---| | <code>Group</code> | <code>str</code> | Group name | | <code>MemberList</code> | <code>str \| None</code> | Comma-separated list of agent names |</p>
+<p><strong>Returns:</strong> <code>Any</code> — COM result object</p>
+<p><strong>Example:</strong></p>
+<pre><code>adroit.Join(&quot;TANK_GROUP&quot;, &quot;ANA-01,ANA-02,ANA-03&quot;)</code></pre>
+<hr />
+<h3><code>Leave(Group, MemberList) -&gt; Any</code></h3>
+<p>Remove one or more agents from a group.</p>
+<p>| Parameter | Type | Description | |---|---|---| | <code>Group</code> | <code>str</code> | Group name | | <code>MemberList</code> | <code>str \| None</code> | Comma-separated list of agent names |</p>
+<p><strong>Returns:</strong> <code>Any</code> — COM result object</p>
+<p><strong>Example:</strong></p>
+<pre><code>adroit.Leave(&quot;TANK_GROUP&quot;, &quot;ANA-01&quot;)</code></pre>
+<hr />
+<h2>Blocked COM methods</h2>
+<p>The wrapper <strong>deliberately blocks</strong> the following runtime I/O methods. Calling them raises <code>AttributeError</code>:</p>
+<p>| Blocked method | Purpose | |---|---| | <code>Poke</code> | Write a tag value | | <code>Fetch</code> | Read a single tag value | | <code>FetchValues</code> | Read historically logged values | | <code>FetchChanges</code> | Read historically logged value changes | | <code>GetSlotInfo</code> | Query agent slot metadata |</p>
+<p><strong>Example of blocked access:</strong></p>
+<pre><code>&gt;&gt;&gt; adroit.Fetch(&quot;ANA-01.rawValue&quot;)
+AttributeError: &#x27;AdroitConfigOLE&#x27; object has no attribute &#x27;Fetch&#x27;</code></pre>
+<p>Use Adroit OPC, ActiveX (<code>AdroitX.ocx</code>), or other interfaces for runtime I/O. This package is scoped to configuration only.</p>
+<hr />
+<h2>Complete workflow example</h2>
+<pre><code>from adroitconfig import AdroitConfigOLE
+
+def configure_tank_level_tag():
+    adroit = AdroitConfigOLE(auto_connect=False)
+    try:
+        adroit.connect()
+        adroit.Connect(None, &quot;PlantServer&quot;)
+
+        # 1. Create agent
+        adroit.CreateAgent(&quot;TANK-01-LVL&quot;, &quot;Tank 1 level transmitter&quot;, &quot;Analog&quot;)
+
+        # 2. Scan from PLC
+        adroit.ScanTag(
+            &quot;TANK-01-LVL&quot;, &quot;rawValue&quot;,
+            Device=&quot;S7_PLC&quot;,
+            Address=&quot;DB10.DBD0&quot;,
+            Rate=1000,
+            Deadband=0,
+            OutputEnable=0,
+        )
+
+        # 3. Historical logging (1 set, 7 days, min 10 s between samples)
+        adroit.LogTag(&quot;TANK-01-LVL&quot;, &quot;rawValue&quot;, Set=1, Period=168, Rate=10, Filename=None)
+
+        # 4. Hi-Hi alarm on rawValue
+        adroit.AlarmTag(&quot;TANK-01-LVL&quot;, &quot;ALARM_MGR&quot;, &quot;HiHi&quot;, Route=1, Ack=1, TypeEnum=-1)
+
+        # 5. Add to operational group
+        adroit.Join(&quot;TANKS&quot;, &quot;TANK-01-LVL&quot;)
+
+        print(&quot;Configuration complete.&quot;)
+    finally:
+        adroit.close()
+
+if __name__ == &quot;__main__&quot;:
+    configure_tank_level_tag()</code></pre>
+<hr />
+<h2>Error handling</h2>
+<p>| Situation | Typical exception | |---|---| | COM object not connected | <code>AttributeError</code>: <code>&quot;Adroit COM object is not connected&quot;</code> | | Blocked method called | <code>AttributeError</code>: <code>&quot;&#x27;AdroitConfigOLE&#x27; object has no attribute &#x27;...&#x27;&quot;</code> | | Agent Server connection failure | <code>ConnectionError</code> (from <code>Connect</code>) | | Agent creation / alarm failure | <code>RuntimeError</code> (from <code>CreateAgent</code>, <code>AlarmTag</code>) | | Adroit not installed / wrong Python bitness | Generic exception from <code>connect()</code> |</p>
+<p>Wrap production scripts with try/finally to ensure <code>close()</code> runs:</p>
+<pre><code>adroit = AdroitConfigOLE()
+try:
+    adroit.Connect(None, &quot;MyServer&quot;)
+    # ... configuration calls ...
+finally:
+    adroit.close()</code></pre>
+<hr />
+<h2>Method summary</h2>
+<p>| Method | Purpose | Return type | |---|---|---| | <code>AdroitConfigOLE(...)</code> | Construct wrapper | <code>AdroitConfigOLE</code> | | <code>connect()</code> | Initialize COM / dispatch OLE server | <code>AdroitConfigOLE</code> | | <code>close()</code> | Release COM resources | <code>None</code> | | <code>Connect(Computer, Server)</code> | Connect to Agent Server | <code>Any</code> | | <code>CreateAgent(Name, Description, Type)</code> | Create agent | <code>Any</code> | | <code>RemoveAgent(Name)</code> | Remove agent | <code>Any</code> | | <code>ScanTag(...)</code> | Configure / remove scanning | <code>Any</code> | | <code>LogTag(...)</code> | Configure historical logging | <code>Any</code> | | <code>AlarmTag(...)</code> | Configure / remove alarming | <code>Any</code> | | <code>Join(Group, MemberList)</code> | Add agents to group | <code>Any</code> | | <code>Leave(Group, MemberList)</code> | Remove agents from group | <code>Any</code> |</p>
+  </div>
+</div>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+</body>
+</html>

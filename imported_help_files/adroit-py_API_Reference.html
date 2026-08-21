@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>adroit-py API Reference</title>
+<style>
+  :root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+  body { font-family: Arial, sans-serif; margin: 20px; color: var(--text); background: var(--bg); }
+  .page { max-width: 1200px; margin: 0 auto; }
+  .content { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .content pre { white-space: pre-wrap; word-wrap: break-word; background: var(--panel-2); border: 1px solid var(--border); padding: 12px; overflow: auto; }
+  .content code { background: var(--panel-2); padding: 0 3px; border-radius: 4px; }
+  .content blockquote { margin: 12px 0; padding: 10px 14px; border-left: 4px solid var(--border); background: var(--panel-2); }
+  .content table { border-collapse: collapse; width: 100%; }
+  .content th, .content td { border: 1px solid var(--border); padding: 6px 8px; vertical-align: top; }
+  .content img { max-width: 100%; height: auto; }
+  .nav { position:fixed; top:10px; right:10px; z-index:9999;
+         background:var(--panel-2); border:1px solid var(--border); padding:6px 10px; font-size:13px; }
+  .nav a { text-decoration:none; }
+  .nav span { color:#999; margin:0 6px; }
+  .note { margin: 6px 0 16px 0; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div id="help-home-link" style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a id="helpHomeLink" href="../index.html" style="text-decoration:none;">&#8592; Back to Help Index</a>
+</div>
+<script>
+(function() {
+  var link = document.getElementById("helpHomeLink");
+  if (!link) return;
+  if (document.referrer) {
+    link.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      try { history.back(); } catch (e) {
+        window.location.href = link.getAttribute("href");
+      }
+    });
+  }
+})();
+</script>
+<style id="help-theme-style">
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f7f7f7;
+  --text: #222222;
+  --muted: #666666;
+  --border: #d0d4d8;
+  --border-soft: #e3e5e8;
+  --link: #0066cc;
+}
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --panel: #151922;
+  --panel-2: #1b2130;
+  --text: #e6e9ef;
+  --muted: #a6adbb;
+  --border: #c7cbd4;
+  --border-soft: #9aa3b2;
+  --link: #7bb0ff;
+}
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+body, p, li, td, th, div, span, pre, code, h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+}
+a, a:visited { color: var(--link) !important; }
+table, th, td, hr {
+  border-color: var(--border) !important;
+}
+.popup, .tooltip, .dropdown, .menu, .context, .modal, .panel {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.popup *, .tooltip *, .dropdown *, .menu *, .context *, .modal *, .panel * {
+  color: var(--text) !important;
+}
+.topbar, .group, .header, pre, code, table {
+  background: var(--panel) !important;
+}
+.nav {
+  background: var(--panel-2) !important;
+  border-color: var(--border) !important;
+}
+.note, .small, .meta { color: var(--muted) !important; }
+input, select, textarea, button {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--muted) !important;
+}
+.btn, .theme-toggle {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.group h2 { border-bottom-color: var(--border-soft) !important; }
+.theme-toggle {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+</style>
+<div id="help-nav" style="
+  position:fixed;
+  top:10px;
+  right:10px;
+  z-index:9999;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+">
+  <a href="../index.html" style="text-decoration:none;">Help Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../drivers.html" style="text-decoration:none;">Drivers</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <button class="theme-toggle" type="button">Dark mode</button>
+  <span style="color:#999; margin:0 6px;">|</span><a href="../ai_index.html" style="text-decoration:none;">AI Index</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener" style="text-decoration:none;">Chat Help</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Product%20Manuals" style="text-decoration:none;">Product Manuals</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../index.html?cat=Supporting%20Docs" style="text-decoration:none;">Supporting Docs</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../specifications.html" style="text-decoration:none;">Specifications</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../best_practices.html" style="text-decoration:none;">Best Practices</a>
+  <span style="color:#999; margin:0 6px;">|</span>
+  <a href="../Adroit_Installation_Read_Me.html" style="text-decoration:none;">Installation Read Me</a>
+</div>
+<script>
+(function() {
+  function withFreshParam(href) {
+    try {
+      var u = new URL(href, window.location.href);
+      u.searchParams.set("_t", String(Date.now()));
+      return u.toString();
+    } catch (e) {
+      var sep = href.indexOf("?") >= 0 ? "&" : "?";
+      return href + sep + "_t=" + Date.now();
+    }
+  }
+  var ch = document.querySelector('[data-chat-help="1"]');
+  if (ch && ch.getAttribute("href")) {
+    ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    ch.addEventListener("click", function() {
+      ch.setAttribute("href", withFreshParam(ch.getAttribute("href")));
+    });
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+
+<div class="nav">
+  <a href="index.html">Help Index</a><span>|</span>
+  <a href="drivers.html">Drivers</a><span>|</span>
+  <button class="theme-toggle" type="button">Dark mode</button><span>|</span>
+  <a href="https://www.chatbase.co/bpKc860rs1HM9DVnPTzxo/help" data-chat-help="1" target="_blank" rel="noopener">Chat Help</a><span>|</span>
+  <a href="specifications.html">Specifications</a><span>|</span>
+  <a href="best_practices.html">Best Practices</a><span>|</span>
+  <a href="Adroit_Installation_Read_Me.html">Installation Read Me</a>
+</div>
+<div class="page">
+  <h1 style="margin-top:42px;">adroit-py API Reference</h1>
+  <div class="note">Imported from adroit-py API Reference.md</div>
+  <div class="content">
+    <h1>adroit-py API Reference</h1>
+<p>Python wrapper for the <strong>Adroit OLE server</strong> runtime on Windows. This document lists every callable surface exposed to application code: parameters, return types, and examples.</p>
+<h2>Requirements</h2>
+<ul>
+<li><strong>Python</strong> 3.10+</li>
+<li><strong>Windows</strong> with the Adroit OLE server installed and registered</li>
+<li><strong>pywin32</strong> (<code>pip install adroit-py</code> installs it on Windows)</li>
+</ul>
+<h2>Installation</h2>
+<pre><code>python -m pip install adroit-py</code></pre>
+<p>For local development:</p>
+<pre><code>python -m pip install -e .</code></pre>
+<h2>Quick start</h2>
+<pre><code>from adroit import AdroitOLE, adroit
+
+# Option A: create your own instance (connects immediately by default)
+client = AdroitOLE()
+value = client.Fetch(&quot;ANA-01&quot;, &quot;rawValue&quot;)
+
+# Option B: use the module-level singleton (does NOT connect on import)
+adroit.connect()
+values = adroit.FetchTags([&quot;ANA-01.rawValue&quot;, &quot;ANA-02.rawValue&quot;])
+adroit.close()</code></pre>
+<hr />
+<h2>Public exports</h2>
+<p>| Name        | Type        | Description                                      | |-------------|-------------|--------------------------------------------------| | <code>AdroitOLE</code> | class       | COM wrapper; create instances for your own lifecycle | | <code>adroit</code>    | <code>AdroitOLE</code> | Module-level singleton (<code>auto_connect=False</code>)    |</p>
+<p>Import:</p>
+<pre><code>from adroit import AdroitOLE, adroit</code></pre>
+<hr />
+<h2>Tag naming convention</h2>
+<p>Most high-level helpers expect tags in <strong><code>agent.slot</code></strong> form (dot-separated):</p>
+<p>| Form              | Example           | Meaning                          | |-------------------|-------------------|----------------------------------| | <code>agent.slot</code>      | <code>&quot;ANA-01.rawValue&quot;</code> | Agent <code>ANA-01</code>, slot <code>rawValue</code> | | <code>agent</code>, <code>slot</code>   | <code>&quot;ANA-01&quot;</code>, <code>&quot;rawValue&quot;</code> | Same tag, two arguments     |</p>
+<p>Invalid examples (raise <code>ValueError</code>):</p>
+<pre><code>&quot;rawValue&quot;          # missing agent
+&quot;ANA-01&quot;            # missing slot (when dotted form is required)</code></pre>
+<hr />
+<h2>Slot value types</h2>
+<p>When reading tags, <code>Fetch</code> / <code>FetchTags</code> return Python-native types depending on the Adroit slot type:</p>
+<p>| Adroit type | Python type   | |-------------|---------------| | BOOLEAN     | <code>bool</code>        | | INTEGER     | <code>int</code>         | | REAL        | <code>float</code>       | | STRING      | <code>str</code>         | | TAGNAME     | <code>str</code>         | | VARSTRING   | <code>str</code>         | | TIME        | <code>datetime.datetime</code> | | LIST        | <code>list</code>        |</p>
+<p>Slot type numbers from <code>GetSlotInfo</code>:</p>
+<p>| Code | Type      | |------|-----------| | 0    | BOOLEAN   | | 1    | INTEGER   | | 2    | REAL      | | 3    | STRING    | | 4    | TIME      | | 5    | TAGNAME   | | 6    | AGENTID   | | 7    | RAWBYTES  | | 8    | LIST      | | 9    | AGENT     | | 10   | VARSTRING | | 11   | HEADER    |</p>
+<hr />
+<h2><code>AdroitOLE</code> — lifecycle</h2>
+<h3><code>AdroitOLE(prog_id=&quot;adroitserver&quot;, auto_connect=True)</code></h3>
+<p>Create a wrapper around the Adroit COM server.</p>
+<p>| Parameter       | Type   | Default          | Description | |-----------------|--------|------------------|-------------| | <code>prog_id</code>       | <code>str</code>  | <code>&quot;adroitserver&quot;</code> | COM ProgID of the Adroit server | | <code>auto_connect</code>  | <code>bool</code> | <code>True</code>           | Call <code>connect()</code> immediately |</p>
+<p><strong>Returns:</strong> <code>AdroitOLE</code> instance</p>
+<p><strong>Example:</strong></p>
+<pre><code>from adroit import AdroitOLE
+
+# Connect on construction (default)
+client = AdroitOLE()
+
+# Defer connection until needed
+client = AdroitOLE(auto_connect=False)
+client.connect()</code></pre>
+<hr />
+<h3><code>connect() -&gt; AdroitOLE</code></h3>
+<p>Initialize COM and attach to the Adroit server. Safe to call when already connected (no-op).</p>
+<p><strong>Returns:</strong> <code>self</code></p>
+<p><strong>Raises:</strong> COM / connection exceptions if the server is unavailable</p>
+<p><strong>Example:</strong></p>
+<pre><code>client = AdroitOLE(auto_connect=False)
+client.connect()</code></pre>
+<hr />
+<h3><code>close() -&gt; None</code></h3>
+<p>Release the COM object and uninitialize COM. Safe to call when not connected (no-op).</p>
+<p>The module-level <code>adroit</code> singleton registers <code>close()</code> with <code>atexit</code> so the process cleans up on exit.</p>
+<p><strong>Example:</strong></p>
+<pre><code>client = AdroitOLE()
+try:
+    print(client.Fetch(&quot;ANA-01&quot;, &quot;rawValue&quot;))
+finally:
+    client.close()</code></pre>
+<hr />
+<h2>Reading tags</h2>
+<h3><code>Fetch(Agent: str, Slot: str) -&gt; Any</code></h3>
+<p>Read a single tag value from the connected server.</p>
+<p>| Parameter | Type  | Description | |-----------|-------|-------------| | <code>Agent</code>   | <code>str</code> | Agent name, or <code>&quot;agent.slot&quot;</code> (slot part of <code>Agent</code> is used; <code>Slot</code> is ignored) | | <code>Slot</code>    | <code>str</code> | Slot name when <code>Agent</code> is only the agent name |</p>
+<p><strong>Returns:</strong> Value in a Python-native type (see <a href="#slot-value-types">Slot value types</a>)</p>
+<p><strong>Example:</strong></p>
+<pre><code>from adroit import AdroitOLE
+
+client = AdroitOLE()
+
+# Two-argument form
+temp = client.Fetch(&quot;ANA-01&quot;, &quot;rawValue&quot;)
+
+# Dotted agent.slot in first argument
+temp = client.Fetch(&quot;ANA-01.rawValue&quot;, &quot;&quot;)</code></pre>
+<hr />
+<h3><code>FetchTags(tag_names) -&gt; dict[str, Any]</code></h3>
+<p>Read multiple tags in one call. This is a <strong>Python wrapper enhancement</strong> over the raw COM <code>FetchTags</code>.</p>
+<p>| Parameter   | Type              | Description | |-------------|-------------------|-------------| | <code>tag_names</code> | <code>list[str]</code> / <code>tuple[str]</code> | Tag names as <code>&quot;agent.slot&quot;</code> strings |</p>
+<p>Also accepts <code>tag_names=</code> as a keyword argument.</p>
+<p><strong>Returns:</strong> <code>dict[str, Any]</code> mapping each input tag string to its value. On per-tag read failure, that entry is <code>None</code> (other tags still succeed).</p>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>TypeError</code> if a tag name is not a <code>str</code></li>
+<li><code>ValueError</code> if a tag is not in <code>agent.slot</code> form</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code>from adroit import AdroitOLE
+
+client = AdroitOLE()
+
+values = client.FetchTags([&quot;ANA-01.rawValue&quot;, &quot;ANA-02.rawValue&quot;, &quot;PUMP-01.value&quot;])
+# {&quot;ANA-01.rawValue&quot;: 42.5, &quot;ANA-02.rawValue&quot;: 38.1, &quot;PUMP-01.value&quot;: True}
+
+# Keyword form
+values = client.FetchTags(tag_names=[&quot;ANA-01.rawValue&quot;])</code></pre>
+<p>Positional list form:</p>
+<pre><code>values = client.FetchTags([&quot;A1.value&quot;, &quot;A2.value&quot;])</code></pre>
+<hr />
+<h3><code>FetchChanges(AgentSlot: str, Start, End) -&gt; list[list[Any]]</code></h3>
+<p>Retrieve logged <strong>changes</strong> for a tag over a time range.</p>
+<p>| Parameter   | Type | Description | |-------------|------|-------------| | <code>AgentSlot</code> | <code>str</code> | Tag as <code>&quot;agent.slot&quot;</code> | | <code>Start</code>     | <code>datetime</code> or <code>str</code> | Range start | | <code>End</code>       | <code>datetime</code> or <code>str</code> | Range end |</p>
+<p><strong>Returns:</strong> List of rows, each <code>[timestamp, value, integrity_flag]</code>:</p>
+<p>| <code>integrity_flag</code> | Meaning        | |------------------|----------------| | 1                | NORMAL         | | 4                | LAST LOGGED    | | 5                | POST STARTUP   | | 6                | BAD            |</p>
+<p><strong>Example:</strong></p>
+<pre><code>from datetime import datetime, timedelta
+from adroit import AdroitOLE
+
+client = AdroitOLE()
+end = datetime.now()
+start = end - timedelta(hours=24)
+
+rows = client.FetchChanges(&quot;ANA-01.value&quot;, start.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;), end.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;))
+for ts, value, flag in rows:
+    print(ts, value, flag)</code></pre>
+<hr />
+<h3><code>FetchValues(AgentSlot: str, Start, End, Samples) -&gt; list[list[Any]]</code></h3>
+<p>Retrieve <strong>interpolated</strong> logged values (evenly spaced samples).</p>
+<p>| Parameter   | Type | Description | |-------------|------|-------------| | <code>AgentSlot</code> | <code>str</code> | Tag as <code>&quot;agent.slot&quot;</code> | | <code>Start</code>     | <code>datetime</code> or <code>str</code> | Range start | | <code>End</code>       | <code>datetime</code> or <code>str</code> | Range end | | <code>Samples</code>   | <code>int</code> | Number of samples to return |</p>
+<p><strong>Returns:</strong> List of rows, each <code>[timestamp, interpolated_value, integrity_flag]</code></p>
+<p><strong>Example:</strong></p>
+<pre><code>from datetime import datetime, timedelta
+from adroit import AdroitOLE
+
+client = AdroitOLE()
+end = datetime.now()
+start = end - timedelta(hours=1)
+
+series = client.FetchValues(&quot;ANA-01.value&quot;, start.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;), end.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;), 60)
+for ts, value, flag in series:
+    print(ts, value, flag)</code></pre>
+<hr />
+<h3><code>GetSlotInfo(Agent: str) -&gt; list[list[Any]]</code></h3>
+<p>List metadata for all slots on an agent.</p>
+<p>| Parameter | Type  | Description   | |-----------|-------|---------------| | <code>Agent</code>   | <code>str</code> | Agent name    |</p>
+<p><strong>Returns:</strong> List of rows, each <code>[slot_name: str, description: str, type_no: int]</code></p>
+<p><strong>Example:</strong></p>
+<pre><code>from adroit import AdroitOLE
+
+client = AdroitOLE()
+for slot_name, desc, type_no in client.GetSlotInfo(&quot;ANA-01&quot;):
+    print(slot_name, desc, type_no)</code></pre>
+<hr />
+<h2>Writing tags</h2>
+<h3><code>SetTag(...) -&gt; Any | dict[str, Any]</code></h3>
+<p>Write one or more tag values. Wraps the underlying COM <strong><code>Poke</code></strong> method with convenient bulk and dotted-name syntax.</p>
+<h4>Single tag — three arguments</h4>
+<pre><code>SetTag(Agent: str, Slot: str, value: Any) -&gt; Any</code></pre>
+<p>| Parameter | Type  | Description | |-----------|-------|-------------| | <code>Agent</code>   | <code>str</code> | Agent name | | <code>Slot</code>    | <code>str</code> | Slot name | | <code>value</code>   | <code>Any</code> | Value to write |</p>
+<p><strong>Returns:</strong> COM result from <code>Poke</code>, or <code>None</code> on error</p>
+<p><strong>Example:</strong></p>
+<pre><code>from adroit import AdroitOLE
+
+client = AdroitOLE()
+client.SetTag(&quot;PUMP-01&quot;, &quot;setpoint&quot;, 75.0)</code></pre>
+<h4>Single tag — dotted name</h4>
+<pre><code>SetTag(&quot;agent.slot&quot;, value) -&gt; Any</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code>client.SetTag(&quot;PUMP-01.setpoint&quot;, 75.0)</code></pre>
+<h4>Multiple tags — dict</h4>
+<pre><code>SetTag({&quot;agent.slot&quot;: value, ...}) -&gt; dict[str, Any]</code></pre>
+<p><strong>Returns:</strong> <code>dict[str, Any]</code> mapping each tag to the COM result (or <code>None</code> on error)</p>
+<p><strong>Example:</strong></p>
+<pre><code>results = client.SetTag({
+    &quot;PUMP-01.value&quot;: 75.0,
+    &quot;VALVE-02.value&quot;: True,
+})</code></pre>
+<h4>Multiple tags — list of pairs</h4>
+<pre><code>SetTag([(&quot;agent.slot&quot;, value), ...]) -&gt; dict[str, Any]</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code>results = client.SetTag([
+    (&quot;PUMP-01.setpoint&quot;, 75.0),
+    (&quot;VALVE-02.value&quot;, True),
+])</code></pre>
+<h4>Multiple tags — keyword</h4>
+<pre><code>SetTag(tag_values={...}) -&gt; dict[str, Any]
+# or
+SetTag(tag_values=[(&quot;agent.slot&quot;, value), ...]) -&gt; dict[str, Any]</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code>results = client.SetTag(tag_values={&quot;PUMP-01.setpoint&quot;: 80.0})</code></pre>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>TypeError</code> — unrecognized arguments, or non-string tag names</li>
+<li><code>ValueError</code> — tag not in <code>agent.slot</code> form (for dotted / bulk forms)</li>
+</ul>
+<hr />
+<h3><code>Poke(Agent: str, Slot: str, value: Any) -&gt; Any</code></h3>
+<p>Low-level COM write (proxied from the server). Prefer <strong><code>SetTag</code></strong> for dotted names and bulk updates.</p>
+<p><strong>Example:</strong></p>
+<pre><code>client.Poke(&quot;PUMP-01&quot;, &quot;setpoint&quot;, 75.0)</code></pre>
+<hr />
+<h2>Server connection</h2>
+<h3><code>Connect(Computer: str | None, Server: str | None) -&gt; Any</code></h3>
+<p>Connect to an <strong>Agent Server</strong> (distinct from the initial OLE wrapper connection).</p>
+<p>| Parameter  | Type            | Description | |------------|-----------------|-------------| | <code>Computer</code> | <code>str</code> or <code>None</code> | Remote computer name; <code>None</code> or empty for local | | <code>Server</code>   | <code>str</code> or <code>None</code> | Agent Server name |</p>
+<p><strong>Returns:</strong> Connection result object (COM-specific)</p>
+<p><strong>Raises:</strong> <code>ConnectionError</code> if the connection fails</p>
+<p><strong>Example:</strong></p>
+<pre><code>from adroit import AdroitOLE
+
+client = AdroitOLE()
+result = client.Connect(None, &quot;MyAgentServer&quot;)</code></pre>
+<hr />
+<h2>Other COM methods</h2>
+<p>Additional methods on the Adroit COM object are forwarded via attribute access when connected. For example, the interactive entry point uses:</p>
+<h3><code>ping() -&gt; Any</code></h3>
+<p>Health-check style call (exact return type depends on the COM server).</p>
+<p><strong>Example:</strong></p>
+<pre><code>from adroit import adroit
+
+adroit.connect()
+print(adroit.ping())
+adroit.close()</code></pre>
+<p>Only call COM-forwarded methods <strong>after</strong> <code>connect()</code> (or after constructing <code>AdroitOLE()</code> with default <code>auto_connect=True</code>).</p>
+<hr />
+<h2>Blocked COM methods</h2>
+<p>The following COM methods exist on the underlying server but are <strong>intentionally blocked</strong> on <code>AdroitOLE</code> (calling them raises <code>AttributeError</code>):</p>
+<p>| Method        | Purpose (COM)                    | |---------------|----------------------------------| | <code>AlarmTag</code>    | Configure/remove alarms          | | <code>CreateAgent</code> | Create a new agent               | | <code>Join</code>        | Add agents to a group            | | <code>Leave</code>       | Remove agents from a group       | | <code>LogTag</code>      | Configure historical logging     | | <code>RemoveAgent</code> | Remove an agent                  | | <code>ScanTag</code>     | Configure tag scanning           |</p>
+<p>Use the native Adroit tooling or unblocked COM access if you need these operations.</p>
+<p>Reference signatures (not callable through this wrapper):</p>
+<pre><code># AlarmTag(Agent, AlarmAgent, Type, Route, Ack, TypeEnum)
+# CreateAgent(Name, Description, Type)
+# Join(Group, MemberList)
+# Leave(Group, MemberList)
+# LogTag(Agent, Slot, Set, Period, Rate, Filename)
+# RemoveAgent(Name)
+# ScanTag(Agent, Slot, Device, Address, Rate, Deadband, OutputEnable)</code></pre>
+<hr />
+<h2>Module-level <code>adroit</code> singleton</h2>
+<pre><code>from adroit import adroit</code></pre>
+<p>| Property        | Value | |-----------------|-------| | Type            | <code>AdroitOLE</code> | | <code>auto_connect</code>  | <code>False</code> at import | | Cleanup         | <code>adroit.close()</code> registered with <code>atexit</code> |</p>
+<p><strong>Typical pattern:</strong></p>
+<pre><code>from adroit import adroit
+
+adroit.connect()
+try:
+    print(adroit.FetchTags([&quot;ANA-01.rawValue&quot;]))
+finally:
+    adroit.close()</code></pre>
+<hr />
+<h2>Error handling</h2>
+<p>| Situation | Behavior | |-----------|----------| | Method called before <code>connect()</code> | <code>AttributeError</code>: <em>&quot;Adroit COM object is not connected&quot;</em> | | Blocked COM method | <code>AttributeError</code>: <em>&quot;has no attribute &#x27;MethodName&#x27;&quot;</em> | | Invalid tag format in <code>FetchTags</code> / <code>SetTag</code> | <code>ValueError</code> | | Non-string tag in bulk helpers | <code>TypeError</code> | | Single-tag read failure in <code>FetchTags</code> | That key set to <code>None</code>; others continue | | Single-tag write failure in bulk <code>SetTag</code> | That key set to <code>None</code>; others continue | | COM server unavailable on <code>connect()</code> | Original COM exception propagated |</p>
+<hr />
+<h2>Complete example</h2>
+<pre><code>from datetime import datetime, timedelta
+from adroit import AdroitOLE
+
+def main():
+    client = AdroitOLE()
+    try:
+        # Read one tag
+        print(&quot;Single:&quot;, client.Fetch(&quot;ANA-01&quot;, &quot;rawValue&quot;))
+
+        # Read many tags
+        tags = client.FetchTags([&quot;ANA-01.rawValue&quot;, &quot;ANA-02.rawValue&quot;])
+        print(&quot;Bulk read:&quot;, tags)
+
+        # Write tags
+        client.SetTag(&quot;PUMP-01.setpoint&quot;, 72.5)
+        client.SetTag({
+            &quot;VALVE-01.value&quot;: True,
+            &quot;VALVE-02.value&quot;: False,
+        })
+
+        # Agent metadata
+        for slot, desc, typ in client.GetSlotInfo(&quot;ANA-01&quot;):
+            print(f&quot;  {slot}: {desc} (type {typ})&quot;)
+
+        # Historical data
+        end = datetime.now()
+        start = end - timedelta(hours=1)
+        changes = client.FetchChanges(&quot;ANA-01.value&quot;, start.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;), end.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;))
+        print(f&quot;Changes in last hour: {len(changes)} rows&quot;)
+
+    finally:
+        client.close()
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+<hr />
+<h2>API summary</h2>
+<p>| Callable | Parameters | Return type | |----------|------------|-------------| | <code>AdroitOLE(...)</code> | <code>prog_id: str</code>, <code>auto_connect: bool</code> | <code>AdroitOLE</code> | | <code>connect()</code> | — | <code>AdroitOLE</code> | | <code>close()</code> | — | <code>None</code> | | <code>Fetch(Agent, Slot)</code> | <code>str</code>, <code>str</code> | <code>Any</code> | | <code>FetchTags(tag_names)</code> | <code>list[str]</code> | <code>dict[str, Any]</code> | | <code>FetchChanges(AgentSlot, Start, End)</code> | <code>str</code>, time, time | <code>list[list[Any]]</code> | | <code>FetchValues(AgentSlot, Start, End, Samples)</code> | <code>str</code>, time, time, <code>int</code> | <code>list[list[Any]]</code> | | <code>GetSlotInfo(Agent)</code> | <code>str</code> | <code>list[list[Any]]</code> | | <code>SetTag(Agent, Slot, value)</code> | <code>str</code>, <code>str</code>, <code>Any</code> | <code>Any</code> | | <code>SetTag(&quot;agent.slot&quot;, value)</code> | <code>str</code>, <code>Any</code> | <code>Any</code> | | <code>SetTag({...})</code> / <code>SetTag([...])</code> | mapping or pairs | <code>dict[str, Any]</code> | | <code>SetTag(tag_values=...)</code> | mapping or pairs | <code>dict[str, Any]</code> | | <code>Poke(Agent, Slot, value)</code> | <code>str</code>, <code>str</code>, <code>Any</code> | <code>Any</code> | | <code>Connect(Computer, Server)</code> | <code>str\|None</code>, <code>str\|None</code> | <code>Any</code> | | <code>ping()</code> | — | <code>Any</code> (COM) |</p>
+  </div>
+</div>
+<script id="help-hilite">
+(function() {
+  function getParam(name) {
+    try {
+      var u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(root, term) {
+    if (!term || term.length < 2) return;
+    var rx = new RegExp(escapeRegExp(term), "gi");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = (p.tagName || "").toUpperCase();
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("mark")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+
+    var nodes = [];
+    var n, count = 0;
+    while ((n = walker.nextNode()) && count < 2000) {
+      nodes.push(n); count++;
+    }
+
+    nodes.forEach(function(textNode) {
+      var text = textNode.nodeValue;
+      if (!rx.test(text)) return;
+      rx.lastIndex = 0;
+
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var m;
+      while ((m = rx.exec(text)) !== null) {
+        var start = m.index;
+        var end = start + m[0].length;
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement("mark");
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        last = end;
+        if (frag.childNodes.length > 200) break;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  function apply() {
+    var q = getParam("q");
+    if (!q) return;
+    q = q.trim();
+    if (!q) return;
+
+    var parts = q.split(/\s+/).filter(function(x) { return x.length >= 3; }).slice(0, 5);
+    if (!parts.length) return;
+
+    parts.forEach(function(p) {
+      highlight(document.body, p);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+<script>
+(function() {
+  var storageKey = "help_theme";
+  function preferredTheme() {
+    try {
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function applyTheme(t) {
+    if (t === "dark" || t === "light") {
+      document.documentElement.setAttribute("data-theme", t);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+  function getSaved() {
+    try { return localStorage.getItem(storageKey) || ""; } catch (e) { return ""; }
+  }
+  function setSaved(t) {
+    try { localStorage.setItem(storageKey, t); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || preferredTheme();
+  }
+  function updateLabels() {
+    var cur = currentTheme();
+    var label = (cur === "dark") ? "Light mode" : "Dark mode";
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.textContent = label;
+    });
+  }
+  function toggleTheme() {
+    var cur = currentTheme();
+    var next = (cur === "dark") ? "light" : "dark";
+    applyTheme(next);
+    setSaved(next);
+    updateLabels();
+  }
+  function bind() {
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggleTheme();
+      });
+    });
+    updateLabels();
+  }
+  var saved = getSaved();
+  applyTheme(saved || preferredTheme());
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})();
+</script>
+</body>
+</html>
